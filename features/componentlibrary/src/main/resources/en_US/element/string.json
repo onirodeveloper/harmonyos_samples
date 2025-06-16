@@ -1,0 +1,340 @@
+{
+  "string": [
+    {
+      "name": "component_name",
+      "value": "Component"
+    },
+    {
+      "name": "preview",
+      "value": "Preview area"
+    },
+    {
+      "name": "changeAttributes",
+      "value": "Adjustment area"
+    },
+    {
+      "name": "code",
+      "value": "Example code"
+    },
+    {
+      "name": "recommend",
+      "value": "Related recommends"
+    },
+    {
+      "name": "open",
+      "value": "Open"
+    },
+    {
+      "name": "text_placeholder",
+      "value": "Please enter"
+    },
+    {
+      "name": "textview_text",
+      "value": "Hello, Developer"
+    },
+    {
+      "name": "camera_picker_button",
+      "value": "Safe Use of Cameras"
+    },
+    {
+      "name": "button_text",
+      "value": "Button Example"
+    },
+    {
+      "name": "button_text2",
+      "value": "The button has been long-pressed."
+    },
+    {
+      "name": "photoViewPicker_text",
+      "value": "Choose photo"
+    },
+    {
+      "name": "penKit",
+      "value": "PenKit service"
+    },
+    {
+      "name": "edit",
+      "value": "Edit Mode"
+    },
+    {
+      "name": "editTip",
+      "value": "In edit mode, you can drag and drop the 'item' block to swap positions, come and experience it!"
+    },
+    {
+      "name": "confirmTip",
+      "value": "Known"
+    },
+    {
+      "name": "cancelTip",
+      "value": "Not notice"
+    },
+    {
+
+      "name": "btn_click",
+      "value": "The button has been clicked."
+    },
+    {
+      "name": "custom_graphic_dialog",
+      "value": "Custom graphic dialog"
+    },
+    {
+      "name": "custom_progress_dialog",
+      "value": "Custom progress dialog"
+    },
+    {
+      "name": "dialog_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "dialog_confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "circle",
+      "value": "circle"
+    },
+    {
+      "name": "square",
+      "value": "square"
+    },
+    {
+      "name": "triangle",
+      "value": "triangle"
+    },
+    {
+      "name": "rectangle",
+      "value": "rectangle"
+    },
+    {
+      "name": "elliptical",
+      "value": "elliptical"
+    },
+    {
+      "name": "trapezium",
+      "value": "trapezium"
+    },
+    {
+      "name": "lozenge",
+      "value": "lozenge"
+    },
+    {
+      "name": "hexagon",
+      "value": "hexagon"
+    },{
+      "name": "aiMatting",
+      "value": "AIMatting"
+    },
+    {
+      "name": "aiMatting_tip",
+      "value": "Long press the object in the picture to use the AI function to automatically cut out the picture, come and experience it!"
+    },
+    {
+      "name": "alert_dialog_tip",
+      "value": "Click Alert Dialog"
+    },
+    {
+      "name": "button_one",
+      "value": "button_one"
+    },
+    {
+      "name": "button_two",
+      "value": "button_two"
+    },
+    {
+      "name": "action_sheet_tip",
+      "value": "ActionSheet Dialog"
+    },
+    {
+      "name": "select_document",
+      "value": "Select document"
+    },
+    {
+      "name": "textarea_text",
+      "value": "I have a cute teddy bear. It's quite chubby, so fat that its belly looks like it's about to burst! The clothes it wears are beautiful, and the clothes are colorful, with purple, pink, and yellow, very beautiful!"
+    },
+    {
+      "name": "text_picker_dialog_tip",
+      "value": "TextPickerDialog"
+    },
+    {
+      "name": "read_pcm_audio",
+      "value": "Read PCM"
+    },
+    {
+      "name": "dark_mode",
+      "value": "dark mode"
+    },
+    {
+      "name": "light_mode",
+      "value": "light mode"
+    },
+    {
+      "name": "popup_button_button",
+      "value": "Show button popup"
+    },
+    {
+      "name": "popup_button_text",
+      "value": "Show text popup"
+    },
+    {
+      "name": "popup_button_icon",
+      "value": "Show icon popup"
+    },
+    {
+      "name": "toggle_button_text",
+      "value": "Status Button"
+    },
+    {
+      "name": "title",
+      "value": "Title"
+    },
+    {
+      "name": "subtitle",
+      "value": "Subtitle"
+    },
+    {
+      "name": "content",
+      "value": "Content"
+    },
+    {
+      "name": "copy_success",
+      "value": "Copy Success"
+    },
+    {
+      "name": "copy_fail",
+      "value": "Copy Fail"
+    },
+    {
+      "name": "copy_code",
+      "value": "Copy Code"
+    },
+    {
+      "name": "landscape_screen",
+      "value": "Landscape"
+    },
+    {
+      "name": "portrait_screen",
+      "value": "Portrait"
+    },
+    {
+      "name": "confirm_click",
+      "value": "Confirm is clicked"
+    },
+    {
+      "name": "item_click",
+      "value": "%1$s is clicked"
+    },
+    {
+      "name": "item1",
+      "value": "item1 (clickable)"
+    },
+    {
+      "name": "item2",
+      "value": "item2 (clickable)"
+    },
+    {
+      "name": "item3",
+      "value": "item3 (clickable)"
+    },
+    {
+      "name": "apples",
+      "value": "apples (clickable)"
+    },
+    {
+      "name": "bananas",
+      "value": "bananas (clickable)"
+    },
+    {
+      "name": "pears",
+      "value": "pears (clickable)"
+    },
+    {
+      "name": "popup_button_message",
+      "value": "This is a popup with two buttons."
+    },
+    {
+      "name": "popup_text_message",
+      "value": "This is a text popup."
+    },
+    {
+      "name": "popup_icon_message",
+      "value": "This is a popup with icon and title."
+    },
+    {
+      "name": "copy",
+      "value": "copy"
+    },
+    {
+      "name": "pull_up_page",
+      "value": "Pull up %s page"
+    },
+    {
+      "name": "sure",
+      "value": "Sure"
+    },
+    {
+      "name": "not_support_dial",
+      "value": "The device does not support dial-up."
+    },
+    {
+      "name": "pull_up_gallery",
+      "value": "Tips gallery"
+    },
+    {
+      "name": "pull_up_map",
+      "value": "map"
+    },
+    {
+      "name": "pull_up_settings",
+      "value": "settings"
+    },
+    {
+      "name": "pull_up_dail",
+      "value": "dail"
+    },
+    {
+      "name": "dialog_graphic_title",
+      "value": "Graphic confirmation box"
+    },
+    {
+      "name": "dialog_graphic_content",
+      "value": "When necessary, a graphic confirmation box can be presented to help users better understand or agree to the content being confirmed."
+    },
+    {
+      "name": "dialog_graphic_tip",
+      "value": "I have already acknowledged the above content. Do not remind me again."
+    },
+    {
+      "name": "dialog_progress",
+      "value": "%d%"
+    },
+    {
+      "name": "File_path",
+      "value": "File path"
+    },
+    {
+      "name": "toggle_type",
+      "value": "Switch Mode"
+    },
+    {
+      "name": "device_camera",
+      "value": "The device has no capture hardware"
+    },
+    {
+      "name": "function_handwrite_not_support",
+      "value": "This device does not support SystemCapability.Stylus.Handwrite"
+    },
+    {
+      "name": "develop_practice",
+      "value": "Development Practice"
+    },
+    {
+      "name": "design_practice",
+      "value": "Design Practice"
+    },
+    {
+      "name": "share_description",
+      "value": "Text"
+    }
+  ]
+}

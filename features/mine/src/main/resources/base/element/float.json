@@ -1,0 +1,28 @@
+{
+  "float": [
+    {
+      "name": "about_image_size",
+      "value": "72vp"
+    },
+    {
+      "name": "about_item_card_height",
+      "value": "72vp"
+    },
+    {
+      "name": "about_loadingProgress_size",
+      "value": "24vp"
+    },
+    {
+      "name": "mine_listItem_height",
+      "value": "56vp"
+    },
+    {
+      "name": "mine_divider",
+      "value": "1px"
+    },
+    {
+      "name": "mine_font_size",
+      "value": "26fp"
+    }
+  ]
+}

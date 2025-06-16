@@ -1,0 +1,354 @@
+/*  body  */
+.chapter {
+  padding: 0 24px;
+  background-color: rgb(241, 243, 245);
+}
+
+.section {
+  margin-top: 48px;
+}
+
+.section-title {
+  font-size: 24px;
+}
+
+.section-title .gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.gradient-blue {
+  background-image: linear-gradient(
+    to right,
+    rgb(61, 155, 254),
+    rgb(30, 101, 237)
+  );
+}
+
+.gradient-green {
+  background-image: linear-gradient(
+    to right,
+    rgb(76, 210, 253),
+    rgb(0, 196, 169)
+  );
+}
+
+.gradient-pink {
+  background-image: linear-gradient(
+    to right,
+    rgb(255, 125, 216),
+    rgb(214, 53, 117)
+  );
+}
+
+/* develop-card */
+.develop-container {
+  position: relative;
+  margin-top: 16px;
+  padding: 16px 24px;
+  width: 100%;
+  border-radius: 24px;
+  background-color: #fff;
+}
+
+.develop-title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.develop-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.mg-t-16 {
+  margin-top: 16px;
+}
+
+.develop-list {
+  margin: 8px 0;
+}
+
+.develop-list-item {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.develop-icon {
+  width: 48px;
+  height: 48px;
+  margin-right: 8px;
+  border-radius: 12px;
+}
+
+.list-title {
+  color: #000000e5;
+}
+
+.list-body {
+  font-size: 14px;
+  color: #00000099;
+}
+
+.develop-text,
+.list-title,
+.list-body {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.step-container {
+  margin: 16px 0;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step-title {
+  min-width: 30px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #00000099;
+}
+
+.dot {
+  margin: 0 8px;
+  position: relative;
+  width: 8px;
+  height: 8px;
+  background-color: #0a59f7ff;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.path {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 2px;
+  height: 70px;
+  background-color: #0a59f7ff;
+}
+
+.step-text {
+  font-size: 14px;
+  color: #00000099;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-framework {
+  background-color: rgb(226, 232, 251);
+}
+
+/* swiper */
+.swiper {
+  width: 100%;
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 24px;
+  background: #fff;
+}
+
+.swiper .card-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.swiper .card-wrap .card-item {
+  color: #000;
+  padding: 16px;
+  width: 100%;
+  border-radius: 24px;
+  flex: 0 0 100%;
+}
+
+.swiper .card-wrap .card-item .card-icon {
+  max-width: 100%;
+  margin-bottom: 16px;
+}
+
+.swiper .card-wrap .card-item .card-title {
+  padding: 0 8px 8px 8px;
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: bold;
+}
+
+.swiper .card-wrap .card-item .card-desc {
+  padding: 0 8px;
+  font-size: 12px;
+  line-height: 16px;
+  opacity: 0.6;
+}
+
+.swiper .swiper-pagination {
+  width: 100%;
+  height: 32px;
+  text-align: center;
+}
+
+.swiper .swiper-pagination .swiper-point {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin: 0 3px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s, background-color 0.3s, width 0.3s;
+}
+
+.swiper-point-selected {
+  width: 12px !important;
+  background-color: rgb(10, 88, 246) !important;
+}
+
+/* framework */
+.bg-framework {
+  margin-top: 16px;
+  border-radius: 16px;
+  height: 200px; /* 固定容器的高度 */
+  overflow: hidden; /* 隐藏超出容器的部分 */
+  position: relative; /* 相对定位，为子元素的绝对定位提供参考 */
+}
+.container-image {
+  height: 100%;
+  position: absolute; /* 绝对定位 */
+  top: 50%; /* 将图片的顶部定位到容器垂直中心 */
+  left: 50%; /* 将图片的左侧定位到容器水平中心 */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 将图片向左和向上移动自身宽度和高度的 50%，实现居中显示 */
+}
+/* list-card */
+.list-card {
+  margin-top: 16px;
+  border-radius: 16px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.list-card:last-child {
+  margin-bottom: 16px;
+}
+
+.list-card-item {
+  display: flex;
+  padding: 0 16px;
+  font-size: 14px;
+  height: 67px;
+  line-height: 67px;
+  border-bottom: 1px solid rgba(210, 210, 210, 0.5);
+}
+
+.list-card-item:active {
+  background-color: #f8f8f8;
+}
+
+.list-card-item .item-word {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+}
+
+.list-card-item .item-title {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: bold;
+}
+
+.list-card-item .item-desc {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.list-card-item span {
+  vertical-align: middle;
+}
+
+.list-card-item:last-child {
+  border-bottom: none;
+}
+
+.detail-box {
+  color: #0009;
+  display: flex;
+  align-items: center;
+  flex: none;
+  margin-left: 8px;
+}
+
+.detail-box::after {
+  display: inline-block;
+  content: '';
+  /* background-color: #000000e6; */
+  background: url('./image/right-arrow.png')
+    no-repeat center center;
+  background-size: cover;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+/* testing-card */
+.testing-card {
+  margin-top: 16px;
+  padding: 24px;
+  border-radius: 24px;
+  background: #fff;
+  color: #000;
+  text-align: center;
+}
+
+.testing-card .card-icon {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.testing-card .card-title {
+  margin-bottom: 12px;
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: bold;
+}
+
+.testing-card .card-desc {
+  font-size: 14px;
+  line-height: 20px;
+  opacity: 0.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .swiper .swiper-pagination .swiper-point {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}

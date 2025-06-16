@@ -1,0 +1,4 @@
+-keep
+./src/main/ets/model/BannerData.ets
+./src/main/ets/model/CardData.ets
+./src/main/ets/model/FullScreenNavigationData.ets\

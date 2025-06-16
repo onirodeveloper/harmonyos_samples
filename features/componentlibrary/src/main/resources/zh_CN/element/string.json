@@ -1,0 +1,340 @@
+{
+  "string": [
+    {
+      "name": "component_name",
+      "value": "组件"
+    },
+    {
+      "name": "preview",
+      "value": "预览区域"
+    },
+    {
+      "name": "changeAttributes",
+      "value": "调整区域"
+    },
+    {
+      "name": "code",
+      "value": "示例代码"
+    },
+    {
+      "name": "recommend",
+      "value": "相关推荐"
+    },
+    {
+      "name": "open",
+      "value": "打开"
+    },
+    {
+      "name": "text_placeholder",
+      "value": "请输入"
+    },
+    {
+      "name": "textview_text",
+      "value": "开发者你好"
+    },
+    {
+      "name": "textarea_text",
+      "value": "我有一只可爱的玩具熊。它长得很胖，胖得肚子都要爆炸了!它穿的衣服都很漂亮，而且衣服上五颜六色，有紫的、有粉的、还有黄的，非常漂亮!"
+    },
+    {
+      "name": "camera_picker_button",
+      "value": "安全使用相机"
+    },
+    {
+      "name": "button_text",
+      "value": "按钮示例"
+    },
+    {
+      "name": "button_text2",
+      "value": "按钮被长按"
+    },
+    {
+      "name": "photoViewPicker_text",
+      "value": "选择图片"
+    },
+    {
+      "name": "penKit",
+      "value": "手写笔服务"
+    },
+    {
+      "name": "edit",
+      "value": "编辑模式"
+    },
+    {
+      "name": "editTip",
+      "value": "编辑模式可以拖拽‘item’方块交换位置，快来体验吧！"
+    },
+    {
+      "name": "confirmTip",
+      "value": "知道了"
+    },
+    {
+      "name": "cancelTip",
+      "value": "不再提醒"
+    },
+    {
+      "name": "btn_click",
+      "value": "按钮被点击"
+    },
+    {
+      "name": "custom_graphic_dialog",
+      "value": "自定义图文弹窗"
+    },
+    {
+      "name": "custom_progress_dialog",
+      "value": "自定义进度弹窗"
+    },
+    {
+      "name": "dialog_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "dialog_confirm",
+      "value": "确定"
+    },
+    {
+      "name": "circle",
+      "value": "圆形"
+    },
+    {
+      "name": "square",
+      "value": "正方形"
+    },
+    {
+      "name": "triangle",
+      "value": "三角形"
+    },
+    {
+      "name": "rectangle",
+      "value": "长方形"
+    },
+    {
+      "name": "elliptical",
+      "value": "椭圆"
+    },
+    {
+      "name": "trapezium",
+      "value": "梯形"
+    },
+    {
+      "name": "lozenge",
+      "value": "菱形"
+    },
+    {
+      "name": "hexagon",
+      "value": "六边形"
+    },
+    {
+      "name": "aiMatting",
+      "value": "AI抠图"
+    },
+    {
+      "name": "aiMatting_tip",
+      "value": "长按图片中物体可使用AI功能自动抠图，快来体验吧！"
+    },
+    {
+      "name": "alert_dialog_tip",
+      "value": "点击警告弹窗"
+    },
+    {
+      "name": "button_one",
+      "value": "按钮1"
+    },
+    {
+      "name": "button_two",
+      "value": "按钮2"
+    },
+    {
+      "name": "text_picker_dialog_tip",
+      "value": "文本选择器弹窗"
+    },
+    {
+      "name": "action_sheet_tip",
+      "value": "列表选择器弹窗"
+    },
+    {
+      "name": "select_document",
+      "value": "选择文件"
+    },
+    {
+      "name": "read_pcm_audio",
+      "value": "读取PCM音频"
+    },
+    {
+      "name": "dark_mode",
+      "value": "深色模式"
+    },
+    {
+      "name": "light_mode",
+      "value": "浅色模式"
+    },
+    {
+      "name": "landscape_screen",
+      "value": "横屏"
+    },
+    {
+      "name": "portrait_screen",
+      "value": "竖屏"
+    },
+    {
+      "name": "copy_fail",
+      "value": "复制失败"
+    },
+    {
+      "name": "copy",
+      "value": "复制"
+    },
+    {
+      "name": "copy_code",
+      "value": "拷贝代码"
+    },
+    {
+      "name": "popup_button_button",
+      "value": "弹出按钮气泡"
+    },
+    {
+      "name": "popup_button_text",
+      "value": "弹出文字气泡"
+    },
+    {
+      "name": "popup_button_icon",
+      "value": "弹出图文气泡"
+    },
+    {
+      "name": "toggle_button_text",
+      "value": "状态按钮"
+    },
+    {
+      "name": "title",
+      "value": "标题"
+    },
+    {
+      "name": "subtitle",
+      "value": "副标题"
+    },
+    {
+      "name": "content",
+      "value": "内容"
+    },
+    {
+      "name": "copy_success",
+      "value": "复制成功"
+    },
+    {
+      "name": "confirm_click",
+      "value": "确认按钮被点击"
+    },
+    {
+      "name": "item_click",
+      "value": "%1$s被点击"
+    },
+    {
+      "name": "item1",
+      "value": "item1 (可点击)"
+    },
+    {
+      "name": "item2",
+      "value": "item2 (可点击)"
+    },
+    {
+      "name": "item3",
+      "value": "item3 (可点击)"
+    },
+    {
+      "name": "apples",
+      "value": "apples (可点击)"
+    },
+    {
+      "name": "bananas",
+      "value": "bananas (可点击)"
+    },
+    {
+      "name": "pears",
+      "value": "pears (可点击)"
+    },
+    {
+      "name": "popup_button_message",
+      "value": "这是一个带按钮的气泡"
+    },
+    {
+      "name": "popup_text_message",
+      "value": "这是一个文字气泡"
+    },
+    {
+      "name": "popup_icon_message",
+      "value": "这是一个带图标的弹出气泡"
+    },
+    {
+      "name": "pull_up_page",
+      "value": "拉起%s页"
+    },
+    {
+      "name": "sure",
+      "value": "确定"
+    },
+    {
+      "name": "not_support_dial",
+      "value": "该设备不支持拨号"
+    },
+    {
+      "name": "pull_up_gallery",
+      "value": "应用市场玩机技巧"
+    },
+    {
+      "name": "pull_up_map",
+      "value": "地图"
+    },
+    {
+      "name": "pull_up_settings",
+      "value": "设置"
+    },
+    {
+      "name": "pull_up_dail",
+      "value": "拨号"
+    },
+    {
+      "name": "dialog_graphic_title",
+      "value": "带图形确认框"
+    },
+    {
+      "name": "dialog_graphic_content",
+      "value": "必要时可以通过图形化方式展现确认框，以使用户更好理解或认同确认内容"
+    },
+    {
+      "name": "dialog_graphic_tip",
+      "value": "我已知晓上述内容，不再提醒"
+    },
+    {
+      "name": "dialog_progress",
+      "value": "%d%"
+    },
+    {
+      "name": "File_path",
+      "value": "文件路径"
+    },
+    {
+      "name": "toggle_type",
+      "value": "Switch样式"
+    },
+    {
+      "name": "device_camera",
+      "value": "该设备没有摄像头"
+    },
+    {
+      "name": "function_handwrite_not_support",
+      "value": "该设备不支持手写功能"
+    },
+    {
+      "name": "develop_practice",
+      "value": "开发实践"
+    },
+    {
+      "name": "design_practice",
+      "value": "设计实践"
+    },
+    {
+      "name": "share_description",
+      "value": "文本"
+    }
+  ]
+}
