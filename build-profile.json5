@@ -1,0 +1,85 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\dangdang\\.ohos\\config\\default_hmosworld_samplescollection_8INWIly1AXSaAM_IOFYjNMQmJVvhFgqyAv-s19zNjYE=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BEB9D1FF7024616B6886ACC22126B51633D08995DED08449C9B0F530EAED7EA7DC358C35B3817DD",
+          "profile": "C:\\Users\\dangdang\\.ohos\\config\\default_hmosworld_samplescollection_8INWIly1AXSaAM_IOFYjNMQmJVvhFgqyAv-s19zNjYE=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\dangdang\\.ohos\\config\\default_hmosworld_samplescollection_8INWIly1AXSaAM_IOFYjNMQmJVvhFgqyAv-s19zNjYE=.p12",
+          "storePassword": "0000001BF3F6ACBE078EB165F7F40A05BC317AAD25A1DEB5B4E7E263A058B6C85DCC2C05F5F55F0D76CFC2"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.2(14)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "phone",
+      "srcPath": "./products/phone",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mine",
+      "srcPath": "./features/mine",
+    },
+    {
+      "name": "exploration",
+      "srcPath": "./features/exploration",
+    },
+    {
+      "name": "common",
+      "srcPath": "./common",
+    },
+    {
+      "name": "componentlibrary",
+      "srcPath": "./features/componentlibrary",
+    },
+    {
+      "name": "devpractices",
+      "srcPath": "./features/devpractices",
+    },
+    {
+      "name": "commonbusiness",
+      "srcPath": "./features/commonbusiness",
+    },
+    {
+      "name": "wearable",
+      "srcPath": "./products/wearable",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

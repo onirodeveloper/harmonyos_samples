@@ -1,0 +1,44 @@
+{
+  "float": [
+    {
+      "name": "title_text_font_size",
+      "value": "24fp"
+    },
+    {
+      "name": "title_text_line_height",
+      "value": "32vp"
+    },
+    {
+      "name": "description_text_font_size",
+      "value": "20fp"
+    },
+    {
+      "name": "description_text_line_height",
+      "value": "28vp"
+    },
+    {
+      "name": "homepage_image_height",
+      "value": "158vp"
+    },
+    {
+      "name": "icon_size",
+      "value": "24vp"
+    },
+    {
+      "name": "item_border_radius",
+      "value": "140vp"
+    },
+    {
+      "name": "button_size",
+      "value": "40vp"
+    },
+    {
+      "name": "item_title_size",
+      "value": "19fp"
+    },
+    {
+      "name": "item_description_size",
+      "value": "15fp"
+    }
+  ]
+}

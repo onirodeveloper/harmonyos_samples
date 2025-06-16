@@ -1,0 +1,19 @@
+{
+  "routerMap": [
+    {
+      "name": "ComponentDetailView",
+      "pageSourceFile": "src/main/ets/view/ComponentDetailView.ets",
+      "buildFunction": "ComponentDetailBuilder"
+    },
+    {
+      "name": "CodePreviewView",
+      "pageSourceFile": "src/main/ets/view/CodePreview.ets",
+      "buildFunction": "CodePreviewBuilder"
+    },
+    {
+      "name": "PenKitView",
+      "pageSourceFile": "src/main/ets/componentdetailview/penkit/component/HandWritingComponent.ets",
+      "buildFunction": "PenKitViewBuilder"
+    }
+  ]
+}

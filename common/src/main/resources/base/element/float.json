@@ -1,0 +1,44 @@
+{
+  "float": [
+    {
+      "name": "loading_size_sm",
+      "value": "72vp"
+    },
+    {
+      "name": "loading_size_md",
+      "value": "100vp"
+    },
+    {
+      "name": "failure_size_sm",
+      "value": "120vp"
+    },
+    {
+      "name": "failure_size_md",
+      "value": "160vp"
+    },
+    {
+      "name": "failure_size_lg",
+      "value": "180vp"
+    },
+    {
+      "name": "empty_content_image_size",
+      "value": "120vp"
+    },
+    {
+      "name": "loading_more_height",
+      "value": "80vp"
+    },
+    {
+      "name": "back_button_height",
+      "value": "40vp"
+    },
+    {
+      "name": "voice_font_size",
+      "value": "28fp"
+    },
+    {
+      "name": "video_pause_font_size",
+      "value": "50fp"
+    }
+  ]
+}

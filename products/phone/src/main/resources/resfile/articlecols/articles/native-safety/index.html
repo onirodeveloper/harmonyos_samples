@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xml:lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0" />
+  <title>Picker安心取，用户主导安全新体验</title>
+  <link rel="stylesheet" href="../../common/dist/main.css">
+  <link rel="stylesheet" href="../../common/css/article.css">
+</head>
+
+<body>
+  <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210612842"><a name="ZH-CN_TOPIC_0000002210612842"></a><a
+      name="ZH-CN_TOPIC_0000002210612842"></a>
+    <h1 class="topictitle1"><span class="topictitlenumber1">1</span> Picker安心取，用户主导安全新体验</h1>
+    <div class="topicbody" id="body101mcpsimp"></div>
+    <div>
+      <ul class="ullinks">
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245532937">1.1 隐私保护与安全概述</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245532933">1.2 安全控件</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245532925">1.3 系统Picker</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002210453090">1.4 总结</a></strong><br>
+        </li>
+      </ul>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245532937"><a
+        name="ZH-CN_TOPIC_0000002245532937"></a><a name="ZH-CN_TOPIC_0000002245532937"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 隐私保护与安全概述</h2>
+      <div class="topicbody" id="body0000002189402630">
+        <p id="ZH-CN_TOPIC_0000002245532937__p102mcpsimp">
+          在个人隐私安全的重要性日益凸显的时代，HarmonyOS在隐私和数据保护上的创新，重构了系统级安全体系，打造了安全能力，让操作系统安全告别旧机制，迎来新秩序。</p>
+        <p id="ZH-CN_TOPIC_0000002245532937__p77462040104718">系统通过提供<a href="article_safety_1" target="_blank"
+            rel="noopener noreferrer">安全控件</a>和<a href="article_safety_2" target="_blank"
+            rel="noopener noreferrer">系统Picker</a>两种方式，使得应用能够便捷地访问系统资源。这两种方法均依赖于系统的独立进程来实现，当应用拉起系统Picker或展示安全控件时，必须依赖用户的主动操作来获取资源或结果。这一流程避免了应用额外申请权限，同时，由于用户的积极参与，进一步增强了用户隐私和安全的保护
+        </p>
+      </div>
+      <div></div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245532933"><a
+        name="ZH-CN_TOPIC_0000002245532933"></a><a name="ZH-CN_TOPIC_0000002245532933"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> 安全控件</h2>
+      <div class="topicbody" id="body108mcpsimp">
+        <p id="ZH-CN_TOPIC_0000002245532933__p109mcpsimp">
+          安全控件是系统提供的一组系统实现的ArkUI组件，应用集成这类组件就可以实现在用户点击后自动授权，而无需弹窗授权。它们可以作为一种“特殊的按钮”融入应用页面，实现用户点击即许可的设计思路。</p>
+        <p id="ZH-CN_TOPIC_0000002245532933__p236561813351">相较于动态申请权限的方式，安全控件可基于场景化授权，简化开发者和用户的操作，主要优点有：</p>
+        <ol id="ZH-CN_TOPIC_0000002245532933__ol6365618173513">
+          <li id="ZH-CN_TOPIC_0000002245532933__li1436511816358">用户可掌握授权时机，授权范围最小化。</li>
+          <li id="ZH-CN_TOPIC_0000002245532933__li7365131811359">授权场景可匹配用户真实意图。</li>
+          <li id="ZH-CN_TOPIC_0000002245532933__li1336531823512">减少弹窗打扰。</li>
+          <li id="ZH-CN_TOPIC_0000002245532933__li93659182354">开发者不必向应用市场申请权限，简化操作。</li>
+        </ol>
+      </div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245532929"><a
+          name="ZH-CN_TOPIC_0000002245532929"></a><a name="ZH-CN_TOPIC_0000002245532929"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.1</span> 安全控件运行机制</h3>
+        <div class="topicbody" id="body127mcpsimp">
+          <p id="ZH-CN_TOPIC_0000002245532929__p111664221682"><a href="article_safety_3" target="_blank"
+              rel="noopener noreferrer">运行机制</a>整体方案由安全控件UI组件、安全控件管理服务、安全控件增强组成：</p>
+          <ul id="ZH-CN_TOPIC_0000002245532929__ul128mcpsimp">
+            <li id="ZH-CN_TOPIC_0000002245532929__li129mcpsimp">UI组件：实现了固定文字图标的样式，便于用户识别，同时提供了相对丰富的定制化能力，便于开发者定制。</li>
+            <li id="ZH-CN_TOPIC_0000002245532929__li130mcpsimp">
+              控件管理服务：提供控件注册管理能力、控件临时授权机制、管理授权生效周期，确保应用后台、锁屏下无法注册使用安全控件。</li>
+            <li id="ZH-CN_TOPIC_0000002245532929__li131mcpsimp">
+              安全增强：实现了地址随机化、挑战值检查、回调UI框架复核控件信息、调用者地址检查、组件防覆盖、真实点击事件校验等机制，防止应用开发者通过混淆、隐藏、篡改、仿冒等方式滥用授权机制，泄露用户隐私。</li>
+          </ul>
+          <p id="ZH-CN_TOPIC_0000002245532929__p11159163915361">开发者调用接口时，运作流程如图所示。</p>
+          <div class="fignone" id="ZH-CN_TOPIC_0000002245532929__fig1927984755719"><span class="figcap"><span
+                class="figurenumber">图1-1</span> 安全控件运行机制</span><br><img
+              id="ZH-CN_TOPIC_0000002245532929__image116649583284" src="ManulImages/1.png"></div>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210453086"><a
+          name="ZH-CN_TOPIC_0000002210453086"></a><a name="ZH-CN_TOPIC_0000002210453086"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> 安全控件汇总</h3>
+        <div class="topicbody" id="body0000002133820876"></div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210612846"><a
+            name="ZH-CN_TOPIC_0000002210612846"></a><a name="ZH-CN_TOPIC_0000002210612846"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.2.1</span> 粘贴控件</h4>
+          <div class="topicbody" id="body0000002169111021">
+            <p id="ZH-CN_TOPIC_0000002210612846__p10480154512382">在应用集成粘贴控件后，用户点击<a href="article_safety_4"
+                target="_blank" rel="noopener noreferrer">粘贴控件</a>，应用读取剪贴板数据时不会弹窗提示。可以用于任何应用需要读取剪贴板的场景，避免弹窗提示对用户造成干扰。
+            </p>
+            <p id="ZH-CN_TOPIC_0000002210612846__p114mcpsimp">
+              例如，用户在应用外（如短信）复制了验证码，要在应用内粘贴验证码。用户原来在进入应用后，还需要长按输入框、在弹出的选项中点击粘贴，才能完成输入。而使用粘贴控件，用户只需进入应用后直接点击粘贴按钮，即可一步到位。
+            </p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002210612846__fig387081013441"><span class="figcap"><span
+                  class="figurenumber">图1-2</span> 粘贴控件效果</span><br><img
+                id="ZH-CN_TOPIC_0000002210612846__image1887051015443" src="ManulImages/2.gif"></div>
+            <div class="caution" id="ZH-CN_TOPIC_0000002210612846__note1138814162584"><span class="cautiontitle"><img
+                  src=""> </span>
+              <div class="cautionbody">
+                <p id="ZH-CN_TOPIC_0000002210612846__p7388151665812">开发者应注意，使用了ArkUI的输入框会自动集成长按菜单栏的粘贴控件。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210453074"><a
+            name="ZH-CN_TOPIC_0000002210453074"></a><a name="ZH-CN_TOPIC_0000002210453074"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.2.2</span> 保存控件</h4>
+          <div class="topicbody" id="body0000002133671652">
+            <p id="ZH-CN_TOPIC_0000002210453074__p013351344020"><a href="article_safety_5" target="_blank"
+                rel="noopener noreferrer">保存控件</a>是一种特殊的安全控件，它允许用户通过点击按钮临时获取存储权限，而无需通过权限弹框进行授权确认。可以用于任何应用需要保存文件到媒体库的场景（保存图片、保存视频等）。
+            </p>
+            <p id="ZH-CN_TOPIC_0000002210453074__p151331513184013">
+              集成保存控件后，当用户点击该控件时，应用会获得10秒内访问媒体库特权接口的授权。这适用于任何需要将文件保存到媒体库的应用场景，例如保存图片或视频等。</p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002210453074__fig106222389445"><span class="figcap"><span
+                  class="figurenumber">图1-3</span> 保存控件效果</span><br><img
+                id="ZH-CN_TOPIC_0000002210453074__image1935519574448" src="ManulImages/3.png"></div>
+            <div class="note" id="ZH-CN_TOPIC_0000002210453074__note1533781612715"><img src=""><span class="notetitle">
+              </span>
+              <div class="notebody">
+                <p id="ZH-CN_TOPIC_0000002210453074__p633710161277">
+                  保存控件仅限ArkUI页面可进行集成，若采用第三方组件如Flutter等则无法实现相应功能，此类应用可查看<a href="article_safety_6" target="_blank"
+                    rel="noopener noreferrer">保存用户文件</a>以实现需求。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245532925"><a
+        name="ZH-CN_TOPIC_0000002245532925"></a><a name="ZH-CN_TOPIC_0000002245532925"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 系统Picker</h2>
+      <div class="topicbody" id="body135mcpsimp"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210612834"><a
+          name="ZH-CN_TOPIC_0000002210612834"></a><a name="ZH-CN_TOPIC_0000002210612834"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.1</span> Picker介绍</h3>
+        <div class="topicbody" id="body136mcpsimp">
+          <p id="ZH-CN_TOPIC_0000002210612834__p2094391718018">
+            系统picker是拉起系统资源的一种方式，由于系统Picker已经获取了对应权限的预授权，开发者使用系统Picker时，无需再次申请权限也可临时受限访问对应的资源。</p>
+          <p id="ZH-CN_TOPIC_0000002210612834__p1786312210120">使用系统Picker组件拉起系统应用的场景主要有：联系人Picker（Contacts
+            Picker），地图Picker，相机Picker（Camera
+            Picker），扫码Picker，卡证识别Picker，文档扫描Picker，文件Picker，音频Picker和照片Picker（PhotoViewPicker）等，详细可参考<a
+              href="article_safety_7" target="_blank" rel="noopener noreferrer">拉起系统应用</a>。</p>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245532921"><a
+          name="ZH-CN_TOPIC_0000002245532921"></a><a name="ZH-CN_TOPIC_0000002245532921"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.2</span> Picker汇总</h3>
+        <div class="topicbody" id="body141mcpsimp"></div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210453078"><a
+            name="ZH-CN_TOPIC_0000002210453078"></a><a name="ZH-CN_TOPIC_0000002210453078"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.1</span> 照片Picker</h4>
+          <div class="topicbody" id="body142mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002210453078__p174771351579">
+              PhotoViewPicker支持开发者通过特定接口拉起系统图库，用户自行选择待分享的资源，然后最终完成分享。该Picker承自<a href="article_safety_8" target="_blank"
+                rel="noopener noreferrer">photoAccessHelper</a>相册管理模块，该模块提供相册管理模块能力，包括创建相册以及访问、修改相册中的媒体数据信息等。</p>
+            <p id="ZH-CN_TOPIC_0000002210453078__p178mcpsimp">同时<a href="article_safety_9" target="_blank"
+                rel="noopener noreferrer">PhotoPicker</a>组件也可用于访问图片/视频，在用户选择所需要的图片资源后，直接返回该图片资源，而不需要授予应用读取图片文件的权限，即可完成图片或视频文件的访问和读取。
+            </p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002210453078__fig191549323526"><span class="figcap"><span
+                  class="figurenumber">图1-4</span> picker拉起图库</span><br><img
+                id="ZH-CN_TOPIC_0000002210453078__image38146101012" src="ManulImages/4.png"></div>
+            <p id="ZH-CN_TOPIC_0000002210453078__p725641975019"><strong
+                id="ZH-CN_TOPIC_0000002210453078__b12561019115015">参考案例</strong></p>
+            <ul id="ZH-CN_TOPIC_0000002210453078__ul560914717502">
+              <li id="ZH-CN_TOPIC_0000002210453078__li20609847165013">视频课程中介绍了扫码场景中如何通过picker方式扫描本地图片，详情可参考《<a
+                  href="article_safety_10" target="_blank" rel="noopener noreferrer">帮助应用快速构建强大的扫码能力</a>》；</li>
+              <li id="ZH-CN_TOPIC_0000002210453078__li16609114745014">云开发服务文章通过云存储实现了上传图片并返回图片地址功能，详情可参考《<a
+                  href="article_safety_11" target="_blank" rel="noopener noreferrer">云开发服务（ArkTS）</a>- 9.4 使用云存储管理文件》
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210453082"><a
+            name="ZH-CN_TOPIC_0000002210453082"></a><a name="ZH-CN_TOPIC_0000002210453082"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.2</span> 联系人Picker</h4>
+          <div class="topicbody" id="body146mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002210453082__p270594524815"><a href="article_safety_12" target="_blank"
+                rel="noopener noreferrer">Contacts Kit</a>提供联系人Picker（Contacts
+              Picker），用于拉起联系人应用，读取联系人数据人。</p>
+            <p id="ZH-CN_TOPIC_0000002210453082__p145mcpsimp">Contacts
+              Picker：当用户选择联系人的时候，通过Picker的方式，拉起联系人列表，引导用户完成界面操作，接口本身无需申请权限<strong
+                id="ZH-CN_TOPIC_0000002210453082__b108552498595">。</strong></p>
+            <div class="caution" id="ZH-CN_TOPIC_0000002210453082__note19201121172919"><span class="cautiontitle"><img
+                  src=""> </span>
+              <div class="cautionbody">
+                <p id="ZH-CN_TOPIC_0000002210453082__p13342371337">
+                  当前能力受限开放，需要申请受限开放权限ohos.permission.READ_CONTACTS或ohos.permission.WRITE_CONTACTS。该权限通常不允许三方应用申请，仅符合<a
+                    href="article_safety_13" target="_blank" rel="noopener noreferrer">指定场景</a>的应用可申请该权限。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245573041"><a
+            name="ZH-CN_TOPIC_0000002245573041"></a><a name="ZH-CN_TOPIC_0000002245573041"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.3</span> 文件Picker</h4>
+          <div class="topicbody" id="body0000002187938941">
+            <p id="ZH-CN_TOPIC_0000002245573041__p170mcpsimp"><a href="article_safety_14" target="_blank"
+                rel="noopener noreferrer">DocumentViewPicker</a>适用于文件类型文件的选择与保存。DocumentViewPicker对接的选择资源来自于FilePicker,
+              负责文件类型的资源管理，文件类型不区分后缀，比如浏览器下载的图片、文档等，都属于文件类型。</p>
+            <p id="ZH-CN_TOPIC_0000002245573041__p12939184741114"><strong
+                id="ZH-CN_TOPIC_0000002245573041__b47733413128">参考案例</strong></p>
+            <p id="ZH-CN_TOPIC_0000002245573041__p17339132825315">
+              文件管理案例介绍了如何使用DocumentViewPicker的save()方法向用户目录下创建一个文件并返回它的uri，和select()方法择想要访问的文件，并返回其uri，详情可参考《<a
+                href="article_safety_15" target="_blank" rel="noopener noreferrer">实现文件管理功能</a> - 6 用户目录的文件读写》</p>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210612838"><a
+            name="ZH-CN_TOPIC_0000002210612838"></a><a name="ZH-CN_TOPIC_0000002210612838"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.4</span> 相机Picker</h4>
+          <div class="topicbody" id="body152mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002210612838__p015462112819"><a href="article_safety_16" target="_blank"
+                rel="noopener noreferrer">Camera
+                Kit</a>提供了相机picker模块，本模块提供相机拍照与录制的能力。应用可以自行选择媒体类型实现拍照和录制的功能。该类接口，需要应用在界面UIAbility中调用，否则无法拉起cameraPicker应用，具体可参考<a
+                href="article_safety_17" target="_blank" rel="noopener noreferrer">Camera Picker</a>。</p>
+            <p id="ZH-CN_TOPIC_0000002210612838__p111641956174914">
+              如果开发者仅是需要拉起系统相机拍摄一张照片、录制一段视频，可直接使用CameraPicker，无需申请相机权限，直接拉起系统相机完成拍摄。</p>
+            <p id="ZH-CN_TOPIC_0000002210612838__p103803212285">开发者需在release模式下调用系统相机（CameraPicker），在debug模式下会显示异常。</p>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245573037"><a
+            name="ZH-CN_TOPIC_0000002245573037"></a><a name="ZH-CN_TOPIC_0000002245573037"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.5</span> 卡证识别Picker</h4>
+          <div class="topicbody" id="body162mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002245573037__p72419419513"><a href="article_safety_18" target="_blank"
+                rel="noopener noreferrer">卡证识别控件</a>提供身份证（目前仅支持中国大陆二代身份证，且不包含民汉双文身份证）、行驶证、驾驶证、护照、银行卡等证件的结构化识别服务，满足卡证的自动分类功能，系统可自动判断所属卡证类型并返回结构化信息和卡证图片信息。
+            </p>
+            <p id="ZH-CN_TOPIC_0000002245573037__p824174119515">对于需要填充卡证信息的场景，如身份证、银行卡信息等，可使用卡证识别控件读取OCR（Optical
+              Character Recognition）信息，将结果信息返回后进行填充。支持单独识别正面、反面，或同时进行双面识别。</p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002245573037__fig1808733165"><span class="figcap"><span
+                  class="figurenumber">图1-5</span> 卡证识别</span><br><img
+                id="ZH-CN_TOPIC_0000002245573037__image103571631164516" src="ManulImages/5.gif"></div>
+            <div class="caution" id="ZH-CN_TOPIC_0000002245573037__note16458202172920"><span class="cautiontitle"><img
+                  src=""> </span>
+              <div class="cautionbody">
+                <p id="ZH-CN_TOPIC_0000002245573037__p114581121297">
+                  使用该控件会创建弹窗，并以全模态形式展示。因此，该控件被拉起或退出时均会触发接入页面的生命周期变化，拉起时会触发页面的onPageHide，退出时则触发页面的onPageShow。</p>
+              </div>
+            </div>
+            <p id="ZH-CN_TOPIC_0000002245573037__p42764111217"><strong
+                id="ZH-CN_TOPIC_0000002245573037__b5695611141313">参考案例</strong></p>
+            <p id="ZH-CN_TOPIC_0000002245573037__p4345173620537">场景化视觉服务文章介绍了卡证识别能力，包括识别身份证、行驶证、驾驶证等，详情可参考《<a
+                href="article_safety_19" target="_blank" rel="noopener noreferrer">机器学习-场景化视觉服务</a>》。</p>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245573049"><a
+            name="ZH-CN_TOPIC_0000002245573049"></a><a name="ZH-CN_TOPIC_0000002245573049"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.6</span> 文档扫描Picker</h4>
+          <div class="topicbody" id="body165mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002245573049__p166mcpsimp"><a href="article_safety_20" target="_blank"
+                rel="noopener noreferrer">文档扫描控件</a>提供拍摄文档并转换为高清扫描件的服务。仅需使用手机拍摄文档，即可自动裁剪和优化，并支持图片保存和分享；同时支持拍摄或从图库选择图片识别表格，生成表格文档。
+            </p>
+            <p id="ZH-CN_TOPIC_0000002245573049__p168mcpsimp">可广泛用于教育办公场景，扫描文档、票据、课堂PPT和书籍等输出图片供用户完成发送、存档等操作。</p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002245573049__fig14209917171"><span class="figcap"><span
+                  class="figurenumber">图1-6</span> 文档扫描</span><br><img
+                id="ZH-CN_TOPIC_0000002245573049__image36349174518" src="ManulImages/6.gif"></div>
+            <p id="ZH-CN_TOPIC_0000002245573049__p846718455152"><strong
+                id="ZH-CN_TOPIC_0000002245573049__b8580952161513">参考案例</strong></p>
+            <p id="ZH-CN_TOPIC_0000002245573049__p450694020537">
+              场景化视觉服务文章同时介绍了文档扫描能力，包括拍摄文档或从图库中选择文档图片，将其转换为高清扫描件；拍摄或从图库选择图片识别表格，生成表格文档，详情可参考《<a href="article_safety_21"
+                target="_blank" rel="noopener noreferrer">机器学习-场景化视觉服务</a>》。</p>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210612850"><a
+            name="ZH-CN_TOPIC_0000002210612850"></a><a name="ZH-CN_TOPIC_0000002210612850"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.7</span> 地图Picker</h4>
+          <div class="topicbody" id="body169mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002210612850__p147mcpsimp"><a href="article_safety_22" target="_blank"
+                rel="noopener noreferrer">Map Kit</a>的地图Picker，提供地点详情展示控件、地点选取控件、区划选择控件。</p>
+            <p id="ZH-CN_TOPIC_0000002210612850__p195163442183"><strong
+                id="ZH-CN_TOPIC_0000002210612850__b1058615441817">地点详情展示</strong></p>
+            <p id="ZH-CN_TOPIC_0000002210612850__p32912115219">无需自己开发地图页面，可快速实现查看地点详情展示功能，具体内容可参考《<a
+                href="article_safety_23" target="_blank" rel="noopener noreferrer">地点详情展示</a>》。</p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002210612850__fig958513573530"><span class="figcap"><span
+                  class="figurenumber">图1-7</span> 地点详情展示</span><br><img
+                id="ZH-CN_TOPIC_0000002210612850__image369863619599" src="ManulImages/7.png"></div>
+            <p id="ZH-CN_TOPIC_0000002210612850__p931918635511"><strong
+                id="ZH-CN_TOPIC_0000002210612850__b16839194518557">地点选取</strong></p>
+            <p id="ZH-CN_TOPIC_0000002210612850__p0483412542">无需自己开发地图页面，可快速实现地点选取的能力，具体内容可参考《<a
+                href="article_safety_24" target="_blank" rel="noopener noreferrer">地点选取</a>》。</p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002210612850__fig950285353516"><span class="figcap"><span
+                  class="figurenumber">图1-8</span> 地点选取</span><br><img
+                id="ZH-CN_TOPIC_0000002210612850__image159396137014" src="ManulImages/8.png"></div>
+            <p id="ZH-CN_TOPIC_0000002210612850__p1537513418564"><strong
+                id="ZH-CN_TOPIC_0000002210612850__b4169193715567">区域选择</strong></p>
+            <p id="ZH-CN_TOPIC_0000002210612850__p780133514546">区划选择控件可加载全球或指定国家的区划信息，支持查看选中区划的下级区划、支持推荐热门区划，具体内容可参考《<a
+                href="article_safety_25" target="_blank" rel="noopener noreferrer">区域选择</a>》。</p>
+            <div class="fignone" id="ZH-CN_TOPIC_0000002210612850__fig2074794135715"><span class="figcap"><span
+                  class="figurenumber">图1-9</span> 区域选择</span><br><img
+                id="ZH-CN_TOPIC_0000002210612850__image261810382008" src="ManulImages/9.png"></div>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245573045"><a
+            name="ZH-CN_TOPIC_0000002245573045"></a><a name="ZH-CN_TOPIC_0000002245573045"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.2.8</span> 音频Picker</h4>
+          <div class="topicbody" id="body174mcpsimp">
+            <p id="ZH-CN_TOPIC_0000002245573045__p175mcpsimp"><a href="article_safety_26" target="_blank"
+                rel="noopener noreferrer">AudioViewPicker</a>用于访问、保存公共目录的图片或视频文件，对接的选择资源来自于FilePicker。参考链接如下：</p>
+            <p id="ZH-CN_TOPIC_0000002245573045__p5681147297">1、<a href="article_safety_27" target="_blank"
+                rel="noopener noreferrer">选择音频类文件</a>；</p>
+            <p id="ZH-CN_TOPIC_0000002245573045__p174016546103">2、<a href="article_safety_28" target="_blank"
+                rel="noopener noreferrer">保存音频类文件</a>。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210453090"><a
+        name="ZH-CN_TOPIC_0000002210453090"></a><a name="ZH-CN_TOPIC_0000002210453090"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.4</span> 总结</h2>
+      <div class="topicbody" id="body184mcpsimp">
+        <p id="ZH-CN_TOPIC_0000002210453090__p13804440019">
+          本文重点介绍了通过安全控件和系统Picker实现安全功能的常见处理方法，旨在为开发者提供实践思路和初步实现方案。需要注意的是，HarmonyOS的安全处理方式远不止上述内容，更多详细信息可参考相关<a
+            href="article_safety_29" target="_blank" rel="noopener noreferrer">指南</a>以及<a href="article_safety_30"
+            target="_blank" rel="noopener noreferrer">最佳实践</a>文档。开发者应根据应用类型、用户定位以及适用的隐私法规，采取更全面、具体的措施来确保应用安全。</p>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</body>
+<script type="module" src="../../common/js/changehref.js"></script>
+<script type="module" src="../../common/dist/main.js"></script>
+
+</html>

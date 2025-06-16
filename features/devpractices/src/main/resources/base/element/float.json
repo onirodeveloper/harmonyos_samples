@@ -1,0 +1,68 @@
+{
+  "float": [
+    {
+      "name": "loading_view_height",
+      "value": "300vp"
+    },
+    {
+      "name": "card_button_height",
+      "value": "40.0vp"
+    },
+    {
+      "name": "sample_card_height",
+      "value": "170vp"
+    },
+    {
+      "name": "samplename_height",
+      "value": "24vp"
+    },
+    {
+      "name": "sampledesc_height",
+      "value": "45vp"
+    },
+    {
+      "name": "card_content_height",
+      "value": "136.0vp"
+    },
+    {
+      "name": "picture_card_height",
+      "value": "400vp"
+    },
+    {
+      "name": "picture_card_content_height",
+      "value": "82vp"
+    },
+    {
+      "name": "card_img_width",
+      "value": "107vp"
+    },
+    {
+      "name": "card_list_height",
+      "value": "146vp"
+    },
+    {
+      "name": "card_scroll_height",
+      "value": "340vp"
+    },
+    {
+      "name": "progress_height",
+      "value": "40vp"
+    },
+    {
+      "name": "cardtitle_lineheight",
+      "value": "21"
+    },
+    {
+      "name": "cardsubtitle_lineheight",
+      "value": "16"
+    },
+    {
+      "name": "margin_36",
+      "value": "36"
+    },
+    {
+      "name": "tab_icon_height",
+      "value": "16vp"
+    }
+  ]
+}

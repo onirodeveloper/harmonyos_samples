@@ -1,0 +1,24 @@
+{
+  "strarray": [
+    {
+      "name": "text_picker_data",
+      "value": [
+        {
+          "value": "苹果"
+        },
+        {
+          "value": "橘子"
+        },
+        {
+          "value": "桃子"
+        },
+        {
+          "value": "葡萄"
+        },
+        {
+          "value": "香蕉"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "JetBrains";
+    src: url(./JetBrainsMonoNL-Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+}
+
+pre {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding-top: 12px;
+}
+
+#code {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+code {
+    font-family: "JetBrains";
+}
+
+pre code.hljs {
+    padding: 0;
+}

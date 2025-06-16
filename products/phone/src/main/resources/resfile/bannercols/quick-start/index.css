@@ -1,0 +1,114 @@
+* {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.header .sub-title {
+  margin: 5px 16px 0px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 16px;
+}
+
+.banner-btn {
+  position: absolute;
+  margin: 0 auto;
+  padding: 0 16px;
+  bottom: 36px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+  white-space: nowrap;
+  transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.banner-btn:active {
+  transform: scale(0.95);
+}
+
+.section {
+  padding: 0px 16px;
+}
+
+.list-card {
+  margin-top: 16px;
+  border-radius: 16px;
+  clip: auto;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.list-card:last-child {
+  margin-bottom: 16px;
+}
+
+.list-card-item {
+  position: relative;
+  display: flex;
+  font-size: 14px;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 12px;
+}
+
+.list-card-item:not(:nth-last-child(1))::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: calc(100% - 24px);
+  bottom: 0;
+  border-bottom: 1px solid rgba(210, 210, 210, 0.5);
+}
+
+.list-card-item:active {
+  background-color: #f8f8f8;
+}
+
+.list-card-item span {
+  vertical-align: middle;
+}
+
+.list-title {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.list-title::before {
+  display: inline-block;
+  content: '';
+  /* background-color: #000000e6; */
+  background: url(./image/star_circle_fill.png)
+    no-repeat center center;
+  background-size: cover;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+  flex: none;
+}
+
+.time-box {
+  float: right;
+  color: #0009;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.time-box::after {
+  display: inline-block;
+  content: '';
+  /* background-color: #000000e6; */
+  background: url(./image/right-arrow.png)
+    no-repeat center center;
+  background-size: cover;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+}

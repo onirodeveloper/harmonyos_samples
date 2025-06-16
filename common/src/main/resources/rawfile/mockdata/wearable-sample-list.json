@@ -1,0 +1,58 @@
+{
+  "code": 200,
+  "message": "Success",
+  "data": [
+    {
+      "id": 1,
+      "title": "音乐播放",
+      "desc": "样例1",
+      "isFavorite": false,
+      "mediaType": 1,
+      "mediaUrl": "app.media.wearable_sample_music",
+      "originalUrl": "https://gitee.com/zq-kexin/WearableMusic",
+      "moduleName": "wearablemusicsample",
+      "abilityName": "WearableMusicSampleAbility",
+      "order": 1,
+      "symbolGlyphColor": "#E02D50"
+    },
+    {
+      "id": 2,
+      "title": "视频播放",
+      "desc": "样例2",
+      "isFavorite": false,
+      "mediaType": 3,
+      "mediaUrl": "sys.symbol.video_badge_adiowaves_fill",
+      "originalUrl": "https://gitee.com/lv-yuanyuan001/SmartWatchShortVideo",
+      "moduleName": "smartwatchshortvideosample",
+      "abilityName": "SmartWatchShortVideoSampleAbility",
+      "order": 1,
+      "symbolGlyphColor": "#FB6522"
+    },
+    {
+      "id": 3,
+      "title": "地图导航",
+      "desc": "样例3",
+      "isFavorite": false,
+      "mediaType": 1,
+      "mediaUrl": "app.media.wearable_sample_map",
+      "originalUrl": "https://gitee.com/lv-yuanyuan001/SmartWatchMap",
+      "moduleName": "smartwatchmapsample",
+      "abilityName": "SmartWatchMapSampleAbility",
+      "order": 1,
+      "symbolGlyphColor": "#1F71FF"
+    },
+    {
+      "id": 4,
+      "title": "远程控车",
+      "desc": "样例4",
+      "isFavorite": false,
+      "mediaType": 3,
+      "mediaUrl": "sys.symbol.car_fill",
+      "originalUrl": "https://gitee.com/dong-haifan/SmartWatchCarControl",
+      "moduleName": "smartwatchcarcontrolsample",
+      "abilityName": "SmartWatchCarControlSampleAbility",
+      "order": 1,
+      "symbolGlyphColor": "#00A5AD"
+    }
+  ]
+}

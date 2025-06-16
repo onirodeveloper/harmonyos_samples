@@ -1,0 +1,1233 @@
+
+{
+  "code": 200,
+  "message": "Success",
+  "data": [
+    {
+      "id": 1,
+      "componentName": "Button",
+      "subTitle": "按钮",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "controlSize",
+          "propertyDesc": "按钮尺寸",
+          "displayType": "enum",
+          "defaultProperty": "Normal",
+          "propertyValues": "[\"Normal\",\"Small\"]"
+        },
+        {
+          "propertyName": "buttonType",
+          "propertyDesc": "边缘形状",
+          "displayType": "enum",
+          "defaultProperty": "Capsule",
+          "propertyValues": "[\"Capsule\",\"Normal\"]"
+        },
+        {
+          "propertyName": "buttonStyle",
+          "propertyDesc": "按钮类型",
+          "displayType": "enum",
+          "defaultProperty": "Emphasized",
+          "propertyValues": "[\"Normal\",\"Emphasized\",\"Textual\"]"
+        },
+        {
+          "propertyName": "operation",
+          "propertyDesc": "手势操作",
+          "displayType": "enum",
+          "defaultProperty": "Click",
+          "propertyValues": "[\"Click\", \"LongGesture\", \"NoClick\"]"
+        },
+        {
+          "propertyName": "backgroundColor",
+          "propertyDesc": "按钮颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.00)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-button"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/button-0000001929683228"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "componentName": "Toggle",
+      "subTitle": "开关",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "isOn",
+          "propertyDesc": "是否开启",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "toggleType",
+          "propertyDesc": "类型",
+          "displayType": "enum",
+          "defaultProperty": "Switch",
+          "propertyValues": "[\"Switch\",\"Button\",\"Checkbox\"]"
+        },
+        {
+          "propertyName": "backgroundColor",
+          "propertyDesc": "背景色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.00)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-switch"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/toggleswitch-0000001956852745"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "componentName": "Column",
+      "subTitle": "线性布局 - 纵向",
+      "componentType": 2,
+      "props": [
+        {
+          "propertyName": "padding",
+          "propertyDesc": "边距",
+          "displayType": "enum",
+          "defaultProperty": "All",
+          "propertyValues": "[\"Vertical\", \"Horizontal\", \"All\",\"None\"]"
+        },
+        {
+          "propertyName": "alignItems",
+          "propertyDesc": "横向对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Start\",\"Center\",\"End\"]"
+        },
+        {
+          "propertyName": "flexAlign",
+          "propertyDesc": "竖向对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\"]"
+        },
+        {
+          "propertyName": "space",
+          "propertyDesc": "自定义间距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+        },
+        {
+          "propertyName": "paddingNum",
+          "propertyDesc": "自定义边距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-linear"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "componentName": "Row",
+      "subTitle": "线性布局 - 横向",
+      "componentType": 2,
+      "props": [
+        {
+          "propertyName": "padding",
+          "propertyDesc": "边距",
+          "displayType": "enum",
+          "defaultProperty": "All",
+          "propertyValues": "[\"Vertical\", \"Horizontal\", \"All\",\"None\"]"
+        },
+        {
+          "propertyName": "alignItems",
+          "propertyDesc": "竖向对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Top\",\"Center\",\"Bottom\"]"
+        },
+        {
+          "propertyName": "flexAlign",
+          "propertyDesc": "横向对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\"]"
+        },
+        {
+          "propertyName": "space",
+          "propertyDesc": "自定义间距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+        },
+        {
+          "propertyName": "paddingNum",
+          "propertyDesc": "自定义边距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-linear"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "componentName": "Stack",
+      "subTitle": "层叠布局",
+      "componentType": 2,
+      "props": [
+        {
+          "propertyName": "alignDirection",
+          "propertyDesc": "对齐方向",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Top\",\"Center\",\"Bottom\"]"
+        },
+        {
+          "propertyName": "alignContentTop",
+          "propertyDesc": "对齐方式（上）",
+          "displayType": "enum",
+          "defaultProperty": "TopStart",
+          "propertyValues": "[\"Top\",\"TopStart\",\"TopEnd\"]"
+        },
+        {
+          "propertyName": "alignContentCenter",
+          "propertyDesc": "对齐方式（中）",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Start\",\"Center\",\"End\"]"
+        },
+        {
+          "propertyName": "alignContentBottom",
+          "propertyDesc": "对齐方式（下）",
+          "displayType": "enum",
+          "defaultProperty": "BottomStart",
+          "propertyValues": "[\"BottomStart\",\"BottomEnd\",\"Bottom\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-stack-layout"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "componentName": "Grid",
+      "subTitle": "网格",
+      "componentType": 2,
+      "props": [
+        {
+          "propertyName": "operationMode",
+          "propertyDesc": "编辑模式",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "columnsGap",
+          "propertyDesc": "列与列的间距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+        },
+        {
+          "propertyName": "columnsNum",
+          "propertyDesc": "列数",
+          "displayType": "number",
+          "defaultProperty": "4",
+          "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
+        },
+        {
+          "propertyName": "rowsGap",
+          "propertyDesc": "行与行的间距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+        },
+        {
+          "propertyName": "rowsNum",
+          "propertyDesc": "行数",
+          "displayType": "number",
+          "defaultProperty": "4",
+          "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-grid"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "componentName": "List",
+      "subTitle": "列表",
+      "componentType": 2,
+      "props": [
+        {
+          "propertyName": "sticky",
+          "propertyDesc": "是否吸顶",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "edgeEffect",
+          "propertyDesc": "滑动效果",
+          "displayType": "enum",
+          "defaultProperty": "None",
+          "propertyValues": "[\"Spring\", \"Fade\", \"None\"]"
+        },
+        {
+          "propertyName": "lanesNum",
+          "propertyDesc": "组件列数",
+          "displayType": "number",
+          "defaultProperty": "2",
+          "propertyValues": "{ \"left\": 1, \"right\": 4, \"step\": 1 }"
+        },
+        {
+          "propertyName": "gutter",
+          "propertyDesc": "自定义间距",
+          "displayType": "number",
+          "defaultProperty": "5",
+          "propertyValues": "{ \"left\":1, \"right\":10, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-list"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/list-0000001929853910"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "componentName": "Text",
+      "subTitle": "文本",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "fontWeight",
+          "propertyDesc": "字重",
+          "displayType": "enum",
+          "defaultProperty": "Normal",
+          "propertyValues": "[\"Normal\",\"Lighter\",\"Bolder\"]"
+        },
+        {
+          "propertyName": "fontSize",
+          "propertyDesc": "字号",
+          "displayType": "number",
+          "defaultProperty": "24",
+          "propertyValues": "{ \"left\": 10, \"right\": 50, \"step\": 1 }"
+        },
+        {
+          "propertyName": "textShadowRadius",
+          "propertyDesc": "文字阴影",
+          "displayType": "number",
+          "defaultProperty": "0",
+          "propertyValues": "{ \"left\":0, \"right\":20, \"step\": 1 }"
+        },
+        {
+          "propertyName": "letterSpacing",
+          "propertyDesc": "字间距",
+          "displayType": "number",
+          "defaultProperty": "0",
+          "propertyValues": "{ \"left\":0, \"right\":20, \"step\": 1 }"
+        },
+        {
+          "propertyName": "fontColor",
+          "propertyDesc": "颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.00)",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "opacity",
+          "propertyDesc": "透明度",
+          "displayType": "opacity",
+          "defaultProperty": "1",
+          "propertyValues": "{ \"left\": 0, \"right\": 1, \"step\": 0.01 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-text-display"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/text-0000001956975261"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "componentName": "Image",
+      "subTitle": "图片",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "clip",
+          "propertyDesc": "是否裁剪",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "colorFilterMatrixStr",
+          "propertyDesc": "颜色滤镜(png图片)",
+          "displayType": "enum",
+          "defaultProperty": "无滤镜",
+          "propertyValues": "[\"无滤镜\",\"色彩旋转\",\"灰色滤镜\",\"增色滤镜\"]"
+        },
+        {
+          "propertyName": "objectFit",
+          "propertyDesc": "图片填充效果",
+          "displayType": "enum",
+          "defaultProperty": "Cover",
+          "propertyValues": "[\"Contain\",\"Cover\",\"Auto\",\"Fill\",\"ScaleDown\",\"None\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-graphics-display"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/image-0000001956975273"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "componentName": "Progress",
+      "subTitle": "进度条",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "kind",
+          "propertyDesc": "类型",
+          "displayType": "enum",
+          "defaultProperty": "Progress",
+          "propertyValues": "[\"Progress\",\"Loading\"]"
+        },
+        {
+          "propertyName": "style",
+          "propertyDesc": "组件的样式",
+          "displayType": "enum",
+          "defaultProperty": "CapsuleStyle",
+          "propertyValues": "[\"CapsuleStyle\",\"LinearStyle\",\"ProgressStyle\",\"RingStyle1\",\"RingStyle2\",\"EclipseStyle\",\"ScaleRingStyle\"]"
+        },
+        {
+          "propertyName": "value",
+          "propertyDesc": "进度条初始值",
+          "displayType": "number",
+          "defaultProperty": "38",
+          "propertyValues": "{ \"left\": 0, \"right\": 100, \"step\": 1 }"
+        },
+        {
+          "propertyName": "color",
+          "propertyDesc": "进度条颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.00)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-progress-indicator"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/progress-0000001929656644"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "componentName": "CalendarPicker",
+      "subTitle": "日历选择器",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "calendarAlignType",
+          "propertyDesc": "对齐方向",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Start\",\"Center\",\"End\"]"
+        },
+        {
+          "propertyName": "pickerFontWeight",
+          "propertyDesc": "入口区字体粗细",
+          "displayType": "enum",
+          "defaultProperty": "Normal",
+          "propertyValues": "[\"Normal\",\"Lighter\",\"Bolder\"]"
+        },
+        {
+          "propertyName": "calendarOffsetX",
+          "propertyDesc": "水平偏移量",
+          "displayType": "number",
+          "defaultProperty": "0",
+          "propertyValues": "{ \"left\": 1, \"right\": 72, \"step\": 1 }"
+        },
+        {
+          "propertyName": "calendarOffsetY",
+          "propertyDesc": "垂直偏移量",
+          "displayType": "number",
+          "defaultProperty": "0",
+          "propertyValues": "{ \"left\": 1, \"right\": 72, \"step\": 1 }"
+        },
+        {
+          "propertyName": "pickerFontSize",
+          "propertyDesc": "入口区文字大小",
+          "displayType": "number",
+          "defaultProperty": "16",
+          "propertyValues": "{ \"left\": 16, \"right\": 38, \"step\": 1 }"
+        },
+        {
+          "propertyName": "pickerFontColor",
+          "propertyDesc": "入口区文字颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.0)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-basic-components-calendarpicker"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/picker-0000001956852749"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "componentName": "DatePicker",
+      "subTitle": "日期滑动选择器",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "lunar",
+          "propertyDesc": "显示农历",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "selectedFontWeight",
+          "propertyDesc": "选中项字体粗细",
+          "displayType": "enum",
+          "defaultProperty": "Normal",
+          "propertyValues": "[\"Normal\",\"Lighter\",\"Bolder\"]"
+        },
+        {
+          "propertyName": "selectedFontSize",
+          "propertyDesc": "选中项字体大小",
+          "displayType": "number",
+          "defaultProperty": "18",
+          "propertyValues": "{ \"left\": 12, \"right\": 22, \"step\": 1 }"
+        },
+        {
+          "propertyName": "fontSize",
+          "propertyDesc": "标准项字体大小",
+          "displayType": "number",
+          "defaultProperty": "16",
+          "propertyValues": "{ \"left\": 12, \"right\": 22, \"step\": 1 }"
+        },
+        {
+          "propertyName": "selectedTextColor",
+          "propertyDesc": "选中项字体颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.0)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-basic-components-datepicker"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/picker-0000001956852749"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "componentName": "Tabs",
+      "subTitle": "页签",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "barPosition",
+          "propertyDesc": "页签位置",
+          "displayType": "enum",
+          "defaultProperty": "Start",
+          "propertyValues": "[\"Start\", \"End\"]"
+        },
+        {
+          "propertyName": "vertical",
+          "propertyDesc": "是否垂直展示",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "fadingEdge",
+          "propertyDesc": "渐隐效果",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "backgroundBlurStyle",
+          "propertyDesc": "背景模糊材质",
+          "displayType": "enum",
+          "defaultProperty": "ComponentUltraThick",
+          "propertyValues": "[\"ComponentThin\",\"ComponentUltraThin\",\"ComponentRegular\",\"ComponentThick\",\"ComponentUltraThick\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-tabs"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/bottomtab-0000001956787789"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "componentName": "AlertDialog",
+      "subTitle": "警告弹窗",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "dialogAlignment",
+          "propertyDesc": "对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Top\", \"Center\", \"Bottom\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-methods-alert-dialog-box"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "componentName": "TextPickerDialog",
+      "subTitle": "文本滑动选择器弹窗",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "canLoop",
+          "propertyDesc": "循环滚动",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "itemHeight",
+          "propertyDesc": "高度",
+          "displayType": "number",
+          "defaultProperty": "36",
+          "propertyValues": "{ \"left\": 24, \"right\": 56, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-methods-textpicker-dialog"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "componentName": "Rating",
+      "subTitle": "评分",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "starStyle",
+          "propertyDesc": "样式设置",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "indicator",
+          "propertyDesc": "是否指示器",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "stars",
+          "propertyDesc": "评分总数",
+          "displayType": "number",
+          "defaultProperty": "5",
+          "propertyValues": "{ \"left\": 1, \"right\": 5, \"step\": 1 }"
+        },
+        {
+          "propertyName": "rating",
+          "propertyDesc": "评分值",
+          "displayType": "number",
+          "defaultProperty": "3",
+          "propertyValues": "{ \"left\": 0, \"right\": 5, \"step\": 0.5 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-basic-components-rating"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "componentName": "Flex",
+      "subTitle": "弹性布局",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "elements",
+          "propertyDesc": "元素个数",
+          "displayType": "enum",
+          "defaultProperty": "2",
+          "propertyValues": "[\"2\",\"4\"]"
+        },
+        {
+          "propertyName": "wrap",
+          "propertyDesc": "布局换行",
+          "displayType": "enum",
+          "defaultProperty": "NoWrap",
+          "propertyValues": "[\"NoWrap\",\"Wrap\",\"WrapReverse\"]"
+        },
+        {
+          "propertyName": "direction",
+          "propertyDesc": "布局方向",
+          "displayType": "enum",
+          "defaultProperty": "Row",
+          "propertyValues": "[\"Row\",\"RowReverse\",\"Column\",\"ColumnReverse\"]"
+        },
+        {
+          "propertyName": "justifyContent",
+          "propertyDesc": "主轴对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\",\"SpaceAround\",\"SpaceEvenly\"]"
+        },
+        {
+          "propertyName": "alignItems",
+          "propertyDesc": "交叉轴对齐",
+          "displayType": "enum",
+          "defaultProperty": "Center",
+          "propertyValues": "[\"Auto\",\"Start\",\"Center\",\"End\",\"Stretch\",\"Baseline\"]"
+        },
+        {
+          "propertyName": "alignSelf",
+          "propertyDesc": "子元素交叉轴",
+          "displayType": "enum",
+          "defaultProperty": "Auto",
+          "propertyValues": "[\"Auto\",\"Start\",\"Center\",\"End\",\"Stretch\",\"Baseline\"]"
+        },
+        {
+          "propertyName": "alignContent",
+          "propertyDesc": "内容对齐",
+          "displayType": "enum",
+          "defaultProperty": "Start",
+          "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\",\"SpaceAround\",\"SpaceEvenly\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-flex-layout"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "componentName": "Swiper",
+      "subTitle": "滑动轮播组件",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "vertical",
+          "propertyDesc": "是否垂直显示",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "loop",
+          "propertyDesc": "自动轮播",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "isDisplayArrow",
+          "propertyDesc": "箭头展示",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "effectMode",
+          "propertyDesc": "边缘效果",
+          "displayType": "enum",
+          "defaultProperty": "None",
+          "propertyValues": "[\"Spring\",\"Fade\",\"None\"]"
+        },
+        {
+          "propertyName": "indicator",
+          "propertyDesc": "导航条",
+          "displayType": "enum",
+          "defaultProperty": "DotIndicator",
+          "propertyValues": "[\"DotIndicator\",\"DigitIndicator\",\"None\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-looping"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "componentName": "WaterFlow",
+      "subTitle": "瀑布流",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "friction",
+          "propertyDesc": "摩擦系数",
+          "displayType": "enum",
+          "defaultProperty": "0.75",
+          "propertyValues": "[\"0.1\",\"0.6\",\"0.75\",\"0.9\"]"
+        },
+        {
+          "propertyName": "layoutDirection",
+          "propertyDesc": "布局主轴方向",
+          "displayType": "enum",
+          "defaultProperty": "Column",
+          "propertyValues": "[\"Column\",\"Row\",\"RowReverse\",\"ColumnReverse\"]"
+        },
+        {
+          "propertyName": "rowsTemplate",
+          "propertyDesc": "行的数量",
+          "displayType": "number",
+          "defaultProperty": "3",
+          "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
+        },
+        {
+          "propertyName": "columnsGap",
+          "propertyDesc": "列与列的间距",
+          "displayType": "number",
+          "defaultProperty": "6",
+          "propertyValues": "{ \"left\":4,\"right\":24, \"step\": 2 }"
+        },
+        {
+          "propertyName": "columnsTemplate",
+          "propertyDesc": "列的数量",
+          "displayType": "number",
+          "defaultProperty": "3",
+          "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-waterflow"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "componentName": "PhotoViewPicker",
+      "subTitle": "图库选择器",
+      "componentType": 1,
+      "props": [],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ohos-file-photopickercomponent"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "componentName": "DocumentViewPicker",
+      "subTitle": "文件选择器",
+      "componentType": 1,
+      "props": [],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-file-picker"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "componentName": "CameraPicker",
+      "subTitle": "相机选择器",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "mediaTypes",
+          "propertyDesc": "相机模式",
+          "displayType": "enum",
+          "defaultProperty": "混合模式",
+          "propertyValues": "[\"拍照模式\",\"录制模式\",\"混合模式\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-camerapicker"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "componentName": "TextToSpeech",
+      "subTitle": "文本转语音",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "speed",
+          "propertyDesc": "语速",
+          "displayType": "enum",
+          "defaultProperty": "1倍",
+          "propertyValues": "[\"0.5倍\",\"1倍\",\"1.5倍\",\"2倍\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/hms-ai-texttospeech"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "componentName": "AICaptionComponent",
+      "subTitle": "AI字幕组件",
+      "componentType": 1,
+      "props": [],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/speech-aicaption-guide"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "componentName": "AI Matting",
+      "subTitle": "AI抠图",
+      "componentType": 1,
+      "props": [],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-basic-components-image#draggable9"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "componentName": "ActionSheet",
+      "subTitle": "列表选择弹窗",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "sheetInfo",
+          "propertyDesc": "弹窗列表选项",
+          "displayType": "enum",
+          "defaultProperty": "sheetInfo1",
+          "propertyValues": "[\"sheetInfo1\",\"sheetInfo2\"]"
+        },
+        {
+          "propertyName": "autoCancel",
+          "propertyDesc": "自动关闭弹窗",
+          "displayType": "boolean",
+          "defaultProperty": "true",
+          "propertyValues": "''"
+        },
+        {
+          "propertyName": "transition",
+          "propertyDesc": "动画设置",
+          "displayType": "boolean",
+          "defaultProperty": "false",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-methods-action-sheet"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "componentName": "Popup",
+      "subTitle": "气泡弹窗",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "placement",
+          "propertyDesc": "弹出位置",
+          "displayType": "enum",
+          "defaultProperty": "Bottom",
+          "propertyValues": "[\"Top\",\"Bottom\"]"
+        },
+        {
+          "propertyName": "type",
+          "propertyDesc": "弹出样式",
+          "displayType": "enum",
+          "defaultProperty": "按钮气泡",
+          "propertyValues": "[\"按钮气泡\",\"文字气泡\",\"图文气泡\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-popup-and-menu-components-popup"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/popup-0000001956975269"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "componentName": "CustomDialog",
+      "subTitle": "自定义弹窗",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "style",
+          "propertyDesc": "弹窗样式",
+          "displayType": "enum",
+          "defaultProperty": "图文弹窗",
+          "propertyValues": "[\"图文弹窗\",\"进度弹窗\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-custom-dialog"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "componentName": "AppLinking",
+      "subTitle": "应用拉起",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "type",
+          "propertyDesc": "拉起类型",
+          "displayType": "enum",
+          "defaultProperty": "应用市场",
+          "propertyValues": "[\"应用市场\",\"地图\",\"设置\",\"拨号\"]"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-inner-application-uiabilitycontext#uiabilitycontextopenlink12"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "componentName": "Penkit",
+      "subTitle": "手写笔服务",
+      "componentType": 1,
+      "props": [],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/pen-introduction"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "componentName": "TextArea",
+      "subTitle": "多行文本输入",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "textOverflowType",
+          "propertyDesc": "超长文本显示",
+          "displayType": "enum",
+          "defaultProperty": "Clip",
+          "propertyValues": "[\"Clip\",\"Ellipsis\"]"
+        },
+        {
+          "propertyName": "textAlign",
+          "propertyDesc": "文字对齐方式",
+          "displayType": "enum",
+          "defaultProperty": "Start",
+          "propertyValues": "[\"Start\",\"Center\",\"End\",\"Justify\"]"
+        },
+        {
+          "propertyName": "maxLines",
+          "propertyDesc": "最大行数",
+          "displayType": "number",
+          "defaultProperty": "2",
+          "propertyValues": "{\"left\": 1, \"right\": 5, \"step\": 1 }"
+        },
+        {
+          "propertyName": "lineSpacing",
+          "propertyDesc": "最大行距",
+          "displayType": "number",
+          "defaultProperty": "5",
+          "propertyValues": "{ \"left\": 5, \"right\": 30, \"step\": 1 }"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-text-input"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/textinput-0000001957012557"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "componentName": "TextStyle",
+      "subTitle": "属性字符串",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "overflow",
+          "propertyDesc": "超长显示方式",
+          "displayType": "enum",
+          "defaultProperty": "Clip",
+          "propertyValues": "[\"Clip\",\"Ellipsis\"]"
+        },
+        {
+          "propertyName": "textIndent",
+          "propertyDesc": "首行缩进",
+          "displayType": "number",
+          "defaultProperty": "0",
+          "propertyValues": "{ \"left\": 0, \"right\": 30, \"step\": 1 }"
+        },
+        {
+          "propertyName": "maxLines",
+          "propertyDesc": "段落行数",
+          "displayType": "number",
+          "defaultProperty": "2",
+          "propertyValues": "{ \"left\": 1, \"right\": 6, \"step\": 1 }"
+        },
+        {
+          "propertyName": "highlightColor",
+          "propertyDesc": "高亮文本颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.0)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-styled-string"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "componentName": "TextInput",
+      "subTitle": "单行文本输入",
+      "componentType": 1,
+      "props": [
+        {
+          "propertyName": "placeholderFont",
+          "propertyDesc": "placeholder样式",
+          "displayType": "enum",
+          "defaultProperty": "正常字体",
+          "propertyValues": "[\"较细字体\",\"正常字体\",\"较粗字体\"]"
+        },
+        {
+          "propertyName": "type",
+          "propertyDesc": "输入框类型",
+          "displayType": "enum",
+          "defaultProperty": "Normal",
+          "propertyValues": "[\"Normal\",\"Number\",\"NewPassword\"]"
+        },
+        {
+          "propertyName": "fontColor",
+          "propertyDesc": "文本颜色",
+          "displayType": "color",
+          "defaultProperty": "rgba(0, 85, 255, 1.0)",
+          "propertyValues": "''"
+        }
+      ],
+      "recommendList": [
+        {
+          "articleType": 1,
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-common-components-text-input"
+        },
+        {
+          "articleType": 2,
+          "url": "https://developer.huawei.com/consumer/cn/doc/design-guides/textinput-0000001957012557"
+        }
+      ]
+    }
+  ]
+}

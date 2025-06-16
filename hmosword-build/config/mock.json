@@ -1,0 +1,238 @@
+{
+  "data": [
+    {
+      "branch": "master",
+      "originalUrl": "https://gitee.com/zq-kexin/WearableMusic",
+      "moduleName": "wearablemusicsample",
+      "abilityName": "WearableMusicSampleAbility"
+    },
+    {
+      "branch": "master",
+      "originalUrl": "https://gitee.com/lv-yuanyuan001/SmartWatchShortVideo",
+      "moduleName": "smartwatchshortvideosample",
+      "abilityName": "SmartWatchShortVideoSampleAbility"
+    },
+    {
+      "branch": "master",
+      "originalUrl": "https://gitee.com/lv-yuanyuan001/SmartWatchMap",
+      "moduleName": "smartwatchmapsample",
+      "abilityName": "SmartWatchMapSampleAbility"
+    },
+    {
+      "branch": "master",
+      "originalUrl": "https://gitee.com/dong-haifan/SmartWatchCarControl",
+      "moduleName": "smartwatchcarcontrolsample",
+      "abilityName": "SmartWatchCarControlSampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/MultiBusinessOffice/",
+      "moduleName": "multibusinesssample",
+      "abilityName": "MultibusinesssampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/LiveViewLockScreen/",
+      "moduleName": "liveviewlockscreensample",
+      "abilityName": "LiveviewlockscreensampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/knock-share/",
+      "moduleName": "knocksharesample",
+      "abilityName": "KnocksharesampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/VideoCast",
+      "moduleName": "videocastsample",
+      "abilityName": "VideocastsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/ContinuePublish/",
+      "moduleName": "continuepublishsample",
+      "abilityName": "ContinuepublishsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-nav-bar/",
+      "moduleName": "multinavbarsample",
+      "abilityName": "MultinavbarsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-convenient-life/",
+      "moduleName": "multiconvinientlifesample",
+      "abilityName": "MulticonvinientlifesampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-mobile-payment/",
+      "moduleName": "multimobilepaymentsample",
+      "abilityName": "MultimobilepaymentsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read/",
+      "moduleName": "multinewsreadsample",
+      "abilityName": "MultinewsreadsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-travel-accommodation/",
+      "moduleName": "multitravelsample",
+      "abilityName": "MultitravelsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-columns/",
+      "moduleName": "multicolumnssample",
+      "abilityName": "MulticolumnssampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/text-effects/",
+      "moduleName": "texteffectssample",
+      "abilityName": "TexteffectssampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-tab-navigation/",
+      "moduleName": "multitabnavigationsample",
+      "abilityName": "MultitabnavigationsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/custom-dialog-gathers/",
+      "moduleName": "customdialogsample",
+      "abilityName": "CustomdialogsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/scroll-component-nested-sliding/",
+      "moduleName": "nestedslidingsample",
+      "abilityName": "NestedslidingsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/water-flow/",
+      "moduleName": "waterflowsample",
+      "abilityName": "WaterflowsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/component-stack/",
+      "moduleName": "componentstacksample",
+      "abilityName": "ComponentstacksampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/grid-hybrid/",
+      "moduleName": "gridhybridsample",
+      "abilityName": "GridhybridsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/transitions-collection/",
+      "moduleName": "transitionscollectionsample",
+      "abilityName": "TransitionscollectionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/animation-collection/",
+      "moduleName": "animationcollectionsample",
+      "abilityName": "AnimationcollectionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/DragFramework/",
+      "moduleName": "dragframeworksample",
+      "abilityName": "DragframeworksampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/fluent-blog/",
+      "moduleName": "fluentblogsample",
+      "abilityName": "FluentblogsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/list-exchange/",
+      "moduleName": "listexchangesample",
+      "abilityName": "ListexchangesampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/list-item-edit/",
+      "moduleName": "listitemeditsample",
+      "abilityName": "ListitemeditsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/window-pip/",
+      "moduleName": "windowpipsample",
+      "abilityName": "WindowpipsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/MultipleImage/",
+      "moduleName": "multipleimagesample",
+      "abilityName": "MultipleimagesampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/audio-interaction/",
+      "moduleName": "audiointeractionsample",
+      "abilityName": "AudiointeractionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/page-redirection/",
+      "moduleName": "pageredirectionsample",
+      "abilityName": "PageredirectionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/web-pre-render/",
+      "moduleName": "webprerendersample",
+      "abilityName": "WebprerendersampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/location-service/",
+      "moduleName": "locationservicesample",
+      "abilityName": "LocationservicesampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/preferences/",
+      "moduleName": "preferencessample",
+      "abilityName": "PreferencessampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/verification-code-scenario/",
+      "moduleName": "verificationcodescenariosample",
+      "abilityName": "VerificationcodescenariosampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/image-comment/",
+      "moduleName": "imagecommentsample",
+      "abilityName": "ImagecommentsampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/picker/",
+      "moduleName": "pickersample",
+      "abilityName": "PickersampleAbility"
+    },
+    {
+      "branch": "br_release_hmosworld_new",
+      "originalUrl": "https://gitee.com/harmonyos_samples/keyboard/",
+      "moduleName": "keyboardsample",
+      "abilityName": "KeyboardsampleAbility"
+    }
+  ]
+}

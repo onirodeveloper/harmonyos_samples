@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "loading",
+      "value": "Loading..."
+    },
+    {
+      "name": "no_more",
+      "value": "No more resources"
+    },
+    {
+      "name": "network_error",
+      "value": "The network connection is interrupted. Please check your network setting or try again later."
+    },
+    {
+      "name": "server_error",
+      "value": "Failed to connect to the server, Please try again later."
+    },
+    {
+      "name": "network_setting",
+      "value": "Setting up the network."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "float": [
+    {
+      "name": "feed_item_card_height_sm",
+      "value": "180vp"
+    },
+    {
+      "name": "feed_item_card_height_md",
+      "value": "208vp"
+    },
+    {
+      "name": "feed_item_card_height_lg",
+      "value": "280vp"
+    },
+    {
+      "name": "feed_item_card_height_xl",
+      "value": "346vp"
+    },
+    {
+      "name": "feed_item_card_title_height",
+      "value": "19vp"
+    },
+    {
+      "name": "feed_item_card_subtitle_height",
+      "value": "16vp"
+    },
+    {
+      "name": "img_card_height",
+      "value": "400vp"
+    },
+    {
+      "name": "img_card_height_verde",
+      "value": "456vp"
+    },
+    {
+      "name": "img_card_content_height",
+      "value": "144vp"
+    },
+    {
+      "name": "list_card_height",
+      "value": "240vp"
+    }
+  ]
+}
