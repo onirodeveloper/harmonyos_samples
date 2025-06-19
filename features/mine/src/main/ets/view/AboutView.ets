@@ -20,6 +20,7 @@ import { AboutVM, ViewRegistrationInfoEvent } from '../viewmodel/AboutVM';
 @Component
 export struct AboutView {
   viewModel: AboutVM = AboutVM.getInstance();
+
   build() {
     Column() {
       Column() {
@@ -27,6 +28,7 @@ export struct AboutView {
           .draggable(false)
           .width($r('app.float.about_image_size'))
           .height($r('app.float.about_image_size'))
+          .borderRadius($r('sys.float.corner_radius_level8'))
         Text($r('app.string.app_name'))
           .fontSize($r('sys.float.Title_S'))
           .fontWeight(FontWeight.Bold)
@@ -36,6 +38,7 @@ export struct AboutView {
       }
       .margin({ top: $r('sys.float.padding_level8') })
       .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
+
       Column() {
         Text($r('app.string.copyright1'))
           .fontWeight(FontWeight.Medium)

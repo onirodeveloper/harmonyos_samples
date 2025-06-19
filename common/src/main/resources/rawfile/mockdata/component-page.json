@@ -9,8 +9,8 @@
       "bannerInfos": [
         {
           "id": 1,
-          "bannerTitle": "开发者你好，欢迎来到HMOS世界",
-          "bannerSubTitle": "HMOS世界 - 示例代码合集",
+          "bannerTitle": "开发者你好，欢迎来到HMOS代码工坊",
+          "bannerSubTitle": "HarmonyOS代码工坊",
           "bannerDesc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
           "bannerType": 4,
           "bannerValue": 14,
@@ -20,9 +20,9 @@
         },
         {
           "id": 4,
-          "bannerTitle": "HMOS世界一多开发实践",
+          "bannerTitle": "HMOS代码工坊一多开发实践",
           "bannerSubTitle": "一次开发，多端部署",
-          "bannerDesc": "探索HMOS世界一多开发实践",
+          "bannerDesc": "探索HarmonyOS代码工坊一多开发实践",
           "bannerType": 4,
           "bannerValue": 18,
           "mediaType": 1,

@@ -28,6 +28,7 @@ export struct ExperienceItem {
       Image($rawfile(this.discoverContent.mediaUrl))
         .alt($r('app.media.img_placeholder'))
         .objectFit(ImageFit.Cover)
+        .draggable(false)
         .width('100%')
         .height('100%')
       Column() {

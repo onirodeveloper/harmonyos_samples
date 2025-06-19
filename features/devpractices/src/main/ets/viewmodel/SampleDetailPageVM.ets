@@ -38,7 +38,6 @@ import { SampleTypeEnum } from '../common/SampleConstant';
 const TAG = '[SampleDetailPageVM]';
 
 export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
-  private pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
   private static instance: SampleDetailPageVM;
   private sampleDetailModel = SampleDetailModel.getInstance();
 

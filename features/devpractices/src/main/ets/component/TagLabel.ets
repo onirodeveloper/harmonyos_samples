@@ -84,7 +84,7 @@ export struct TagLabel {
         Row() {
           Text(item.tag)
             .fontColor(this.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-            $r('app.color.card_font_secondary_color') : $r('sys.color.font_on_secondary'))
+            $r('app.color.card_font_secondary_color') : $r('sys.color.font_secondary'))
             .width(item.width - PADDING_WIDTH)
             .maxLines(1)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
