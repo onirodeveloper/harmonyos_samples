@@ -10,11 +10,11 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "HMOS World"
+      "value": "Sample in HarmonyOS"
     },
     {
       "name": "splash_main_title",
-      "value": "HarmonyOSWorld"
+      "value": "Sample in HarmonyOS"
     },
     {
       "name": "splash_sub_title",
@@ -62,11 +62,11 @@
     },
     {
       "name": "widget_display_name",
-      "value": "HMOSWorld"
+      "value": "Sample in HarmonyOS"
     },
     {
       "name": "title_immersive",
-      "value": "HMOSWorld"
+      "value": "Sample in HarmonyOS"
     },
     {
       "name": "detail_immersive",

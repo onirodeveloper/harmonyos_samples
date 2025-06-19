@@ -54,7 +54,7 @@
     },
     {
       "name": "client_prompt",
-      "value": "The HMOS world supports 1+8 multi-device operation. Welcome to experience it"
+      "value": "Sample in HarmonyOS supports 1+8 multi-device operation. Welcome to experience it"
     }
   ]
 }
