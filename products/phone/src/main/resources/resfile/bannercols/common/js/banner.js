@@ -8,3 +8,7 @@ darkModeQuery.addEventListener('change', handleFooterImgChange);
 window.addEventListener('beforeunload', () => {
   darkModeQuery.removeEventListener('change', handleFooterImgChange);
 });
+
+window.checkPreview = () => {
+  return false;
+};

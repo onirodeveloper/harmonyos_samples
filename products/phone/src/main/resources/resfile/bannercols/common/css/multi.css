@@ -1,0 +1,26 @@
+/* 一多适配 */
+@media screen and (min-width: 600px) {
+  html {
+    max-width: calc(75% - 39px);
+  }
+}
+  
+@media screen and (min-width: 840px) {
+  html {
+    max-width: calc(200% / 3 - 48px);
+  }
+
+  .footerImg {
+    max-width: calc(50% - 8px);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  html {
+    max-width: calc((200% - 148px) / 3);
+  }
+
+  .footerImg {
+    max-width: calc(50% - 10px);
+  }
+}

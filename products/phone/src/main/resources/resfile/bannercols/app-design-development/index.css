@@ -347,6 +347,12 @@
   opacity: 0.6;
 }
 
+@media screen and (min-width: 840px) {
+  .swiper .card-wrap .card-item {
+    padding: 16px 48px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .swiper .swiper-pagination .swiper-point {
     background-color: rgba(255, 255, 255, 0.1);

@@ -67,14 +67,13 @@ html {
 }
 
 body {
-  margin: 0 1rem;
+  margin: 0 16px;
   margin-top: 108px;
   color: #00000099;
   font-family: sans-serif;
 }
 
 .nested0 {
-  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -432,6 +431,7 @@ td p {
 }
 
 td p img {
+  max-height: 35vh;
   max-width: unset !important;
   border-radius: unset !important;
 }
@@ -480,7 +480,6 @@ img[id^='ZH-CN_TOPIC'],
 p > video {
   display: block;
   margin: 0 auto;
-  max-height: 35vh;
   max-width: 100%;
   text-align: center;
   border-radius: 1rem;
@@ -561,17 +560,37 @@ video {
 
 /* 一多适配 */
 @media screen and (min-width: 600px) {
-  img[id^='ZH-CN_TOPIC'],
-  .footerImg,
-  p > video {
-    max-width: calc(1.2 * 328px);
+  .nested0, .footer {
+    max-width: calc(75% - 39px);
   }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 840px) {
+  .nested0, .footer {
+    max-width: calc(200% / 3 - 48px);
+  }
+
   img[id^='ZH-CN_TOPIC'],
-  .footerImg,
   p > video {
-    max-width: calc(1.5 * 328px);
+    max-width: calc(75% - 3px);
+  }
+
+  .footerImg {
+    max-width: calc(50% - 8px);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .nested0, .footer {
+    max-width: calc((200% - 148px) / 3);
+  }
+
+  img[id^='ZH-CN_TOPIC'],
+  p > video {
+    max-width: calc(75% - 5px);
+  }
+
+  .footerImg {
+    max-width: calc(50% - 10px);
   }
 }

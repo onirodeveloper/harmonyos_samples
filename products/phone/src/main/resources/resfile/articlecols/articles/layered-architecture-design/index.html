@@ -33,10 +33,10 @@
       <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 概述</h2>
       <div class="topicbody" id="body0000002167699153">
         <p id="ZH-CN_TOPIC_0000002167699153__p10659618383">
-          HMOS世界的分层架构设计是为了在同一套代码工程的基础上，构建手机、平板等1+8设备上的产物，实现HarmonyOS应用的“<a
+          HarmonyOS代码工坊的分层架构设计是为了在同一套代码工程的基础上，构建手机、平板等1+8设备上的产物，实现HarmonyOS应用的“<a
             href="article_layer_2" target="_blank"
             rel="noopener noreferrer">一次开发，多端部署</a>”的理念。</p>
-        <p id="ZH-CN_TOPIC_0000002167699153__p1446141511378">本文将从HMOS世界应用的设计、开发、部署三个视角说明HarmonyOS应用的三层架构规则与实践。</p>
+        <p id="ZH-CN_TOPIC_0000002167699153__p1446141511378">本文将从HarmonyOS代码工坊应用的设计、开发、部署三个视角说明HarmonyOS应用的三层架构规则与实践。</p>
       </div>
       <div></div>
     </div>
@@ -98,20 +98,20 @@
       </div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002138428238"><a
           name="ZH-CN_TOPIC_0000002138428238"></a><a name="ZH-CN_TOPIC_0000002138428238"></a>
-        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> HMOS世界案例</h3>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> HarmonyOS代码工坊案例</h3>
         <div class="topicbody" id="body0000002138428238">
           <p id="ZH-CN_TOPIC_0000002138428238__p1892251103819">
-            HMOS世界在业务上需要支持手机、折叠屏、平板、PC这些设备，结合以上典型鸿蒙应用的分层架构设计，HMOS世界客户端的分层设计如下：</p>
+            HarmonyOS代码工坊在业务上需要支持手机、折叠屏、平板、PC这些设备，结合以上典型鸿蒙应用的分层架构设计，HarmonyOS代码工坊客户端的分层设计如下：</p>
           <p id="ZH-CN_TOPIC_0000002138428238__p6621181164717"><img
               id="ZH-CN_TOPIC_0000002138428238__image1130183114718" src="ManulImages/2.png"></p>
           <p id="ZH-CN_TOPIC_0000002138428238__p12509441165514"><strong
               id="ZH-CN_TOPIC_0000002138428238__b13549125315010">Products层</strong></p>
           <p id="ZH-CN_TOPIC_0000002138428238__p689516541504">
-            该层的主要负责提供应用在不同设备上的个性化业务，包含设备差异化的UI、资源和配置文件。当前HMOS世界支持手机、平板设备类型，后期将支持PC端，因此在产品定制层划分出手机、平板、PC三个不同设备入口。</p>
+            该层的主要负责提供应用在不同设备上的个性化业务，包含设备差异化的UI、资源和配置文件。当前HarmonyOS代码工坊支持手机、平板设备类型，后期将支持PC端，因此在产品定制层划分出手机、平板、PC三个不同设备入口。</p>
           <p id="ZH-CN_TOPIC_0000002138428238__p572284255511"><strong
               id="ZH-CN_TOPIC_0000002138428238__b886111618110">Features层</strong></p>
           <p id="ZH-CN_TOPIC_0000002138428238__p59017289181">
-            该层是由应用的不同业务特性聚合而成，应用需根据自身业务划分出各个基础特性。结合HMOS世界当前运行实际业务，可划分为以下几个特性：</p>
+            该层是由应用的不同业务特性聚合而成，应用需根据自身业务划分出各个基础特性。结合HarmonyOS代码工坊当前运行实际业务，可划分为以下几个特性：</p>
           <ul id="ZH-CN_TOPIC_0000002138428238__ul17820114175619">
             <li id="ZH-CN_TOPIC_0000002138428238__li188202148567">组件体验业务：负责提供ArkUI组件体验、系统能力体验、关键代码预览、相关资料、相关海报内容查阅等能力。
             </li>
@@ -124,7 +124,7 @@
           <p id="ZH-CN_TOPIC_0000002138428238__p01874420555"><strong
               id="ZH-CN_TOPIC_0000002138428238__b066520235110">Common层</strong></p>
           <p id="ZH-CN_TOPIC_0000002138428238__p46231594817">
-            该层是应用各个特性的基础能力集，由各特性的公共业务组成。结合HMOS世界特性模块划分，其公共能力包括公共UI组件、海报预览模块、文章预览模块、视频播控模块、特性包管理模块、存储服务、路由模块、桌面卡片服务、华为账号管理服务、消息推送模块、运维模块、版本管理等。
+            该层是应用各个特性的基础能力集，由各特性的公共业务组成。结合HarmonyOS代码工坊特性模块划分，其公共能力包括公共UI组件、海报预览模块、文章预览模块、视频播控模块、特性包管理模块、存储服务、路由模块、桌面卡片服务、华为账号管理服务、消息推送模块、运维模块、版本管理等。
           </p>
         </div>
       </div>
@@ -172,14 +172,14 @@
       </div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002173785897"><a
           name="ZH-CN_TOPIC_0000002173785897"></a><a name="ZH-CN_TOPIC_0000002173785897"></a>
-        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.2</span> HMOS世界案例</h3>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.2</span> HarmonyOS代码工坊案例</h3>
         <div class="topicbody" id="body0000002173785897">
-          <p id="ZH-CN_TOPIC_0000002173785897__p476712422216">基于以上典型鸿蒙应用的代码与构建模型设计原则，HMOS世界的代码工程模型和编译构建产物整体过程如下图：</p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p476712422216">基于以上典型鸿蒙应用的代码与构建模型设计原则，HarmonyOS代码工坊的代码工程模型和编译构建产物整体过程如下图：</p>
           <p id="ZH-CN_TOPIC_0000002173785897__p035616075320"><img id="ZH-CN_TOPIC_0000002173785897__image138151014536"
               src="ManulImages/4.png"></p>
           <p id="ZH-CN_TOPIC_0000002173785897__p713553135811"><strong
               id="ZH-CN_TOPIC_0000002173785897__b6765629182414">代码结构</strong></p>
-          <p id="ZH-CN_TOPIC_0000002173785897__p3973278311">HMOS世界自身代码结构根据逻辑模型的三层划分，分别创建以下目录和相关子目录，以组织相关业务代码。</p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p3973278311">HarmonyOS代码工坊自身代码结构根据逻辑模型的三层划分，分别创建以下目录和相关子目录，以组织相关业务代码。</p>
           <pre class="screen" id="ZH-CN_TOPIC_0000002173785897__screen67538011250">&#9500;&#9472;common                  // 公共能力模块
 &#9474;  &#9500;&#9472;accountservice       // 账号服务
 &#9474;  &#9500;&#9472;pushservice          // 推送服务
@@ -197,20 +197,20 @@
 &#9474;  &#9500;&#9472;phone                // 手机、Pad产品
 &#9474;  &#9500;&#9472;pc                   // pc产品
 &#9492;&#9472;samples                 // Samples集成 
-      &#9492;&#9472;xxxsample           // 集成到HMOS世界内的Sample</pre>
+      &#9492;&#9472;xxxsample           // 集成到HarmonyOS代码工坊内的Sample</pre>
           <p id="ZH-CN_TOPIC_0000002173785897__p12307534105811"><strong
               id="ZH-CN_TOPIC_0000002173785897__b19540144895716">Products层编译</strong></p>
           <p id="ZH-CN_TOPIC_0000002173785897__p149110495572">
-            HMOS世界在业务上需同时支持手机、平板、PC三个设备端，结合下文的应用部署原则中的应用分包/共包设计原则，考虑到手机、Pad部署特性相同，仅UX页面差异，决定手机和Pad采用共包方案，页面差异通过系统的页面级一多能力实现；PC业务后期会部署PC独有特性，因此PC端采用分包方案，单独编译PC产品的Hap包。
+            HarmonyOS代码工坊在业务上需同时支持手机、平板、PC三个设备端，结合下文的应用部署原则中的应用分包/共包设计原则，考虑到手机、Pad部署特性相同，仅UX页面差异，决定手机和Pad采用共包方案，页面差异通过系统的页面级一多能力实现；PC业务后期会部署PC独有特性，因此PC端采用分包方案，单独编译PC产品的Hap包。
           </p>
           <div class="p" id="ZH-CN_TOPIC_0000002173785897__p16225193735816"><strong
               id="ZH-CN_TOPIC_0000002173785897__b79038543575">Features层编译</strong>
             <ol id="ZH-CN_TOPIC_0000002173785897__ol1423863881616">
               <li id="ZH-CN_TOPIC_0000002173785897__li182381938171617">
-                HMOS世界自身业务不需要单独部署的特性，编译成Har包，打包到Product层的Entry的Hap包内。</li>
-              <li id="ZH-CN_TOPIC_0000002173785897__li1653917435163">HMOS世界上架的Sample代码，需要单独编译成Feature
+                HarmonyOS代码工坊自身业务不需要单独部署的特性，编译成Har包，打包到Product层的Entry的Hap包内。</li>
+              <li id="ZH-CN_TOPIC_0000002173785897__li1653917435163">HarmonyOS代码工坊上架的Sample代码，需要单独编译成Feature
                 Hap包。以Product层的Hap包+Sample Hap包组合部署。</li>
-              <li id="ZH-CN_TOPIC_0000002173785897__li1841152181616">各个上架HMOS世界的Sample需要单独做多设备适配。</li>
+              <li id="ZH-CN_TOPIC_0000002173785897__li1841152181616">各个上架HarmonyOS代码工坊的Sample需要单独做多设备适配。</li>
             </ol>
           </div>
           <p id="ZH-CN_TOPIC_0000002173785897__p924014408587"><strong
@@ -362,11 +362,11 @@
       </div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002133215018"><a
           name="ZH-CN_TOPIC_0000002133215018"></a><a name="ZH-CN_TOPIC_0000002133215018"></a>
-        <h3 class="topictitle3"><span class="topictitlenumber3">1.4.2</span> HMOS世界案例</h3>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.4.2</span> HarmonyOS代码工坊案例</h3>
         <div class="topicbody" id="body0000002133215018">
           <p id="ZH-CN_TOPIC_0000002133215018__p122874318341">
-            HMOS世界在业务上需同时支持手机、平板、PC三个设备端，考虑到后期在手机平板页面布局有差异，且存在差异化特性。因此在不同设备使用不同的entry hap包，entry进行分包。</p>
-          <p id="ZH-CN_TOPIC_0000002133215018__p1645410443348">HMOS世界内集成的Sample示例代码工程在上述构建过程中被编译成Feature
+            HarmonyOS代码工坊在业务上需同时支持手机、平板、PC三个设备端，考虑到后期在手机平板页面布局有差异，且存在差异化特性。因此在不同设备使用不同的entry hap包，entry进行分包。</p>
+          <p id="ZH-CN_TOPIC_0000002133215018__p1645410443348">HarmonyOS代码工坊内集成的Sample示例代码工程在上述构建过程中被编译成Feature
             Hap，运行时根据需要通过StoreKit按需下载并拉起运行，为部署方式为按需加载。此外，Sample工程编译的Feature Hap需要适配多设备。</p>
           <p id="ZH-CN_TOPIC_0000002133215018__p3271559171718">鸿蒙世界的客户端在设备部署如下图：</p>
           <p id="ZH-CN_TOPIC_0000002133215018__p19515494"><img id="ZH-CN_TOPIC_0000002133215018__image171086316429"
@@ -379,7 +379,7 @@
       <h2 class="topictitle2"><span class="topictitlenumber2">1.5</span> 总结</h2>
       <div class="topicbody" id="body0000002133141562">
         <p id="ZH-CN_TOPIC_0000002133141562__ZH-CN_TOPIC_0000002133141562_mMcCpPsS_p8060118">
-          本文从应用开发的设计、开发、部署全流程，围绕三层架构设计，讲述了鸿蒙应用开发的逻辑模型、代码和构建模型、应用部署模型设计原则和其在HMOS世界中的实际应用。展示了一个清晰、高效、可拓展的设计模型，实现HarmonyOS应用的一次开发多端部署理念。
+          本文从应用开发的设计、开发、部署全流程，围绕三层架构设计，讲述了鸿蒙应用开发的逻辑模型、代码和构建模型、应用部署模型设计原则和其在HarmonyOS代码工坊中的实际应用。展示了一个清晰、高效、可拓展的设计模型，实现HarmonyOS应用的一次开发多端部署理念。
         </p>
       </div>
       <div></div>
