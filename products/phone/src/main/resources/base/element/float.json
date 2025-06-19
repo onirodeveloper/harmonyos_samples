@@ -1,0 +1,28 @@
+{
+  "float": [
+    {
+      "name": "image_width_xs",
+      "value": "192vp"
+    },
+    {
+      "name": "image_width_sm",
+      "value": "288vp"
+    },
+    {
+      "name": "image_width_md",
+      "value": "432vp"
+    },
+    {
+      "name": "side_bar_height",
+      "value": "40vp"
+    },
+    {
+      "name": "side_bar_title_height",
+      "value": "56vp"
+    },
+    {
+      "name": "app_icon_width",
+      "value": "24vp"
+    }
+  ]
+}

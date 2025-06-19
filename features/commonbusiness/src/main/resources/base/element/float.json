@@ -1,0 +1,16 @@
+{
+  "float": [
+    {
+      "name": "banner_info_height",
+      "value": "160vp"
+    },
+    {
+      "name": "banner_button_height",
+      "value": "32vp"
+    },
+    {
+      "name": "banner_icon_height",
+      "value": "24vp"
+    }
+  ]
+}

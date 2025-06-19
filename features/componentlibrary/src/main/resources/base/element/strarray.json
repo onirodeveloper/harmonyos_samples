@@ -1,0 +1,24 @@
+{
+  "strarray": [
+    {
+      "name": "text_picker_data",
+      "value": [
+        {
+          "value": "apple"
+        },
+        {
+          "value": "orange"
+        },
+        {
+          "value": "peach"
+        },
+        {
+          "value": "grape"
+        },
+        {
+          "value": "banana"
+        }
+      ]
+    }
+  ]
+}

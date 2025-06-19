@@ -1,0 +1,5 @@
+{
+  "galleryUrl": "https://appgallery.huawei.com/app/detail?id=com.huawei.hmos.tips",
+  "miitUrl": "https://beian.miit.gov.cn",
+  "whitelist": "{\"UrlPermissionList\":[{\"scheme\":\"https\",\"host\":\"developer.huawei.com\"},{\"scheme\":\"https\",\"host\":\"beian.miit.gov.cn\"},{\"scheme\":\"https\",\"host\":\"gitee.com\",\"path\":\"harmonyos_samples\/\"},{\"host\":\"rawfile\"}]}"
+}

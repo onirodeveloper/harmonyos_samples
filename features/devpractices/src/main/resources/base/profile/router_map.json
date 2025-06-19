@@ -1,0 +1,9 @@
+{
+  "routerMap": [
+    {
+      "name": "SampleDetailView",
+      "pageSourceFile": "src/main/ets/view/PracticeDetailView.ets",
+      "buildFunction": "SampleDetailViewBuilder"
+    }
+  ]
+}

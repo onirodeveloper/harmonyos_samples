@@ -1,0 +1,789 @@
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "totalSize": "3",
+    "data": {
+      "bannerInfos": [
+        {
+          "id": 2,
+          "bannerTitle": "HarmonyOS赋能套件",
+          "bannerSubTitle": "赋能套件介绍",
+          "bannerDesc": "打造开发者赋能产品，助力鸿蒙应用开发。",
+          "bannerType": 4,
+          "bannerValue": 15,
+          "mediaType": 1,
+          "mediaUrl": "image/banner/banner_arkui.png",
+          "detailsUrl": "bannercols/harmonyos-empowerment/index.html"
+        },
+        {
+          "id": 6,
+          "bannerTitle": "多端UX设计",
+          "bannerSubTitle": "多端UX设计介绍",
+          "bannerDesc": "适配特征场景，助力高效设计适配。",
+          "bannerType": 4,
+          "bannerValue": 6,
+          "mediaType": 1,
+          "mediaUrl": "image/banner/banner_enabling_kit.png",
+          "detailsUrl": "articlecols/articles/native-ux-design/index.html"
+        },
+        {
+          "id": 7,
+          "bannerTitle": "鸿蒙应用开发快速入门",
+          "bannerSubTitle": "快速入门介绍",
+          "bannerDesc": "快速上手HarmonyOS开发，轻松打造精美界面。",
+          "bannerType": 4,
+          "bannerValue": 17,
+          "mediaType": 1,
+          "mediaUrl": "image/banner/banner_quick_start.png",
+          "detailsUrl": "bannercols/quick-start/index.html"
+        }
+      ],
+      "sampleCategories": [
+        {
+          "id": 4,
+          "categoryName": "2025 HDC",
+          "categoryType": 4,
+          "tabIcon": "image/common/hdc_tab_white.png",
+          "tabIconSelected": "image/common/hdc_tab_color.png",
+          "sampleCards": [
+            {
+              "id": 60,
+              "cardTitle": "HarmonyOS代码工坊",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_blue.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 60,
+                  "type": 2,
+                  "cardId": 25,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
+                  "title": "HarmonyOS代码工坊",
+                  "subTitle": "",
+                  "tags": [
+                    "该案例已支持多设备"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 63,
+              "cardTitle": "HarmonyOS代码工坊(手表版)",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_green.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 63,
+                  "type": 2,
+                  "cardId": 28,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
+                  "title": "HarmonyOS代码工坊(手表版)",
+                  "subTitle": "",
+                  "tags": [
+                    "使用Watch5体验完整效果"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 61,
+              "cardTitle": "三折叠，怎么折都有面",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_pink.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 61,
+                  "type": 2,
+                  "cardId": 26,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/sample_business.png",
+                  "title": "三折叠，怎么折都有面",
+                  "subTitle": "",
+                  "tags": [
+                    "使用MateXT体验完整效果"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 62,
+              "cardTitle": "扩感导航，视野更清晰",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_green.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 62,
+                  "type": 2,
+                  "cardId": 27,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/sample_liveviewlockscreen.png",
+                  "title": "扩感导航，视野更清晰",
+                  "subTitle": "",
+                  "tags": [
+                    "使用PuarX体验完整效果"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 64,
+              "cardTitle": "碰一碰视频快速分享",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_pink.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 64,
+                  "type": 2,
+                  "cardId": 29,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/sample_knockshare.png",
+                  "title": "碰一碰视频快速分享",
+                  "subTitle": "",
+                  "tags": [
+                    "使用两台手机体验完整效果"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 65,
+              "cardTitle": "视频投播更便捷",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_blue.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 65,
+                  "type": 2,
+                  "cardId": 30,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/sample_videocast.png",
+                  "title": "视频投播更便捷",
+                  "subTitle": "",
+                  "tags": [
+                    "使用手机、PC体验完整效果"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 66,
+              "cardTitle": "跨设备内容编辑新体验",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_pink.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 66,
+                  "type": 2,
+                  "cardId": 23,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/sample_continuepublic.png",
+                  "title": "跨设备内容编辑新体验",
+                  "subTitle": "",
+                  "tags": [
+                    "分布式照相机",
+                    "键鼠穿越"
+                  ],
+                  "order": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "categoryName": "多设备开发",
+          "categoryType": 1,
+          "sampleCards": [
+            {
+              "id": 22,
+              "cardTitle": "一多旅行住宿",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 6,
+              "sampleContents": [
+                {
+                  "id": 55,
+                  "type": 2,
+                  "cardId": 22,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png",
+                  "title": "一多旅行住宿",
+                  "subTitle": "本示例主要使用栅格布局和List组件相结合的方式，实现了旅行住宿差异化的多场景响应式变化效果。",
+                  "tags": [
+                    "一次开发多端部署",
+                    "Navigation"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 19,
+              "cardTitle": "一多移动支付",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 3,
+              "sampleContents": [
+                {
+                  "id": 34,
+                  "type": 2,
+                  "cardId": 19,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/multidevice/sample_multi_mobile_payment.png",
+                  "title": "一多移动支付",
+                  "subTitle": "本篇Sample基于Scan Kit中的默认界面扫码能力与码图生成能力实现移动支付应用中常见的扫一扫和收付款功能。",
+                  "tags": [
+                    "UI框架",
+                    "扫码能力",
+                    "码图生成"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 18,
+              "cardTitle": "一多便捷生活",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 2,
+              "sampleContents": [
+                {
+                  "id": 33,
+                  "type": 2,
+                  "cardId": 18,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png",
+                  "title": "一多便捷生活",
+                  "subTitle": "本篇Sample基于自适应布局和响应式布局，实现一次开发，多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
+                  "tags": [
+                    "一次开发多端部署",
+                    "自适应布局"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "cardTitle": "一多新闻阅读",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 5,
+              "sampleContents": [
+                {
+                  "id": 45,
+                  "type": 2,
+                  "cardId": 21,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/multidevice/sample_multi_news_read.png",
+                  "title": "一多新闻阅读",
+                  "subTitle": "本示例基于自适应布局和响应式布局，实现一次开发，多端部署的新闻阅读页面。根据手机、折叠屏以及平板不同的设备尺寸实现对应页面。",
+                  "tags": [
+                    "UI框架"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 24,
+              "cardTitle": "一多分栏控件",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 8,
+              "sampleContents": [
+                {
+                  "id": 57,
+                  "type": 2,
+                  "cardId": 24,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/multidevice/sample_multi_columns.png",
+                  "title": "一多分栏控件",
+                  "subTitle": "本示例通过使用SideBarContainer组件与Navigation组件，实现了多场景下，一多分栏控件的响应式变化效果。",
+                  "tags": [
+                    "一次开发多端部署",
+                    "Navigation"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "cardTitle": "一多导航栏",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 1,
+              "sampleContents": [
+                {
+                  "id": 16,
+                  "type": 2,
+                  "cardId": 4,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png",
+                  "title": "一多导航栏",
+                  "subTitle": "本示例基于自适应布局和响应式布局，实现多设备上的分级导航栏效果。在sm、md断点下，展示为底部页签和顶部页签；在lg断点下，展示为侧边页签和顶部页签；在xl断点下，展示为侧边栏分级导航。为开发者提供分级导航栏的开发方案。",
+                  "tags": [
+                    "一次开发多端部署",
+                    "自适应布局"
+                  ],
+                  "order": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "categoryName": "ArkUI实践",
+          "categoryType": 2,
+          "sampleCards": [
+            {
+              "id": 15,
+              "cardTitle": "组件样式",
+              "cardSubTitle": "组件样式Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 1,
+              "sampleContents": [
+                {
+                  "id": 20,
+                  "type": 2,
+                  "cardId": 15,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/style/sample_text_effects.gif",
+                  "title": "文字特效合集",
+                  "subTitle": "本示例基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTS页面开发中实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果。",
+                  "tags": [
+                    "Text"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 35,
+                  "type": 2,
+                  "cardId": 15,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png",
+                  "title": "常见Tab导航样式合集",
+                  "subTitle": "Tabs组件可以让用户能聚焦于当前显示的内容，对页面内容进行分类，提高页面空间利用率。本示例基于Tabs组件，为开发者提供不同场景下的导航样式，如：常见底部导航、舵式底部导航、可滑动+更多按钮样式、侧边导航等。",
+                  "tags": [
+                    "Tabs",
+                    "TabContent",
+                    "自定义Tab"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 36,
+                  "type": 2,
+                  "cardId": 15,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png",
+                  "title": "自定义弹窗合集",
+                  "subTitle": "本示例通过CustomDialog、bindContentCover、bindSheet等接口，实现多种样式的弹窗。帮助开发者掌握自定义弹窗开发的步骤，灵活的实现自己业务需要用到的弹窗场景。",
+                  "tags": [
+                    "CustomDialog",
+                    "bindContentCover",
+                    "bindSheet"
+                  ],
+                  "order": 3
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "cardTitle": "布局",
+              "cardSubTitle": "布局类Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 2,
+              "sampleContents": [
+                {
+                  "id": 48,
+                  "type": 2,
+                  "cardId": 6,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png",
+                  "title": "Scroll组件嵌套滑动",
+                  "subTitle": "本示例通过Scroll组件的滑动能力和List组件的nestedScroll属性，实现当Scroll嵌套List滑动时，优先滑动最外层的Scroll，当Scroll滑动至末端时，List再继续滚动。帮助开发者掌握Scroll嵌套List滑动时的场景如何处理。",
+                  "tags": [
+                    "滑动",
+                    "吸顶",
+                    "Tabs",
+                    "Scroll",
+                    "List"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 25,
+                  "type": 2,
+                  "cardId": 6,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/layout/sample_water_flow.png",
+                  "title": "WaterFlow瀑布流实例",
+                  "subTitle": "本示例为开发者展示使用WaterFlow瀑布流容器实现首页布局效果，包括使用sections实现混排布局、结合item实现滑动吸顶、多种组件混合排列等场景。",
+                  "tags": [
+                    "瀑布流",
+                    "waterflow",
+                    "吸顶"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 43,
+                  "type": 2,
+                  "cardId": 6,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/layout/sample_component_stack.png",
+                  "title": "组件堆叠",
+                  "subTitle": "本示例介绍运用Stack组件以构建多层次堆叠的视觉效果。通过绑定Scroll组件的onScrollFrameBegin滚动事件回调函数，精准捕获滚动动作的发生。当滚动时，实时地调节组件的透明度、高度等属性，从而成功实现了嵌套滚动效果、透明度动态变化以及平滑的组件切换。",
+                  "tags": [
+                    "UI框架"
+                  ],
+                  "order": 3
+                },
+                {
+                  "id": 12,
+                  "type": 2,
+                  "cardId": 6,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png",
+                  "title": "基于Grid实现混合布局",
+                  "subTitle": "本示例主要实现了Grid组件和List组件以及Swiper组件的嵌套混合布局。",
+                  "tags": [
+                    "Grid",
+                    "List",
+                    "Swiper"
+                  ],
+                  "order": 4
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "cardTitle": "动效",
+              "cardSubTitle": "动效类Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 3,
+              "sampleContents": [
+                {
+                  "id": 30,
+                  "type": 2,
+                  "cardId": 3,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.gif",
+                  "title": "转场动效合集",
+                  "subTitle": "本示例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见一镜到底转场动效，便于用户进行常见的转场动效场景开发。",
+                  "tags": [
+                    "转场动效",
+                    "NavDestination"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 9,
+                  "type": 2,
+                  "cardId": 3,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png",
+                  "title": "动效案例合集",
+                  "subTitle": "本示例基于基础组件、通用属性、显式动效，实现多种常见动效案例，便于用户进行常见的动效场景开发。",
+                  "tags": [
+                    "UI框架",
+                    "动效"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 42,
+                  "type": 2,
+                  "cardId": 3,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png",
+                  "title": "拖拽框架开发实践",
+                  "subTitle": "本示例基于ArkUI的拖拽框架，实现图片、富文本、文本、输入框、列表等组件的拖拽功能，通过设置拖拽事件中的接口信息自定义拖拽响应，实现拖拽图像增加水印、自定义拖拽背板图、AI识别拖拽内容等拖拽场景。",
+                  "tags": [
+                    "拖拽事件"
+                  ],
+                  "order": 3
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "cardTitle": "列表开发实践",
+              "cardSubTitle": "列表开发实践类Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 4,
+              "sampleContents": [
+                {
+                  "id": 24,
+                  "type": 2,
+                  "cardId": 7,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png",
+                  "title": "流畅刷文章",
+                  "subTitle": "本示例实现了文章和媒体文件浏览的功能，通过设置组件的属性来控制屏幕刷新率，达到低功耗的目的，参考本示例可学习开发类似博客场景，并进行低功耗的适配。",
+                  "tags": [
+                    "LTPO"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 14,
+                  "type": 2,
+                  "cardId": 7,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/list/sample_list_exchange.png",
+                  "title": "列表项交换",
+                  "subTitle": "本示例介绍了如何通过组合手势结合List组件，来实现对List组件中列表项的交换排序。",
+                  "tags": [
+                    "List列表项交换",
+                    "自定义手势"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 15,
+                  "type": 2,
+                  "cardId": 7,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png",
+                  "title": "列表编辑效果",
+                  "subTitle": "本示例基于List组件，实现待办事项管理、文件管理、备忘录的等场景列表编辑效果。",
+                  "tags": [
+                    "List"
+                  ],
+                  "order": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "categoryName": "功能开发",
+          "categoryType": 3,
+          "sampleCards": [
+            {
+              "id": 1,
+              "cardTitle": "多媒体",
+              "cardSubTitle": "多媒体类Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 2,
+              "sampleContents": [
+                {
+                  "id": 22,
+                  "type": 2,
+                  "cardId": 1,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/media/sample_window_pip.png",
+                  "title": "画中画效果实现",
+                  "subTitle": "本示例基于媒体服务和ArkUI的基本能力，实现视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
+                  "tags": [
+                    "视频",
+                    "播放",
+                    "画中画"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 29,
+                  "type": 2,
+                  "cardId": 1,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/media/sample_multiple_image.png",
+                  "title": "多图片合集",
+                  "subTitle": "本示例介绍了如何使用Swiper组件实现图片轮播效果，以及如何自定义Swiper组件的指示器，来实现图片的切换效果。",
+                  "tags": [
+                    "多图片",
+                    "多图文"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 51,
+                  "type": 2,
+                  "cardId": 1,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
+                  "title": "基于AudioRenderer的音频播控和多场景交互",
+                  "subTitle": "本场景解决方案主要面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。功能包括后台播放、和播控中心的交互、适配不同类型的焦点打断策略、切换路由发声设备、切换输出设备等基础音频常见功能。",
+                  "tags": [
+                    "音频播放；播控中心交互"
+                  ],
+                  "order": 3
+                }
+              ]
+            },
+            {
+              "id": 34,
+              "cardTitle": "开放能力",
+              "cardSubTitle": "开放能力类Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 3,
+              "sampleContents": [
+                {
+                  "id": 26,
+                  "type": 2,
+                  "cardId": 34,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/capacity/sample_page_redirection.png",
+                  "title": "H5页面跳转",
+                  "subTitle": "本示例基于ArkUI框架和Web实现了H5页面和ArkTS界面之间的相互跳转。帮助开发者在Web页面开发中掌握H5页面加载，H5页面跳转，H5页面与ArkTS页面参数传递等功能的实现方案。",
+                  "tags": [
+                    "Web",
+                    "javascript"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 31,
+                  "type": 2,
+                  "cardId": 34,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png",
+                  "title": "Web页面瞬开效果实践",
+                  "subTitle": "本示例基于预渲染技术，实现了点击后Web页面瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+                  "tags": [
+                    "Web",
+                    "预渲染",
+                    "瞬开"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 49,
+                  "type": 2,
+                  "cardId": 34,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/capacity/sample_location_service.png",
+                  "title": "定位服务",
+                  "subTitle": "本示例通过@kit.LocationKit中的geoLocationManager实现获取缓存位置、获取当前位置和持续定位功能，并结合@kit.BackgroundTasksKit中的backgroundTaskManager开启长时任务，实现后台定位功能，同时运用map.Marker将位置信息标记在地图上。",
+                  "tags": [
+                    "定位"
+                  ],
+                  "order": 3
+                }
+              ]
+            },
+            {
+              "id": 33,
+              "cardTitle": "典型开发场景",
+              "cardSubTitle": "典型开发场景Sample",
+              "cardStyleType": 2,
+              "version": 1000000,
+              "order": 5,
+              "sampleContents": [
+                {
+                  "id": 17,
+                  "type": 2,
+                  "cardId": 33,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/data/sample_preferences.png",
+                  "title": "首选项",
+                  "subTitle": "本示例使用@ohos.data.preferences接口，展示了使用首选项持久化存储数据的功能。帮助开发者实现主题切换且主题数据缓存读取的场景。",
+                  "tags": [
+                    "首选项",
+                    "持久化存储"
+                  ],
+                  "order": 1
+                },
+                {
+                  "id": 21,
+                  "type": 2,
+                  "cardId": 33,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png",
+                  "title": "验证码场景合集",
+                  "subTitle": "本示例实现了5种验证码场景，基本涵盖了大部分应用的验证码场景。开发者可按需下载代码，实现自己应用的验证码场景。",
+                  "tags": [
+                    "验证码",
+                    "inputMethod",
+                    "Slider"
+                  ],
+                  "order": 2
+                },
+                {
+                  "id": 13,
+                  "type": 2,
+                  "cardId": 33,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/scene/sample_image_comment.png",
+                  "title": "发布图片评论",
+                  "subTitle": "本示例通过拉起系统相机实现发布图片评论，便于用户了解系统相机接口的调用方式。",
+                  "tags": [
+                    "系统相机"
+                  ],
+                  "order": 3
+                },
+                {
+                  "id": 50,
+                  "type": 2,
+                  "cardId": 33,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/function/data/sample_picker.png",
+                  "title": "选择并查看文档与媒体文件",
+                  "subTitle": "应用使用@ohos.file.picker、@ohos.file.photoAccessHelper、@ohos.file.fs等接口，实现了拉起文档编辑保存、拉起系统相册图片查看、拉起视频并播放的功能。",
+                  "tags": [
+                    "Picker"
+                  ],
+                  "order": 4
+                },
+                {
+                  "id": 47,
+                  "type": 2,
+                  "cardId": 33,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/arkui/scene/sample_keyboard.png",
+                  "title": "UI框架-软键盘弹出",
+                  "subTitle": "本示例展示了输入框分别在屏幕顶部和底部时软键盘弹出对页面布局的影响，通过设置软键盘的避让模式为KeyboardAvoidMode.RESIZE、设置NavDestination的mode为NavDestinationMode.DIALOG等方式实现布局的避让，帮助开发者在多种软件盘弹出场景下实现合理的页面布局。",
+                  "tags": [
+                    "软键盘",
+                    "输入框"
+                  ],
+                  "order": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

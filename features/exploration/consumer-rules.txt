@@ -1,0 +1,5 @@
+-keep
+./src/main/ets/model/DiscoverData.ets
+-keep-property-name
+webSheet
+jumpPage

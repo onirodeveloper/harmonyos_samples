@@ -1,0 +1,175 @@
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "bannerInfos": [
+      {
+        "id": 3,
+        "bannerTitle": "HarmonyOS UX设计新体验",
+        "bannerSubTitle": "UX设计体验",
+        "bannerDesc": "助力开发者打造鸿蒙应用新体验，共建和谐数字世界。",
+        "bannerType": 4,
+        "bannerValue": 16,
+        "mediaType": 1,
+        "mediaUrl": "image/banner/banner_new_features.png",
+        "detailsUrl": "bannercols/ux-design-new-experience/index.html"
+      },
+      {
+        "id": 8,
+        "bannerTitle": "设计与开发应用介绍",
+        "bannerSubTitle": "设计与开发",
+        "bannerDesc": "打造高端精致、简单易用、极致流畅、纯净安全的应用。",
+        "bannerType": 4,
+        "bannerValue": 20,
+        "mediaType": 1,
+        "mediaUrl": "image/banner/banner_develop_design.png",
+        "detailsUrl": "bannercols/app-design-development/index.html"
+      },
+      {
+        "id": 9,
+        "bannerTitle": "开发者你好，欢迎来到HMOS代码工坊",
+        "bannerSubTitle": "HarmonyOS代码工坊",
+        "bannerDesc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
+        "bannerType": 4,
+        "bannerValue": 21,
+        "mediaType": 1,
+        "mediaUrl": "image/banner/banner_HMOS.png",
+        "detailsUrl": "bannercols/hmos-world/index.html"
+      }
+    ],
+    "discoveryData": [
+      {
+        "id": 2,
+        "name": "鸿蒙应用开发实践",
+        "type": 1,
+        "contents": [
+          {
+            "id": 1,
+            "type": 1,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_3.png",
+            "title": "小窗口大世界，智享实况窗服务",
+            "subTitle": null,
+            "desc": "实时信息随处展示。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/live-window-service/index.html"
+          },
+          {
+            "id": 2,
+            "type": 1,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_4.png",
+            "title": "Picker安心取，用户主导安全新体验",
+            "subTitle": null,
+            "desc": "纯净安全，打造全新体验。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/native-safety/index.html"
+          },
+          {
+            "id": 3,
+            "type": 1,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_1.png",
+            "title": "一镜到底，畅享无界丝滑视觉之旅",
+            "subTitle": null,
+            "desc": "极致流畅，畅享丝滑。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/shared-element-transition/index.html"
+          },
+          {
+            "id": 4,
+            "type": 1,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_5.png",
+            "title": "跨设备互联，打造无缝流转极致体验",
+            "subTitle": null,
+            "desc": "跨设备互联，无缝流转。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/app-continuation/index.html"
+          },
+          {
+            "id": 5,
+            "type": 1,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_2.png",
+            "title": "AI识图，开启智能图像处理新纪元",
+            "subTitle": null,
+            "desc": "开启图像智能新纪元。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/smart-visual-recognition/index.html"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "应用体验设计",
+        "type": 2,
+        "contents": [
+          {
+            "id": 18,
+            "type": 2,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/experienceDesign/ux_multi.png",
+            "title": "多端UX设计",
+            "subTitle": "HarmonyOS",
+            "desc": "提供特征型场景界面设计，结合应用业务场景，实现最佳界面适配和创新设计。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/native-ux-design/index.html"
+          },
+          {
+            "id": 22,
+            "type": 2,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/experienceDesign/ux_experience.png",
+            "title": "应用UX体验标准",
+            "subTitle": "HarmonyOS",
+            "desc": "提前了解HarmonyOS应用UX体验标准，快速满足上架条件。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/ux-guidelines/index.html"
+          },
+          {
+            "id": 7,
+            "type": 2,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/experienceDesign/ux_effect_design.png",
+            "title": "UX动效设计",
+            "subTitle": "HarmonyOS",
+            "desc": "HarmonyOS UX动效设计，通过适配不同场景，提升用户体验，满足多样化需求。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/design-animation/index.html"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "功能开发",
+        "type": 4,
+        "contents": [
+          {
+            "id": 8,
+            "type": 3,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/functionDevelopment/discovery_article_id_8.png",
+            "title": "分层架构设计",
+            "subTitle": null,
+            "desc": "HarmonyOS应用采用分层架构，一套代码工程，支持华为手机、PC/2in1等1+8全场景设备。",
+            "publishTime": "2024年8月15日",
+            "author": "发布者",
+            "detailsUrl": "articlecols/articles/layered-architecture-design/index.html"
+          },
+          {
+            "id": 12,
+            "type": 4,
+            "mediaType": 1,
+            "mediaUrl": "image/practice/functionDevelopment/discovery_article_id_12.png",
+            "title": "HMOS代码工坊一多开发实践",
+            "subTitle": "HarmonyOS",
+            "desc": "践行“一次开发，多端部署”理念，实现多设备无缝协同，提供一致且高效的用户体验。",
+            "author": null,
+            "detailsUrl": "articlecols/articles/multi-adaptation/index.html"
+          }
+        ]
+      }
+    ]
+  }
+}

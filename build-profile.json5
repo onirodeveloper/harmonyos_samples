@@ -1,0 +1,85 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\dangdang\\.ohos\\config\\default_HMOSWorldClient_New_51U2O-Q0KdEP6D8YDa1qInGjLEz3HXJlQZnNHTFpJ7c=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "00000019A0D8D0A232BB277D09FBB9C403A55EFE338250E33A3F130B290F76BC5DCBB9C5774B2243D4",
+          "profile": "C:\\Users\\dangdang\\.ohos\\config\\default_HMOSWorldClient_New_51U2O-Q0KdEP6D8YDa1qInGjLEz3HXJlQZnNHTFpJ7c=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\dangdang\\.ohos\\config\\default_HMOSWorldClient_New_51U2O-Q0KdEP6D8YDa1qInGjLEz3HXJlQZnNHTFpJ7c=.p12",
+          "storePassword": "0000001995FE761F7E8E94A31A3BB4B439FF6848EE52D4ECA73020B596826C601EBD47077F9D36184B"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.2(14)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "phone",
+      "srcPath": "./products/phone",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mine",
+      "srcPath": "./features/mine",
+    },
+    {
+      "name": "exploration",
+      "srcPath": "./features/exploration",
+    },
+    {
+      "name": "common",
+      "srcPath": "./common",
+    },
+    {
+      "name": "componentlibrary",
+      "srcPath": "./features/componentlibrary",
+    },
+    {
+      "name": "devpractices",
+      "srcPath": "./features/devpractices",
+    },
+    {
+      "name": "commonbusiness",
+      "srcPath": "./features/commonbusiness",
+    },
+    {
+      "name": "wearable",
+      "srcPath": "./products/wearable",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}
