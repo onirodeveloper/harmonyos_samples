@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "sample_name",
+      "value": "样例"
+    },
+    {
+      "name": "no_content",
+      "value": "暂无数据"
+    },
+    {
+      "name": "sample_title",
+      "value": "开发样例"
+    },
+    {
+      "name": "sample_code",
+      "value": "示例代码"
+    },
+    {
+      "name": "experience_sample",
+      "value": "立即体验"
+    },
+    {
+      "name": "read_code",
+      "value": "阅读源码"
+    },
+    {
+      "name": "download_sample",
+      "value": "下载体验"
+    },
+    {
+      "name": "module_nonexistent",
+      "value": "该模块不存在"
+    },
+    {
+      "name": "internet_error",
+      "value": "网络未连接，请检查网络设置"
+    },
+    {
+      "name": "requestinfo_error",
+      "value": "请求信息错误"
+    },
+    {
+      "name": "installing_status",
+      "value": "正在安装"
+    },
+    {
+      "name": "swiper_gesture",
+      "value": "下载中，请勿切换"
+    },
+    {
+      "name": "watch_prompt",
+      "value": "本案例仅支持手表端，欢迎体验"
+    },
+    {
+      "name": "client_prompt",
+      "value": "HarmonyOS代码工坊支持1+8多设备运行，欢迎体验"
+    }
+  ]
+}

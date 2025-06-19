@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "splash_main_title",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "splash_sub_title",
+      "value": "Welcome to HarmonyOS Developer's world"
+    },
+    {
+      "name": "internet_reason",
+      "value": "You need to obtain your network permission to obtain network resource display data."
+    },
+    {
+      "name": "network_reason",
+      "value": "You need to obtain your network status information to determine whether the current device is connected to the network."
+    },
+    {
+      "name": "vibrator_reason",
+      "value": "You need to obtain your vibrator permission to provide vibrator feel"
+    },
+    {
+      "name": "tab_home",
+      "value": "Component"
+    },
+    {
+      "name": "tab_sample",
+      "value": "Sample"
+    },
+    {
+      "name": "tab_practice",
+      "value": "Practice"
+    },
+    {
+      "name": "tab_mine",
+      "value": "Me"
+    },
+    {
+      "name": "PhoneFormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "PhoneFormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "widget_desc",
+      "value": "Harmony Application Development Assistant"
+    },
+    {
+      "name": "widget_display_name",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "title_immersive",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "detail_immersive",
+      "value": "Harmony Application Development Assistant"
+    },
+    {
+      "name": "back_toast",
+      "value": "Swiper again to exit."
+    }
+  ]
+}

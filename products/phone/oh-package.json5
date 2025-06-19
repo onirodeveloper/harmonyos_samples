@@ -1,0 +1,16 @@
+{
+  "name": "phone",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@ohos/componentlibrary": "file:../../features/componentlibrary",
+    "@ohos/devpractices": "file:../../features/devpractices",
+    "@ohos/exploration": "file:../../features/exploration",
+    "@ohos/mine": "file:../../features/mine",
+    "@ohos/commonbusiness": "file:../../features/commonbusiness",
+    "@ohos/common": "file:../../common"
+  }
+}

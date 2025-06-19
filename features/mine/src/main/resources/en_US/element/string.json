@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "mine_title",
+      "value": "Mine"
+    },
+    {
+      "name": "about",
+      "value": "about"
+    },
+    {
+      "name": "version_information",
+      "value": "Version information"
+    },
+    {
+      "name": "updated_version",
+      "value": "To be updated"
+    },
+    {
+      "name": "latest_version",
+      "value": "The latest version"
+    },
+    {
+      "name": "app_name",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "copyright1",
+      "value": "GuangdongA2-20044005-302A"
+    },
+    {
+      "name": "copyright2",
+      "value": "Copyright © 2025 Huawei Device Co., Ltd. All rights reserved."
+    }
+  ]
+}

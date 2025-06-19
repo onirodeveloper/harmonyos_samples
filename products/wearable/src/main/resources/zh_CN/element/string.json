@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "WearableAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "WearableAbility_label",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "homePage_title",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "homePage_description",
+      "value": "示例代码合集"
+    },
+    {
+      "name": "sample_library",
+      "value": "样例库"
+    },
+    {
+      "name": "watch_development_sample",
+      "value": "手表开发样例"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "loading",
+      "value": "正在加载..."
+    },
+    {
+      "name": "no_more",
+      "value": "已经滑至底部"
+    },
+    {
+      "name": "network_error",
+      "value": "网络链接中断，请您检查网络设置或稍后重试。"
+    },
+    {
+      "name": "server_error",
+      "value": "无法连接服务器，请稍后再试"
+    },
+    {
+      "name": "network_setting",
+      "value": "设置网络"
+    }
+  ]
+}

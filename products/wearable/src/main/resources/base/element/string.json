@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "WearableAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "WearableAbility_label",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "homePage_title",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "homePage_description",
+      "value": "Development Demonstration Application"
+    },
+    {
+      "name": "sample_library",
+      "value": "Sample Library"
+    },
+    {
+      "name": "watch_development_sample",
+      "value": "Watch Development Sample"
+    }
+  ]
+}

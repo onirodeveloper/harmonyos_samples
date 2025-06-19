@@ -1,0 +1,52 @@
+{
+  "color": [
+    {
+      "name": "icon_primary_light",
+      "value": "#E5000000"
+    },
+    {
+      "name": "icon_primary_dark",
+      "value": "#E5FFFFFF"
+    },
+    {
+      "name": "font_primary_light",
+      "value": "#E5000000"
+    },
+    {
+      "name": "font_primary_dark",
+      "value": "#E5FFFFFF"
+    },
+    {
+      "name": "icon_secondary_light",
+      "value": "#99000000"
+    },
+    {
+      "name": "icon_secondary_dark",
+      "value": "#99FFFFFF"
+    },
+    {
+      "name": "font_secondary_light",
+      "value": "#99000000"
+    },
+    {
+      "name": "font_secondary_dark",
+      "value": "#99FFFFFF"
+    },
+    {
+      "name": "calender_default_text_color",
+      "value": "#ff182431"
+    },
+    {
+      "name": "date_picker_default_color",
+      "value": "#ff007dff"
+    },
+    {
+      "name": "code_preview_bg_color",
+      "value": "#202224"
+    },
+    {
+      "name": "web_overlay_color_start",
+      "value": "#00ffffff"
+    }
+  ]
+}

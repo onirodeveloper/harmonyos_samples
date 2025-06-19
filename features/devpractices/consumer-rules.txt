@@ -1,0 +1,3 @@
+-keep
+./src/main/ets/model/SampleData.ets
+./src/main/ets/model/SampleDetailData.ets

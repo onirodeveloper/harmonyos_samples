@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "wearable_test",
+    "type": "feature",
+    "deviceTypes": [
+      "car"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "splash_main_title",
+      "value": "HarmonyOS代码工坊"
+    },
+    {
+      "name": "splash_sub_title",
+      "value": "欢迎来到HarmonyOS开发者世界"
+    },
+    {
+      "name": "internet_reason",
+      "value": "需要获取您的网络权限，用于获取网络资源展示数据"
+    },
+    {
+      "name": "network_reason",
+      "value": "需要获取您的网络状态信息，用于判断当前设备是否联网"
+    },
+    {
+      "name": "vibrator_reason",
+      "value": "需要获取震动权限来提供震动感"
+    },
+    {
+      "name": "tab_home",
+      "value": "组件"
+    },
+    {
+      "name": "tab_sample",
+      "value": "样例"
+    },
+    {
+      "name": "tab_practice",
+      "value": "实践"
+    },
+    {
+      "name": "tab_mine",
+      "value": "我的"
+    },
+    {
+      "name": "PhoneFormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "PhoneFormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "widget_desc",
+      "value": "鸿蒙应用开发助手"
+    },
+    {
+      "name": "widget_display_name",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "title_immersive",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "detail_immersive",
+      "value": "鸿蒙应用开发助手"
+    },
+    {
+      "name": "back_toast",
+      "value": "再滑一次退出"
+    }
+  ]
+}

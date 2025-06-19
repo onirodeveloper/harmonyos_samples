@@ -1,0 +1,477 @@
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 30,
+    "totalSize": "12",
+    "data": {
+      "bannerInfos": [
+        {
+          "id": 1,
+          "bannerTitle": "开发者你好，欢迎来到HMOS代码工坊",
+          "bannerSubTitle": "HarmonyOS代码工坊",
+          "bannerDesc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
+          "bannerType": 4,
+          "bannerValue": 14,
+          "mediaType": 1,
+          "mediaUrl": "image/banner/banner_HMOS.png",
+          "detailsUrl": "bannercols/hmos-world/index.html"
+        },
+        {
+          "id": 4,
+          "bannerTitle": "HMOS代码工坊一多开发实践",
+          "bannerSubTitle": "一次开发，多端部署",
+          "bannerDesc": "探索HarmonyOS代码工坊一多开发实践",
+          "bannerType": 4,
+          "bannerValue": 18,
+          "mediaType": 1,
+          "mediaUrl": "image/banner/banner_ui_design.png",
+          "detailsUrl": "articlecols/articles/multi-adaptation/index.html"
+        },
+        {
+          "id": 5,
+          "bannerTitle": "开箱即用的AI语音播报能力",
+          "bannerSubTitle": "AI朗读",
+          "bannerDesc": "朗读文本转语音，新闻小说即享听。",
+          "bannerType": 4,
+          "bannerValue": 19,
+          "mediaType": 1,
+          "mediaUrl": "image/banner/banner_ai.png",
+          "detailsUrl": "bannercols/ai-voice-out-of-box/index.html"
+        }
+      ],
+      "cardData": [
+        {
+          "id": 1,
+          "cardTitle": "为页面添加文本",
+          "cardSubTitle": "文本类组件",
+          "cardType": 1,
+          "cardStyleType": 1,
+          "cardImage": "image/component/card/text.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 10,
+              "type": 1,
+              "cardId": 1,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/text/text.png",
+              "title": "Text",
+              "subTitle": "文本"
+            },
+            {
+              "id": 42,
+              "type": 1,
+              "cardId": 1,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/text/textinput.png",
+              "title": "TextInput",
+              "subTitle": "单行文本输入"
+            },
+            {
+              "id": 40,
+              "type": 1,
+              "cardId": 1,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/text/textarea.png",
+              "title": "TextArea",
+              "subTitle": "多行文本输入"
+            },
+            {
+              "id": 41,
+              "type": 1,
+              "cardId": 1,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/text/textstyle.png",
+              "title": "TextStyle",
+              "subTitle": "属性字符串"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "cardTitle": "安全使用相机",
+          "cardSubTitle": "CameraPicker",
+          "cardType": 1,
+          "cardStyleType": 3,
+          "cardImage": "image/component/card/camerapicker.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 28,
+              "type": 1,
+              "cardId": 7,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/camerapicker.png",
+              "title": "CameraPicker",
+              "subTitle": "相机选择器"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "cardTitle": "按钮、图片、进度条等",
+          "cardSubTitle": "常用组件",
+          "cardType": 1,
+          "cardStyleType": 2,
+          "cardImage": null,
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 1,
+              "type": 1,
+              "cardId": 2,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/common/button.png",
+              "title": "Button",
+              "subTitle": "按钮"
+            },
+            {
+              "id": 11,
+              "type": 1,
+              "cardId": 2,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/common/image.png",
+              "title": "Image",
+              "subTitle": "图片"
+            },
+            {
+              "id": 13,
+              "type": 1,
+              "cardId": 2,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/common/progress.png",
+              "title": "Progress",
+              "subTitle": "进度条"
+            },
+            {
+              "id": 22,
+              "type": 1,
+              "cardId": 2,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/common/rating.png",
+              "title": "Rating",
+              "subTitle": "评分"
+            },
+            {
+              "id": 2,
+              "type": 1,
+              "cardId": 2,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/common/toggle.png",
+              "title": "Toggle",
+              "subTitle": "开关"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "cardTitle": "安全使用图库",
+          "cardSubTitle": "PhotoPicker",
+          "cardType": 1,
+          "cardStyleType": 3,
+          "cardImage": "image/component/card/photopicker.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 26,
+              "type": 1,
+              "cardId": 13,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/photopicker.png",
+              "title": "PhotoViewPicker",
+              "subTitle": "图库选择器"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "cardTitle": "使用布局容器构建页面",
+          "cardSubTitle": "常用布局",
+          "cardType": 1,
+          "cardStyleType": 1,
+          "cardImage": "image/component/card/layout.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 5,
+              "type": 1,
+              "cardId": 4,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/layout/column.png",
+              "title": "Column",
+              "subTitle": "线性布局 - 纵向"
+            },
+            {
+              "id": 6,
+              "type": 1,
+              "cardId": 4,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/layout/row.png",
+              "title": "Row",
+              "subTitle": "线性布局 - 横向"
+            },
+            {
+              "id": 7,
+              "type": 1,
+              "cardId": 4,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/layout/stack.png",
+              "title": "Stack",
+              "subTitle": "层叠布局"
+            },
+            {
+              "id": 23,
+              "type": 1,
+              "cardId": 4,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/layout/flex.png",
+              "title": "Flex",
+              "subTitle": "弹性布局"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "cardTitle": "手写笔服务",
+          "cardSubTitle": "Pen Kit",
+          "cardType": 1,
+          "cardStyleType": 3,
+          "cardImage": "image/component/card/pankit.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 38,
+              "type": 1,
+              "cardId": 11,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/penkit.png",
+              "title": "Penkit",
+              "subTitle": "手写笔服务"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "cardTitle": "构建列表类布局",
+          "cardSubTitle": "常用布局",
+          "cardType": 1,
+          "cardStyleType": 2,
+          "cardImage": null,
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 9,
+              "type": 1,
+              "cardId": 5,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/list/list.png",
+              "title": "List",
+              "subTitle": "列表"
+            },
+            {
+              "id": 8,
+              "type": 1,
+              "cardId": 5,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/list/grid.png",
+              "title": "Grid",
+              "subTitle": "网格"
+            },
+            {
+              "id": 25,
+              "type": 1,
+              "cardId": 5,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/list/waterflow.png",
+              "title": "WaterFlow",
+              "subTitle": "瀑布流"
+            },
+            {
+              "id": 24,
+              "type": 1,
+              "cardId": 5,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/list/swiper.png",
+              "title": "Swiper",
+              "subTitle": "滑动轮播组件"
+            },
+            {
+              "id": 18,
+              "type": 1,
+              "cardId": 5,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/list/tabs.png",
+              "title": "Tabs",
+              "subTitle": "页签"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "cardTitle": "AI抠图",
+          "cardSubTitle": "开箱即用的AI能力",
+          "cardType": 1,
+          "cardStyleType": 3,
+          "cardImage": "image/component/card/enable_analyzer.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 32,
+              "type": 1,
+              "cardId": 12,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/enable_analyzer.png",
+              "title": "AI Matting",
+              "subTitle": "AI抠图"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "cardTitle": "给页面添加弹窗",
+          "cardSubTitle": "消息弹窗",
+          "cardType": 1,
+          "cardStyleType": 2,
+          "cardImage": null,
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 20,
+              "type": 1,
+              "cardId": 9,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/dialog/alert_dialog.png",
+              "title": "AlertDialog",
+              "subTitle": "警告弹窗"
+            },
+            {
+              "id": 21,
+              "type": 1,
+              "cardId": 9,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/dialog/text_dialog.png",
+              "title": "TextPickerDialog",
+              "subTitle": "文本滑动选择器弹窗"
+            },
+            {
+              "id": 35,
+              "type": 1,
+              "cardId": 9,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/dialog/custom_dialog.png",
+              "title": "CustomDialog",
+              "subTitle": "自定义弹窗"
+            },
+            {
+              "id": 33,
+              "type": 1,
+              "cardId": 9,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/dialog/action_sheet.png",
+              "title": "ActionSheet",
+              "subTitle": "列表选择弹窗"
+            },
+            {
+              "id": 34,
+              "type": 1,
+              "cardId": 9,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/dialog/popup.png",
+              "title": "Popup",
+              "subTitle": "气泡弹窗"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "cardTitle": "AI语音播报",
+          "cardSubTitle": "开箱即用的AI能力",
+          "cardType": 1,
+          "cardStyleType": 3,
+          "cardImage": "image/component/card/texttospeech.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 29,
+              "type": 1,
+              "cardId": 6,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/texttospeech.png",
+              "title": "TextToSpeech",
+              "subTitle": "文本转语音"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "cardTitle": "高效拉起系统应用",
+          "cardSubTitle": "Picker和Linking",
+          "cardType": 1,
+          "cardStyleType": 1,
+          "cardImage": "image/component/card/link.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 14,
+              "type": 1,
+              "cardId": 8,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/link/calendar_picker.png",
+              "title": "CalendarPicker",
+              "subTitle": "日历选择器"
+            },
+            {
+              "id": 15,
+              "type": 1,
+              "cardId": 8,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/link/date_picker.png",
+              "title": "DatePicker",
+              "subTitle": "日期滑动选择器"
+            },
+            {
+              "id": 27,
+              "type": 1,
+              "cardId": 8,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/link/document_picker.png",
+              "title": "DocumentViewPicker",
+              "subTitle": "文件选择器"
+            },
+            {
+              "id": 36,
+              "type": 1,
+              "cardId": 8,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/link/linking.png",
+              "title": "AppLinking",
+              "subTitle": "应用拉起"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "cardTitle": "AI语音字幕",
+          "cardSubTitle": "开箱即用的AI能力",
+          "cardType": 1,
+          "cardStyleType": 3,
+          "cardImage": "image/component/card/ai_caption_component.png",
+          "version": 1000000,
+          "cardContents": [
+            {
+              "id": 30,
+              "type": 1,
+              "cardId": 10,
+              "mediaType": 1,
+              "mediaUrl": "image/component/icon/ai_caption_component.png",
+              "title": "AICaptionComponent",
+              "subTitle": "AI字幕组件"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "wearable",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@ohos/devpractices": "file:../../features/devpractices",
+    "@ohos/commonbusiness": "file:../../features/commonbusiness",
+    "@ohos/common": "file:../../common"
+  }
+}
+

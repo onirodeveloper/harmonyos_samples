@@ -1,0 +1,20 @@
+{
+  "color": [
+    {
+      "name": "card_color",
+      "value": "#19000000"
+    },
+    {
+      "name": "card_font_primary_color",
+      "value": "#E5000000"
+    },
+    {
+      "name": "card_font_secondary_color",
+      "value": "#99000000"
+    },
+    {
+      "name": "icon_secondary_color",
+      "value": "#99000000"
+    }
+  ]
+}

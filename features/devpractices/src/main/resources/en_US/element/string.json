@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "sample_name",
+      "value": "Sample"
+    },
+    {
+      "name": "no_content",
+      "value": "No data available."
+    },
+    {
+      "name": "sample_title",
+      "value": "Development Sample"
+    },
+    {
+      "name": "sample_code",
+      "value": "Sample Code"
+    },
+    {
+      "name": "experience_sample",
+      "value": "Experience"
+    },
+    {
+      "name": "read_code",
+      "value": "Read Code"
+    },
+    {
+      "name": "download_sample",
+      "value": "Download"
+    },
+    {
+      "name": "module_nonexistent",
+      "value": "module does not exist"
+    },
+    {
+      "name": "internet_error",
+      "value": "network is not connected"
+    },
+    {
+      "name": "requestinfo_error",
+      "value": "request information error"
+    },
+    {
+      "name": "installing_status",
+      "value": "installing"
+    },
+    {
+      "name": "swiper_gesture",
+      "value": "please do not switch during download"
+    },
+    {
+      "name": "watch_prompt",
+      "value": "This case only supports the watch side, welcome to experience"
+    },
+    {
+      "name": "client_prompt",
+      "value": "Sample in HarmonyOS supports 1+8 multi-device operation. Welcome to experience it"
+    }
+  ]
+}
