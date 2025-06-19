@@ -49,9 +49,9 @@
           "sampleCards": [
             {
               "id": 60,
-              "cardTitle": "HMOS世界 示例代码合集",
+              "cardTitle": "HarmonyOS代码工坊",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_green.png",
+              "cardImage": "image/common/sample_card_background_blue.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -61,7 +61,7 @@
                   "cardId": 25,
                   "mediaType": 1,
                   "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
-                  "title": "HMOS世界 示例代码合集",
+                  "title": "HarmonyOS代码工坊",
                   "subTitle": "",
                   "tags": [
                     "该案例已支持多设备"
@@ -71,10 +71,33 @@
               ]
             },
             {
+              "id": 63,
+              "cardTitle": "HarmonyOS代码工坊(手表版)",
+              "cardStyleType": 5,
+              "cardImage": "image/common/sample_card_background_green.png",
+              "version": 1000000,
+              "detailCardId": 35,
+              "sampleContents": [
+                {
+                  "id": 63,
+                  "type": 2,
+                  "cardId": 28,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
+                  "title": "HarmonyOS代码工坊(手表版)",
+                  "subTitle": "",
+                  "tags": [
+                    "使用Watch5体验完整效果"
+                  ],
+                  "order": 1
+                }
+              ]
+            },
+            {
               "id": 61,
               "cardTitle": "三折叠，怎么折都有面",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_blue.png",
+              "cardImage": "image/common/sample_card_background_pink.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -97,7 +120,7 @@
               "id": 62,
               "cardTitle": "扩感导航，视野更清晰",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_pink.png",
+              "cardImage": "image/common/sample_card_background_green.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -120,7 +143,7 @@
               "id": 64,
               "cardTitle": "碰一碰视频快速分享",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_blue.png",
+              "cardImage": "image/common/sample_card_background_pink.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -143,7 +166,7 @@
               "id": 65,
               "cardTitle": "视频投播更便捷",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_pink.png",
+              "cardImage": "image/common/sample_card_background_blue.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -166,7 +189,7 @@
               "id": 66,
               "cardTitle": "跨设备内容编辑新体验",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_green.png",
+              "cardImage": "image/common/sample_card_background_pink.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -181,29 +204,6 @@
                   "tags": [
                     "分布式照相机",
                     "键鼠穿越"
-                  ],
-                  "order": 1
-                }
-              ]
-            },
-            {
-              "id": 63,
-              "cardTitle": "HMOS世界(手表版)",
-              "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_pink.png",
-              "version": 1000000,
-              "detailCardId": 35,
-              "sampleContents": [
-                {
-                  "id": 63,
-                  "type": 2,
-                  "cardId": 28,
-                  "mediaType": 1,
-                  "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
-                  "title": "HMOS世界(手表版)",
-                  "subTitle": "",
-                  "tags": [
-                    "使用Watch5体验完整效果"
                   ],
                   "order": 1
                 }

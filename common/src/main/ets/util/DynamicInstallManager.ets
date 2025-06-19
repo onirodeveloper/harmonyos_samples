@@ -14,16 +14,22 @@
  */
 
 import type { common, StartOptions } from '@kit.AbilityKit';
+import { display } from '@kit.ArkUI';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
 import { moduleInstallManager } from '@kit.StoreKit';
-import { display } from '@kit.ArkUI';
-import { CommonConstants } from '../../../../Index';
 import Logger from './Logger';
+import { CommonConstants } from '../constant/CommonConstants';
 
 const DOWNLOAD_TIMEOUT_LIMIT: number = 1800;
 const TAG: string = '[DynamicInstallManager]';
 
 export class DynamicInstallManager {
+  private static aVAbilityList: string[] = [
+    'KnocksharesampleAbility',
+    'VideocastsampleAbility',
+    'AudiointeractionsampleAbility',
+  ];
+
   public static getModuleStatus(moduleName: string): moduleInstallManager.InstallStatus {
     const result: moduleInstallManager.InstalledModule = moduleInstallManager.getInstalledModule(moduleName);
     Logger.info(TAG, `getModuleStatus moduleName: ${result.moduleName}, installStatus: ${result.installStatus}`);
@@ -95,9 +101,20 @@ export class DynamicInstallManager {
   public static loadModule(context: common.UIAbilityContext, moduleAbility: string): Promise<void> {
     return new Promise((resolve: (value: void) => void, reject: (reason?: BusinessError) => void) => {
       try {
+        const isAVAbility: boolean = DynamicInstallManager.aVAbilityList.includes(moduleAbility);
+        const isSameAbility: boolean = (moduleAbility === AppStorage.get('AVAbilityModule'));
+        const aVAbilityContext: common.UIAbilityContext =
+          AppStorage.get<common.UIAbilityContext>('AVAbilityContext') as common.UIAbilityContext;
+        if (isAVAbility && !isSameAbility && aVAbilityContext) {
+          aVAbilityContext.terminateSelf();
+          AppStorage.delete('AVAbilityContext');
+        }
         const option: StartOptions = DynamicInstallManager.setStartAbilityProperty();
         context.startAbility({ bundleName: context.abilityInfo.bundleName, abilityName: moduleAbility }, option)
           .then(() => {
+            if (isAVAbility) {
+              AppStorage.setOrCreate('AVAbilityModule', moduleAbility);
+            }
             Logger.info(TAG, `start ${moduleAbility} success}`);
             resolve();
           })
@@ -115,17 +132,17 @@ export class DynamicInstallManager {
 
   public static setStartAbilityProperty(): StartOptions {
     const displayData = display.getDefaultDisplaySync();
-    const windowWidth = displayData.width * CommonConstants.WINDOW_RATIO;
+    const windowWidth = displayData.availableWidth * CommonConstants.WINDOW_RATIO;
     const windowHeight = displayData.availableHeight * CommonConstants.WINDOW_RATIO;
-    const windowLeft = (windowWidth - CommonConstants.WINDOW_RATIO * windowWidth) / 2.0;
-    const windowTop = (windowHeight - CommonConstants.WINDOW_RATIO * windowHeight) / 2.0;
+    const windowLeft = (displayData.availableWidth - windowWidth) / 2.0;
+    const windowTop = (displayData.availableHeight - windowHeight) / 2.0;
     const option: StartOptions = {
-      minWindowWidth: CommonConstants.MIN_WINDOW_WIDTH,
-      minWindowHeight: CommonConstants.MIN_WINDOW_HEIGHT,
+      minWindowWidth: Math.min(px2vp(windowWidth), CommonConstants.MIN_WINDOW_WIDTH),
+      minWindowHeight: Math.min(px2vp(windowHeight), CommonConstants.MIN_WINDOW_HEIGHT),
       windowLeft: windowLeft,
       windowTop: windowTop,
       windowWidth: windowWidth,
-      windowHeight: windowHeight
+      windowHeight: windowHeight,
     };
     return option;
   }

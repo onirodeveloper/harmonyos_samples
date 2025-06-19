@@ -9,17 +9,31 @@
       "sampleDetail": [
         {
           "id": 60,
-          "title": "HMOS世界 示例代码合集",
-          "desc": "HMOS世界App是华为官方出品的一款大型开源开发示范应用。",
+          "title": "HarmonyOS代码工坊",
+          "desc": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
           "preInstalled": true,
           "sampleType": "commonClient",
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
-          "originalUrl": "",
+          "originalUrl": "https://gitee.com/harmonyos_samples/sample_in_harmonyos/blob/master/README.md",
           "moduleName": "",
           "abilityName": "",
           "order": 1
+        },
+        {
+          "id": 63,
+          "title": "HarmonyOS代码工坊(手表版)",
+          "desc": "HarmonyOS代码工坊手表开发案例。",
+          "preInstalled": true,
+          "sampleType": "wearableClient",
+          "isFavorite": false,
+          "mediaType": 1,
+          "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
+          "originalUrl": "https://gitee.com/harmonyos_samples/sample_in_harmonyos/blob/master/README.md",
+          "moduleName": "",
+          "abilityName": "",
+          "order": 7
         },
         {
           "id": 61,
@@ -90,20 +104,6 @@
           "moduleName": "continuepublishsample",
           "abilityName": "ContinuepublishsampleAbility",
           "order": 6
-        },
-        {
-          "id": 63,
-          "title": "HMOS世界(手表版)",
-          "desc": "HMOS世界手表开发案例。",
-          "preInstalled": true,
-          "sampleType": "wearableClient",
-          "isFavorite": false,
-          "mediaType": 1,
-          "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
-          "originalUrl": "",
-          "moduleName": "",
-          "abilityName": "",
-          "order": 7
         }
       ]
     },

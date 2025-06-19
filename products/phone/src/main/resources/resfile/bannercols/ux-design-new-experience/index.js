@@ -159,9 +159,9 @@ liList.forEach((item, index) => {
 });
 
 function setBottomBg() {
-  if (window.innerWidth < 600) {
+  if (window.innerWidth < 840) {
     designImg.src = designImgListNormal[liActive];
-  } else if (window.innerWidth >= 600 && window.innerWidth < 1200) {
+  } else if (window.innerWidth >= 840 && window.innerWidth < 1440) {
     designImg.src = designImgListWide[liActive];
   } else {
     designImg.src = designImgListLarge[liActive];

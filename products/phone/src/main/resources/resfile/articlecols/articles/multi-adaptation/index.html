@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0" />
-  <title>一多适配</title>
+  <title>HMOS代码工坊一多开发实践</title>
   <link rel="stylesheet" href="../../common/dist/main.css">
   <link rel="stylesheet" href="../../common/css/article.css">
   <style>
@@ -17,17 +17,17 @@
 <body>
   <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002189455958"><a name="ZH-CN_TOPIC_0000002189455958"></a><a
       name="ZH-CN_TOPIC_0000002189455958"></a>
-    <h1 class="topictitle1"><span class="topictitlenumber1">1</span> 一多适配</h1>
+    <h1 class="topictitle1"><span class="topictitlenumber1">1</span>HMOS代码工坊一多开发实践</h1>
     <div class="topicbody" id="body0000002189455958">
       <p id="ZH-CN_TOPIC_0000002189455958__p118001879175">
-        HMOS世界是一个基于开发者技术演进的大型代码工程最佳实践；该应用以开发者技术地图为根，体现HarmonyOS家族式的UX设计，用来展示HarmonyOS亮点特性、关键体验特征、生态创新场景、高频开发场景等；本应用除了能在手机端正常运行，也通过“一次开发，多端部署”的原则，实现了Pad和PC/2in1的适配。下边简要介绍下在开发过程中一多的适配过程。
+        HarmonyOS代码工坊是一个基于开发者技术演进的大型代码工程最佳实践；该应用以开发者技术地图为根，体现HarmonyOS家族式的UX设计，用来展示HarmonyOS亮点特性、关键体验特征、生态创新场景、高频开发场景等；本应用除了能在手机端正常运行，也通过“一次开发，多端部署”的原则，实现了Pad和PC/2in1的适配。下边简要介绍下在开发过程中一多的适配过程。
       </p>
     </div>
     <div>
       <ul class="ullinks">
         <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002125935186">1.1 一多应用开发流程</a></strong><br>
         </li>
-        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002159756417">1.2 HMOS世界一多适配过程</a></strong><br>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002159756417">1.2 HarmonyOS代码工坊一多适配过程</a></strong><br>
         </li>
         <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002124320948">1.3 总结</a></strong><br>
         </li>
@@ -56,20 +56,20 @@
               rel="noopener noreferrer">响应式布局</a>能力来实现同一页面在不同设备上的不同显示效果，同时建议开发者多使用自定义组件，这样在增加代码可读性和可维护性的同时也可以尽可能的实现代码复用。
           </li>
         </ul>
-        <p id="ZH-CN_TOPIC_0000002125935186__p103294615563">下面从UX设计、工程管理和页面开发三个方面来介绍HMOS世界应用的一多开发过程。</p>
+        <p id="ZH-CN_TOPIC_0000002125935186__p103294615563">下面从UX设计、工程管理和页面开发三个方面来介绍HarmonyOS代码工坊应用的一多开发过程。</p>
       </div>
       <div></div>
     </div>
     <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159756417"><a
         name="ZH-CN_TOPIC_0000002159756417"></a><a name="ZH-CN_TOPIC_0000002159756417"></a>
-      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> HMOS世界一多适配过程</h2>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> HarmonyOS代码工坊一多适配过程</h2>
       <div class="topicbody" id="body0000002159756417"></div>
       <div></div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002186745681"><a
           name="ZH-CN_TOPIC_0000002186745681"></a><a name="ZH-CN_TOPIC_0000002186745681"></a>
         <h3 class="topictitle3"><span class="topictitlenumber3">1.2.1</span> UX设计</h3>
         <div class="topicbody" id="body0000002186745681">
-          <p id="ZH-CN_TOPIC_0000002186745681__ZH-CN_TOPIC_0000002186745681_mMcCpPsS_p8060118">HMOS世界UX设计相关内容，参考UX设计技术文章
+          <p id="ZH-CN_TOPIC_0000002186745681__ZH-CN_TOPIC_0000002186745681_mMcCpPsS_p8060118">HarmonyOS代码工坊UX设计相关内容，参考UX设计技术文章
           </p>
         </div>
       </div>
@@ -77,7 +77,7 @@
           name="ZH-CN_TOPIC_0000002126157984"></a><a name="ZH-CN_TOPIC_0000002126157984"></a>
         <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> 工程管理</h3>
         <div class="topicbody" id="body0000002126157984">
-          <p id="ZH-CN_TOPIC_0000002126157984__p3973278311">HMOS世界根据一多推荐的common（公共能力层）、feature（基础特性层）、product（产品定制层）的“<a
+          <p id="ZH-CN_TOPIC_0000002126157984__p3973278311">HarmonyOS代码工坊根据一多推荐的common（公共能力层）、feature（基础特性层）、product（产品定制层）的“<a
               href="article_multidevice_6"
               target="_blank" rel="noopener noreferrer">分层架构设计规则</a>”划分目录。</p>
           <pre class="screen" id="ZH-CN_TOPIC_0000002126157984__screen487343773311">&#9500;&#9472;common                  // 公共能力模块
@@ -456,7 +456,7 @@ Flex({
             name="ZH-CN_TOPIC_0000002159759049"></a><a name="ZH-CN_TOPIC_0000002159759049"></a>
           <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.6</span> 资源使用</h4>
           <div class="topicbody" id="body0000002159759049">
-            <p id="ZH-CN_TOPIC_0000002159759049__p686611165225">HMOS世界中，各个页面在多端显示的效果不同，使用的资源也需要随着屏幕尺寸变化，推荐使用<a
+            <p id="ZH-CN_TOPIC_0000002159759049__p686611165225">HarmonyOS代码工坊中，各个页面在多端显示的效果不同，使用的资源也需要随着屏幕尺寸变化，推荐使用<a
                 href="article_multidevice_9"
                 target="_blank" rel="noopener noreferrer">媒体查询</a>获取资源的方式来做适配，借助媒体查询中的<a
                 href="article_multidevice_7"
@@ -569,7 +569,7 @@ export function NoNetworkView(breakpoint: BreakpointTypeEnum, handleReload?: () 
       <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 总结</h2>
       <div class="topicbody" id="body0000002124320948">
         <p id="ZH-CN_TOPIC_0000002124320948__p16700352151615">
-          本文通过组件、样例、实践和组件详情页等几个典型场景，介绍了HMOS世界中关于“一多”开发的适配过程。由上文可以看出几种常用组件在一多适配过程中适用的典型场景如下：</p>
+          本文通过组件、样例、实践和组件详情页等几个典型场景，介绍了HarmonyOS代码工坊中关于“一多”开发的适配过程。由上文可以看出几种常用组件在一多适配过程中适用的典型场景如下：</p>
         <ul id="ZH-CN_TOPIC_0000002124320948__ul764783181914">
           <li id="ZH-CN_TOPIC_0000002124320948__li19647435192">List：每个item宽高一致，只有不同断点下展示的列数不同。</li>
           <li id="ZH-CN_TOPIC_0000002124320948__li137810217204">WaterFlow： 每个item宽度一致，高度不同，在不同断电下展示的列数不同。</li>

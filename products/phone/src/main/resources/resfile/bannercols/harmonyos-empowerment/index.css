@@ -12,7 +12,6 @@ html {
   margin: 108px auto 0;
   background-color: #f3f4f6;
   min-width: 302px;
-  max-width: 730px;
   overflow: scroll;
   scrollbar-width: none;
 }
@@ -65,7 +64,6 @@ html {
 .chapter-img {
   position: absolute;
   top: 0;
-  width: 740px;
   height: 1206px;
   left: 50%;
   transform: translateX(-50%); /* 水平向左移动自身宽度的50% */
@@ -133,7 +131,6 @@ html {
 }
 
 .catalog-container {
-  max-width: 730px;
   margin: 16px 24px 0 24px;
   padding: 12px 12px 0 12px;
   background-color: rgba(255, 255, 255, 0.4);
@@ -178,12 +175,6 @@ html {
 
 .footerImg {
   max-width: 328px;
-}
-
-@media screen and (min-width: 600px) {
-  .footerImg {
-    max-width: calc(1.2 * 328px);
-  }
 }
 
 @media screen and (min-width: 350px) {
