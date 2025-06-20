@@ -1,6 +1,6 @@
 {
     "continue_1": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-continuation-guide#section17575828642",
-    "continue_2": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-application-connection-release#section88801052142317",
+    "continue_2": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-continue",
     "continue_3": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-content-creation#section1973014141516",
     "continue_4": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-application-continue-progess#section16702516134216",
     "continue_5": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-application-continue-progess#section12439210434",
@@ -54,7 +54,7 @@
     "safety_27": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/select-user-file#选择音频类文件",
     "safety_28": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/save-user-file#保存音频类文件",
     "safety_29": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/system-security",
-    "safety_30": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-privacy-security",
+    "safety_30": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-app-data-security",
     "shared_1": "https://developer.huawei.com/consumer/cn/doc/design-guides/transition-animation-0000001750078488",
     "shared_2": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-shared-element-transition",
     "shared_3": "https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-one-shot-to-the-end",
