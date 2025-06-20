@@ -19,11 +19,12 @@ HarmonyOS代码工坊承载鸿蒙应用架构最佳实践，支持1+8设备运�
 
 【效果图】
 ![image](hmosword-build/image/9.png)
-![image](hmosword-build/image/10.png)
+![image](hmosword-build/image/10.PNG)
 @联系我们 
 
 HarmonyOS代码工坊相关开发案例正在陆续更新中，您还期待我们为您提供什么样的开发案例，或还有什么宝贵意见，欢迎联系我们，非常期待您的反馈和建议，以促进我们不断改进！
 - 官方邮箱：hmosworld@huawei.com
+- 意见反馈：https://www.wjx.cn/vm/rXBoIC0.aspx
 
 ## 二、功能介绍（手机、折叠屏、平板、PC/2in1）
 ### 组件库首页
