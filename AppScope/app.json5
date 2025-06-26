@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.huawei.hmos.world",
+    "bundleName": "com.huawei.hmos.sample",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",
