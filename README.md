@@ -11,7 +11,9 @@
 其中内置集成华为官方优质Samples示例代码，覆盖高频的鸿蒙应用开发场景，并支持源码的一键分享，给开发者提供所见即所得的样例代码，支撑开发者高效完成鸿蒙应用的开发。
 
 【应用市场下载】 
-- 下载地址：https://appgallery.huawei.com/app/detail?id=com.huawei.hmos.world&channelId=SHARE 
+- 下载地址：
+
+  ![image](hmosword-build/image/download_small.png)
 
 【代码开源地址】
 - 「HarmonyOS代码工坊」源码地址：https://gitee.com/harmonyos_samples/sample_in_harmonyos
