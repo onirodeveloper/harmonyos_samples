@@ -13,14 +13,15 @@
  * limitations under the License.
  */
 
-import { EmptyContentView, LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView } from '@ohos/common';
+import { EmptyContentView, LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView,
+  StorageKey } from '@ohos/common';
 import type { GlobalInfoModel, LoadingModel } from '@ohos/common';
 
 @Component
 export struct BaseCategoryView {
   @Prop @Require loadingModel: LoadingModel;
   @BuilderParam @Require contentView: () => void;
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   scroller: Scroller = new Scroller();
   reloadData?: Function;
 

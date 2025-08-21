@@ -91,7 +91,11 @@ struct ArticleDetailView {
   }
 
   popAction(isAnimation: boolean) {
-    this.webController.onInactive();
+    try {
+      this.webController.onInactive();
+    } catch {
+      Logger.error(TAG, `PopAction onInactive failed.`);
+    }
     this.viewModel.sendEvent<PopParam>({
       type: ExplorationDetailEventType.POP,
       param: { animation: isAnimation, tabBarView: -1 },

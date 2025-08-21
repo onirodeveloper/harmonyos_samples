@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { FeedItem } from './FeedItem';
 
 @Component
 export struct FeedCard {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop @Require discoverContents: DiscoverContent[];
   handleItemClick?: Function;
 

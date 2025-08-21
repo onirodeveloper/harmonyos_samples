@@ -46,7 +46,7 @@ export class TextInputCodeGenerator implements CommonCodeGenerator {
 struct TextInputComponent {
   build() {
    Column() {
-    TextInput({ text: '开发者你好', placeholder: '请输入' })
+    TextInput({ placeholder: '请输入文字' })
       .margin({ left: 36, right: 36 })
       .height(48)
       .enterKeyType(EnterKeyType.Done)

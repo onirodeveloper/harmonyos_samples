@@ -31,7 +31,8 @@ export class AlertDialogCodeGenerator implements CommonCodeGenerator {
           break;
       }
     });
-    return `import { promptAction } from '@kit.ArkUI';
+    return `// AlertDialog.ets
+import type { BusinessError } from '@kit.BasicServicesKit';
 
 @Component
 struct AlertDialogComponent {
@@ -43,7 +44,8 @@ struct AlertDialogComponent {
         .fontSize($r('sys.float.Body_L'))
         .fontColor($r('sys.color.font_emphasize'))
         .onClick(() => {
-          AlertDialog.show(
+          const uiContext: UIContext = this.getUIContext();
+          uiContext.showAlertDialog(
             {
               title: '标题',
               subtitle: '副标题',
@@ -57,7 +59,7 @@ struct AlertDialogComponent {
                   value: '按钮1',
                   action: () => {
                     try {
-                      promptAction.showToast({
+                      uiContext.getPromptAction().showToast({
                         message: 'Callback when button1 is clicked',
                         duration: 2000
                       });
@@ -71,7 +73,7 @@ struct AlertDialogComponent {
                   value: '按钮2',
                   action: () => {
                     try {
-                      promptAction.showToast({
+                      uiContext.getPromptAction().showToast({
                         message: 'Callback when button2 is clicked',
                         duration: 2000
                       });

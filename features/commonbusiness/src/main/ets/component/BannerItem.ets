@@ -14,14 +14,14 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, ProductSeriesEnum } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 
 @Reusable
 @Component
 export struct BannerItem {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @State bannerData?: BannerData = undefined;
 
   aboutToReuse(params: Record<string, BannerData>): void {

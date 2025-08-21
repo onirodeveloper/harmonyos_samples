@@ -20,6 +20,7 @@ import type { DiscoverContent } from '../model/DiscoverData';
 @Component
 export struct ExperienceItem {
   @Prop discoverContent: DiscoverContent;
+  @Prop hasPadding: boolean = false;
   @State bgTopColor: string = '';
   @State bgBottomColor: string = '';
 
@@ -51,7 +52,7 @@ export struct ExperienceItem {
       .padding({
         left: $r('sys.float.padding_level8'),
         right: $r('sys.float.padding_level8'),
-        bottom: $r('sys.float.padding_level8'),
+        bottom: this.hasPadding ? $r('sys.float.corner_radius_level16') : $r('sys.float.padding_level8'),
         top: $r('sys.float.padding_level6'),
       })
       .height($r('app.float.img_card_content_height'))

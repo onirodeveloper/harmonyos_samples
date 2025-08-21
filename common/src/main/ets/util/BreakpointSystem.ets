@@ -15,7 +15,7 @@
 
 import { display, window } from '@kit.ArkUI';
 import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
-import { ProductSeriesEnum } from '../constant/CommonEnums';
+import { ProductSeriesEnum, StorageKey } from '../constant/CommonEnums';
 import { BreakpointTypeEnum, GlobalInfoModel } from '../model/GlobalInfoModel';
 import Logger from './Logger';
 
@@ -78,9 +78,9 @@ export class BreakpointSystem {
   public updateCurrentBreakpoint(breakpoint: BreakpointTypeEnum): void {
     if (this.currentBreakpoint !== breakpoint) {
       this.currentBreakpoint = breakpoint;
-      const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel') || new GlobalInfoModel();
+      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
       globalInfoModel.currentBreakpoint = this.currentBreakpoint;
-      AppStorage.setOrCreate('GlobalInfoModel', globalInfoModel);
+      AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
     }
   }
 
@@ -92,7 +92,7 @@ export class BreakpointSystem {
     try {
       const mainWindow: window.WindowProperties = window.getWindowProperties();
       const windowWidth: number = mainWindow.windowRect.width;
-      const windowWidthVp = px2vp(windowWidth);
+      const windowWidthVp = window.getUIContext().px2vp(windowWidth);
       const deviceType = deviceInfo.productSeries;
       if (deviceType === ProductSeriesEnum.HPR) {
         this.updateCurrentBreakpoint(BreakpointTypeEnum.XL);

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { BundleInfoData } from '@ohos/common';
+import { BundleInfoData, StorageKey } from '@ohos/common';
 import type { AboutState } from '../viewmodel/AboutState';
 import { AboutVM, CheckVersionEvent, UpdateVersionEvent } from '../viewmodel/AboutVM';
 
@@ -48,7 +48,7 @@ export struct AboutItemCard {
             .fontColor($r('sys.color.font_primary'))
         }
 
-        Text(AppStorage.get<BundleInfoData>('BundleInfoData')?.versionName as string)
+        Text(AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO)?.versionName as string)
           .margin({ top: $r('sys.float.padding_level2') })
           .fontWeight(FontWeight.Regular)
           .fontSize($r('sys.float.Subtitle_S'))

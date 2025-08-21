@@ -17,7 +17,7 @@
 export function NoMore() {
   Row() {
     Divider()
-      .color($r('sys.color.ohos_id_color_text_field_sub_bg'))
+      .color($r('sys.color.comp_background_tertiary'))
       .height(1)
       .layoutWeight(1)
     Text($r('app.string.no_more'))
@@ -25,7 +25,7 @@ export function NoMore() {
       .fontSize($r('sys.float.Caption_M'))
       .margin($r('sys.float.padding_level6'))
     Divider()
-      .color($r('sys.color.ohos_id_color_text_field_sub_bg'))
+      .color($r('sys.color.comp_background_tertiary'))
       .height(1)
       .layoutWeight(1)
   }

@@ -15,7 +15,7 @@
 
 import type { common, Want } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { BundleInfoData } from '@ohos/common';
+import { BundleInfoData, StorageKey } from '@ohos/common';
 import { BaseVM, BaseVMEvent, ConfigMapKey, Logger, ResourceUtil, UpdateService } from '@ohos/common';
 import { AboutState } from './AboutState';
 
@@ -42,7 +42,8 @@ export class AboutVM extends BaseVM<AboutState> {
     } else if (event instanceof UpdateVersionEvent) {
       this.updateVersion();
     } else if (event instanceof ViewRegistrationInfoEvent) {
-      const context: common.UIAbilityContext = getContext() as common.UIAbilityContext;
+      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
       this.jumpToBrowser(context);
     }
   }
@@ -50,7 +51,7 @@ export class AboutVM extends BaseVM<AboutState> {
   private checkVersion(): void {
     this.updateService.checkUpdate().then((existNewVersion: boolean) => {
       this.state.laterVersionExist = existNewVersion;
-      this.state.currentVersion = AppStorage.get<BundleInfoData>('BundleInfoData')?.versionName as string;
+      this.state.currentVersion = AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO)?.versionName as string;
     });
   }
 
@@ -62,10 +63,11 @@ export class AboutVM extends BaseVM<AboutState> {
   }
 
   private jumpToBrowser(context: common.UIAbilityContext): void {
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
     const want: Want = {
       action: 'ohos.want.action.viewData',
       entities: ['entity.system.browsable'],
-      uri: ResourceUtil.getRawFileStringByKey(getContext(), ConfigMapKey.MIIT_URL),
+      uri: ResourceUtil.getRawFileStringByKey(uiContext.getHostContext() as Context, ConfigMapKey.MIIT_URL),
     };
     context.startAbility(want)
       .then(() => {

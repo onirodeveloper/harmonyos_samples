@@ -22,7 +22,7 @@ import type { ColorPickerAttribute } from '../viewmodel/ComponentDetailState';
 @Component
 export struct ColorPickerComponent {
   @ObjectLink attribute: ColorPickerAttribute;
-  callback: (name: string, value: string) => void = (name: string, value: string) => {
+  callback: (name: string, value: string, mode?: SliderChangeMode) => void = (name: string, value: string) => {
   };
 
   build() {
@@ -45,18 +45,18 @@ export struct ColorPickerComponent {
           const curentValue: string = ColorPickerUtil.getBlockColor(value);
           if (this.attribute.currentValue !== String(curentValue)) {
             this.attribute.currentValue = curentValue;
-            this.callback(this.attribute.name, curentValue);
+            this.callback(this.attribute.name, curentValue, mode);
           }
         })
         .selectedColor(Color.Transparent)
         .trackColor(new LinearGradient([
           { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: 0 },
-          { color: ColorPickerUtil.setRgba(255, 255, 0, 1.00), offset: 1 / 6 },
-          { color: ColorPickerUtil.setRgba(0, 255, 0, 1.00), offset: 2 / 6 },
-          { color: ColorPickerUtil.setRgba(8, 255, 255, 1.00), offset: 3 / 6 },
-          { color: ColorPickerUtil.setRgba(0, 0, 255, 1.00), offset: 4 / 6 },
-          { color: ColorPickerUtil.setRgba(255, 0, 255, 1.00), offset: 5 / 6 },
-          { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: 1 },
+          { color: ColorPickerUtil.setRgba(255, 255, 0, 1.00), offset: ColorPickerUtil.SEGMENT_1 },
+          { color: ColorPickerUtil.setRgba(0, 255, 0, 1.00), offset: ColorPickerUtil.SEGMENT_2 },
+          { color: ColorPickerUtil.setRgba(0, 255, 255, 1.00), offset: ColorPickerUtil.SEGMENT_3 },
+          { color: ColorPickerUtil.setRgba(0, 0, 255, 1.00), offset: ColorPickerUtil.SEGMENT_4 },
+          { color: ColorPickerUtil.setRgba(255, 0, 255, 1.00), offset: ColorPickerUtil.SEGMENT_5 },
+          { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: ColorPickerUtil.SEGMENT_6 },
         ]))
         .sliderInteractionMode(SliderInteraction.SLIDE_AND_CLICK_UP)
         .trackThickness($r('app.float.slider_track_thick_large'))

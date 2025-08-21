@@ -31,18 +31,19 @@ export function DocumentViewPickerBuilder(_$$: DescriptorWrapper) {
 struct DocumentViewPickerComponent {
   @State message: string = '';
   @State title: string = '';
+  private uiContext: UIContext = this.getUIContext();
+  private context: Context = this.getUIContext().getHostContext() as common.Context;
 
   readFile() {
-    const context = getContext(this) as common.Context;
     try {
       const documentSelectOptions = new picker.DocumentSelectOptions();
-      const documentPicker = new picker.DocumentViewPicker(context);
+      const documentPicker = new picker.DocumentViewPicker(this.context);
       documentPicker.select(documentSelectOptions).then((documentSelectResult: string[]) => {
         if (documentSelectResult.length === 0) {
           return;
         }
         this.message = JSON.stringify(documentSelectResult);
-        this.getUIContext().showAlertDialog(
+        this.uiContext.showAlertDialog(
           {
             title: $r('app.string.File_path'),
             message: this.message,

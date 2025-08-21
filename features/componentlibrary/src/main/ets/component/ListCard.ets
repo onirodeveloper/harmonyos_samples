@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, CommonConstants } from '@ohos/common';
 import type { ComponentCardData, ComponentContent } from '../model/ComponentData';
 import { ComponentItem } from './ComponentItem';
@@ -21,7 +21,7 @@ import { ComponentItem } from './ComponentItem';
 @Reusable
 @Component
 export struct ListCard {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @State componentCardData?: ComponentCardData = undefined;
   handleItemClick?: (componentContent: ComponentContent) => void;
 

@@ -14,10 +14,9 @@
  */
 
 import type { common } from '@kit.AbilityKit';
-import { promptAction } from '@kit.ArkUI';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import { camera, cameraPicker } from '@kit.CameraKit';
-import { Logger } from '@ohos/common';
+import { Logger, Toast } from '@ohos/common';
 import type { CameraPickerDescriptor } from '../viewmodel/CameraPickerDescriptor';
 
 const TAG: string = '[CameraPickerBuilder]';
@@ -31,12 +30,12 @@ export struct CameraPickerComponent {
   @State isFilled: boolean = false;
   @State cameraNum: number = 0;
   private controller: VideoController = new VideoController();
+  private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   aboutToAppear() {
-    const context: common.UIAbilityContext = getContext() as common.UIAbilityContext;
     let cameraManager: camera.CameraManager;
     try {
-      cameraManager = camera.getCameraManager(context);
+      cameraManager = camera.getCameraManager(this.context);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       Logger.error(TAG, `GetCameraManager error, the code is ${error.code}, the message is ${error.message}`);
@@ -74,12 +73,8 @@ export struct CameraPickerComponent {
         .onClick(async () => {
           // some device did not have any camera.
           if (this.cameraNum === 0) {
-            try {
-              promptAction.showToast({ message: $r('app.string.device_camera') });
-            } catch (err) {
-              const error: BusinessError = err as BusinessError;
-              Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-            }
+            Toast.showToast($r('app.string.device_camera'));
+
             return;
           }
           try {
@@ -87,7 +82,8 @@ export struct CameraPickerComponent {
               cameraPosition: camera.CameraPosition.CAMERA_POSITION_BACK,
             };
             const pickerResult: cameraPicker.PickerResult =
-              await cameraPicker.pick(getContext(), this.cameraPickerDescriptor.mediaTypes, pickerProfile);
+              await cameraPicker.pick(this.context, this.cameraPickerDescriptor.mediaTypes,
+                pickerProfile);
             if (pickerResult.resultCode === CODE_SUCC) {
               this.isFilled = true;
               this.uri = pickerResult.resultUri;

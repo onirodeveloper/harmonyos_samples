@@ -13,10 +13,7 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
-import { DetailPageConstant } from '../../../constant/DetailPageConstant';
+import { Toast } from '@ohos/common';
 import { ButtonAttributeModifier } from '../viewmodel/ButtonAttributeModifier';
 import type { ButtonDescriptor } from '../viewmodel/ButtonDescriptor';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
@@ -28,30 +25,14 @@ export function ButtonBuilder($$: DescriptorWrapper) {
   Button($r('app.string.button_text'))
     .onClick(() => {
       if (($$.descriptor as ButtonDescriptor).operation === 'Click') {
-        try {
-          promptAction.showToast({
-            message: $r('app.string.btn_click'),
-            duration: DetailPageConstant.LONG_DURATION,
-          });
-        } catch (err) {
-          const error: BusinessError = err as BusinessError;
-          Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-        }
+        Toast.showLongToast($r('app.string.btn_click'));
       }
     })
     .gesture(
       LongPressGesture({ repeat: true })
         .onActionEnd((_event: GestureEvent) => {
           if (($$.descriptor as ButtonDescriptor).operation === 'LongGesture') {
-            try {
-              promptAction.showToast({
-                message: $r('app.string.button_text2'),
-                duration: DetailPageConstant.LONG_DURATION
-              });
-            } catch (err) {
-              const error: BusinessError = err as BusinessError;
-              Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-            }
+            Toast.showLongToast($r('app.string.button_text2'));
           }
         })
     )

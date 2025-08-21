@@ -63,7 +63,7 @@ export struct SliderComponent {
             width: $r('app.float.common_component_block_size'),
             height: $r('app.float.common_component_block_size'),
           })
-          .selectedColor($r('sys.color.icon_emphasize'))
+          .selectedColor($r('sys.color.comp_background_emphasize'))
           .trackThickness($r('app.float.common_component_track_thickness'))
           .padding({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
           .width('100%')

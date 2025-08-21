@@ -21,6 +21,7 @@ import {
   ModuleNameEnum,
   PageContext,
   ScrollDirectionEnum,
+  StorageKey,
   WebUtil
 } from '@ohos/common';
 import { CodePreviewState } from './CodePreviewState';
@@ -28,7 +29,7 @@ import { DetailPageConstant } from '../constant/DetailPageConstant';
 
 export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   private static instance: CodePreviewPageVM;
-  private globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
 
   constructor() {
     super(new CodePreviewState(0, 0, 1));
@@ -49,9 +50,8 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   }
 
   public pop(animated?: boolean): void {
-    const pageContext: PageContext =
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('componentListPageContext')! :
-        AppStorage.get('pageContext')!;
+    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.popPage(animated);
   }
 
@@ -66,11 +66,12 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   }
 
   private changeScrollDirection = (direction: string, offset: number): void => {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get<GlobalInfoModel>('GlobalInfoModel')!;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO)!;
     if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
       return;
     }
-    animateTo({
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    uiContext.animateTo({
       duration: 300,
       curve: Curve.EaseOut,
     }, () => {

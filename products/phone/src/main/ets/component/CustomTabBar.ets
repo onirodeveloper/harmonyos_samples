@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, CommonConstants } from '@ohos/common';
 import type { TabBarData } from '../model/TabBarModel';
 import { TABS_LIST } from '../model/TabBarModel';
 
 @Component
 export struct CustomTabBar {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('BlurRenderGroup') blurRenderGroup: boolean = false;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.BLUE_RENDER_GROUP) blurRenderGroup: boolean = false;
   @Prop @Require currentIndex: number;
   tabBarChange: (index: number) => void = (index: number) => {
   };

@@ -16,7 +16,7 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+import { Logger, PageContext, StorageKey } from '@ohos/common';
 
 const TAG = '[WearableAbility]';
 
@@ -29,14 +29,36 @@ export default class WearableAbility extends UIAbility {
     Logger.info(TAG, 'Ability onDestroy');
   }
 
+  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    Logger.info(TAG, `onNewWant`);
+    this.checkAndHandleParams(want);
+  }
+
+  checkAndHandleParams(want: Want): void {
+    Logger.info(TAG, `checkAndHandleParams`);
+    try {
+      if (want === null || want.parameters === null || want === undefined || want.parameters === undefined) {
+        return;
+      }
+    } catch (err) {
+      Logger.error(TAG, `checkAndHandleParams failed: ${err}`);
+    }
+  }
+
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     Logger.info(TAG, 'Ability onWindowStageCreate');
+    AppStorage.setOrCreate('pageContext', new PageContext());
 
-    windowStage.loadContent('pages/MainPage', (err: BusinessError) => {
+    windowStage.loadContent('pages/SplashPage', (err: BusinessError) => {
       if (err.code) {
         Logger.error(TAG, `Failed to load the content. Cause: ${err.code} ${err.message}`);
         return;
+      }
+      try {
+        AppStorage.setOrCreate<UIContext>(StorageKey.UI_CONTEXT, windowStage.getMainWindowSync().getUIContext());
+      } catch (error) {
+        Logger.error(TAG, `setHostUIContext failed ${error}`);
       }
       Logger.info(TAG, 'Succeeded in loading the content.');
     });

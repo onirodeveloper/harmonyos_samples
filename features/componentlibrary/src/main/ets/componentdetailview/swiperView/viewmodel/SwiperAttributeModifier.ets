@@ -23,6 +23,6 @@ export class SwiperAttributeModifier extends CommonAttributeModifier<SwiperDescr
     this.assignAttribute((descriptor => descriptor.vertical), (val) => instance.vertical(val));
     this.assignAttribute((descriptor => descriptor.effectMode), (val) => instance.effectMode(val));
     this.assignAttribute((descriptor => descriptor.displayArrow), (val) => instance.displayArrow(val));
-    this.assignAttribute((descriptor => descriptor.loop), (val) => instance.autoPlay(val));
+    this.assignAttribute((descriptor => descriptor.autoPlay), (val) => instance.autoPlay(val));
   }
 }

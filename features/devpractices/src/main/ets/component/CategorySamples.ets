@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, ColumnEnum, CommonConstants, LoadingMore, LoadingStatus, NoMore } from '@ohos/common';
 import { CardStyleTypeEnum, SampleDetailParams } from '@ohos/commonbusiness';
 import { SampleConstant } from '../common/SampleConstant';
@@ -29,7 +29,7 @@ import { SampleScrollCard } from './SampleScrollCard';
 export struct CategorySamples {
   scroller: Scroller = new Scroller();
   viewModel: PracticeViewModel = PracticeViewModel.getInstance();
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop sampleCategory: SampleCategory;
 
   aboutToAppear(): void {

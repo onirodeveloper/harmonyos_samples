@@ -45,18 +45,17 @@ struct CaptionComponent {
     let fileData: Uint8Array;
     this.isReading = true;
     try {
-      fileData = await getContext(this).resourceManager.getMediaContent($r('app.media.16k'));
+      // Here you need a voice file in PCM format, one that can clearly convey the text.
+      fileData = await this.getUIContext().getHostContext()!.resourceManager.getMediaContent($r('app.media.16k').id);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       console.error(\`GetMediaContent error, the code is \${error.code}, the message is \${error.message}\`);
       this.isReading = false;
       return;
     }
-    // Here you need a voice file in PCM format, one that can clearly convey the text.
     const bufferSize = 640;
     const byteLength = fileData.byteLength;
     let offset = 0;
-    const startTime = new Date().getTime();
     while (offset < byteLength) {
       let nextOffset = offset + bufferSize
       if (offset > byteLength) {
@@ -76,7 +75,6 @@ struct CaptionComponent {
       const waitTime = bufferSize / 32;
       await this.sleep(waitTime);
     }
-    const endTime = new Date().getTime();
     this.isReading = false;
   }
 

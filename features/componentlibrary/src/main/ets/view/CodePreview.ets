@@ -16,8 +16,15 @@
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { curves, window } from '@kit.ArkUI';
 import { BusinessError, settings } from '@kit.BasicServicesKit';
-import { type GlobalInfoModel, Logger, CommonConstants } from '@ohos/common';
-import { BreakpointTypeEnum, ScreenOrientation, WebNodeController, WebUtil, WindowUtil } from '@ohos/common';
+import { GlobalInfoModel, StorageKey, WebNodeController } from '@ohos/common';
+import {
+  BreakpointTypeEnum,
+  CommonConstants,
+  Logger,
+  ScreenOrientation,
+  WebUtil,
+  WindowUtil,
+} from '@ohos/common';
 import { CodePreviewComponent } from '../component/CodePreviewComponent';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 import { CodePreviewEvent, CodePreviewPageVM } from '../viewmodel/CodePreviewPageVM';
@@ -29,8 +36,9 @@ const ORIENTATION_LOCK_ON: string = '0';
 
 @Component
 export struct CodePreview {
-  @StorageLink('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') systemColorMode: ConfigurationConstant.ColorMode = AppStorage.get('systemColorMode')!;
+  @StorageLink(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   @State webNodeController?: WebNodeController = undefined;
   @State isFocus: boolean = false;
   @State isBack: boolean = false;
@@ -42,17 +50,18 @@ export struct CodePreview {
   private beginOrientationLockState?: string;
   private code: string = '';
   private componentName: string = '';
+  private context: Context =  this.getUIContext().getHostContext() as Context;
+  private uiContext: UIContext =  this.getUIContext();
 
   onBackPage(): void {
     this.isBack = true;
-    WindowUtil.updateStatusBarColor(getContext(this),
-      this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+    WindowUtil.updateStatusBarColor(this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
     this.javascriptRun();
-    this.webNodeController?.remove();
+    WebUtil.downPage(WebUtil.getComponentCodeUrl());
     this.webNodeController = undefined;
     this.resetScreenOrientation();
     this.preFinishAnimation();
-    animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
+    this.uiContext.animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
       this.viewModel?.pop(false);
     });
   }
@@ -72,9 +81,10 @@ export struct CodePreview {
   }
 
   aboutToDisappear(): void {
-    WindowUtil.setMainWindowOrientation(getContext(), window.Orientation.UNSPECIFIED);
+    WindowUtil.setMainWindowOrientation(window.Orientation.UNSPECIFIED);
     if (canIUse('SystemCapability.Applications.Settings.Core')) {
-      settings.unregisterKeyObserver(getContext(), settings.general.ACCELEROMETER_ROTATION_STATUS,
+      settings.unregisterKeyObserver(this.context,
+        settings.general.ACCELEROMETER_ROTATION_STATUS,
         settings.domainName.DEVICE_SHARED);
     }
   }
@@ -87,7 +97,7 @@ export struct CodePreview {
     }
     if (canIUse('SystemCapability.Applications.Settings.Core')) {
       this.beginOrientationLockState =
-        settings.getValueSync(getContext(), settings.general.ACCELEROMETER_ROTATION_STATUS,
+        settings.getValueSync(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS,
           settings.domainName.DEVICE_SHARED);
       this.registerKeyObserver();
     }
@@ -96,14 +106,14 @@ export struct CodePreview {
   private registerKeyObserver(): boolean {
     if (canIUse('SystemCapability.Applications.Settings.Core')) {
       try {
-        return settings.registerKeyObserver(getContext(), settings.general.ACCELEROMETER_ROTATION_STATUS,
+        return settings.registerKeyObserver(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS,
           settings.domainName.DEVICE_SHARED, () => {
             this.isOrientationLockChange = true;
           });
-      } catch (error) {
-        const err: BusinessError = error as BusinessError;
+      } catch (err) {
+        const error: BusinessError = err as BusinessError;
         Logger.error(TAG,
-          `RegisterKeyObserver ${settings.general.ACCELEROMETER_ROTATION_STATUS} error: ${err.code}, ${err.message}`);
+          `RegisterKeyObserver ${settings.general.ACCELEROMETER_ROTATION_STATUS} error: ${error.code}, ${error.message}`);
         return false;
       }
     }
@@ -114,9 +124,9 @@ export struct CodePreview {
     if (!this.isOrientationLockChange && this.beginOrientationLockState === ORIENTATION_LOCK_ON) {
       if (this.beginBreakpoint === BreakpointTypeEnum.LG || this.beginBreakpoint === BreakpointTypeEnum.MD) {
         if (this.beginScreenOrientation === ScreenOrientation.LANDSCAPE) {
-          WindowUtil.setMainWindowOrientation(getContext(), window.Orientation.LANDSCAPE);
+          WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE);
         } else {
-          WindowUtil.setMainWindowOrientation(getContext(), window.Orientation.PORTRAIT);
+          WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT);
         }
       }
     }

@@ -24,6 +24,7 @@ import {
   LoadingStatus,
   Logger,
   NativeActionData,
+  StorageKey,
   TopNavigationView,
   WebSheetBuilder,
   WebUtil,
@@ -46,9 +47,9 @@ export struct ArticleWebComponent {
   @Prop @Require detailsUrl: string;
   @Prop tabViewType: number = -1;
   @Link loadingStatus: LoadingStatus;
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   @State bindSheetShow: boolean = false;
   @State bindSheetSrc: string = '';
   @State detailState: ExplorationDetailState = this.viewModel.getState();
@@ -80,7 +81,7 @@ export struct ArticleWebComponent {
 
   handleColorModeChange() {
     const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    WindowUtil.updateStatusBarColor(getContext(this), isSystemDark);
+    WindowUtil.updateStatusBarColor(isSystemDark);
   }
 
   registerJsFunction() {
@@ -135,11 +136,9 @@ export struct ArticleWebComponent {
       .allowDrop(null)
       .onPageEnd(() => {
         this.loadingStatus = LoadingStatus.SUCCESS;
-        WebUtil.setTrustList(this.detailsUrl);
       })
       .onLoadIntercept((event: OnLoadInterceptEvent) => {
-        const tempUrl = event.data.getRequestUrl();
-        return WebUtil.checkUrl(tempUrl);
+        return WebUtil.handleLoadIntercept(event);
       })
       .onConsole((event: OnConsoleEvent) => {
         Logger.error(TAG, event.message.getMessage())
@@ -152,7 +151,9 @@ export struct ArticleWebComponent {
       .onControllerAttached(() => {
         WebUtil.setWebController(this.detailsUrl, this.webController);
         // Setting the local file path that allows cross-domain access.
-        this.webController.setPathAllowingUniversalAccess([getContext().resourceDir]);
+        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+        const context: Context = uiContext.getHostContext() as Context;
+        this.webController.setPathAllowingUniversalAccess([context.resourceDir]);
       })
       .onScroll((event) => {
         this.handleWebScroll(event.yOffset);

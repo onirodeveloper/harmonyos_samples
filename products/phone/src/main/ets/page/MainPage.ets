@@ -15,9 +15,8 @@
 
 import type { common } from '@kit.AbilityKit';
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { promptAction } from '@kit.ArkUI';
-import type { GlobalInfoModel } from '@ohos/common';
-import { BreakpointTypeEnum, CommonConstants, ProcessUtil, WindowUtil } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
+import { BreakpointTypeEnum, CommonConstants, ProcessUtil, Toast, WindowUtil } from '@ohos/common';
 import { TAB_CONTENT_STATUSES, TabBarType } from '@ohos/commonbusiness';
 import { ComponentListView } from '@ohos/componentlibrary';
 import { PracticesView } from '@ohos/devpractices';
@@ -35,9 +34,9 @@ export function MainPageBuilder() {
 
 @Component({ freezeWhenInactive: true })
 struct MainPage {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   @State currentIndex: number = 0;
   private tabController: TabsController = new TabsController();
   private backPressTime: number = 0;
@@ -83,29 +82,29 @@ struct MainPage {
   }
 
   aboutToAppear(): void {
-    AppStorage.setOrCreate('currentTabIndex', 0);
+    AppStorage.setOrCreate(StorageKey.CURRENT_TAB, 0);
   }
 
   onBackPress(): boolean {
     const newTime = new Date().getTime();
     if (this.backPressTime && newTime - this.backPressTime < PRESS_TIME) {
-      ProcessUtil.moveAbilityToBackground(getContext(this) as common.UIAbilityContext);
+      ProcessUtil.moveAbilityToBackground(this.getUIContext().getHostContext() as common.UIAbilityContext);
       return false;
     }
     this.backPressTime = newTime;
-    promptAction.showToast({ message: $r('app.string.back_toast'), duration: PRESS_TIME });
+    Toast.showToast($r('app.string.back_toast'));
     return true;
   }
 
   changeTabStatus(index: number) {
-    AppStorage.setOrCreate('currentTabIndex', index);
+    AppStorage.setOrCreate(StorageKey.CURRENT_TAB, index);
     const selectedIndex = index;
     const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
     if (selectedIndex === TabBarType.MINE || this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
       this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
-      WindowUtil.updateStatusBarColor(getContext(this), isSystemDark);
+      WindowUtil.updateStatusBarColor(isSystemDark);
     } else {
-      WindowUtil.updateStatusBarColor(getContext(this), isSystemDark || TAB_CONTENT_STATUSES[selectedIndex]);
+      WindowUtil.updateStatusBarColor(isSystemDark || TAB_CONTENT_STATUSES[selectedIndex]);
     }
   }
 
@@ -137,6 +136,7 @@ struct MainPage {
             Visibility.Visible)
         }
       }
+      .autoHide(false)
       .showSideBar(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL)
       .showControlButton(false)
     }
@@ -151,11 +151,11 @@ struct MainPage {
       this.isShown = true;
       this.handleColorModeChange();
       CommonConstants.PROMISE_WAIT(500).then(() => {
-        AppStorage.setOrCreate('BlurRenderGroup', false);
+        AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, false);
       })
     })
     .onHidden(() => {
-      AppStorage.setOrCreate('BlurRenderGroup', true);
+      AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, true);
       this.isShown = false;
     })
     .height('100%')
