@@ -13,14 +13,11 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+
+import { StorageKey, Toast } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { ActionSheetDescriptor } from '../viewmodel/ActionSheetDescriptor';
-
-const TAG: string = '[ActionSheetBuilder]';
 
 @Builder
 export function ActionSheetBuilder($$: DescriptorWrapper) {
@@ -30,7 +27,8 @@ export function ActionSheetBuilder($$: DescriptorWrapper) {
       .fontSize($r('sys.float.Body_L'))
       .fontColor($r('sys.color.font_emphasize'))
       .onClick(() => {
-        ActionSheet.show({
+        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+        uiContext.showActionSheet({
           title: $r('app.string.title'),
           subtitle: $r('app.string.subtitle'),
           message: $r('app.string.content'),
@@ -43,15 +41,7 @@ export function ActionSheetBuilder($$: DescriptorWrapper) {
             defaultFocus: true,
             value: $r('app.string.dialog_confirm'),
             action: () => {
-              try {
-                promptAction.showToast({
-                  message: $r('app.string.confirm_click'),
-                  duration: DetailPageConstant.LONG_DURATION,
-                });
-              } catch (err) {
-                const error: BusinessError = err as BusinessError;
-                Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-              }
+              Toast.showLongToast($r('app.string.confirm_click'));
             },
           },
           alignment: DialogAlignment.Center,

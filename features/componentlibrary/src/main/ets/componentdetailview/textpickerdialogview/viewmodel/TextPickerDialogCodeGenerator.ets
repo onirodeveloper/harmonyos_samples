@@ -15,11 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
-import {
-  canLoopMapData,
-  itemHeightMapData,
-  pickerDataCode,
-} from '../entity/TextDialogAttributeMapping';
+import { canLoopMapData, itemHeightMapData, pickerDataCode, } from '../entity/TextDialogAttributeMapping';
 
 export class TextPickerDialogCodeGenerator implements CommonCodeGenerator {
   private canLoop: string = canLoopMapData.get('Default')!.code;
@@ -38,7 +34,7 @@ export class TextPickerDialogCodeGenerator implements CommonCodeGenerator {
           break;
       }
     });
-    return `import { promptAction } from '@kit.ArkUI';
+    return `import type { BusinessError } from '@kit.BasicServicesKit';
 
 @Component
 struct TextPickerComponent {
@@ -51,13 +47,13 @@ struct TextPickerComponent {
         .fontSize($r('sys.float.Body_L'))
         .fontColor($r('sys.color.font_emphasize'))
         .onClick(() => {
-          TextPickerDialog.show({
+          this.getUIContext().showTextPickerDialog({
             range: ${pickerDataCode},
             defaultPickerItemHeight: ${this.itemHeight},
             canLoop: ${this.canLoop},
             onAccept: (value: TextPickerResult) => {
               try {
-                promptAction.showToast({
+                this.getUIContext().getPromptAction().showToast({
                   message: \`Select \${value.value}\`,
                   duration: 200
                 });
@@ -68,7 +64,7 @@ struct TextPickerComponent {
             },
             onCancel: () => {
               try {
-                promptAction.showToast({
+                this.getUIContext().getPromptAction().showToast({
                   message: 'Canceled',
                   duration: 200
                 });

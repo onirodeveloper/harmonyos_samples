@@ -15,7 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel, ResponseData, } from '@ohos/common';
+import { GlobalInfoModel, ResponseData, StorageKey, } from '@ohos/common';
 import {
   BreakpointType,
   BreakpointTypeEnum,
@@ -44,7 +44,7 @@ const TAG = '[ComponentListViewModel]';
 
 export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState> {
   private static instance: ComponentListViewModel;
-  private globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   private componentListModel: ComponentListModel = ComponentListModel.getInstance();
   private bannerColumnSection: SectionOptions = {
     itemsCount: 1,
@@ -90,11 +90,11 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
   }
 
   protected loadComponentPage(): void {
-    const isDark: boolean = AppStorage.get('systemColorMode') === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+    const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
     this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
     this.state.topNavigationData.isBlur = false;
-    WindowUtil.updateStatusBarColor(getContext(), isDark);
+    WindowUtil.updateStatusBarColor(isDark);
     this.componentListModel.getComponentPage(this.state.currentPage, this.pageSize)
       .then((result: ResponseData<ComponentData>) => {
         if (result.data.bannerInfos) {
@@ -107,17 +107,17 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
         this.updateFlowSection();
         this.state.loadingModel.hasNextPage =
           result.data.cardData.length === this.pageSize && (result.totalSize > this.state.currentPage * this.pageSize);
-        const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
         if (globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.LG &&
           globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
-          WindowUtil.updateStatusBarColor(getContext(), true);
+          WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.HOME] = true;
         }
         this.state.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
       })
       .catch((error: BusinessError) => {
-        WindowUtil.updateStatusBarColor(getContext(), isDark);
+        WindowUtil.updateStatusBarColor(isDark);
         TAB_CONTENT_STATUSES[TabBarType.HOME] = isDark;
         if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
           this.state.loadingModel.loadingStatus = LoadingStatus.NO_NETWORK;
@@ -167,9 +167,8 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
   }
 
   protected jumpComponentDetail(componentContent: ComponentContent) {
-    const pageContext: PageContext =
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('componentListPageContext')! :
-        AppStorage.get('pageContext')!;
+    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     const params: ComponentDetailParams = {
       componentName: componentContent.title,
       componentId: componentContent.id,

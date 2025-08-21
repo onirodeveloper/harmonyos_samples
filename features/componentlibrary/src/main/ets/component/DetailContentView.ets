@@ -14,14 +14,8 @@
  */
 
 import { curves } from '@kit.ArkUI';
-import type { GlobalInfoModel } from '@ohos/common';
-import {
-  BreakpointType,
-  BreakpointTypeEnum,
-  CommonConstants,
-  WebNodeController,
-  WebUtil,
-} from '@ohos/common';
+import { GlobalInfoModel, Logger, StorageKey, WebNodeController } from '@ohos/common';
+import { BreakpointType, BreakpointTypeEnum, CommonConstants, WebUtil, } from '@ohos/common';
 import { CodePreviewComponent } from './CodePreviewComponent';
 import type { ConfigInterface } from '../componentdetailview/ComponentDetailConfig';
 import { ComponentDetailPageVM, TopNavigationChangeEvent } from '../viewmodel/ComponentDetailPageVM';
@@ -34,24 +28,25 @@ import { DetailPageConstant } from '../constant/DetailPageConstant';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 
 const PREVIEW_HEIGHT_SM: number = DetailPageConstant.PREVIEW_HEIGHT_SM;
+const TAG: string = '[DetailContentView]';
 
 @Component
 export struct DetailContentView {
   @ObjectLink componentDetailState: ComponentDetailState;
   @Prop componentName: string;
-  @StorageProp('GlobalInfoModel') @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @State isShowCodePreview: boolean = false;
   @State scaleValue: number = 1;
   @State showDivider: boolean = false;
   @State isShowTopDivider: boolean = false;
-  @State webNodeController?: WebNodeController = new WebNodeController();
+  @State webNodeController?: WebNodeController = undefined;
   scroller: Scroller = new Scroller();
   private viewModel?: ComponentDetailPageVM =
     ComponentDetailManager.getInstance().getDetailViewModel(this.componentName);
   private paddingToTop: number = 0;
   private paddingToBottom: number = 36;
-  private detailConfig: Record<string, ConfigInterface> = AppStorage.get('componentDetailConfig')!
+  private detailConfig: Record<string, ConfigInterface> = AppStorage.get(StorageKey.COMPONENT_CONFIG)!
 
   @Builder
   textTip(text: ResourceStr) {
@@ -60,7 +55,7 @@ export struct DetailContentView {
       .fontColor($r('sys.color.font_secondary'))
       .fontWeight(FontWeight.Regular)
       .margin({
-        top: $r('sys.float.padding_level10'),
+        top: $r('app.float.comp_detail_area_title_top'),
         bottom: $r('sys.float.padding_level4'),
       })
   }
@@ -76,19 +71,23 @@ export struct DetailContentView {
   }
 
   aboutToDisappear(): void {
-    const webController = WebUtil.getWebController(WebUtil.getComponentCodeUrl());
-    webController?.scrollTo(0, 0);
+    try {
+      const webController = WebUtil.getWebController(WebUtil.getComponentCodeUrl());
+      webController?.scrollTo(0, 0);
+    } catch {
+      Logger.error(TAG, `WebController scroll to zero failed.`);
+    }
   }
 
   jumpCodePreviewView() {
     const code = this.componentDetailState.code;
     const viewModel: ComponentDetailPageVM | undefined =
       ComponentDetailManager.getInstance().getDetailViewModel(this.componentName);
-    this.webNodeController?.remove();
+    WebUtil.downPage(WebUtil.getComponentCodeUrl());
     this.webNodeController = undefined;
     const toFullScreenMethod: string = 'toFullScreen()';
     CodePreviewJSUtil.codeViewRunJS(toFullScreenMethod);
-    animateTo({ curve: curves.interpolatingSpring(0, 1, 195, 23) }, () => {
+    this.getUIContext().animateTo({ curve: curves.interpolatingSpring(0, 1, 195, 23) }, () => {
       viewModel?.jumpToCodePreview(code, () => {
         this.backFromCodePreview();
       });
@@ -117,9 +116,6 @@ export struct DetailContentView {
             descriptor: this.componentDetailState.descriptor,
           })
         }
-        .margin({
-          top: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? 0 : $r('sys.float.padding_level4'),
-        })
         .backgroundColor($r('sys.color.comp_background_primary'))
         .justifyContent(FlexAlign.Center)
         .width('100%')
@@ -133,8 +129,7 @@ export struct DetailContentView {
         .borderRadius($r('sys.float.corner_radius_level8'))
       }
       .padding({
-        top: CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight + DetailPageConstant.SPACE_NORMAL,
-        bottom: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? $r('sys.float.padding_level6') : 0,
+        top: CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight,
         left: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
@@ -154,7 +149,7 @@ export struct DetailContentView {
           .width('100%')
       }
       Scroll(this.scroller) {
-        Column({ space: DetailPageConstant.SPACE_NORMAL }) {
+        Column() {
           if (this.componentDetailState.attributes.length !== 0) {
             this.textTip($r('app.string.changeAttributes'))
             AttributeChangeArea({
@@ -177,10 +172,6 @@ export struct DetailContentView {
             .geometryTransition(CommonConstants.CODE_PREVIEW_GEOMETRY_ID, { follow: true })
             .borderRadius($r('sys.float.corner_radius_level8'))
             .clip(true)
-            .margin({
-              top: (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ||
-                this.componentDetailState.attributes.length !== 0) ? 0 : $r('sys.float.padding_level4'),
-            })
             .onClick(() => {
               this.jumpCodePreviewView();
             })
@@ -203,10 +194,6 @@ export struct DetailContentView {
             .borderRadius($r('sys.float.corner_radius_level8'))
           }
         }
-        .margin({
-          top: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? 0 :
-          $r('sys.float.padding_level4'),
-        })
         .alignItems(HorizontalAlign.Start)
         .padding({
           top: new BreakpointType({

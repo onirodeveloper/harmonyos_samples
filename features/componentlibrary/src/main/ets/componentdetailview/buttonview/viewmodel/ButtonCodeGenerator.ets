@@ -65,8 +65,9 @@ export class ButtonCodeGenerator implements CommonCodeGenerator {
       operationCode = `.gesture(
         LongPressGesture({ repeat: true })
           .onActionEnd((event: GestureEvent) => {
+            const uiContext: UIContext = this.getUIContext();
             try {
-              promptAction.showToast({
+              uiContext.getPromptAction().showToast({
                 message: '按钮被长按',
                 duration: 2000
               });
@@ -78,8 +79,9 @@ export class ButtonCodeGenerator implements CommonCodeGenerator {
       )`;
     } else if (this.operation === 'Click') {
       operationCode = `.onClick(() => {
+        const uiContext: UIContext = this.getUIContext();
         try {
-          promptAction.showToast({
+          uiContext.getPromptAction().showToast({
             message: '按钮被点击',
             duration: 2000
           });
@@ -91,7 +93,8 @@ export class ButtonCodeGenerator implements CommonCodeGenerator {
     } else {
       operationCode = ``;
     }
-    return `import { promptAction } from '@kit.ArkUI';
+    return `// Button.ets
+import type { BusinessError } from '@kit.BasicServicesKit';
 
 @Component
 struct ButtonComponent {

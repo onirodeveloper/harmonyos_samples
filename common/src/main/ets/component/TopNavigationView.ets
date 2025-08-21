@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { MeasureText } from '@kit.ArkUI';
 import { CommonConstants } from '../constant/CommonConstants';
+import { StorageKey } from '../constant/CommonEnums';
 import { BreakpointTypeEnum, type GlobalInfoModel } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 
@@ -27,9 +27,9 @@ const TOTAL_PADDING: number = 40;
 
 @Component
 export struct TopNavigationView {
-  @StorageProp('GlobalInfoModel') @Watch('calculateTitleSize') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('BlurRenderGroup') blurRenderGroup: boolean = false;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('calculateTitleSize') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.BLUE_RENDER_GROUP) blurRenderGroup: boolean = false;
   @Prop topNavigationData: TopNavigationData = new TopNavigationData();
   @BuilderParam menuView?: () => void;
   @State fontSize: number = 20;
@@ -44,16 +44,17 @@ export struct TopNavigationView {
   }
 
   calculateTitleSize(): void {
+    const uiContext: UIContext = this.getUIContext();
     const maxWidth = this.globalInfoModel.deviceWidth - BACK_ICON_WIDTH - TOTAL_PADDING;
     let currentFontSize: number = this.fontSize;
-    let titleWidth: number = Math.ceil(px2vp(MeasureText.measureText({
+    let titleWidth: number = Math.ceil(uiContext.px2vp(uiContext.getMeasureUtils().measureText({
       textContent: this.topNavigationData.title,
       fontWeight: FontWeight.Bold,
       fontSize: currentFontSize,
     })));
     while (currentFontSize > 14 && titleWidth > maxWidth) {
       currentFontSize--;
-      titleWidth = Math.ceil(px2vp(MeasureText.measureText({
+      titleWidth = Math.ceil(uiContext.px2vp(uiContext.getMeasureUtils().measureText({
         textContent: this.topNavigationData.title,
         fontWeight: FontWeight.Bold,
         fontSize: currentFontSize,

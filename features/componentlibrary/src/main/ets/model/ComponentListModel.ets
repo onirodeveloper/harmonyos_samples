@@ -14,7 +14,7 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { ResponseData } from '@ohos/common';
+import { ResponseData, StorageKey } from '@ohos/common';
 import { Logger } from '@ohos/common';
 import { ComponentLibraryService } from '../service/ComponentLibraryService';
 import type { ComponentData } from './ComponentData';
@@ -53,7 +53,7 @@ export class ComponentListModel {
   }
 
   public preloadComponentData(): Promise<void> {
-    AppStorage.setOrCreate('componentDetailConfig', componentDetailConfig);
+    AppStorage.setOrCreate(StorageKey.COMPONENT_CONFIG, componentDetailConfig);
     this.service.getComponentDetailList().then((detailList: ComponentDetailData[]) => {
       this.service.setDetailsToPreference(detailList);
     });

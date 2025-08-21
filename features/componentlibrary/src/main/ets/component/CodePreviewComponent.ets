@@ -15,15 +15,16 @@
 
 import { common, ConfigurationConstant } from '@kit.AbilityKit';
 import { uniformTypeDescriptor as utd } from '@kit.ArkData';
-import { promptAction, window } from '@kit.ArkUI';
+import { window } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
 import { systemShare } from '@kit.ShareKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, ResourceUtil, StorageKey } from '@ohos/common';
 import {
   BreakpointTypeEnum,
   CommonConstants,
   Logger,
   ScreenOrientation,
+  Toast,
   WebNodeController,
   WindowUtil,
 } from '@ohos/common';
@@ -33,9 +34,9 @@ const TAG: string = '[CodePreviewComponent]';
 
 @Component
 export struct CodePreviewComponent {
-  @StorageProp('systemColorMode') @Watch('onHandleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop @Watch('flushCode') code: string = '';
   @Prop pageContainer: boolean = false;
   @Prop isFocus: boolean = false;
@@ -128,7 +129,7 @@ export struct CodePreviewComponent {
   aboutToAppear?(): void {
     if (this.pageContainer) {
       try {
-        window.getLastWindow(getContext()).then((windowClass: window.Window) => {
+        window.getLastWindow(this.getUIContext().getHostContext()).then((windowClass: window.Window) => {
           if (windowClass === undefined) {
             Logger.error(TAG, `MainWindowClass is undefined`);
             return;
@@ -188,7 +189,7 @@ export struct CodePreviewComponent {
     CodePreviewJSUtil.codeViewRunJS(codeToHtmlMethod, params);
   }
 
-  onHandleColorModeChange() {
+  handleColorModeChange() {
     if (this.colorMode !== this.systemColorMode) {
       this.changeColorMode();
     }
@@ -202,7 +203,7 @@ export struct CodePreviewComponent {
       this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
       this.isDarkMode = false;
     }
-    WindowUtil.updateStatusBarColor(getContext(this), this.isDarkMode);
+    WindowUtil.updateStatusBarColor(this.isDarkMode);
     const changeColorModeMethod: string = 'changeColorMode(%param)';
     const params: string = JSON.stringify(this.colorMode);
     CodePreviewJSUtil.codeViewRunJS(changeColorModeMethod, params);
@@ -210,11 +211,11 @@ export struct CodePreviewComponent {
 
   private changeScreenOrientation(): void {
     if (this.screenOrientation === ScreenOrientation.PORTRAIT) {
-      WindowUtil.enableFloatWindowRotate(getContext());
-      WindowUtil.setMainWindowOrientation(getContext(), window.Orientation.LANDSCAPE);
+      WindowUtil.enableFloatWindowRotate();
+      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE);
     } else {
-      WindowUtil.disableFloatWindowRotate(getContext());
-      WindowUtil.setMainWindowOrientation(getContext(), window.Orientation.PORTRAIT);
+      WindowUtil.disableFloatWindowRotate();
+      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT);
     }
   }
 
@@ -234,9 +235,8 @@ export struct CodePreviewComponent {
   }
 
   private handleShare(): void {
-    let context = getContext(this) as common.UIAbilityContext;
-    const shareDescription =
-      context.resourceManager.getStringSync($r('app.string.share_description').id, this.componentName);
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const shareDescription = ResourceUtil.getResourceString(context, $r('app.string.share_description'));
     const shareData: systemShare.SharedData = new systemShare.SharedData({
       utd: utd.UniformDataType.PLAIN_TEXT,
       content: this.code,
@@ -244,7 +244,7 @@ export struct CodePreviewComponent {
       description: shareDescription
     });
 
-    let controller: systemShare.ShareController = new systemShare.ShareController(shareData);
+    const controller: systemShare.ShareController = new systemShare.ShareController(shareData);
     controller.show(context, {
       selectionMode: systemShare.SelectionMode.SINGLE,
       previewMode: systemShare.SharePreviewMode.DEFAULT
@@ -258,14 +258,9 @@ export struct CodePreviewComponent {
       const pasteboardData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
       const systemPasteboard = pasteboard.getSystemPasteboard();
       systemPasteboard.setData(pasteboardData).then(() => {
-        try {
-          promptAction.showToast({ message: $r('app.string.copy_success') });
-        } catch (err) {
-          const error: BusinessError = err as BusinessError;
-          Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-        }
+        Toast.showToast($r('app.string.copy_success'))
       }).catch((error: BusinessError) => {
-        promptAction.showToast({ message: $r('app.string.copy_fail') });
+        Toast.showToast($r('app.string.copy_fail'));
         Logger.error(TAG, `Copy data failed, the code is ${error.code}}, the message is ${error.message}`);
       })
     } catch (err) {
@@ -349,8 +344,7 @@ export struct CodePreviewComponent {
         .onClick(() => this.onBackPage?.())
         .onHover((isHover: boolean) => {
           this.backIconBgColor = !isHover ? Color.Transparent :
-            this.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT ?
-            $r('sys.color.comp_background_tertiary') : $r('sys.color.icon_on_tertiary');
+            this.isDarkMode ? $r('sys.color.icon_on_tertiary') : $r('sys.color.comp_background_tertiary');
         })
 
         Text(this.componentName)
@@ -372,19 +366,16 @@ export struct CodePreviewComponent {
         .onClick(() => this.handleShare())
         .onHover((isHover: boolean) => {
           this.shareIconBgColor = !isHover ? Color.Transparent :
-            this.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT ?
-            $r('sys.color.comp_background_tertiary') : $r('sys.color.icon_on_tertiary');
+            this.isDarkMode ? $r('sys.color.icon_on_tertiary') : $r('sys.color.comp_background_tertiary');
         })
 
         if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
           Row({ space: CommonConstants.SPACE_8 }) {
             ForEach(this.pcBottomIconItems, (item: ItemData, index: number) => {
               Row() {
-                SymbolGlyph(this.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT ?
-                item.lightMode.iconResource : item.darkMode.iconResource)
+                SymbolGlyph(this.isDarkMode ? item.darkMode.iconResource : item.lightMode.iconResource)
                   .fontSize($r('app.float.symbol_size_large'))
-                  .fontColor(this.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT ?
-                    [$r('sys.color.icon_primary')] : [$r('sys.color.icon_on_primary')])
+                  .fontColor(this.isDarkMode ? [$r('sys.color.icon_on_primary')] : [$r('sys.color.icon_primary')])
                   .opacity(this.isFocus ? 1 : 0.4)
               }
               .justifyContent(FlexAlign.Center)
@@ -519,7 +510,7 @@ export struct CodePreviewComponent {
       }
     })
     .onDisAppear(() => {
-      WindowUtil.disableFloatWindowRotate(getContext());
+      WindowUtil.disableFloatWindowRotate();
     })
     .backgroundColor($r('sys.color.comp_background_primary'))
     .padding(this.pageContainer === false ? {

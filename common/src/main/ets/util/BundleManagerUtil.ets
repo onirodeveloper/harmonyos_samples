@@ -17,6 +17,7 @@ import { bundleManager } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import Logger from './Logger';
 import { BundleInfoData } from '../model/BundleInfoData';
+import { StorageKey } from '../constant/CommonEnums';
 
 const TAG = '[BundleManagerUtil]';
 
@@ -26,7 +27,7 @@ export class BundleManagerUtil {
       bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT)
         .then((bundleInfo: bundleManager.BundleInfo) => {
           Logger.debug(TAG, `getBundleInfoForSelf successed. ${bundleInfo}`);
-          AppStorage.setOrCreate('BundleInfoData',
+          AppStorage.setOrCreate(StorageKey.BUNDLE_INFO,
             new BundleInfoData(bundleInfo.versionName, bundleInfo.versionCode, bundleInfo.name));
         });
     } catch (err) {

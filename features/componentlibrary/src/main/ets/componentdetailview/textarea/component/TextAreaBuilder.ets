@@ -15,7 +15,7 @@
 
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, Logger } from '@ohos/common';
+import { GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { TextAreaDescriptor } from '../viewmodel/TextAreaDescriptor';
@@ -34,17 +34,19 @@ struct TextAreaComponent {
   // Height of the component preview area.
   @State textAreaInputHeight: number = 0;
   @State contentOffset: number = 0;
+  private uiContext: UIContext = this.getUIContext();
+  private context: Context = this.uiContext.getHostContext() as Context;
 
   aboutToAppear(): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel') || new GlobalInfoModel();
-    window.getLastWindow(getContext(this)).then(currentWindow => {
-      // Monitor the appearance and disappearance of the soft keyboard.
-      try {
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+    try {
+      window.getLastWindow(this.context).then(currentWindow => {
+        // Monitor the appearance and disappearance of the soft keyboard.
         currentWindow.on('avoidAreaChange', async data => {
           if (data.type !== window.AvoidAreaType.TYPE_KEYBOARD) {
             return;
           }
-          const keyboardHeight: number = px2vp(data.area.bottomRect.height);
+          const keyboardHeight: number = this.uiContext.px2vp(data.area.bottomRect.height);
           /* When the size of the component preview area exceeds half the screen, the keyboard
            will cover the preview area. At this time, the component needs to move up when the keyboard appears.
            */
@@ -54,11 +56,11 @@ struct TextAreaComponent {
             this.contentOffset = 0;
           }
         });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.message}, the message is ${error.message}`);
-      }
-    });
+      });
+    } catch (err) {
+      const error: BusinessError = err as BusinessError;
+      Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.message}, the message is ${error.message}`);
+    }
   }
 
   build() {

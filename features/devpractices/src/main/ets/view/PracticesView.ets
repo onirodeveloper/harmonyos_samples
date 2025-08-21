@@ -14,7 +14,7 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { GlobalInfoModel, PageContext, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
@@ -34,10 +34,10 @@ import { LoadSamplePageParam, PracticeEventType, PracticeViewModel } from '../vi
 @Component({ freezeWhenInactive: true })
 export struct PracticesView {
   viewModel: PracticeViewModel = PracticeViewModel.getInstance();
-  @StorageProp('GlobalInfoModel') @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   @State naviStatusHeight: number = CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight;
   @State currentIndex: number = 0;
   @State practiceState: PracticeState = this.viewModel.getState();
@@ -45,7 +45,7 @@ export struct PracticesView {
   private categoryTabController: TabsController = new TabsController();
   private listScroller: Scroller = new Scroller();
   private headerScroller: Scroller = new Scroller();
-  private samplePageContext: PageContext = AppStorage.get('samplePageContext')!;
+  private samplePageContext: PageContext = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)!;
   private cornerNum: Length = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? $r('sys.float.corner_radius_level4') : '50%';
 
   aboutToAppear(): void {

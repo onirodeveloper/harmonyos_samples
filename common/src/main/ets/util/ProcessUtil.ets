@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { common } from '@kit.AbilityKit';
+import type { common, StartOptions, Want } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import Logger from './Logger';
 
@@ -43,6 +43,22 @@ export class ProcessUtil {
     } catch (error) {
       const err: BusinessError = error as BusinessError;
       Logger.error(TAG, `moveAbilityToBackground failed error: ${err.code}, ${err.message}`);
+    }
+  }
+
+  public static startAbility(context: common.UIAbilityContext, want: Want, options?: StartOptions): Promise<boolean> {
+    try {
+      return context.startAbility(want, options).then(() => {
+        Logger.info(TAG, 'startAbility succeed');
+        return true;
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG, `startAbility failed, cause ${err.code}, ${err.message}`);
+        return false;
+      });
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `startAbility failed error: ${err.code}, ${err.message}`);
+      return Promise.resolve(false);
     }
   }
 }

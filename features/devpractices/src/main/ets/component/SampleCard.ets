@@ -26,6 +26,7 @@ import {
   WebUrlType,
   WebUtil,
   type GlobalInfoModel,
+  StorageKey,
 } from '@ohos/common';
 import { SampleDetailConstant } from '../constant/CommonConstants';
 import { BindSheetEvent, SampleDetailPageVM, LoadSampleEvent } from '../viewmodel/SampleDetailPageVM';
@@ -36,13 +37,14 @@ const TAG = '[SampleCard]';
 @Component
 export struct SampleCard {
   viewModel: SampleDetailPageVM = SampleDetailPageVM.getInstance();
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Consume currentIndex: number;
   @Prop sampleIndex: number;
   @ObjectLink sampleCard: SampleCardData;
   @State backIconBgColor: ResourceColor =
     this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? Color.Transparent :
     $r('sys.color.comp_background_tertiary');
+  private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
 
   aboutToAppear(): void {
     WebUtil.createWebNode(this.sampleCard.originalUrl, this.getUIContext(), NestedScrollMode.SELF_ONLY);
@@ -61,8 +63,7 @@ export struct SampleCard {
         description: this.sampleCard.originalUrl
       });
       let controller: systemShare.ShareController = new systemShare.ShareController(shareData);
-      let context = getContext(this) as common.UIAbilityContext;
-      controller.show(context, {
+      controller.show(this.context, {
         selectionMode: systemShare.SelectionMode.SINGLE,
         previewMode: systemShare.SharePreviewMode.DEFAULT
       }).catch((error: BusinessError) => {
@@ -166,13 +167,13 @@ export struct SampleCard {
             .borderRadius($r('sys.float.corner_radius_level7'))
             .height($r('app.float.progress_height'))
             .color($r('sys.color.background_emphasize'))
-            .backgroundColor($r('sys.color.comp_background_primary_contrary'))
+            .backgroundColor($r('sys.color.background_primary'))
             .style({
               borderColor: $r('sys.color.background_emphasize'),
-              borderWidth: $r('sys.float.border_small'),
+              borderWidth: $r('sys.float.border_larger'),
               content: `${this.sampleCard.downloadProgress}%`,
-              font: { size: $r('sys.float.Subtitle_S'), style: FontStyle.Normal, weight: FontWeight.Medium },
-              fontColor: Color.Black,
+              font: { size: $r('sys.float.Body_S'), style: FontStyle.Normal, weight: FontWeight.Medium },
+              fontColor: $r('sys.color.font_primary'),
             })
         } else {
           Button(this.sampleCard.installed ? $r('app.string.experience_sample') : $r('app.string.download_sample'))
@@ -212,7 +213,7 @@ export struct SampleCard {
 @Extend(Button)
 function cardButtonStyle(backgroundColor: ResourceColor, fontColor: ResourceColor) {
   .layoutWeight(1)
-  .fontSize($r('sys.float.Subtitle_S'))
+  .fontSize($r('sys.float.Body_M'))
   .fontWeight(FontWeight.Medium)
   .fontColor(fontColor)
   .backgroundColor(backgroundColor)

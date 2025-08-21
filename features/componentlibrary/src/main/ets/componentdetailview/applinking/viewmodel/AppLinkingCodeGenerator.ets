@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ConfigMapKey, ResourceUtil } from '@ohos/common';
+import { ConfigMapKey, ResourceUtil, StorageKey } from '@ohos/common';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 import {
@@ -38,7 +38,9 @@ export class AppLinkingCodeGenerator implements CommonCodeGenerator {
     });
     let codeStr: string = typeInvokeCodeMapData.get(this.type)!;
     if (this.type === LinkType.TYPE_GALLERY) {
-      const linkUrl: string = ResourceUtil.getRawFileStringByKey(getContext(), ConfigMapKey.GALLERY_URL);
+      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      const context: Context = uiContext.getHostContext() as Context;
+      const linkUrl: string = ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.GALLERY_URL);
       codeStr = codeStr.replace('%s', linkUrl);
     }
     return `${typeImportCodeMapData.get(this.type)!}

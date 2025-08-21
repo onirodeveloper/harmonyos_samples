@@ -14,18 +14,12 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { promptAction } from '@kit.ArkUI';
-import type { GlobalInfoModel } from '@ohos/common';
-import { CommonConstants, LoadingStatus, TopNavigationView, WindowUtil } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
+import { CommonConstants, LoadingStatus, Toast, TopNavigationView, WindowUtil } from '@ohos/common';
 import { BaseDetailComponent, SampleDetailParams } from '@ohos/commonbusiness';
 import { SampleComponent } from '../component/SampleComponent';
 import type { SampleDetailData, SampleDetailState } from '../viewmodel/SampleDetailState';
-import {
-  InitSampleDetailEvent,
-  PopEvent,
-  SampleDetailPageVM,
-  SetIndexEvent,
-} from '../viewmodel/SampleDetailPageVM';
+import { InitSampleDetailEvent, PopEvent, SampleDetailPageVM, SetIndexEvent } from '../viewmodel/SampleDetailPageVM';
 
 @Builder
 export function SampleDetailViewBuilder() {
@@ -34,9 +28,9 @@ export function SampleDetailViewBuilder() {
 
 @Component
 export struct SampleDetailView {
-  @StorageProp('systemColorMode') @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   viewModel: SampleDetailPageVM = SampleDetailPageVM.getInstance();
   @State sampleDetailState: SampleDetailState = this.viewModel.getState();
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
@@ -49,7 +43,7 @@ export struct SampleDetailView {
 
   handleColorModeChange() {
     const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    WindowUtil.updateStatusBarColor(getContext(this), isSystemDark);
+    WindowUtil.updateStatusBarColor(isSystemDark);
   }
 
   private onBack(): void {
@@ -85,7 +79,7 @@ export struct SampleDetailView {
         .onAction(() => {
           if (this.sampleDetailState.sampleDatas[this.currentIndex].sampleCard.downloadProgress >= 0 &&
             this.sampleDetailState.sampleCount > 1) {
-            promptAction.showToast({ message: $r('app.string.swiper_gesture') });
+            Toast.showToast($r('app.string.swiper_gesture'));
           }
         })
     )

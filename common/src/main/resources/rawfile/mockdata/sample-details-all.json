@@ -44,7 +44,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/hdc/sample_business.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/MultiBusinessOffice/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/MultiBusinessOffice/blob/br_release_hmos/README.md",
           "moduleName": "multibusinesssample",
           "abilityName": "MultibusinesssampleAbility",
           "order": 2
@@ -121,7 +121,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-nav-bar/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-nav-bar/blob/br_release_hmos/README.md",
           "moduleName": "multinavbarsample",
           "abilityName": "MultinavbarsampleAbility",
           "order": 1
@@ -142,9 +142,9 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-convenient-life/blob/br_release_hmosworld_new/README.md",
-          "moduleName": "multiconvinientlifesample",
-          "abilityName": "MulticonvinientlifesampleAbility",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-convenient-life/blob/br_release_hmos/README.md",
+          "moduleName": "multiconvenientlifesample",
+          "abilityName": "MulticonvenientlifesampleAbility",
           "order": 1
         }
       ]
@@ -163,7 +163,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/multidevice/sample_multi_mobile_payment.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-mobile-payment/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-mobile-payment/blob/br_release_hmos/README.md",
           "moduleName": "multimobilepaymentsample",
           "abilityName": "MultimobilepaymentsampleAbility",
           "order": 1
@@ -184,7 +184,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/multidevice/sample_multi_news_read.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read/blob/br_release_hmos/README.md",
           "moduleName": "multinewsreadsample",
           "abilityName": "MultinewsreadsampleAbility",
           "order": 1
@@ -205,7 +205,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-travel-accommodation/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-travel-accommodation/blob/br_release_hmos/README.md",
           "moduleName": "multitravelsample",
           "abilityName": "MultitravelsampleAbility",
           "order": 1
@@ -226,7 +226,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/multidevice/sample_multi_columns.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-columns/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-columns/blob/br_release_hmos/README.md",
           "moduleName": "multicolumnssample",
           "abilityName": "MulticolumnssampleAbility",
           "order": 1
@@ -247,7 +247,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/style/sample_text_effects.gif",
-          "originalUrl": "https://gitee.com/harmonyos_samples/text-effects/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/text-effects/blob/br_release_hmos/README.md",
           "moduleName": "texteffectssample",
           "abilityName": "TexteffectssampleAbility",
           "order": 1
@@ -261,7 +261,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/multi-tab-navigation/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/multi-tab-navigation/blob/br_release_hmos/README.md",
           "moduleName": "multitabnavigationsample",
           "abilityName": "MultitabnavigationsampleAbility",
           "order": 2
@@ -275,7 +275,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/custom-dialog-gathers/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/custom-dialog-gathers/blob/br_release_hmos/README.md",
           "moduleName": "customdialogsample",
           "abilityName": "CustomdialogsampleAbility",
           "order": 3
@@ -296,8 +296,8 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/scroll-component-nested-sliding/blob/br_release_hmosworld_new/README.md",
-          "moduleName": "nestedslidingsample",
+          "originalUrl": "https://gitee.com/harmonyos_samples/scroll-component-nested-sliding/blob/br_release_hmos/README.md",
+          "moduleName": "scrollcomponentsample",
           "abilityName": "NestedslidingsampleAbility",
           "order": 1
         },
@@ -310,7 +310,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/layout/sample_water_flow.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/water-flow/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/water-flow/blob/br_release_hmos/README.md",
           "moduleName": "waterflowsample",
           "abilityName": "WaterflowsampleAbility",
           "order": 2
@@ -324,7 +324,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/layout/sample_component_stack.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/component-stack/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/component-stack/blob/br_release_hmos/README.md",
           "moduleName": "componentstacksample",
           "abilityName": "ComponentstacksampleAbility",
           "order": 3
@@ -338,7 +338,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/grid-hybrid/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/grid-hybrid/blob/br_release_hmos/README.md",
           "moduleName": "gridhybridsample",
           "abilityName": "GridhybridsampleAbility",
           "order": 4
@@ -359,9 +359,9 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.gif",
-          "originalUrl": "https://gitee.com/harmonyos_samples/transitions-collection/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/transitions-collection/blob/br_release_hmos/README.md",
           "moduleName": "transitionscollectionsample",
-          "abilityName": "TransitionscollectionsampleAbility",
+          "abilityName": "TransitioncollectionsampleAbility",
           "order": 1
         },
         {
@@ -373,7 +373,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/animation-collection/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/animation-collection/blob/br_release_hmos/README.md",
           "moduleName": "animationcollectionsample",
           "abilityName": "AnimationcollectionsampleAbility",
           "order": 2
@@ -387,7 +387,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/DragFramework/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/DragFramework/blob/br_release_hmos/README.md",
           "moduleName": "dragframeworksample",
           "abilityName": "DragframeworksampleAbility",
           "order": 3
@@ -408,7 +408,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/fluent-blog/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/fluent-blog/blob/br_release_hmos/README.md",
           "moduleName": "fluentblogsample",
           "abilityName": "FluentblogsampleAbility",
           "order": 1
@@ -422,7 +422,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/list/sample_list_exchange.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/list-exchange/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/list-exchange/blob/br_release_hmos/README.md",
           "moduleName": "listexchangesample",
           "abilityName": "ListexchangesampleAbility",
           "order": 2
@@ -436,7 +436,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/list-item-edit/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/list-item-edit/blob/br_release_hmos/README.md",
           "moduleName": "listitemeditsample",
           "abilityName": "ListitemeditsampleAbility",
           "order": 3
@@ -457,7 +457,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/media/sample_window_pip.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/window-pip/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/window-pip/blob/br_release_hmos/README.md",
           "moduleName": "windowpipsample",
           "abilityName": "WindowpipsampleAbility",
           "order": 1
@@ -471,7 +471,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/media/sample_multiple_image.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/MultipleImage/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/MultipleImage/blob/br_release_hmos/README.md",
           "moduleName": "multipleimagesample",
           "abilityName": "MultipleimagesampleAbility",
           "order": 2
@@ -485,7 +485,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/audio-interaction/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/audio-interaction/blob/br_release_hmos/README.md",
           "moduleName": "audiointeractionsample",
           "abilityName": "AudiointeractionsampleAbility",
           "order": 3
@@ -506,7 +506,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/capacity/sample_page_redirection.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/page-redirection/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/page-redirection/blob/br_release_hmos/README.md",
           "moduleName": "pageredirectionsample",
           "abilityName": "PageredirectionsampleAbility",
           "order": 1
@@ -520,7 +520,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/web-pre-render/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/web-pre-render/blob/br_release_hmos/README.md",
           "moduleName": "webprerendersample",
           "abilityName": "WebprerendersampleAbility",
           "order": 2
@@ -534,7 +534,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/capacity/sample_location_service.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/location-service/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/location-service/blob/br_release_hmos/README.md",
           "moduleName": "locationservicesample",
           "abilityName": "LocationservicesampleAbility",
           "order": 3
@@ -555,7 +555,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/data/sample_preferences.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/preferences/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/preferences/blob/br_release_hmos/README.md",
           "moduleName": "preferencessample",
           "abilityName": "PreferencessampleAbility",
           "order": 1
@@ -569,7 +569,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/verification-code-scenario/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/verification-code-scenario/blob/br_release_hmos/README.md",
           "moduleName": "verificationcodescenariosample",
           "abilityName": "VerificationcodescenariosampleAbility",
           "order": 2
@@ -583,7 +583,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/scene/sample_image_comment.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/image-comment/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/image-comment/blob/br_release_hmos/README.md",
           "moduleName": "imagecommentsample",
           "abilityName": "ImagecommentsampleAbility",
           "order": 3
@@ -597,7 +597,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/function/data/sample_picker.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/picker/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/picker/blob/br_release_hmos/README.md",
           "moduleName": "pickersample",
           "abilityName": "PickersampleAbility",
           "order": 4
@@ -611,7 +611,7 @@
           "isFavorite": false,
           "mediaType": 1,
           "mediaUrl": "image/sample/arkui/scene/sample_keyboard.png",
-          "originalUrl": "https://gitee.com/harmonyos_samples/keyboard/blob/br_release_hmosworld_new/README.md",
+          "originalUrl": "https://gitee.com/harmonyos_samples/keyboard/blob/br_release_hmos/README.md",
           "moduleName": "keyboardsample",
           "abilityName": "KeyboardsampleAbility",
           "order": 5

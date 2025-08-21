@@ -13,22 +13,24 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 import type { BannerState } from '../viewmodel/BaseHomeState';
 import { BannerItem } from './BannerItem';
+import { BannerProgress } from './BannerProgress';
+import { ProgressController } from './ProgressController';
 
 const ICON_HEIGHT = 32;
 const ICON_PADDING = 24;
 const BANNER_ASPECT = 1.75;
-const BANNER_DOT_HEIGHT = 2;
 const BANNER_DOT_SPACING = 8;
+const ANIMATION_DELAY = 50;
 
 @Component
 export struct BannerCard {
-  @StorageProp('GlobalInfoModel') @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop @Require bannerState: BannerState;
   @Prop @Require tabViewType: number;
   handleItemClick?: (bannerData: BannerData) => void;
@@ -37,10 +39,12 @@ export struct BannerCard {
     md: CommonConstants.SPACE_24,
     lg: CommonConstants.SPACE_32
   }).getValue(this.globalInfoModel.currentBreakpoint);
-  private catchCount: number = this.bannerState.bannerResource.totalCount();
   private swiperController: SwiperController = new SwiperController();
   private scrollerController: Scroller = new Scroller();
   private bannerOffset: number = this.bannerState.bannerHeight * BANNER_ASPECT;
+  private isAnimating: boolean = false;
+  @State catchCount: number = this.bannerState.bannerResource.totalCount();
+  @State progressController: ProgressController = new ProgressController();
   @State currentIndex: number = 0;
   @State showLeftIcon: boolean = false;
   @State showRightIcon: boolean = true;
@@ -60,6 +64,53 @@ export struct BannerCard {
         (this.globalInfoModel.deviceWidth - this.bannerPadding * 2 - BANNER_DOT_SPACING * (this.catchCount - 1)) /
         this.catchCount;
     }
+  }
+
+  @Builder
+  BannerSwiperBuilder() {
+    Swiper(this.swiperController) {
+      LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
+        BannerItem({ bannerData: bannerData })
+          .reuseId('banner_swiper')
+          .onClick(() => {
+            this.handleItemClick?.(bannerData);
+          })
+      }, (bannerData: BannerData) => bannerData.id.toString())
+    }
+    .onChange((index: number) => {
+      this.currentIndex = index;
+    })
+    .cachedCount(this.catchCount)
+    .loop(true)
+    .autoPlay(this.catchCount > 1)
+    .effectMode(EdgeEffect.None)
+    .indicator(false)
+    .width('100%')
+    .height(this.bannerState.bannerHeight)
+    .geometryTransition(CommonConstants.BANNER_GEOMETRY + this.tabViewType.toString(), { follow: true })
+    .transition(TransitionEffect.OPACITY)
+    .onAnimationStart((index: number, targetIndex: number) => {
+      this.isAnimating = true;
+      if (index === targetIndex) {
+        this.progressController.restartBannerProgress();
+      } else {
+        this.currentIndex = targetIndex;
+      }
+    })
+    .onAnimationEnd(() => {
+      this.isAnimating = false;
+    })
+    .onTouch((event: TouchEvent) => {
+      if (event.type === TouchType.Down) {
+        this.progressController.stopBannerProgress();
+      } else if (event.type === TouchType.Up) {
+        if (!this.isAnimating) {
+          setTimeout(() => {
+            this.progressController.restartBannerProgress();
+          }, ANIMATION_DELAY)
+        }
+      }
+    })
   }
 
   build() {
@@ -151,36 +202,21 @@ export struct BannerCard {
         top: this.globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8,
       })
     } else {
-      Swiper(this.swiperController) {
-        LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
-          BannerItem({ bannerData: bannerData })
-            .reuseId('banner_swiper')
-            .onClick(() => {
-              this.handleItemClick?.(bannerData);
-            })
-        }, (bannerData: BannerData) => bannerData.id.toString())
+      Stack({ alignContent: Alignment.Bottom }) {
+        this.BannerSwiperBuilder();
+        BannerProgress({
+          progressController: this.progressController,
+          currentIndex: this.currentIndex,
+          totalCount: this.catchCount
+        })
       }
-      .onChange((index: number) => {
-        this.currentIndex = index;
+      .onVisibleAreaChange([0.0], (isVisible: boolean, currentRatio: number) => {
+        if (currentRatio > 0) {
+          this.progressController.restartBannerProgress();
+        } else {
+          this.progressController.stopBannerProgress();
+        }
       })
-      .cachedCount(this.catchCount)
-      .itemSpace(0)
-      .loop(true)
-      .autoPlay(this.catchCount > 1)
-      .effectMode(EdgeEffect.None)
-      .indicator(this.catchCount > 1 ?
-      new DotIndicator()
-        .itemWidth(this.bannerWidth)
-        .itemHeight(BANNER_DOT_HEIGHT)
-        .color($r('sys.color.icon_on_tertiary'))
-        .selectedItemWidth(this.bannerWidth)
-        .selectedItemHeight(BANNER_DOT_HEIGHT)
-        .selectedColor($r('sys.color.icon_on_primary')) :
-        false)
-      .width('100%')
-      .height(this.bannerState.bannerHeight)
-      .geometryTransition(CommonConstants.BANNER_GEOMETRY + this.tabViewType.toString(), { follow: true })
-      .transition(TransitionEffect.OPACITY)
     }
   }
 

@@ -16,21 +16,33 @@
 import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BundleManagerUtil, Logger, PageContext, WindowUtil, DynamicInstallManager, WebUtil } from '@ohos/common';
+import {
+  BundleManagerUtil,
+  Logger,
+  PageContext,
+  WindowUtil,
+  DynamicInstallManager,
+  WebUtil,
+  StorageKey,
+} from '@ohos/common';
 import GlobalUIAbilityContext from '../util/ContextConfig';
 
 const TAG = '[EntryAbility]';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    Logger.info(TAG, 'Ability onCreate');
+    Logger.info(TAG, `Ability onCreate launchReason: ${launchParam.launchReason}`);
     this.checkAndHandleParams(want);
-    AppStorage.setOrCreate('systemColorMode', this.context.config.colorMode);
-    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+    AppStorage.setOrCreate(StorageKey.COLOR_MODE, this.context.config.colorMode);
+    try {
+      this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+    } catch {
+      Logger.error(TAG, `onCreate setColorMode failed`);
+    }
   }
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    Logger.info(TAG, `onNewWant`);
+    Logger.info(TAG, `onNewWant launchReason: ${launchParam.launchReason}`);
     this.checkAndHandleParams(want);
   }
 
@@ -55,21 +67,18 @@ export default class EntryAbility extends UIAbility {
     Logger.info(TAG, 'Ability onWindowStageCreate');
     // Use for penkit component
     GlobalUIAbilityContext.setContext(this.context);
-    WindowUtil.requestFullScreen(windowStage, this.context);
-    WindowUtil.registerBreakPoint(windowStage);
     BundleManagerUtil.getBundleInfo();
-    AppStorage.setOrCreate('pageContext', new PageContext());
-    AppStorage.setOrCreate('samplePageContext', new PageContext());
-    AppStorage.setOrCreate('componentListPageContext', new PageContext());
-    AppStorage.setOrCreate('explorationPageContext', new PageContext());
+    AppStorage.setOrCreate(StorageKey.HOME_PAGE_CONTEXT, new PageContext());
+    AppStorage.setOrCreate(StorageKey.SAMPLE_PAGE_CONTEXT, new PageContext());
+    AppStorage.setOrCreate(StorageKey.COMPONENT_PAGE_CONTEXT, new PageContext());
+    AppStorage.setOrCreate(StorageKey.EXPLORATION_PAGE_CONTEXT, new PageContext());
     windowStage.loadContent('page/SplashPage', (err: BusinessError) => {
       WebUtil.initialize(windowStage);
+      WindowUtil.initialize(windowStage);
       if (err.code) {
         Logger.error(TAG, `Failed to load the content. Cause: ${err.code} ${err.message}`);
         return;
       }
-      // Hide PC/2in1 title bar after loadContent success.
-      WindowUtil.hideTitleBar(windowStage);
       Logger.info(TAG, 'Succeeded in loading the content.');
     });
   }
@@ -77,10 +86,10 @@ export default class EntryAbility extends UIAbility {
   onConfigurationUpdate(newConfig: Configuration): void {
     const newColorMode: ConfigurationConstant.ColorMode =
       newConfig.colorMode || ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
-    const currentColorMode = AppStorage.get<ConfigurationConstant.ColorMode>('systemColorMode');
+    const currentColorMode = AppStorage.get<ConfigurationConstant.ColorMode>(StorageKey.COLOR_MODE);
     // When the system dark/light color mode is different form the app color mode,modify the app's color mode.
     if (newColorMode !== currentColorMode) {
-      AppStorage.setOrCreate('systemColorMode', newColorMode);
+      AppStorage.setOrCreate(StorageKey.COLOR_MODE, newColorMode);
     }
   }
 

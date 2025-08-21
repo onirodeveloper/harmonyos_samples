@@ -13,9 +13,7 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+import { Logger, StorageKey, Toast } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { AlertDialogDescriptor } from '../viewmodel/AlertDialogDescriptor';
@@ -31,7 +29,8 @@ export function AlertDialogBuilder($$: DescriptorWrapper) {
       .fontSize($r('sys.float.Body_L'))
       .fontColor($r('sys.color.font_emphasize'))
       .onClick(() => {
-        AlertDialog.show(
+        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+        uiContext.showAlertDialog(
           {
             title: $r('app.string.title'),
             subtitle: $r('app.string.subtitle'),
@@ -43,29 +42,13 @@ export function AlertDialogBuilder($$: DescriptorWrapper) {
               {
                 value: $r('app.string.button_one'),
                 action: () => {
-                  try {
-                    promptAction.showToast({
-                      message: 'Callback when button1 is clicked',
-                      duration: DetailPageConstant.LONG_DURATION,
-                    });
-                  } catch (err) {
-                    const error: BusinessError = err as BusinessError;
-                    Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-                  }
+                  Toast.showLongToast('Callback when button1 is clicked');
                 },
               },
               {
                 value: $r('app.string.button_two'),
                 action: () => {
-                  try {
-                    promptAction.showToast({
-                      message: 'Callback when button2 is clicked',
-                      duration: DetailPageConstant.LONG_DURATION,
-                    });
-                  } catch (err) {
-                    const error: BusinessError = err as BusinessError;
-                    Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-                  }
+                  Toast.showLongToast('Callback when button2 is clicked');
                 },
               }
             ],

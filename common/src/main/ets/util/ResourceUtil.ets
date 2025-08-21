@@ -17,6 +17,7 @@ import { effectKit } from '@kit.ArkGraphics2D';
 import { JSON, util } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { image } from '@kit.ImageKit';
+import { StorageKey } from '../constant/CommonEnums';
 import Logger from './Logger';
 
 const TAG: string = '[ResourceUtil]';
@@ -96,8 +97,10 @@ export class ResourceUtil {
   }
 
   public static getColorDataByPath(mediaUrl: string): Promise<number[]> {
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    const context: Context = uiContext.getHostContext() as Context;
     return new Promise((resolve: (value: number[]) => void, reject: (reason?: Object) => void) => {
-      getContext().resourceManager.getRawFileContent(mediaUrl)
+      context.resourceManager.getRawFileContent(mediaUrl)
         .then((unit8Array: Uint8Array) => {
           let imageSource: image.ImageSource | undefined = undefined;
           let pixelMap: image.PixelMap | undefined = undefined;

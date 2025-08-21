@@ -15,7 +15,7 @@
 
 import { AICaptionComponent, AICaptionController, AICaptionOptions, AudioData } from '@kit.SpeechKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointType, GlobalInfoModel, Logger } from '@ohos/common';
+import { BreakpointType, BreakpointTypeEnum, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 
@@ -28,7 +28,7 @@ export function AICaptionBuilder(_$$: DescriptorWrapper) {
 
 @Component
 struct CaptionComponent {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @State isShown: boolean = true;
   isReading: boolean = false;
   componentWidth: number = 0;
@@ -52,7 +52,7 @@ struct CaptionComponent {
     let fileData: Uint8Array;
     this.isReading = true;
     try {
-      fileData = await getContext(this).resourceManager.getMediaContent($r('app.media.16k'));
+      fileData = await this.getUIContext().getHostContext()!.resourceManager.getMediaContent($r('app.media.16k').id);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       Logger.error(TAG, `GetMediaContent error, the code is ${error.code}}, the message is ${error.message}`);
@@ -76,7 +76,11 @@ struct CaptionComponent {
         data: data,
       };
       if (this.controller) {
-        this.controller.writeAudio(audioData);
+        try {
+          this.controller.writeAudio(audioData);
+        } catch {
+          Logger.error(TAG, `writeAudio Failed`);
+        }
       }
       offset = offset + bufferSize;
       const waitTime = bufferSize / 32;
@@ -105,7 +109,8 @@ struct CaptionComponent {
           lg: $r('app.float.ai_caption_width'),
           xl: $r('app.float.ai_caption_width_xl'),
         }).getValue(this.globalInfoModel.currentBreakpoint))
-        .height($r('app.float.ai_caption_height'))
+        .height(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+        $r('app.float.ai_caption_height_xl') : $r('app.float.ai_caption_height'))
         .margin({
           left: new BreakpointType({
             xs: DetailPageConstant.MARGIN_NEGATIVE_LARGER,

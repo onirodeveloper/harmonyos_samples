@@ -16,7 +16,7 @@
 import type { common, Want } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import { call } from '@kit.TelephonyKit';
-import { ConfigMapKey, Logger, ResourceUtil } from '@ohos/common';
+import { ConfigMapKey, Logger, ProcessUtil, ResourceUtil } from '@ohos/common';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { AppLinkingDescriptor } from '../viewmodel/AppLinkingDescriptor';
 import { LinkType, typeResourcesMapData, wantParam } from '../entity/AppLinkingAttributeMapping';
@@ -32,6 +32,8 @@ export function AppLinkingBuilder($$: DescriptorWrapper) {
 struct AppLinkingComponent {
   @Prop appLinkingDescriptor: AppLinkingDescriptor;
   private galleryUrl: string = '';
+  private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  private uiContext: UIContext = this.getUIContext();
 
   build() {
     Column() {
@@ -59,12 +61,11 @@ struct AppLinkingComponent {
   }
 
   jumpToGallery(): void {
-    const context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
     if (!this.galleryUrl) {
-      this.galleryUrl = ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.GALLERY_URL);
+      this.galleryUrl = ResourceUtil.getRawFileStringByKey(this.context, ConfigMapKey.GALLERY_URL);
     }
     try {
-      context.openLink(this.galleryUrl, { appLinkingOnly: false })
+      this.context.openLink(this.galleryUrl, { appLinkingOnly: false })
         .then(() => {
           Logger.info(TAG, 'OpenLink success.');
         })
@@ -78,7 +79,6 @@ struct AppLinkingComponent {
   }
 
   jumpToMap(): void {
-    const context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
     const abilityStartCallback: common.AbilityStartCallback = {
       onError: (code: number, name: string, message: string) => {
         Logger.error(TAG, `Fail start ability, name is ${name}, code is ${code}, message is ${message}`);
@@ -88,7 +88,7 @@ struct AppLinkingComponent {
       }
     }
     try {
-      context.startAbilityByType('navigation', wantParam, abilityStartCallback);
+      this.context.startAbilityByType('navigation', wantParam, abilityStartCallback);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       Logger.error(TAG, `StartAbilityByType error, the code is ${error.code}, the message is ${error.message}`);
@@ -96,18 +96,12 @@ struct AppLinkingComponent {
   }
 
   jumpToSettings(): void {
-    const context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
     const want: Want = {
       bundleName: 'com.huawei.hmos.settings',
       abilityName: 'com.huawei.hmos.settings.MainAbility',
       uri: '',
     };
-    try {
-      context.startAbility(want);
-    } catch (err) {
-      const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `StartAbility error, the code is ${error.code}, the message is ${error.message}`);
-    }
+    ProcessUtil.startAbility(this.context, want);
   }
 
   jumpToDial(): void {
@@ -122,18 +116,19 @@ struct AppLinkingComponent {
             Logger.info(TAG, `MakeCall success`);
           }
         });
+        return;
       }
-    } else {
-      AlertDialog.show({
-        title: '',
-        message: $r('app.string.not_support_dial'),
-        primaryButton: {
-          value: $r('app.string.sure'),
-          action: () => {
-            Logger.info(TAG, 'The device does not support dial-up.');
-          }
-        }
-      });
     }
+    this.uiContext.showAlertDialog({
+      title: '',
+      message: $r('app.string.not_support_dial'),
+      primaryButton: {
+        value: $r('app.string.sure'),
+        action: () => {
+          Logger.info(TAG, 'The device does not support dial-up.');
+        }
+      }
+    });
+
   }
 }

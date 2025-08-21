@@ -15,7 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import {
   BreakpointTypeEnum,
   LoadingStatus,
@@ -68,11 +68,11 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
   }
 
   protected loadDiscoverList(): void {
-    const isDark: boolean = AppStorage.get('systemColorMode') === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+    const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
     this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
     this.state.topNavigationData.isBlur = false;
-    WindowUtil.updateStatusBarColor(getContext(), isDark);
+    WindowUtil.updateStatusBarColor(isDark);
     this.model.getDiscoveryPage()
       .then((result: DiscoverData) => {
         result.bannerInfos?.forEach((item: BannerData) => {
@@ -80,18 +80,18 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
         });
         this.state.bannerState.bannerResource.setDataArray([...(result.bannerInfos || [])]);
         this.state.discoveryData = result.discoveryData;
-        const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
         if (globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.LG &&
           globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
-          WindowUtil.updateStatusBarColor(getContext(), true);
+          WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = true;
         }
         this.state.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
         Logger.info(TAG, `Request DiscoveryPage Success`);
       })
       .catch((error: BusinessError) => {
-        WindowUtil.updateStatusBarColor(getContext(), isDark);
+        WindowUtil.updateStatusBarColor(isDark);
         TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = isDark;
         if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
           this.state.loadingModel.loadingStatus = LoadingStatus.NO_NETWORK;
@@ -102,10 +102,10 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
   }
 
   protected jumpDetailView(content: DiscoverContent): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-    const pathStack: PageContext =
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('explorationPageContext')! :
-        AppStorage.get('pageContext') as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    const pathStack: PageContext = globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+      AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)! :
+      AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     const articleParam: ArticleDetailParams = {
       id: content.id,
       isArticle: true,

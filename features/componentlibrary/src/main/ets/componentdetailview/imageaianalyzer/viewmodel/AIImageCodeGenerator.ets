@@ -19,6 +19,7 @@ import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 export class AIImageCodeGenerator implements CommonCodeGenerator {
   public generate(_attributes: OriginAttribute[]): string {
     return `import { image } from '@kit.ImageKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 
 @Component
 export struct AIImageComponent {
@@ -56,11 +57,7 @@ export struct AIImageComponent {
   private async getPixmapFromMedia(resource: Resource) {
     let createPixelMap: image.PixelMap;
     try {
-      const unit8Array = await getContext(this)?.resourceManager?.getMediaContent({
-        bundleName: resource.bundleName,
-        moduleName: resource.moduleName,
-        id: resource.id,
-      });
+      const unit8Array = await this.getUIContext().getHostContext()!.resourceManager?.getMediaContent(resource.id);
       const imageSource = image.createImageSource(unit8Array.buffer.slice(0, unit8Array.buffer.byteLength));
       createPixelMap = await imageSource.createPixelMap({
         desiredPixelFormat: image.PixelMapFormat.RGBA_8888,

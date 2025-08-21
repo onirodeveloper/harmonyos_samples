@@ -15,7 +15,7 @@
 
 import { curves } from '@kit.ArkUI';
 import { deviceInfo } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants, ProductSeriesEnum } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExperienceItem } from './ExperienceItem';
@@ -26,12 +26,12 @@ const ENLARGE_COEFFICIENTS = 2;
 
 @Component
 export struct ExperienceCard {
-  @StorageProp('GlobalInfoModel') @Watch('calculateItemWidth') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('calculateItemWidth') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop @Require discoverContents: DiscoverContent[];
   handleItemClick?: Function;
   componentWidth: number = this.globalInfoModel.deviceWidth;
-  scroller: Scroller = new Scroller()
+  scroller: Scroller = new Scroller();
   @State enlargeIndex: number = -1;
   @State itemWidth: number = 0;
 
@@ -47,7 +47,7 @@ export struct ExperienceCard {
   }
 
   onHoverAction(isHover: boolean, index: number) {
-    animateTo({ curve: curves.interpolatingSpring(0, 1, 288, 30) }, () => {
+    this.getUIContext().animateTo({ curve: curves.interpolatingSpring(0, 1, 288, 30) }, () => {
       if (isHover && this.enlargeIndex !== index) {
         const currentOffsetX: number = this.scroller.currentOffset().xOffset;
         // Items at the edge of the screen are not processed.
@@ -102,7 +102,10 @@ export struct ExperienceCard {
     } else {
       Swiper() {
         ForEach(this.discoverContents, (discoverContent: DiscoverContent) => {
-          ExperienceItem({ discoverContent: discoverContent })
+          ExperienceItem({
+            discoverContent: discoverContent,
+            hasPadding: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM,
+          })
             .onClick(() => {
               this.handleItemClick?.(discoverContent);
             })

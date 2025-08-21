@@ -20,13 +20,14 @@ import {
   GlobalInfoModel,
   BreakpointTypeEnum,
   CommonConstants,
+  StorageKey,
 } from '@ohos/common';
 import { DetailPageConstant } from '../constant/DetailPageConstant';
 import type { RecommendData } from '../model/ComponentDetailData';
 
 @Component
 export struct RecommendListItem {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop itemData: RecommendData;
   @State showSheet: boolean = false;
 

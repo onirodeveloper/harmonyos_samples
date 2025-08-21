@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { StorageKey } from '../constant/CommonEnums';
 import type { GlobalInfoModel } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 import { WebUtil } from '../util/WebUtil';
@@ -31,8 +32,8 @@ const HARMONYOS_TOP_HEIGHT: number = 56;
 
 @Component
 struct WebSheet {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('webIsLoading') isLoading: boolean = false;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.WEB_LOADING) isLoading: boolean = false;
   @Prop url: string;
   @Prop urlType: WebUrlType;
   @State loadFailed: boolean = false;

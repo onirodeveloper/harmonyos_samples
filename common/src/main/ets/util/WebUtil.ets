@@ -14,13 +14,15 @@
  */
 
 import { uri } from '@kit.ArkTS';
-import { BuilderNode, FrameNode, NodeController, window } from '@kit.ArkUI';
+import { BuilderNode, FrameNode, NodeController, UIContext, window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { ModuleNameEnum, ScrollDirectionEnum } from '../constant/CommonEnums';
+import { ModuleNameEnum, ScrollDirectionEnum, StorageKey } from '../constant/CommonEnums';
 import Logger from './Logger';
 import { NetworkUtil } from './NetworkUtil';
 import { ConfigMapKey, ResourceUtil } from './ResourceUtil';
+import { common, Want } from '@kit.AbilityKit';
+import { ProcessUtil } from './ProcessUtil';
 
 const TAG: string = '[WebUtil]';
 
@@ -32,7 +34,6 @@ const pageEventMap: Map<string, Function> = new Map();
 const nodeRequiredMap: Map<string, boolean> = new Map(); // Check whether web node is required again.
 const webLoadedMap: Map<string, boolean> = new Map();
 let currentOffset: number = 0;
-let context: UIContext;
 
 const componentCodeHtml: string = `/codePreview/index.html`;
 
@@ -76,20 +77,18 @@ function webBuilder(param: WebBuilderParam) {
       Logger.debug(TAG, `onPageBegin with url: ${param.webUrl}`);
     })
     .onPageEnd(() => {
-      AppStorage.setOrCreate('webIsLoading', false);
-      WebUtil.setTrustList(param.webUrl);
+      AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
       Logger.debug(TAG, `onPageEnd with url: ${param.webUrl}`);
     })
     .onLoadIntercept((event: OnLoadInterceptEvent) => {
-      const tempUrl = event.data.getRequestUrl();
-      return WebUtil.checkUrl(tempUrl);
+      return WebUtil.handleLoadIntercept(event);
     })
     .onSslErrorEventReceive((event) => {
       Logger.error(TAG, `SSL checked failed, error: ${event.error.toString()}`);
       event.handler.handleCancel();
     })
-    .onScroll((event) => {
-      if (param.module && event.yOffset) {
+    .onScroll((event: OnScrollEvent) => {
+      if (param.module) {
         const eventEmitter = eventEmitterMap.get(param.module);
         const scrollOffset: number = event.yOffset - currentOffset;
         currentOffset = event.yOffset;
@@ -101,12 +100,13 @@ function webBuilder(param: WebBuilderParam) {
       }
     })
     .onControllerAttached(() => {
+      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
       try {
         param.webController.onActive();
         const userAgent = `${param.webController.getUserAgent()} Mobile`;
         param.webController.setCustomUserAgent(userAgent);
         // Setting the local file path that allows cross-domain access.
-        param.webController.setPathAllowingUniversalAccess([getContext().resourceDir]);
+        param.webController.setPathAllowingUniversalAccess([uiContext.getHostContext()!.resourceDir]);
       } catch (error) {
         const err: BusinessError = error as BusinessError;
         Logger.error(TAG, `Web User-Agent setting error: ${err.code}, ${err.message}.`);
@@ -138,6 +138,7 @@ export class NativeActionData {
 }
 
 export class WebUtil {
+  private static uiContext: UIContext;
   public static readonly ARTICLE_WHITE_METHODS: string[] = ['checkPreview()', 'closePreview()'];
 
   static addNode(url: string) {
@@ -146,14 +147,14 @@ export class WebUtil {
 
   public static initialize(windowStage: window.WindowStage) {
     try {
-      context = windowStage.getMainWindowSync().getUIContext();
+      WebUtil.uiContext = windowStage.getMainWindowSync().getUIContext();
       webNodeMap.clear();
       webControllerMap.clear();
       webview.WebviewController.initializeWebEngine();
-      WebUtil.createWebNode(WebUtil.getComponentCodeUrl(), context, undefined, ModuleNameEnum.CODE_PREVIEW, true,
-        false);
+      WebUtil.createWebNode(WebUtil.getComponentCodeUrl(), WebUtil.uiContext, undefined, ModuleNameEnum.CODE_PREVIEW,
+        true, false);
     } catch (err) {
-      Logger.error(TAG, `Initialize failed. Cause: ${err.code} ${err.message}`);
+      Logger.error(TAG, `WebUtil initialize failed. Cause: ${err.code} ${err.message}`);
     }
   }
 
@@ -172,15 +173,20 @@ export class WebUtil {
   }
 
   public static checkWebLoaded(url: string): boolean {
-    const loaded: boolean = !!webLoadedMap.get(url);
-    if (!loaded && NetworkUtil.hasDefaultNet()) {
-      const webController = WebUtil.getWebController(url);
-      AppStorage.setOrCreate('webIsLoading', true);
-      webLoadedMap.set(url, true);
-      webController?.refresh();
-      return true;
+    try {
+      const loaded: boolean = !!webLoadedMap.get(url);
+      if (!loaded && NetworkUtil.hasDefaultNet()) {
+        const webController = WebUtil.getWebController(url);
+        AppStorage.setOrCreate(StorageKey.WEB_LOADING, true);
+        webLoadedMap.set(url, true);
+        webController?.refresh();
+        return true;
+      }
+      return loaded;
+    } catch {
+      Logger.error(TAG, `CheckWebLoaded failed.`);
+      return false;
     }
-    return loaded;
   }
 
   public static createWebNode(webUrl: string, uiContext?: UIContext, nestedScrollMode?: NestedScrollMode,
@@ -190,8 +196,8 @@ export class WebUtil {
       Logger.debug(TAG, `Has web node with url: ${webUrl}, should not create web node.`);
       return;
     }
-    if (!context && uiContext) {
-      context = uiContext;
+    if (!WebUtil.uiContext && uiContext) {
+      WebUtil.uiContext = uiContext;
     }
     Logger.debug(TAG, `initWebNode with url: ${webUrl}`);
     const webNode = new WebNodeController();
@@ -215,7 +221,7 @@ export class WebUtil {
         scrollBackward: nestedScrollMode,
       };
     }
-    webNode.initWebNode(context, webBuilderParam);
+    webNode.initWebNode(WebUtil.uiContext, webBuilderParam);
     webLoadedMap.set(webUrl, NetworkUtil.hasDefaultNet());
     webControllerMap.set(webUrl, webController);
     webNodeMap.set(webUrl, webNode);
@@ -264,7 +270,8 @@ export class WebUtil {
   public static setTrustList(webUrl: string): void {
     const webController: webview.WebviewController = webControllerMap.get(webUrl)!;
     try {
-      const whitelist: string = ResourceUtil.getRawFileStringByKey(getContext(), ConfigMapKey.WHITELIST);
+      const whitelist: string =
+        ResourceUtil.getRawFileStringByKey(WebUtil.uiContext.getHostContext()!, ConfigMapKey.WHITELIST);
       webController?.setUrlTrustList(whitelist);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
@@ -272,10 +279,43 @@ export class WebUtil {
     }
   }
 
+  public static handleLoadIntercept(event: OnLoadInterceptEvent): boolean {
+    const tempUrl = event.data.getRequestUrl();
+    if (WebUtil.checkUrl(tempUrl)) {
+      return false;
+    }
+    let want: Want = {
+      action: 'ohos.want.action.viewData',
+      entities: ['entity.system.browsable'],
+      uri: tempUrl,
+      parameters: {
+        'ohos.ability.params.showDefaultPicker': true
+      }
+    };
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+    ProcessUtil.startAbility(context, want);
+    return true;
+  }
+
   public static checkUrl(url: string): boolean {
     const tempUri: uri.URI = new uri.URI(url);
     const res: uri.URI = tempUri.normalize();
     Logger.debug(TAG, `Web request url : ${res.toString()}`);
+    // Allow application internal resource.
+    if (res.scheme === 'file' || res.scheme === 'resource') {
+      return true;
+    }
+    if (res.scheme === 'https') {
+      // Allow official site.
+      if (res.host.endsWith('huawei.com')) {
+        return true;
+      }
+      // Allow official sample code repo site.
+      if (res.host === 'gitee.com' && res.path.startsWith('/harmonyos_samples')) {
+        return true;
+      }
+    }
     return false;
   }
 
@@ -291,8 +331,16 @@ export class WebUtil {
     pageEventMap.set(url, callback);
   }
 
+  public static upPage(url: string) {
+    webNodeMap.get(url)?.add();
+  }
+
+  public static downPage(url: string) {
+    webNodeMap.get(url)?.remove();
+  }
+
   public static getComponentCodeUrl() {
-    return getContext().resourceDir + componentCodeHtml;
+    return WebUtil.uiContext.getHostContext()!.resourceDir + componentCodeHtml;
   }
 }
 

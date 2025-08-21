@@ -18,6 +18,8 @@ import { displaySync } from '@kit.ArkGraphics2D';
 import {
   CommonConstants,
   LoadingStatus,
+  Logger,
+  StorageKey,
   TopNavigationView,
   WebUtil,
   WindowUtil,
@@ -35,10 +37,13 @@ import { ComponentDetailManager } from '../viewmodel/ComponentDetailManager';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 import { RecommendData } from '../model/ComponentDetailData';
 
+const TAG = '[ComponentDetailView]';
+
 @Component({ freezeWhenInactive: true })
 export struct ComponentDetailView {
-  @StorageProp('systemColorMode') systemColorMode: ConfigurationConstant.ColorMode = AppStorage.get('systemColorMode')!;
-  @StorageLink('webIsLoading') @Watch('sendCodeToWeb') webIsLoading: boolean = false;
+  @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
+  @StorageLink(StorageKey.WEB_LOADING) @Watch('sendCodeToWeb') webIsLoading: boolean = false;
   @Prop componentName: string = '';
   @Prop componentId: number = 0;
   private displaySync = displaySync.create();
@@ -48,7 +53,7 @@ export struct ComponentDetailView {
 
   aboutToAppear(): void {
     const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    WindowUtil.updateStatusBarColor(getContext(this), isSystemDark);
+    WindowUtil.updateStatusBarColor(isSystemDark);
   }
 
   aboutToDisappear(): void {
@@ -138,7 +143,11 @@ export struct ComponentDetailView {
 
   refreshCodePreviewWeb() {
     this.webIsLoading = true;
-    WebUtil.getWebController(WebUtil.getComponentCodeUrl())?.refresh();
+    try {
+      WebUtil.getWebController(WebUtil.getComponentCodeUrl())?.refresh();
+    } catch {
+      Logger.error(TAG, `refreshCodePreviewWeb failed.`);
+    }
   }
 
   sendCodeToWeb() {

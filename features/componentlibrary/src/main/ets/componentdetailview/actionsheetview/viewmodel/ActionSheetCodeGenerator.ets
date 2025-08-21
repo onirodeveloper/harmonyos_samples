@@ -54,6 +54,7 @@ export class ActionSheetCodeGenerator implements CommonCodeGenerator {
       }
     });
     return `import { promptAction } from '@kit.ArkUI';
+import type { BusinessError } from '@kit.BasicServicesKit';
 
 @Component
 struct ActionSheetComponent {

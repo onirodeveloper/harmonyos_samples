@@ -129,6 +129,10 @@
       "value": "400vp"
     },
     {
+      "name": "ai_caption_height_xl",
+      "value": "140vp"
+    },
+    {
       "name": "ai_caption_height",
       "value": "100vp"
     },
@@ -159,6 +163,10 @@
     {
       "name": "default_font_12",
       "value": "12fp"
+    },
+    {
+      "name": "default_font_40",
+      "value": "40fp"
     },
     {
       "name": "container_size_1",
@@ -202,7 +210,7 @@
     },
     {
       "name": "slider_track_thick_large",
-      "value": "24vp"
+      "value": "20vp"
     },
     {
       "name": "slider_block_border_size",
@@ -210,7 +218,7 @@
     },
     {
       "name": "slider_block_size_large",
-      "value": "20vp"
+      "value": "18vp"
     },
     {
       "name": "dialog_text_height",
@@ -243,6 +251,10 @@
     {
       "name": "code_preview_height",
       "value": "235vp"
+    },
+    {
+      "name": "comp_detail_area_title_top",
+      "value": "28.0vp"
     }
   ]
 }

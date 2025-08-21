@@ -48,6 +48,7 @@ export default class EntryAbility extends UIAbility {
 
 // Create a HandWritingComponent.ets file in the src/main/ets/ path to be used as a component.
 import { HandwriteComponent, HandwriteController } from '@kit.Penkit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 
 @Component
 struct HandWritingComponent {

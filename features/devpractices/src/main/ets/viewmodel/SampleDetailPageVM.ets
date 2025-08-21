@@ -14,7 +14,6 @@
  */
 
 import type { common } from '@kit.AbilityKit';
-import { promptAction } from '@kit.ArkUI';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
 import { connection } from '@kit.NetworkKit';
 import { moduleInstallManager } from '@kit.StoreKit';
@@ -28,6 +27,8 @@ import {
   LoadingStatus,
   Logger,
   PageContext,
+  StorageKey,
+  Toast,
 } from '@ohos/common';
 import { SampleCardData, SampleDetailData, SampleDetailState } from './SampleDetailState';
 import type { SingleSampleData } from '../model/SampleDetailData';
@@ -109,7 +110,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
 
   private pop(): void {
     if (this.state.installingStatus) {
-      promptAction.showToast({ message: $r('app.string.installing_status') });
+      Toast.showToast($r('app.string.installing_status'));
     } else {
       this.state.isBackPressed = true;
       if (this.state.downloadingStatus) {
@@ -119,10 +120,10 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       }
       emitter.off(CommonConstants.DYNAMIC_INSTALL_EVENT);
       Logger.info(TAG, 'cancelDownloadListener success');
-      const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
       const pageContext: PageContext =
-        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('samplePageContext')! :
-          AppStorage.get('pageContext') as PageContext;
+        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
+          AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
       pageContext.popPage();
     }
   }
@@ -175,7 +176,9 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
         this.setSampleInstalledStatus(this.state.currentIndex, true);
         this.setSampleDownloadingStatus(this.state.currentIndex, false, -1);
         this.setInstallingStatus(false);
-        DynamicInstallManager.loadModule(getContext(this) as common.UIAbilityContext,
+        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+        const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+        DynamicInstallManager.loadModule(context,
           this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName);
         Logger.info(TAG,
           `loadSampleCallback installed : ${this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName}`);
@@ -196,9 +199,9 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
     }
     const currentSampleType = this.state.sampleDatas[this.state.currentIndex].sampleCard.sampleType;
     if (currentSampleType === SampleTypeEnum.COMMON_CLIENT) {
-      promptAction.showToast({ message: $r('app.string.client_prompt') });
+      Toast.showToast($r('app.string.client_prompt'));
     } else if (currentSampleType === SampleTypeEnum.WEARABLE_CLIENT) {
-      promptAction.showToast({ message: $r('app.string.watch_prompt') });
+      Toast.showToast($r('app.string.watch_prompt'));
     } else {
       this.startTask();
     }
@@ -206,9 +209,11 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
 
   private startTask(): void {
     if (this.state.sampleDatas[this.state.currentIndex].sampleCard.installed) {
-      const ctx: common.UIAbilityContext = getContext() as common.UIAbilityContext;
+      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
       try {
-        DynamicInstallManager.loadModule(ctx, this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName);
+        DynamicInstallManager.loadModule(context,
+          this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName);
       } catch (error) {
         Logger.error(TAG, `Failed to loadModule, error code: ${error.code}, error data: ${error.message}`);
       }
@@ -234,21 +239,22 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
 
   private startDownload(): void {
     Logger.info(TAG, `start download sample: ${this.state.sampleDatas[this.state.currentIndex].sampleCard.title}`);
-    const ctx: common.UIAbilityContext = getContext() as common.UIAbilityContext;
-    DynamicInstallManager.fetchModule(ctx, this.state.sampleDatas[this.state.currentIndex].sampleCard.moduleName)
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+    DynamicInstallManager.fetchModule(context, this.state.sampleDatas[this.state.currentIndex].sampleCard.moduleName)
       .then((data: moduleInstallManager.ModuleInstallSessionState) => {
         if (data.code === moduleInstallManager.RequestErrorCode.SUCCESS) {
           this.state.taskId = data.taskId;
         } else if (data.code === moduleInstallManager.RequestErrorCode.DOWNLOAD_WAIT_WIFI) {
-          moduleInstallManager.showCellularDataConfirmation(ctx, data.taskId);
+          moduleInstallManager.showCellularDataConfirmation(context, data.taskId);
           this.state.taskId = data.taskId;
         } else {
           if (data.code === moduleInstallManager.RequestErrorCode.MODULE_UNAVAILABLE) {
-            promptAction.showToast({ message: $r('app.string.module_nonexistent') });
+            Toast.showToast($r('app.string.module_nonexistent'));
           } else if (data.code === moduleInstallManager.RequestErrorCode.NETWORK_ERROR) {
-            promptAction.showToast({ message: $r('app.string.internet_error') });
+            Toast.showToast($r('app.string.internet_error'));
           } else if (data.code === moduleInstallManager.RequestErrorCode.INVALID_REQUEST) {
-            promptAction.showToast({ message: $r('app.string.requestinfo_error') });
+            Toast.showToast($r('app.string.requestinfo_error'));
           }
           this.setSampleDownloadingStatus(this.state.currentIndex, false, -1);
         }
