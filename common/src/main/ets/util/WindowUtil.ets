@@ -18,7 +18,7 @@ import { AbilityConstant } from '@kit.AbilityKit';
 import { display, window } from '@kit.ArkUI';
 import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
 import { CommonConstants } from '../constant/CommonConstants';
-import { ProductSeriesEnum } from '../constant/CommonEnums';
+import { ProductSeriesEnum, StorageKey } from '../constant/CommonEnums';
 import { GlobalInfoModel } from '../model/GlobalInfoModel';
 import { BreakpointSystem } from './BreakpointSystem';
 import Logger from './Logger';
@@ -26,132 +26,127 @@ import Logger from './Logger';
 const TAG: string = '[WindowUtil]';
 
 export class WindowUtil {
-  public static updateStatusBarColor(context: common.BaseContext, isDark: boolean): void {
-    window.getLastWindow(context).then((windowClass: window.Window) => {
-      try {
-        windowClass.setWindowSystemBarProperties({
-          statusBarContentColor: isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK
-        }).then(() => {
-          Logger.info(TAG, 'Succeeded in setting the system bar properties.');
-        }).catch((err: BusinessError) => {
-          Logger.error(TAG, `Failed to set the system bar properties. Cause: ${err.code} ${err.message}`);
-        });
-      } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG, `Failed to set the system bar properties. Cause: ${err.code}, ${err.message}`);
-      }
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `GetLastWindow failed. code: ${error.code}, message: ${error.message}`);
-    });
-  }
+  private static windowClass?: window.Window;
+  private static uiContext: UIContext;
 
-  public static hideTitleBar(windowStage: window.WindowStage) {
-    windowStage.getMainWindow().then((data: window.Window) => {
-      try {
-        if (canIUse('SystemCapability.Window.SessionManager')) {
-          data.setWindowDecorVisible(false);
-          data.setWindowDecorHeight(CommonConstants.NAVIGATION_HEIGHT);
-        } else {
-          Logger.error(TAG, `setWindowDecorVisible invalid`);
-        }
-      } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG, `Failed to set the visibility of window decor. Cause: ${err.code}, ${err.message}`);
-      }
-    }).catch((err: BusinessError) => {
-      Logger.error(TAG, `Failed to obtain the main window. Cause: ${err.code}, ${err.message}`);
-    })
-  }
-
-  public static requestFullScreen(windowStage: window.WindowStage, context: Context): void {
-    windowStage.getMainWindow((err: BusinessError, data: window.Window) => {
-      if (err.code) {
-        Logger.error(TAG, `Failed to obtain the main window. Cause: ${err.code}, ${err.message}`);
-        return;
-      }
-      Logger.debug(TAG, `Succeeded in obtaining the main window. Data: ${JSON.stringify(data)}`);
-      const windowClass: window.Window = data;
-      // Realize the immersive effect.
-      try {
-        if (deviceInfo.productSeries === ProductSeriesEnum.HPR) {
-          WindowUtil.resetWindowSize(windowClass);
-        }
-        const promise: Promise<void> = windowClass.setWindowLayoutFullScreen(true);
-        promise.then(() => {
-          Logger.info(TAG, 'Succeeded in setting the window layout to full-screen mode.');
-        }).catch((err: BusinessError) => {
-          Logger.error(TAG,
-            `Failed to set the window layout to full-screen mode. Cause: ${err.code}, ${err.message}`);
-        });
-        WindowUtil.getDeviceSize(context);
-      } catch {
-        Logger.error(TAG, 'Failed to set the window layout to full-screen mode. ');
-      }
-    });
-  }
-
-  private static resetWindowSize(windowClass: window.Window): void {
-    if (canIUse('SystemCapability.Window.SessionManager')) {
-      const windowSize: display.Display = display.getDefaultDisplaySync();
-      const appWidth: number = windowSize.width * 9 / 10;
-      const appHeight: number = windowSize.height * 7 / 8;
-      const windowLimits: window.WindowLimits = {
-        maxWidth: appWidth,
-        maxHeight: appHeight,
-        minWidth: appWidth,
-        minHeight: appHeight,
-      }
-      windowClass.setWindowLimits(windowLimits);
-      windowClass.moveWindowToAsync(windowSize.width / 20, windowSize.height / 16);
+  public static initialize(windowStage: window.WindowStage) {
+    try {
+      WindowUtil.windowClass = windowStage.getMainWindowSync();
+      const uiContext: UIContext = WindowUtil.windowClass.getUIContext();
+      WindowUtil.uiContext = uiContext;
+      AppStorage.setOrCreate<UIContext>(StorageKey.UI_CONTEXT, uiContext);
+      WindowUtil.registerBreakpoint(WindowUtil.windowClass);
+      WindowUtil.requestFullScreen();
+      // Hide PC/2in1 title bar.
+      WindowUtil.hideTitleBar();
+    } catch (err) {
+      Logger.error(TAG, `WindowUtil initialize failed. Cause: ${err.code} ${err.message}`);
     }
   }
 
-  private static getDeviceSize(context: Context): void {
-    // Get device height.
-    window.getLastWindow(context).then((data: window.Window) => {
-      try {
-        const properties = data.getWindowProperties();
-        const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel') || new GlobalInfoModel();
-        globalInfoModel.deviceHeight = px2vp(properties.windowRect.height);
-        globalInfoModel.deviceWidth = px2vp(properties.windowRect.width);
-        if (canIUse('SystemCapability.Window.SessionManager')) {
-          const decorHeight: number = data?.getWindowDecorHeight();
-          globalInfoModel.decorHeight = decorHeight;
-        }
-        AppStorage.setOrCreate('GlobalInfoModel', globalInfoModel);
-      } catch (err) {
-        const error = err as BusinessError;
-        Logger.error(TAG, `Get and setDeviceSize failed. code: ${error.code}, message: ${error.message}`);
-      }
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `GetLastWindow failed. code: ${error.code}, message: ${error.message}`);
-    });
+  public static updateStatusBarColor(isDark: boolean): void {
+    try {
+      WindowUtil.windowClass?.setWindowSystemBarProperties({
+        statusBarContentColor: isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK
+      }).then(() => {
+        Logger.info(TAG, 'Succeeded in setting the system bar properties.');
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG, `Failed to set the system bar properties. Cause: ${err.code} ${err.message}`);
+      });
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `Failed to set the system bar properties. Cause: ${err.code}, ${err.message}`);
+    }
   }
 
-  public static setMainWindowOrientation(context: Context, orientation: window.Orientation,
-    onSuccess?: () => void): void {
-    window.getLastWindow(context).then((windowClass: window.Window) => {
-      if (windowClass === undefined) {
-        Logger.error(TAG, `MainWindowClass is undefined.`);
-        return;
+  private static hideTitleBar() {
+    try {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        WindowUtil.windowClass?.setWindowDecorVisible(false);
+        WindowUtil.windowClass?.setWindowDecorHeight(CommonConstants.NAVIGATION_HEIGHT);
+      } else {
+        Logger.error(TAG, `setWindowDecorVisible invalid`);
       }
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `Failed to set the visibility of window decor. Cause: ${err.code}, ${err.message}`);
+    }
+  }
+
+  private static requestFullScreen(): void {
+    // Realize the immersive effect.
+    try {
+      if (deviceInfo.productSeries === ProductSeriesEnum.HPR) {
+        WindowUtil.resetWindowSize();
+      }
+      const promise: Promise<void> | undefined = WindowUtil.windowClass?.setWindowLayoutFullScreen(true);
+      promise?.then(() => {
+        Logger.info(TAG, 'Succeeded in setting the window layout to full-screen mode.');
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG,
+          `Failed to set the window layout to full-screen mode. Cause: ${err.code}, ${err.message}`);
+      });
+      WindowUtil.getDeviceSize();
+    } catch {
+      Logger.error(TAG, 'Failed to set the window layout to full-screen mode. ');
+    }
+  }
+
+  private static resetWindowSize(): void {
+    if (canIUse('SystemCapability.Window.SessionManager')) {
       try {
-        // Setting window preferred orientation.
-        windowClass.setPreferredOrientation(orientation, (err: BusinessError) => {
-          const errCode = err.code;
-          if (errCode) {
-            Logger.error(TAG, `Failed to set window orientation. Cause code: ${err.code}, message: ${err.message}`);
-            return;
-          }
-          onSuccess?.();
-        });
+        const windowSize: display.Display = display.getDefaultDisplaySync();
+        const appWidth: number = windowSize.width * 9 / 10;
+        const appHeight: number = windowSize.height * 7 / 8;
+        const windowLimits: window.WindowLimits = {
+          maxWidth: appWidth,
+          maxHeight: appHeight,
+          minWidth: appWidth,
+          minHeight: appHeight,
+        };
+        WindowUtil.windowClass?.setWindowLimits(windowLimits);
+        WindowUtil.windowClass?.moveWindowToAsync(windowSize.width / 20, windowSize.height / 16);
       } catch (err) {
-        const error = err as BusinessError;
-        Logger.error(TAG, `SetPreferredOrientation failed. code: ${error.code}, message: ${error.message}`);
+        Logger.error(TAG, `Failed to getDefaultDisplaySync.`);
       }
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `GetLastWindow failed. code: ${error.code}, message: ${error.message}`);
-    });
+    }
+  }
+
+  private static getDeviceSize(): void {
+    // Get device height.
+    try {
+      const properties = WindowUtil.windowClass?.getWindowProperties();
+      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+      if (properties?.windowRect) {
+        globalInfoModel.deviceHeight = WindowUtil.uiContext.px2vp(properties.windowRect.height);
+        globalInfoModel.deviceWidth = WindowUtil.uiContext.px2vp(properties.windowRect.width);
+      }
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() || 0;
+        globalInfoModel.decorHeight = decorHeight;
+      }
+      AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
+    } catch (err) {
+      const error = err as BusinessError;
+      Logger.error(TAG, `Get and setDeviceSize failed. code: ${error.code}, message: ${error.message}`);
+    }
+  }
+
+  public static setMainWindowOrientation(orientation: window.Orientation, onSuccess?: () => void): void {
+    try {
+      // Setting window preferred orientation.
+      WindowUtil.windowClass?.setPreferredOrientation(orientation, (err: BusinessError) => {
+        const errCode = err.code;
+        if (errCode) {
+          Logger.error(TAG, `Failed to set window orientation. Cause code: ${err.code}, message: ${err.message}`);
+          return;
+        }
+        onSuccess?.();
+      });
+    } catch (err) {
+      const error = err as BusinessError;
+      Logger.error(TAG, `SetPreferredOrientation failed. code: ${error.code}, message: ${error.message}`);
+    }
   }
 
   public static setMissionContinueActive(context: common.UIAbilityContext, active: boolean) {
@@ -163,90 +158,67 @@ export class WindowUtil {
     });
   }
 
-  public static enableFloatWindowRotate(context: Context): void {
-    window.getLastWindow(context).then((windowClass: window.Window) => {
-      if (windowClass === undefined) {
-        Logger.error(TAG, `MainWindowClass is undefined`);
-        return;
+  public static enableFloatWindowRotate(): void {
+    try {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        WindowUtil.windowClass?.enableLandscapeMultiWindow();
+      } else {
+        Logger.error(TAG, `enableLandscapeMultiWindow invalid`);
       }
-      try {
-        if (canIUse('SystemCapability.Window.SessionManager')) {
-          windowClass.enableLandscapeMultiWindow();
-        } else {
-          Logger.error(TAG, `enableLandscapeMultiWindow invalid`);
-        }
-      } catch (err) {
-        const error = err as BusinessError;
-        Logger.error(TAG, `enableLandscapeMultiWindow failed. code: ${error.code}, message: ${error.message}`);
-      }
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `GetLastWindow failed. code: ${error.code}, message: ${error.message}`);
-    });
+    } catch (err) {
+      const error = err as BusinessError;
+      Logger.error(TAG, `enableLandscapeMultiWindow failed. code: ${error.code}, message: ${error.message}`);
+    }
   }
 
-  public static disableFloatWindowRotate(context: Context): void {
-    window.getLastWindow(context).then((windowClass: window.Window) => {
-      if (windowClass === undefined) {
-        Logger.error(TAG, `MainWindowClass is undefined`);
-        return;
+  public static disableFloatWindowRotate(): void {
+    try {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        WindowUtil.windowClass?.disableLandscapeMultiWindow();
+      } else {
+        Logger.error(TAG, `disableLandscapeMultiWindow invalid`);
       }
-      try {
-        if (canIUse('SystemCapability.Window.SessionManager')) {
-          windowClass.disableLandscapeMultiWindow();
-        } else {
-          Logger.error(TAG, `disableLandscapeMultiWindow invalid`);
-        }
-      } catch (err) {
-        const error = err as BusinessError;
-        Logger.error(TAG, `disableLandscapeMultiWindow failed. code: ${error.code}, message: ${error.message}`);
-      }
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `GetLastWindow failed. code: ${error.code}, message: ${error.message}`);
-    });
-    ;
+    } catch (err) {
+      const error = err as BusinessError;
+      Logger.error(TAG, `disableLandscapeMultiWindow failed. code: ${error.code}, message: ${error.message}`);
+    }
   }
 
-  public static registerBreakPoint(windowStage: window.WindowStage) {
-    windowStage.getMainWindow((err: BusinessError, data: window.Window) => {
-      if (err.code) {
-        Logger.error(TAG, `Failed to get main window: ${err.message}`);
-        return;
-      }
-      try {
-        BreakpointSystem.getInstance().updateWidthBp(data);
-        const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel') || new GlobalInfoModel();
-        const systemAvoidArea: window.AvoidArea = data.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-        globalInfoModel.statusBarHeight = px2vp(systemAvoidArea.topRect.height);
-        const bottomArea: window.AvoidArea = data.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
-        globalInfoModel.naviIndicatorHeight = px2vp(bottomArea.bottomRect.height);
-        AppStorage.setOrCreate('GlobalInfoModel', globalInfoModel);
-        data.on('windowSizeChange', () => WindowUtil.onWindowSizeChange(data));
-        data.on('avoidAreaChange', (avoidAreaOption) => {
-          if (avoidAreaOption.type === window.AvoidAreaType.TYPE_SYSTEM ||
-            avoidAreaOption.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
-            WindowUtil.setAvoidArea(avoidAreaOption.type, avoidAreaOption.area);
-          }
-        });
-      } catch (e) {
-        const error = e as BusinessError;
-        Logger.error(TAG, `getWindowAvoidArea failed. code: ${error.code}, message: ${error.message}`);
-      }
-    });
+  private static registerBreakpoint(windowClass: window.Window) {
+    BreakpointSystem.getInstance().updateWidthBp(windowClass);
+    try {
+      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+      const systemAvoidArea: window.AvoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
+      globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(systemAvoidArea.topRect.height);
+      const bottomArea: window.AvoidArea =
+        windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+      globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(bottomArea.bottomRect.height);
+      AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
+      windowClass.on('windowSizeChange', () => WindowUtil.onWindowSizeChange(windowClass));
+      windowClass.on('avoidAreaChange', (avoidAreaOption) => {
+        if (avoidAreaOption.type === window.AvoidAreaType.TYPE_SYSTEM ||
+          avoidAreaOption.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
+          WindowUtil.setAvoidArea(avoidAreaOption.type, avoidAreaOption.area);
+        }
+      });
+    } catch (err) {
+      Logger.error(TAG, `getWindowAvoidArea failed. error message: ${err.message}`);
+    }
   }
 
   // Get status bar height and indicator height.
   public static setAvoidArea(type: window.AvoidAreaType, area: window.AvoidArea) {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel') || new GlobalInfoModel();
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
     if (type === window.AvoidAreaType.TYPE_SYSTEM) {
-      globalInfoModel.statusBarHeight = px2vp(area.topRect.height);
+      globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(area.topRect.height);
     } else {
-      globalInfoModel.naviIndicatorHeight = px2vp(area.bottomRect.height);
+      globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(area.bottomRect.height);
     }
-    AppStorage.setOrCreate('GlobalInfoModel', globalInfoModel);
+    AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
   }
 
   public static onWindowSizeChange(window: window.Window) {
-    WindowUtil.getDeviceSize(getContext());
+    WindowUtil.getDeviceSize();
     BreakpointSystem.getInstance().onWindowSizeChange(window);
   }
 }

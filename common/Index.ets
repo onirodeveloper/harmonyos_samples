@@ -34,6 +34,8 @@ export { LoadingMore } from './src/main/ets/component/LoadingMore';
 
 export { NoMore } from './src/main/ets/component/NoMore';
 
+export { default as Toast } from './src/main/ets/component/Toast';
+
 export { CommonConstants } from './src/main/ets/constant/CommonConstants';
 
 export {
@@ -41,6 +43,7 @@ export {
   LoadingStatus,
   ModuleNameEnum,
   ScrollDirectionEnum,
+  StorageKey,
   ProductSeriesEnum,
 } from './src/main/ets/constant/CommonEnums';
 
@@ -49,7 +52,7 @@ export { IPageContext, PageContext } from './src/main/ets/routermanager/PageCont
 export {
   NativeActionData,
   WebUtil,
-  WebNodeController,
+  type WebNodeController,
   javascriptProxyPermission,
 } from './src/main/ets/util/WebUtil';
 

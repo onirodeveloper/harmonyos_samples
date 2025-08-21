@@ -20,8 +20,8 @@ import { pickerMediaType } from '../entity/CameraPickerMapping';
 export class CameraPickerCodeGenerator implements CommonCodeGenerator {
   private mediaTypes: string = pickerMediaType.get('Default')!.code;
 
-  public generate(_attributes: OriginAttribute[]): string {
-    _attributes.forEach((attribute) => {
+  public generate(attributes: OriginAttribute[]): string {
+    attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'mediaTypes':
           this.mediaTypes = pickerMediaType.get(attribute.currentValue)?.code ?? this.mediaTypes;
@@ -30,9 +30,10 @@ export class CameraPickerCodeGenerator implements CommonCodeGenerator {
           break;
       }
     });
-    return `import { camera, cameraPicker } from '@kit.CameraKit';
-import { promptAction } from '@kit.ArkUI';
+    return `// CameraPicker.ets
+import { camera, cameraPicker } from '@kit.CameraKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
+import type { common } from '@kit.AbilityKit';
 
 @Component
 export struct CameraPickerComponent {
@@ -43,7 +44,7 @@ export struct CameraPickerComponent {
   private controller: VideoController = new VideoController();
 
   aboutToAppear() {
-    const context: common.UIAbilityContext = getContext() as common.UIAbilityContext;
+    const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     let cameraManager: camera.CameraManager;
     try {
       cameraManager = camera.getCameraManager(context);
@@ -82,9 +83,10 @@ export struct CameraPickerComponent {
         .fontColor(this.isFilled ? $r('sys.color.font_on_primary') : $r('sys.color.font_emphasize'))
         .margin({ bottom: $r('sys.float.padding_level10') })
         .onClick(async () => {
+          const uiContext: UIContext = this.getUIContext();
           if (this.cameraNum === 0) {
             try {
-              promptAction.showToast({ message: '该设备没有摄像头' });
+              uiContext.getPromptAction().showToast({ message: '该设备没有摄像头' });
             } catch (err) {
               const error: BusinessError = err as BusinessError;
               console.error(\`Show toast error, the code is \${error.code}, the message is \${error.message}\`);

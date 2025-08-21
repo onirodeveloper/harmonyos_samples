@@ -19,6 +19,7 @@ import { BusinessError, emitter } from '@kit.BasicServicesKit';
 import { moduleInstallManager } from '@kit.StoreKit';
 import Logger from './Logger';
 import { CommonConstants } from '../constant/CommonConstants';
+import { StorageKey } from '../constant/CommonEnums';
 
 const DOWNLOAD_TIMEOUT_LIMIT: number = 1800;
 const TAG: string = '[DynamicInstallManager]';
@@ -31,9 +32,14 @@ export class DynamicInstallManager {
   ];
 
   public static getModuleStatus(moduleName: string): moduleInstallManager.InstallStatus {
-    const result: moduleInstallManager.InstalledModule = moduleInstallManager.getInstalledModule(moduleName);
-    Logger.info(TAG, `getModuleStatus moduleName: ${result.moduleName}, installStatus: ${result.installStatus}`);
-    return result.installStatus;
+    try {
+      const result: moduleInstallManager.InstalledModule = moduleInstallManager.getInstalledModule(moduleName);
+      Logger.info(TAG, `getModuleStatus moduleName: ${result.moduleName}, installStatus: ${result.installStatus}`);
+      return result.installStatus;
+    } catch {
+      Logger.error(TAG, `GetModuleStatus getInstalledModule failed.`);
+      return moduleInstallManager.InstallStatus.NOT_INSTALLED;
+    }
   }
 
   public static fetchModule(context: common.UIAbilityContext,
@@ -131,19 +137,25 @@ export class DynamicInstallManager {
   }
 
   public static setStartAbilityProperty(): StartOptions {
-    const displayData = display.getDefaultDisplaySync();
-    const windowWidth = displayData.availableWidth * CommonConstants.WINDOW_RATIO;
-    const windowHeight = displayData.availableHeight * CommonConstants.WINDOW_RATIO;
-    const windowLeft = (displayData.availableWidth - windowWidth) / 2.0;
-    const windowTop = (displayData.availableHeight - windowHeight) / 2.0;
-    const option: StartOptions = {
-      minWindowWidth: Math.min(px2vp(windowWidth), CommonConstants.MIN_WINDOW_WIDTH),
-      minWindowHeight: Math.min(px2vp(windowHeight), CommonConstants.MIN_WINDOW_HEIGHT),
-      windowLeft: windowLeft,
-      windowTop: windowTop,
-      windowWidth: windowWidth,
-      windowHeight: windowHeight,
-    };
-    return option;
+    try {
+      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      const displayData = display.getDefaultDisplaySync();
+      const windowWidth = displayData.availableWidth * CommonConstants.WINDOW_RATIO;
+      const windowHeight = displayData.availableHeight * CommonConstants.WINDOW_RATIO;
+      const windowLeft = (displayData.availableWidth - windowWidth) / 2.0;
+      const windowTop = (displayData.availableHeight - windowHeight) / 2.0;
+      const option: StartOptions = {
+        minWindowWidth: Math.min(uiContext.px2vp(windowWidth), CommonConstants.MIN_WINDOW_WIDTH),
+        minWindowHeight: Math.min(uiContext.px2vp(windowHeight), CommonConstants.MIN_WINDOW_HEIGHT),
+        windowLeft: windowLeft,
+        windowTop: windowTop,
+        windowWidth: windowWidth,
+        windowHeight: windowHeight,
+      };
+      return option;
+    } catch {
+      Logger.error(TAG, `SetStartAbilityProperty getDefaultDisplaySync failed.`);
+      return {};
+    }
   }
 }

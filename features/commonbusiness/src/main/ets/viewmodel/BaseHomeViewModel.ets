@@ -16,7 +16,7 @@
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { curves } from '@kit.ArkUI';
 import { deviceInfo } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import {
   BaseVM,
   BreakpointType,
@@ -50,7 +50,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   public constructor(initialState: T) {
     super(initialState);
     this.state = initialState;
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     const isLargeWidth: boolean = (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
       globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL);
     this.state.topNavigationData.bgColor = isLargeWidth ? '#FFF1F3F5' : '#00FFFFFF';
@@ -92,7 +92,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   }
 
   protected calculateBannerHeight(param: CalculateHeightParam): boolean {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     if (param.yOffset === 0) {
       this.state.hasEdgeEffect = false;
     } else {
@@ -140,11 +140,12 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   }
 
   protected handleColorModeChange(offsetParam: OffsetParam) {
-    const pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+    const pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     if (pageContext.navPathStack.size() > 1) {
       return;
     }
-    const isDark: boolean = AppStorage.get('systemColorMode') === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+    const isDark: boolean =
+      AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     if (isDark) {
       this.state.topNavigationData.titleColor = `rgba(255,255,255, 1)`;
     } else {
@@ -154,7 +155,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   }
 
   protected changeBannerHeight(): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     const naviTitleHeight: number =
       globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8;
     this.state.bannerState.bannerHeight = new BreakpointType({
@@ -172,9 +173,10 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
 
   protected handleListOffset(offsetParam: OffsetParam): void {
     Logger.debug(TAG, `onDidScroll: ${JSON.stringify(offsetParam)}`);
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-    const isDark: boolean = AppStorage.get('systemColorMode') === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
-    const pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    const isDark: boolean =
+      AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+    const pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     // Calculate whether to display the sample category tabBar.
     if (offsetParam.tabIndex === TabBarType.SAMPLE) {
       const marginTop: number = globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT;
@@ -187,8 +189,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
       if (offsetParam.breakpointChange) {
         this.state.topNavigationData.isBlur = true;
-        if (offsetParam.tabIndex === AppStorage.get('currentTabIndex') && pageContext.navPathStack.size() === 1) {
-          WindowUtil.updateStatusBarColor(getContext(), isDark);
+        if (offsetParam.tabIndex === AppStorage.get(StorageKey.CURRENT_TAB) && pageContext.navPathStack.size() === 1) {
+          WindowUtil.updateStatusBarColor(isDark);
         }
         TAB_CONTENT_STATUSES[offsetParam.tabIndex] = false;
         let colorData: number = 255;
@@ -222,8 +224,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       this.state.topNavigationData.isBlur = false;
       TAB_CONTENT_STATUSES[offsetParam.tabIndex] = true;
     }
-    if (offsetParam.tabIndex === AppStorage.get('currentTabIndex') && pageContext.navPathStack.size() === 1) {
-      WindowUtil.updateStatusBarColor(getContext(), opacity > 0 ? isDark : true);
+    if (offsetParam.tabIndex === AppStorage.get(StorageKey.CURRENT_TAB) && pageContext.navPathStack.size() === 1) {
+      WindowUtil.updateStatusBarColor(opacity > 0 ? isDark : true);
     }
     let colorData: number = 255;
     if (!isDark) {
@@ -233,12 +235,11 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   }
 
   protected jumpBannerDetail(banner: BannerData): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-    const pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    const pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     if (banner.bannerType === BannerTypeEnum.COMPONENT) {
-      const componentPageContext: PageContext =
-        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('componentListPageContext')! :
-          pageContext;
+      const componentPageContext: PageContext = globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+        AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : pageContext;
       const componentDetailParam: ComponentDetailParams = {
         componentName: banner.bannerTitle,
         componentId: Number(banner.bannerValue),
@@ -249,7 +250,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       }, true);
     } else if (banner.bannerType === BannerTypeEnum.SAMPLE) {
       const samplePageContext: PageContext =
-        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('samplePageContext')! :
+        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
           pageContext;
       const sampleParam: SampleDetailParams = {
         currentIndex: 0,
@@ -265,11 +266,11 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       let currentPageContext: PageContext = pageContext;
       if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
         if (banner.tabViewType === TabBarType.HOME) {
-          currentPageContext = AppStorage.get('componentListPageContext')!;
+          currentPageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
         } else if (banner.tabViewType === TabBarType.SAMPLE) {
-          currentPageContext = AppStorage.get('samplePageContext')!;
+          currentPageContext = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)!;
         } else {
-          currentPageContext = AppStorage.get('explorationPageContext')!;
+          currentPageContext = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)!;
         }
       }
       const articleParam: ArticleDetailParams = {
@@ -279,7 +280,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
         isArticle: false,
         tabViewType: globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? banner.id : banner.tabViewType,
       };
-      animateTo({ curve: curves.interpolatingSpring(0, 1, 273, 33) }, () => {
+      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      uiContext.animateTo({ curve: curves.interpolatingSpring(0, 1, 273, 33) }, () => {
         currentPageContext.openPage({
           routerName: 'BannerDetailView',
           param: articleParam,
@@ -290,7 +292,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
 
   private bannerSpringBack() {
     this.state.currentScrollState = 2;
-    animateTo({ curve: this.springBackAnimation, duration: 250 }, () => {
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    uiContext.animateTo({ curve: this.springBackAnimation, duration: 250 }, () => {
       this.changeBannerHeight();
       this.state.topNavigationData.titleOffsetY = 0;
       this.state.topNavigationData.titleScale = 1;

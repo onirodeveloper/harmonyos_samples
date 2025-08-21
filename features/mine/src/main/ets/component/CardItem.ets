@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import { AboutBuilder } from '../view/AboutView';
 
 @Component
 export struct CardItem {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop isShow: boolean;
   textContent?: Resource;
   symbolSrc?: Resource;

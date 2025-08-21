@@ -14,7 +14,7 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants, ProductSeriesEnum } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { DeveloperItem } from './DeveloperItem';
@@ -24,7 +24,7 @@ const DEVELOPER_ITEM_RATIO_VERDE = 240 / 408;
 
 @Component
 export struct DeveloperCard {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop @Require discoverContents: DiscoverContent[];
   handleItemClick?: Function;
 

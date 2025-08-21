@@ -16,7 +16,6 @@
 export class DetailPageConstant {
   public static GRID_POPUP_OFFSET_Y: number = -10;
   public static IMAGE_POPUP_OFFSET_Y: number = -50;
-  public static LONG_DURATION: number = 2000;
   public static ANIMATION_DURATION: number = 500;
   public static ANIMATION_DURATION_SHORT: number = 300;
   public static CUSTOM_DIALOG_CONTENT_HEIGHT: number = 100;

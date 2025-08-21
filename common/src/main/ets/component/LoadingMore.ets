@@ -17,7 +17,7 @@
 export function LoadingMore() {
   Row() {
     LoadingProgress()
-      .color($r('sys.color.font_primary'))
+      .color($r('sys.color.icon_secondary'))
       .size({ width: $r('sys.float.padding_level12'), height: $r('sys.float.padding_level12') })
 
     Text($r('app.string.loading'))

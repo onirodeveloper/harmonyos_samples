@@ -14,7 +14,7 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { CommonConstants, Logger, PageContext, WindowUtil, } from '@ohos/common';
+import { CommonConstants, Logger, PageContext, StorageKey, WindowUtil, } from '@ohos/common';
 import { SplashEventTypeEnum, SplashViewModel } from '../viewmodel/SplashViewModel';
 
 const TAG: string = '[SplashPage]';
@@ -22,20 +22,21 @@ const TAG: string = '[SplashPage]';
 @Entry
 @Component
 struct SplashPage {
-  private pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+  private pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
   private appPathInfo: NavPathStack = this.pageContext.navPathStack;
   private viewModel: SplashViewModel = new SplashViewModel();
 
   onPageHide() {
     Logger.info(TAG, 'onPageHide');
-    WindowUtil.updateStatusBarColor(getContext(this),
-      AppStorage.get('systemColorMode') === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+    const isSystemDark: boolean =
+      AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+    WindowUtil.updateStatusBarColor(isSystemDark);
   }
 
   aboutToAppear(): void {
-    WindowUtil.updateStatusBarColor(getContext(this), true);
+    WindowUtil.updateStatusBarColor(true);
     this.viewModel.sendEvent(SplashEventTypeEnum.CHECK_FIRST_START);
-    animateTo({
+    this.getUIContext().animateTo({
       delay: CommonConstants.ANIMATION_DELAY,
       duration: CommonConstants.ANIMATION_DURATION,
       onFinish: () => {

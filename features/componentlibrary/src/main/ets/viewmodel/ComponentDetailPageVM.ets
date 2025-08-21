@@ -23,6 +23,7 @@ import {
   LoadingStatus,
   ObservedArray,
   PageContext,
+  StorageKey,
   TopNavigationData,
 } from '@ohos/common';
 import {
@@ -53,11 +54,11 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   public originAttributes: OriginAttribute[] = [];
   public fullAttributes: ObservedArray<Attribute> = [];
   private detailPageModel = ComponentDetailModel.getInstance();
-  private globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   private detailData?: ComponentDetailData;
 
   constructor(componentName: string) {
-    const componentDetailConfig: Record<string, ConfigInterface> = AppStorage.get('componentDetailConfig')!;
+    const componentDetailConfig: Record<string, ConfigInterface> = AppStorage.get(StorageKey.COMPONENT_CONFIG)!;
     super(new ComponentDetailState(componentDetailConfig[componentName].descriptor(), [], '', [], LoadingStatus.OFF,
       new TopNavigationData()));
     this.componentName = componentName;
@@ -112,15 +113,14 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   }
 
   public pop(animated?: boolean) {
-    const pageContext: PageContext =
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('componentListPageContext')! :
-        AppStorage.get('pageContext')!;
+    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.popPage(animated);
   }
 
   public jumpToCodePreview(code: string, preRebuild: () => void) {
     const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
-      AppStorage.get('componentListPageContext')! : AppStorage.get('pageContext')!;
+      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.openPage({
       routerName: 'CodePreviewView',
       param: {
@@ -133,7 +133,7 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
 
   public jumpToPenKitView() {
     const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
-      AppStorage.get('componentListPageContext')! : AppStorage.get('pageContext')!;
+      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.openPage({
       routerName: 'PenKitView',
     });
@@ -246,7 +246,7 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
 
   private processAttribute(attributes: AttributeData[]) {
     let curValueArray: string[] = [];
-    const systemColorMode: ConfigurationConstant.ColorMode = AppStorage.get('systemColorMode')!;
+    const systemColorMode: ConfigurationConstant.ColorMode = AppStorage.get(StorageKey.COLOR_MODE)!;
     const originAttributeList: OriginAttribute[] = [];
     const attributeList: ObservedArray<Attribute> = [];
     attributes.forEach((attribute: AttributeData) => {

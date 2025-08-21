@@ -13,13 +13,19 @@
     "installationFree": false,
     "pages": "$profile:main_pages",
     "routerMap": "$profile:router_map",
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "112510453",
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
-        "icon": "$media:layered_image",
-        "label": "$string:EntryAbility_label",
+        "icon": "$media:hmos_layered_image",
+        "label": "$string:HMOSAbility_label",
         "startWindowIcon": "$media:ic_start_icon_800",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,

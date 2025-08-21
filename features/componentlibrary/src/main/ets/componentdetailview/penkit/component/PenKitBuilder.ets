@@ -13,13 +13,9 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+import { Toast } from '@ohos/common';
 import { ComponentDetailManager } from '../../../viewmodel/ComponentDetailManager';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
-
-const TAG: string = '[PenKitBuilder]';
 
 @Builder
 export function PenKitBuilder($$: DescriptorWrapper) {
@@ -31,12 +27,7 @@ export function PenKitBuilder($$: DescriptorWrapper) {
       if (canIUse('SystemCapability.Stylus.Handwrite')) {
         ComponentDetailManager.getInstance().getDetailViewModel('Penkit')?.jumpToPenKitView();
       } else {
-        try {
-          promptAction.showToast({ message: $r('app.string.function_handwrite_not_support') });
-        } catch (err) {
-          const error: BusinessError = err as BusinessError;
-          Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-        }
+        Toast.showToast($r('app.string.function_handwrite_not_support'));
       }
     })
 }

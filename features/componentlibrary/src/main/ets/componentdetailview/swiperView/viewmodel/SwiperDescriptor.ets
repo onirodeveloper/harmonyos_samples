@@ -24,7 +24,7 @@ export class SwiperDescriptor extends CommonDescriptor {
   public effectMode: EdgeEffect = indicatorEffectMapping.get('Default')!.value;
   public isDisplayArrow: boolean = true;
   public displayArrow: ArrowStyle | boolean = false;
-  public loop: boolean = true;
+  public autoPlay: boolean = true;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
@@ -53,8 +53,8 @@ export class SwiperDescriptor extends CommonDescriptor {
             this.displayArrow = false;
           }
           break;
-        case 'loop':
-          this.loop = JSON.parse(attribute.currentValue);
+        case 'autoPlay':
+          this.autoPlay = JSON.parse(attribute.currentValue);
           break;
         default:
           break;

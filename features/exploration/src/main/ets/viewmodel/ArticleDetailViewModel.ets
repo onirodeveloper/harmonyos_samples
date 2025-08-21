@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { BaseVM, BreakpointTypeEnum, GlobalInfoModel, LoadingStatus, PageContext } from '@ohos/common';
+import { BaseVM, BreakpointTypeEnum, GlobalInfoModel, LoadingStatus, PageContext, StorageKey } from '@ohos/common';
 import { ComponentDetailParams, SampleDetailParams, TabBarType } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExplorationDetailState } from './ExplorationDetailState';
@@ -45,15 +45,15 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
   }
 
   private pop(animated: boolean = true, tabBarView: number = TabBarType.HOME): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-    let currentPathStack: PageContext = AppStorage.get('pageContext') as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    let currentPathStack: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
       if (tabBarView === TabBarType.HOME) {
-        currentPathStack = AppStorage.get('componentListPageContext')!;
+        currentPathStack = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
       } else if (tabBarView === TabBarType.SAMPLE) {
-        currentPathStack = AppStorage.get('samplePageContext')!;
+        currentPathStack = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)!;
       } else {
-        currentPathStack = AppStorage.get('explorationPageContext')!;
+        currentPathStack = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)!;
       }
     }
     currentPathStack.popPage(animated);
@@ -61,15 +61,15 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
 
 
   private jumpNativePage(param: NativePageParam): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
-    let pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    let pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
       if (param.tabBarView === TabBarType.HOME) {
-        pageContext = AppStorage.get('componentListPageContext') as PageContext;
+        pageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT) as PageContext;
       } else if (param.tabBarView === TabBarType.SAMPLE) {
-        pageContext = AppStorage.get('samplePageContext') as PageContext;
+        pageContext = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT) as PageContext;
       } else {
-        pageContext = AppStorage.get('explorationPageContext') as PageContext;
+        pageContext = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT) as PageContext;
       }
     }
     pageContext.openPage({

@@ -15,7 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel, ResponseData } from '@ohos/common';
+import { GlobalInfoModel, ResponseData, StorageKey } from '@ohos/common';
 import {
   BreakpointTypeEnum,
   LoadingModel,
@@ -71,11 +71,12 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   }
 
   protected loadSamplePage(param: LoadSamplePageParam): void {
-    const isDark: boolean = AppStorage.get('systemColorMode') === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+    const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
     this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
     this.state.topNavigationData.isBlur = false;
-    WindowUtil.updateStatusBarColor(getContext(), isDark);
+    this.state.topNavigationData.showTab = false;
+    WindowUtil.updateStatusBarColor(isDark);
     this.sampleModel.getSamplePage(1, this.pageSize)
       .then((result: ResponseData<SampleData>) => {
         if (result.data.bannerInfos) {
@@ -94,11 +95,11 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
           categoryList.push(sampleCategory);
         });
         this.state.sampleCategories = categoryList;
-        const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
         if (globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.LG &&
           globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
-          WindowUtil.updateStatusBarColor(getContext(), true);
+          WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.SAMPLE] = true;
         }
         this.state.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
@@ -106,7 +107,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
       })
       .catch((error: BusinessError) => {
         Logger.error(TAG, `load PracticePage Failed, ${error.code} ${error.message}`);
-        WindowUtil.updateStatusBarColor(getContext(), isDark);
+        WindowUtil.updateStatusBarColor(isDark);
         TAB_CONTENT_STATUSES[TabBarType.SAMPLE] = isDark;
         if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
           this.state.loadingModel.loadingStatus = LoadingStatus.NO_NETWORK;
@@ -139,10 +140,10 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   }
 
   protected jumpDetailView(param: SampleDetailParams): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     const pageContext: PageContext =
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get('samplePageContext')! :
-        AppStorage.get('pageContext') as PageContext;
+      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
+        AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     pageContext.openPage({
       routerName: 'SampleDetailView',
       param: param,

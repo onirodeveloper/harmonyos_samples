@@ -14,7 +14,7 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { GlobalInfoModel, PageContext, StorageKey } from '@ohos/common';
 import { BreakpointType, CommonConstants } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
@@ -38,13 +38,13 @@ import { ComponentListEventType, ComponentListViewModel } from '../viewmodel/Com
 
 @Component({ freezeWhenInactive: true })
 export struct ComponentListView {
-  @StorageProp('GlobalInfoModel') @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   viewModel: ComponentListViewModel = ComponentListViewModel.getInstance();
   @State componentListState: ComponentListState = this.viewModel.getState();
-  private componentListPageContext: PageContext = AppStorage.get('componentListPageContext')!;
+  private componentListPageContext: PageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
   private scroller: Scroller = new Scroller();
 
   aboutToAppear(): void {

@@ -14,37 +14,36 @@
  */
 
 import { ArcSwiper, ArcSwiperAttribute, ArcSwiperController } from '@kit.ArkUI';
-import { MockRequest } from '@ohos/common';
 import { HomePageComponent } from '../component/HomepageComponent';
-import { SampleListComponent } from '../component/SampleListComponent';
-import { WearableSampleData } from '../model/WearableSampleData';
+import { SampleListView } from '../view/SampleListView';
 
-const WEARABLE_SAMPLE_TRIGGER: string = 'wearable-sample-list';
-
-@Entry
 @Component
 struct MainPage {
   private wearableSwiperController: ArcSwiperController = new ArcSwiperController();
-  private wearableSampleList: WearableSampleData[] = [];
-
-  aboutToAppear(): void {
-    MockRequest.call<WearableSampleData[]>(WEARABLE_SAMPLE_TRIGGER)
-      .then((result: WearableSampleData[]) => {
-        this.wearableSampleList = result;
-      })
-  }
 
   build() {
-    ArcSwiper(this.wearableSwiperController) {
-      HomePageComponent()
-        .onClick(() => {
-          this.wearableSwiperController.showNext();
-        })
-      SampleListComponent({ wearableSampleList: this.wearableSampleList })
+    NavDestination() {
+      ArcSwiper(this.wearableSwiperController) {
+        HomePageComponent()
+          .onClick(() => {
+            this.wearableSwiperController.showNext();
+          })
+        SampleListView()
+      }
+      .indicator(false)
+      .onDigitalCrown((event: CrownEvent) => {
+        event.stopPropagation();
+      })
     }
-    .indicator(false)
-    .onDigitalCrown((event: CrownEvent) => {
-      event.stopPropagation();
-    })
+    .backgroundColor(Color.Black)
+    .transition(TransitionEffect.OPACITY)
+    .hideTitleBar(true)
+    .height('100%')
+    .width('100%')
   }
+}
+
+@Builder
+export function MainPageBuilder() {
+  MainPage()
 }

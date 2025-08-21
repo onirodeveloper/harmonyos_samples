@@ -13,13 +13,9 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
+import { Toast } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import { CommonBoolMapping } from '../../common/entity/CommonMapData';
-
-const TAG: string = '[ActionSheetBuilder]';
 
 class ActionSheetInfoMapping {
   public code: string;
@@ -43,43 +39,19 @@ const sheetOne: SheetInfo[] = [
   {
     title: $r('app.string.item1'),
     action: () => {
-      try {
-        promptAction.showToast({
-          message: $r('app.string.item_click', 'item1'),
-          duration: DetailPageConstant.LONG_DURATION,
-        });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-      }
+      Toast.showLongToast($r('app.string.item_click', 'item1'));
     },
   },
   {
     title: $r('app.string.item2'),
     action: () => {
-      try {
-        promptAction.showToast({
-          message: $r('app.string.item_click', 'item2'),
-          duration: DetailPageConstant.LONG_DURATION,
-        });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-      }
+      Toast.showLongToast($r('app.string.item_click', 'item2'));
     },
   },
   {
     title: $r('app.string.item3'),
     action: () => {
-      try {
-        promptAction.showToast({
-          message: $r('app.string.item_click', 'item3'),
-          duration: DetailPageConstant.LONG_DURATION,
-        });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-      }
+      Toast.showLongToast($r('app.string.item_click', 'item3'));
     },
   },
 ];
@@ -131,43 +103,19 @@ const sheetTwo: SheetInfo[] = [
   {
     title: $r('app.string.apples'),
     action: () => {
-      try {
-        promptAction.showToast({
-          message: $r('app.string.item_click', 'apples'),
-          duration: DetailPageConstant.LONG_DURATION,
-        });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `Show toast error, the code is ${error.code}, the message is ${error.message}`);
-      }
+      Toast.showLongToast($r('app.string.item_click', 'apples'));
     },
   },
   {
     title: $r('app.string.bananas'),
     action: () => {
-      try {
-        promptAction.showToast({
-          message: $r('app.string.item_click', 'bananas'),
-          duration: DetailPageConstant.LONG_DURATION,
-        });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `Show toast error, the code is ${error.code}, the message is ${error.message}`);
-      }
+      Toast.showLongToast($r('app.string.item_click', 'bananas'));
     },
   },
   {
     title: $r('app.string.pears'),
     action: () => {
-      try {
-        promptAction.showToast({
-          message: $r('app.string.item_click', 'pears'),
-          duration: DetailPageConstant.LONG_DURATION,
-        });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `Show toast error, the code is ${error.code}, the message is ${error.message}`);
-      }
+      Toast.showLongToast($r('app.string.item_click', 'pears'));
     },
   },
 ];

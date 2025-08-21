@@ -15,7 +15,7 @@
 
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, Logger } from '@ohos/common';
+import { GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import { ComponentDetailManager } from '../../../viewmodel/ComponentDetailManager';
 import { AttributeChangeEnable } from '../../../viewmodel/ComponentDetailPageVM';
@@ -36,21 +36,23 @@ struct TextInputComponent {
   @State isText: boolean = false;
   @State textInputHeight: number = 0;
   @State contentOffset: number = 0;
+  private uiContext: UIContext = this.getUIContext();
+  private context: Context = this.uiContext.getHostContext() as Context;
 
   aboutToAppear(): void {
     ComponentDetailManager.getInstance()
       .getDetailViewModel('TextInput')?.sendEvent(new AttributeChangeEnable('fontColor', this.isText));
-    const globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel') || new GlobalInfoModel();
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
     let keyboardHeight: number = 0;
 
-    window.getLastWindow(getContext(this)).then(currentWindow => {
-      // Monitor the appearance and disappearance of the soft keyboard.
-      try {
+    try {
+      window.getLastWindow(this.context).then(currentWindow => {
+        // Monitor the appearance and disappearance of the soft keyboard.
         currentWindow.on('avoidAreaChange', async data => {
           if (data.type !== window.AvoidAreaType.TYPE_KEYBOARD) {
             return;
           }
-          keyboardHeight = px2vp(data.area.bottomRect.height);
+          keyboardHeight = this.uiContext.px2vp(data.area.bottomRect.height);
           /* When the size of the component preview area exceeds half the screen, the keyboard
            will cover the preview area. At this time, the component needs to move up when the keyboard appears.
            */
@@ -60,11 +62,11 @@ struct TextInputComponent {
             this.contentOffset = 0;
           }
         });
-      } catch (err) {
-        const error: BusinessError = err as BusinessError;
-        Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.message}, the message is ${error.message}`);
-      }
-    });
+      });
+    } catch (err) {
+      const error: BusinessError = err as BusinessError;
+      Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.message}, the message is ${error.message}`);
+    }
   }
 
   handleAttributeChange() {

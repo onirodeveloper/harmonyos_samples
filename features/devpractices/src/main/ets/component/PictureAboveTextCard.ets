@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { BreakpointType, BreakpointTypeEnum, CommonConstants, GlobalInfoModel } from '@ohos/common';
+import { BreakpointType, BreakpointTypeEnum, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
 import { ConfigurationConstant } from '@kit.AbilityKit';
@@ -24,9 +24,10 @@ const TAG_PADDING: number = 32;
 
 @Component
 export struct PictureAboveTextCard {
-  @StorageProp('GlobalInfoModel') @Watch('calculateTagMaxWidth') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') systemColorMode: ConfigurationConstant.ColorMode = AppStorage.get('systemColorMode')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('calculateTagMaxWidth') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   @Prop sampleCardData: SampleCardData;
   @State sampleContent?: SampleContent = undefined;
   @State maxWidth: number = 0;
@@ -46,7 +47,7 @@ export struct PictureAboveTextCard {
     const paddingVal = new BreakpointType({
       sm: CommonConstants.SPACE_16,
       md: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? CommonConstants.SPACE_32 :
-          CommonConstants.SPACE_24,
+      CommonConstants.SPACE_24,
       lg: CommonConstants.SPACE_32,
       xl: CommonConstants.SPACE_32,
     }).getValue(this.globalInfoModel.currentBreakpoint);
@@ -68,7 +69,7 @@ export struct PictureAboveTextCard {
         Image($rawfile(this.sampleContent?.mediaUrl))
           .alt($r('app.media.img_placeholder'))
           .height('100%')
-          .height('100%')
+          .width('100%')
           .objectFit(ImageFit.Contain)
           .draggable(true)
       }
@@ -94,8 +95,10 @@ export struct PictureAboveTextCard {
         .alignItems(HorizontalAlign.Start)
         .layoutWeight(1)
 
-        Button({ type: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? ButtonType.ROUNDED_RECTANGLE :
-                ButtonType.Circle }) {
+        Button({
+          type: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? ButtonType.Normal :
+          ButtonType.Circle
+        }) {
           SymbolGlyph($r('sys.symbol.chevron_right'))
             .fontColor([this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
             $r('app.color.icon_secondary_color') : $r('sys.color.icon_secondary')])
@@ -104,6 +107,7 @@ export struct PictureAboveTextCard {
         .margin({ left: $r('sys.float.padding_level6') })
         .height($r('app.float.card_button_height'))
         .aspectRatio(1)
+        .borderRadius($r('sys.float.corner_radius_level4'))
         .backgroundColor($r('sys.color.comp_background_tertiary'))
       }
       .padding({

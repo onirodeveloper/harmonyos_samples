@@ -14,7 +14,7 @@
  */
 
 import { MeasureText } from '@kit.ArkUI';
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import { CardStyleTypeEnum } from '@ohos/commonbusiness';
 import { SampleDetailConstant } from '../constant/CommonConstants';
@@ -36,7 +36,7 @@ export struct TagLabel {
   @Prop cardStyleType: CardStyleTypeEnum;
   @State tagList: TagInfo[] = [];
   @State showEllipsis: boolean = false;
-  @State globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @State globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @State displayPopup: boolean = false;
   private allTagStr: string = '';
 
@@ -49,7 +49,7 @@ export struct TagLabel {
     let currentWidth: number = 0;
     const ellipsisWidth = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? MIN_WIDTH : 0;
     this.tags.forEach((tag: string) => {
-      const tagWidth: number = Math.ceil(px2vp(MeasureText.measureText({
+      const tagWidth: number = Math.ceil(this.getUIContext().px2vp(this.getUIContext().getMeasureUtils().measureText({
         textContent: tag,
         fontSize: $r('sys.float.Body_S')
       }))) + PADDING_WIDTH + CommonConstants.SPACE_8;
