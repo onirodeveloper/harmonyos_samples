@@ -16,7 +16,7 @@
 import { Popup } from '@kit.ArkUI';
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointTypeEnum, GlobalInfoModel, Logger, PreferenceManager } from '@ohos/common';
+import { BreakpointTypeEnum, GlobalInfoModel, Logger, PreferenceManager, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import { CommonStorageKey } from '../../common/entity/CommonStorageKey';
 
@@ -24,7 +24,7 @@ const TAG: string = '[AIImageComponent]';
 
 @Component
 export struct AIImageComponent {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @State imagePixelMap?: image.PixelMap = undefined;
   @State showPopup: boolean = true;
   @State imageWidth: number = 0;
@@ -117,11 +117,7 @@ export struct AIImageComponent {
   private async getPixmapFromMedia(resource: Resource) {
     let createPixelMap: image.PixelMap;
     try {
-      const unit8Array = await getContext(this)?.resourceManager?.getMediaContent({
-        bundleName: resource.bundleName,
-        moduleName: resource.moduleName,
-        id: resource.id,
-      });
+      const unit8Array = await this.getUIContext().getHostContext()!.resourceManager?.getMediaContent(resource.id);
       const imageSource = image.createImageSource(unit8Array.buffer.slice(0, unit8Array.buffer.byteLength));
       createPixelMap = await imageSource.createPixelMap({
         desiredPixelFormat: image.PixelMapFormat.RGBA_8888,

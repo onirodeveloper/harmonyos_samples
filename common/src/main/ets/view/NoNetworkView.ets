@@ -14,14 +14,11 @@
  */
 
 import type { common, Want } from '@kit.AbilityKit';
-import type { BusinessError } from '@kit.BasicServicesKit';
 import { CommonConstants } from '../constant/CommonConstants';
-import { ColumnEnum } from '../constant/CommonEnums';
+import { ColumnEnum, StorageKey } from '../constant/CommonEnums';
 import { BreakpointTypeEnum } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
-import Logger from '../util/Logger';
-
-const TAG = '[NoNetworkView]';
+import { ProcessUtil } from '../util/ProcessUtil';
 
 @Builder
 export function NoNetworkView(breakpoint: BreakpointTypeEnum, handleReload?: () => void) {
@@ -52,22 +49,14 @@ export function NoNetworkView(breakpoint: BreakpointTypeEnum, handleReload?: () 
           { buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.NORMAL })
           .width('100%')
           .onClick(() => {
-            const context: common.UIAbilityContext = getContext() as common.UIAbilityContext;
+            const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+            const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
             const want: Want = {
               bundleName: 'com.huawei.hmos.settings',
               abilityName: 'com.huawei.hmos.settings.MainAbility',
               uri: 'wifi_entry',
             };
-            try {
-              context.startAbility(want).then(() => {
-                Logger.info(TAG, `start setting ability succeed. `);
-              }).catch((err: BusinessError) => {
-                Logger.error(TAG, `start setting ability failed. ${err.code}, ${err.message}.`);
-              });
-            } catch (err) {
-              const error = err as BusinessError;
-              Logger.error(TAG, `StartAbility failed. code: ${error.code}, message: ${error.message}`);
-            }
+            ProcessUtil.startAbility(context, want);
           })
           .margin({ bottom: $r('app.float.loading_size_sm') })
       }

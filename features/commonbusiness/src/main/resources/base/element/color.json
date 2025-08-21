@@ -3,6 +3,10 @@
     {
       "name": "blur_bg",
       "value": "#CCF1F3F5"
+    },
+    {
+      "name": "banner_progress_color",
+      "value": "#EFFFFFFF"
     }
   ]
 }

@@ -15,6 +15,7 @@
 
 import { util } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { StorageKey } from '../constant/CommonEnums';
 import Logger from '../util/Logger';
 
 const TAG = '[MockRequest]';
@@ -27,8 +28,8 @@ class MockRequest {
     return new Promise((resolve: (value: T | PromiseLike<T>) => void,
       reject: ((reason?: BusinessError) => void)) => {
       try {
-        const context: Context = getContext();
-        const result: Uint8Array = context.resourceManager.getRawFileContentSync(`mockdata/${trigger}.json`);
+        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+        const result: Uint8Array = uiContext.getHostContext()!.resourceManager.getRawFileContentSync(`mockdata/${trigger}.json`);
         const textDecoder = util.TextDecoder.create('utf-8', { ignoreBOM: true });
         const content: string = textDecoder.decodeToString(result, { stream: false });
         const jsonContent: ResultData<T> = JSON.parse(content) as ResultData<T>;

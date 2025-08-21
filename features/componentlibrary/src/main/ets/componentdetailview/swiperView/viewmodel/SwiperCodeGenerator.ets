@@ -21,62 +21,55 @@ export class SwiperCodeGenerator implements CommonCodeGenerator {
   private isDisplayArrow: boolean = true;
   private displayArrow: string = '';
   private indicatorType: string = 'DotIndicator';
-  private indicatorCode: string = indicatorStyleMapData.get('Default')!.code;
   private isVertical: boolean = true;
   private effectMode: string = indicatorEffectMapping.get('Default')!.code;
-  private loop: boolean = true;
+  private autoPlay: boolean = true;
 
   public generate(attributes: OriginAttribute[]): string {
-    let code = `Swiper() {
-      ForEach(this.list, (item: string,index: number) => {
+    // Base template with consistent 4-space indentation.
+    const baseTemplate = `Swiper() {
+      ForEach(this.list, (item: string, index: number) => {
         Text(item.toString())
           .width('90%')
-          .height("80%")
+          .height('80%')
           .height(160)
           .backgroundColor(0xAFEEEE)
           .textAlign(TextAlign.Center)
           .fontSize(30)
       }, (item: string) => item)
-    }
-    .loop(${this.loop})\n`;
-
+    }`;
+    const generatedParts: string[] = [baseTemplate];
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'indicator':
           this.indicatorType = attribute.currentValue as string;
-          this.indicatorCode = `    .indicator(${indicatorStyleMapData.get(this.indicatorType)?.code})`;
+          generatedParts.push(`    .indicator(${indicatorStyleMapData.get(this.indicatorType)?.code})`);
           break;
         case 'vertical':
           this.isVertical = JSON.parse(attribute.currentValue);
-          code += `    .vertical(${this.isVertical ? 'true' : 'false'})\n`;
+          generatedParts.push(`    .vertical(${this.isVertical ? 'true' : 'false'})`);
           break;
         case 'effectMode':
           this.effectMode = attribute.currentValue as string;
-          if (this.effectMode === 'Spring') {
-            code += `    .effectMode(EdgeEffect.Spring)`;
-          } else if (this.effectMode === 'Fade') {
-            code += `    .effectMode(EdgeEffect.Fade)`;
-          } else if (this.effectMode === 'None') {
-            code += `    .effectMode(EdgeEffect.None)`;
-          }
+          generatedParts.push(`    .effectMode(EdgeEffect.${this.effectMode})`);
           break;
         case 'isDisplayArrow':
           this.isDisplayArrow = JSON.parse(attribute.currentValue);
-          if (this.isDisplayArrow) {
-            this.displayArrow = `  .displayArrow({
-  showBackground: true,
-  isSidebarMiddle: true,
-  backgroundSize: 24,
-  backgroundColor: Color.White,
-  arrowSize: 18,
-  arrowColor: Color.Blue
-})\n`;
-          } else {
-            this.displayArrow = '    .displayArrow(false)';
-          }
+          this.displayArrow = this.isDisplayArrow
+            ? `    .displayArrow({
+      showBackground: true,
+      isSidebarMiddle: true,
+      backgroundSize: 24,
+      backgroundColor: Color.White,
+      arrowSize: 18,
+      arrowColor: Color.Blue
+    })`
+            : '    .displayArrow(false)';
+          generatedParts.push(this.displayArrow);
           break;
-        case 'loop':
-          this.loop = JSON.parse(attribute.currentValue);
+        case 'autoPlay':
+          this.autoPlay = JSON.parse(attribute.currentValue);
+          generatedParts.push(`    .autoPlay(${this.autoPlay})`);
           break;
         default:
           break;
@@ -95,7 +88,7 @@ struct SwiperComponent {
   @State list: number[] = getSwiperData();
 
   build() {
-    ${code}\n${this.indicatorCode}\n${this.displayArrow}
+    ${generatedParts.join('\n')}
   }
 }`;
   }

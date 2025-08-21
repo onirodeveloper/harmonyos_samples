@@ -17,7 +17,19 @@ import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 
 export class TextToSpeechCodeGenerator implements CommonCodeGenerator {
-  public generate(_attributes: OriginAttribute[]): string {
+  public speed: number = 1;
+
+  public generate(attributes: OriginAttribute[]): string {
+    // Process any attributes.
+    attributes.forEach(attr => {
+      if (attr.name === 'speed') {
+        this.speed = parseFloat(attr.currentValue);
+      }
+    });
+    return this.generateComponentCode();
+  }
+
+  private generateComponentCode(): string {
     return `import { textToSpeech } from '@kit.CoreSpeechKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 let ttsEngine: textToSpeech.TextToSpeechEngine;
@@ -151,7 +163,7 @@ struct TextToSpeechComponent {
     ttsEngine?.setListener(speakListener);
     let extraParam: Record<string, string | number> = {
       'queueMode': 0,
-      'speed': 1,
+      'speed': ${this.speed},
       'volume': 2,
       'pitch': 1,
       'languageContext': 'zh-CN',

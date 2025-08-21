@@ -120,6 +120,7 @@ import { ToggleAttributeFilter } from './toggleview/viewmodel/ToggleAttributeFil
 import { ColumnAttributeFilter } from './columnview/viewmodel/ColumnAttributeFilter'
 import { RowAttributeFilter } from './rowview/viewmodel/RowAttributeFilter'
 import { CameraPickerDescriptor } from './picker/camerapicker/viewmodel/CameraPickerDescriptor'
+import { ImageAttributeFilter } from './Image/viewmodel/ImageAttributeFilter'
 
 export const componentDetailConfig: Record<string, ConfigInterface> = {
   'Button': {
@@ -180,7 +181,8 @@ export const componentDetailConfig: Record<string, ConfigInterface> = {
   'Image': {
     previewComponentBuilder: wrapBuilder(ImageBuilder),
     descriptor: () => new ImageDescriptor(),
-    codeGenerate: new ImageCodeGenerator()
+    codeGenerate: new ImageCodeGenerator(),
+    attributeFilter: new ImageAttributeFilter(),
   },
   'Rating': {
     previewComponentBuilder: wrapBuilder(RatingBuilder),

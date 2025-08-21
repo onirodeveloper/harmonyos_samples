@@ -15,7 +15,7 @@
 
 import type { BusinessError } from '@kit.BasicServicesKit';
 import { textToSpeech } from '@kit.CoreSpeechKit';
-import { Logger } from '@ohos/common';
+import { Logger, StorageKey } from '@ohos/common';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { TextToSpeechDescriptor } from '../viewmodel/TextToSpeechDescriptor';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
@@ -30,7 +30,7 @@ struct TextToSpeechComponent {
   @Prop textToSpeechDescriptor: TextToSpeechDescriptor;
   @State originalText: string = '古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行。';
   @State text: string = '';
-  @StorageLink('isPlaying') @Watch('changePlayMode') isPlaying: boolean = false;
+  @StorageLink(StorageKey.IS_PLAYING) @Watch('changePlayMode') isPlaying: boolean = false;
 
   changePlayMode() {
     ComponentDetailManager.getInstance()
@@ -42,7 +42,7 @@ struct TextToSpeechComponent {
       const isBusy = ttsEngine?.isBusy();
       if (isBusy) {
         ttsEngine?.stop();
-        AppStorage.setOrCreate('isPlaying', false);
+        AppStorage.setOrCreate(StorageKey.IS_PLAYING, false);
         ttsEngine?.shutdown();
       }
     } catch (err) {
@@ -64,15 +64,9 @@ struct TextToSpeechComponent {
 
       Row({ space: DetailPageConstant.COMPONENT_GAP_SIZE2 }) {
         Button() {
-          if (this.isPlaying) {
-            Image($r('app.media.pause'))
-              .height($r('app.float.button_height_normal'))
-              .width($r('app.float.button_height_normal'))
-          } else {
-            Image($r('app.media.play_circle_fill'))
-              .height($r('app.float.button_height_normal'))
-              .width($r('app.float.button_height_normal'))
-          }
+          SymbolGlyph(this.isPlaying ? $r('sys.symbol.pause_circle_fill') : $r('sys.symbol.play_circle_fill'))
+            .fontSize($r('app.float.default_font_40'))
+            .fontColor([$r('sys.color.icon_emphasize')])
         }
         .height($r('app.float.button_height_normal'))
         .width($r('app.float.button_height_normal'))
@@ -87,9 +81,9 @@ struct TextToSpeechComponent {
         })
 
         Button() {
-          Image($r('app.media.stop_circle'))
-            .height($r('app.float.button_height_normal'))
-            .width($r('app.float.button_height_normal'))
+          SymbolGlyph($r('sys.symbol.stop_circle_fill'))
+            .fontSize($r('app.float.default_font_40'))
+            .fontColor([$r('sys.color.ohos_id_color_alert')])
         }
         .height($r('app.float.button_height_normal'))
         .width($r('app.float.button_height_normal'))
@@ -102,7 +96,7 @@ struct TextToSpeechComponent {
             const error: BusinessError = err as BusinessError;
             Logger.error(TAG, `The ttsEngine invoke error, the code is ${error.code}, the message is ${error.message}`);
           }
-          AppStorage.setOrCreate('isPlaying', false);
+          AppStorage.setOrCreate(StorageKey.IS_PLAYING, false);
         })
       }
       .margin({ top: $r('sys.float.padding_level8') })
@@ -140,25 +134,25 @@ struct TextToSpeechComponent {
     const speakListener: textToSpeech.SpeakListener = {
       onStart(requestId: string, response: textToSpeech.StartResponse) {
         Logger.debug(TAG, `onStart, requestId: ${requestId} response: ${JSON.stringify(response)}`);
-        AppStorage.setOrCreate('isPlaying', true);
+        AppStorage.setOrCreate(StorageKey.IS_PLAYING, true);
       },
       onComplete(requestId: string, response: textToSpeech.CompleteResponse) {
         Logger.info(TAG, `onComplete, requestId: ${requestId} response: ${JSON.stringify(response)}`);
         // Only playback completion is handled here, with no regard to stream file generation.
         // 'type === 1' means broadcast over situation.
         if (response.type === 1) {
-          AppStorage.setOrCreate('isPlaying', false);
+          AppStorage.setOrCreate(StorageKey.IS_PLAYING, false);
           ttsEngine?.stop();
         }
       },
       onStop(requestId: string, response: textToSpeech.StopResponse) {
         Logger.debug(TAG, `onStop, requestId: ${requestId} response: ${JSON.stringify(response)}`);
-        AppStorage.setOrCreate('isPlaying', false);
+        AppStorage.setOrCreate(StorageKey.IS_PLAYING, false);
         ttsEngine?.shutdown();
       },
       onError(requestId: string, errorCode: number, errorMessage: string) {
         Logger.error(TAG, `onError, requestId: ${requestId} errorCode: ${errorCode} errorMessage: ${errorMessage}`);
-        AppStorage.setOrCreate('isPlaying', false);
+        AppStorage.setOrCreate(StorageKey.IS_PLAYING, false);
         ttsEngine?.shutdown();
       }
     };
@@ -177,7 +171,11 @@ struct TextToSpeechComponent {
       requestId: '123456-a',
       extraParams: extraParam,
     };
-    ttsEngine?.speak(this.originalText, speakParams);
+    try {
+      ttsEngine?.speak(this.originalText, speakParams);
+    } catch {
+      Logger.error(TAG, `Speak Failed.`);
+    }
   };
 }
 

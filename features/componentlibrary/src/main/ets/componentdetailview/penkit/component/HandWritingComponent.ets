@@ -15,7 +15,7 @@
 
 import { HandwriteComponent, HandwriteController } from '@kit.Penkit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointTypeEnum, GlobalInfoModel, Logger } from '@ohos/common';
+import { BreakpointTypeEnum, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { ComponentDetailManager } from '../../../viewmodel/ComponentDetailManager';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 
@@ -24,7 +24,7 @@ const BUTTON_OFFSET: number = 16;
 
 @Component
 export struct HandWritingComponent {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   private controller: HandwriteController = new HandwriteController();
   private initPath: string = 'savePath';
   private closeButtonTop: number = BUTTON_OFFSET;
@@ -72,7 +72,10 @@ export struct HandWritingComponent {
         .width($r('sys.float.ohos_id_button_height'))
         .height($r('sys.float.ohos_id_button_height'))
         .backgroundColor($r('sys.color.comp_background_tertiary'))
-        .margin({ top: this.closeButtonTop + this.globalInfoModel.statusBarHeight, right: $r('sys.float.padding_level8') })
+        .margin({
+          top: this.closeButtonTop + this.globalInfoModel.statusBarHeight,
+          right: $r('sys.float.padding_level8')
+        })
         .onClick(() => {
           ComponentDetailManager.getInstance().getDetailViewModel('Penkit')?.pop();
         })

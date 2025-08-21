@@ -802,7 +802,7 @@
           "propertyValues": "''"
         },
         {
-          "propertyName": "loop",
+          "propertyName": "autoPlay",
           "propertyDesc": "自动轮播",
           "displayType": "boolean",
           "defaultProperty": "true",
@@ -1173,7 +1173,7 @@
           "propertyDesc": "段落行数",
           "displayType": "number",
           "defaultProperty": "2",
-          "propertyValues": "{ \"left\": 1, \"right\": 6, \"step\": 1 }"
+          "propertyValues": "{ \"left\": 1, \"right\": 5, \"step\": 1 }"
         },
         {
           "propertyName": "highlightColor",

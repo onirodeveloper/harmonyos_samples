@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import { FullScreenNavigationData } from '../model/FullScreenNavigationData';
 
 @Component
 export struct FullScreenNavigation {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop topNavigationData: FullScreenNavigationData = new FullScreenNavigationData();
-  @StorageProp('BlurRenderGroup') blurRenderGroup: boolean = false;
+  @StorageProp(StorageKey.BLUE_RENDER_GROUP) blurRenderGroup: boolean = false;
   @BuilderParam tabView?: () => void;
 
   build() {

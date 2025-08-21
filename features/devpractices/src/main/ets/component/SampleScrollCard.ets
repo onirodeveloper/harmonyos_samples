@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
@@ -21,11 +21,13 @@ import { TagLabel } from './TagLabel';
 const ITEM_HEIGHT: number = 340;
 const ITEM_ASPECT: number = 0.74;
 const LOG_MAX_WIDTH: number = 202;
+const DISPLAY_COUNT: number = 3;
+const MARGIN_COUNT: number = 2;
 
 @Component
 export struct SampleScrollCard {
-  @StorageProp('GlobalInfoModel') @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop sampleCardData: SampleCardData;
   handleItemClick?: Function;
   @State sampleItemWidth: number = ITEM_HEIGHT * ITEM_ASPECT;
@@ -59,14 +61,11 @@ export struct SampleScrollCard {
       lg: CommonConstants.SPACE_32,
     }).getValue(this.globalInfoModel.currentBreakpoint);
     if ((this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) &&
-      this.sampleCardData.sampleContents.length === 3) {
-      this.sampleItemWidth = (this.globalInfoModel.deviceWidth - barWidth - 64 - 32) / 3;
-    } else if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ||
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.MD) {
-      this.sampleItemWidth = ITEM_HEIGHT * ITEM_ASPECT;
+      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL)) {
+      this.sampleItemWidth = (this.globalInfoModel.deviceWidth - barWidth - CommonConstants.SPACE_32 * MARGIN_COUNT -
+        CommonConstants.SPACE_16 * (DISPLAY_COUNT - 1)) / DISPLAY_COUNT;
     } else {
-      this.sampleItemWidth = Math.floor((this.globalInfoModel.deviceWidth - barWidth - 64 - 32) / 3.5);
+      this.sampleItemWidth = ITEM_HEIGHT * ITEM_ASPECT;
     }
   }
 

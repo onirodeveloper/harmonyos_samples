@@ -17,6 +17,7 @@ import { updateManager } from '@kit.StoreKit';
 import type { common } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../util/Logger';
+import { StorageKey } from '../constant/CommonEnums';
 
 const TAG: string = '[UpdateService]';
 
@@ -35,9 +36,11 @@ export class UpdateService {
   }
 
   public checkUpdate(): Promise<boolean> {
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
     return new Promise((resolve: Function, reject: Function) => {
       try {
-        const context: common.UIAbilityContext = getContext() as common.UIAbilityContext;
+
         updateManager.checkAppUpdate(context)
           .then((checkResult: updateManager.CheckUpdateResult) => {
             Logger.info(TAG, `Succeeded in checking Result updateAvailable:` + checkResult.updateAvailable);
@@ -59,8 +62,9 @@ export class UpdateService {
   }
 
   public updateVersion(): Promise<boolean> {
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
     return new Promise((resolve: Function, reject: Function) => {
-      const context: common.UIAbilityContext = getContext() as common.UIAbilityContext;
       try {
         updateManager.showUpdateDialog(context)
           .then((resultCode: updateManager.ShowUpdateResultCode) => {

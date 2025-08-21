@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, ColumnEnum, CommonConstants, VideoComponent } from '@ohos/common';
 import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { SampleDetailData } from '../viewmodel/SampleDetailState';
@@ -21,7 +21,7 @@ import { SampleCard } from './SampleCard';
 
 @Component
 export struct SampleComponent {
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @ObjectLink singleSampleData: SampleDetailData;
   @Prop @Require sampleIndex: number;
   @Prop showIndicator: boolean = false;

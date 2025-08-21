@@ -64,7 +64,7 @@ export struct CustomSideBar {
           .aspectRatio(1)
           .borderRadius($r('sys.float.corner_radius_level4'))
           .margin({ right: $r('sys.float.padding_level6') })
-        Text($r('app.string.EntryAbility_label'))
+        Text($r('app.string.HMOSAbility_label'))
           .fontColor($r('sys.color.font_primary'))
           .fontSize($r('sys.float.Body_L'))
       }

@@ -14,7 +14,7 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { GlobalInfoModel, PageContext, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
@@ -38,13 +38,13 @@ import { ExplorationEventType, ExplorationViewModel } from '../viewmodel/Explora
 @Component({ freezeWhenInactive: true })
 export struct ExplorationView {
   viewModel: ExplorationViewModel = ExplorationViewModel.getInstance();
-  @StorageProp('GlobalInfoModel') @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get('GlobalInfoModel')!;
-  @StorageProp('systemColorMode') @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get('systemColorMode')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE)!;
   @State explorationState: ExplorationState = this.viewModel.getState();
   private listScroller: Scroller = new Scroller();
-  private explorationPageContext: PageContext = AppStorage.get('explorationPageContext')!;
+  private explorationPageContext: PageContext = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)!;
 
   aboutToAppear(): void {
     this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });

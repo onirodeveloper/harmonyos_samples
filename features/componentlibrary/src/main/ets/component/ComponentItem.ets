@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { BreakpointTypeEnum, CommonConstants, GlobalInfoModel } from '@ohos/common';
+import { BreakpointTypeEnum, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import type { ComponentContent } from '../model/ComponentData';
 
 @Component
@@ -21,7 +21,7 @@ export struct ComponentItem {
   @Prop componentContent: ComponentContent;
   @Prop showDivider: boolean;
   @Prop buttonColor: ResourceColor = $r('sys.color.interactive_active');
-  private globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
 
   build() {
     Column() {

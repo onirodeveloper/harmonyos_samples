@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
+import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, BreakpointTypeEnum, CommonConstants, TopNavigationView } from '@ohos/common';
 import { AboutBindSheetEvent, MinePageVM } from '../viewmodel/MinePageVM';
 import { MinePageState } from '../viewmodel/MinePageState';
@@ -23,7 +23,7 @@ import { CardItem } from '../component/CardItem';
 export struct MineView {
   viewModel: MinePageVM = MinePageVM.getInstance();
   @State minePageState: MinePageState = this.viewModel.getState();
-  @StorageProp('GlobalInfoModel') globalInfoModel: GlobalInfoModel = AppStorage.get('GlobalInfoModel')!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
 
   throttle(func: Function, interval: number) {
     let lastTime = 0;

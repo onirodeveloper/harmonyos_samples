@@ -13,53 +13,41 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Logger } from '@ohos/common';
-import { DetailPageConstant } from '../../../constant/DetailPageConstant';
+import { Toast } from '@ohos/common';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { TextPickerDialogDescriptor } from '../viewmodel/TextPickerDialogDescriptor';
 
-const TAG: string = '[TextPickerDialogBuilder]';
-
 @Builder
 export function TextPickerDialogBuilder($$: DescriptorWrapper) {
-  Column() {
-    Button($r('app.string.text_picker_dialog_tip'))
-      .margin($r('sys.float.padding_level10'))
-      .buttonStyle(ButtonStyleMode.NORMAL)
-      .fontWeight(FontWeight.Medium)
-      .fontSize($r('sys.float.Body_L'))
-      .fontColor($r('sys.color.font_emphasize'))
-      .onClick(() => {
-        TextPickerDialog.show({
-          range: $r('app.strarray.text_picker_data'),
-          defaultPickerItemHeight: ($$.descriptor as TextPickerDialogDescriptor).itemHeight,
-          canLoop: ($$.descriptor as TextPickerDialogDescriptor).canLoop,
-          onAccept: (value: TextPickerResult) => {
-            try {
-              promptAction.showToast({
-                message: `Select ${value.value}`,
-                duration: DetailPageConstant.LONG_DURATION
-              });
-            } catch (err) {
-              const error: BusinessError = err as BusinessError;
-              Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-            }
-          },
-          onCancel: () => {
-            try {
-              promptAction.showToast({
-                message: 'Canceled',
-                duration: DetailPageConstant.LONG_DURATION
-              });
-            } catch (err) {
-              const error: BusinessError = err as BusinessError;
-              Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
-            }
-          },
-        });
-      })
+  TextPickerDialogComponent({ textPickerDialogDescriptor: $$.descriptor as TextPickerDialogDescriptor })
+}
+
+@Component
+struct TextPickerDialogComponent {
+  @Prop textPickerDialogDescriptor: TextPickerDialogDescriptor;
+
+  build() {
+    Column() {
+      Button($r('app.string.text_picker_dialog_tip'))
+        .margin($r('sys.float.padding_level10'))
+        .buttonStyle(ButtonStyleMode.NORMAL)
+        .fontWeight(FontWeight.Medium)
+        .fontSize($r('sys.float.Body_L'))
+        .fontColor($r('sys.color.font_emphasize'))
+        .onClick(() => {
+          this.getUIContext().showTextPickerDialog({
+            range: $r('app.strarray.text_picker_data'),
+            defaultPickerItemHeight: this.textPickerDialogDescriptor.itemHeight,
+            canLoop: this.textPickerDialogDescriptor.canLoop,
+            onAccept: (value: TextPickerResult) => {
+              Toast.showLongToast(`Select ${value.value}`);
+            },
+            onCancel: () => {
+              Toast.showLongToast('Canceled');
+            },
+          });
+        })
+    }
+    .width('100%')
   }
-  .width('100%')
 }

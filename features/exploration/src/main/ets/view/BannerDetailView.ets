@@ -98,7 +98,7 @@ struct BannerDetailView {
   popAction(isAnimation: boolean) {
     this.isPopTransition = true;
     this.isChangePage = true;
-    animateTo({
+    this.getUIContext().animateTo({
       curve: curves.interpolatingSpring(0, 1, 363, 38),
     }, () => {
       WebUtil.getWebController(this.discoverContent.detailsUrl)?.onInactive();
