@@ -52,8 +52,7 @@ function processSample(samplePath, sampleName, moduleName, abilityName) {
   let sampleBuildFile;
   let sampleBuildData;
 
-  // 修改entry目录名,如果有entry
-  if (fs.existsSync(path.join(samplePath, 'entry'))) {
+  if (fs.existsSync(path.join(samplePath, 'entry')) && !fs.existsSync(path.join(samplePath, moduleName))) {
     fs.renameSync(
       path.join(samplePath, 'entry'),
       path.join(samplePath, moduleName)
