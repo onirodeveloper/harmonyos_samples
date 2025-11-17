@@ -13,12 +13,7 @@
     "installationFree": false,
     "pages": "$profile:main_pages",
     "routerMap": "$profile:router_map",
-    "metadata": [
-      {
-        "name": "client_id",
-        "value": "112510453",
-      }
-    ],
+    "metadata": [],
     "abilities": [
       {
         "name": "EntryAbility",
