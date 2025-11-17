@@ -26,6 +26,7 @@ export class CommonConstants {
   public static SIDE_BAR_WIDTH: number = 240;
   // Percent
   public static readonly FULL_PERCENT: string = '100%';
+  public static readonly HALF_PERCENT: string = '50%';
   // Space
   public static readonly SPACE_2: number = 2;
   public static readonly SPACE_4: number = 4;
@@ -35,7 +36,10 @@ export class CommonConstants {
   public static readonly SPACE_12: number = 12;
   public static readonly SPACE_16: number = 16;
   public static readonly SPACE_24: number = 24;
+  public static readonly SPACE_28: number = 28;
   public static readonly SPACE_32: number = 32;
+  public static readonly SPACE_40: number = 40;
+  public static readonly SPACE_48: number = 48;
   public static readonly SWIPER_DURATION: number = 3000;
   public static readonly PRELOAD_DURATION: number = 1200;
   public static readonly REMOVE_DURATION: number = 600;
@@ -62,4 +66,8 @@ export class CommonConstants {
   public static readonly WINDOW_RATIO: number = 0.9;
   public static readonly MIN_WINDOW_WIDTH: number = 1440;
   public static readonly MIN_WINDOW_HEIGHT: number = 940;
+  // Unlimited Lines
+  public static readonly UNLIMITED_LINES: number = 1000;
+  // Break Word Offset
+  public static readonly BREAK_WORD_OFFSET: number = 5;
 }

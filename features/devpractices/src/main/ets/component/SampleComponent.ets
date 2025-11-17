@@ -13,18 +13,18 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, ColumnEnum, CommonConstants, VideoComponent } from '@ohos/common';
+import { BreakpointType, ColumnEnum, CommonConstants, GlobalInfoModel, StorageKey, VideoComponent } from '@ohos/common';
 import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { SampleDetailData } from '../viewmodel/SampleDetailState';
 import { SampleCard } from './SampleCard';
 
 @Component
 export struct SampleComponent {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @ObjectLink singleSampleData: SampleDetailData;
   @Prop @Require sampleIndex: number;
   @Prop showIndicator: boolean = false;
+  @Prop @Require widthBreakpoint: WidthBreakpoint;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
 
   build() {
     Column() {
@@ -46,9 +46,23 @@ export struct SampleComponent {
         }
       }
       .layoutWeight(1)
+      .margin({
+        bottom: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+          this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+        $r('app.float.display_bottom_padding') : $r('sys.float.padding_level0'),
+        top: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+          this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+        $r('app.float.display_top_padding') : $r('sys.float.padding_level0')
+      })
 
       GridRow({
-        columns: { sm: ColumnEnum.SM, md: ColumnEnum.MD, lg: ColumnEnum.LG },
+        columns: {
+          sm: ColumnEnum.SM,
+          md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+            this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? ColumnEnum.SM :
+          ColumnEnum.MD,
+          lg: ColumnEnum.LG
+        },
         gutter: {
           x: {
             sm: $r('sys.float.padding_level6'),
@@ -58,8 +72,18 @@ export struct SampleComponent {
         },
       }) {
         GridCol({
-          span: { sm: CommonConstants.SPAN_4, md: CommonConstants.SPAN_6, lg: CommonConstants.SPAN_8 },
-          offset: { sm: 0, md: 1, lg: 2 },
+          span: {
+            sm: CommonConstants.SPAN_4,
+            md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+              this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+            CommonConstants.SPAN_4 : CommonConstants.SPAN_6,
+            lg: CommonConstants.SPAN_8
+          },
+          offset: {
+            sm: 0,
+            md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? 0 : 1,
+            lg: 2
+          },
         }) {
           SampleCard({ sampleCard: this.singleSampleData.sampleCard, sampleIndex: this.sampleIndex, })
         }
@@ -75,14 +99,19 @@ export struct SampleComponent {
       top: $r('sys.float.padding_level4'),
       left: new BreakpointType({
         sm: $r('sys.float.padding_level8'),
-        md: $r('sys.float.padding_level12'),
+        md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+        $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
         lg: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.widthBreakpoint),
       right: new BreakpointType({
         sm: $r('sys.float.padding_level8'),
-        md: $r('sys.float.padding_level12'),
+        md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+        $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
         lg: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.widthBreakpoint),
+      bottom: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+        this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+      $r('app.float.tablet_vertical_padding') : $r('sys.float.padding_level0'),
     })
   }
 }

@@ -13,8 +13,14 @@
  * limitations under the License.
  */
 
-import { EmptyContentView, LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView,
-  StorageKey } from '@ohos/common';
+import {
+  EmptyContentView,
+  LoadingFailedView,
+  LoadingStatus,
+  LoadingView,
+  NoNetworkView,
+  StorageKey,
+} from '@ohos/common';
 import type { GlobalInfoModel, LoadingModel } from '@ohos/common';
 
 @Component
@@ -32,13 +38,13 @@ export struct BaseCategoryView {
       } else {
         Column() {
           if (this.loadingModel.loadingStatus === LoadingStatus.FAILED) {
-            LoadingFailedView(this.globalInfoModel.currentBreakpoint, () => {
+            LoadingFailedView(this.globalInfoModel.widthBreakpoint, () => {
               this.reloadData?.();
             })
           } else if (this.loadingModel.loadingStatus === LoadingStatus.LOADING) {
-            LoadingView(this.globalInfoModel.currentBreakpoint)
+            LoadingView(this.globalInfoModel.widthBreakpoint)
           } else if (this.loadingModel.loadingStatus === LoadingStatus.NO_NETWORK) {
-            NoNetworkView(this.globalInfoModel.currentBreakpoint, () => {
+            NoNetworkView(this.globalInfoModel.widthBreakpoint, () => {
               this.reloadData?.();
             })
           } else {

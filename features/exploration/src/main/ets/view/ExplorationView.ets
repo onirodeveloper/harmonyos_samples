@@ -14,8 +14,9 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { GlobalInfoModel, PageContext, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
+import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { BreakpointType, CommonConstants, StorageKey, VersionUtil } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -43,7 +44,7 @@ export struct ExplorationView {
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE)!;
   @State explorationState: ExplorationState = this.viewModel.getState();
-  private listScroller: Scroller = new Scroller();
+  scroller: Scroller = new Scroller();
   private explorationPageContext: PageContext = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)!;
 
   aboutToAppear(): void {
@@ -53,14 +54,14 @@ export struct ExplorationView {
   handleBreakPointChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
-      param: { yOffset: (this.listScroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.PRACTICE },
+      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.PRACTICE },
     });
   }
 
   handleColorModeChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_COLOR_CHANGE,
-      param: { yOffset: (this.listScroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.PRACTICE },
+      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.PRACTICE },
     });
   }
 
@@ -93,13 +94,13 @@ export struct ExplorationView {
         md: $r('sys.float.padding_level12'),
         lg: CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
         xl: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.globalInfoModel.widthBreakpoint),
     })
   }
 
   @Builder
   ContentViewBuilder() {
-    List({ scroller: this.listScroller, space: CommonConstants.SPACE_16 }) {
+    List({ scroller: this.scroller, space: CommonConstants.SPACE_16 }) {
       ListItem() {
         BannerCard({
           tabViewType: TabBarType.PRACTICE,
@@ -138,10 +139,10 @@ export struct ExplorationView {
                 },
               })
                 .margin({
-                  left: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
-                  $r('sys.float.padding_level8') : 0,
-                  right: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
-                  $r('sys.float.padding_level8') : 0,
+                  left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
+                    $r('sys.float.padding_level8') : 0,
+                  right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
+                    $r('sys.float.padding_level8') : 0,
                 })
             }
           }
@@ -163,7 +164,7 @@ export struct ExplorationView {
         LoadingMoreItemBuilder(this.explorationState.loadingModel)
       }
       .padding({
-        left: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ?
+        left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
           CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_16 : CommonConstants.SPACE_16,
         right: CommonConstants.SPACE_16,
         bottom: (this.globalInfoModel.naviIndicatorHeight +
@@ -171,7 +172,7 @@ export struct ExplorationView {
             sm: CommonConstants.TAB_BAR_HEIGHT,
             md: CommonConstants.TAB_BAR_HEIGHT,
             lg: 0,
-          }).getValue(this.globalInfoModel.currentBreakpoint))),
+          }).getValue(this.globalInfoModel.widthBreakpoint))),
       })
     }
     .width('100%')
@@ -180,7 +181,7 @@ export struct ExplorationView {
     .scrollBar(BarState.Off)
     .edgeEffect(this.explorationState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
-      const param: CalculateHeightParam = { offset, state, yOffset: this.listScroller.currentOffset().yOffset };
+      const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset().yOffset };
       const bannerChangeHeight: boolean | void = this.viewModel.sendEvent<CalculateHeightParam>({
         type: BaseHomeEventType.CALCULATE_BANNER_HEIGHT,
         param,
@@ -191,10 +192,12 @@ export struct ExplorationView {
       return { offsetRemain: offset };
     })
     .onDidScroll(() => {
-      this.viewModel.sendEvent<OffsetParam>({
-        type: BaseHomeEventType.HANDLE_SCROLL_OFFSET,
-        param: { yOffset: this.listScroller.currentOffset().yOffset, tabIndex: TabBarType.PRACTICE },
-      });
+      if (!VersionUtil.canUseHds()) {
+        this.viewModel.sendEvent<OffsetParam>({
+          type: BaseHomeEventType.HANDLE_SCROLL_OFFSET,
+          param: { yOffset: this.scroller.currentOffset().yOffset, tabIndex: TabBarType.PRACTICE },
+        });
+      }
     })
     .backgroundColor($r('sys.color.background_secondary'))
   }
@@ -206,22 +209,47 @@ export struct ExplorationView {
     })
   }
 
+  @Builder
+  ExplorationContentView() {
+    BaseHomeView({
+      loadingModel: this.explorationState.loadingModel,
+      contentView: () => {
+        this.ContentViewBuilder()
+      },
+      topTitleView: () => {
+        this.TopTitleViewBuilder()
+      },
+      reloadData: () => {
+        this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });
+      },
+    })
+  }
+
   build() {
-    Navigation(this.explorationPageContext.navPathStack) {
-      BaseHomeView({
-        loadingModel: this.explorationState.loadingModel,
-        contentView: () => {
-          this.ContentViewBuilder()
-        },
-        topTitleView: () => {
-          this.TopTitleViewBuilder()
-        },
-        reloadData: () => {
-          this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });
-        },
+    if (VersionUtil.canUseHds()) {
+      HdsNavigation(this.explorationPageContext.navPathStack) {
+        this.ExplorationContentView();
+      }
+      .mode(NavigationMode.Stack)
+      .hideBackButton(true)
+      .titleMode(HdsNavigationTitleMode.MINI)
+      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+      .titleBar({
+        padding: this.explorationState.topNavigationData.hdsTitleBarPadding,
+        avoidLayoutSafeArea: true,
+        style: this.explorationState.topNavigationData.hdsTitleBarStyle,
+        content: {
+          title: { mainTitle: this.explorationState.topNavigationData.title },
+        }
       })
+      .width('100%')
+      .height('100%')
+    } else {
+      Navigation(this.explorationPageContext.navPathStack) {
+        this.ExplorationContentView();
+      }
+      .mode(NavigationMode.Stack)
+      .hideTitleBar(true)
     }
-    .mode(NavigationMode.Stack)
-    .hideTitleBar(true)
   }
 }

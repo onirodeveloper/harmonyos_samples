@@ -26,6 +26,8 @@ export class SingleSampleData {
   public originalUrl: string = '';
   public moduleName: string = '';
   public abilityName: string = '';
+  public requiredApiVersion: number = 0;
+  public supportDeviceList: string[] = [];
 }
 
 export class SampleCardDetail {

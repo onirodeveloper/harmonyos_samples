@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { TagEnum } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import { MediaTypeEnum } from '@ohos/commonbusiness';
 
@@ -28,6 +29,7 @@ export class DiscoverContent {
   public author: string = '';
   public detailsUrl: string = '';
   public urlData: string = '';
+  public tagIds: TagEnum[] = [];
 }
 
 @Observed

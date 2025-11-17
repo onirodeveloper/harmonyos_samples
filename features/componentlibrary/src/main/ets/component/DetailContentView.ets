@@ -14,18 +14,17 @@
  */
 
 import { curves } from '@kit.ArkUI';
-import { GlobalInfoModel, Logger, StorageKey, WebNodeController } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants, WebUtil, } from '@ohos/common';
+import type { GlobalInfoModel } from '@ohos/common';
+import { BreakpointType, CommonConstants, Logger, StorageKey, WebNodeController, WebUtil, } from '@ohos/common';
 import { CodePreviewComponent } from './CodePreviewComponent';
 import type { ConfigInterface } from '../componentdetailview/ComponentDetailConfig';
 import { ComponentDetailPageVM, TopNavigationChangeEvent } from '../viewmodel/ComponentDetailPageVM';
 import type { ComponentDetailState } from '../viewmodel/ComponentDetailState';
-import type { RecommendData } from '../model/ComponentDetailData';
 import { ComponentDetailManager } from '../viewmodel/ComponentDetailManager';
-import { AttributeChangeArea } from './AttributeChangeArea';
-import { RecommendListItem } from './RecommendListItem';
 import { DetailPageConstant } from '../constant/DetailPageConstant';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
+import { AttributeChangeArea } from './AttributeChangeArea';
+import { RecommendList } from './RecommendList';
 
 const PREVIEW_HEIGHT_SM: number = DetailPageConstant.PREVIEW_HEIGHT_SM;
 const TAG: string = '[DetailContentView]';
@@ -66,7 +65,7 @@ export struct DetailContentView {
       this.globalInfoModel.naviIndicatorHeight === 0 ? 36 : this.globalInfoModel.naviIndicatorHeight;
     // In EntryAbility, set decorHeight 0.
     const decorHeight: number =
-      this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL ? this.globalInfoModel.decorHeight : 0;
+      this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL ? this.globalInfoModel.decorHeight : 0;
     this.paddingToTop = this.globalInfoModel.statusBarHeight === decorHeight ? 0 : this.globalInfoModel.statusBarHeight;
   }
 
@@ -100,14 +99,14 @@ export struct DetailContentView {
   }
 
   handleBreakPointChange() {
-    this.viewModel?.sendEvent(new TopNavigationChangeEvent(this.globalInfoModel.currentBreakpoint ===
-    BreakpointTypeEnum.SM ? false : this.isShowTopDivider));
+    this.viewModel?.sendEvent(new TopNavigationChangeEvent(this.globalInfoModel.widthBreakpoint ===
+    WidthBreakpoint.WIDTH_SM ? false : this.isShowTopDivider));
   }
 
   build() {
     Flex({
-      direction: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? FlexDirection.Column :
-      FlexDirection.Row,
+      direction: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? FlexDirection.Column :
+        FlexDirection.Row,
     }) {
       Column() {
         this.textTip($r('app.string.preview'))
@@ -125,7 +124,7 @@ export struct DetailContentView {
           this.paddingToBottom) - DetailPageConstant.TEXT_TIP_HEIGHT),
           lg: (this.globalInfoModel.deviceHeight - (CommonConstants.NAVIGATION_HEIGHT + this.paddingToTop +
           this.paddingToBottom) - DetailPageConstant.TEXT_TIP_HEIGHT),
-        }).getValue(this.globalInfoModel.currentBreakpoint))
+        }).getValue(this.globalInfoModel.widthBreakpoint))
         .borderRadius($r('sys.float.corner_radius_level8'))
       }
       .padding({
@@ -134,17 +133,22 @@ export struct DetailContentView {
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level16'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
         right: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level4'),
           lg: $r('sys.float.padding_level6'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
+        bottom:  new BreakpointType({
+          sm: $r('sys.float.padding_level4'),
+          md: $r('sys.float.padding_level0'),
+          lg: $r('sys.float.padding_level0'),
+        }).getValue(this.globalInfoModel.widthBreakpoint)
       })
-      .size(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? { width: '100%' } : { width: '50%' })
+      .size(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? { width: '100%' } : { width: '50%' })
       .alignItems(HorizontalAlign.Start)
 
-      if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM && this.showDivider) {
+      if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM && this.showDivider) {
         Divider()
           .width('100%')
       }
@@ -177,21 +181,7 @@ export struct DetailContentView {
             })
           if (this.componentDetailState.recommends.length > 0) {
             this.textTip($r('app.string.recommend'))
-            Column() {
-              ForEach(this.componentDetailState.recommends, (item: RecommendData, index: number) => {
-                if (index !== 0) {
-                  Divider()
-                    .color($r('sys.color.comp_divider'))
-                    .width('100%')
-                    .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
-                }
-                RecommendListItem({ itemData: item })
-                  .height(DetailPageConstant.ATTRIBUTE_ITEM_HEIGHT)
-              }, (_item: RecommendData) => _item.id?.toString())
-            }
-            .backgroundColor($r('sys.color.comp_background_primary'))
-            .width('100%')
-            .borderRadius($r('sys.float.corner_radius_level8'))
+            RecommendList({ recommends: this.componentDetailState.recommends })
           }
         }
         .alignItems(HorizontalAlign.Start)
@@ -200,7 +190,7 @@ export struct DetailContentView {
             sm: 0,
             md: CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight,
             lg: CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight,
-          }).getValue(this.globalInfoModel.currentBreakpoint),
+          }).getValue(this.globalInfoModel.widthBreakpoint),
           bottom: this.paddingToBottom,
         })
       }
@@ -212,7 +202,7 @@ export struct DetailContentView {
           if (!this.showDivider) {
             this.showDivider = true;
           }
-          this.isShowTopDivider = this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.SM ? true : false;
+          this.isShowTopDivider = this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_SM ? true : false;
           this.viewModel?.sendEvent(new TopNavigationChangeEvent(this.isShowTopDivider));
         } else if (this.scroller.currentOffset().yOffset <= DetailPageConstant.SCROLL_OFFSET_Y) {
           this.showDivider = false;
@@ -224,7 +214,8 @@ export struct DetailContentView {
         scrollForward: NestedScrollMode.SELF_ONLY,
         scrollBackward: NestedScrollMode.SELF_ONLY,
       })
-      .size(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
+      .layoutWeight(1)
+      .size(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
         {
           width: '100%',
           height: (this.globalInfoModel.deviceHeight - PREVIEW_HEIGHT_SM -
@@ -232,19 +223,19 @@ export struct DetailContentView {
         } :
         {
           width: '50%',
-          height: this.globalInfoModel.deviceHeight,
+          height: '100%',
         })
       .padding({
         left: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level4'),
           lg: $r('sys.float.padding_level6'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
         right: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level16'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
       })
     }
     .width('100%')

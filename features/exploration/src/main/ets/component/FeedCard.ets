@@ -14,7 +14,7 @@
  */
 
 import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import { BreakpointType, CommonConstants } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { FeedItem } from './FeedItem';
 
@@ -44,20 +44,20 @@ export struct FeedCard {
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({
       sm: CommonConstants.SPACE_8,
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.currentBreakpoint))
-    .displayCount(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? CommonConstants.LANE_MD :
+    }).getValue(this.globalInfoModel.widthBreakpoint))
+    .displayCount(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? CommonConstants.LANE_MD :
     CommonConstants.LANE_LG)
     .itemSpace(new BreakpointType({
       sm: CommonConstants.SPACE_8,
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
   }
 }

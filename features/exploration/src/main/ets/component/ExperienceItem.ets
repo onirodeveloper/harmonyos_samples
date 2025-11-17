@@ -15,7 +15,8 @@
 
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { ProductSeriesEnum } from '@ohos/common';
-import type { DiscoverContent } from '../model/DiscoverData';
+import { TagTipLabel } from '@ohos/commonbusiness';
+import { DiscoverContent } from '../model/DiscoverData';
 
 @Component
 export struct ExperienceItem {
@@ -25,40 +26,49 @@ export struct ExperienceItem {
   @State bgBottomColor: string = '';
 
   build() {
-    Stack({ alignContent: Alignment.Bottom }) {
-      Image($rawfile(this.discoverContent.mediaUrl))
-        .alt($r('app.media.img_placeholder'))
-        .objectFit(ImageFit.Cover)
-        .draggable(false)
-        .width('100%')
-        .height('100%')
-      Column() {
-        Text(this.discoverContent.subTitle)
-          .fontColor($r('sys.color.font_on_primary'))
-          .fontSize($r('sys.float.Body_S'))
-          .fontWeight(FontWeight.Regular)
-        Text(this.discoverContent.title)
-          .margin({ top: $r('sys.float.padding_level3'), bottom: $r('sys.float.padding_level2') })
-          .fontColor($r('sys.color.font_on_primary'))
-          .fontSize($r('sys.float.Title_S'))
-          .fontWeight(FontWeight.Bold)
-        Text(this.discoverContent.desc)
-          .fontColor($r('sys.color.font_on_secondary'))
-          .maxLines(2)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .fontSize($r('sys.float.Body_M'))
-          .fontWeight(FontWeight.Regular)
-      }
-      .padding({
-        left: $r('sys.float.padding_level8'),
-        right: $r('sys.float.padding_level8'),
-        bottom: this.hasPadding ? $r('sys.float.corner_radius_level16') : $r('sys.float.padding_level8'),
-        top: $r('sys.float.padding_level6'),
+    Stack({ alignContent: Alignment.TopStart }) {
+      TagTipLabel({
+        tags: this.discoverContent.tagIds,
+        newSymbol: $r('app.media.big_new'),
       })
-      .height($r('app.float.img_card_content_height'))
-      .width('100%')
-      .justifyContent(FlexAlign.End)
-      .alignItems(HorizontalAlign.Start)
+        .zIndex(1)
+        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+
+      Stack({ alignContent: Alignment.Bottom }) {
+        Image($rawfile(this.discoverContent.mediaUrl))
+          .alt($r('app.media.img_placeholder'))
+          .objectFit(ImageFit.Cover)
+          .draggable(false)
+          .width('100%')
+          .height('100%')
+        Column() {
+          Text(this.discoverContent.subTitle)
+            .fontColor($r('sys.color.font_on_primary'))
+            .fontSize($r('sys.float.Body_S'))
+            .fontWeight(FontWeight.Regular)
+          Text(this.discoverContent.title)
+            .margin({ top: $r('sys.float.padding_level3'), bottom: $r('sys.float.padding_level2') })
+            .fontColor($r('sys.color.font_on_primary'))
+            .fontSize($r('sys.float.Title_S'))
+            .fontWeight(FontWeight.Bold)
+          Text(this.discoverContent.desc)
+            .fontColor($r('sys.color.font_on_secondary'))
+            .maxLines(2)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+            .fontSize($r('sys.float.Body_M'))
+            .fontWeight(FontWeight.Regular)
+        }
+        .padding({
+          left: $r('sys.float.padding_level8'),
+          right: $r('sys.float.padding_level8'),
+          bottom: this.hasPadding ? $r('sys.float.corner_radius_level16') : $r('sys.float.padding_level8'),
+          top: $r('sys.float.padding_level6'),
+        })
+        .height($r('app.float.img_card_content_height'))
+        .width('100%')
+        .justifyContent(FlexAlign.End)
+        .alignItems(HorizontalAlign.Start)
+      }
     }
     .clickEffect({ level: ClickEffectLevel.HEAVY })
     .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.img_card_height_verde') :

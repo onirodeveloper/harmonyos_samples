@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { LoadingModel } from '@ohos/common';
+import { LoadingModel, TagEnum } from '@ohos/common';
 import type { BannerData, } from '@ohos/commonbusiness';
 import { CardStyleTypeEnum, CardTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
 
@@ -25,6 +25,9 @@ export class SampleContent {
   public title: string = '';
   public subTitle: string = '';
   public tags: string[] = [];
+  public tagIds: TagEnum[] = [];
+  public requiredApiVersion: number = 0;
+  public supportDeviceList: string[] = [];
 }
 
 export class SampleCardData {

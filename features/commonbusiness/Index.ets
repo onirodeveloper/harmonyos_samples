@@ -31,3 +31,5 @@ export { TabBarType, TAB_CONTENT_STATUSES } from './src/main/ets/model/TabStatus
 export { BaseHomeState, BannerState } from './src/main/ets/viewmodel/BaseHomeState';
 
 export { BaseHomeView } from './src/main/ets/view/BaseHomeView';
+
+export { TagTipLabel } from './src/main/ets/component/TagLabel';

@@ -55,6 +55,14 @@
     {
       "name": "client_prompt",
       "value": "Sample in HarmonyOS supports 1+8 multi-device operation. Welcome to experience it"
+    },
+    {
+      "name": "card_expand",
+      "value": "expand"
+    },
+    {
+      "name": "card_collapse",
+      "value": "collapse"
     }
   ]
 }

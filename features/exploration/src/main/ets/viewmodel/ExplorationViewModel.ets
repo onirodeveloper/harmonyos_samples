@@ -15,14 +15,14 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
+import type { GlobalInfoModel } from '@ohos/common';
 import {
-  BreakpointTypeEnum,
   LoadingStatus,
   Logger,
   PageContext,
   RequestErrorCode,
   StatusBarColorType,
+  StorageKey,
   WindowUtil,
 } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
@@ -31,8 +31,8 @@ import {
   BaseHomeEventParam,
   BaseHomeEventType,
   BaseHomeViewModel,
-  TabBarType,
   TAB_CONTENT_STATUSES,
+  TabBarType,
 } from '@ohos/commonbusiness';
 import type { DiscoverContent, DiscoverData } from '../model/DiscoverData';
 import { DiscoverModel } from '../model/DiscoverModel';
@@ -81,8 +81,8 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
         this.state.bannerState.bannerResource.setDataArray([...(result.bannerInfos || [])]);
         this.state.discoveryData = result.discoveryData;
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-        if (globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.LG &&
-          globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
+        if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
+          globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = true;
@@ -103,7 +103,7 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
 
   protected jumpDetailView(content: DiscoverContent): void {
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-    const pathStack: PageContext = globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+    const pathStack: PageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
       AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)! :
       AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     const articleParam: ArticleDetailParams = {

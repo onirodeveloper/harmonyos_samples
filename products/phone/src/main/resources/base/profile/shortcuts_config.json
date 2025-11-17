@@ -1,0 +1,52 @@
+{
+  "shortcuts": [
+    {
+      "shortcutId": "id_component_list",
+      "label": "$string:component_cases",
+      "icon": "$media:shortcut_component_full",
+      "wants": [
+        {
+          "bundleName": "com.huawei.hmos.world",
+          "moduleName": "phone",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "shortCutKey": "ComponentListPage",
+            "isFromShortCut": "true"
+          }
+        }
+      ]
+    },
+    {
+      "shortcutId": "id_sample_list",
+      "label": "$string:sample_cases",
+      "icon": "$media:shortcut_sample_full",
+      "wants": [
+        {
+          "bundleName": "com.huawei.hmos.world",
+          "moduleName": "phone",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "shortCutKey": "SampleListPage",
+            "isFromShortCut": "true"
+          }
+        }
+      ]
+    },
+    {
+      "shortcutId": "id_article_list",
+      "label": "$string:article_cases",
+      "icon": "$media:shortcut_article_full",
+      "wants": [
+        {
+          "bundleName": "com.huawei.hmos.world",
+          "moduleName": "phone",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "shortCutKey": "ArticleListPage",
+            "isFromShortCut": "true"
+          }
+        }
+      ]
+    }
+  ]
+}

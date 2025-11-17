@@ -20,6 +20,7 @@ import { TabBarData, TABS_LIST } from '../model/TabBarModel';
 export struct CustomSideBar {
   @Prop @Require currentIndex: number;
   @State focus: boolean = false;
+  @Consume('appIconDescriptor') drawableDescriptor?: DrawableDescriptor;
   sideBarChange: (index: number) => void = (index: number) => {
   };
 
@@ -59,7 +60,7 @@ export struct CustomSideBar {
   build() {
     Column() {
       Row() {
-        Image($r('app.media.ic_start_icon'))
+        Image(this.drawableDescriptor)
           .width($r('app.float.app_icon_width'))
           .aspectRatio(1)
           .borderRadius($r('sys.float.corner_radius_level4'))

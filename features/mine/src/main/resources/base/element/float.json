@@ -17,12 +17,40 @@
       "value": "56vp"
     },
     {
+      "name": "mine_listItem_height_large",
+      "value": "64vp"
+    },
+    {
       "name": "mine_divider",
-      "value": "1px"
+      "value": "0.5px"
     },
     {
       "name": "mine_font_size",
       "value": "26fp"
+    },
+    {
+      "name": "content_item_height",
+      "value": "64vp"
+    },
+    {
+      "name": "open_button_width",
+      "value": "72vp"
+    },
+    {
+      "name": "no_content_size",
+      "value": "120vp"
+    },
+    {
+      "name": "user_experience_size",
+      "value": "82vp"
+    },
+    {
+      "name": "new_count_width",
+      "value": "22vp"
+    },
+    {
+      "name": "new_count_height",
+      "value": "16vp"
     }
   ]
 }

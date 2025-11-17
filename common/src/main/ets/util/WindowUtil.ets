@@ -20,7 +20,6 @@ import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
 import { CommonConstants } from '../constant/CommonConstants';
 import { ProductSeriesEnum, StorageKey } from '../constant/CommonEnums';
 import { GlobalInfoModel } from '../model/GlobalInfoModel';
-import { BreakpointSystem } from './BreakpointSystem';
 import Logger from './Logger';
 
 const TAG: string = '[WindowUtil]';
@@ -35,8 +34,8 @@ export class WindowUtil {
       const uiContext: UIContext = WindowUtil.windowClass.getUIContext();
       WindowUtil.uiContext = uiContext;
       AppStorage.setOrCreate<UIContext>(StorageKey.UI_CONTEXT, uiContext);
-      WindowUtil.registerBreakpoint(WindowUtil.windowClass);
       WindowUtil.requestFullScreen();
+      WindowUtil.registerBreakpoint(WindowUtil.windowClass);
       // Hide PC/2in1 title bar.
       WindowUtil.hideTitleBar();
     } catch (err) {
@@ -79,16 +78,9 @@ export class WindowUtil {
       if (deviceInfo.productSeries === ProductSeriesEnum.HPR) {
         WindowUtil.resetWindowSize();
       }
-      const promise: Promise<void> | undefined = WindowUtil.windowClass?.setWindowLayoutFullScreen(true);
-      promise?.then(() => {
-        Logger.info(TAG, 'Succeeded in setting the window layout to full-screen mode.');
-      }).catch((err: BusinessError) => {
-        Logger.error(TAG,
-          `Failed to set the window layout to full-screen mode. Cause: ${err.code}, ${err.message}`);
-      });
-      WindowUtil.getDeviceSize();
-    } catch {
-      Logger.error(TAG, 'Failed to set the window layout to full-screen mode. ');
+      WindowUtil.windowClass?.setWindowLayoutFullScreen(true);
+    } catch (err) {
+      Logger.error(TAG, `Failed to set the window layout to full-screen mode. cause: ${err.code} ${err.message}`);
     }
   }
 
@@ -116,16 +108,7 @@ export class WindowUtil {
     // Get device height.
     try {
       const properties = WindowUtil.windowClass?.getWindowProperties();
-      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
-      if (properties?.windowRect) {
-        globalInfoModel.deviceHeight = WindowUtil.uiContext.px2vp(properties.windowRect.height);
-        globalInfoModel.deviceWidth = WindowUtil.uiContext.px2vp(properties.windowRect.width);
-      }
-      if (canIUse('SystemCapability.Window.SessionManager')) {
-        const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() || 0;
-        globalInfoModel.decorHeight = decorHeight;
-      }
-      AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
+      WindowUtil.setWindowSize(properties?.windowRect)
     } catch (err) {
       const error = err as BusinessError;
       Logger.error(TAG, `Get and setDeviceSize failed. code: ${error.code}, message: ${error.message}`);
@@ -185,8 +168,8 @@ export class WindowUtil {
   }
 
   private static registerBreakpoint(windowClass: window.Window) {
-    BreakpointSystem.getInstance().updateWidthBp(windowClass);
     try {
+      WindowUtil.getDeviceSize();
       const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
       const systemAvoidArea: window.AvoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
       globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(systemAvoidArea.topRect.height);
@@ -194,7 +177,7 @@ export class WindowUtil {
         windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
       globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(bottomArea.bottomRect.height);
       AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
-      windowClass.on('windowSizeChange', () => WindowUtil.onWindowSizeChange(windowClass));
+      windowClass.on('windowSizeChange', (windowSize: window.Size) => WindowUtil.setWindowSize(windowSize));
       windowClass.on('avoidAreaChange', (avoidAreaOption) => {
         if (avoidAreaOption.type === window.AvoidAreaType.TYPE_SYSTEM ||
           avoidAreaOption.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
@@ -217,9 +200,19 @@ export class WindowUtil {
     AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
   }
 
-  public static onWindowSizeChange(window: window.Window) {
-    WindowUtil.getDeviceSize();
-    BreakpointSystem.getInstance().onWindowSizeChange(window);
+  public static setWindowSize(windowSize?: window.Size | window.Rect) {
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+    if (windowSize) {
+      globalInfoModel.deviceHeight = WindowUtil.uiContext.px2vp(windowSize.height);
+      globalInfoModel.deviceWidth = WindowUtil.uiContext.px2vp(windowSize.width);
+    }
+    globalInfoModel.widthBreakpoint = WindowUtil.uiContext.getWindowWidthBreakpoint();
+    globalInfoModel.heightBreakpoint = WindowUtil.uiContext.getWindowHeightBreakpoint();
+    if (canIUse('SystemCapability.Window.SessionManager')) {
+      const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() || 0;
+      globalInfoModel.decorHeight = decorHeight;
+    }
+    AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
   }
 }
 

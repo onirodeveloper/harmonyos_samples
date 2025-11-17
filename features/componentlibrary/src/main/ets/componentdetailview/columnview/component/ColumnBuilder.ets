@@ -34,8 +34,6 @@ export function ColumnBuilder($$: DescriptorWrapper) {
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
   }
-  .width(($$.descriptor as ColumnDescriptor).padding === 'None' ? '50%' : 'auto')
-  .height(($$.descriptor as ColumnDescriptor).padding === 'None' ? '90%' : 'auto')
   .padding(($$.descriptor as ColumnDescriptor).padding === 'Vertical' ?
     {
       top: ($$.descriptor as ColumnDescriptor).paddingNum,
@@ -43,7 +41,7 @@ export function ColumnBuilder($$: DescriptorWrapper) {
     } : ($$.descriptor as ColumnDescriptor).padding === 'Horizontal' ? {
       left: ($$.descriptor as ColumnDescriptor).paddingNum,
       right: ($$.descriptor as ColumnDescriptor).paddingNum,
-    } : ($$.descriptor as ColumnDescriptor).paddingNum)
+    } : ($$.descriptor as ColumnDescriptor).padding === 'All' ? ($$.descriptor as ColumnDescriptor).paddingNum : 0)
   .attributeModifier(new ColumnAttributeModifier($$.descriptor as ColumnDescriptor))
   .borderRadius($r('sys.float.corner_radius_level6'))
   .border({ width: DetailPageConstant.CONTAINER_BORDER, color: $r('sys.color.comp_background_emphasize') })

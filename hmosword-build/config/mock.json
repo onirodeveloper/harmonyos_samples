@@ -233,6 +233,48 @@
       "originalUrl": "https://gitee.com/harmonyos_samples/keyboard/",
       "moduleName": "keyboardsample",
       "abilityName": "KeyboardsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-sample-code-arkts/",
+      "moduleName": "visionkitsample",
+      "abilityName": "VisionkitsampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/speech-kit-sample-TextReader_-arkts/",
+      "moduleName": "speechkitsample",
+      "abilityName": "SpeechkitsampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-sample-code-document-scan-demo-ark-ts/",
+      "moduleName": "documentscansample",
+      "abilityName": "DocumentscansampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-samplecode-sheet-extraction-demo-arkts/",
+      "moduleName": "sheetrecognitionsample",
+      "abilityName": "SheetrecognitionsampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-sample-code-card-recognition-demo-ark-ts/",
+      "moduleName": "cardrecognitionsample",
+      "abilityName": "CardrecognitionsampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/core-vision-kit-sample-code-ark-ts-ocr-demo/",
+      "moduleName": "textrecognitionsample",
+      "abilityName": "TextrecognitionsampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/core-vision-kit-sample-code-ark-ts-face-compare-demo/",
+      "moduleName": "facecomparesample",
+      "abilityName": "FacecomparesampleEntryAbility"
     }
   ]
 }

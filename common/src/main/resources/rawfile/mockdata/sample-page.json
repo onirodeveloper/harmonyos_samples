@@ -66,7 +66,14 @@
                   "tags": [
                     "该案例已支持多设备"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -89,7 +96,14 @@
                   "tags": [
                     "使用Watch5体验完整效果"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -112,30 +126,14 @@
                   "tags": [
                     "使用MateXT体验完整效果"
                   ],
-                  "order": 1
-                }
-              ]
-            },
-            {
-              "id": 62,
-              "cardTitle": "扩感导航，视野更清晰",
-              "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_green.png",
-              "version": 1000000,
-              "detailCardId": 35,
-              "sampleContents": [
-                {
-                  "id": 62,
-                  "type": 2,
-                  "cardId": 27,
-                  "mediaType": 1,
-                  "mediaUrl": "image/sample/hdc/sample_liveviewlockscreen.png",
-                  "title": "扩感导航，视野更清晰",
-                  "subTitle": "",
-                  "tags": [
-                    "使用PuarX体验完整效果"
-                  ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -143,7 +141,7 @@
               "id": 64,
               "cardTitle": "碰一碰视频快速分享",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_pink.png",
+              "cardImage": "image/common/sample_card_background_green.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -158,7 +156,14 @@
                   "tags": [
                     "使用两台手机体验完整效果"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -166,7 +171,7 @@
               "id": 65,
               "cardTitle": "视频投播更便捷",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_blue.png",
+              "cardImage": "image/common/sample_card_background_pink.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -181,7 +186,14 @@
                   "tags": [
                     "使用手机、PC体验完整效果"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -189,7 +201,7 @@
               "id": 66,
               "cardTitle": "跨设备内容编辑新体验",
               "cardStyleType": 5,
-              "cardImage": "image/common/sample_card_background_pink.png",
+              "cardImage": "image/common/sample_card_background_blue.png",
               "version": 1000000,
               "detailCardId": 35,
               "sampleContents": [
@@ -205,7 +217,248 @@
                     "分布式照相机",
                     "键鼠穿越"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "categoryName": "AI功能开发",
+          "categoryType": 1,
+          "sampleCards": [
+            {
+              "id": 68,
+              "cardTitle": "人脸检测",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 1,
+              "sampleContents": [
+                {
+                  "id": 58,
+                  "type": 2,
+                  "cardId": 68,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_face_detection.png",
+                  "title": "人脸检测",
+                  "subTitle": "本示例展示了使用视觉类AI能力中的人脸活体检测能力。",
+                  "tags": [
+                    "Vision Kit",
+                    "人脸活体检测"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 69,
+              "cardTitle": "语音朗读",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 2,
+              "sampleContents": [
+                {
+                  "id": 59,
+                  "type": 2,
+                  "cardId": 69,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_text_to_speech.png",
+                  "title": "语音朗读",
+                  "subTitle": "本示例展示了语音类AI能力中的朗读控件能力。",
+                  "tags": [
+                    "Speech Kit",
+                    "朗读控件"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 70,
+              "cardTitle": "文档扫描",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 3,
+              "sampleContents": [
+                {
+                  "id": 60,
+                  "type": 2,
+                  "cardId": 70,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_document_scan.png",
+                  "title": "文档扫描",
+                  "subTitle": "本示例展示了使用视觉类AI能力中的文档扫描能力。",
+                  "tags": [
+                    "Vision Kit",
+                    "文档扫描控件"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 71,
+              "cardTitle": "表格提取",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 4,
+              "sampleContents": [
+                {
+                  "id": 61,
+                  "type": 2,
+                  "cardId": 71,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_sheet_extraction.png",
+                  "title": "表格提取",
+                  "subTitle": "本示例展示了如何集成文档扫描控件，实现从图像中识别并提取表格的功能，表格内容支持保存为Excel文件。",
+                  "tags": [
+                    "Vision Kit",
+                    "文档扫描控件"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 72,
+              "cardTitle": "卡证识别",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 5,
+              "sampleContents": [
+                {
+                  "id": 62,
+                  "type": 2,
+                  "cardId": 72,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_card_recognition.png",
+                  "title": "卡证识别",
+                  "subTitle": "本示例展示了使用视觉类AI能力中的卡证识别能力。",
+                  "tags": [
+                    "Vision Kit",
+                    "卡证识别控件"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 73,
+              "cardTitle": "通用文字识别",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 6,
+              "sampleContents": [
+                {
+                  "id": 63,
+                  "type": 2,
+                  "cardId": 73,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_word_extraction.png",
+                  "title": "通用文字识别",
+                  "subTitle": "本示例展示了使用基础视觉服务提供的通用文字识别能力。",
+                  "tags": [
+                    "Core Vision Kit",
+                    "文字识别"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 74,
+              "cardTitle": "人脸比对",
+              "cardStyleType": 4,
+              "cardImage": "image/common/sample_card_background.png",
+              "version": 1000000,
+              "order": 7,
+              "sampleContents": [
+                {
+                  "id": 64,
+                  "type": 2,
+                  "cardId": 74,
+                  "mediaType": 1,
+                  "mediaUrl": "image/sample/ai/sample_face_compare.png",
+                  "title": "人脸比对",
+                  "subTitle": "本示例展示了使用基础视觉服务提供的人脸比对能力。",
+                  "tags": [
+                    "Core Vision Kit",
+                    "人脸比对"
+                  ],
+                  "order": 1,
+                  "tagIds": [
+                    1
+                  ],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             }
@@ -236,7 +489,14 @@
                     "一次开发多端部署",
                     "Navigation"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -261,7 +521,14 @@
                     "扫码能力",
                     "码图生成"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -285,7 +552,14 @@
                     "一次开发多端部署",
                     "自适应布局"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -308,7 +582,14 @@
                   "tags": [
                     "UI框架"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -332,7 +613,14 @@
                     "一次开发多端部署",
                     "Navigation"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -356,7 +644,14 @@
                     "一次开发多端部署",
                     "自适应布局"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             }
@@ -380,13 +675,20 @@
                   "type": 2,
                   "cardId": 15,
                   "mediaType": 1,
-                  "mediaUrl": "image/sample/arkui/style/sample_text_effects.gif",
+                  "mediaUrl": "image/sample/arkui/style/sample_text_effects.webp",
                   "title": "文字特效合集",
                   "subTitle": "本示例基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTS页面开发中实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果。",
                   "tags": [
                     "Text"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 35,
@@ -401,7 +703,14 @@
                     "TabContent",
                     "自定义Tab"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 36,
@@ -416,7 +725,14 @@
                     "bindContentCover",
                     "bindSheet"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -443,7 +759,14 @@
                     "Scroll",
                     "List"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 25,
@@ -458,7 +781,14 @@
                     "waterflow",
                     "吸顶"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 43,
@@ -471,7 +801,14 @@
                   "tags": [
                     "UI框架"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 12,
@@ -486,7 +823,14 @@
                     "List",
                     "Swiper"
                   ],
-                  "order": 4
+                  "order": 4,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -503,14 +847,21 @@
                   "type": 2,
                   "cardId": 3,
                   "mediaType": 1,
-                  "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.gif",
+                  "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.webp",
                   "title": "转场动效合集",
                   "subTitle": "本示例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见一镜到底转场动效，便于用户进行常见的转场动效场景开发。",
                   "tags": [
                     "转场动效",
                     "NavDestination"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 9,
@@ -524,7 +875,14 @@
                     "UI框架",
                     "动效"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 42,
@@ -537,7 +895,14 @@
                   "tags": [
                     "拖拽事件"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -560,7 +925,14 @@
                   "tags": [
                     "LTPO"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 14,
@@ -574,7 +946,14 @@
                     "List列表项交换",
                     "自定义手势"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 15,
@@ -587,7 +966,14 @@
                   "tags": [
                     "List"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             }
@@ -619,7 +1005,14 @@
                     "播放",
                     "画中画"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 29,
@@ -633,7 +1026,14 @@
                     "多图片",
                     "多图文"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 51,
@@ -641,12 +1041,19 @@
                   "cardId": 1,
                   "mediaType": 1,
                   "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
-                  "title": "基于AudioRenderer的音频播控和多场景交互",
+                  "title": "AudioRenderer音频播控",
                   "subTitle": "本场景解决方案主要面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。功能包括后台播放、和播控中心的交互、适配不同类型的焦点打断策略、切换路由发声设备、切换输出设备等基础音频常见功能。",
                   "tags": [
                     "音频播放；播控中心交互"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -670,7 +1077,14 @@
                     "Web",
                     "javascript"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 31,
@@ -685,7 +1099,14 @@
                     "预渲染",
                     "瞬开"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 49,
@@ -698,7 +1119,14 @@
                   "tags": [
                     "定位"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             },
@@ -722,7 +1150,14 @@
                     "首选项",
                     "持久化存储"
                   ],
-                  "order": 1
+                  "order": 1,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 21,
@@ -737,7 +1172,14 @@
                     "inputMethod",
                     "Slider"
                   ],
-                  "order": 2
+                  "order": 2,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 13,
@@ -750,7 +1192,14 @@
                   "tags": [
                     "系统相机"
                   ],
-                  "order": 3
+                  "order": 3,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 50,
@@ -763,7 +1212,14 @@
                   "tags": [
                     "Picker"
                   ],
-                  "order": 4
+                  "order": 4,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 },
                 {
                   "id": 47,
@@ -777,7 +1233,14 @@
                     "软键盘",
                     "输入框"
                   ],
-                  "order": 5
+                  "order": 5,
+                  "tagIds": [],
+                  "requiredApiVersion": 14,
+                  "supportDeviceList": [
+                    "phone",
+                    "tablet",
+                    "2in1"
+                  ]
                 }
               ]
             }

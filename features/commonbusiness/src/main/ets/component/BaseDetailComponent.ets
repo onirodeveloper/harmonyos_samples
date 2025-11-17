@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView,
-  StorageKey } from '@ohos/common';
+import type { GlobalInfoModel } from '@ohos/common';
+import { LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView, StorageKey } from '@ohos/common';
 
 @Component
 export struct BaseDetailComponent {
@@ -30,13 +30,13 @@ export struct BaseDetailComponent {
         this.detailContentView()
       }
       if (this.loadingStatus === LoadingStatus.IDLE || this.loadingStatus === LoadingStatus.LOADING) {
-        LoadingView(this.globalInfoModel.currentBreakpoint)
+        LoadingView(this.globalInfoModel.widthBreakpoint)
       } else if (this.loadingStatus === LoadingStatus.FAILED) {
-        LoadingFailedView(this.globalInfoModel.currentBreakpoint, () => {
+        LoadingFailedView(this.globalInfoModel.widthBreakpoint, () => {
           this.reloadData?.();
         })
       } else if (this.loadingStatus === LoadingStatus.NO_NETWORK) {
-        NoNetworkView(this.globalInfoModel.currentBreakpoint, () => {
+        NoNetworkView(this.globalInfoModel.widthBreakpoint, () => {
           this.reloadData?.();
         })
       }

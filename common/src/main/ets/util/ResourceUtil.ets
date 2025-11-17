@@ -44,6 +44,42 @@ export class ResourceUtil {
   }
 
   /**
+   * Obtains the DrawableDescriptor of the media file corresponding to a specified resource ID.
+   *
+   * @param resource DrawableDescriptor.
+   */
+  public static getDrawableDescriptor(context: Context, resourceId: number): DrawableDescriptor | undefined {
+    try {
+      const drawableDescriptor: DrawableDescriptor = context.resourceManager.getDrawableDescriptor(resourceId);
+      return drawableDescriptor;
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `[getDrawableDescriptor]getStringSync failed, error: ${err.code}, ${err.message}.`);
+      return undefined;
+    }
+  }
+
+  /**
+   * Obtains the number result with a specified resource.
+   *
+   * @param resource resource.
+   */
+  public static getResourceNumber(context: Context, resource: Resource): number {
+    if (ResourceUtil.isEmptyObj(resource)) {
+      Logger.error(TAG, '[getResourceString] resource is empty.');
+      return 0;
+    }
+    let num: number = 0;
+    try {
+      num = context.resourceManager.getNumber(resource.id);
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `[getResourceString]getStringSync failed, error: ${err.code}, ${err.message}.`);
+    }
+    return num;
+  }
+
+  /**
    * Check whether the object is empty.
    *
    * @param obj Objects to be checked.

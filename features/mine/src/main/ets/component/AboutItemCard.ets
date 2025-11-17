@@ -32,7 +32,7 @@ export struct AboutItemCard {
         if (this.aboutState.laterVersionExist) {
           Badge({
             value: '',
-            style: { badgeSize: 6, badgeColor: $r('app.color.about_badge_color') },
+            style: { badgeSize: 6, badgeColor: $r('sys.color.ohos_id_color_badge_red') },
             position: BadgePosition.Right,
           }) {
             Text($r('app.string.version_information'))

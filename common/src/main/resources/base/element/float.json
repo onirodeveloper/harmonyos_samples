@@ -39,6 +39,34 @@
     {
       "name": "video_pause_font_size",
       "value": "50fp"
+    },
+    {
+      "name": "new_tag_height",
+      "value": "20vp"
+    },
+    {
+      "name": "new_tag_width",
+      "value": "36vp"
+    },
+    {
+      "name": "new_tag_height_sm",
+      "value": "14vp"
+    },
+    {
+      "name": "new_tag_width_sm",
+      "value": "28vp"
+    },
+    {
+      "name": "item_card_height",
+      "value": "48vp"
+    },
+    {
+      "name": "small_button_width",
+      "value": "72vp"
+    },
+    {
+      "name": "badge_size",
+      "value": "16vp"
     }
   ]
 }

@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { common } from '@kit.AbilityKit';
 import { ArcSwiper, ArcSwiperAttribute, ArcSwiperController } from '@kit.ArkUI';
 import { HomePageComponent } from '../component/HomepageComponent';
 import { SampleListView } from '../view/SampleListView';
@@ -20,6 +21,7 @@ import { SampleListView } from '../view/SampleListView';
 @Component
 struct MainPage {
   private wearableSwiperController: ArcSwiperController = new ArcSwiperController();
+  private currentIndex: number = 0;
 
   build() {
     NavDestination() {
@@ -34,7 +36,20 @@ struct MainPage {
       .onDigitalCrown((event: CrownEvent) => {
         event.stopPropagation();
       })
+      .onChange((index: number) => {
+        this.currentIndex = index;
+      })
     }
+    .onBackPressed(() => {
+      if (this.currentIndex === 0) {
+        const uiAbilityContext: common.UIAbilityContext =
+          this.getUIContext().getHostContext() as common.UIAbilityContext;
+        uiAbilityContext.moveAbilityToBackground();
+      } else {
+        this.wearableSwiperController.showPrevious();
+      }
+      return true;
+    })
     .backgroundColor(Color.Black)
     .transition(TransitionEffect.OPACITY)
     .hideTitleBar(true)

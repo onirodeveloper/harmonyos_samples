@@ -58,7 +58,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/text/text.png",
               "title": "Text",
-              "subTitle": "文本"
+              "subTitle": "文本",
+              "tagIds": []
             },
             {
               "id": 42,
@@ -67,7 +68,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/text/textinput.png",
               "title": "TextInput",
-              "subTitle": "单行文本输入"
+              "subTitle": "单行文本输入",
+              "tagIds": []
             },
             {
               "id": 40,
@@ -76,7 +78,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/text/textarea.png",
               "title": "TextArea",
-              "subTitle": "多行文本输入"
+              "subTitle": "多行文本输入",
+              "tagIds": []
             },
             {
               "id": 41,
@@ -85,7 +88,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/text/textstyle.png",
               "title": "TextStyle",
-              "subTitle": "属性字符串"
+              "subTitle": "属性字符串",
+              "tagIds": []
             }
           ]
         },
@@ -105,7 +109,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/camerapicker.png",
               "title": "CameraPicker",
-              "subTitle": "相机选择器"
+              "subTitle": "相机选择器",
+              "tagIds": []
             }
           ]
         },
@@ -125,7 +130,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/common/button.png",
               "title": "Button",
-              "subTitle": "按钮"
+              "subTitle": "按钮",
+              "tagIds": []
             },
             {
               "id": 11,
@@ -134,7 +140,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/common/image.png",
               "title": "Image",
-              "subTitle": "图片"
+              "subTitle": "图片",
+              "tagIds": []
             },
             {
               "id": 13,
@@ -143,7 +150,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/common/progress.png",
               "title": "Progress",
-              "subTitle": "进度条"
+              "subTitle": "进度条",
+              "tagIds": []
             },
             {
               "id": 22,
@@ -152,7 +160,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/common/rating.png",
               "title": "Rating",
-              "subTitle": "评分"
+              "subTitle": "评分",
+              "tagIds": []
             },
             {
               "id": 2,
@@ -161,7 +170,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/common/toggle.png",
               "title": "Toggle",
-              "subTitle": "开关"
+              "subTitle": "开关",
+              "tagIds": []
             }
           ]
         },
@@ -181,7 +191,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/photopicker.png",
               "title": "PhotoViewPicker",
-              "subTitle": "图库选择器"
+              "subTitle": "图库选择器",
+              "tagIds": []
             }
           ]
         },
@@ -201,7 +212,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/layout/column.png",
               "title": "Column",
-              "subTitle": "线性布局 - 纵向"
+              "subTitle": "线性布局 - 纵向",
+              "tagIds": []
             },
             {
               "id": 6,
@@ -210,7 +222,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/layout/row.png",
               "title": "Row",
-              "subTitle": "线性布局 - 横向"
+              "subTitle": "线性布局 - 横向",
+              "tagIds": []
             },
             {
               "id": 7,
@@ -219,7 +232,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/layout/stack.png",
               "title": "Stack",
-              "subTitle": "层叠布局"
+              "subTitle": "层叠布局",
+              "tagIds": []
             },
             {
               "id": 23,
@@ -228,7 +242,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/layout/flex.png",
               "title": "Flex",
-              "subTitle": "弹性布局"
+              "subTitle": "弹性布局",
+              "tagIds": []
             }
           ]
         },
@@ -248,7 +263,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/penkit.png",
               "title": "Penkit",
-              "subTitle": "手写笔服务"
+              "subTitle": "手写笔服务",
+              "tagIds": []
             }
           ]
         },
@@ -268,7 +284,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/list/list.png",
               "title": "List",
-              "subTitle": "列表"
+              "subTitle": "列表",
+              "tagIds": []
             },
             {
               "id": 8,
@@ -277,7 +294,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/list/grid.png",
               "title": "Grid",
-              "subTitle": "网格"
+              "subTitle": "网格",
+              "tagIds": []
             },
             {
               "id": 25,
@@ -286,7 +304,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/list/waterflow.png",
               "title": "WaterFlow",
-              "subTitle": "瀑布流"
+              "subTitle": "瀑布流",
+              "tagIds": []
             },
             {
               "id": 24,
@@ -295,7 +314,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/list/swiper.png",
               "title": "Swiper",
-              "subTitle": "滑动轮播组件"
+              "subTitle": "滑动轮播组件",
+              "tagIds": []
             },
             {
               "id": 18,
@@ -304,7 +324,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/list/tabs.png",
               "title": "Tabs",
-              "subTitle": "页签"
+              "subTitle": "页签",
+              "tagIds": []
             }
           ]
         },
@@ -324,7 +345,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/enable_analyzer.png",
               "title": "AI Matting",
-              "subTitle": "AI抠图"
+              "subTitle": "AI抠图",
+              "tagIds": []
             }
           ]
         },
@@ -344,7 +366,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/dialog/alert_dialog.png",
               "title": "AlertDialog",
-              "subTitle": "警告弹窗"
+              "subTitle": "警告弹窗",
+              "tagIds": []
             },
             {
               "id": 21,
@@ -353,7 +376,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/dialog/text_dialog.png",
               "title": "TextPickerDialog",
-              "subTitle": "文本滑动选择器弹窗"
+              "subTitle": "文本滑动选择器弹窗",
+              "tagIds": []
             },
             {
               "id": 35,
@@ -362,7 +386,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/dialog/custom_dialog.png",
               "title": "CustomDialog",
-              "subTitle": "自定义弹窗"
+              "subTitle": "自定义弹窗",
+              "tagIds": []
             },
             {
               "id": 33,
@@ -371,7 +396,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/dialog/action_sheet.png",
               "title": "ActionSheet",
-              "subTitle": "列表选择弹窗"
+              "subTitle": "列表选择弹窗",
+              "tagIds": []
             },
             {
               "id": 34,
@@ -380,7 +406,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/dialog/popup.png",
               "title": "Popup",
-              "subTitle": "气泡弹窗"
+              "subTitle": "气泡弹窗",
+              "tagIds": []
             }
           ]
         },
@@ -400,7 +427,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/texttospeech.png",
               "title": "TextToSpeech",
-              "subTitle": "文本转语音"
+              "subTitle": "文本转语音",
+              "tagIds": []
             }
           ]
         },
@@ -420,7 +448,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/link/calendar_picker.png",
               "title": "CalendarPicker",
-              "subTitle": "日历选择器"
+              "subTitle": "日历选择器",
+              "tagIds": []
             },
             {
               "id": 15,
@@ -429,7 +458,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/link/date_picker.png",
               "title": "DatePicker",
-              "subTitle": "日期滑动选择器"
+              "subTitle": "日期滑动选择器",
+              "tagIds": []
             },
             {
               "id": 27,
@@ -438,7 +468,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/link/document_picker.png",
               "title": "DocumentViewPicker",
-              "subTitle": "文件选择器"
+              "subTitle": "文件选择器",
+              "tagIds": []
             },
             {
               "id": 36,
@@ -447,7 +478,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/link/linking.png",
               "title": "AppLinking",
-              "subTitle": "应用拉起"
+              "subTitle": "应用拉起",
+              "tagIds": []
             }
           ]
         },
@@ -467,7 +499,8 @@
               "mediaType": 1,
               "mediaUrl": "image/component/icon/ai_caption_component.png",
               "title": "AICaptionComponent",
-              "subTitle": "AI字幕组件"
+              "subTitle": "AI字幕组件",
+              "tagIds": []
             }
           ]
         }

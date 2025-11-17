@@ -6,7 +6,12 @@
     },
     {
       "name": "about",
-      "value": "about"
+      "value": "About"
+    },
+    {
+      "name": "setting",
+      "value": "Setting"
+
     },
     {
       "name": "version_information",
@@ -21,16 +26,59 @@
       "value": "The latest version"
     },
     {
-      "name": "app_name",
-      "value": "Sample in HarmonyOS"
-    },
-    {
       "name": "copyright1",
       "value": "粤A2-20044005号-302A"
     },
     {
       "name": "copyright2",
       "value": "Copyright © 2025 Huawei Device Co., Ltd. All rights reserved."
+    },
+    {
+      "name": "user_experience",
+      "value": "user experience"
+    },
+    {
+      "name": "user_experience_tips",
+      "value": "Let sample_in_HarmonyOS provide you with a better experience."
+    },
+    {
+      "name": "content_new",
+      "value": "content new"
+    },
+    {
+      "name": "feedback",
+      "value": "feedback"
+    },
+    {
+      "name": "component",
+      "value": "Component"
+    },
+    {
+      "name": "sample",
+      "value": "Sample"
+    },
+    {
+      "name": "article",
+      "value": "Article"
+    },
+    {
+      "name": "view",
+      "value": "View"
+    },
+    {
+      "name": "mine_no_more",
+      "value": "no more"
+    },{
+      "name": "no_component_content",
+      "value": "no component content"
+    },
+    {
+      "name": "no_sample_content",
+      "value": "no sample content"
+    },
+    {
+      "name": "no_article_content",
+      "value": "no article content"
     }
   ]
 }

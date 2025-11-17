@@ -1,0 +1,14 @@
+{
+  "routerMap": [
+    {
+      "name": "NewContentView",
+      "pageSourceFile": "src/main/ets/view/NewContentView.ets",
+      "buildFunction": "NewContentBuilder"
+    },
+    {
+      "name": "AboutView",
+      "pageSourceFile": "src/main/ets/view/AboutView.ets",
+      "buildFunction": "AboutViewBuilder"
+    }
+  ]
+}

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ColorPickerUtil } from '@ohos/common';
+import { ColorPickerUtil, HmosListItem } from '@ohos/common';
 import type { OpacityPickerAttribute } from '../viewmodel/ComponentDetailState';
 
 /**
@@ -24,15 +24,10 @@ export function OpacityComponent(attribute: OpacityPickerAttribute,
   callback: (name: string, value: string, mode?: SliderChangeMode) => void) {
 
   Column() {
-    Text(attribute.disPlayName)
-      .fontWeight(FontWeight.Medium)
-      .fontSize($r('sys.float.Body_L'))
-      .fontColor($r('sys.color.font_primary'))
-      .margin({
-        top: $r('sys.float.padding_level8'),
-        bottom: $r('sys.float.padding_level8'),
-        left: $r('sys.float.padding_level6')
-      })
+    HmosListItem({
+      title: attribute.disPlayName,
+      desc: ' ',
+    })
 
     Slider({
       value: Number(attribute.currentValue),
@@ -61,11 +56,12 @@ export function OpacityComponent(attribute: OpacityPickerAttribute,
         width: $r('app.float.slider_block_size_large'),
         height: $r('app.float.slider_block_size_large'),
       })
+      .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
       .blockColor(Color.Transparent)
       .height($r('app.float.common_component_height'))
       .width('100%')
   }
   .width('100%')
   .alignItems(HorizontalAlign.Start)
-  .padding({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
+  .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
 }

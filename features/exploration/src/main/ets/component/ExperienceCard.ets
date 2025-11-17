@@ -16,7 +16,7 @@
 import { curves } from '@kit.ArkUI';
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants, ProductSeriesEnum } from '@ohos/common';
+import { BreakpointType, CommonConstants, ProductSeriesEnum } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExperienceItem } from './ExperienceItem';
 
@@ -40,7 +40,7 @@ export struct ExperienceCard {
   }
 
   calculateItemWidth() {
-    if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       this.componentWidth = this.globalInfoModel.deviceWidth - CommonConstants.SIDE_BAR_WIDTH - ROW_PADDING;
       this.itemWidth = (this.componentWidth - CommonConstants.SPACE_16 * (SHOW_COUNT - 1)) / SHOW_COUNT;
     }
@@ -73,7 +73,7 @@ export struct ExperienceCard {
   }
 
   build() {
-    if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       Scroll(this.scroller) {
         Row({ space: CommonConstants.SPACE_16 }) {
           ForEach(this.discoverContents, (discoverContent: DiscoverContent, index: number) => {
@@ -104,7 +104,7 @@ export struct ExperienceCard {
         ForEach(this.discoverContents, (discoverContent: DiscoverContent) => {
           ExperienceItem({
             discoverContent: discoverContent,
-            hasPadding: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM,
+            hasPadding: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM,
           })
             .onClick(() => {
               this.handleItemClick?.(discoverContent);
@@ -115,26 +115,26 @@ export struct ExperienceCard {
         sm: 0,
         md: $r('sys.float.padding_level6'),
         lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
-      }).getValue(this.globalInfoModel.currentBreakpoint))
+      }).getValue(this.globalInfoModel.widthBreakpoint))
       .nextMargin(new BreakpointType<Length>({
         sm: 0,
         md: $r('sys.float.padding_level6'),
         lg: $r('sys.float.padding_level8'),
-      }).getValue(this.globalInfoModel.currentBreakpoint))
-      .loop(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM)
+      }).getValue(this.globalInfoModel.widthBreakpoint))
+      .loop(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM)
       .itemSpace(new BreakpointType({
         sm: CommonConstants.SPACE_8,
         md: CommonConstants.SPACE_12,
         lg: CommonConstants.SPACE_16,
-      }).getValue(this.globalInfoModel.currentBreakpoint))
+      }).getValue(this.globalInfoModel.widthBreakpoint))
       .displayCount(new BreakpointType({
         sm: CommonConstants.LANE_SM,
         md: CommonConstants.LANE_MD,
         lg: CommonConstants.LANE_LG,
-      }).getValue(this.globalInfoModel.currentBreakpoint))
+      }).getValue(this.globalInfoModel.widthBreakpoint))
       .effectMode(EdgeEffect.None)
       .indicator((this.discoverContents.length > 1 &&
-        this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM) ?
+        this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM) ?
       new DotIndicator()
         .color($r('sys.color.icon_on_tertiary'))
         .selectedColor($r('sys.color.icon_on_primary')) :

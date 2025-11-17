@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-import { ColorPickerUtil } from '@ohos/common';
+import { ColorPickerUtil, HmosListItem } from '@ohos/common';
 import type { ColorPickerAttribute } from '../viewmodel/ComponentDetailState';
+
+const SLIDER_MAX_VALUE: number = 100;
 
 /**
  * Common Hue Component
@@ -22,30 +24,30 @@ import type { ColorPickerAttribute } from '../viewmodel/ComponentDetailState';
 @Component
 export struct ColorPickerComponent {
   @ObjectLink attribute: ColorPickerAttribute;
+  @State curVal: number = 0;
   callback: (name: string, value: string, mode?: SliderChangeMode) => void = (name: string, value: string) => {
   };
 
   build() {
     Column() {
-      Text(this.attribute.disPlayName)
-        .fontWeight(FontWeight.Medium)
-        .fontSize($r('sys.float.Subtitle_M'))
-        .fontColor($r('sys.color.font_primary'))
-        .margin({
-          top: $r('sys.float.padding_level8'),
-          bottom: $r('sys.float.padding_level8'),
-          left: $r('sys.float.padding_level6')
-        })
+      HmosListItem({
+        title: this.attribute.disPlayName,
+        desc: ' ',
+      })
 
       Slider({
-        value: ColorPickerUtil.getColorFromRgb(this.attribute.currentValue),
+        value: this.curVal === SLIDER_MAX_VALUE ? this.curVal :
+          ColorPickerUtil.getColorFromRgb(this.attribute.currentValue),
         style: SliderStyle.InSet,
       })
         .onChange((value: number, mode: SliderChangeMode) => {
-          const curentValue: string = ColorPickerUtil.getBlockColor(value);
-          if (this.attribute.currentValue !== String(curentValue)) {
-            this.attribute.currentValue = curentValue;
-            this.callback(this.attribute.name, curentValue, mode);
+          if (mode === SliderChangeMode.Moving || mode === SliderChangeMode.Click) {
+            this.curVal = value;
+            const curentValue: string = ColorPickerUtil.getBlockColor(value);
+            if (this.attribute.currentValue !== String(curentValue)) {
+              this.attribute.currentValue = curentValue;
+              this.callback(this.attribute.name, curentValue, mode);
+            }
           }
         })
         .selectedColor(Color.Transparent)
@@ -58,7 +60,7 @@ export struct ColorPickerComponent {
           { color: ColorPickerUtil.setRgba(255, 0, 255, 1.00), offset: ColorPickerUtil.SEGMENT_5 },
           { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: ColorPickerUtil.SEGMENT_6 },
         ]))
-        .sliderInteractionMode(SliderInteraction.SLIDE_AND_CLICK_UP)
+        .sliderInteractionMode(SliderInteraction.SLIDE_AND_CLICK)
         .trackThickness($r('app.float.slider_track_thick_large'))
         .blockBorderColor(Color.White)
         .blockBorderWidth($r('app.float.slider_block_border_size'))
@@ -66,12 +68,13 @@ export struct ColorPickerComponent {
           width: $r('app.float.slider_block_size_large'),
           height: $r('app.float.slider_block_size_large'),
         })
+        .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
         .blockColor(Color.Transparent)
         .height($r('app.float.common_component_height'))
         .width('100%')
     }
     .width('100%')
     .alignItems(HorizontalAlign.Start)
-    .padding({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
+    .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
   }
 }

@@ -1,0 +1,6 @@
+{
+  "shortcut_component_full" : {
+    "background": "$media:ic_shortcut_bg",
+    "foreground": "$media:ic_shortcut_component"
+  }
+}

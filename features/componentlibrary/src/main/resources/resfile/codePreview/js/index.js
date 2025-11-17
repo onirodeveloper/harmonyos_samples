@@ -32,7 +32,7 @@ function changeColorMode(colorMode) {
 }
 
 function codeToHtml(codeParam, colorMode) {
-    codeContainer.innerHTML = codeParam;
+    codeContainer.textContent = codeParam;
     delete codeContainer.dataset.highlighted;
     if (colorMode !== undefined) {
         changeColorMode(colorMode);

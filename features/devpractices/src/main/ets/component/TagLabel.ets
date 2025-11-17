@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-import { MeasureText } from '@kit.ArkUI';
 import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import { CommonConstants } from '@ohos/common';
 import { CardStyleTypeEnum } from '@ohos/commonbusiness';
 import { SampleDetailConstant } from '../constant/CommonConstants';
 
@@ -47,7 +46,7 @@ export struct TagLabel {
   changeTagList() {
     const tempList: TagInfo[] = [];
     let currentWidth: number = 0;
-    const ellipsisWidth = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? MIN_WIDTH : 0;
+    const ellipsisWidth = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? MIN_WIDTH : 0;
     this.tags.forEach((tag: string) => {
       const tagWidth: number = Math.ceil(this.getUIContext().px2vp(this.getUIContext().getMeasureUtils().measureText({
         textContent: tag,
@@ -57,8 +56,8 @@ export struct TagLabel {
         currentWidth += tagWidth;
         tempList.push({ tag: tag, width: tagWidth - CommonConstants.SPACE_8 });
       } else if (currentWidth < this.maxWidth - ellipsisWidth) {
-        const hideEllipse: boolean = this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL ||
-          (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL &&
+        const hideEllipse: boolean = this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL ||
+          (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL &&
             tempList.length === 0)
         const width: number = this.maxWidth - currentWidth - CommonConstants.SPACE_8;
         if (hideEllipse) {

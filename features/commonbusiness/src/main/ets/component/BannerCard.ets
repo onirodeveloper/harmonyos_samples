@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import type { GlobalInfoModel } from '@ohos/common';
+import { CommonConstants, StorageKey } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 import type { BannerState } from '../viewmodel/BaseHomeState';
 import { BannerItem } from './BannerItem';
@@ -24,21 +24,14 @@ import { ProgressController } from './ProgressController';
 const ICON_HEIGHT = 32;
 const ICON_PADDING = 24;
 const BANNER_ASPECT = 1.75;
-const BANNER_DOT_SPACING = 8;
 const ANIMATION_DELAY = 50;
 
 @Component
 export struct BannerCard {
-  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @Prop @Require bannerState: BannerState;
   @Prop @Require tabViewType: number;
   handleItemClick?: (bannerData: BannerData) => void;
-  private bannerPadding: number = new BreakpointType({
-    sm: CommonConstants.SPACE_16,
-    md: CommonConstants.SPACE_24,
-    lg: CommonConstants.SPACE_32
-  }).getValue(this.globalInfoModel.currentBreakpoint);
   private swiperController: SwiperController = new SwiperController();
   private scrollerController: Scroller = new Scroller();
   private bannerOffset: number = this.bannerState.bannerHeight * BANNER_ASPECT;
@@ -48,29 +41,12 @@ export struct BannerCard {
   @State currentIndex: number = 0;
   @State showLeftIcon: boolean = false;
   @State showRightIcon: boolean = true;
-  @State bannerWidth: number =
-    (this.globalInfoModel.deviceWidth - this.bannerPadding * 2 - BANNER_DOT_SPACING * (this.catchCount - 1)) /
-    this.catchCount;
-
-  handleBreakPointChange(): void {
-    this.bannerPadding = new BreakpointType({
-      sm: CommonConstants.SPACE_16,
-      md: CommonConstants.SPACE_24,
-      lg: CommonConstants.SPACE_32
-    }).getValue(this.globalInfoModel.currentBreakpoint);
-    if (this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.LG &&
-      this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
-      this.bannerWidth =
-        (this.globalInfoModel.deviceWidth - this.bannerPadding * 2 - BANNER_DOT_SPACING * (this.catchCount - 1)) /
-        this.catchCount;
-    }
-  }
 
   @Builder
   BannerSwiperBuilder() {
     Swiper(this.swiperController) {
       LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
-        BannerItem({ bannerData: bannerData })
+        BannerItem({ bannerData: bannerData, widthBreakpoint: this.globalInfoModel.widthBreakpoint })
           .reuseId('banner_swiper')
           .onClick(() => {
             this.handleItemClick?.(bannerData);
@@ -114,14 +90,14 @@ export struct BannerCard {
   }
 
   build() {
-    if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       Stack({ alignContent: Alignment.TopStart }) {
         Scroll(this.scrollerController) {
           Row({ space: CommonConstants.SPACE_16 }) {
             LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
               Column() {
-                BannerItem({ bannerData: bannerData })
+                BannerItem({ bannerData: bannerData, widthBreakpoint: this.globalInfoModel.widthBreakpoint })
                   .reuseId('banner_scroll')
                   .geometryTransition(CommonConstants.BANNER_GEOMETRY + bannerData.id.toString(), { follow: true })
                   .transition(TransitionEffect.OPACITY)
@@ -135,7 +111,7 @@ export struct BannerCard {
           }
           .justifyContent(FlexAlign.Start)
           .padding({
-            left: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ?
+            left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
               (CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_32) : $r('sys.float.padding_level16'),
             right: $r('sys.float.padding_level16'),
           })
@@ -154,7 +130,7 @@ export struct BannerCard {
         .height('100%')
         .width('100%')
 
-        if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+        if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
           Button({ type: ButtonType.Circle }) {
             SymbolGlyph($r('sys.symbol.chevron_left'))
               .fontSize($r('app.float.banner_icon_height'))

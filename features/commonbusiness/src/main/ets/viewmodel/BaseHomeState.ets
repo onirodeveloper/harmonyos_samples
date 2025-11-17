@@ -26,6 +26,7 @@ export class BaseHomeState extends BaseState {
   public bannerHeight: number = 0;
   public currentPage: number = 1;
   public hasEdgeEffect: boolean = false;
+  public showTab: boolean = false;
 
   public constructor() {
     super();

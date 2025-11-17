@@ -20,6 +20,5 @@ import type { RowDescriptor } from './RowDescriptor';
 export class RowAttributeModifier extends CommonAttributeModifier<RowDescriptor, RowAttribute> {
   applyNormalAttribute(instance: RowAttribute): void {
     this.assignAttribute((descriptor => descriptor.alignItems), (val) => instance.alignItems(val));
-    this.assignAttribute((descriptor => descriptor.flexAlign), (val) => instance.justifyContent(val));
   }
 }

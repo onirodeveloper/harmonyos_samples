@@ -16,7 +16,8 @@
 @Observed
 export class GlobalInfoModel {
   public foldExpanded: boolean = false;
-  public currentBreakpoint: BreakpointTypeEnum = BreakpointTypeEnum.MD;
+  public widthBreakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_SM;
+  public heightBreakpoint: HeightBreakpoint = HeightBreakpoint.HEIGHT_SM;
   public naviIndicatorHeight: number = 0;
   public statusBarHeight: number = 0;
   public decorHeight: number = 0;
@@ -24,10 +25,4 @@ export class GlobalInfoModel {
   public deviceWidth: number = 0;
 }
 
-export enum BreakpointTypeEnum {
-  XS = 'xs',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-}
+export const WIDTH_BREAKPOINTS: string[] = ['xs', 'sm', 'md', 'lg', 'xl'];

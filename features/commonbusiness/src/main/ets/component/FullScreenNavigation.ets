@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import type { GlobalInfoModel } from '@ohos/common';
+import { BreakpointType, CommonConstants, StorageKey } from '@ohos/common';
 import { FullScreenNavigationData } from '../model/FullScreenNavigationData';
 
 @Component
@@ -40,7 +40,7 @@ export struct FullScreenNavigation {
             md: $r('sys.float.Title_L'),
             lg: $r('sys.float.Title_L'),
             xl: $r('sys.float.Title_S'),
-          }).getValue(this.globalInfoModel.currentBreakpoint))
+          }).getValue(this.globalInfoModel.widthBreakpoint))
           .fontColor(this.topNavigationData.titleColor)
           .fontWeight(FontWeight.Bold)
           .textAlign(TextAlign.Start)
@@ -54,12 +54,12 @@ export struct FullScreenNavigation {
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level16'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
         right: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level16'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
       })
 
       if (this.tabView && this.topNavigationData.showTab) {
@@ -74,7 +74,7 @@ export struct FullScreenNavigation {
     .renderGroup(this.blurRenderGroup)
     .padding({
       top: this.globalInfoModel.statusBarHeight,
-      left: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? CommonConstants.TAB_BAR_WIDTH : 0,
+      left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? CommonConstants.TAB_BAR_WIDTH : 0,
     })
     .width('100%')
   }

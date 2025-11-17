@@ -15,6 +15,7 @@
 
 import { TopNavigationData } from '@ohos/common';
 
+@Observed
 export class FullScreenNavigationData extends TopNavigationData {
   public titleOffsetY: number = 0;
   public titleScale: number = 1;

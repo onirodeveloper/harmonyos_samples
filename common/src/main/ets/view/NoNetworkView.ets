@@ -16,12 +16,11 @@
 import type { common, Want } from '@kit.AbilityKit';
 import { CommonConstants } from '../constant/CommonConstants';
 import { ColumnEnum, StorageKey } from '../constant/CommonEnums';
-import { BreakpointTypeEnum } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 import { ProcessUtil } from '../util/ProcessUtil';
 
 @Builder
-export function NoNetworkView(breakpoint: BreakpointTypeEnum, handleReload?: () => void) {
+export function NoNetworkView(breakpoint: WidthBreakpoint, handleReload?: () => void) {
   GridRow({ columns: { sm: ColumnEnum.SM, md: ColumnEnum.MD, lg: ColumnEnum.LG } }) {
     GridCol({
       span: { sm: CommonConstants.SPACE_4, md: CommonConstants.SPAN_6, lg: CommonConstants.SPAN_6 },

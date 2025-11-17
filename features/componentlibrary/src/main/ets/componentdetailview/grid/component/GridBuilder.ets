@@ -38,9 +38,7 @@ struct GridComponent {
   @Prop preView: GridDescriptor;
 
   aboutToAppear(): void {
-    PreferenceManager.getInstance().getValue<boolean>(CommonStorageKey.KEY_GRID_TIP).then((value) => {
-      this.showPopup = value ?? true;
-    });
+    this.showPopup = PreferenceManager.getInstance().getValue<boolean>(CommonStorageKey.KEY_GRID_TIP) ?? true;
     this.listData = getData();
   }
 

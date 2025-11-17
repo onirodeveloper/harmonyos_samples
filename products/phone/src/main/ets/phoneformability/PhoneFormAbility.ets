@@ -15,12 +15,23 @@
 
 import type { Want } from '@kit.AbilityKit';
 import { formBindingData, FormExtensionAbility, formInfo } from '@kit.FormKit';
+import { Logger } from '@ohos/common';
+import { UpdateFormData } from '../util/UpdateFormData';
+
+const TAG: string = '[PhoneFormAbility]';
 
 export default class PhoneFormAbility extends FormExtensionAbility {
   onAddForm(want: Want) {
-    // Called to return a FormBindingData object.
-    const formData = '';
-    return formBindingData.createFormBindingData(formData);
+    if (!want || !want.parameters) {
+      Logger.error(TAG, 'FormAbility onAddForm want or want.parameters is undefined.');
+      return formBindingData.createFormBindingData('');
+    }
+    const formName: string = want.parameters?.[formInfo.FormParam.NAME_KEY] as string;
+    const formId: string = want.parameters[formInfo.FormParam.IDENTITY_KEY] as string;
+    if (formName === 'ArticleServiceCard') {
+      return UpdateFormData.init(formId);
+    }
+    return formBindingData.createFormBindingData('');
   }
 
   onCastToNormalForm(formId: string) {
@@ -30,6 +41,7 @@ export default class PhoneFormAbility extends FormExtensionAbility {
 
   onUpdateForm(formId: string) {
     // Called to notify the form provider to update a specified form.
+    UpdateFormData.update(formId);
   }
 
   onFormEvent(formId: string, message: string) {
@@ -38,6 +50,7 @@ export default class PhoneFormAbility extends FormExtensionAbility {
 
   onRemoveForm(formId: string) {
     // Called to notify the form provider that a specified form has been destroyed.
+    UpdateFormData.removeDataOfFormId(formId);
   }
 
   onAcquireFormState(want: Want) {

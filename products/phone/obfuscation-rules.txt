@@ -23,4 +23,8 @@
 
 # white list for PenKit Context file
 -keep
-./src/main/ets/util/ContextConfig.ts
+./src/main/ets/util/ContextConfig.ets
+
+-keep-property-name
+articleInfo
+cardFrom

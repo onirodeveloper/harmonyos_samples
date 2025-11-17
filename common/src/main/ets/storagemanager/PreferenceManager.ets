@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { preferences } from '@kit.ArkData';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { preferences, ValueType } from '@kit.ArkData';
 import { StorageKey } from '../constant/CommonEnums';
 import Logger from '../util/Logger';
 
@@ -36,90 +35,81 @@ export class PreferenceManager {
     return PreferenceManager.instance;
   }
 
-  private initPreference(storeName: string): Promise<void> {
+  private initPreference(storeName: string): void {
     const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    return preferences.getPreferences(uiContext.getHostContext() as Context, storeName)
-      .then((preferences: preferences.Preferences) => {
-        this.preferences = preferences;
-      })
-      .catch((err: BusinessError) => {
-        Logger.error(TAG, `getPreferences failed, err code:${err.code},msg:${err.message}`);
-      });
-  }
-
-  public async setValue<T>(key: string, value: T): Promise<void> {
     try {
-      if (this.preferences) {
-        this.preferences.put(key, JSON.stringify(value)).then(() => {
-          this.saveValue();
-        })
-      } else {
-        this.initPreference(PREFERENCES_NAME).then(() => {
-          this.setValue<T>(key, value);
-        });
-      }
-    } catch (e) {
-      Logger.error(TAG, `Preferences put failed, err code:${e?.code},msg:${e?.message}`);
+      this.preferences = preferences.getPreferencesSync(uiContext.getHostContext() as Context, { name: storeName });
+    } catch (err) {
+      Logger.error(TAG, `getPreferences failed, err code:${err.code},msg:${err.message}`);
     }
   }
 
-  public async getValue<T>(key: string): Promise<T | null> {
-    try {
-      if (this.preferences) {
-        return this.preferences.get(key, '').then((res: preferences.ValueType) => {
-          let value: T | null = null;
-          if (res) {
-            value = JSON.parse(res as string) as T;
-          }
-          return value;
-        });
-      } else {
-        return this.initPreference(PREFERENCES_NAME).then(() => {
-          return this.getValue<T>(key);
-        });
+  public setValue<T>(key: string, value: T): void {
+    if (this.preferences) {
+      try {
+        this.preferences.putSync(key, JSON.stringify(value));
+        this.saveValue();
+      } catch (e) {
+        Logger.error(TAG, `Preferences put ${key} failed, err code:${e?.code},msg:${e?.message}`);
       }
-    } catch {
-      Logger.error(TAG, `Preferences get failed.`);
-      return null;
+    } else {
+      this.initPreference(PREFERENCES_NAME);
+      this.setValue<T>(key, value);
     }
   }
 
-  public async hasValue(key: string): Promise<boolean> {
-    try {
-      if (this.preferences) {
-        return this.preferences.has(key);
-      } else {
-        return this.initPreference(PREFERENCES_NAME).then(() => {
-          return this.hasValue(key);
-        });
+  public getValue<T>(key: string, defaultValue?: ValueType): T | null {
+    if (this.preferences) {
+      try {
+        const res = this.preferences.getSync(key, defaultValue)
+        let value: T | null = null;
+        if (res) {
+          value = JSON.parse(res as string) as T;
+        }
+        return value;
+      } catch (err) {
+        Logger.error(TAG, `Preferences get ${key} failed. err code:${err.code},msg:${err.message}`);
+        return null;
       }
-    } catch {
-      Logger.error(TAG, `Preferences hasValue failed.`);
-      return false;
+    } else {
+      this.initPreference(PREFERENCES_NAME);
+      return this.getValue<T>(key);
     }
   }
 
-  public async deleteValue(key: string): Promise<void> {
-    try {
-      if (this.preferences) {
-        this.preferences.delete(key).then(() => {
-          this.saveValue();
-        });
-      } else {
-        this.initPreference(PREFERENCES_NAME).then(() => {
-          this.deleteValue(key);
-        });
+  public hasValue(key: string): boolean {
+    if (this.preferences) {
+      try {
+        return this.preferences.hasSync(key);
+      } catch (err) {
+        Logger.error(TAG, `Preferences hasValue ${key} failed. err code:${err.code},msg:${err.message}`);
+        return false;
       }
-    } catch {
-      Logger.error(TAG, `Preferences delete Key failed.`);
+    } else {
+      this.initPreference(PREFERENCES_NAME);
+      return this.hasValue(key);
+    }
+  }
+
+  public deleteValue(key: string): void {
+    if (this.preferences) {
+      try {
+        this.preferences.deleteSync(key);
+        this.saveValue();
+      } catch (err) {
+        Logger.error(TAG, `Preferences delete ${key} failed. err code:${err.code},msg:${err.message}`);
+      }
+    } else {
+      this.initPreference(PREFERENCES_NAME);
+      this.deleteValue(key);
     }
   }
 
   saveValue() {
     try {
       this.preferences?.flush();
-    } catch {
-      Logger.error(TAG, `Preferences flush failed.`);
+    } catch (err) {
+      Logger.error(TAG, `Preferences flush failed.err code:${err.code},msg:${err.message}`);
     }
   }
 }

@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
+import { PaddingOptions, TitleBarStyleOptions } from '@kit.UIDesignKit';
 import { CommonConstants } from '../constant/CommonConstants';
 import { StorageKey } from '../constant/CommonEnums';
-import { BreakpointTypeEnum, type GlobalInfoModel } from '../model/GlobalInfoModel';
+import type { GlobalInfoModel } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 
 const BACK_ICON_WIDTH: number = 40;
@@ -34,8 +35,8 @@ export struct TopNavigationView {
   @BuilderParam menuView?: () => void;
   @State fontSize: number = 20;
   @State backIconBgColor: ResourceColor =
-    this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? Color.Transparent :
-    $r('sys.color.comp_background_tertiary');
+    this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+      $r('sys.color.comp_background_tertiary');
 
   aboutToAppear(): void {
     if (this.topNavigationData.fontSize === undefined) {
@@ -67,7 +68,7 @@ export struct TopNavigationView {
     Column() {
       Row() {
         if (this.topNavigationData.onBackClick) {
-          Button({ type: ButtonType.Circle }) {
+          Button() {
             SymbolGlyph($r('sys.symbol.chevron_backward'))
               .fontColor([$r('sys.color.icon_primary')])
               .fontSize($r('sys.float.Title_M'))
@@ -91,9 +92,7 @@ export struct TopNavigationView {
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .layoutWeight(1)
 
-        Row() {
-          this.menuView?.()
-        }
+        this.menuView?.()
       }
       .alignItems(VerticalAlign.Center)
       .justifyContent(FlexAlign.SpaceBetween)
@@ -111,14 +110,14 @@ export struct TopNavigationView {
           left: $r('sys.float.padding_level16'),
           right: $r('sys.float.padding_level16'),
         },
-      }).getValue(this.globalInfoModel.currentBreakpoint))
+      }).getValue(this.globalInfoModel.widthBreakpoint))
 
       Divider()
         .color($r('sys.color.comp_divider'))
         .visibility(this.topNavigationData.isBlur ? Visibility.Visible : Visibility.Hidden)
     }
     .backgroundBlurStyle(this.topNavigationData.isBlur ? BlurStyle.COMPONENT_THICK : undefined)
-    .renderGroup(!this.blurRenderGroup && this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL)
+    .renderGroup(!this.blurRenderGroup && this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL)
     .padding({ top: this.topNavigationData.isFullScreen ? this.globalInfoModel.statusBarHeight : 0 })
     .width('100%')
     .backgroundColor(this.topNavigationData.bgColor)
@@ -134,4 +133,6 @@ export class TopNavigationData {
   public isBlur?: boolean = false;
   public bgColor?: ResourceStr | Color = Color.Transparent;
   public onBackClick?: Function;
+  public hdsTitleBarStyle?: TitleBarStyleOptions;
+  public hdsTitleBarPadding?: PaddingOptions;
 }

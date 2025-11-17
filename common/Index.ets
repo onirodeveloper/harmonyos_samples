@@ -12,9 +12,11 @@ export { GlobalContext } from './src/main/ets/util/GlobalContext';
 
 export { ProcessUtil } from './src/main/ets/util/ProcessUtil';
 
-export { BreakpointSystem, BreakpointType } from './src/main/ets/util/BreakpointSystem';
+export { BreakpointType } from './src/main/ets/util/BreakpointSystem';
 
-export { BreakpointTypeEnum, GlobalInfoModel } from './src/main/ets/model/GlobalInfoModel';
+export { VersionUtil } from './src/main/ets/util/VersionUtil';
+
+export { GlobalInfoModel, WIDTH_BREAKPOINTS } from './src/main/ets/model/GlobalInfoModel';
 
 export { BundleInfoData } from './src/main/ets/model/BundleInfoData';
 
@@ -29,6 +31,8 @@ export { PreferenceManager } from './src/main/ets/storagemanager/PreferenceManag
 export { TopNavigationData, TopNavigationView } from './src/main/ets/component/TopNavigationView';
 
 export { WebSheetBuilder, WebUrlType } from './src/main/ets/component/WebSheet';
+
+export { HmosListItem } from './src/main/ets/component/HmosListItem';
 
 export { LoadingMore } from './src/main/ets/component/LoadingMore';
 
@@ -87,3 +91,17 @@ export { DynamicInstallManager } from './src/main/ets/util/DynamicInstallManager
 export { ColorPickerUtil } from './src/main/ets/util/ColorPickerUtil';
 
 export { NetworkUtil } from './src/main/ets/util/NetworkUtil';
+
+export { PullUpManager, WantParams } from './src/main/ets/util/PullUpManager';
+
+export { TagEnum } from './src/main/ets/model/TagEnum';
+
+export { TextOverflowUtil } from './src/main/ets/util/TextOverflowUtil';
+
+export { TextOverflowData } from './src/main/ets/util/TextOverflowUtil';
+
+export { TextOverflowProperty } from './src/main/ets/util/TextOverflowUtil';
+
+export { FormCardEnum, ArticleListItem } from './src/main/ets/model/FormCardInfo';
+
+export { SampleDistributionUtil } from './src/main/ets/util/SampleDistributionUtil';

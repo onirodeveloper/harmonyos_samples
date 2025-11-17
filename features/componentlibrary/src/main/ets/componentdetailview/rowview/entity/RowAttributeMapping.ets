@@ -42,16 +42,6 @@ class RowJustifyContentMapping {
   }
 }
 
-export const rowJustifyContentMapData: Map<string, RowJustifyContentMapping> = new Map([
-  ['Start', new RowJustifyContentMapping('FlexAlign.Start', FlexAlign.Start)],
-  ['Center', new RowJustifyContentMapping('FlexAlign.Center', FlexAlign.Center)],
-  ['End', new RowJustifyContentMapping('FlexAlign.End', FlexAlign.End)],
-  ['SpaceBetween', new RowJustifyContentMapping('FlexAlign.SpaceBetween', FlexAlign.SpaceBetween)],
-  ['SpaceAround', new RowJustifyContentMapping('FlexAlign.SpaceAround', FlexAlign.SpaceAround)],
-  ['SpaceEvenly', new RowJustifyContentMapping('FlexAlign.SpaceEvenly', FlexAlign.SpaceEvenly)],
-  ['Default', new RowJustifyContentMapping('FlexAlign.Start', FlexAlign.Start)],
-]);
-
 export const rowSpaceMapData: Map<string, CommonNumberMapping> = new Map([
   ['Default', new CommonNumberMapping('3', 3)],
 ]);

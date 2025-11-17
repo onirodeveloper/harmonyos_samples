@@ -15,8 +15,18 @@
 
 import type { common } from '@kit.AbilityKit';
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointTypeEnum, CommonConstants, ProcessUtil, Toast, WindowUtil } from '@ohos/common';
+import { SymbolGlyphModifier } from '@kit.ArkUI';
+import {
+  HdsNavDestination,
+  HdsNavDestinationAttribute,
+  HdsSideBar,
+  HdsTabs,
+  HdsTabsAttribute,
+  DividerMode,
+  HdsTabsController,
+} from '@kit.UIDesignKit';
+import type { GlobalInfoModel, WantParams } from '@ohos/common';
+import { BreakpointType, CommonConstants, ProcessUtil, StorageKey, Toast, VersionUtil, WindowUtil } from '@ohos/common';
 import { TAB_CONTENT_STATUSES, TabBarType } from '@ohos/commonbusiness';
 import { ComponentListView } from '@ohos/componentlibrary';
 import { PracticesView } from '@ohos/devpractices';
@@ -24,6 +34,8 @@ import { ExplorationView } from '@ohos/exploration';
 import { MineView } from '@ohos/mine';
 import { CustomSideBar } from '../component/CustomSideBar';
 import { CustomTabBar } from '../component/CustomTabBar';
+import { TABS_LIST } from '../model/TabBarModel';
+import { JumpToPageEvent, MainPageViewModel } from '../viewmodel/MainPageViewModel';
 
 const PRESS_TIME = 1500;
 
@@ -38,58 +50,70 @@ struct MainPage {
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE)!;
   @State currentIndex: number = 0;
-  private tabController: TabsController = new TabsController();
+  private tabController: TabsController | HdsTabsController =
+    VersionUtil.canUseHds() ? new HdsTabsController() : new TabsController();
   private backPressTime: number = 0;
   private isShown: boolean = false;
+  private mainPageViewModel: MainPageViewModel = new MainPageViewModel();
+  private componentScroller: Scroller = new Scroller();
+  private sampleScroller: Scroller = new Scroller();
+  private articleScroller: Scroller = new Scroller();
+  private mineScroller: Scroller = new Scroller();
 
   @Builder
-  TabComponent() {
-    Tabs({ controller: this.tabController, index: this.currentIndex }) {
-      TabContent() {
-        ComponentListView()
-      }
-      .height('100%')
-
-      TabContent() {
-        PracticesView()
-      }
-      .height('100%')
-
-      TabContent() {
-        ExplorationView()
-      }
-      .height('100%')
-
-      TabContent() {
-        MineView()
-      }
-      .height('100%')
+  TabContentsBuilder(showTabBar: boolean) {
+    TabContent() {
+      ComponentListView({ scroller: this.componentScroller })
     }
-    .onAttach(() => {
-      this.tabController.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
-    })
-    .onAnimationStart((index: number, targetIndex: number) => {
-      this.changeTabStatus(targetIndex);
-      this.currentIndex = targetIndex;
-    })
-    .animationMode(AnimationMode.NO_ANIMATION)
-    .barWidth(0)
-    .barHeight(0)
-    .scrollable(false)
-    .backgroundColor($r('sys.color.background_secondary'))
-    .height('100%')
-    .width('100%')
+    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.HOME) : new SubTabBarStyle(''))
+
+    TabContent() {
+      PracticesView({ listScroller: this.sampleScroller })
+    }
+    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.SAMPLE) : new SubTabBarStyle(''))
+
+    TabContent() {
+      ExplorationView({ scroller: this.articleScroller })
+    }
+    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.PRACTICE) : new SubTabBarStyle(''))
+
+    TabContent() {
+      MineView({ scroller: this.mineScroller })
+    }
+    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.MINE) : new SubTabBarStyle(''))
   }
 
   aboutToAppear(): void {
     AppStorage.setOrCreate(StorageKey.CURRENT_TAB, 0);
+    if (VersionUtil.canUseHds()) {
+      const hdsTabController: HdsTabsController = this.tabController as HdsTabsController;
+      hdsTabController.bindScroller(TabBarType.HOME, this.componentScroller);
+      hdsTabController.bindScroller(TabBarType.SAMPLE, this.sampleScroller);
+      hdsTabController.bindScroller(TabBarType.PRACTICE, this.articleScroller);
+      hdsTabController.bindScroller(TabBarType.MINE, this.mineScroller);
+    }
+  }
+
+  onPageShow(): void {
+    this.isShown = true;
+    this.handleColorModeChange();
+    CommonConstants.PROMISE_WAIT(500).then(() => {
+      AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, false);
+    });
+    const wantParams: WantParams | undefined = AppStorage.get<WantParams>(StorageKey.WANT_PARAMETERS);
+    AppStorage.delete(StorageKey.WANT_PARAMETERS);
+    if (wantParams) {
+      const tabIndex: number = this.mainPageViewModel.sendEvent(new JumpToPageEvent(wantParams));
+      this.currentIndex = tabIndex;
+    }
+    this.changeTabStatus(this.currentIndex);
   }
 
   onBackPress(): boolean {
     const newTime = new Date().getTime();
     if (this.backPressTime && newTime - this.backPressTime < PRESS_TIME) {
       ProcessUtil.moveAbilityToBackground(this.getUIContext().getHostContext() as common.UIAbilityContext);
-      return false;
+      return true;
     }
     this.backPressTime = newTime;
     Toast.showToast($r('app.string.back_toast'));
@@ -100,12 +124,13 @@ struct MainPage {
     AppStorage.setOrCreate(StorageKey.CURRENT_TAB, index);
     const selectedIndex = index;
     const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    if (selectedIndex === TabBarType.MINE || this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (selectedIndex === TabBarType.MINE || this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       WindowUtil.updateStatusBarColor(isSystemDark);
     } else {
       WindowUtil.updateStatusBarColor(isSystemDark || TAB_CONTENT_STATUSES[selectedIndex]);
     }
+    this.currentIndex = index;
   }
 
   handleColorModeChange() {
@@ -114,51 +139,141 @@ struct MainPage {
     }
   }
 
+  bottomTabBarStyle(tabType: TabBarType): BottomTabBarStyle {
+    const tabItem = TABS_LIST[tabType];
+    return BottomTabBarStyle.of({ normal: new SymbolGlyphModifier(tabItem.icon) }, tabItem.title)
+      .padding({
+        bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? 0 :
+          this.globalInfoModel.naviIndicatorHeight
+      })
+  }
+
+  @Builder
+  HdsTabComponent() {
+    HdsTabs({ controller: this.tabController as HdsTabsController, index: this.currentIndex }) {
+      this.TabContentsBuilder(this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL)
+    }
+    .backgroundColor($r('sys.color.background_secondary'))
+    .vertical(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG)
+    .barPosition(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? BarPosition.Start :
+      BarPosition.End)
+    .divider({
+      mode: DividerMode.FOLLOW_SCROLL,
+    })
+    .barHeight(new BreakpointType<Length>({
+      sm: CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight,
+      md: CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight,
+      lg: '100%',
+      xl: 0,
+    }).getValue(this.globalInfoModel.widthBreakpoint))
+    .barOverlap(true)
+    .scrollable(false)
+    .onAttach(() => {
+      this.tabController?.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
+    })
+    .onChange((index: number) => {
+      this.changeTabStatus(index);
+    })
+  }
+
+  @Builder
+  CustomSideBarBuilder() {
+    CustomSideBar({
+      currentIndex: this.currentIndex,
+      sideBarChange: (currentIndex: number) => {
+        this.changeTabStatus(currentIndex);
+      }
+    })
+  }
+
+  @Builder
+  TabComponent() {
+    Tabs({ controller: this.tabController, index: this.currentIndex }) {
+      this.TabContentsBuilder(false)
+    }
+    .onAttach(() => {
+      this.tabController.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
+    })
+    .onAnimationStart((index: number, targetIndex: number) => {
+      this.changeTabStatus(targetIndex);
+    })
+    .animationMode(AnimationMode.NO_ANIMATION)
+    .barWidth(0)
+    .barHeight(0)
+    .scrollable(false)
+    .backgroundColor($r('sys.color.background_secondary'))
+  }
+
   build() {
-    NavDestination() {
-      SideBarContainer(SideBarContainerType.Embed) {
-        CustomSideBar({
-          currentIndex: this.currentIndex,
-          sideBarChange: (currentIndex: number) => {
-            this.changeTabStatus(currentIndex);
-            this.currentIndex = currentIndex;
-          }
-        });
-        Stack({ alignContent: Alignment.BottomStart }) {
-          this.TabComponent()
-          CustomTabBar({
-            currentIndex: this.currentIndex, tabBarChange: (currentIndex: number) => {
+    if (VersionUtil.canUseHds()) {
+      HdsNavDestination() {
+        HdsSideBar({
+          isShowSideBar: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL,
+          autoHide: false,
+          sideBarPanelBuilder: () => {
+            this.CustomSideBarBuilder()
+          },
+          contentPanelBuilder: () => {
+            this.HdsTabComponent()
+          },
+          minContentWidth: 0,
+        })
+      }
+      .transition(TransitionEffect.OPACITY)
+      .hideTitleBar(true)
+      .backgroundColor($r('sys.color.background_secondary'))
+      .onBackPressed(() => {
+        return this.onBackPress();
+      })
+      .onShown(() => {
+        this.onPageShow();
+      })
+      .onHidden(() => {
+        AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, true);
+        this.isShown = false;
+      })
+      .height('100%')
+      .width('100%')
+    } else {
+      NavDestination() {
+        SideBarContainer(SideBarContainerType.Embed) {
+          CustomSideBar({
+            currentIndex: this.currentIndex,
+            sideBarChange: (currentIndex: number) => {
               this.changeTabStatus(currentIndex);
-              this.currentIndex = currentIndex;
             }
           })
-            .visibility(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? Visibility.None :
-            Visibility.Visible)
+          Stack({ alignContent: Alignment.BottomStart }) {
+            this.TabComponent()
+            CustomTabBar({
+              currentIndex: this.currentIndex, tabBarChange: (currentIndex: number) => {
+                this.changeTabStatus(currentIndex);
+                this.currentIndex = currentIndex;
+              }
+            })
+              .visibility(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Visibility.None :
+                Visibility.Visible)
+          }
         }
+        .autoHide(false)
+        .showSideBar(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL)
+        .showControlButton(false)
       }
-      .autoHide(false)
-      .showSideBar(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL)
-      .showControlButton(false)
-    }
-    .transition(TransitionEffect.OPACITY)
-    .hideTitleBar(true)
-    .backgroundColor($r('sys.color.background_secondary'))
-    .onBackPressed(() => {
-      this.onBackPress();
-      return true;
-    })
-    .onShown(() => {
-      this.isShown = true;
-      this.handleColorModeChange();
-      CommonConstants.PROMISE_WAIT(500).then(() => {
-        AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, false);
+      .transition(TransitionEffect.OPACITY)
+      .hideTitleBar(true)
+      .backgroundColor($r('sys.color.background_secondary'))
+      .onBackPressed(() => {
+        return this.onBackPress();
       })
-    })
-    .onHidden(() => {
-      AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, true);
-      this.isShown = false;
-    })
-    .height('100%')
-    .width('100%')
+      .onShown(() => {
+        this.onPageShow();
+      })
+      .onHidden(() => {
+        AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, true);
+        this.isShown = false;
+      })
+      .height('100%')
+      .width('100%')
+    }
   }
 }

@@ -13,11 +13,67 @@
  * limitations under the License.
  */
 
-import { BaseVM, BaseVMEvent } from '@ohos/common';
-import { MinePageState } from './MinePageState';
+import {
+  BaseVM,
+  BaseVMEvent,
+  GlobalInfoModel,
+  PageContext,
+  PreferenceManager,
+  SampleDistributionUtil,
+  StorageKey
+} from '@ohos/common';
+import { AllContentData, SampleContentData } from '../model/AllContentData';
+import { MineTrigger } from '../model/NewContentData';
+import { NewContentModel } from '../model/NewContentModel';
+import { SettingViewBuilder } from '../view/SettingView';
+import { BuilderEnum, ListGroup, MineItem, MinePageState } from './MinePageState';
 
 export class MinePageVM extends BaseVM<MinePageState> {
   private static instance: MinePageVM;
+  public listGroupData: ListGroup[] = [
+    {
+      id: 0,
+      group: [
+        {
+          isShow: false,
+          textContent: $r('app.string.content_new'),
+          symbolSrc: $r('sys.symbol.bell'),
+          showTotalNum: true,
+          onclick: () => {
+            MinePageVM.getInstance().sendEvent(new MinePageEvent('NewContentView'))
+          },
+          type: BuilderEnum.CARD_ITEM,
+        } as MineItem,
+        {
+          isShow: false,
+          textContent: $r('app.string.feedback'),
+          symbolSrc: $r('sys.symbol.questionmark_circle'),
+          type: BuilderEnum.CARD_ITEM,
+          onclick: () => {
+          },
+        } as MineItem
+      ]
+    },
+    {
+      id: 1,
+      group: [
+        {
+          isShow: this.state.aboutViewShow,
+          textContent: $r('app.string.setting'),
+          symbolSrc: $r('sys.symbol.gearshape'),
+          type: BuilderEnum.CARD_ITEM,
+          builder: wrapBuilder(SettingViewBuilder),
+        } as MineItem
+      ]
+    }
+  ]
+  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  private model: NewContentModel = NewContentModel.getInstance();
+  private preferenceManager: PreferenceManager = PreferenceManager.getInstance();
+
+  private constructor() {
+    super(new MinePageState());
+  }
 
   public static getInstance() {
     if (!MinePageVM.instance) {
@@ -26,31 +82,67 @@ export class MinePageVM extends BaseVM<MinePageState> {
     return MinePageVM.instance;
   }
 
-  private constructor() {
-    super(new MinePageState());
+  public sendEvent(event: BaseVMEvent | MinePageEvent<pageParams>): void {
+    if (event instanceof MinePageEvent) {
+      this.jumpToNewPage(event.routerPage, event.params);
+    } else if (event instanceof LoadContentNumberEvent) {
+      this.loadContentNumber();
+    } else if (event instanceof InitEvent) {
+      this.assignData();
+    }
   }
 
-  public sendEvent(event: BaseVMEvent): void {
-    if (event instanceof AboutBindSheetEvent) {
-      this.state.aboutViewShow = event.dataValue;
-    } else if (event instanceof FeedbackBindSheetEvent) {
-      this.state.feedbackViewShow = event.dataValue;
+  private assignData(): void {
+    this.state.listItemData = this.listGroupData;
+  }
+
+  private jumpToNewPage(page: string, params: pageParams) {
+    this.state.newContentNumber = 0;
+    this.preferenceManager.setValue('hasViewedNewContent', true);
+    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get(StorageKey.MINE_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
+    pageContext.openPage({
+      routerName: page,
+      param: params,
+    }, true);
+  }
+
+  private loadContentNumber(): void {
+    const hasResult: boolean = this.preferenceManager.hasValue('hasViewedNewContent');
+    if (hasResult) {
+      this.state.newContentNumber = 0;
+    } else {
+      this.model.getNewContentNumber(MineTrigger.ALL_CONTENT).then((res: AllContentData) => {
+        let newSampleCount: number = 0;
+        res.newSampleInfo.forEach((item: SampleContentData) => {
+          if (SampleDistributionUtil.checkSampleSupport(item.requiredApiVersion, item.supportDeviceList)) {
+            newSampleCount++;
+          }
+        });
+        this.state.newContentNumber = newSampleCount + res.newArticleInfo.length + res.newComponentInfo.length;
+      })
     }
   }
 }
 
-export class AboutBindSheetEvent implements BaseVMEvent {
-  readonly dataValue: boolean;
+export class MinePageEvent<T> {
+  public readonly routerPage: string;
+  public readonly params?: T;
 
-  constructor(dataValue: boolean) {
-    this.dataValue = dataValue;
+  constructor(page: string, params?: T) {
+    this.routerPage = page;
+    this.params = params;
   }
 }
 
-export class FeedbackBindSheetEvent implements BaseVMEvent {
-  readonly dataValue: boolean;
-
-  constructor(dataValue: boolean) {
-    this.dataValue = dataValue;
+export class LoadContentNumberEvent {
+  constructor() {
   }
 }
+
+export class InitEvent {
+  constructor() {
+  }
+}
+
+export type pageParams = undefined;

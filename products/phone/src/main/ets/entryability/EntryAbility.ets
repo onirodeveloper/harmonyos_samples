@@ -18,21 +18,27 @@ import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import {
   BundleManagerUtil,
+  DynamicInstallManager,
+  FormCardEnum,
   Logger,
   PageContext,
-  WindowUtil,
-  DynamicInstallManager,
-  WebUtil,
+  PullUpManager,
   StorageKey,
+  WebUtil,
+  WindowUtil,
 } from '@ohos/common';
 import GlobalUIAbilityContext from '../util/ContextConfig';
+import { UpdateFormData } from '../util/UpdateFormData';
 
 const TAG = '[EntryAbility]';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info(TAG, `Ability onCreate launchReason: ${launchParam.launchReason}`);
-    this.checkAndHandleParams(want);
+    if (PullUpManager.getFormCardType(want) === FormCardEnum.ARTICLE_SERVICE_CARD) {
+      UpdateFormData.update(want.parameters?.['formId'] as string);
+    }
+    PullUpManager.pullUpApp(want);
     AppStorage.setOrCreate(StorageKey.COLOR_MODE, this.context.config.colorMode);
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
@@ -43,18 +49,10 @@ export default class EntryAbility extends UIAbility {
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info(TAG, `onNewWant launchReason: ${launchParam.launchReason}`);
-    this.checkAndHandleParams(want);
-  }
-
-  checkAndHandleParams(want: Want): void {
-    Logger.info(TAG, `checkAndHandleParams`);
-    try {
-      if (want === null || want.parameters === null || want === undefined || want.parameters === undefined) {
-        return;
-      }
-    } catch (err) {
-      Logger.error(TAG, `checkAndHandleParams failed: ${err}`);
+    if (PullUpManager.getFormCardType(want) === FormCardEnum.ARTICLE_SERVICE_CARD) {
+      UpdateFormData.update(want.parameters?.['formId'] as string);
     }
+    PullUpManager.pullUpApp(want);
   }
 
   onDestroy(): void {
@@ -67,11 +65,12 @@ export default class EntryAbility extends UIAbility {
     Logger.info(TAG, 'Ability onWindowStageCreate');
     // Use for penkit component
     GlobalUIAbilityContext.setContext(this.context);
-    BundleManagerUtil.getBundleInfo();
     AppStorage.setOrCreate(StorageKey.HOME_PAGE_CONTEXT, new PageContext());
     AppStorage.setOrCreate(StorageKey.SAMPLE_PAGE_CONTEXT, new PageContext());
     AppStorage.setOrCreate(StorageKey.COMPONENT_PAGE_CONTEXT, new PageContext());
     AppStorage.setOrCreate(StorageKey.EXPLORATION_PAGE_CONTEXT, new PageContext());
+    AppStorage.setOrCreate(StorageKey.MINE_PAGE_CONTEXT, new PageContext());
+    BundleManagerUtil.getBundleInfo();
     windowStage.loadContent('page/SplashPage', (err: BusinessError) => {
       WebUtil.initialize(windowStage);
       WindowUtil.initialize(windowStage);

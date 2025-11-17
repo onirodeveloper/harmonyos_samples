@@ -31,6 +31,7 @@ export function TextAreaBuilder($$: DescriptorWrapper) {
 @Component
 struct TextAreaComponent {
   @Prop textAreaDescriptor: TextAreaDescriptor;
+  @State textStr: ResourceStr = $r('app.string.textarea_text');
   // Height of the component preview area.
   @State textAreaInputHeight: number = 0;
   @State contentOffset: number = 0;
@@ -66,7 +67,7 @@ struct TextAreaComponent {
   build() {
     Column() {
       TextArea({
-        text: $r('app.string.textarea_text'),
+        text: this.textStr,
         placeholder: $r('app.string.text_placeholder'),
       })
         .margin({
@@ -85,6 +86,9 @@ struct TextAreaComponent {
           duration: DetailPageConstant.UP_DURATION,
           curve: Curve.Linear,
           playMode: PlayMode.Normal,
+        })
+        .onChange((value: string) => {
+          this.textStr = value;
         })
     }
     .height('100%')

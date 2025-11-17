@@ -13,54 +13,63 @@
  * limitations under the License.
  */
 
-import { CommonConstants } from '@ohos/common';
+import { BundleInfoData, CommonConstants, ResourceUtil, StorageKey } from '@ohos/common';
 import { AboutItemCard } from '../component/AboutItemCard';
 import { AboutVM, ViewRegistrationInfoEvent } from '../viewmodel/AboutVM';
 
 @Component
 export struct AboutView {
   viewModel: AboutVM = AboutVM.getInstance();
+  context: Context = this.getUIContext().getHostContext() as Context;
+  @StorageProp(StorageKey.BUNDLE_INFO) bundleInfo: BundleInfoData =
+    AppStorage.get(StorageKey.BUNDLE_INFO) as BundleInfoData;
+  @Consume('appIconDescriptor') drawableDescriptor: DrawableDescriptor;
 
   build() {
-    Column() {
+    NavDestination() {
       Column() {
-        Image($r('app.media.app_icon'))
-          .draggable(false)
-          .width($r('app.float.about_image_size'))
-          .height($r('app.float.about_image_size'))
-          .borderRadius($r('sys.float.corner_radius_level8'))
-        Text($r('app.string.app_name'))
-          .fontSize($r('sys.float.Title_S'))
-          .fontWeight(FontWeight.Bold)
-          .margin({ top: $r('sys.float.padding_level4') })
-        AboutItemCard()
-          .margin({ top: $r('sys.float.padding_level16') })
-      }
-      .margin({ top: $r('sys.float.padding_level8') })
-      .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
+        Column() {
+          Image(this.drawableDescriptor)
+            .draggable(false)
+            .width($r('app.float.about_image_size'))
+            .height($r('app.float.about_image_size'))
+            .borderRadius($r('sys.float.corner_radius_level8'))
+          Text(ResourceUtil.getResourceString(this.context, this.bundleInfo.labelResource))
+            .fontSize($r('sys.float.Title_S'))
+            .fontWeight(FontWeight.Bold)
+            .margin({ top: $r('sys.float.padding_level4') })
+          AboutItemCard()
+            .margin({ top: $r('sys.float.padding_level16') })
+        }
+        .margin({ top: $r('sys.float.padding_level8') })
+        .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
 
-      Column() {
-        Text($r('app.string.copyright1'))
-          .fontWeight(FontWeight.Medium)
-          .fontColor($r('sys.color.font_emphasize'))
-          .fontSize($r('sys.float.Body_S'))
-          .onClick(() => {
-            this.viewModel.sendEvent(new ViewRegistrationInfoEvent());
-          })
-        Text($r('app.string.copyright2'))
-          .fontColor($r('sys.color.font_secondary'))
-          .fontWeight(FontWeight.Regular)
-          .fontSize($r('sys.float.Body_S'))
+        Column() {
+          Text($r('app.string.copyright1'))
+            .fontWeight(FontWeight.Medium)
+            .fontColor($r('sys.color.font_emphasize'))
+            .fontSize($r('sys.float.Body_S'))
+            .onClick(() => {
+              this.viewModel.sendEvent(new ViewRegistrationInfoEvent());
+            })
+          Text($r('app.string.copyright2'))
+            .fontColor($r('sys.color.font_secondary'))
+            .fontWeight(FontWeight.Regular)
+            .fontSize($r('sys.float.Body_S'))
+        }
+        .margin({ bottom: $r('sys.float.padding_level24') })
       }
-      .margin({ bottom: $r('sys.float.padding_level24') })
+      .justifyContent(FlexAlign.SpaceBetween)
+      .width(CommonConstants.FULL_PERCENT)
+      .height(CommonConstants.FULL_PERCENT)
     }
-    .justifyContent(FlexAlign.SpaceBetween)
-    .width(CommonConstants.FULL_PERCENT)
-    .height(CommonConstants.FULL_PERCENT)
+    .title($r('app.string.about'))
+    .padding({ top: $r('sys.float.padding_level4') })
+    .backgroundColor($r('sys.color.background_secondary'))
   }
 }
 
 @Builder
-export function AboutBuilder() {
+export function AboutViewBuilder() {
   AboutView()
 }

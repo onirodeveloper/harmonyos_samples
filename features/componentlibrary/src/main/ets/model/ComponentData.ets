@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { TagEnum } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import { CardStyleTypeEnum, CardTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
 
@@ -25,6 +26,7 @@ export class ComponentContent {
   public title: string = '';
   public subTitle: string = '';
   public desc: string = '';
+  public tagIds: TagEnum[] = [];
 }
 
 @Observed

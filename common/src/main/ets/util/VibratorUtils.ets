@@ -23,13 +23,13 @@ export class VibratorUtils {
   public static startVibration() {
     const effect: vibrator.VibrateEffect = {
       type: 'preset',
-      effectId: 'haptic.clock.timer',
+      effectId: 'haptic.effect.hard',
       count: 1,
       intensity: 50,
     };
     const attribute: vibrator.VibrateAttribute = {
       id: 0,
-      usage: 'touch',
+      usage: 'alarm',
     };
     try {
       // Trigger vibrator vibration.

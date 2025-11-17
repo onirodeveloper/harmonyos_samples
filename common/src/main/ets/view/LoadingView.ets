@@ -13,11 +13,10 @@
  * limitations under the License.
  */
 
-import { BreakpointTypeEnum } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 
 @Builder
-export function LoadingView(breakpoint: BreakpointTypeEnum) {
+export function LoadingView(breakpoint: WidthBreakpoint) {
   Column() {
     Row() {
       LoadingProgress()

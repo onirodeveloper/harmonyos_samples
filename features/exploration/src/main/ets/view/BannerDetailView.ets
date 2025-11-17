@@ -16,10 +16,12 @@
 import { curves } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
 import { CommonConstants, LoadingStatus, Logger, WebUtil } from '@ohos/common';
+import { DiscoveryConstant } from '../common/DiscoveryConstant';
 import { ArticleWebComponent } from '../component/ArticleWebComponent';
 import { DiscoverContent } from '../model/DiscoverData';
 import {
   ArticleDetailViewModel,
+  AssignPathStackParam,
   DetailParam,
   ExplorationDetailEventType,
   PopParam,
@@ -44,6 +46,7 @@ struct BannerDetailView {
   @State isChangePage: boolean = true; // Check whether to set geometryTransition id.
   @State isPopTransition: boolean = false;
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
+  private lastBackTs: number = 0;
 
   checkPreview(method: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -75,6 +78,12 @@ struct BannerDetailView {
   }
 
   customBackPressed(): boolean {
+    // Suppress repeated triggers occurring within 1 second
+    const now = Date.now();
+    if (now - this.lastBackTs < DiscoveryConstant.CLICK_TIME_INTERVAL) {
+      return true;
+    }
+    this.lastBackTs = now;
     this.checkPreview('checkPreview()')
       .then((res) => {
         if (res) {
@@ -109,41 +118,54 @@ struct BannerDetailView {
     });
   }
 
+  handleOnReady(cxt: NavDestinationContext) {
+    const params = cxt.pathInfo.param as Record<string, string | number | boolean>;
+    this.discoverContent.id = params.id as number;
+    this.discoverContent.detailsUrl = params.detailsUrl as string;
+    this.discoverContent.title = params.title as string;
+    this.tabViewType = params.tabViewType as number;
+    this.viewModel.sendEvent<DetailParam>({
+      type: ExplorationDetailEventType.GET_ARTICLE_DETAIL,
+      param: {
+        content: this.discoverContent,
+        onBackClick: () => {
+          this.customBackPressed?.();
+        },
+      },
+    });
+    this.viewModel.sendEvent<AssignPathStackParam>({
+      type: ExplorationDetailEventType.ASSIGN_PATH_STACK,
+      param: {
+        navPathStack: cxt.pathStack
+      }
+    });
+  }
+
+  @Builder
+  BannerContentBuilder() {
+    ArticleWebComponent({
+      viewModel: this.viewModel,
+      detailsUrl: this.detailState.content.detailsUrl,
+      tabViewType: this.tabViewType,
+      loadingStatus: this.loadingStatus,
+    })
+      .geometryTransition(this.isChangePage ? CommonConstants.BANNER_GEOMETRY + this.tabViewType.toString() : '')
+      .transition(this.isChangePage ? (this.isPopTransition ? TransitionEffect.OPACITY :
+        TransitionEffect.OPACITY.animation({ duration: CommonConstants.TRANSITION_DURATION })) : undefined,
+        (transitionIn: boolean) => {
+          if (transitionIn) {
+            this.isChangePage = false;
+            this.loadingStatus = LoadingStatus.LOADING;
+          }
+        })
+  }
+
   build() {
     NavDestination() {
-      ArticleWebComponent({
-        viewModel: this.viewModel,
-        detailsUrl: this.detailState.content.detailsUrl,
-        tabViewType: this.tabViewType,
-        loadingStatus: this.loadingStatus,
-      })
-        .geometryTransition(this.isChangePage ? CommonConstants.BANNER_GEOMETRY + this.tabViewType.toString() : '')
-        .transition(this.isChangePage ? (this.isPopTransition ? TransitionEffect.OPACITY :
-        TransitionEffect.OPACITY.animation({ duration: CommonConstants.TRANSITION_DURATION })) : undefined,
-          (transitionIn: boolean) => {
-            if (transitionIn) {
-              this.isChangePage = false;
-              this.loadingStatus = LoadingStatus.LOADING;
-            }
-          })
+      this.BannerContentBuilder()
     }
     .defaultFocus(true)
-    .onReady((cxt: NavDestinationContext) => {
-      const params = cxt.pathInfo.param as Record<string, string | number | boolean>;
-      this.discoverContent.id = params.id as number;
-      this.discoverContent.detailsUrl = params.detailsUrl as string;
-      this.discoverContent.title = params.title as string;
-      this.tabViewType = params.tabViewType as number;
-      this.viewModel.sendEvent<DetailParam>({
-        type: ExplorationDetailEventType.GET_ARTICLE_DETAIL,
-        param: {
-          content: this.discoverContent,
-          onBackClick: () => {
-            this.customBackPressed?.();
-          },
-        },
-      });
-    })
+    .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
     .hideTitleBar(true)
     .onBackPressed((): boolean => {
       return this.customBackPressed();

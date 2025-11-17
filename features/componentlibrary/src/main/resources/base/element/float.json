@@ -205,10 +205,6 @@
       "value": "20vp"
     },
     {
-      "name": "symbol_size_large",
-      "value": "24vp"
-    },
-    {
       "name": "slider_track_thick_large",
       "value": "20vp"
     },
@@ -255,6 +251,14 @@
     {
       "name": "comp_detail_area_title_top",
       "value": "28.0vp"
+    },
+    {
+      "name": "small_new_margin_left",
+      "value": "-6vp"
+    },
+    {
+      "name": "small_new_margin_top",
+      "value": "-6vp"
     }
   ]
 }

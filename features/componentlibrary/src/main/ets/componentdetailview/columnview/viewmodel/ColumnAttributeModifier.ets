@@ -20,6 +20,5 @@ import { ColumnDescriptor } from './ColumnDescriptor';
 export class ColumnAttributeModifier extends CommonAttributeModifier<ColumnDescriptor, ColumnAttribute> {
   public applyNormalAttribute(instance: ColumnAttribute): void {
     this.assignAttribute((descriptor => descriptor.alignItems), (val) => instance.alignItems(val));
-    this.assignAttribute((descriptor => descriptor.flexAlign), (val) => instance.justifyContent(val));
   }
 }

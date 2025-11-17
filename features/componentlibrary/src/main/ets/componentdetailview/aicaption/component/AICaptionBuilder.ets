@@ -15,7 +15,7 @@
 
 import { AICaptionComponent, AICaptionController, AICaptionOptions, AudioData } from '@kit.SpeechKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointType, BreakpointTypeEnum, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
+import { BreakpointType, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 
@@ -108,8 +108,8 @@ struct CaptionComponent {
           md: $r('app.float.ai_caption_width'),
           lg: $r('app.float.ai_caption_width'),
           xl: $r('app.float.ai_caption_width_xl'),
-        }).getValue(this.globalInfoModel.currentBreakpoint))
-        .height(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+        }).getValue(this.globalInfoModel.widthBreakpoint))
+        .height(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
         $r('app.float.ai_caption_height_xl') : $r('app.float.ai_caption_height'))
         .margin({
           left: new BreakpointType({
@@ -118,7 +118,7 @@ struct CaptionComponent {
             md: DetailPageConstant.MARGIN_NEGATIVE_LARGER,
             lg: DetailPageConstant.MARGIN_NEGATIVE_LARGER,
             xl: 0,
-          }).getValue(this.globalInfoModel.currentBreakpoint)
+          }).getValue(this.globalInfoModel.widthBreakpoint)
         })
 
       Button($r('app.string.read_pcm_audio'))

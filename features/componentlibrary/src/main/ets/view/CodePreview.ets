@@ -16,12 +16,15 @@
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { curves, window } from '@kit.ArkUI';
 import { BusinessError, settings } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey, WebNodeController } from '@ohos/common';
+import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
+import type { GlobalInfoModel, } from '@ohos/common';
 import {
-  BreakpointTypeEnum,
   CommonConstants,
   Logger,
   ScreenOrientation,
+  StorageKey,
+  VersionUtil,
+  WebNodeController,
   WebUtil,
   WindowUtil,
 } from '@ohos/common';
@@ -46,14 +49,14 @@ export struct CodePreview {
   private viewModel?: CodePreviewPageVM;
   @State codePreviewState?: CodePreviewState = this.viewModel?.getState();
   private beginScreenOrientation: string = ScreenOrientation.PORTRAIT;
-  private beginBreakpoint: BreakpointTypeEnum = this.globalInfoModel.currentBreakpoint;
+  private beginBreakpoint: WidthBreakpoint = this.globalInfoModel.widthBreakpoint;
   private beginOrientationLockState?: string;
   private code: string = '';
   private componentName: string = '';
-  private context: Context =  this.getUIContext().getHostContext() as Context;
-  private uiContext: UIContext =  this.getUIContext();
+  private context: Context = this.getUIContext().getHostContext() as Context;
+  private uiContext: UIContext = this.getUIContext();
 
-  onBackPage(): void {
+  onBackPage(): boolean {
     this.isBack = true;
     WindowUtil.updateStatusBarColor(this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
     this.javascriptRun();
@@ -64,6 +67,7 @@ export struct CodePreview {
     this.uiContext.animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
       this.viewModel?.pop(false);
     });
+    return true;
   }
 
   javascriptRun(): void {
@@ -122,7 +126,7 @@ export struct CodePreview {
 
   private resetScreenOrientation(): void {
     if (!this.isOrientationLockChange && this.beginOrientationLockState === ORIENTATION_LOCK_ON) {
-      if (this.beginBreakpoint === BreakpointTypeEnum.LG || this.beginBreakpoint === BreakpointTypeEnum.MD) {
+      if (this.beginBreakpoint === WidthBreakpoint.WIDTH_LG || this.beginBreakpoint === WidthBreakpoint.WIDTH_MD) {
         if (this.beginScreenOrientation === ScreenOrientation.LANDSCAPE) {
           WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE);
         } else {
@@ -132,52 +136,78 @@ export struct CodePreview {
     }
   }
 
-  build() {
-    NavDestination() {
-      Column() {
-        CodePreviewComponent({
-          onBackPage: () => {
-            this.onBackPage();
-          },
-          webNodeController: this.webNodeController,
-          code: this.code,
-          componentName: this.componentName,
-          pageContainer: true,
-          topTranslateY: this.codePreviewState?.topTranslateY,
-          bottomTranslateY: this.codePreviewState?.bottomTranslateY,
-          navigationOpacity: this.codePreviewState?.navigationOpacity,
-          isFocus: this.isFocus,
-          isBack: this.isBack,
-        })
-      }
-      .geometryTransition(CommonConstants.CODE_PREVIEW_GEOMETRY_ID)
-      .width('100%')
-      .height('100%')
+  handleOnReady(ctx: NavDestinationContext) {
+    const params: CodeViewParams = ctx.pathInfo.param as CodeViewParams;
+    this.code = params.code as string;
+    this.componentName = params.componentName as string;
+    this.webNodeController = WebUtil.getWebNode(WebUtil.getComponentCodeUrl()) as WebNodeController;
+    this.preFinishAnimation = params.preFinishAnimation as () => void;
+    this.codePreviewState = this.viewModel!.getState();
+  }
+
+  @Builder
+  PreviewContentBuilder() {
+    Column() {
+      CodePreviewComponent({
+        onBackPage: () => {
+          this.onBackPage();
+        },
+        webNodeController: this.webNodeController,
+        code: this.code,
+        componentName: this.componentName,
+        pageContainer: true,
+        topTranslateY: this.codePreviewState?.topTranslateY,
+        bottomTranslateY: this.codePreviewState?.bottomTranslateY,
+        navigationOpacity: this.codePreviewState?.navigationOpacity,
+        isFocus: this.isFocus,
+        isBack: this.isBack,
+      })
     }
+    .geometryTransition(CommonConstants.CODE_PREVIEW_GEOMETRY_ID)
     .width('100%')
     .height('100%')
-    .hideTitleBar(true)
-    .onReady((ctx: NavDestinationContext) => {
-      const params: CodeViewParams = ctx.pathInfo.param as CodeViewParams;
-      this.code = params.code as string;
-      this.componentName = params.componentName as string;
-      this.webNodeController = WebUtil.getWebNode(WebUtil.getComponentCodeUrl()) as WebNodeController;
-      this.preFinishAnimation = params.preFinishAnimation as () => void;
-      this.codePreviewState = this.viewModel!.getState();
-    })
-    .onFocus(() => {
-      this.isFocus = true;
-    })
-    .onBlur(() => {
-      this.isFocus = false;
-    })
-    .onShown(() => {
-      this.isBack = false;
-    })
-    .onBackPressed(() => {
-      this.onBackPage();
-      return true;
-    })
+  }
+
+  build() {
+    if (VersionUtil.canUseHds()) {
+      HdsNavDestination() {
+        this.PreviewContentBuilder()
+      }
+      .hideTitleBar(true)
+      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+      .onShown(() => {
+        this.isBack = false;
+      })
+      .onFocus(() => {
+        this.isFocus = true;
+      })
+      .onBlur(() => {
+        this.isFocus = false;
+      })
+      .onBackPressed(() => {
+        return this.onBackPage();
+      })
+    } else {
+      NavDestination() {
+        this.PreviewContentBuilder()
+      }
+      .width('100%')
+      .height('100%')
+      .hideTitleBar(true)
+      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+      .onFocus(() => {
+        this.isFocus = true;
+      })
+      .onBlur(() => {
+        this.isFocus = false;
+      })
+      .onShown(() => {
+        this.isBack = false;
+      })
+      .onBackPressed(() => {
+        return this.onBackPage();
+      })
+    }
   }
 
   private preFinishAnimation: () => void = () => {

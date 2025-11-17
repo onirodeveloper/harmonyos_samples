@@ -18,14 +18,16 @@ import { uniformTypeDescriptor as utd } from '@kit.ArkData';
 import { window } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
 import { systemShare } from '@kit.ShareKit';
-import { GlobalInfoModel, ResourceUtil, StorageKey } from '@ohos/common';
+import { GlobalInfoModel, TopNavigationView, VersionUtil } from '@ohos/common';
 import {
-  BreakpointTypeEnum,
   CommonConstants,
   Logger,
+  ResourceUtil,
   ScreenOrientation,
+  StorageKey,
   Toast,
   WebNodeController,
+  WIDTH_BREAKPOINTS,
   WindowUtil,
 } from '@ohos/common';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
@@ -46,17 +48,10 @@ export struct CodePreviewComponent {
   @Prop navigationOpacity: number = 1;
   colorMode: ConfigurationConstant.ColorMode = this.systemColorMode;
   @State isDarkMode: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-  @State screenOrientation: string = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ?
-  ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
+  @State screenOrientation: string = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
+    ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
   @State isFloatWindowType: boolean = false;
   @State isHover: boolean = false;
-  @State currentIndex: number = 0;
-  @State backIconBgColor: ResourceColor =
-    this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? Color.Transparent :
-    $r('sys.color.comp_background_tertiary');
-  @State shareIconBgColor: ResourceColor =
-    this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? Color.Transparent :
-    $r('sys.color.comp_background_tertiary');
   @Link webNodeController: WebNodeController;
   onBackPage?: () => void;
   public pushPage?: (value: string) => void;
@@ -71,11 +66,19 @@ export struct CodePreviewComponent {
         this.pushPage?.(this.code);
       }, 0)
   ];
+  private shareItem: ItemData =
+    new ItemData(
+      {
+        iconResource: $r('sys.symbol.share'),
+      } as ResourceInterface,
+      () => {
+        this.handleShare();
+      }, 5);
   private bottomIconItems: ItemData[] = [
     new ItemData(
       {
-        iconResource: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
-        $r('sys.symbol.plus_square_on_square') : $r('sys.symbol.plus_square_on_square_fill'),
+        iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          $r('sys.symbol.plus_square_on_square') : $r('sys.symbol.plus_square_on_square_fill'),
         iconTitle: $r('app.string.copy')
       } as ResourceInterface,
       () => {
@@ -83,37 +86,38 @@ export struct CodePreviewComponent {
       }, 0),
     new ItemData(
       {
-        iconResource: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
-        $r('sys.symbol.sun_max') : $r('sys.symbol.sun_max_fill'),
+        iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          $r('sys.symbol.sun_max') : $r('sys.symbol.sun_max_fill'),
         iconTitle: $r('app.string.dark_mode'),
       } as ResourceInterface,
       () => {
         this.changeColorMode();
       }, 1,
       {
-        iconResource: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
-        $r('sys.symbol.moon') : $r('sys.symbol.moon_fill'),
+        iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          $r('sys.symbol.moon') : $r('sys.symbol.moon_fill'),
         iconTitle: $r('app.string.light_mode'),
       } as ResourceInterface),
     new ItemData(
       {
         iconResource: $r('sys.symbol.screen_rotation'),
         iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-        $r('app.string.portrait_screen')
+          $r('app.string.portrait_screen')
       } as ResourceInterface,
       () => {
         this.changeScreenOrientation();
       }, 2)
   ];
-  private pcBottomIconItems: ItemData[] = this.bottomIconItems.slice(0, 1);
-  private beginBreakpoint: BreakpointTypeEnum = this.globalInfoModel.currentBreakpoint;
+  private topMenuList: ItemData[] = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+    [this.shareItem, ...this.bottomIconItems.slice(0, 1)] : [this.shareItem];
+  private beginBreakpoint: WidthBreakpoint = this.globalInfoModel.widthBreakpoint;
   private windowSizeCallback: Callback<window.Size> = (size) => {
     if (size.width > size.height) {
       this.screenOrientation = ScreenOrientation.LANDSCAPE;
       if (this.pageContainer && !this.isBack) {
         const showLandscapeMethod: string =
           this.isFloatWindowType ? 'showLandscapeFloatView(%param)' : 'showLandscapeView(%param)';
-        const params: string = JSON.stringify(this.beginBreakpoint);
+        const params: string = WIDTH_BREAKPOINTS[this.beginBreakpoint];
         CodePreviewJSUtil.codeViewRunJS(showLandscapeMethod, params);
       }
     } else {
@@ -170,7 +174,7 @@ export struct CodePreviewComponent {
             this.isFloatWindowType = false;
             // if it is in fullscreen mode, restore it based on the device.
             // Restore the tablet to landscape mode.
-            if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM) {
+            if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM) {
               this.screenOrientation = ScreenOrientation.PORTRAIT;
             }
           }
@@ -212,10 +216,22 @@ export struct CodePreviewComponent {
   private changeScreenOrientation(): void {
     if (this.screenOrientation === ScreenOrientation.PORTRAIT) {
       WindowUtil.enableFloatWindowRotate();
-      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE);
+      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE, () => {
+        this.updateStatusBar();
+      });
     } else {
       WindowUtil.disableFloatWindowRotate();
-      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT);
+      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT, () => {
+        this.updateStatusBar();
+      });
+    }
+  }
+
+  updateStatusBar() {
+    if (VersionUtil.canUseHds()) {
+      setTimeout(() => {
+        WindowUtil.updateStatusBarColor(this.isDarkMode);
+      }, 500);
     }
   }
 
@@ -224,12 +240,12 @@ export struct CodePreviewComponent {
       this.bottomIconItems[2].lightMode = {
         iconResource: $r('sys.symbol.screen_rotation'),
         iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-        $r('app.string.portrait_screen'),
+          $r('app.string.portrait_screen'),
       };
       this.bottomIconItems[2].darkMode = {
         iconResource: $r('sys.symbol.screen_rotation'),
         iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-        $r('app.string.portrait_screen'),
+          $r('app.string.portrait_screen'),
       }
     }
   }
@@ -255,7 +271,7 @@ export struct CodePreviewComponent {
 
   copyText(text: string) {
     try {
-      const pasteboardData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
+      const pasteboardData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
       const systemPasteboard = pasteboard.getSystemPasteboard();
       systemPasteboard.setData(pasteboardData).then(() => {
         Toast.showToast($r('app.string.copy_success'))
@@ -299,7 +315,6 @@ export struct CodePreviewComponent {
         )
       }, (_item: ItemData, index: number) => index.toString())
     }
-    .width('100%')
     .justifyContent(FlexAlign.End)
     .padding({
       top: $r('sys.float.padding_level6'),
@@ -309,8 +324,7 @@ export struct CodePreviewComponent {
   @Builder
   BottomMenu() {
     Row() {
-      ForEach(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? this.pcBottomIconItems :
-      this.bottomIconItems, (item: ItemData) => {
+      ForEach(this.bottomIconItems, (item: ItemData) => {
         BottomIconItem({
           isDark: this.isDarkMode,
           itemData: item,
@@ -322,103 +336,59 @@ export struct CodePreviewComponent {
     .height(CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight)
     .justifyContent(FlexAlign.SpaceAround)
     .padding({ bottom: this.globalInfoModel.naviIndicatorHeight })
-    .backgroundBlurStyle(BlurStyle.COMPONENT_THICK,
-      {
-        colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT
-      })
+    .backgroundBlurStyle(BlurStyle.COMPONENT_THICK)
   }
 
   @Builder
   TopNavigationMenu() {
-    Column() {
-      Row() {
-        Button({ type: ButtonType.Circle }) {
-          SymbolGlyph($r('sys.symbol.chevron_backward'))
-            .fontColor(this.isDarkMode ? [$r('app.color.icon_primary_dark')] : [$r('app.color.icon_primary_light')])
-            .fontSize($r('sys.float.Title_M'))
-        }
-        .height($r('app.float.code_preview_top_navigation_height'))
-        .aspectRatio(1)
-        .margin({ right: $r('sys.float.padding_level4') })
-        .backgroundColor(this.backIconBgColor)
-        .onClick(() => this.onBackPage?.())
-        .onHover((isHover: boolean) => {
-          this.backIconBgColor = !isHover ? Color.Transparent :
-            this.isDarkMode ? $r('sys.color.icon_on_tertiary') : $r('sys.color.comp_background_tertiary');
-        })
-
-        Text(this.componentName)
-          .fontSize($r('sys.float.Title_S'))
-          .fontColor(this.isDarkMode ? $r('app.color.font_primary_dark') : $r('app.color.font_primary_light'))
-          .fontWeight(FontWeight.Bold)
-          .textAlign(TextAlign.Start)
-          .layoutWeight(1)
-
-        Button({ type: ButtonType.Circle }) {
-          SymbolGlyph($r('sys.symbol.share'))
-            .fontColor(this.isDarkMode ? [$r('app.color.icon_primary_dark')] : [$r('app.color.icon_primary_light')])
-            .fontSize($r('sys.float.Title_M'))
-        }
-        .height($r('app.float.code_preview_top_navigation_height'))
-        .aspectRatio(1)
-        .margin({ left: $r('sys.float.padding_level4') })
-        .backgroundColor(this.shareIconBgColor)
-        .onClick(() => this.handleShare())
-        .onHover((isHover: boolean) => {
-          this.shareIconBgColor = !isHover ? Color.Transparent :
-            this.isDarkMode ? $r('sys.color.icon_on_tertiary') : $r('sys.color.comp_background_tertiary');
-        })
-
-        if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
-          Row({ space: CommonConstants.SPACE_8 }) {
-            ForEach(this.pcBottomIconItems, (item: ItemData, index: number) => {
-              Row() {
-                SymbolGlyph(this.isDarkMode ? item.darkMode.iconResource : item.lightMode.iconResource)
-                  .fontSize($r('app.float.symbol_size_large'))
-                  .fontColor(this.isDarkMode ? [$r('sys.color.icon_on_primary')] : [$r('sys.color.icon_primary')])
-                  .opacity(this.isFocus ? 1 : 0.4)
-              }
-              .justifyContent(FlexAlign.Center)
-              .height($r('app.float.code_preview_top_navigation_height'))
-              .aspectRatio(1)
-              .backgroundColor(this.currentIndex === item.id && this.isHover ? $r('sys.color.ohos_id_color_hover') :
-              Color.Transparent)
-              .onHover((isHover: boolean) => {
-                this.isHover = isHover;
-                this.currentIndex = index;
-              })
-              .onClick(() => {
-                item.onClickIcon();
-              })
-            }, (index: number) => index.toString())
+    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
+      Row({ space: CommonConstants.SPACE_8 }) {
+        ForEach(this.topMenuList, (item: ItemData, index: number) => {
+          Button() {
+            SymbolGlyph(this.isDarkMode ? item.darkMode.iconResource : item.lightMode.iconResource)
+              .fontSize($r('sys.float.Title_M'))
+              .fontColor([$r('sys.color.icon_primary')])
+              .opacity(this.isFocus ? 1 : 0.4)
           }
-          .margin({ right: $r('app.float.code_preview_icon_margin') })
-        }
+          .height($r('app.float.code_preview_top_navigation_height'))
+          .aspectRatio(1)
+          .hoverEffect(HoverEffect.Highlight)
+          .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+            $r('sys.color.comp_background_tertiary'))
+          .onClick(() => {
+            item.onClickIcon();
+          })
+        }, (index: number) => index.toString())
       }
-      .opacity(this.navigationOpacity)
-      .alignItems(VerticalAlign.Center)
-      .justifyContent(FlexAlign.SpaceBetween)
-      .height(CommonConstants.NAVIGATION_HEIGHT)
-      .padding({
-        left: $r('sys.float.padding_level8'),
-        right: $r('sys.float.padding_level8'),
+      .margin({
+        right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          $r('app.float.code_preview_icon_margin') : 0
       })
     }
-    .translate({ y: this.topTranslateY })
-    .position({ x: 0, y: 0 })
-    .backgroundBlurStyle(BlurStyle.COMPONENT_THICK,
-      {
-        colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT
-      })
-    .padding({
-      top: this.globalInfoModel.statusBarHeight
+  }
+
+  @Builder
+  TopNavigationViewBuilder() {
+    TopNavigationView({
+      topNavigationData: {
+        isFullScreen: true,
+        isBlur: true,
+        title: this.componentName,
+        onBackClick: () => this.onBackPage?.(),
+
+      },
+      menuView: () => {
+        this.TopNavigationMenu();
+      }
     })
-    .width('100%')
+      .translate({ y: this.topTranslateY })
+      .position({ x: 0, y: 0 })
+      .opacity(this.navigationOpacity)
   }
 
   @Styles
   normalStyles(): void {
-    .backgroundColor(this.isHover ? $r('sys.color.interactive_hover') : Color.Transparent)
+    .backgroundColor(Color.Transparent)
   }
 
   @Styles
@@ -459,6 +429,7 @@ export struct CodePreviewComponent {
       left: $r('sys.float.padding_level4'),
       right: $r('sys.float.padding_level4'),
     })
+    .hoverEffect(HoverEffect.Highlight)
     .stateStyles({
       normal: this.normalStyles,
       pressed: this.pressedStyles,
@@ -479,47 +450,49 @@ export struct CodePreviewComponent {
   }
 
   build() {
-    Column() {
-      Stack() {
-        NodeContainer(this.webNodeController)
-          .backgroundColor(this.isDarkMode ? $r('app.color.code_preview_bg_color') : Color.White)
-          .overlay(this.WebOverlay(), { align: Alignment.Bottom })
-        if (this.pageContainer === true) {
-          this.TopNavigationMenu()
-          if (this.globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
-            this.BottomMenu()
+    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
+      Column() {
+        Stack() {
+          NodeContainer(this.webNodeController)
+            .backgroundColor($r('app.color.code_preview_web_bg'))
+            .overlay(this.WebOverlay(), { align: Alignment.Bottom })
+          if (this.pageContainer === true) {
+            this.TopNavigationViewBuilder()
+            if (this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
+              this.BottomMenu()
+            }
+          } else {
+            this.TopMenu()
           }
-        } else {
-          this.TopMenu()
+        }
+        .layoutWeight(1)
+        .alignContent(this.pageContainer ? Alignment.Bottom : Alignment.TopEnd)
+        .margin({
+          left: this.pageContainer ? 0 : $r('sys.float.padding_level4'),
+          right: this.pageContainer ? 0 : $r('sys.float.padding_level4'),
+        })
+
+        if (!this.pageContainer) {
+          this.Toolbar()
         }
       }
-      .layoutWeight(1)
-      .alignContent(this.pageContainer ? Alignment.Bottom : Alignment.TopEnd)
-      .margin({
-        left: this.pageContainer ? 0 : $r('sys.float.padding_level4'),
-        right: this.pageContainer ? 0 : $r('sys.float.padding_level4'),
+      .onAppear(() => {
+        if (this.pageContainer) {
+          this.handleDeviceOrientation();
+        }
       })
-
-      if (!this.pageContainer) {
-        this.Toolbar()
-      }
+      .onDisAppear(() => {
+        WindowUtil.disableFloatWindowRotate();
+      })
+      .backgroundColor($r('sys.color.comp_background_primary'))
+      .padding(this.pageContainer === false ? {
+        left: $r('sys.float.padding_level2'),
+        right: $r('sys.float.padding_level2'),
+        bottom: $r('sys.float.padding_level2'),
+      } : $r('sys.float.padding_level0'))
+      .width('100%')
+      .height('100%')
     }
-    .onAppear(() => {
-      if (this.pageContainer) {
-        this.handleDeviceOrientation();
-      }
-    })
-    .onDisAppear(() => {
-      WindowUtil.disableFloatWindowRotate();
-    })
-    .backgroundColor($r('sys.color.comp_background_primary'))
-    .padding(this.pageContainer === false ? {
-      left: $r('sys.float.padding_level2'),
-      right: $r('sys.float.padding_level2'),
-      bottom: $r('sys.float.padding_level2'),
-    } : $r('sys.float.padding_level0'))
-    .width('100%')
-    .height('100%')
   }
 }
 
@@ -532,14 +505,18 @@ struct BottomIconItem {
     Column() {
       SymbolGlyph(this.isDark ? this.itemData?.darkMode.iconResource : this.itemData?.lightMode.iconResource)
         .fontSize($r('sys.float.Title_M'))
-        .fontColor(this.isDark ? [$r('app.color.icon_secondary_dark')] : [$r('app.color.icon_secondary_light')])
+        .fontColor([$r('sys.color.icon_secondary')])
       Text(this.isDark ? this.itemData?.darkMode.iconTitle : this.itemData?.lightMode.iconTitle)
         .textAlign(TextAlign.Center)
         .fontSize($r('sys.float.Caption_M'))
         .fontWeight(FontWeight.Medium)
-        .fontColor(this.isDark ? $r('app.color.font_secondary_dark') : $r('app.color.font_secondary_light'))
+        .fontColor($r('sys.color.font_secondary'))
         .margin({ top: $r('sys.float.padding_level2') })
     }
+    .height('100%')
+    .aspectRatio(1)
+    .alignItems(HorizontalAlign.Center)
+    .justifyContent(FlexAlign.Center)
     .onClick(() => {
       this.itemData?.onClickIcon();
     })

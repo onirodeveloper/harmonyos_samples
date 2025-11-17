@@ -3,6 +3,10 @@
     {
       "name": "web_overlay_color_start",
       "value": "#00202224"
+    },
+    {
+      "name": "code_preview_web_bg",
+      "value": "#202224"
     }
   ]
 }

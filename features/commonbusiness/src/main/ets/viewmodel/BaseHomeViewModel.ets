@@ -14,18 +14,20 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { curves } from '@kit.ArkUI';
+import { curves, LengthMetrics } from '@kit.ArkUI';
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
+import { ScrollEffectType } from '@kit.UIDesignKit';
+import type { GlobalInfoModel } from '@ohos/common';
 import {
   BaseVM,
   BreakpointType,
-  BreakpointTypeEnum,
   CommonConstants,
   Logger,
   PageContext,
   ProductSeriesEnum,
   StatusBarColorType,
+  StorageKey,
+  VersionUtil,
   WindowUtil,
 } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
@@ -51,9 +53,10 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     super(initialState);
     this.state = initialState;
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-    const isLargeWidth: boolean = (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL);
-    this.state.topNavigationData.bgColor = isLargeWidth ? '#FFF1F3F5' : '#00FFFFFF';
+    const isLargeWidth: boolean = (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL);
+    this.state.topNavigationData.bgColor =
+      isLargeWidth ? $r('sys.color.background_secondary') : $r('sys.color.ohos_id_color_background_transparent');
     this.state.topNavigationData.titleColor = isLargeWidth ? StatusBarColorType.BLACK : StatusBarColorType.WHITE;
     const naviTitleHeight: number =
       globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8;
@@ -64,9 +67,10 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       md: CommonConstants.BANNER_ASPECT_MD * globalInfoModel.deviceWidth,
       lg: BANNER_HEIGHT_LG + naviTitleHeight,
       xl: BANNER_HEIGHT_LG + naviTitleHeight,
-    }).getValue(globalInfoModel.currentBreakpoint);
+    }).getValue(globalInfoModel.widthBreakpoint);
     this.state.bannerHeight = this.state.bannerState.bannerHeight;
     this.originBannerHeight = this.state.bannerHeight;
+    this.setTitleBarStyle();
   }
 
   public getState(): T {
@@ -98,8 +102,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     } else {
       this.state.hasEdgeEffect = param.offset > 0;
     }
-    if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL || param.yOffset > 0) {
+    if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL || param.yOffset > 0) {
       return false;
     }
     if (param.state === ScrollState.Scroll && param.offset !== 0) {
@@ -135,6 +139,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
 
   protected handleBreakpointChange(offsetParam: OffsetParam) {
     this.changeBannerHeight();
+    this.setTitleBarStyle();
     offsetParam.breakpointChange = true;
     this.handleListOffset(offsetParam);
   }
@@ -166,7 +171,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       lg: BANNER_HEIGHT_LG + naviTitleHeight,
       xl: CommonConstants.BANNER_ASPECT_XL *
       Math.floor((globalInfoModel.deviceWidth - CommonConstants.SIDE_BAR_WIDTH) / 2.7) + naviTitleHeight,
-    }).getValue(globalInfoModel.currentBreakpoint);
+    }).getValue(globalInfoModel.widthBreakpoint);
     this.state.bannerHeight = this.state.bannerState.bannerHeight;
     this.originBannerHeight = this.state.bannerHeight;
   }
@@ -182,14 +187,16 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       const marginTop: number = globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT;
       const showTabOffset: number = this.state.bannerState.bannerHeight - marginTop;
       this.state.topNavigationData.showTab = (offsetParam.yOffset >= showTabOffset);
+      this.state.showTab = this.state.topNavigationData.showTab;
     }
 
     if (offsetParam.yOffset > this.state.bannerState.bannerHeight ||
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       if (offsetParam.breakpointChange) {
         this.state.topNavigationData.isBlur = true;
-        if (offsetParam.tabIndex === AppStorage.get(StorageKey.CURRENT_TAB) && pageContext.navPathStack.size() === 1) {
+        if (!VersionUtil.canUseHds() && offsetParam.tabIndex === AppStorage.get(StorageKey.CURRENT_TAB) &&
+          pageContext.navPathStack.size() === 1) {
           WindowUtil.updateStatusBarColor(isDark);
         }
         TAB_CONTENT_STATUSES[offsetParam.tabIndex] = false;
@@ -224,7 +231,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       this.state.topNavigationData.isBlur = false;
       TAB_CONTENT_STATUSES[offsetParam.tabIndex] = true;
     }
-    if (offsetParam.tabIndex === AppStorage.get(StorageKey.CURRENT_TAB) && pageContext.navPathStack.size() === 1) {
+    if (!VersionUtil.canUseHds() && offsetParam.tabIndex === AppStorage.get(StorageKey.CURRENT_TAB) &&
+      pageContext.navPathStack.size() === 1) {
       WindowUtil.updateStatusBarColor(opacity > 0 ? isDark : true);
     }
     let colorData: number = 255;
@@ -238,7 +246,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     const pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     if (banner.bannerType === BannerTypeEnum.COMPONENT) {
-      const componentPageContext: PageContext = globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+      const componentPageContext: PageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
         AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : pageContext;
       const componentDetailParam: ComponentDetailParams = {
         componentName: banner.bannerTitle,
@@ -250,7 +258,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       }, true);
     } else if (banner.bannerType === BannerTypeEnum.SAMPLE) {
       const samplePageContext: PageContext =
-        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
+        globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
           pageContext;
       const sampleParam: SampleDetailParams = {
         currentIndex: 0,
@@ -264,7 +272,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     } else if (banner.bannerType === BannerTypeEnum.ARTICLE) {
       // Get the current path stack.
       let currentPageContext: PageContext = pageContext;
-      if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+      if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
         if (banner.tabViewType === TabBarType.HOME) {
           currentPageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
         } else if (banner.tabViewType === TabBarType.SAMPLE) {
@@ -278,7 +286,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
         title: banner.bannerTitle,
         detailsUrl: banner.detailsUrl,
         isArticle: false,
-        tabViewType: globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? banner.id : banner.tabViewType,
+        tabViewType: globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? banner.id : banner.tabViewType,
       };
       const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
       uiContext.animateTo({ curve: curves.interpolatingSpring(0, 1, 273, 33) }, () => {
@@ -298,6 +306,64 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       this.state.topNavigationData.titleOffsetY = 0;
       this.state.topNavigationData.titleScale = 1;
     });
+  }
+
+  private setTitleBarStyle() {
+    if (VersionUtil.canUseHds()) {
+      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+      this.state.topNavigationData.hdsTitleBarPadding = {
+        start:
+        LengthMetrics.vp(new BreakpointType<number>({
+          sm: CommonConstants.SPACE_16,
+          md: CommonConstants.SPACE_24,
+          lg: CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
+          xl: CommonConstants.SPACE_32,
+        }).getValue(globalInfoModel.widthBreakpoint)),
+        end:
+        LengthMetrics.vp(new BreakpointType<number>({
+          sm: CommonConstants.SPACE_16,
+          md: CommonConstants.SPACE_24,
+          lg: CommonConstants.SPACE_32,
+          xl: CommonConstants.SPACE_32,
+        }).getValue(globalInfoModel.widthBreakpoint)),
+      };
+      this.state.topNavigationData.hdsTitleBarStyle = {
+        scrollEffectOpts: {
+          enableScrollEffect: true,
+          scrollEffectType: ScrollEffectType.COMMON_BLUR,
+          blurEffectiveStartOffset: LengthMetrics.vp(new BreakpointType<number>({
+            sm: this.state.bannerHeight - 160 - globalInfoModel.statusBarHeight,
+            md: this.state.bannerHeight - 160 - globalInfoModel.statusBarHeight,
+            lg: 0,
+            xl: 0,
+          }).getValue(globalInfoModel.widthBreakpoint)),
+          blurEffectiveEndOffset: LengthMetrics.vp(new BreakpointType<number>({
+            sm: this.state.bannerHeight - globalInfoModel.statusBarHeight - CommonConstants.NAVIGATION_HEIGHT,
+            md: this.state.bannerHeight - globalInfoModel.statusBarHeight - CommonConstants.NAVIGATION_HEIGHT,
+            lg: CommonConstants.NAVIGATION_HEIGHT,
+            xl: CommonConstants.NAVIGATION_HEIGHT,
+          }).getValue(globalInfoModel.widthBreakpoint)),
+        },
+        originalStyle: {
+          contentStyle: {
+            titleStyle: {
+              mainTitleColor: new BreakpointType<ResourceColor>({
+                sm: $r('sys.color.font_on_primary'),
+                md: $r('sys.color.font_on_primary'),
+                lg: $r('sys.color.font_primary')
+              }).getValue(globalInfoModel.widthBreakpoint),
+            },
+          },
+        },
+        scrollEffectStyle: {
+          contentStyle: {
+            titleStyle: {
+              mainTitleColor: $r('sys.color.font_primary'),
+            },
+          },
+        },
+      };
+    }
   }
 }
 

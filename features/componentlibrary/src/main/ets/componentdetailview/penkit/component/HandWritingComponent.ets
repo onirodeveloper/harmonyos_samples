@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import { HandwriteComponent, HandwriteController } from '@kit.Penkit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointTypeEnum, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
+import { HandwriteComponent, HandwriteController } from '@kit.Penkit';
+import { GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { ComponentDetailManager } from '../../../viewmodel/ComponentDetailManager';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 
@@ -31,8 +31,8 @@ export struct HandWritingComponent {
 
   aboutToAppear(): void {
     // Close button offset.
-    if (this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       this.closeButtonTop = DetailPageConstant.PEN_CLOSE_TOP;
     } else {
       this.closeButtonTop = BUTTON_OFFSET;

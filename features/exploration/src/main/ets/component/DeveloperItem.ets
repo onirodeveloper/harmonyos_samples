@@ -13,54 +13,64 @@
  * limitations under the License.
  */
 
+import { TagEnum } from '@ohos/common';
+import { TagTipLabel } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 
 @Component
 export struct DeveloperItem {
   @Prop discoverContent: DiscoverContent;
 
-
   build() {
-    Stack({ alignContent: Alignment.Bottom }) {
-      Image($rawfile(this.discoverContent.mediaUrl))
-        .draggable(false)
-        .alt($r('app.media.img_placeholder'))
-        .width('100%')
-        .height('100%')
-      Column() {
-        Row() {
-          Text(this.discoverContent.title)
-            .fontColor($r('sys.color.font_primary'))
-            .fontSize($r('sys.float.Body_L'))
-            .fontWeight(FontWeight.Bold)
-          Text(this.discoverContent.subTitle)
-            .margin({ bottom: $r('sys.float.padding_level1') })
-            .fontColor($r('sys.color.font_primary'))
-            .fontSize($r('sys.float.Caption_M'))
+    Stack({ alignContent: Alignment.TopStart }) {
+      TagTipLabel({
+        tags: this.discoverContent.tagIds,
+        newSymbol: $r('app.media.big_new'),
+      })
+      .zIndex(1)
+      .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+
+      Stack({ alignContent: Alignment.Bottom }) {
+        Image($rawfile(this.discoverContent.mediaUrl))
+          .draggable(false)
+          .alt($r('app.media.img_placeholder'))
+          .width('100%')
+          .height('100%')
+        Column() {
+          Row() {
+            Text(this.discoverContent.title)
+              .fontColor($r('sys.color.font_primary'))
+              .fontSize($r('sys.float.Body_L'))
+              .fontWeight(FontWeight.Bold)
+            Text(this.discoverContent.subTitle)
+              .margin({ bottom: $r('sys.float.padding_level1') })
+              .fontColor($r('sys.color.font_primary'))
+              .fontSize($r('sys.float.Caption_M'))
+              .fontWeight(FontWeight.Regular)
+          }
+          .justifyContent(FlexAlign.SpaceBetween)
+          .alignItems(VerticalAlign.Bottom)
+          .width('100%')
+
+          Text(this.discoverContent.desc)
+            .margin({ top: $r('sys.float.padding_level2') })
+            .fontColor($r('sys.color.font_secondary'))
+            .fontSize($r('sys.float.Body_S'))
+            .width('100%')
+            .maxLines(2)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
             .fontWeight(FontWeight.Regular)
         }
-        .justifyContent(FlexAlign.SpaceBetween)
-        .alignItems(VerticalAlign.Bottom)
-        .width('100%')
-
-        Text(this.discoverContent.desc)
-          .margin({ top: $r('sys.float.padding_level2') })
-          .fontColor($r('sys.color.font_secondary'))
-          .fontSize($r('sys.float.Body_S'))
-          .width('100%')
-          .maxLines(2)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .fontWeight(FontWeight.Regular)
+        .alignItems(HorizontalAlign.Start)
+        .backgroundColor($r('app.color.blur_bg'))
+        .renderGroup(true)
+        .padding({
+          top: $r('sys.float.padding_level6'),
+          right: $r('sys.float.padding_level8'),
+          bottom: $r('sys.float.padding_level8'),
+          left: $r('sys.float.padding_level8'),
+        })
       }
-      .alignItems(HorizontalAlign.Start)
-      .backgroundColor($r('app.color.blur_bg'))
-      .renderGroup(true)
-      .padding({
-        top: $r('sys.float.padding_level6'),
-        right: $r('sys.float.padding_level8'),
-        bottom: $r('sys.float.padding_level8'),
-        left: $r('sys.float.padding_level8'),
-      })
     }
     .clickEffect({ level: ClickEffectLevel.HEAVY })
     .borderRadius($r('sys.float.corner_radius_level8'))
