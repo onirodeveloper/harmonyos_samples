@@ -17,8 +17,13 @@ export class BundleInfoData {
   public versionName: string;
   public versionCode: number;
   public bundleName: string;
+  public labelResource: Resource;
+  public iconResource: Resource;
 
-  public constructor(versionName?: string, versionCode?: number, bundleName?: string) {
+  public constructor(labelResource: Resource, iconResource: Resource, versionName: string, versionCode: number,
+    bundleName: string) {
+    this.labelResource = labelResource;
+    this.iconResource = iconResource;
     this.versionName = versionName || '1.0.0';
     this.versionCode = versionCode || 1000000;
     this.bundleName = bundleName || '';

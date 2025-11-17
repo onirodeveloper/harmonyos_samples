@@ -55,6 +55,14 @@
     {
       "name": "client_prompt",
       "value": "HarmonyOS代码工坊支持1+8多设备运行，欢迎体验"
+    },
+    {
+      "name": "card_expand",
+      "value": "展开"
+    },
+    {
+      "name": "card_collapse",
+      "value": "收起"
     }
   ]
 }

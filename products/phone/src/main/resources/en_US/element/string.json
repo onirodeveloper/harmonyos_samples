@@ -75,6 +75,34 @@
     {
       "name": "back_toast",
       "value": "Swiper again to exit."
+    },
+    {
+      "name": "component_cases",
+      "value": "component cases"
+    },
+    {
+      "name": "sample_cases",
+      "value": "sample cases"
+    },
+    {
+      "name": "article_cases",
+      "value": "article cases"
+    },
+    {
+      "name": "card_list_subtitle",
+      "value": "More"
+    },
+    {
+      "name": "ArticleServiceCard_desc",
+      "value": "Best Practice Article."
+    },
+    {
+      "name": "lock_screen_title",
+      "value": "HMOS Sample"
+    },
+    {
+      "name": "lock_screen_subtitle",
+      "value": "Let develop more efficient"
     }
   ]
 }

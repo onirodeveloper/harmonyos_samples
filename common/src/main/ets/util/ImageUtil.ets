@@ -56,41 +56,33 @@ export class ImageUtil {
 
   private static getColorDataByPreference(imgUrl: string): Promise<number[]> {
     return new Promise((resolve: (value: number[]) => void, reject: (reason?: Object) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, number[]>);
-          const ret = resp[imgUrl];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        });
+      let resp = PreferenceManager.getInstance().getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR);
+      if (!resp) {
+        reject('There is no data in the Preference');
+      }
+      resp = (resp as Record<string, number[]>);
+      const ret = resp[imgUrl];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
     });
   }
 
   private static setColorDataToPreference(imgUrl: string, data: number[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(BANNER_IMAGE_COLOR)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR)
-              .then((resp) => {
-                resp = (resp as Record<string, number[]>);
-                resp[imgUrl] = data;
-                PreferenceManager.getInstance().setValue(BANNER_IMAGE_COLOR, resp);
-                resolve();
-              })
-          } else {
-            const record: Record<string, number[]> = {};
-            record[imgUrl] = data;
-            PreferenceManager.getInstance().setValue(BANNER_IMAGE_COLOR, record);
-          }
-        });
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(BANNER_IMAGE_COLOR);
+      if (hasValue) {
+        let resp = PreferenceManager.getInstance().getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR);
+        resp = (resp as Record<string, number[]>);
+        resp[imgUrl] = data;
+        PreferenceManager.getInstance().setValue(BANNER_IMAGE_COLOR, resp);
+        resolve();
+      } else {
+        const record: Record<string, number[]> = {};
+        record[imgUrl] = data;
+        PreferenceManager.getInstance().setValue(BANNER_IMAGE_COLOR, record);
+      }
     });
   }
 }

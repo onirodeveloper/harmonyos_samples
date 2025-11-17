@@ -75,6 +75,34 @@
     {
       "name": "back_toast",
       "value": "再滑一次退出"
+    },
+    {
+      "name": "component_cases",
+      "value": "组件案例"
+    },
+    {
+      "name": "sample_cases",
+      "value": "示例代码"
+    },
+    {
+      "name": "article_cases",
+      "value": "技术文章"
+    },
+    {
+      "name": "card_list_subtitle",
+      "value": "更多文章"
+    },
+    {
+      "name": "ArticleServiceCard_desc",
+      "value": "最佳实践文章抢先看."
+    },
+    {
+      "name": "lock_screen_title",
+      "value": "代码工坊"
+    },
+    {
+      "name": "lock_screen_subtitle",
+      "value": "让开发更高效"
     }
   ]
 }

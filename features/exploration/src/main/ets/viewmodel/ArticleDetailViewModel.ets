@@ -13,12 +13,21 @@
  * limitations under the License.
  */
 
-import { BaseVM, BreakpointTypeEnum, GlobalInfoModel, LoadingStatus, PageContext, StorageKey } from '@ohos/common';
+import {
+  BaseVM,
+  CommonConstants,
+  GlobalInfoModel,
+  LoadingStatus,
+  PageContext,
+  StorageKey,
+} from '@ohos/common';
 import { ComponentDetailParams, SampleDetailParams, TabBarType } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExplorationDetailState } from './ExplorationDetailState';
 
 export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
+  private currentPathStack?: NavPathStack;
+
   public constructor() {
     super(new ExplorationDetailState());
     this.state.topNavigationData.isBlur = true;
@@ -29,9 +38,14 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
       return this.getArticleDetail(eventParam.param as DetailParam);
     } else if (eventParam.type === ExplorationDetailEventType.POP) {
       const param = eventParam.param as PopParam;
-      return this.pop(param.animation, param.tabBarView);
+      return this.pop(param.animation);
     } else if (eventParam.type === ExplorationDetailEventType.JUMP_NATIVE_PAGE) {
       return this.jumpNativePage(eventParam.param as NativePageParam);
+    } else if (eventParam.type === ExplorationDetailEventType.ASSIGN_PATH_STACK) {
+      this.currentPathStack = (eventParam.param as AssignPathStackParam).navPathStack;
+      return;
+    } else if (eventParam.type === ExplorationDetailEventType.CHANGE_TITLE_BAR_STYLE) {
+      return this.changeTitleBarStyle(eventParam.param as number);
     }
     throw new Error('Method not implemented.');
   }
@@ -41,29 +55,24 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
     this.state.content = detailParam.content;
     this.state.content.detailsUrl = `resource://resfile/${detailParam.content.detailsUrl}`;
     this.state.topNavigationData.onBackClick = detailParam.onBackClick;
+    this.state.topNavigationData.isFullScreen = true;
+    this.changeTitleBarStyle(0);
     return Promise.resolve();
   }
 
-  private pop(animated: boolean = true, tabBarView: number = TabBarType.HOME): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-    let currentPathStack: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
-    if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
-      if (tabBarView === TabBarType.HOME) {
-        currentPathStack = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
-      } else if (tabBarView === TabBarType.SAMPLE) {
-        currentPathStack = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)!;
-      } else {
-        currentPathStack = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)!;
-      }
-    }
-    currentPathStack.popPage(animated);
+  private changeTitleBarStyle(yOffset: number): void {
+    this.state.topNavigationData.title = yOffset > CommonConstants.NAVIGATION_HEIGHT ? this.state.content.title : '';
+    this.state.topNavigationData.isBlur = yOffset > CommonConstants.SPACE_12;
   }
 
+  private pop(animated: boolean = true): void {
+    this.currentPathStack?.pop(animated);
+  }
 
   private jumpNativePage(param: NativePageParam): void {
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     let pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
-    if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       if (param.tabBarView === TabBarType.HOME) {
         pageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT) as PageContext;
       } else if (param.tabBarView === TabBarType.SAMPLE) {
@@ -92,6 +101,8 @@ export enum ExplorationDetailEventType {
   POP = 'pop',
   HANDLE_TITLE_EFFECT = 'handleTitleEffect',
   JUMP_NATIVE_PAGE = 'jumpNativePage',
+  ASSIGN_PATH_STACK = 'AssignPathStackEvent',
+  CHANGE_TITLE_BAR_STYLE = 'changeTitleBarStyle',
 }
 
 export interface ExplorationDetailEventParam<T> {
@@ -115,4 +126,8 @@ export interface NativePageParam {
   id: number;
   currentIndex?: number;
   componentName?: string;
+}
+
+export interface AssignPathStackParam {
+  navPathStack: NavPathStack;
 }

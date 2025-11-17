@@ -1,0 +1,90 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ArticleListItem, FormCardEnum } from '../model/FormCardInfo';
+import { CardListParameter } from '../viewmodel/CardListParameter';
+import { CardListComponent } from '../component/CardComponent';
+import { FormCardConstants } from '../constants/FormCardConstants';
+
+@Entry
+@Component
+struct ArticleServiceCard {
+  @LocalStorageProp('cardList') cardList: ArticleListItem[] = [];
+  @LocalStorageProp('formId') formId: string = '';
+  @State cardListParameter: CardListParameter = new CardListParameter($r('sys.color.ohos_id_color_background'),
+    $r('app.string.hmos_app_name'), $r('app.media.list_card_bg'), ImageSize.Cover,
+    $r('app.color.article_card_icon_emphasize'),
+    $r('app.media.list_card_logo'),
+    $r('app.string.card_list_subtitle'), $r('app.color.article_card_font_secondary'), $r('sys.symbol.chevron_right'));
+  private readonly orderImageArray: Resource[] =
+    [$r('app.media.first_order'), $r('app.media.second_order'), $r('app.media.third_order')];
+
+  @Builder
+  cardListBuilder() {
+    Column() {
+      ForEach(this.cardList, (item: ArticleListItem, index: number) => {
+        Row() {
+          Row() {
+            Image(this.orderImageArray[index])
+              .width($r('app.float.order_image_size'))
+              .objectFit(ImageFit.Cover)
+            Text(item.title)
+              .maxLines(1)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+              .fontSize($r('sys.float.Body_M'))
+              .fontColor($r('app.color.article_card_font_primary'))
+              .margin({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
+          }
+
+          Text(item.name)
+            .fontSize($r('sys.float.Body_S'))
+            .fontColor($r('app.color.article_card_font_secondary'))
+            .margin({ left: $r('sys.float.padding_level2') })
+        }
+        .width(FormCardConstants.CARD_CONTENT_WIDTH)
+        .alignItems(VerticalAlign.Center)
+        .flexGrow(1)
+        .onClick(() => this.onClickProcess(item))
+      })
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width(FormCardConstants.FULL_PERCENT)
+    .layoutWeight(1)
+    .padding({ top: $r('sys.float.padding_level5'), bottom: $r('sys.float.padding_level5') })
+  }
+
+  build() {
+    Row() {
+      CardListComponent({ cardListParameter: this.cardListParameter }) {
+        this.cardListBuilder()
+      }
+    }
+    .height(FormCardConstants.FULL_PERCENT)
+    .width(FormCardConstants.FULL_PERCENT)
+    .onClick(() => this.onClickProcess())
+  }
+
+  private onClickProcess = (articleInfo?: ArticleListItem) => {
+    postCardAction(this, {
+      action: FormCardConstants.ACTION_TYPE,
+      abilityName: FormCardConstants.ABILITY_NAME,
+      params: {
+        formId: this.formId,
+        articleInfo: articleInfo,
+        cardFrom: FormCardEnum.ARTICLE_SERVICE_CARD,
+      }
+    })
+  }
+}

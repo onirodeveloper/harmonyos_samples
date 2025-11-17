@@ -14,9 +14,9 @@
  */
 
 import { Popup } from '@kit.ArkUI';
-import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointTypeEnum, GlobalInfoModel, Logger, PreferenceManager, StorageKey } from '@ohos/common';
+import { image } from '@kit.ImageKit';
+import { GlobalInfoModel, Logger, PreferenceManager, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import { CommonStorageKey } from '../../common/entity/CommonStorageKey';
 
@@ -31,9 +31,7 @@ export struct AIImageComponent {
   @State imageHeight: number = 0;
 
   async aboutToAppear() {
-    PreferenceManager.getInstance().getValue<boolean>(CommonStorageKey.KEY_MATTING_TIP).then((value) => {
-      this.showPopup = value ?? true;
-    });
+    this.showPopup = PreferenceManager.getInstance().getValue<boolean>(CommonStorageKey.KEY_MATTING_TIP) ?? true;
     this.imagePixelMap = await this.getPixmapFromMedia($r('app.media.image_ai'));
   }
 
@@ -85,9 +83,9 @@ export struct AIImageComponent {
     Stack({ alignContent: Alignment.Center }) {
       Image(this.imagePixelMap ?? $r('app.media.image_ai'))
         .enableAnalyzer(true)
-        .width(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? '100%' : '90%')
-        .height(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? '100%' : this.imageHeight)
-        .objectFit(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? ImageFit.Fill : ImageFit.Contain)
+        .width(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? '100%' : '90%')
+        .height(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? '100%' : this.imageHeight)
+        .objectFit(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? ImageFit.Fill : ImageFit.Contain)
         .borderRadius($r('sys.float.corner_radius_level8'))
         .draggable(false)
         .onAreaChange((_oldValue: Area, newValue: Area) => {

@@ -13,10 +13,37 @@
 * limitations under the License.
 */
 
-import { BaseState, TopNavigationData } from '@ohos/common';
+import { BaseState, ObservedArray } from '@ohos/common';
 
 @Observed
 export class MinePageState extends BaseState {
+  public userExperienceShow: boolean = false;
   public feedbackViewShow: boolean = false;
   public aboutViewShow: boolean = false;
+  public newContentNumber: number = 0;
+  public listItemData: ListGroup[] = [];
+}
+
+@Observed
+export class ListGroup {
+  public id: number = 0;
+  public group: ObservedArray<MineItem> = [];
+}
+
+@Observed
+export class MineItem {
+  public isShow: boolean = false;
+  public textContent: ResourceStr = '';
+  public subTextContent?: ResourceStr = '';
+  public symbolSrc?: Resource = $r('sys.symbol.bell');
+  public showTotalNum?: boolean = false;
+  public type: BuilderEnum = BuilderEnum.USER_EXPERIENCE_CARD;
+  public builder?: WrappedBuilder<[]>;
+  public onclick?: Function = () => {
+  };
+}
+
+export enum BuilderEnum {
+  USER_EXPERIENCE_CARD = 'UserExperienceCardItem',
+  CARD_ITEM = 'CardItem'
 }

@@ -1,0 +1,91 @@
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 30,
+    "totalSize": "7",
+    "data": [
+      {
+        "id": 68,
+        "title": "人脸检测",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet"
+        ]
+      },
+      {
+        "id": 69,
+        "title": "语音朗读",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet",
+          "2in1"
+        ]
+      },
+      {
+        "id": 70,
+        "title": "文档扫描",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet"
+        ]
+      },
+      {
+        "id": 71,
+        "title": "表格提取",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet"
+        ]
+      },
+      {
+        "id": 72,
+        "title": "卡证识别",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet"
+        ]
+      },
+      {
+        "id": 73,
+        "title": "通用文字识别",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet",
+          "2in1"
+        ]
+      },
+      {
+        "id": 74,
+        "title": "人脸比对",
+        "type": 2,
+        "currentIndex": 0,
+        "requiredApiVersion": 14,
+        "supportDeviceList": [
+          "phone",
+          "tablet",
+          "2in1"
+        ]
+      }
+    ]
+  }
+}

@@ -14,9 +14,9 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { ResponseData } from '@ohos/common';
+import { ResponseData, SampleDistributionUtil } from '@ohos/common';
 import { Logger, MockRequest, PreferenceManager } from '@ohos/common';
-import type { SampleCardData, SampleCategory, SampleData } from '../model/SampleData';
+import type { SampleCardData, SampleCategory, SampleContent, SampleData } from '../model/SampleData';
 import type { SampleCardDetail, SingleSampleData } from '../model/SampleDetailData';
 
 const TAG: string = '[SampleService]';
@@ -29,8 +29,9 @@ export class SampleService {
     return new Promise((resolve: (value: ResponseData<SampleData>) => void,
       reject: (reason?: BusinessError) => void) => {
       MockRequest.call<ResponseData<SampleData>>(SampleTrigger.SAMPLE_PAGE)
-        .then((result: Object) => {
-          resolve(result as ResponseData<SampleData>);
+        .then((result: ResponseData<SampleData>) => {
+          result.data.sampleCategories = this.filterAvailableSamples(result.data.sampleCategories);
+          resolve(result);
         })
         .catch((error: BusinessError) => {
           reject(error);
@@ -59,41 +60,35 @@ export class SampleService {
   public getSamplePageByPreference(currentPage: number, pageSize: number): Promise<ResponseData<SampleData>> {
     return new Promise((resolve: (value: ResponseData<SampleData>) => void,
       reject: (reason?: string) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, ResponseData<SampleData>>>(SampleTrigger.SAMPLE_PAGE)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, ResponseData<SampleData>>);
-          const ret = resp[`${currentPage}_${pageSize}`];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        });
+      let response =
+        PreferenceManager.getInstance().getValue<Record<string, ResponseData<SampleData>>>(SampleTrigger.SAMPLE_PAGE);
+      if (!response) {
+        reject('There is no data in the Preference');
+      }
+      response = (response as Record<string, ResponseData<SampleData>>);
+      const ret = response[`${currentPage}_${pageSize}`];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
     });
   }
 
   public setSamplePageToPreference(data: ResponseData<SampleData>): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_PAGE)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, ResponseData<SampleData>>>(SampleTrigger.SAMPLE_PAGE)
-              .then((resp) => {
-                resp = (resp as Record<string, ResponseData<SampleData>>);
-                resp[`${data.currentPage}_${data.pageSize}`] = data;
-                PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_PAGE, resp);
-                resolve();
-              });
-          } else {
-            const record: Record<string, ResponseData<SampleData>> = {};
-            record[`${data.currentPage}_${data.pageSize}`] = data;
-            PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_PAGE, record);
-          }
-        });
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_PAGE);
+      if (hasValue) {
+        let resp =
+          PreferenceManager.getInstance().getValue<Record<string, ResponseData<SampleData>>>(SampleTrigger.SAMPLE_PAGE);
+        resp = (resp as Record<string, ResponseData<SampleData>>) || {};
+        resp[`${data.currentPage}_${data.pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_PAGE, resp);
+        resolve();
+      } else {
+        const record: Record<string, ResponseData<SampleData>> = {};
+        record[`${data.currentPage}_${data.pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_PAGE, record);
+      }
     });
   }
 
@@ -126,42 +121,36 @@ export class SampleService {
     pageSize: number): Promise<ResponseData<SampleCardData[]>> {
     return new Promise((resolve: (value: ResponseData<SampleCardData[]>) => void,
       reject: (reason?: string) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, ResponseData<SampleCardData[]>>>(SampleTrigger.SAMPLE_LIST)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, ResponseData<SampleCardData[]>>);
-          const ret = resp[`${categoryType}_${currentPage}_${pageSize}`];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        })
-    })
+      let resp = PreferenceManager.getInstance()
+        .getValue<Record<string, ResponseData<SampleCardData[]>>>(SampleTrigger.SAMPLE_LIST);
+      if (!resp) {
+        reject('There is no data in the Preference');
+      }
+      resp = (resp as Record<string, ResponseData<SampleCardData[]>>);
+      const ret = resp[`${categoryType}_${currentPage}_${pageSize}`];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
+    });
   }
 
   public setSampleListToPreference(categoryType: number, currentPage: number,
     pageSize: number, data: ResponseData<SampleCardData[]>): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_LIST)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, ResponseData<SampleCardData[]>>>(SampleTrigger.SAMPLE_LIST)
-              .then((resp) => {
-                resp = (resp as Record<string, ResponseData<SampleCardData[]>>);
-                resp[`${categoryType}_${currentPage}_${pageSize}`] = data;
-                PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_LIST, resp);
-                resolve();
-              });
-          } else {
-            const record: Record<string, ResponseData<SampleCardData[]>> = {};
-            record[`${categoryType}_${currentPage}_${pageSize}`] = data;
-            PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_LIST, record);
-          }
-        });
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_LIST);
+      if (hasValue) {
+        let resp = PreferenceManager.getInstance()
+          .getValue<Record<string, ResponseData<SampleCardData[]>>>(SampleTrigger.SAMPLE_LIST);
+        resp = (resp as Record<string, ResponseData<SampleCardData[]>>) || {};
+        resp[`${categoryType}_${currentPage}_${pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_LIST, resp);
+        resolve();
+      } else {
+        const record: Record<string, ResponseData<SampleCardData[]>> = {};
+        record[`${categoryType}_${currentPage}_${pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_LIST, record);
+      }
     });
   }
 
@@ -183,68 +172,83 @@ export class SampleService {
   public getSampleDetailsByPreference(sampleCardId: number): Promise<SingleSampleData[]> {
     return new Promise((resolve: (value: SingleSampleData[]) => void,
       reject: (reason?: string) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, SingleSampleData[]>);
-          const ret = resp[`SampleCardDetail_${sampleCardId}`];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        });
+      const detailsKey = SampleTrigger.SAMPLE_DETAILS;
+      const response: Record<string, SingleSampleData[]> = PreferenceManager.getInstance()
+        .getValue<Record<string, SingleSampleData[]>>(detailsKey) as Record<string, SingleSampleData[]>;
+      if (!response) {
+        reject('There is no data in the Preference');
+      }
+      const ret = response[`SampleCardDetail_${sampleCardId}`];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
     });
   }
 
   public setSampleDetailsToPreference(data: SampleCardDetail[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_DETAILS)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS)
-              .then((resp) => {
-                const res: Record<string, SingleSampleData[]> = (resp as Record<string, SingleSampleData[]>) || {};
-                data.forEach((item: SampleCardDetail) => {
-                  res[`SampleCardDetail_${item.id}`] = item.sampleDetail;
-                });
-                PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, res);
-                resolve();
-              });
-          } else {
-            const record: Record<string, SingleSampleData[]> = {};
-            data.forEach((item: SampleCardDetail) => {
-              record[`SampleCardDetail_${item.id}`] = item.sampleDetail;
-            });
-            PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, record);
-          }
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_DETAILS);
+      if (hasValue) {
+        const response =
+          PreferenceManager.getInstance().getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS)
+        const res: Record<string, SingleSampleData[]> = (response as Record<string, SingleSampleData[]>) || {};
+        data.forEach((item: SampleCardDetail) => {
+          res[`SampleCardDetail_${item.id}`] = item.sampleDetail;
         });
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, res);
+        resolve();
+      } else {
+        const record: Record<string, SingleSampleData[]> = {};
+        data.forEach((item: SampleCardDetail) => {
+          record[`SampleCardDetail_${item.id}`] = item.sampleDetail;
+        });
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, record);
+      }
     });
   }
 
   public setSampleDetailToPreference(sampleCardId: number, data: SingleSampleData[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_DETAILS)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS)
-              .then((resp) => {
-                const res: Record<string, SingleSampleData[]> = (resp as Record<string, SingleSampleData[]>) || {};
-                res[`SampleCardDetail_${sampleCardId}`] = data;
-                PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, res);
-                resolve();
-              });
-          } else {
-            const record: Record<string, SingleSampleData[]> = {};
-            record[`SampleCardDetail_${sampleCardId}`] = data;
-            PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, record);
-          }
-        });
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_DETAILS);
+      if (hasValue) {
+        const response =
+          PreferenceManager.getInstance().getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS);
+        const res: Record<string, SingleSampleData[]> = (response as Record<string, SingleSampleData[]>) || {};
+        res[`SampleCardDetail_${sampleCardId}`] = data;
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, res);
+        resolve();
+      } else {
+        const record: Record<string, SingleSampleData[]> = {};
+        record[`SampleCardDetail_${sampleCardId}`] = data;
+        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, record);
+      }
     });
+  }
+
+  private filterAvailableSamples(allCategories: SampleCategory[]): SampleCategory[] {
+    let sampleCategories: SampleCategory[] = [];
+    allCategories.forEach((sampleCategory: SampleCategory) => {
+      let sampleCards: SampleCardData[] = [];
+      sampleCategory.sampleCards.forEach((sampleCard: SampleCardData) => {
+        if (sampleCard.sampleContents.length !== 1 ||
+        SampleDistributionUtil.checkSampleSupport(sampleCard.sampleContents[0].requiredApiVersion,
+          sampleCard.sampleContents[0].supportDeviceList)) {
+          let supportSamples: SampleContent[] = [];
+          sampleCard.sampleContents.forEach((sampleContent: SampleContent) => {
+            if (SampleDistributionUtil.checkSampleSupport(sampleContent.requiredApiVersion,
+              sampleContent.supportDeviceList)) {
+              supportSamples.push(sampleContent);
+            }
+          });
+          sampleCard.sampleContents = supportSamples;
+          sampleCards.push(sampleCard);
+        }
+      });
+      sampleCategory.sampleCards = sampleCards;
+      sampleCategories.push(sampleCategory);
+    });
+    return sampleCategories;
   }
 }
 

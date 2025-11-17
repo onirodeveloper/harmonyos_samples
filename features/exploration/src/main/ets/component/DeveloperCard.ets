@@ -15,7 +15,7 @@
 
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants, ProductSeriesEnum } from '@ohos/common';
+import { BreakpointType, CommonConstants, ProductSeriesEnum } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { DeveloperItem } from './DeveloperItem';
 
@@ -39,14 +39,14 @@ export struct DeveloperCard {
               })
           }
           .padding({
-            left: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
+            left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
             $r('sys.float.padding_level8') : 0,
-            right: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
+            right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
             $r('sys.float.padding_level8') : 0,
           })
         })
     }
-    .size(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
+    .size(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
       {
         height: ((this.globalInfoModel.deviceWidth - CommonConstants.SPACE_32) *
           (deviceInfo.productSeries === ProductSeriesEnum.VDE ? DEVELOPER_ITEM_RATIO_VERDE : DEVELOPER_ITEM_RATIO) +
@@ -56,30 +56,30 @@ export struct DeveloperCard {
     .effectMode(EdgeEffect.None)
     .loop(false)
     .indicator(false)
-    .disableSwipe(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM)
-    .vertical(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM)
+    .disableSwipe(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM)
+    .vertical(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM)
     .prevMargin(new BreakpointType<Length>({
       sm: 0,
       md: $r('sys.float.padding_level6'),
       lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({
       sm: 0,
       md: $r('sys.float.padding_level6'),
       lg: $r('sys.float.padding_level8'),
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .displayCount(
       new BreakpointType({
         sm: this.discoverContents.length,
         md: CommonConstants.LANE_MD,
         lg: CommonConstants.LANE_LG,
-      }).getValue(this.globalInfoModel.currentBreakpoint)
+      }).getValue(this.globalInfoModel.widthBreakpoint)
     )
     .itemSpace(new BreakpointType({
       sm: CommonConstants.SPACE_16,
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
   }
 }

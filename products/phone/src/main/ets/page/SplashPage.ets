@@ -14,7 +14,17 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { CommonConstants, Logger, PageContext, StorageKey, WindowUtil, } from '@ohos/common';
+import { HdsNavigation, HdsNavigationAttribute } from '@kit.UIDesignKit';
+import {
+  BundleInfoData,
+  CommonConstants,
+  Logger,
+  PageContext,
+  ResourceUtil,
+  StorageKey,
+  VersionUtil,
+  WindowUtil,
+} from '@ohos/common';
 import { SplashEventTypeEnum, SplashViewModel } from '../viewmodel/SplashViewModel';
 
 const TAG: string = '[SplashPage]';
@@ -22,9 +32,13 @@ const TAG: string = '[SplashPage]';
 @Entry
 @Component
 struct SplashPage {
+  context: Context = this.getUIContext().getHostContext() as Context;
+  @StorageProp(StorageKey.BUNDLE_INFO) bundleInfo: BundleInfoData =
+    AppStorage.get(StorageKey.BUNDLE_INFO) as BundleInfoData;
   private pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
   private appPathInfo: NavPathStack = this.pageContext.navPathStack;
   private viewModel: SplashViewModel = new SplashViewModel();
+  @Provide('appIconDescriptor') drawableDescriptor?: DrawableDescriptor = undefined;
 
   onPageHide() {
     Logger.info(TAG, 'onPageHide');
@@ -45,18 +59,35 @@ struct SplashPage {
     }, () => {
       this.viewModel.sendEvent(SplashEventTypeEnum.PRELOAD_RESOURCES);
     })
+    this.drawableDescriptor =
+      ResourceUtil.getDrawableDescriptor(this.context, this.bundleInfo.iconResource.id);
+  }
+
+  @Builder
+  contentBuilder() {
+    Column()
+      .width('100%')
+      .height('100%')
+      .backgroundColor($r('app.color.start_window_background'))
   }
 
   build() {
-    Navigation(this.appPathInfo) {
-      Column()
-        .width('100%')
-        .height('100%')
-        .backgroundColor($r('app.color.start_window_background'))
+    if (VersionUtil.canUseHds()) {
+      HdsNavigation(this.appPathInfo) {
+        this.contentBuilder()
+      }
+      .hideTitleBar(true)
+      .mode(NavigationMode.Stack)
+      .height('100%')
+      .width('100%')
+    } else {
+      Navigation(this.appPathInfo) {
+        this.contentBuilder()
+      }
+      .hideTitleBar(true)
+      .mode(NavigationMode.Stack)
+      .height('100%')
+      .width('100%')
     }
-    .hideTitleBar(true)
-    .mode(NavigationMode.Stack)
-    .height('100%')
-    .width('100%')
   }
 }

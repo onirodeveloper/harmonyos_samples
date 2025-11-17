@@ -17,7 +17,6 @@ import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import { GlobalInfoModel, ResponseData, StorageKey } from '@ohos/common';
 import {
-  BreakpointTypeEnum,
   LoadingModel,
   LoadingStatus,
   Logger,
@@ -76,6 +75,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
     this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
     this.state.topNavigationData.isBlur = false;
     this.state.topNavigationData.showTab = false;
+    this.state.showTab = this.state.topNavigationData.showTab;
     WindowUtil.updateStatusBarColor(isDark);
     this.sampleModel.getSamplePage(1, this.pageSize)
       .then((result: ResponseData<SampleData>) => {
@@ -96,8 +96,8 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
         });
         this.state.sampleCategories = categoryList;
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-        if (globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.LG &&
-          globalInfoModel.currentBreakpoint !== BreakpointTypeEnum.XL) {
+        if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
+          globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.SAMPLE] = true;
@@ -142,7 +142,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   protected jumpDetailView(param: SampleDetailParams): void {
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
     const pageContext: PageContext =
-      globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
         AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
     pageContext.openPage({
       routerName: 'SampleDetailView',

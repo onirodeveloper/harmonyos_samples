@@ -14,7 +14,6 @@
  */
 
 import { BaseState, BaseVM, Logger, PageContext, PreferenceManager } from '@ohos/common';
-import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG: string = '[SplashViewModel]';
 
@@ -41,20 +40,13 @@ export class SplashViewModel extends BaseVM<BaseState> {
   }
 
   private checkIsFirstStart(): void {
-    this.preferenceManager.hasValue('isFirstStart').then((hasResult: boolean) => {
-      if (hasResult) {
-        Logger.info(TAG, 'Not first startup.');
-      } else {
-        Logger.info(TAG, 'First startup.');
-        this.preferenceManager.setValue('isFirstStart', false).then(() => {
-          Logger.info(TAG, 'Put the value of startup Successfully.');
-        }).catch((err: BusinessError) => {
-          Logger.error(TAG, `Put the value of startup Failed, err code: ${err.code}, message: ${err.message}`);
-        });
-      }
-    }).catch((err: BusinessError) => {
-      Logger.error(TAG, `check startup Failed, err code: ${err.code}, message: ${err.message}`);
-    });
+    const hasValue: boolean = this.preferenceManager.hasValue('isFirstStart');
+    if (hasValue) {
+      Logger.info(TAG, 'Not first startup.');
+    } else {
+      Logger.info(TAG, 'First startup.');
+      this.preferenceManager.setValue('isFirstStart', false);
+    }
   }
 }
 

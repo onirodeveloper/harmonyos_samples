@@ -58,7 +58,10 @@ export struct CategorySamples {
       Repeat(this.sampleCategory.sampleCards)
         .each((repeatItem: RepeatItem<SampleCardData>) => {
           GridCol({ span: CommonConstants.SPAN_4 }) {
-            PictureAboveTextCard({ sampleCardData: repeatItem.item })
+            PictureAboveTextCard({
+              sampleCardData: repeatItem.item,
+              widthBreakPoint: this.globalInfoModel.widthBreakpoint,
+            })
               .onClick(() => this.jumpToDetail(0, repeatItem.item.id))
           }
         })
@@ -67,14 +70,20 @@ export struct CategorySamples {
         .template(CardStyleTypeEnum.PICTURE_TO_SWIPER.toString(),
           (repeatItem: RepeatItem<SampleCardData>) => {
             GridCol({ span: CommonConstants.SPAN_4 }) {
-              PictureAboveTextCard({ sampleCardData: repeatItem.item })
+              PictureAboveTextCard({
+                sampleCardData: repeatItem.item,
+                widthBreakPoint: this.globalInfoModel.widthBreakpoint,
+              })
                 .onClick(() => this.jumpToDetail(repeatItem.index, repeatItem.item.detailCardId))
             }
           })
         .template(CardStyleTypeEnum.PICTURE_ABOVE_TEXT.toString(),
           (repeatItem: RepeatItem<SampleCardData>) => {
             GridCol({ span: CommonConstants.SPAN_4 }) {
-              PictureAboveTextCard({ sampleCardData: repeatItem.item })
+              PictureAboveTextCard({
+                sampleCardData: repeatItem.item,
+                widthBreakPoint: this.globalInfoModel.widthBreakpoint,
+              })
                 .onClick(() => this.jumpToDetail(0, repeatItem.item.id))
             }
           })
@@ -94,12 +103,12 @@ export struct CategorySamples {
                     sm: SampleConstant.SCROLL_MARGIN_SM,
                     md: SampleConstant.SCROLL_MARGIN_MD,
                     lg: SampleConstant.SCROLL_MARGIN_LG,
-                  }).getValue(this.globalInfoModel.currentBreakpoint),
+                  }).getValue(this.globalInfoModel.widthBreakpoint),
                   right: new BreakpointType({
                     sm: SampleConstant.SCROLL_MARGIN_SM,
                     md: SampleConstant.SCROLL_MARGIN_MD,
                     lg: SampleConstant.SCROLL_MARGIN_LG,
-                  }).getValue(this.globalInfoModel.currentBreakpoint),
+                  }).getValue(this.globalInfoModel.widthBreakpoint),
                 })
             }
             .clip(false)
@@ -135,7 +144,7 @@ export struct CategorySamples {
             sm: CommonConstants.TAB_BAR_HEIGHT,
             md: CommonConstants.TAB_BAR_HEIGHT,
             lg: 0,
-          }).getValue(this.globalInfoModel.currentBreakpoint)),
+          }).getValue(this.globalInfoModel.widthBreakpoint)),
       })
     }
     .padding({
@@ -143,12 +152,12 @@ export struct CategorySamples {
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
         lg: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.globalInfoModel.widthBreakpoint),
       right: new BreakpointType({
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
         lg: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.globalInfoModel.widthBreakpoint),
       top: $r('sys.float.padding_level4')
     })
     .clip(false)

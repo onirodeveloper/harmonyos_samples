@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey, TagEnum } from '@ohos/common';
+import { TagTipLabel } from '@ohos/commonbusiness';
 import { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
 
@@ -35,12 +35,12 @@ export struct SampleScrollCard {
     sm: $r('sys.float.padding_level8'),
     md: $r('sys.float.padding_level12'),
     lg: $r('sys.float.padding_level16'),
-  }).getValue(this.globalInfoModel.currentBreakpoint);
+  }).getValue(this.globalInfoModel.widthBreakpoint);
   @State contentOffset: number = new BreakpointType({
     sm: CommonConstants.SPACE_16,
     md: CommonConstants.SPACE_24,
     lg: CommonConstants.SPACE_32,
-  }).getValue(this.globalInfoModel.currentBreakpoint);
+  }).getValue(this.globalInfoModel.widthBreakpoint);
 
   aboutToAppear(): void {
     this.handleBreakPointChange();
@@ -48,20 +48,20 @@ export struct SampleScrollCard {
 
   handleBreakPointChange() {
     const barWidth =
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? CommonConstants.SIDE_BAR_WIDTH :
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SIDE_BAR_WIDTH :
       CommonConstants.TAB_BAR_WIDTH;
     this.horizontalPadding = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
       md: $r('sys.float.padding_level12'),
       lg: $r('sys.float.padding_level16'),
-    }).getValue(this.globalInfoModel.currentBreakpoint);
+    }).getValue(this.globalInfoModel.widthBreakpoint);
     this.contentOffset = new BreakpointType({
       sm: CommonConstants.SPACE_16,
       md: CommonConstants.SPACE_24,
       lg: CommonConstants.SPACE_32,
-    }).getValue(this.globalInfoModel.currentBreakpoint);
-    if ((this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ||
-      this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL)) {
+    }).getValue(this.globalInfoModel.widthBreakpoint);
+    if ((this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL)) {
       this.sampleItemWidth = (this.globalInfoModel.deviceWidth - barWidth - CommonConstants.SPACE_32 * MARGIN_COUNT -
         CommonConstants.SPACE_16 * (DISPLAY_COUNT - 1)) / DISPLAY_COUNT;
     } else {
@@ -71,26 +71,35 @@ export struct SampleScrollCard {
 
   @Builder
   SampleItemBuilder(item: SampleContent, index: number) {
-    Column() {
-      Column() {
-        Image($rawfile(item.mediaUrl))
-          .draggable(false)
-          .alt($r('app.media.img_placeholder'))
-          .objectFit(ImageFit.Contain)
-          .height('100%')
-      }
-      .layoutWeight(1)
+    Stack({ alignContent: Alignment.TopStart }) {
+      TagTipLabel({
+        tags: item.tagIds,
+        newSymbol: $r('app.media.big_new'),
+      })
+      .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+      .width(CommonConstants.FULL_PERCENT)
 
       Column() {
-        Text(item.title)
-          .fontSize($r('sys.float.Body_L'))
-          .fontWeight(FontWeight.Bold)
-          .fontColor($r('sys.color.font_primary'))
-        TagLabel({ tags: item.tags, maxWidth: LOG_MAX_WIDTH })
+        Column() {
+          Image($rawfile(item.mediaUrl))
+            .draggable(false)
+            .alt($r('app.media.img_placeholder'))
+            .objectFit(ImageFit.Contain)
+            .height('100%')
+        }
+        .layoutWeight(1)
+
+        Column() {
+          Text(item.title)
+            .fontSize($r('sys.float.Body_L'))
+            .fontWeight(FontWeight.Bold)
+            .fontColor($r('sys.color.font_primary'))
+          TagLabel({ tags: item.tags, maxWidth: LOG_MAX_WIDTH })
+        }
+        .width('100%')
+        .padding({ top: $r('sys.float.padding_level8') })
+        .renderGroup(true)
       }
-      .width('100%')
-      .padding({ top: $r('sys.float.padding_level8') })
-      .renderGroup(true)
     }
     .clickEffect({ level: ClickEffectLevel.MIDDLE })
     .onClick(() => this.handleItemClick?.(index, this.sampleCardData.sampleContents))

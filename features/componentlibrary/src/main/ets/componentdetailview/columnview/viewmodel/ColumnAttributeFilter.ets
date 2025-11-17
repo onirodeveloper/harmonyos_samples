@@ -23,14 +23,11 @@ export class ColumnAttributeFilter implements CommonAttributeFilter {
       switch (attribute.name) {
         case 'padding':
           const paddingIndex = attributes.findIndex((item) => item.name === 'paddingNum');
-          const flexAlignIndex = attributes.findIndex((item) => item.name === 'flexAlign');
-          if (paddingIndex !== -1 && flexAlignIndex !== -1) {
+          if (paddingIndex !== -1) {
             if (attribute.currentValue === 'None') {
               attributes[paddingIndex].enable = false;
-              attributes[flexAlignIndex].enable = true;
             } else {
               attributes[paddingIndex].enable = true;
-              attributes[flexAlignIndex].enable = false;
             }
           }
           break;

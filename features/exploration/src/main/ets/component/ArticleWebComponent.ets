@@ -17,7 +17,6 @@ import { ConfigurationConstant } from '@kit.AbilityKit';
 import { webview } from '@kit.ArkWeb';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import {
-  BreakpointTypeEnum,
   CommonConstants,
   GlobalInfoModel,
   javascriptProxyPermission,
@@ -153,10 +152,17 @@ export struct ArticleWebComponent {
         // Setting the local file path that allows cross-domain access.
         const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
         const context: Context = uiContext.getHostContext() as Context;
-        this.webController.setPathAllowingUniversalAccess([context.resourceDir]);
+        try {
+          this.webController.setPathAllowingUniversalAccess([context.resourceDir]);
+        } catch (error) {
+          Logger.error(TAG, `setPathAllowingUniversalAccess failed, error: ${error.message}`);
+        }
       })
       .onScroll((event) => {
-        this.handleWebScroll(event.yOffset);
+        this.viewModel.sendEvent<number>({
+          type: ExplorationDetailEventType.CHANGE_TITLE_BAR_STYLE,
+          param: event.yOffset,
+        });
       })
       .width('100%')
       .height('100%')
@@ -165,14 +171,7 @@ export struct ArticleWebComponent {
   @Builder
   TopTitleViewBuilder() {
     TopNavigationView({
-      topNavigationData: {
-        title: this.title,
-        isBlur: this.isBlur,
-        isFullScreen: true,
-        onBackClick: () => {
-          this.detailState.topNavigationData.onBackClick?.();
-        }
-      },
+      topNavigationData: this.detailState.topNavigationData,
     })
   }
 
@@ -193,10 +192,10 @@ export struct ArticleWebComponent {
         WebSheetBuilder(this.bindSheetSrc, this.webUrlType), {
           title: { title: '' },
           preferType: SheetType.CENTER,
-          height: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+          height: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
             ((this.globalInfoModel.deviceHeight - this.globalInfoModel.decorHeight) *
             CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
-          width: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? CommonConstants.SHEET_WIDTH_XL :
+          width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SHEET_WIDTH_XL :
             undefined,
           onDisappear: () => {
             this.bindSheetShow = false;

@@ -1,0 +1,21 @@
+<svg width="98.000000" height="82.000000" viewBox="0 0 98 82" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs/>
+	<g opacity="0.050000">
+		<path id="路径" d="M58.8 17C61.61 17 63.89 19.35 63.89 22.25L63.89 60.75C63.89 63.64 61.61 66 58.8 66L35.08 66C32.27 66 30 63.64 30 60.75L30 22.25C30 19.35 32.27 17 35.08 17L58.8 17Z" fill="#000000" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</g>
+	<g opacity="0.900000">
+		<rect id="矩形" x="36.286499" y="27.888855" rx="1.361111" width="21.553553" height="2.722222" fill="#0A59F7" fill-opacity="1.000000"/>
+		<rect id="矩形" x="36.786499" y="28.388855" rx="0.861111" width="20.553553" height="1.722222" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		<rect id="矩形备份 2" x="36.286499" y="35.148132" rx="1.361111" width="21.553553" height="2.722222" fill="#0A59F7" fill-opacity="1.000000"/>
+		<rect id="矩形备份 2" x="36.786499" y="35.648132" rx="0.861111" width="20.553553" height="1.722222" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+		<rect id="矩形备份" x="36.286499" y="42.407410" rx="1.361111" width="15.267100" height="2.722222" fill="#0A59F7" fill-opacity="1.000000"/>
+		<rect id="矩形备份" x="36.786499" y="42.907410" rx="0.861111" width="14.267100" height="1.722222" stroke="#979797" stroke-opacity="0" stroke-width="1.000000"/>
+	</g>
+	<g opacity="0.900000">
+		<path id="形状结合" d="M73.3687 33.9728C74.6768 35.3532 74.6552 37.5439 73.32 38.8972L72.098 40.136L67.2603 35.2984L68.61 33.927C69.9119 32.6043 72.0226 32.6043 73.3245 33.927C73.3394 33.9421 73.3541 33.9574 73.3687 33.9728ZM65.5066 37.0802L50.2015 52.6303L54.9811 57.4865L71.2281 41.0177L70.3361 41.9097L65.5066 37.0802Z" clip-rule="evenodd" fill="#0A59F7" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</g>
+	<path id="路径" d="M54.97 57.48L48.82 60C48.39 60.18 47.89 59.96 47.72 59.52C47.64 59.31 47.64 59.08 47.72 58.88L50.19 52.63L54.97 57.48Z" fill="#FFE2AC" fill-opacity="1.000000" fill-rule="evenodd"/>
+</svg>

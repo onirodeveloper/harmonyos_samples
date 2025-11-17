@@ -16,11 +16,12 @@
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { ImageUtil, ProductSeriesEnum } from '@ohos/common';
 import type { ComponentCardData, ComponentContent } from '../model/ComponentData';
-import { ComponentItem } from './ComponentItem';
+import { ComponentItemList } from './ComponentItemList';
 
 @Reusable
 @Component
 export struct PictureListCard {
+  @State widthBreakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_SM;
   @State componentCardData?: ComponentCardData = undefined;
   handleItemClick?: (componentContent: ComponentContent) => void;
   @State buttonColor: ResourceColor = '';
@@ -31,6 +32,7 @@ export struct PictureListCard {
 
   aboutToReuse(params: Record<string, Object>): void {
     this.componentCardData = params.componentCardData as ComponentCardData;
+    this.widthBreakpoint = params.widthBreakpoint as WidthBreakpoint;
     this.handleItemClick = params.handleItemClick as (componentContent: ComponentContent) => void;
     this.getColorFromImg();
   }
@@ -60,7 +62,7 @@ export struct PictureListCard {
     .padding($r('sys.float.padding_level6'))
     .width('100%')
     .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.card_top_height_verde') :
-    $r('app.float.card_top_height'))
+      $r('app.float.card_top_height'))
     .margin({ bottom: $r('sys.float.padding_level2') })
   }
 
@@ -69,30 +71,26 @@ export struct PictureListCard {
       Image($rawfile(this.componentCardData?.cardImage))
         .width('100%')
         .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.card_top_height_verde') :
-        $r('app.float.card_top_height'))
+          $r('app.float.card_top_height'))
         .overlay(this.textOverlay())
         .objectFit(ImageFit.Cover)
         .alt($r('app.media.ic_placeholder'))
         .margin({ bottom: $r('sys.float.padding_level2') })
 
-      Repeat(this.componentCardData?.cardContents)
-        .each((repeatItem: RepeatItem<ComponentContent>) => {
-          ComponentItem({
-            componentContent: repeatItem.item,
-            showDivider: repeatItem.index !== 0,
-            buttonColor: this.buttonColor
-          })
-            .onClick(() => {
-              this.handleItemClick?.(repeatItem.item);
-            })
-        })
-        .key((componentContent: ComponentContent) => componentContent.id.toString())
+      ComponentItemList({
+        cardContents: this.componentCardData?.cardContents,
+        widthBreakpoint: this.widthBreakpoint,
+        buttonColor: this.buttonColor,
+        handleItemClick: (item: ComponentContent) => {
+          this.handleItemClick?.(item);
+        }
+      })
     }
+    .backgroundColor($r('sys.color.comp_background_list_card'))
     .clickEffect({ level: ClickEffectLevel.MIDDLE })
     .borderRadius($r('sys.float.corner_radius_level8'))
     .clip(true)
     .width('100%')
-    .backgroundColor($r('sys.color.comp_background_list_card'))
     .padding({ bottom: $r('sys.float.padding_level2') })
   }
 }

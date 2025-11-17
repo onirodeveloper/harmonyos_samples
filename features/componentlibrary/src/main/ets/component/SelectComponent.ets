@@ -53,6 +53,8 @@ export struct SelectComponent {
         .menuAlign(MenuAlignType.END, { dx: 0, dy: 0 } as Offset)
         .menuItemContentModifier(new SelectMenuAttributeModifier())
         .menuBackgroundBlurStyle(BlurStyle.COMPONENT_ULTRA_THICK)
+        .backgroundColor(Color.Transparent)
+        .padding({ left: $r('sys.float.padding_level0'), right: $r('sys.float.padding_level0') })
         .optionBgColor(Color.White)
         .onSelect((_index: number, value: string) => {
           if (this.attribute.currentValue !== value) {

@@ -18,7 +18,6 @@ import { ConfigurationConstant } from '@kit.AbilityKit';
 import {
   BaseVM,
   BaseVMEvent,
-  BreakpointTypeEnum,
   GlobalInfoModel,
   LoadingStatus,
   ObservedArray,
@@ -56,6 +55,7 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   private detailPageModel = ComponentDetailModel.getInstance();
   private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   private detailData?: ComponentDetailData;
+  private currentPathStack?: NavPathStack;
 
   constructor(componentName: string) {
     const componentDetailConfig: Record<string, ConfigInterface> = AppStorage.get(StorageKey.COMPONENT_CONFIG)!;
@@ -106,6 +106,8 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
       }
     } else if (event instanceof TopNavigationChangeEvent) {
       this.changeTopNavigationState(event);
+    } else if (event instanceof AssignPathStackEvent) {
+      this.currentPathStack = event.navPathStack;
     } else {
       this.changeAttributeEnable(event);
     }
@@ -113,13 +115,11 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   }
 
   public pop(animated?: boolean) {
-    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
-      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
-    pageContext.popPage(animated);
+    this.currentPathStack?.pop(animated);
   }
 
   public jumpToCodePreview(code: string, preRebuild: () => void) {
-    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
       AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.openPage({
       routerName: 'CodePreviewView',
@@ -132,7 +132,7 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   }
 
   public jumpToPenKitView() {
-    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
       AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.openPage({
       routerName: 'PenKitView',
@@ -381,6 +381,14 @@ export class AttributeChangeEnable {
   }
 }
 
+export class AssignPathStackEvent implements BaseVMEvent {
+  public readonly navPathStack: NavPathStack;
+
+  constructor(navPathStack: NavPathStack) {
+    this.navPathStack = navPathStack;
+  }
+}
+
 export interface CodeViewParams {
   code: string;
   componentName: string;
@@ -388,4 +396,4 @@ export interface CodeViewParams {
 }
 
 export type DetailPageEvent = ComponentDetailEvent | InitComponentEvent | ChangeAttributeEvent | ComPreviewChangeEvent
-  | AttributeChangeEnable | TopNavigationChangeEvent;
+  | AttributeChangeEnable | TopNavigationChangeEvent | AssignPathStackEvent;

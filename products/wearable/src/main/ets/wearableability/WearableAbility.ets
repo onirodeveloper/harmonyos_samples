@@ -22,6 +22,7 @@ const TAG = '[WearableAbility]';
 
 export default class WearableAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    this.checkAndHandleParams(want);
     Logger.info(TAG, 'Ability onCreate');
   }
 

@@ -23,12 +23,6 @@ enum ColorAreaEnum {
 }
 
 export class ColorPickerUtil {
-  // Constants for color segmentation.
-  private static readonly COLOR_SEGMENTS = 6;
-  private static readonly MAX_RGB_VALUE = 255;
-  private static readonly FULL_OPACITY = 1.0;
-  // Constants for RGB string processing. Length of "rgba(".
-  private static readonly RGB_PREFIX_LENGTH = 5;
   // Constants for color segment boundaries.
   public static readonly SEGMENT_1 = 1 / 6;
   public static readonly SEGMENT_2 = 2 / 6;
@@ -36,6 +30,12 @@ export class ColorPickerUtil {
   public static readonly SEGMENT_4 = 4 / 6;
   public static readonly SEGMENT_5 = 5 / 6;
   public static readonly SEGMENT_6 = 6 / 6;
+  // Constants for color segmentation.
+  private static readonly COLOR_SEGMENTS = 6;
+  private static readonly MAX_RGB_VALUE = 255;
+  private static readonly FULL_OPACITY = 1.0;
+  // Constants for RGB string processing. Length of "rgba(".
+  private static readonly RGB_PREFIX_LENGTH = 5;
 
   /**
    * Creates an RGBA color string from component values
@@ -119,15 +119,15 @@ export class ColorPickerUtil {
     if (redArea === ColorPickerUtil.MAX_RGB_VALUE && blueArea === 0) {
       colorArea = ColorAreaEnum.RED + greenArea / ColorPickerUtil.MAX_RGB_VALUE;
     } else if (greenArea === ColorPickerUtil.MAX_RGB_VALUE && blueArea === 0) {
-      colorArea = ColorAreaEnum.YELLOW + (redArea / ColorPickerUtil.MAX_RGB_VALUE);
+      colorArea = ColorAreaEnum.YELLOW + (ColorPickerUtil.MAX_RGB_VALUE - redArea) / ColorPickerUtil.MAX_RGB_VALUE;
     } else if (redArea === 0 && greenArea === ColorPickerUtil.MAX_RGB_VALUE) {
-      colorArea = ColorAreaEnum.GREEN + (blueArea / ColorPickerUtil.MAX_RGB_VALUE);
+      colorArea = ColorAreaEnum.GREEN + blueArea / ColorPickerUtil.MAX_RGB_VALUE;
     } else if (redArea === 0 && blueArea === ColorPickerUtil.MAX_RGB_VALUE) {
-      colorArea = ColorAreaEnum.CYAN + (greenArea / ColorPickerUtil.MAX_RGB_VALUE);
+      colorArea = ColorAreaEnum.CYAN + (ColorPickerUtil.MAX_RGB_VALUE - greenArea) / ColorPickerUtil.MAX_RGB_VALUE;
     } else if (greenArea === 0 && blueArea === ColorPickerUtil.MAX_RGB_VALUE) {
-      colorArea = ColorAreaEnum.BLUE + (redArea / ColorPickerUtil.MAX_RGB_VALUE);
+      colorArea = ColorAreaEnum.BLUE + redArea / ColorPickerUtil.MAX_RGB_VALUE;
     } else if (redArea === ColorPickerUtil.MAX_RGB_VALUE && greenArea === 0) {
-      colorArea = ColorAreaEnum.FUCHSIA + (blueArea / ColorPickerUtil.MAX_RGB_VALUE);
+      colorArea = ColorAreaEnum.FUCHSIA + (ColorPickerUtil.MAX_RGB_VALUE - blueArea) / ColorPickerUtil.MAX_RGB_VALUE;
     }
     const colorPercent = colorArea / ColorPickerUtil.COLOR_SEGMENTS * 100;
     return colorPercent;

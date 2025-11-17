@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType } from '@ohos/common';
+import { BreakpointType, GlobalInfoModel, StorageKey, TagEnum } from '@ohos/common';
+import { TagTipLabel } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 
 @Component
@@ -24,12 +24,22 @@ export struct FeedItem {
 
   build() {
     Column() {
-      Image($rawfile(this.discoverContent.mediaUrl))
-        .draggable(false)
-        .borderRadius($r('sys.float.corner_radius_level4'))
-        .alt($r('app.media.img_placeholder'))
-        .width('100%')
-        .layoutWeight(1)
+      Stack({ alignContent: Alignment.TopStart }) {
+        TagTipLabel({
+          tags: this.discoverContent.tagIds,
+          newSymbol: $r('app.media.big_new'),
+        })
+          .zIndex(1)
+        Image($rawfile(this.discoverContent.mediaUrl))
+          .draggable(false)
+          .borderRadius($r('sys.float.corner_radius_level4'))
+          .alt($r('app.media.img_placeholder'))
+          .width('100%')
+          .height('100%')
+      }
+      .width('100%')
+      .layoutWeight(1)
+
       Column() {
         Text(this.discoverContent.title)
           .fontSize($r('sys.float.Body_M'))
@@ -61,7 +71,7 @@ export struct FeedItem {
       md: $r('app.float.feed_item_card_height_md'),
       lg: $r('app.float.feed_item_card_height_lg'),
       xl: $r('app.float.feed_item_card_height_xl'),
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .width('100%')
     .borderRadius($r('sys.float.corner_radius_level8'))
     .backgroundColor($r('sys.color.comp_background_list_card'))

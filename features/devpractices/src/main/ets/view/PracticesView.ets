@@ -14,8 +14,9 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { GlobalInfoModel, PageContext, StorageKey } from '@ohos/common';
-import { BreakpointType, BreakpointTypeEnum, CommonConstants } from '@ohos/common';
+import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
+import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { BreakpointType, CommonConstants, StorageKey, VersionUtil } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -42,11 +43,11 @@ export struct PracticesView {
   @State currentIndex: number = 0;
   @State practiceState: PracticeState = this.viewModel.getState();
   @State showTopTab: boolean = true;
+  listScroller: Scroller = new Scroller();
   private categoryTabController: TabsController = new TabsController();
-  private listScroller: Scroller = new Scroller();
   private headerScroller: Scroller = new Scroller();
+  private tabScroller: Scroller = new Scroller();
   private samplePageContext: PageContext = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)!;
-  private cornerNum: Length = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? $r('sys.float.corner_radius_level4') : '50%';
 
   aboutToAppear(): void {
     this.viewModel.sendEvent<LoadSamplePageParam>({
@@ -79,15 +80,15 @@ export struct PracticesView {
   }
 
   @Builder
-  CategoryHeaderBuilder() {
+  CategoryHeaderBuilder(isHeader: boolean, hasStartMargin?: boolean) {
     if (this.practiceState.sampleCategories.length > 1) {
-      Scroll(this.headerScroller) {
+      Scroll(isHeader ? this.headerScroller : this.tabScroller) {
         Row({
           space: new BreakpointType({
             sm: CommonConstants.SPACE_10,
             md: CommonConstants.SPACE_12,
             lg: CommonConstants.SPACE_12,
-          }).getValue(this.globalInfoModel.currentBreakpoint),
+          }).getValue(this.globalInfoModel.widthBreakpoint),
         }) {
           ForEach(this.practiceState.sampleCategories, (item: SampleCategory, index: number) => {
             Row() {
@@ -101,17 +102,19 @@ export struct PracticesView {
                 .fontSize($r('sys.float.Body_M'))
                 .fontWeight(FontWeight.Medium)
                 .fontColor(this.currentIndex === index ? $r('sys.color.font_on_primary') :
-                $r('sys.color.font_tertiary'))
+                  $r('sys.color.font_tertiary'))
             }
             .backgroundColor(this.currentIndex === index ? $r('sys.color.brand') :
-            $r('sys.color.ohos_id_color_button_normal'))
+              $r('sys.color.ohos_id_color_button_normal'))
             .padding({
               left: $r('sys.float.padding_level8'),
               right: $r('sys.float.padding_level8'),
               top: $r('sys.float.padding_level4'),
               bottom: $r('sys.float.padding_level4'),
             })
-            .borderRadius(this.cornerNum)
+            .margin({ left: (hasStartMargin && index === 0) ? CommonConstants.TAB_BAR_WIDTH : 0 })
+            .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+              $r('sys.float.corner_radius_level4') : '50%')
             .onClick(() => {
               this.currentIndex = index;
               if (!this.practiceState.sampleCategories[index].sampleCards) {
@@ -130,12 +133,24 @@ export struct PracticesView {
             sm: $r('sys.float.padding_level6'),
             md: $r('sys.float.padding_level12'),
             lg: $r('sys.float.padding_level16'),
-          }).getValue(this.globalInfoModel.currentBreakpoint),
-          right: $r('sys.float.padding_level6'),
+          }).getValue(this.globalInfoModel.widthBreakpoint),
+          right: new BreakpointType({
+            sm: $r('sys.float.padding_level6'),
+            md: $r('sys.float.padding_level12'),
+            lg: $r('sys.float.padding_level16'),
+          }).getValue(this.globalInfoModel.widthBreakpoint),
           bottom: $r('sys.float.padding_level5'),
           top: $r('sys.float.padding_level8'),
         })
       }
+      .initialOffset(isHeader ? this.tabScroller.currentOffset() : {})
+      .onDidScroll(() => {
+        if (isHeader) {
+          this.tabScroller.scrollTo(this.headerScroller.currentOffset());
+        } else {
+          this.headerScroller.scrollTo(this.tabScroller.currentOffset());
+        }
+      })
       .align(Alignment.Start)
       .width('100%')
       .scrollBar(BarState.Off)
@@ -160,7 +175,7 @@ export struct PracticesView {
       }
       .height(this.practiceState.bannerHeight)
 
-      ListItemGroup({ header: this.CategoryHeaderBuilder() }) {
+      ListItemGroup({ header: this.CategoryHeaderBuilder(false) }) {
         ListItem() {
           Tabs({ index: this.currentIndex, controller: this.categoryTabController }) {
             ForEach(this.practiceState.sampleCategories, (sampleCategory: SampleCategory) => {
@@ -174,7 +189,7 @@ export struct PracticesView {
         }
       }
       .padding({
-        left: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? CommonConstants.TAB_BAR_WIDTH : 0,
+        left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? CommonConstants.TAB_BAR_WIDTH : 0,
       })
     }
     .scrollBar(BarState.Off)
@@ -208,27 +223,56 @@ export struct PracticesView {
     FullScreenNavigation({
       topNavigationData: this.practiceState.topNavigationData,
       tabView: () => {
-        this.CategoryHeaderBuilder()
+        this.CategoryHeaderBuilder(true)
+      },
+    })
+  }
+
+  @Builder
+  PracticeContentView() {
+    BaseHomeView({
+      loadingModel: this.practiceState.loadingModel,
+      contentView: () => {
+        this.ContentViewBuilder()
+      },
+      topTitleView: () => {
+        this.TopTitleViewBuilder()
+      },
+      reloadData: () => {
+        this.viewModel.sendEvent({ type: PracticeEventType.LOAD_SAMPLE_PAGE, param: null });
       },
     })
   }
 
   build() {
-    Navigation(this.samplePageContext.navPathStack) {
-      BaseHomeView({
-        loadingModel: this.practiceState.loadingModel,
-        contentView: () => {
-          this.ContentViewBuilder()
-        },
-        topTitleView: () => {
-          this.TopTitleViewBuilder()
-        },
-        reloadData: () => {
-          this.viewModel.sendEvent({ type: PracticeEventType.LOAD_SAMPLE_PAGE, param: null });
-        },
+    if (VersionUtil.canUseHds()) {
+      HdsNavigation(this.samplePageContext.navPathStack) {
+        this.PracticeContentView();
+      }
+      .mode(NavigationMode.Stack)
+      .hideBackButton(true)
+      .titleMode(HdsNavigationTitleMode.MINI)
+      .bindToScrollable([this.listScroller])
+      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+      .titleBar({
+        padding: this.practiceState.topNavigationData.hdsTitleBarPadding,
+        avoidLayoutSafeArea: true,
+        style: this.practiceState.topNavigationData.hdsTitleBarStyle,
+        content: {
+          title: { mainTitle: this.practiceState.topNavigationData.title },
+          bottomBuilder: this.practiceState.showTab ? {
+            builder: () => {
+              this.CategoryHeaderBuilder(true, this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG);
+            },
+          } : undefined,
+        }
       })
+    } else {
+      Navigation(this.samplePageContext.navPathStack) {
+        this.PracticeContentView();
+      }
+      .mode(NavigationMode.Stack)
+      .hideTitleBar(true)
     }
-    .mode(NavigationMode.Stack)
-    .hideTitleBar(true)
   }
 }

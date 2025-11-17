@@ -15,7 +15,6 @@
 
 import {
   BaseVM,
-  BreakpointTypeEnum,
   CommonConstants,
   GlobalInfoModel,
   ModuleNameEnum,
@@ -50,7 +49,7 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   }
 
   public pop(animated?: boolean): void {
-    const pageContext: PageContext = this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ?
+    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
       AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
     pageContext.popPage(animated);
   }
@@ -67,7 +66,7 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
 
   private changeScrollDirection = (direction: string, offset: number): void => {
     const globalInfoModel: GlobalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO)!;
-    if (globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL) {
+    if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       return;
     }
     const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;

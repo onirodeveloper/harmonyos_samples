@@ -50,4 +50,7 @@ export class SampleCardData {
   public downloading: boolean = false;
   public downloadProgress: number = -1;
   public installed: boolean = false;
+  public isOverflow: boolean = false;
+  public cardOpenStatus: boolean = false;
+  public breakWordIndex: number = 0;
 }

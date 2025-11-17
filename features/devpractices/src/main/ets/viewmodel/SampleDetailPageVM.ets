@@ -20,14 +20,15 @@ import { moduleInstallManager } from '@kit.StoreKit';
 import {
   BaseVM,
   BaseVMEvent,
-  BreakpointTypeEnum,
   CommonConstants,
   DynamicInstallManager,
-  GlobalInfoModel,
   LoadingStatus,
   Logger,
-  PageContext,
+  SampleDistributionUtil,
   StorageKey,
+  TextOverflowData,
+  TextOverflowProperty,
+  TextOverflowUtil,
   Toast,
 } from '@ohos/common';
 import { SampleCardData, SampleDetailData, SampleDetailState } from './SampleDetailState';
@@ -41,6 +42,7 @@ const TAG = '[SampleDetailPageVM]';
 export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
   private static instance: SampleDetailPageVM;
   private sampleDetailModel = SampleDetailModel.getInstance();
+  private currentPathStack?: NavPathStack;
 
   private constructor() {
     super(new SampleDetailState());
@@ -70,6 +72,12 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       this.setInstalledStatus(baseVMEvent);
     } else if (baseVMEvent instanceof InitSampleDetailEvent) {
       this.initSampleDetail(baseVMEvent);
+    } else if (baseVMEvent instanceof AssignPathStackEvent) {
+      this.currentPathStack = baseVMEvent.navPathStack;
+    } else if (baseVMEvent instanceof SetOverflowStatusEvent) {
+      this.setOverflowStatus(baseVMEvent);
+    } else if (baseVMEvent instanceof ChangeCardStatusEvent) {
+      this.changeCardStatus(baseVMEvent);
     }
   }
 
@@ -120,11 +128,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       }
       emitter.off(CommonConstants.DYNAMIC_INSTALL_EVENT);
       Logger.info(TAG, 'cancelDownloadListener success');
-      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-      const pageContext: PageContext =
-        globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
-          AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
-      pageContext.popPage();
+      this.currentPathStack?.pop();
     }
   }
 
@@ -134,6 +138,10 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
     this.sampleDetailModel.getSampleCardDetails(sampleCardId).then((result: SingleSampleData[]) => {
       this.state.sampleCount = result.length;
       result.forEach((singleSampleData: SingleSampleData) => {
+        if (!SampleDistributionUtil.checkSampleSupport(singleSampleData.requiredApiVersion,
+          singleSampleData.supportDeviceList)) {
+          return;
+        }
         const sampleData: SampleDetailData = new SampleDetailData();
         sampleData.sampleCard = new SampleCardData();
         sampleData.id = sampleData.sampleCard.sampleId = singleSampleData.id;
@@ -155,7 +163,6 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       });
       this.state.sampleDatas = sampleDetailData;
       this.initDownloadListener();
-      this.state.loadingStatus = LoadingStatus.SUCCESS;
     }).catch(() => {
       this.state.loadingStatus = LoadingStatus.FAILED;
     });
@@ -276,6 +283,32 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
   private setInstallingStatus(installing: boolean): void {
     this.state.installingStatus = installing;
   }
+
+  private setOverflowStatus(event: SetOverflowStatusEvent) {
+    this.reSetOverflowStatus(event.indexOfSwiper);
+    const textOverflowOptions: TextOverflowProperty = {
+      constraintWidth: event.area.width,
+      fontSize: $r('sys.float.Subtitle_S'),
+      fontWeight: FontWeight.Regular,
+      lineHeight: $r('app.float.cardsubtitle_lineheight'),
+      wordBreak: WordBreak.BREAK_ALL,
+    };
+    const textOverflowData: TextOverflowData =
+      TextOverflowUtil.getOverflowData(event.uiContext, this.state.sampleDatas[event.indexOfSwiper].sampleCard.desc,
+        SampleDetailConstant.SUBTITLE_MAXLINE, textOverflowOptions);
+    this.state.sampleDatas[event.indexOfSwiper].sampleCard.isOverflow = textOverflowData.overflowStatus;
+    this.state.loadingStatus = LoadingStatus.SUCCESS;
+  }
+
+  private reSetOverflowStatus(indexOfSwiper: number) {
+    this.state.sampleDatas[indexOfSwiper].sampleCard.isOverflow = false;
+    this.state.sampleDatas[indexOfSwiper].sampleCard.breakWordIndex = 0;
+  }
+
+  private changeCardStatus(event: ChangeCardStatusEvent): void {
+    this.state.sampleDatas[event.indexOfSwiper].sampleCard.cardOpenStatus =
+      !this.state.sampleDatas[event.indexOfSwiper].sampleCard.cardOpenStatus;
+  }
 }
 
 export class BindSheetEvent implements BaseVMEvent {
@@ -320,6 +353,26 @@ export class ChangeDownloadProgressEvent implements BaseVMEvent {
 export class PopEvent implements BaseVMEvent {
 }
 
+export class SetOverflowStatusEvent implements BaseVMEvent {
+  public readonly uiContext: UIContext;
+  public readonly area: Area;
+  public readonly indexOfSwiper: number;
+
+  public constructor(uiContext: UIContext, area: Area, indexOfSwiper: number) {
+    this.uiContext = uiContext;
+    this.area = area;
+    this.indexOfSwiper = indexOfSwiper;
+  }
+}
+
+export class ChangeCardStatusEvent implements BaseVMEvent {
+  public readonly indexOfSwiper: number;
+
+  public constructor(indexOfSwiper: number) {
+    this.indexOfSwiper = indexOfSwiper;
+  }
+}
+
 export class SetIndexEvent implements BaseVMEvent {
   public readonly currentIndex: number;
 
@@ -343,5 +396,13 @@ export class InitSampleDetailEvent implements BaseVMEvent {
   public constructor(sampleCardId: number, currentIndex: number) {
     this.sampleCardId = sampleCardId;
     this.currentIndex = currentIndex;
+  }
+}
+
+export class AssignPathStackEvent implements BaseVMEvent {
+  public readonly navPathStack: NavPathStack;
+
+  constructor(navPathStack: NavPathStack) {
+    this.navPathStack = navPathStack;
   }
 }

@@ -16,7 +16,7 @@
 import { GlobalInfoModel, StorageKey } from '@ohos/common';
 import { BreakpointType, CommonConstants } from '@ohos/common';
 import type { ComponentCardData, ComponentContent } from '../model/ComponentData';
-import { ComponentItem } from './ComponentItem';
+import { ComponentItemList } from './ComponentItemList';
 
 @Reusable
 @Component
@@ -49,17 +49,13 @@ export struct ListCard {
       .alignItems(HorizontalAlign.Start)
       .height(CommonConstants.NAVIGATION_HEIGHT)
 
-      Repeat(this.componentCardData?.cardContents)
-        .each((repeatItem: RepeatItem<ComponentContent>) => {
-          ComponentItem({
-            componentContent: repeatItem.item,
-            showDivider: repeatItem.index !== 0,
-          })
-            .onClick(() => {
-              this.handleItemClick?.(repeatItem.item);
-            })
-        })
-        .key((componentContent: ComponentContent) => componentContent.id.toString())
+      ComponentItemList({
+        cardContents: this.componentCardData?.cardContents,
+        widthBreakpoint: this.globalInfoModel.widthBreakpoint,
+        handleItemClick: (item: ComponentContent) => {
+          this.handleItemClick?.(item);
+        }
+      })
     }
     .backgroundColor($r('sys.color.comp_background_primary'))
     .border({
@@ -76,7 +72,7 @@ export struct ListCard {
         sm: $r('sys.float.padding_level2'),
         md: $r('sys.float.padding_level4'),
         lg: $r('sys.float.padding_level4')
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.globalInfoModel.widthBreakpoint),
     })
   }
 }

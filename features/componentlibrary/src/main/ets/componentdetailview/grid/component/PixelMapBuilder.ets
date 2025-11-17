@@ -16,10 +16,10 @@
 import type { ItemData } from '../entity/GridAttributeMapping';
 
 @Builder
-export function pixelMapBuilder($$: ItemData) {
-  Text($$.text)
+export function pixelMapBuilder(item: ItemData) {
+  Text(item.text)
     .fontSize($r('sys.float.Body_L'))
-    .size({ width: $$.width, height: $$.height })
+    .size({ width: item.width, height: item.height })
     .fontColor($r('sys.color.icon_emphasize'))
     .textAlign(TextAlign.Center)
     .backgroundColor($r('sys.color.comp_background_primary'))

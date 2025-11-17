@@ -23,6 +23,22 @@
     {
       "name": "app_icon_width",
       "value": "24vp"
+    },
+    {
+      "name": "list_logo_size_sm",
+      "value": "14vp"
+    },
+    {
+      "name": "list_divider_margin",
+      "value": "6vp"
+    },
+    {
+      "name": "order_image_size",
+      "value": "16vp"
+    },
+    {
+      "name": "lock_screen_icon_size",
+      "value": "32vp"
     }
   ]
 }

@@ -24,11 +24,14 @@ const TAG = '[BundleManagerUtil]';
 export class BundleManagerUtil {
   public static getBundleInfo(): void {
     try {
-      bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT)
+      bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION)
         .then((bundleInfo: bundleManager.BundleInfo) => {
           Logger.debug(TAG, `getBundleInfoForSelf successed. ${bundleInfo}`);
-          AppStorage.setOrCreate(StorageKey.BUNDLE_INFO,
-            new BundleInfoData(bundleInfo.versionName, bundleInfo.versionCode, bundleInfo.name));
+          const appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo;
+          const bundleInfoData: BundleInfoData =
+            new BundleInfoData(appInfo.labelResource, appInfo.iconResource, bundleInfo.versionName,
+              bundleInfo.versionCode, bundleInfo.name);
+          AppStorage.setOrCreate(StorageKey.BUNDLE_INFO, bundleInfoData);
         });
     } catch (err) {
       const error = err as BusinessError;

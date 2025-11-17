@@ -14,8 +14,9 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { GlobalInfoModel, PageContext, StorageKey } from '@ohos/common';
-import { BreakpointType, CommonConstants } from '@ohos/common';
+import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
+import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { BreakpointType, CommonConstants, StorageKey, VersionUtil } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -45,7 +46,7 @@ export struct ComponentListView {
   viewModel: ComponentListViewModel = ComponentListViewModel.getInstance();
   @State componentListState: ComponentListState = this.viewModel.getState();
   private componentListPageContext: PageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
-  private scroller: Scroller = new Scroller();
+  scroller: Scroller = new Scroller();
 
   aboutToAppear(): void {
     this.viewModel.sendEvent({ type: ComponentListEventType.LOAD_COMPONENT_PAGE, param: null });
@@ -105,6 +106,7 @@ export struct ComponentListView {
           if (item.cardStyleType === CardStyleTypeEnum.PICTURE_ABOVE_LIST) {
             PictureListCard({
               componentCardData: item,
+              widthBreakpoint: this.globalInfoModel.widthBreakpoint,
               handleItemClick: (componentContent: ComponentContent) => {
                 this.jumpComponentDetailView(componentContent);
               },
@@ -119,7 +121,12 @@ export struct ComponentListView {
             })
               .reuseId(CardStyleTypeEnum.LIST.toString())
           } else {
-            CodeLabCard({ componentCardData: item })
+            CodeLabCard({
+              componentCardData: item,
+              handleClickAction: () => {
+                this.jumpCodelabDetailView(item);
+              },
+            })
               .reuseId(CardStyleTypeEnum.PICTURE.toString())
               .onClick(() => {
                 this.jumpCodelabDetailView(item);
@@ -138,7 +145,7 @@ export struct ComponentListView {
             sm: CommonConstants.TAB_BAR_HEIGHT,
             md: CommonConstants.TAB_BAR_HEIGHT,
             lg: 0,
-          }).getValue(this.globalInfoModel.currentBreakpoint))),
+          }).getValue(this.globalInfoModel.widthBreakpoint))),
       })
     }
     .columnsGap(new BreakpointType({
@@ -146,13 +153,13 @@ export struct ComponentListView {
       md: $r('sys.float.padding_level6'),
       lg: $r('sys.float.padding_level8'),
       xl: $r('sys.float.padding_level8'),
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .rowsGap(new BreakpointType({
       sm: $r('sys.float.padding_level8'),
       md: $r('sys.float.padding_level6'),
       lg: $r('sys.float.padding_level8'),
       xl: $r('sys.float.padding_level12')
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .edgeEffect(this.componentListState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
       const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset().yOffset };
@@ -183,23 +190,49 @@ export struct ComponentListView {
     })
   }
 
+  @Builder
+  ComponentContentView() {
+    BaseHomeView({
+      loadingModel: this.componentListState.loadingModel,
+      contentView: () => {
+        this.ContentViewBuilder()
+      },
+      topTitleView: () => {
+        this.TopTitleViewBuilder()
+      },
+      reloadData: () => {
+        this.viewModel.sendEvent({ type: ComponentListEventType.LOAD_COMPONENT_PAGE, param: null });
+      },
+    })
+  }
+
   build() {
-    Navigation(this.componentListPageContext.navPathStack) {
-      BaseHomeView({
-        loadingModel: this.componentListState.loadingModel,
-        contentView: () => {
-          this.ContentViewBuilder()
-        },
-        topTitleView: () => {
-          this.TopTitleViewBuilder()
-        },
-        reloadData: () => {
-          this.viewModel.sendEvent({ type: ComponentListEventType.LOAD_COMPONENT_PAGE, param: null });
-        },
+    if (VersionUtil.canUseHds()) {
+      HdsNavigation(this.componentListPageContext.navPathStack) {
+        this.ComponentContentView();
+      }
+      .mode(NavigationMode.Stack)
+      .hideBackButton(true)
+      .titleMode(HdsNavigationTitleMode.MINI)
+      .bindToScrollable([this.scroller])
+      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+      .titleBar({
+        padding: this.componentListState.topNavigationData.hdsTitleBarPadding,
+        avoidLayoutSafeArea: true,
+        style: this.componentListState.topNavigationData.hdsTitleBarStyle,
+        content: {
+          title: { mainTitle: this.componentListState.topNavigationData.title },
+        }
       })
+      .width('100%')
+      .height('100%')
+    } else {
+      Navigation(this.componentListPageContext.navPathStack) {
+        this.ComponentContentView()
+      }
+      .defaultFocus(true)
+      .mode(NavigationMode.Stack)
+      .hideTitleBar(true)
     }
-    .defaultFocus(true)
-    .mode(NavigationMode.Stack)
-    .hideTitleBar(true)
   }
 }

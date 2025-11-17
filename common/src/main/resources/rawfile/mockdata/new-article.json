@@ -1,0 +1,10 @@
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "currentPage": 1,
+    "pageSize": 30,
+    "totalSize": "0",
+    "data": []
+  }
+}

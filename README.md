@@ -143,8 +143,17 @@ animationcollectionsample、audiointeractionsample、componentstacksample、cust
 4. HarmonyOS SDK版本：HarmonyOS 5.1.0 Release SDK及以上。
 
 ## 七、版本更新说明
-【鸿蒙新特性】本次公测新增6个创新案例，欢迎体验： 
+【V1.0.1.100】版本更新
+- 代码工坊锁屏卡片需求
+- 我的页面集成问题与建议模块
+- 代码工坊服务卡片适配
+- 代码工坊集成6.0HDS组件
+- 我的页面新增内容上新模块
+- 代码工坊快捷入口需求
+- Sample卡片支持展开
+- 样例页新增AI类sample
 
+【鸿蒙新特性】新增6个创新案例，欢迎体验：
 - 「HarmonyOS代码工坊」本体（支持华为穿戴设备、手机、折叠屏、平板、PC/2in1）。
 - MateXT适配案例：备忘录&日历。
 - PuraX适配案例：内外屏沉浸式扩感导航。

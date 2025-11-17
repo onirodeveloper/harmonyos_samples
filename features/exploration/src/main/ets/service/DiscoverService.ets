@@ -41,41 +41,37 @@ export class DiscoverService {
   getDiscoveryPageByPreference(): Promise<DiscoverData> {
     return new Promise((resolve: (value: DiscoverData) => void,
       reject: (reason?: string) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, DiscoverData>>(DiscoverTrigger.DISCOVER_PAGE)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, DiscoverData>);
-          const ret = resp[DiscoverTrigger.DISCOVER_PAGE];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        });
+      const result: Record<string, DiscoverData> = PreferenceManager.getInstance()
+        .getValue<Record<string, DiscoverData>>(DiscoverTrigger.DISCOVER_PAGE) as Record<string, DiscoverData>;
+      if (!result) {
+        reject('There is no data in the Preference');
+      }
+      const ret = result[DiscoverTrigger.DISCOVER_PAGE];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
     });
   }
 
   setDiscoveryPageToPreference(data: DiscoverData): Promise<void> {
-    return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(DiscoverTrigger.DISCOVER_PAGE)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, DiscoverData>>(DiscoverTrigger.DISCOVER_PAGE)
-              .then((resp) => {
-                resp = (resp as Record<string, DiscoverData>);
-                resp[DiscoverTrigger.DISCOVER_PAGE] = data;
-                PreferenceManager.getInstance().setValue(DiscoverTrigger.DISCOVER_PAGE, resp);
-                resolve();
-              });
-          } else {
-            const record: Record<string, DiscoverData> = {};
-            record[DiscoverTrigger.DISCOVER_PAGE] = data;
-            PreferenceManager.getInstance().setValue(DiscoverTrigger.DISCOVER_PAGE, record);
-          }
-        });
+    return new Promise((resolve: () => void, reject: (reason?: string) => void) => {
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(DiscoverTrigger.DISCOVER_PAGE);
+      if (hasValue) {
+        const result: Record<string, DiscoverData> = PreferenceManager.getInstance()
+          .getValue<Record<string, DiscoverData>>(DiscoverTrigger.DISCOVER_PAGE) as Record<string, DiscoverData>;
+        if (!result) {
+          reject('There is no data in the Preference');
+        }
+        result[DiscoverTrigger.DISCOVER_PAGE] = data;
+        PreferenceManager.getInstance().setValue(DiscoverTrigger.DISCOVER_PAGE, result);
+        resolve();
+
+      } else {
+        const record: Record<string, DiscoverData> = {};
+        record[DiscoverTrigger.DISCOVER_PAGE] = data;
+        PreferenceManager.getInstance().setValue(DiscoverTrigger.DISCOVER_PAGE, record);
+      }
     });
   }
 }

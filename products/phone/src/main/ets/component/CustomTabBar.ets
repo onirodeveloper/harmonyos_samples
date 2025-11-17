@@ -58,7 +58,7 @@ export struct CustomTabBar {
         sm: FlexDirection.ColumnReverse,
         md: FlexDirection.ColumnReverse,
         lg: FlexDirection.Row,
-      }).getValue(this.globalInfoModel.currentBreakpoint),
+      }).getValue(this.globalInfoModel.widthBreakpoint),
       alignItems: ItemAlign.Center,
     }) {
       Flex({
@@ -66,7 +66,7 @@ export struct CustomTabBar {
           sm: FlexDirection.Row,
           md: FlexDirection.Row,
           lg: FlexDirection.Column,
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
         alignItems: ItemAlign.Center,
         justifyContent: FlexAlign.SpaceAround,
       }) {
@@ -78,13 +78,13 @@ export struct CustomTabBar {
         sm: { width: '100%', height: CommonConstants.TAB_BAR_HEIGHT },
         md: { width: '100%', height: CommonConstants.TAB_BAR_HEIGHT },
         lg: { width: CommonConstants.TAB_BAR_WIDTH, height: '50%' },
-      }).getValue(this.globalInfoModel.currentBreakpoint))
+      }).getValue(this.globalInfoModel.widthBreakpoint))
       .margin({
         bottom: new BreakpointType({
           sm: this.globalInfoModel.naviIndicatorHeight,
           md: this.globalInfoModel.naviIndicatorHeight,
           lg: 0,
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.globalInfoModel.widthBreakpoint),
       })
 
       Divider()
@@ -92,14 +92,14 @@ export struct CustomTabBar {
           sm: false,
           md: false,
           lg: true,
-        }).getValue(this.globalInfoModel.currentBreakpoint))
+        }).getValue(this.globalInfoModel.widthBreakpoint))
         .color($r('sys.color.comp_divider'))
     }
     .size(new BreakpointType<SizeOptions>({
       sm: { width: '100%', height: CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight },
       md: { width: '100%', height: CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight },
       lg: { width: CommonConstants.TAB_BAR_WIDTH, height: '100%' },
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.globalInfoModel.widthBreakpoint))
     .backgroundBlurStyle(BlurStyle.COMPONENT_THICK)
     .renderGroup(this.blurRenderGroup)
   }

@@ -56,7 +56,6 @@ export class DetailPageConstant {
   // Page Area Size.
   public static PREVIEW_HEIGHT_SM: number = 284;
   public static PREVIEW_SUB_HEIGHT_SM: number = 230;
-  public static ATTRIBUTE_ITEM_HEIGHT: number = 56;
   public static TEXT_TIP_HEIGHT: number = 50;
   // Font line height.
   public static LINE_HEIGHT_LARGE: number = 16;

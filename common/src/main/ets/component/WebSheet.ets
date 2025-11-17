@@ -60,12 +60,12 @@ struct WebSheet {
             md: GITEE_TOP_HEIGHT_MD,
             lg: GITEE_TOP_HEIGHT_MD,
             xl: GITEE_TOP_HEIGHT_XL,
-          }).getValue(this.globalInfoModel.currentBreakpoint) : HARMONYOS_TOP_HEIGHT),
+          }).getValue(this.globalInfoModel.widthBreakpoint) : HARMONYOS_TOP_HEIGHT),
         })
       if (this.isLoading) {
-        LoadingView(this.globalInfoModel.currentBreakpoint)
+        LoadingView(this.globalInfoModel.widthBreakpoint)
       } else if (this.loadFailed) {
-        NoNetworkView(this.globalInfoModel.currentBreakpoint, () => {
+        NoNetworkView(this.globalInfoModel.widthBreakpoint, () => {
           this.checkWebLoaded();
         })
       }

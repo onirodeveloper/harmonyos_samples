@@ -21,7 +21,7 @@ import type { BannerData } from '../model/BannerData';
 @Reusable
 @Component
 export struct BannerItem {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @Prop @Require widthBreakpoint: WidthBreakpoint;
   @State bannerData?: BannerData = undefined;
 
   aboutToReuse(params: Record<string, BannerData>): void {
@@ -60,17 +60,17 @@ export struct BannerItem {
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level8'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.widthBreakpoint),
         right: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
           md: $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level8'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.widthBreakpoint),
         bottom: new BreakpointType({
           sm: $r('sys.float.padding_level16'),
           md: $r('sys.float.padding_level16'),
           lg: $r('sys.float.padding_level8'),
-        }).getValue(this.globalInfoModel.currentBreakpoint),
+        }).getValue(this.widthBreakpoint),
       })
       .height($r('app.float.banner_info_height'))
       .width('100%')
@@ -84,7 +84,7 @@ export struct BannerItem {
       md: 0,
       lg: $r('sys.float.corner_radius_level8'),
       xl: $r('sys.float.corner_radius_level8'),
-    }).getValue(this.globalInfoModel.currentBreakpoint))
+    }).getValue(this.widthBreakpoint))
     .clip(true)
   }
 }

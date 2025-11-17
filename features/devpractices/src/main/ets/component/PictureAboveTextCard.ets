@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import { BreakpointType, BreakpointTypeEnum, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
+import { CardStyleTypeEnum, TagTipLabel } from '@ohos/commonbusiness';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { CardStyleTypeEnum } from '@ohos/commonbusiness';
 
 const IMAGE_SIZE: number = 40;
 const TAG_PADDING: number = 32;
@@ -29,6 +29,7 @@ export struct PictureAboveTextCard {
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE)!;
   @Prop sampleCardData: SampleCardData;
+  @Prop @Require widthBreakPoint: WidthBreakpoint;
   @State sampleContent?: SampleContent = undefined;
   @State maxWidth: number = 0;
 
@@ -43,82 +44,87 @@ export struct PictureAboveTextCard {
       md: 0,
       lg: CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SIDE_BAR_WIDTH,
-    }).getValue(this.globalInfoModel.currentBreakpoint);
+    }).getValue(this.globalInfoModel.widthBreakpoint);
     const paddingVal = new BreakpointType({
       sm: CommonConstants.SPACE_16,
-      md: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? CommonConstants.SPACE_32 :
-      CommonConstants.SPACE_24,
+      md: CommonConstants.SPACE_24,
       lg: CommonConstants.SPACE_32,
       xl: CommonConstants.SPACE_32,
-    }).getValue(this.globalInfoModel.currentBreakpoint);
+    }).getValue(this.globalInfoModel.widthBreakpoint);
     const currentWidth: number = this.globalInfoModel.deviceWidth - barWidth;
     const count: number = new BreakpointType({
       sm: 1,
       md: 2,
       lg: 3,
       xl: 3,
-    }).getValue(this.globalInfoModel.currentBreakpoint);
+    }).getValue(this.globalInfoModel.widthBreakpoint);
     const gutter = CommonConstants.SPACE_16;
     this.maxWidth = Math.floor((currentWidth - paddingVal * 2 - gutter * (count - 1)) / count) - TAG_PADDING -
       IMAGE_SIZE - CommonConstants.SPACE_16;
   }
 
   build() {
-    Column() {
-      Row() {
-        Image($rawfile(this.sampleContent?.mediaUrl))
-          .alt($r('app.media.img_placeholder'))
-          .height('100%')
-          .width('100%')
-          .objectFit(ImageFit.Contain)
-          .draggable(true)
-      }
-      .justifyContent(FlexAlign.Center)
-      .width('100%')
-      .clip(true)
-      .layoutWeight(1)
-      .padding({ top: $r('sys.float.padding_level16'), bottom: $r('sys.float.padding_level8') })
-
-      Row() {
-        Column() {
-          Text(this.sampleContent?.title)
-            .fontSize($r('sys.float.Subtitle_M'))
-            .fontWeight(FontWeight.Medium)
-            .fontColor(this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-            $r('app.color.card_font_primary_color') : $r('sys.color.font_primary'))
-          TagLabel({
-            maxWidth: this.maxWidth,
-            tags: this.sampleContent?.tags || [],
-            cardStyleType: this.sampleCardData.cardStyleType
-          })
-        }
-        .alignItems(HorizontalAlign.Start)
-        .layoutWeight(1)
-
-        Button({
-          type: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.XL ? ButtonType.Normal :
-          ButtonType.Circle
-        }) {
-          SymbolGlyph($r('sys.symbol.chevron_right'))
-            .fontColor([this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-            $r('app.color.icon_secondary_color') : $r('sys.color.icon_secondary')])
-            .fontSize($r('sys.float.Title_M'))
-        }
-        .margin({ left: $r('sys.float.padding_level6') })
-        .height($r('app.float.card_button_height'))
-        .aspectRatio(1)
-        .borderRadius($r('sys.float.corner_radius_level4'))
-        .backgroundColor($r('sys.color.comp_background_tertiary'))
-      }
-      .padding({
-        left: $r('sys.float.padding_level8'),
-        right: $r('sys.float.padding_level8'),
-        top: $r('sys.float.padding_level6'),
-        bottom: $r('sys.float.padding_level10'),
+    Stack({ alignContent: Alignment.TopStart }) {
+      TagTipLabel({
+        tags: (this.sampleContent as SampleContent).tagIds,
+        newSymbol: $r('app.media.big_new'),
       })
-      .height($r('app.float.picture_card_content_height'))
-      .backgroundColor(this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-      $r('app.color.card_color') : $r('sys.color.comp_background_secondary'))
+        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+        .width(CommonConstants.FULL_PERCENT)
+      Column() {
+        Row() {
+          Image($rawfile(this.sampleContent?.mediaUrl))
+            .alt($r('app.media.img_placeholder'))
+            .height('100%')
+            .width('100%')
+            .objectFit(ImageFit.Contain)
+            .draggable(true)
+        }
+        .justifyContent(FlexAlign.Center)
+        .width('100%')
+        .clip(true)
+        .layoutWeight(1)
+        .padding({ top: $r('sys.float.padding_level16'), bottom: $r('sys.float.padding_level8') })
+
+        Row() {
+          Column() {
+            Text(this.sampleContent?.title)
+              .fontSize($r('sys.float.Subtitle_M'))
+              .fontWeight(FontWeight.Medium)
+              .fontColor(this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
+                $r('app.color.card_font_primary_color') : $r('sys.color.font_primary'))
+            TagLabel({
+              maxWidth: this.maxWidth,
+              tags: this.sampleContent?.tags || [],
+              cardStyleType: this.sampleCardData.cardStyleType
+            })
+          }
+          .alignItems(HorizontalAlign.Start)
+          .layoutWeight(1)
+
+          Button({ type: ButtonType.Normal }) {
+            SymbolGlyph($r('sys.symbol.chevron_right'))
+              .fontColor([this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
+                $r('app.color.icon_secondary_color') : $r('sys.color.icon_secondary')])
+              .fontSize($r('sys.float.Title_M'))
+          }
+          .margin({ left: $r('sys.float.padding_level6') })
+          .height($r('app.float.card_button_height'))
+          .aspectRatio(1)
+          .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+            $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level10'))
+          .backgroundColor($r('sys.color.comp_background_tertiary'))
+        }
+        .padding({
+          left: $r('sys.float.padding_level8'),
+          right: $r('sys.float.padding_level8'),
+          top: $r('sys.float.padding_level6'),
+          bottom: $r('sys.float.padding_level10'),
+        })
+        .height($r('app.float.picture_card_content_height'))
+        .backgroundColor(this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
+          $r('app.color.card_color') : $r('sys.color.comp_background_secondary'))
+      }
     }
     .clip(true)
     .backgroundColor($r('sys.color.comp_background_list_card'))

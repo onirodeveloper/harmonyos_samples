@@ -38,6 +38,10 @@ export class PageContext implements IPageContext {
     this.pathStack = new NavPathStack();
   }
 
+  public get navPathStack(): NavPathStack {
+    return this.pathStack;
+  }
+
   public replacePage(data: RouterParam, animated: boolean = true): void {
     try {
       this.pathStack.replacePath({
@@ -68,7 +72,11 @@ export class PageContext implements IPageContext {
     }
   }
 
-  public get navPathStack(): NavPathStack {
-    return this.pathStack;
+  public popPageByIndex(index: number, animated: boolean = true): void {
+    this.pathStack.popToIndex(index, animated);
+  }
+
+  public clear(animated: boolean = true): void {
+    this.pathStack.clear(animated);
   }
 }

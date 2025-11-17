@@ -49,45 +49,35 @@ export class ComponentLibraryService {
   public getComponentListByPreference(currentPage: number, pageSize: number): Promise<ResponseData<ComponentData>> {
     return new Promise((resolve: (value: ResponseData<ComponentData>) => void,
       reject: (reason?: string) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, ResponseData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, ResponseData<ComponentData>>);
-          const ret = resp[`${currentPage}_${pageSize}`];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        })
-        .catch((error: BusinessError) => {
-          Logger.error(TAG, `get getComponentListByPreference failed, error: ${error.code}, ${error.message}`);
-          reject(error.message);
-        });
+      let resp = PreferenceManager.getInstance()
+        .getValue<Record<string, ResponseData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA);
+      if (!resp) {
+        reject('There is no data in the Preference');
+      }
+      resp = (resp as Record<string, ResponseData<ComponentData>>);
+      const ret = resp[`${currentPage}_${pageSize}`];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
     });
   }
 
   public setComponentListToPreference(data: ResponseData<ComponentData>): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(ComponentLibraryService.MAIN_PAGE_DATA)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, ResponseData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA)
-              .then((resp) => {
-                resp = (resp as Record<string, ResponseData<ComponentData>>);
-                resp[`${data.currentPage}_${data.pageSize}`] = data;
-                PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, resp);
-                resolve();
-              });
-          } else {
-            const record: Record<string, ResponseData<ComponentData>> = {};
-            record[`${data.currentPage}_${data.pageSize}`] = data;
-            PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, record);
-          }
-        });
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(ComponentLibraryService.MAIN_PAGE_DATA);
+      if (hasValue) {
+        let resp = PreferenceManager.getInstance()
+          .getValue<Record<string, ResponseData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA);
+        resp = (resp as Record<string, ResponseData<ComponentData>>);
+        resp[`${data.currentPage}_${data.pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, resp);
+        resolve();
+      } else {
+        const record: Record<string, ResponseData<ComponentData>> = {};
+        record[`${data.currentPage}_${data.pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, record);
+      }
     });
   }
 
@@ -108,67 +98,57 @@ export class ComponentLibraryService {
   public getComponentDetailByPreference(componentId: number): Promise<ComponentDetailData> {
     return new Promise((resolve: (value: ComponentDetailData) => void,
       reject: (reason?: Object) => void) => {
-      PreferenceManager.getInstance()
-        .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA)
-        .then((resp) => {
-          if (!resp) {
-            reject('There is no data in the Preference');
-          }
-          resp = (resp as Record<string, ComponentDetailData>)
-          const ret = resp[String(componentId)];
-          if (!ret) {
-            reject('There is no data in the Preference');
-          }
-          resolve(ret);
-        });
+      let resp = PreferenceManager.getInstance()
+        .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA);
+      if (!resp) {
+        reject('There is no data in the Preference');
+      }
+      resp = (resp as Record<string, ComponentDetailData>)
+      const ret = resp[String(componentId)];
+      if (!ret) {
+        reject('There is no data in the Preference');
+      }
+      resolve(ret);
     });
   }
 
   public setComponentDetailToPreference(componentId: number, data: ComponentDetailData): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(ComponentLibraryService.DETAIL_PAGE_DATA)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA)
-              .then((resp) => {
-                resp = (resp as Record<string, ComponentDetailData>);
-                resp[String(componentId)] = data;
-                PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, resp);
-                resolve();
-              })
-          } else {
-            const record: Record<string, ComponentDetailData> = {};
-            record[String(componentId)] = data;
-            PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
-          }
-        });
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(ComponentLibraryService.DETAIL_PAGE_DATA);
+      if (hasValue) {
+        let resp = PreferenceManager.getInstance()
+          .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA);
+        resp = (resp as Record<string, ComponentDetailData>);
+        resp[String(componentId)] = data;
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, resp);
+        resolve();
+      } else {
+        const record: Record<string, ComponentDetailData> = {};
+        record[String(componentId)] = data;
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
+      }
     });
   }
 
   public setDetailsToPreference(details: ComponentDetailData[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      PreferenceManager.getInstance().hasValue(ComponentLibraryService.DETAIL_PAGE_DATA)
-        .then((result) => {
-          if (result) {
-            PreferenceManager.getInstance()
-              .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA)
-              .then((resp: Record<string, ComponentDetailData> | null) => {
-                const record: Record<string, ComponentDetailData> = resp || {};
-                details.forEach((detail: ComponentDetailData) => {
-                  record[String(detail.id)] = detail;
-                })
-                PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
-                resolve();
-              })
-          } else {
-            const record: Record<string, ComponentDetailData> = {};
-            details.forEach((detail: ComponentDetailData) => {
-              record[String(detail.id)] = detail;
-            });
-            PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
-          }
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(ComponentLibraryService.DETAIL_PAGE_DATA);
+      if (hasValue) {
+        const resp = PreferenceManager.getInstance()
+          .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA);
+        const record: Record<string, ComponentDetailData> = resp || {};
+        details.forEach((detail: ComponentDetailData) => {
+          record[String(detail.id)] = detail;
+        })
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
+        resolve();
+      } else {
+        const record: Record<string, ComponentDetailData> = {};
+        details.forEach((detail: ComponentDetailData) => {
+          record[String(detail.id)] = detail;
         });
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
+      }
     });
   }
 

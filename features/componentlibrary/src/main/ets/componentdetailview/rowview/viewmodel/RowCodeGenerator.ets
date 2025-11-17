@@ -18,14 +18,12 @@ import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 import {
   paddingNumMapData,
   rowAlignMapData,
-  rowJustifyContentMapData,
   rowPaddingMapData,
   rowSpaceMapData,
 } from '../entity/RowAttributeMapping';
 
 export class RowCodeGenerator implements CommonCodeGenerator {
   private alignItems: string = rowAlignMapData.get('Default')!.code;
-  private flexAlign: string = rowJustifyContentMapData.get('Default')!.code;
   private space: string = rowSpaceMapData.get('Default')!.code;
   private padding: string = rowPaddingMapData.get('Default')!.code;
   private paddingNum: string = paddingNumMapData.get('Default')!.code;
@@ -35,9 +33,6 @@ export class RowCodeGenerator implements CommonCodeGenerator {
       switch (attribute.name) {
         case 'alignItems':
           this.alignItems = rowAlignMapData.get(attribute.currentValue)?.code ?? this.alignItems;
-          break;
-        case 'flexAlign':
-          this.flexAlign = rowJustifyContentMapData.get(attribute.currentValue)?.code ?? this.flexAlign;
           break;
         case 'space':
           this.space = attribute.currentValue;
@@ -64,8 +59,10 @@ export class RowCodeGenerator implements CommonCodeGenerator {
       left: ${this.paddingNum},
       right: ${this.paddingNum}
     })`;
-    } else {
+    } else if (this.padding === 'All') {
       codeStr = `.padding(${this.paddingNum})`;
+    } else {
+      codeStr = ``;
     }
 
     return `@Component
@@ -85,14 +82,11 @@ struct RowComponent {
         .backgroundColor($r('sys.color.comp_background_emphasize'))
         .borderRadius($r('sys.float.corner_radius_level4'))
     }
-    .width('${this.padding === 'None' ? '80%' : 'auto'}')
-    .height('${this.padding === 'None' ? '50%' : 'auto'}')
-    ${codeStr}
     .alignItems(${this.alignItems})
-    .justifyContent(${this.flexAlign})
     .borderRadius($r('sys.float.corner_radius_level6'))
     .border({ width: 1, color: $r('sys.color.comp_background_emphasize') })
+    ${codeStr}
   }
-}`;
+}`.replace(/^\s*[\r\n]/gm, '');
   }
 }

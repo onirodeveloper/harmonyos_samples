@@ -15,7 +15,6 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
-import { rowJustifyContentMapData } from '../../rowview/entity/RowAttributeMapping';
 import {
   columnAlignMapData,
   columnPaddingMapData,
@@ -25,7 +24,6 @@ import {
 
 export class ColumnCodeGenerator implements CommonCodeGenerator {
   private alignItems: string = columnAlignMapData.get('Default')!.code;
-  private flexAlign: string = rowJustifyContentMapData.get('Default')!.code;
   private space: string = columnSpaceMapData.get('Default')!.code;
   private padding: string = columnPaddingMapData.get('Default')!.code;
   private paddingNum: string = paddingNumMapData.get('Default')!.code;
@@ -35,9 +33,6 @@ export class ColumnCodeGenerator implements CommonCodeGenerator {
       switch (attribute.name) {
         case 'alignItems':
           this.alignItems = columnAlignMapData.get(attribute.currentValue)?.code ?? this.alignItems;
-          break;
-        case 'flexAlign':
-          this.flexAlign = rowJustifyContentMapData.get(attribute.currentValue)?.code ?? this.flexAlign;
           break;
         case 'space':
           this.space = attribute.currentValue;
@@ -64,8 +59,10 @@ export class ColumnCodeGenerator implements CommonCodeGenerator {
       left: ${this.paddingNum},
       right: ${this.paddingNum}
      })`;
-    } else {
+    } else if (this.padding === 'All') {
       codeOne = `.padding(${this.paddingNum})`;
+    } else {
+      codeOne = ``;
     }
     return `@Component
 struct ColumnComponent {
@@ -85,13 +82,10 @@ struct ColumnComponent {
         .borderRadius($r('sys.float.corner_radius_level4'))
     }
     .alignItems(${this.alignItems})
-    .justifyContent(${this.flexAlign})
     .borderRadius($r('sys.float.corner_radius_level6'))
-    .width('${this.padding === 'None' ? '50%' : 'auto'}')
-    .height('${this.padding === 'None' ? '90%' : 'auto'}')
     .border({ width: 1, color: $r('sys.color.comp_background_emphasize') })
     ${codeOne}
   }
-}`;
+}`.replace(/^\s*[\r\n]/gm, '');
   }
 }

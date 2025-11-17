@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, LoadingModel, StorageKey } from '@ohos/common';
-import { LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView } from '@ohos/common';
+import type { GlobalInfoModel, LoadingModel } from '@ohos/common';
+import { LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView, StorageKey, VersionUtil } from '@ohos/common';
 
 @Component
 export struct BaseHomeView {
@@ -29,18 +29,20 @@ export struct BaseHomeView {
       if (this.loadingModel.loadingStatus === LoadingStatus.SUCCESS) {
         this.contentView()
       } else if (this.loadingModel.loadingStatus === LoadingStatus.FAILED) {
-        LoadingFailedView(this.globalInfoModel.currentBreakpoint, () => {
+        LoadingFailedView(this.globalInfoModel.widthBreakpoint, () => {
           this.reloadData?.();
         })
       } else if (this.loadingModel.loadingStatus === LoadingStatus.LOADING) {
-        LoadingView(this.globalInfoModel.currentBreakpoint)
+        LoadingView(this.globalInfoModel.widthBreakpoint)
 
       } else if (this.loadingModel.loadingStatus === LoadingStatus.NO_NETWORK) {
-        NoNetworkView(this.globalInfoModel.currentBreakpoint, () => {
+        NoNetworkView(this.globalInfoModel.widthBreakpoint, () => {
           this.reloadData?.();
         })
       }
-      this.topTitleView()
+      if (!VersionUtil.canUseHds()) {
+        this.topTitleView()
+      }
     }
     .backgroundColor($r('sys.color.background_secondary'))
     .width('100%')

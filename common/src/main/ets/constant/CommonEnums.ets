@@ -71,5 +71,7 @@ export enum StorageKey {
   COMPONENT_PAGE_CONTEXT = 'hmos_world_ComponentListPageContext',
   SAMPLE_PAGE_CONTEXT = 'hmos_world_SamplePageContext',
   EXPLORATION_PAGE_CONTEXT = 'hmos_world_ExplorationPageContext',
-  HOME_PAGE_CONTEXT = 'hmos_world_PageContext'
+  HOME_PAGE_CONTEXT = 'hmos_world_PageContext',
+  MINE_PAGE_CONTEXT = 'hmos_world_MinePageContext',
+  WANT_PARAMETERS = 'hmos_world_WantParams'
 }

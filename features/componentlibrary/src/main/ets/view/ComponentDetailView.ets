@@ -15,17 +15,22 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { displaySync } from '@kit.ArkGraphics2D';
+import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
 import {
+  BreakpointType,
   CommonConstants,
+  GlobalInfoModel,
   LoadingStatus,
   Logger,
   StorageKey,
   TopNavigationView,
+  VersionUtil,
   WebUtil,
   WindowUtil,
 } from '@ohos/common';
 import { BaseDetailComponent, ComponentDetailParams } from '@ohos/commonbusiness';
 import {
+  AssignPathStackEvent,
   ComponentDetailEvent,
   ComponentDetailEventType,
   ComponentDetailPageVM,
@@ -41,15 +46,16 @@ const TAG = '[ComponentDetailView]';
 
 @Component({ freezeWhenInactive: true })
 export struct ComponentDetailView {
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE)!;
   @StorageLink(StorageKey.WEB_LOADING) @Watch('sendCodeToWeb') webIsLoading: boolean = false;
   @Prop componentName: string = '';
   @Prop componentId: number = 0;
+  @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
   private displaySync = displaySync.create();
   private viewModel?: ComponentDetailPageVM;
   @State componentDetailState?: ComponentDetailState = this.viewModel?.getState();
-  @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
 
   aboutToAppear(): void {
     const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
@@ -61,6 +67,15 @@ export struct ComponentDetailView {
       this.componentDetailState?.recommends.forEach((item: RecommendData) => {
         WebUtil.removeNode(item.url);
       });
+    });
+  }
+
+  handleOnReady(ctx: NavDestinationContext) {
+    const params: ComponentDetailParams = ctx.pathInfo.param as ComponentDetailParams;
+    this.componentName = params.componentName as string;
+    this.componentId = Number(params.componentId);
+    CommonConstants.PROMISE_WAIT(500).then(() => {
+      this.assignViewData(ctx.pathStack);
     });
   }
 
@@ -80,40 +95,69 @@ export struct ComponentDetailView {
     })
   }
 
-  build() {
-    NavDestination() {
-      BaseDetailComponent({
-        detailContentView: () => {
-          this.DetailContentBuilder()
-        },
-        topTitleView: () => {
+  @Builder
+  ContentBuilder() {
+    BaseDetailComponent({
+      detailContentView: () => {
+        this.DetailContentBuilder()
+      },
+      topTitleView: () => {
+        if (!VersionUtil.canUseHds()) {
           this.TopTitleViewBuilder()
-        },
-        loadingStatus: this.loadingStatus,
-      })
-        .expandSafeArea([SafeAreaType.KEYBOARD, SafeAreaType.SYSTEM])
-    }
-    .hideTitleBar(true)
-    .height('100%')
-    .backgroundColor($r('sys.color.background_secondary'))
-    .onDisAppear(() => {
-      this.displaySync.stop();
+        }
+      },
+      loadingStatus: this.loadingStatus,
     })
-    .onReady((ctx: NavDestinationContext) => {
-      const params: ComponentDetailParams = ctx.pathInfo.param as ComponentDetailParams;
-      this.componentName = params.componentName as string;
-      this.componentId = Number(params.componentId);
-      CommonConstants.PROMISE_WAIT(500).then(() => {
-        this.assignViewData();
-      });
-    })
+      .expandSafeArea([SafeAreaType.KEYBOARD, SafeAreaType.SYSTEM])
   }
 
-  assignViewData() {
+  build() {
+    if (VersionUtil.canUseHds()) {
+      HdsNavDestination() {
+        this.ContentBuilder()
+      }
+      .hideBackButton(false)
+      .backgroundColor($r('sys.color.background_secondary'))
+      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+      .titleBar({
+        avoidLayoutSafeArea: true,
+        style: {
+          scrollEffectOpts: {
+            enableScrollEffect: new BreakpointType<boolean>({
+              sm: false,
+              md: true,
+              lg: true,
+            }).getValue(this.globalInfoModel.widthBreakpoint),
+          },
+        },
+        content: {
+          title: { mainTitle: this.componentDetailState?.topNavigationData.title || '' },
+        }
+      })
+      .onDisAppear(() => {
+        this.displaySync.stop();
+      })
+      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+    } else {
+      NavDestination() {
+        this.ContentBuilder()
+      }
+      .hideTitleBar(true)
+      .height('100%')
+      .backgroundColor($r('sys.color.background_secondary'))
+      .onDisAppear(() => {
+        this.displaySync.stop();
+      })
+      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+    }
+  }
+
+  assignViewData(pathStack: NavPathStack) {
     this.viewModel = ComponentDetailManager.getInstance().getDetailViewModel(this.componentName);
     if (!this.viewModel) {
       this.viewModel = new ComponentDetailPageVM(this.componentName);
     }
+    this.viewModel?.sendEvent(new AssignPathStackEvent(pathStack));
     const range: ExpectedFrameRateRange = { expected: 120, min: 60, max: 120 };
     this.displaySync.setExpectedFrameRateRange(range);
     let frameCount = 0;

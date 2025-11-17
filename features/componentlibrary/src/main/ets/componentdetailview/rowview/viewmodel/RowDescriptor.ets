@@ -18,7 +18,6 @@ import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
 import {
   paddingNumMapData,
   rowAlignMapData,
-  rowJustifyContentMapData,
   rowPaddingMapData,
   rowSpaceMapData,
 } from '../entity/RowAttributeMapping';
@@ -26,7 +25,6 @@ import {
 @Observed
 export class RowDescriptor extends CommonDescriptor {
   public alignItems: VerticalAlign = rowAlignMapData.get('Default')!.value;
-  public flexAlign: FlexAlign = rowJustifyContentMapData.get('Default')!.value;
   public space: number = rowSpaceMapData.get('Default')!.value;
   public padding: string = rowPaddingMapData.get('Default')!.value;
   public paddingNum: number = paddingNumMapData.get('Default')!.value;
@@ -36,9 +34,6 @@ export class RowDescriptor extends CommonDescriptor {
       switch (attribute.name) {
         case 'alignItems':
           this.alignItems = rowAlignMapData.get(attribute.currentValue)?.value ?? this.alignItems;
-          break;
-        case 'flexAlign':
-          this.flexAlign = rowJustifyContentMapData.get(attribute.currentValue)?.value ?? this.flexAlign;
           break;
         case 'space':
           this.space = Number(attribute.currentValue);

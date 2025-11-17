@@ -19,6 +19,7 @@ import { ArticleWebComponent } from '../component/ArticleWebComponent';
 import { DiscoverContent } from '../model/DiscoverData';
 import {
   ArticleDetailViewModel,
+  AssignPathStackParam,
   DetailParam,
   ExplorationDetailEventType,
   PopParam,
@@ -117,6 +118,12 @@ struct ArticleDetailView {
       this.discoverContent.id = params.id as number;
       this.discoverContent.detailsUrl = params.detailsUrl as string;
       this.discoverContent.title = params.title as string;
+      this.viewModel.sendEvent<AssignPathStackParam>({
+        type: ExplorationDetailEventType.ASSIGN_PATH_STACK,
+        param: {
+          navPathStack: cxt.pathStack
+        }
+      });
       this.viewModel.sendEvent<DetailParam>({
         type: ExplorationDetailEventType.GET_ARTICLE_DETAIL,
         param: {

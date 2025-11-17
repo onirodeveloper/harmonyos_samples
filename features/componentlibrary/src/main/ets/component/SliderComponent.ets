@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { HmosListItem } from '@ohos/common';
 import type { SliderComAttribute } from '../viewmodel/ComponentDetailState';
 
 /**
@@ -26,23 +27,10 @@ export struct SliderComponent {
 
   build() {
     Column() {
-      Row() {
-        Text(this.attribute.disPlayName)
-          .fontWeight(FontWeight.Medium)
-          .fontSize($r('sys.float.Subtitle_M'))
-          .fontColor($r('sys.color.font_primary'))
-        Blank()
-        Text(this.attribute.currentValue)
-          .fontWeight(FontWeight.Regular)
-          .fontSize($r('sys.float.Body_M'))
-          .fontColor($r('sys.color.font_secondary'))
-          .padding({ right: $r('sys.float.padding_level2') })
-      }
-      .height($r('app.float.common_component_height'))
-      .alignItems(VerticalAlign.Center)
-      .margin({ bottom: $r('sys.float.padding_level1') })
-      .width('100%')
-      .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
+      HmosListItem({
+        title: this.attribute.disPlayName,
+        desc: this.attribute.currentValue,
+      })
 
       Row() {
         Slider({
@@ -65,12 +53,13 @@ export struct SliderComponent {
           })
           .selectedColor($r('sys.color.comp_background_emphasize'))
           .trackThickness($r('app.float.common_component_track_thickness'))
-          .padding({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
           .width('100%')
       }
+      .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
       .height($r('app.float.common_component_height'))
       .width('100%')
     }
+    .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Start)
     .width('100%')

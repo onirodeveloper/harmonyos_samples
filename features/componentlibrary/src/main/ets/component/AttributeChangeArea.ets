@@ -21,7 +21,7 @@ import { SelectComponent } from './SelectComponent';
 import { SliderComponent } from './SliderComponent';
 import { ToggleComponent } from './ToggleComponent';
 import { OpacityComponent } from './OpacityComponent';
-import { ToggleButtonComponent } from './ToggleButtonComponent';
+import { SegmentButtonComponent } from './SegmentButtonComponent';
 import { AttributeTypeEnum } from '../viewmodel/AttributeTypeEnum';
 import {
   ColorPickerAttribute,
@@ -87,7 +87,7 @@ export struct AttributeChangeArea {
             if (item instanceof SelectComAttribute) {
               SelectComponent({ attribute: item, callback: this.eventCallback })
             } else if (item instanceof ToggleButtonAttribute) {
-              ToggleButtonComponent({ attribute: item, callback: this.eventCallback })
+              SegmentButtonComponent({ attribute: item, callback: this.eventCallback })
             } else if (item instanceof SliderComAttribute) {
               SliderComponent({ attribute: item, callback: this.eventCallback })
             } else if (item instanceof ToggleComAttribute) {

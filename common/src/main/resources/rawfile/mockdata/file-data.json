@@ -116,25 +116,18 @@
           "propertyValues": "[\"Start\",\"Center\",\"End\"]"
         },
         {
-          "propertyName": "flexAlign",
-          "propertyDesc": "竖向对齐",
-          "displayType": "enum",
-          "defaultProperty": "Center",
-          "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\"]"
-        },
-        {
           "propertyName": "space",
           "propertyDesc": "自定义间距",
           "displayType": "number",
           "defaultProperty": "6",
-          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+          "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
         },
         {
           "propertyName": "paddingNum",
           "propertyDesc": "自定义边距",
           "displayType": "number",
           "defaultProperty": "6",
-          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+          "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
         }
       ],
       "recommendList": [
@@ -165,25 +158,18 @@
           "propertyValues": "[\"Top\",\"Center\",\"Bottom\"]"
         },
         {
-          "propertyName": "flexAlign",
-          "propertyDesc": "横向对齐",
-          "displayType": "enum",
-          "defaultProperty": "Center",
-          "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\"]"
-        },
-        {
           "propertyName": "space",
           "propertyDesc": "自定义间距",
           "displayType": "number",
           "defaultProperty": "6",
-          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+          "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
         },
         {
           "propertyName": "paddingNum",
           "propertyDesc": "自定义边距",
           "displayType": "number",
           "defaultProperty": "6",
-          "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
+          "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
         }
       ],
       "recommendList": [

@@ -13,11 +13,10 @@
  * limitations under the License.
  */
 
-import { BreakpointTypeEnum } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 
 @Builder
-export function LoadingFailedView(breakpoint: BreakpointTypeEnum, handleReload?: () => void) {
+export function LoadingFailedView(breakpoint: WidthBreakpoint, handleReload?: () => void) {
   Row() {
     Column() {
       Image($r('app.media.ic_failure'))
