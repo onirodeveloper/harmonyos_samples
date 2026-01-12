@@ -33,8 +33,8 @@ const TAG: string = '[SplashPage]';
 @Component
 struct SplashPage {
   context: Context = this.getUIContext().getHostContext() as Context;
-  @StorageProp(StorageKey.BUNDLE_INFO) bundleInfo: BundleInfoData =
-    AppStorage.get(StorageKey.BUNDLE_INFO) as BundleInfoData;
+  @StorageProp(StorageKey.BUNDLE_INFO) @Watch('updateIcon') bundleInfo?: BundleInfoData =
+    AppStorage.get(StorageKey.BUNDLE_INFO);
   private pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
   private appPathInfo: NavPathStack = this.pageContext.navPathStack;
   private viewModel: SplashViewModel = new SplashViewModel();
@@ -47,7 +47,7 @@ struct SplashPage {
     WindowUtil.updateStatusBarColor(isSystemDark);
   }
 
-  aboutToAppear(): void {
+  async aboutToAppear(): Promise<void> {
     WindowUtil.updateStatusBarColor(true);
     this.viewModel.sendEvent(SplashEventTypeEnum.CHECK_FIRST_START);
     this.getUIContext().animateTo({
@@ -59,8 +59,12 @@ struct SplashPage {
     }, () => {
       this.viewModel.sendEvent(SplashEventTypeEnum.PRELOAD_RESOURCES);
     })
+    this.updateIcon();
+  }
+
+  private updateIcon() {
     this.drawableDescriptor =
-      ResourceUtil.getDrawableDescriptor(this.context, this.bundleInfo.iconResource.id);
+      ResourceUtil.getDrawableDescriptor(this.context, this.bundleInfo?.iconResource?.id);
   }
 
   @Builder
