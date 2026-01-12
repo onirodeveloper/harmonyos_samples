@@ -48,8 +48,11 @@ export class ResourceUtil {
    *
    * @param resource DrawableDescriptor.
    */
-  public static getDrawableDescriptor(context: Context, resourceId: number): DrawableDescriptor | undefined {
+  public static getDrawableDescriptor(context: Context, resourceId?: number): DrawableDescriptor | undefined {
     try {
+      if (!resourceId) {
+        return undefined;
+      }
       const drawableDescriptor: DrawableDescriptor = context.resourceManager.getDrawableDescriptor(resourceId);
       return drawableDescriptor;
     } catch (error) {
@@ -80,19 +83,6 @@ export class ResourceUtil {
   }
 
   /**
-   * Check whether the object is empty.
-   *
-   * @param obj Objects to be checked.
-   * @returns Return true if the object is empty or has no properties; Otherwise return false.
-   */
-  private static isEmptyObj(obj: Object): boolean {
-    if (obj === null || typeof obj !== 'object') {
-      return true;
-    }
-    return Object.keys(obj).length === 0;
-  }
-
-  /**
    * Get content from the raw file resource "hmos_web_config.json" by key.
    * @param context The base context of an ability or an application.
    * @param key The Json key value.
@@ -119,17 +109,6 @@ export class ResourceUtil {
       Logger.error(TAG, `GetRawFileContent failed, error code: ${error.code}, message: ${error.message}.`);
       return '';
     }
-  }
-
-  private static getDataByKey(content: ConfigMapData, key: ConfigMapKey): string {
-    if (key === ConfigMapKey.GALLERY_URL) {
-      return content.galleryUrl;
-    } else if (key === ConfigMapKey.MIIT_URL) {
-      return content.miitUrl;
-    } else if (key === ConfigMapKey.WHITELIST) {
-      return content.whitelist;
-    }
-    return '';
   }
 
   public static getColorDataByPath(mediaUrl: string): Promise<number[]> {
@@ -166,6 +145,30 @@ export class ResourceUtil {
         reject(error);
       });
     });
+  }
+
+  /**
+   * Check whether the object is empty.
+   *
+   * @param obj Objects to be checked.
+   * @returns Return true if the object is empty or has no properties; Otherwise return false.
+   */
+  private static isEmptyObj(obj: Object): boolean {
+    if (obj === null || typeof obj !== 'object') {
+      return true;
+    }
+    return Object.keys(obj).length === 0;
+  }
+
+  private static getDataByKey(content: ConfigMapData, key: ConfigMapKey): string {
+    if (key === ConfigMapKey.GALLERY_URL) {
+      return content.galleryUrl;
+    } else if (key === ConfigMapKey.MIIT_URL) {
+      return content.miitUrl;
+    } else if (key === ConfigMapKey.WHITELIST) {
+      return content.whitelist;
+    }
+    return '';
   }
 }
 
