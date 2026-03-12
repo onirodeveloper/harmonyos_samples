@@ -13,12 +13,6 @@
  * limitations under the License.
  */
 
-export interface ComponentResult {
-  code: number;
-  message: string;
-  data: ComponentDetailData;
-}
-
 export interface ComponentDetailData {
   id: number;
   componentName: string;
@@ -37,9 +31,12 @@ export interface AttributeData {
 }
 
 export interface RecommendData {
-  id?: number;
-  title: ResourceStr;
-  subTitle?: string;
-  articleType: number;
+  articleType: RecommendTypeEnum;
   url: string;
+  title: ResourceStr;
+}
+
+export enum RecommendTypeEnum {
+  DEVELOPMENT_GUIDE = 1,
+  DESIGN_GUIDE = 2,
 }

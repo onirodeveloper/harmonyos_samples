@@ -15,6 +15,24 @@
 
 export interface ResponseData<T> {
   /**
+   * Http network request returned status code.
+   */
+  httpCode: number;
+
+  /**
+   *  Whether the status of successful parsing was obtained from the JSON string.
+   */
+  success: boolean;
+  /**
+    * Status code parsed from the response JSON string.
+   */
+  code: string;
+  msg: string;
+  body: T;
+}
+
+export interface PageData<T> {
+  /**
    *  current page number
    */
   currentPage: number;
@@ -23,6 +41,11 @@ export interface ResponseData<T> {
    *  Number of resource data on each page
    */
   pageSize: number;
+
+  /**
+   *  Total page number
+   */
+  totalPage: number;
 
   /**
    *  Total resource data number

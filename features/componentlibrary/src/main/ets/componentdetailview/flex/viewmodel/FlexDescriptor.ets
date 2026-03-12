@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   ElementsNums,
   elementsNumsMapData,
@@ -26,13 +27,13 @@ import {
 
 @Observed
 export class FlexDescriptor extends CommonDescriptor {
-  public elements: ElementsNums = elementsNumsMapData.get('Default')!.value as ElementsNums;
-  public direction: FlexDirection = flexDirectionMapData.get('Default')!.value as FlexDirection;
-  public wrap: FlexWrap = flexWrapMapData.get('Default')!.value as FlexWrap;
-  public justifyContent: FlexAlign = flexContentMapData.get('Default')!.value as FlexAlign;
-  public alignItems: ItemAlign = flexAlignItemMapData.get('Default')!.value as ItemAlign;
-  public alignSelf: ItemAlign = flexAlignItemMapData.get('Default')!.value as ItemAlign;
-  public alignContent: FlexAlign = flexContentMapData.get('Default')!.value as FlexAlign;
+  public elements: ElementsNums = elementsNumsMapData.get(DEFAULT_KEY)!.value as ElementsNums;
+  public direction: FlexDirection = flexDirectionMapData.get(DEFAULT_KEY)!.value as FlexDirection;
+  public wrap: FlexWrap = flexWrapMapData.get(DEFAULT_KEY)!.value as FlexWrap;
+  public justifyContent: FlexAlign = flexContentMapData.get(DEFAULT_KEY)!.value as FlexAlign;
+  public alignItems: ItemAlign = flexAlignItemMapData.get(DEFAULT_KEY)!.value as ItemAlign;
+  public alignSelf: ItemAlign = flexAlignItemMapData.get(DEFAULT_KEY)!.value as ItemAlign;
+  public alignContent: FlexAlign = flexContentMapData.get(DEFAULT_KEY)!.value as FlexAlign;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

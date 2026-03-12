@@ -14,12 +14,11 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { ResponseData, StorageKey } from '@ohos/common';
-import { Logger } from '@ohos/common';
-import { ComponentLibraryService } from '../service/ComponentLibraryService';
-import type { ComponentData } from './ComponentData';
-import { ComponentDetailData } from './ComponentDetailData';
+import { ImageKnifeUtil, Logger, PageData, StorageKey } from '@ohos/common';
+import { BannerData } from '@ohos/commonbusiness';
 import { componentDetailConfig } from '../componentdetailview/ComponentDetailConfig';
+import { ComponentLibraryService } from '../service/ComponentLibraryService';
+import type { ComponentCardData, ComponentData } from './ComponentData';
 
 const TAG = '[ComponentListModel]';
 
@@ -37,15 +36,15 @@ export class ComponentListModel {
     return ComponentListModel.instance;
   }
 
-  public getComponentPage(currentPage: number, pageSize: number): Promise<ResponseData<ComponentData>> {
+  public getComponentPage(currentPage: number, pageSize: number): Promise<PageData<ComponentData>> {
     return this.service.getComponentListByPreference(currentPage, pageSize)
-      .then((data: ResponseData<ComponentData>) => {
+      .then((data: PageData<ComponentData>) => {
         return data;
       }).catch((err: string) => {
         Logger.error(TAG,
           `getComponentPage data from network failed! try to get data form preference. ${err}`);
         return this.service.getComponentList(currentPage, pageSize)
-          .then((data: ResponseData<ComponentData>) => {
+          .then((data: PageData<ComponentData>) => {
             this.service.setComponentListToPreference(data);
             return data;
           });
@@ -54,15 +53,23 @@ export class ComponentListModel {
 
   public preloadComponentData(): Promise<void> {
     AppStorage.setOrCreate(StorageKey.COMPONENT_CONFIG, componentDetailConfig);
-    this.service.getComponentDetailList().then((detailList: ComponentDetailData[]) => {
-      this.service.setDetailsToPreference(detailList);
+    return new Promise((resolve) => {
+      this.service.getComponentList(1, 30)
+        .then((result: PageData<ComponentData>) => {
+          this.service.setComponentListToPreference(result);
+          result.data.bannerInfos?.forEach((banner: BannerData) => {
+            ImageKnifeUtil.preloadImg(banner.mediaUrl);
+          });
+          result.data.cardData?.forEach((card: ComponentCardData) => {
+            ImageKnifeUtil.preloadImg(card.image);
+          });
+          resolve();
+        })
+        .catch((err: BusinessError) => {
+          Logger.error(TAG,
+            `preloadComponentPage data from network failed. ${err.code}, ${err.message}`);
+          resolve();
+        });
     });
-    return this.service.getComponentList()
-      .then((result: ResponseData<ComponentData>) => {
-        this.service.setComponentListToPreference(result);
-      }).catch((err: BusinessError) => {
-        Logger.error(TAG,
-          `preloadComponentPage data from network failed. ${err.code}, ${err.message}`);
-      });
   }
 }

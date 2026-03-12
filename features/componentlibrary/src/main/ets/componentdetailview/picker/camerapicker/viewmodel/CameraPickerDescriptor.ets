@@ -17,17 +17,18 @@ import { cameraPicker } from '@kit.CameraKit';
 import { CommonDescriptor } from '../../../../viewmodel/CommonDescriptor';
 import { pickerMediaType } from '../entity/CameraPickerMapping';
 import type { OriginAttribute } from '../../../../viewmodel/Attribute';
+import { DEFAULT_KEY } from '../../../common/entity/CommonMapData';
 
 @Observed
 export class CameraPickerDescriptor extends CommonDescriptor {
-  public mediaTypes: cameraPicker.PickerMediaType[] = pickerMediaType.get('Default')!.value;
+  public mediaTypes: cameraPicker.PickerMediaType[] = pickerMediaType.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'mediaTypes':
           this.mediaTypes =
-            pickerMediaType.get(attribute.currentValue)?.value ?? pickerMediaType.get('Default')!.value;
+            pickerMediaType.get(attribute.currentValue)?.value ?? pickerMediaType.get(DEFAULT_KEY)!.value;
           break;
         default:
           break;

@@ -15,13 +15,14 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { textAlignTypeMapData, textOverflowTypeMapData } from '../entity/TextAreaAttributeMapping';
 
 export class TextAreaCodeGenerator implements CommonCodeGenerator {
   private maxLines: number = 2;
   private lineSpacing: number = 5;
-  private textOverflowTypeStr: string = textOverflowTypeMapData.get('Default')!.code;
-  private textAlignStr: string = textAlignTypeMapData.get('Default')!.code;
+  private textOverflowTypeStr: string = textOverflowTypeMapData.get(DEFAULT_KEY)!.code;
+  private textAlignStr: string = textAlignTypeMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
@@ -34,11 +35,11 @@ export class TextAreaCodeGenerator implements CommonCodeGenerator {
           break;
         case 'textOverflowType':
           this.textOverflowTypeStr =
-            textOverflowTypeMapData.get(attribute.currentValue)?.code ?? textOverflowTypeMapData.get('Default')!.code;
+            textOverflowTypeMapData.get(attribute.currentValue)?.code ?? textOverflowTypeMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'textAlign':
           this.textAlignStr =
-            textAlignTypeMapData.get(attribute.currentValue)?.code ?? textAlignTypeMapData.get('Default')!.code;
+            textAlignTypeMapData.get(attribute.currentValue)?.code ?? textAlignTypeMapData.get(DEFAULT_KEY)!.code;
           break;
         default:
           break;

@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 class PlacementPosition {
   public code: string;
   public value: Placement;
@@ -24,7 +26,7 @@ class PlacementPosition {
 }
 
 export const placementMapData: Map<string, PlacementPosition> = new Map([
-  ['Default', new PlacementPosition('Placement.Bottom', Placement.Bottom)],
+  [DEFAULT_KEY, new PlacementPosition('Placement.Bottom', Placement.Bottom)],
   ['Left', new PlacementPosition('Placement.Left', Placement.Left)],
   ['Right', new PlacementPosition('Placement.Right', Placement.Right)],
   ['Top', new PlacementPosition('Placement.Top', Placement.Top)],
@@ -46,7 +48,7 @@ export enum PopupStyle {
 }
 
 export const popupStyleMapData: Map<string, PopupStyle> = new Map([
-  ['Default', PopupStyle.STYLE_BUTTON],
+  [DEFAULT_KEY, PopupStyle.STYLE_BUTTON],
   ['按钮气泡', PopupStyle.STYLE_BUTTON],
   ['文字气泡', PopupStyle.STYLE_TEXT],
   ['图文气泡', PopupStyle.STYLE_ICON],

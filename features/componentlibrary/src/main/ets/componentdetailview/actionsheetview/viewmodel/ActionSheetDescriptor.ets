@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   actionSheetInfoMapData,
   autoCancelMapData,
@@ -25,23 +26,23 @@ import {
 
 @Observed
 export class ActionSheetDescriptor extends CommonDescriptor {
-  public autoCancel: boolean = autoCancelMapData.get('Default')!.value;
-  public transition: boolean = transitionMapData.get('Default')!.value;
-  public sheetInfo: SheetInfo[] = actionSheetInfoMapData.get('Default')!.value;
-  public transitionAppear?: TransitionEffect = transitionAppearMapData.get('Default')!.value;
-  public transitionDisappear?: TransitionEffect = transitionDisAppearMapData.get('Default')!.value;
+  public autoCancel: boolean = autoCancelMapData.get(DEFAULT_KEY)!.value;
+  public transition: boolean = transitionMapData.get(DEFAULT_KEY)!.value;
+  public sheetInfo: SheetInfo[] = actionSheetInfoMapData.get(DEFAULT_KEY)!.value;
+  public transitionAppear?: TransitionEffect = transitionAppearMapData.get(DEFAULT_KEY)!.value;
+  public transitionDisappear?: TransitionEffect = transitionDisAppearMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'autoCancel':
-          this.autoCancel = JSON.parse(attribute.currentValue);
+          this.autoCancel = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         case 'transition':
-          this.transition = JSON.parse(attribute.currentValue);
+          this.transition = (attribute.currentValue?.toLowerCase() === 'true');
           if (this.transition) {
-            this.transitionAppear = transitionAppearMapData.get('Default')!.value;
-            this.transitionDisappear = transitionDisAppearMapData.get('Default')!.value;
+            this.transitionAppear = transitionAppearMapData.get(DEFAULT_KEY)!.value;
+            this.transitionDisappear = transitionDisAppearMapData.get(DEFAULT_KEY)!.value;
           } else {
             this.transitionAppear = undefined;
             this.transitionDisappear = undefined;

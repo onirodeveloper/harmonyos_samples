@@ -36,7 +36,7 @@ export struct SelectComponent {
 
   build() {
     Row() {
-      Text(this.attribute.disPlayName)
+      Text(this.attribute.displayName)
         .fontWeight(FontWeight.Medium)
         .fontSize($r('sys.float.Subtitle_M'))
         .fontColor($r('sys.color.font_primary'))

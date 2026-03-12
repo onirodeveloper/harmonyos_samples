@@ -20,7 +20,7 @@ import { FormCardConstants } from '../constants/FormCardConstants';
 export struct CardListComponent {
   @BuilderParam customBuilderParam: () => void = this.customBuilder;
   @Link cardListParameter: CardListParameter;
-  onClickProcess: Function = () => {
+  onClickProcess: () => void = () => {
   };
 
   @Builder

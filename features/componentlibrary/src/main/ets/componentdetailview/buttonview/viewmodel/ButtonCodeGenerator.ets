@@ -22,26 +22,27 @@ import {
   styleMapData,
 } from '../entity/ButtonAttributeMapping';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export class ButtonCodeGenerator implements CommonCodeGenerator {
-  private buttonStyle: string = styleMapData.get('Default')!.code;
-  private controlSize: string = sizeMapData.get('Default')!.code;
-  private buttonType: string = buttonTypeMapData.get('Default')!.code;
-  private backgroundColor: string = buttonBgColorMap.get('Default')!.code;
-  private operation: string = buttonActionMap.get('Default')!.code;
+  private buttonStyle: string = styleMapData.get(DEFAULT_KEY)!.code;
+  private controlSize: string = sizeMapData.get(DEFAULT_KEY)!.code;
+  private buttonType: string = buttonTypeMapData.get(DEFAULT_KEY)!.code;
+  private backgroundColor: string = buttonBgColorMap.get(DEFAULT_KEY)!.code;
+  private operation: string = buttonActionMap.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'buttonStyle':
-          this.buttonStyle = styleMapData.get(attribute.currentValue)?.code ?? styleMapData.get('Default')!.code;
+          this.buttonStyle = styleMapData.get(attribute.currentValue)?.code ?? styleMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'controlSize':
-          this.controlSize = sizeMapData.get(attribute.currentValue)?.code ?? sizeMapData.get('Default')!.code;
+          this.controlSize = sizeMapData.get(attribute.currentValue)?.code ?? sizeMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'buttonType':
           this.buttonType =
-            buttonTypeMapData.get(attribute.currentValue)?.code ?? buttonTypeMapData.get('Default')!.code;
+            buttonTypeMapData.get(attribute.currentValue)?.code ?? buttonTypeMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'backgroundColor':
           this.backgroundColor = attribute.currentValue;
@@ -73,7 +74,7 @@ export class ButtonCodeGenerator implements CommonCodeGenerator {
               });
             } catch (err) {
               const error: BusinessError = err as BusinessError;
-              console.error(\`Show toast error, the code is \${error.code}, the message is \${error.message}\`);
+              console.error(\`Show toast error, the code is \${error?.code}, the message is \${error?.message}\`);
             }
           })
       )`;

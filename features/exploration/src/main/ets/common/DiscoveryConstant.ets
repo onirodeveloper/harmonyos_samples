@@ -15,5 +15,5 @@
 
 export class DiscoveryConstant {
   public static DEVELOPER_ITEM_HEIGHT: number = 256;
-  public static CLICK_TIME_INTERVAL: number = 1000;
+  public static CLICK_TIME_INTERVAL_MS: number = 1000;
 }

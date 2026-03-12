@@ -24,7 +24,6 @@ export struct VideoComponent {
   @State videoPauseShow: boolean = false;
   @State voiceShow: boolean = false;
   @State triggerValueReplace: number = 0;
-  private exposureRatio: number[] = [0.0, this.startVisibleRatio, 1.0];
   private videoController: VideoController = new VideoController();
   private timeoutID = setTimeout(() => {
     this.voiceShow = false;
@@ -52,6 +51,10 @@ export struct VideoComponent {
     }, 3000);
   }
 
+  aboutToDisappear(): void {
+    clearTimeout(this.timeoutID);
+  }
+
   build() {
     Stack({ alignContent: Alignment.Center }) {
       Stack({ alignContent: Alignment.TopStart }) {
@@ -76,7 +79,7 @@ export struct VideoComponent {
               this.videoController.pause();
             }
           })
-          .onVisibleAreaChange(this.exposureRatio, (isVisible: boolean, currentRatio: number) => {
+          .onVisibleAreaChange([0.0, this.startVisibleRatio, 1.0], (isVisible: boolean, currentRatio: number) => {
             this.visibleAreaJudge(currentRatio);
           })
         if (this.voiceShow) {

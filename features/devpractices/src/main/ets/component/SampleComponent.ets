@@ -13,8 +13,19 @@
  * limitations under the License.
  */
 
-import { BreakpointType, ColumnEnum, CommonConstants, GlobalInfoModel, StorageKey, VideoComponent } from '@ohos/common';
-import { MediaTypeEnum } from '@ohos/commonbusiness';
+import { emitter } from '@kit.BasicServicesKit';
+import {
+  BreakpointType,
+  ColumnEnum,
+  CommonConstants,
+  FeedbackDomain,
+  FeedbackSheet,
+  GlobalInfoModel,
+  ImageComponent,
+  StorageKey,
+  VideoComponent
+} from '@ohos/common';
+import { CardTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
 import { SampleDetailData } from '../viewmodel/SampleDetailState';
 import { SampleCard } from './SampleCard';
 
@@ -24,16 +35,40 @@ export struct SampleComponent {
   @Prop @Require sampleIndex: number;
   @Prop showIndicator: boolean = false;
   @Prop @Require widthBreakpoint: WidthBreakpoint;
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @Prop @Require contentType: CardTypeEnum;
+  @State bindFeedbackSheet: boolean = false;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+
+  aboutToAppear(): void {
+    emitter.on(CommonConstants.BIND_SHEET_OPEN_EVENT + this.sampleIndex, () => {
+      this.bindFeedbackSheet = true;
+    });
+  }
+
+  aboutToDisappear(): void {
+    emitter.off(CommonConstants.BIND_SHEET_OPEN_EVENT + this.sampleIndex);
+  }
 
   build() {
     Column() {
+      FeedbackSheet({
+        bindFeedback: this.bindFeedbackSheet,
+        feedbackInitParams: {
+          uid: '1',
+          domain: FeedbackDomain.SAMPLE,
+          domainId: this.singleSampleData.sampleCard.sampleId,
+          domainTitle: this.singleSampleData.sampleCard.title,
+          likeReasonsResource: $r('app.strarray.sample_like_reason_list'),
+          dislikeReasonsResource: $r('app.strarray.sample_dislike_reason_list'),
+        }
+      })
       Column() {
         if (this.singleSampleData.mediaType === MediaTypeEnum.IMAGE) {
-          Image($rawfile(this.singleSampleData.mediaUrl))
-            .draggable(false)
-            .alt($r('app.media.img_placeholder'))
-            .objectFit(ImageFit.Contain)
+          ImageComponent({
+            src: this.singleSampleData?.mediaUrl,
+            objectFit: ImageFit.Contain,
+          })
             .layoutWeight(1)
         } else {
           VideoComponent({
@@ -43,16 +78,17 @@ export struct SampleComponent {
             clickPause: false,
             startVisibleRatio: 0.5,
           })
+            .layoutWeight(1)
         }
       }
       .layoutWeight(1)
       .margin({
         bottom: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
           this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-        $r('app.float.display_bottom_padding') : $r('sys.float.padding_level0'),
+          $r('app.float.display_bottom_padding') : $r('sys.float.padding_level0'),
         top: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
           this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-        $r('app.float.display_top_padding') : $r('sys.float.padding_level0')
+          $r('app.float.display_top_padding') : $r('sys.float.padding_level0')
       })
 
       GridRow({
@@ -60,7 +96,7 @@ export struct SampleComponent {
           sm: ColumnEnum.SM,
           md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
             this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? ColumnEnum.SM :
-          ColumnEnum.MD,
+            ColumnEnum.MD,
           lg: ColumnEnum.LG
         },
         gutter: {
@@ -76,7 +112,7 @@ export struct SampleComponent {
             sm: CommonConstants.SPAN_4,
             md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
               this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-            CommonConstants.SPAN_4 : CommonConstants.SPAN_6,
+              CommonConstants.SPAN_4 : CommonConstants.SPAN_6,
             lg: CommonConstants.SPAN_8
           },
           offset: {
@@ -85,7 +121,11 @@ export struct SampleComponent {
             lg: 2
           },
         }) {
-          SampleCard({ sampleCard: this.singleSampleData.sampleCard, sampleIndex: this.sampleIndex, })
+          SampleCard({
+            sampleCard: this.singleSampleData.sampleCard,
+            sampleIndex: this.sampleIndex,
+            contentType: this.contentType,
+          })
         }
       }
       .margin({
@@ -100,18 +140,18 @@ export struct SampleComponent {
       left: new BreakpointType({
         sm: $r('sys.float.padding_level8'),
         md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-        $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
+          $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
         lg: $r('sys.float.padding_level16'),
       }).getValue(this.widthBreakpoint),
       right: new BreakpointType({
         sm: $r('sys.float.padding_level8'),
         md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-        $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
+          $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
         lg: $r('sys.float.padding_level16'),
       }).getValue(this.widthBreakpoint),
       bottom: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
         this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-      $r('app.float.tablet_vertical_padding') : $r('sys.float.padding_level0'),
+        $r('app.float.tablet_vertical_padding') : $r('sys.float.padding_level0'),
     })
   }
 }

@@ -24,6 +24,6 @@ export default class EntryBackupAbility extends BackupExtensionAbility {
   }
 
   async onRestore(bundleVersion: BundleVersion) {
-    Logger.info(TAG, `onRestore ok: ${JSON.stringify(bundleVersion)}`);
+    Logger.debug(TAG, `onRestore ok: ${JSON.stringify(bundleVersion)}`);
   }
 }

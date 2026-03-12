@@ -19,6 +19,8 @@ import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit'
 import {
   BreakpointType,
   CommonConstants,
+  FeedbackDomain,
+  FeedbackSheet,
   GlobalInfoModel,
   LoadingStatus,
   Logger,
@@ -28,7 +30,7 @@ import {
   WebUtil,
   WindowUtil,
 } from '@ohos/common';
-import { BaseDetailComponent, ComponentDetailParams } from '@ohos/commonbusiness';
+import { BaseDetailComponent, CardTypeEnum, ComponentDetailParams } from '@ohos/commonbusiness';
 import {
   AssignPathStackEvent,
   ComponentDetailEvent,
@@ -46,13 +48,16 @@ const TAG = '[ComponentDetailView]';
 
 @Component({ freezeWhenInactive: true })
 export struct ComponentDetailView {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @StorageLink(StorageKey.WEB_LOADING) @Watch('sendCodeToWeb') webIsLoading: boolean = false;
   @Prop componentName: string = '';
   @Prop componentId: number = 0;
+  @Prop contentType: CardTypeEnum = CardTypeEnum.COMPONENT;
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
+  @State bindFeedbackSheet: boolean = false;
   private displaySync = displaySync.create();
   private viewModel?: ComponentDetailPageVM;
   @State componentDetailState?: ComponentDetailState = this.viewModel?.getState();
@@ -71,19 +76,32 @@ export struct ComponentDetailView {
   }
 
   handleOnReady(ctx: NavDestinationContext) {
-    const params: ComponentDetailParams = ctx.pathInfo.param as ComponentDetailParams;
+    const params: ComponentDetailParams = ctx?.pathInfo?.param as ComponentDetailParams;
     this.componentName = params.componentName as string;
-    this.componentId = Number(params.componentId);
+    this.componentId = Number(params.id);
+    this.contentType = params.contentType;
     CommonConstants.PROMISE_WAIT(500).then(() => {
-      this.assignViewData(ctx.pathStack);
+      this.assignViewData(ctx?.pathStack);
     });
   }
 
   @Builder
   DetailContentBuilder() {
+    FeedbackSheet({
+      bindFeedback: this.bindFeedbackSheet,
+      feedbackInitParams: {
+        uid: '1',
+        domain: FeedbackDomain.COMPONENT,
+        domainId: this.componentId,
+        domainTitle: this.componentName,
+        likeReasonsResource: $r('app.strarray.component_like_reason_list'),
+        dislikeReasonsResource: $r('app.strarray.component_dislike_reason_list'),
+      }
+    })
     DetailContentView({
       componentDetailState: this.componentDetailState,
       componentName: this.componentName,
+      contentType: this.contentType,
     })
       .layoutWeight(1)
   }
@@ -92,6 +110,9 @@ export struct ComponentDetailView {
   TopTitleViewBuilder() {
     TopNavigationView({
       topNavigationData: this.componentDetailState?.topNavigationData,
+      menuView: () => {
+        this.TopNavigationMenu();
+      }
     })
   }
 
@@ -106,9 +127,33 @@ export struct ComponentDetailView {
           this.TopTitleViewBuilder()
         }
       },
+      reloadData: () => {
+        this.assignViewData();
+      },
       loadingStatus: this.loadingStatus,
     })
       .expandSafeArea([SafeAreaType.KEYBOARD, SafeAreaType.SYSTEM])
+  }
+
+  @Builder
+  TopNavigationMenu() {
+    Button() {
+      SymbolGlyph($r('sys.symbol.square_and_pencil'))
+        .fontColor([$r('sys.color.icon_primary')])
+        .fontSize($r('sys.float.Title_M'))
+    }
+    .width($r('app.float.feedback_sheet_button_size'))
+    .height($r('app.float.feedback_sheet_button_size'))
+    .aspectRatio(1)
+    .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+      $r('sys.color.comp_background_tertiary'))
+    .onClick(() => {
+      this.bindFeedbackSheet = true;
+    })
+    .margin({
+      right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+        $r('app.float.feedback_right_padding_xl') : 0
+    })
   }
 
   build() {
@@ -132,10 +177,21 @@ export struct ComponentDetailView {
         },
         content: {
           title: { mainTitle: this.componentDetailState?.topNavigationData.title || '' },
+          menu: {
+            value: [{
+              content: {
+                icon: $r('sys.symbol.square_and_pencil'),
+                isEnabled: true,
+                action: () => {
+                  this.bindFeedbackSheet = true;
+                }
+              }
+            }]
+          },
         }
       })
       .onDisAppear(() => {
-        this.displaySync.stop();
+        this.release();
       })
       .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
     } else {
@@ -146,18 +202,25 @@ export struct ComponentDetailView {
       .height('100%')
       .backgroundColor($r('sys.color.background_secondary'))
       .onDisAppear(() => {
-        this.displaySync.stop();
+        this.release();
       })
       .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
     }
   }
 
-  assignViewData(pathStack: NavPathStack) {
+  release() {
+    this.displaySync.stop();
+    this.displaySync.off('frame');
+  }
+
+  assignViewData(pathStack?: NavPathStack) {
     this.viewModel = ComponentDetailManager.getInstance().getDetailViewModel(this.componentName);
     if (!this.viewModel) {
       this.viewModel = new ComponentDetailPageVM(this.componentName);
     }
-    this.viewModel?.sendEvent(new AssignPathStackEvent(pathStack));
+    if (pathStack) {
+      this.viewModel?.sendEvent(new AssignPathStackEvent(pathStack));
+    }
     const range: ExpectedFrameRateRange = { expected: 120, min: 60, max: 120 };
     this.displaySync.setExpectedFrameRateRange(range);
     let frameCount = 0;
@@ -169,6 +232,10 @@ export struct ComponentDetailView {
     const eventCount = eventList.length;
     this.viewModel?.sendEvent(new InitComponentEvent(this.componentId))?.then(() => {
       this.componentDetailState = this.viewModel?.getState();
+      if (this.componentDetailState?.loadingStatus !== LoadingStatus.SUCCESS) {
+        this.loadingStatus = this.componentDetailState?.loadingStatus ?? LoadingStatus.FAILED;
+        return;
+      }
       this.loadingStatus = LoadingStatus.LOADING;
       this.displaySync.on('frame', () => {
         const promise = this.viewModel?.sendEvent(new ComponentDetailEvent(eventList[frameCount]));
@@ -177,12 +244,19 @@ export struct ComponentDetailView {
         if (frameCount >= eventCount) {
           promise?.then(() => {
             this.displaySync.stop();
+            this.displaySync.off('frame');
             this.refreshCodePreviewWeb();
+          }).catch(() => {
+            this.displaySync.stop();
+            this.displaySync.off('frame');
           });
         }
       });
       this.displaySync.start();
-    });
+    })
+      .catch(() => {
+        this.loadingStatus = this.viewModel?.getState().loadingStatus ?? LoadingStatus.FAILED;
+      });
   }
 
   refreshCodePreviewWeb() {

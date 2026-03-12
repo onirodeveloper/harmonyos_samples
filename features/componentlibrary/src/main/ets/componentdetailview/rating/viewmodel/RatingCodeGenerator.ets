@@ -15,12 +15,13 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { indicatorMapData, ratingValueMapData, starsMapData } from '../entity/RatingAttributeMapping';
 
 export class RatingCodeGenerator implements CommonCodeGenerator {
-  private rating: string = ratingValueMapData.get('Default')!.code;
-  private indicator: string = indicatorMapData.get('Default')!.code;
-  private stars: string = starsMapData.get('Default')!.code;
+  private rating: string = ratingValueMapData.get(DEFAULT_KEY)!.code;
+  private indicator: string = indicatorMapData.get(DEFAULT_KEY)!.code;
+  private stars: string = starsMapData.get(DEFAULT_KEY)!.code;
   private stepSize: string = '0.5';
 
   public generate(attributes: OriginAttribute[]): string {
@@ -31,13 +32,13 @@ export class RatingCodeGenerator implements CommonCodeGenerator {
           this.rating = attribute.currentValue;
           break;
         case 'indicator':
-          this.indicator = attribute.currentValue.toLowerCase();
+          this.indicator = attribute.currentValue?.toLowerCase();
           break;
         case 'stars':
           this.stars = attribute.currentValue;
           break;
         case 'starStyle':
-          const bool = attribute.currentValue.toLowerCase() === 'true';
+          const bool = attribute.currentValue?.toLowerCase() === 'true';
           codeSegment = bool ? `{
         // You need to replace the starStyle resource image in the media folder.
         backgroundUri: '/resources/base/media/rating_background.png',

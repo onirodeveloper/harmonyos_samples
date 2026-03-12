@@ -14,7 +14,7 @@
  */
 
 import { StorageKey } from '../constant/CommonEnums';
-import type { GlobalInfoModel } from '../model/GlobalInfoModel';
+import { GlobalInfoModel } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 import { WebUtil } from '../util/WebUtil';
 import { LoadingView } from '../view/LoadingView';
@@ -32,7 +32,7 @@ const HARMONYOS_TOP_HEIGHT: number = 56;
 
 @Component
 struct WebSheet {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   @StorageProp(StorageKey.WEB_LOADING) isLoading: boolean = false;
   @Prop url: string;
   @Prop urlType: WebUrlType;

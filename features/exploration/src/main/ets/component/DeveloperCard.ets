@@ -14,8 +14,8 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, CommonConstants, ProductSeriesEnum } from '@ohos/common';
+import { GlobalInfoModel, StorageKey, TrackNode, TrackServiceData, TRACK_KEY } from '@ohos/common';
+import { BreakpointType, CommonConstants, ProductSeriesEnum, TrackEventType } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { DeveloperItem } from './DeveloperItem';
 
@@ -24,7 +24,8 @@ const DEVELOPER_ITEM_RATIO_VERDE = 240 / 408;
 
 @Component
 export struct DeveloperCard {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop @Require discoverContents: DiscoverContent[];
   handleItemClick?: Function;
 
@@ -33,16 +34,23 @@ export struct DeveloperCard {
       Repeat(this.discoverContents)
         .each((repeatItem: RepeatItem<DiscoverContent>) => {
           Column() {
-            DeveloperItem({ discoverContent: repeatItem.item })
-              .onClick(() => {
-                this.handleItemClick?.(repeatItem.item);
-              })
+            TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+              DeveloperItem({ discoverContent: repeatItem.item })
+                .onClick(() => {
+                  this.handleItemClick?.(repeatItem.item);
+                })
+                .customProperty(TRACK_KEY, {
+                  content: repeatItem.item.title,
+                  moduleType: repeatItem.item.contentType,
+                  eventType: TrackEventType.ARTICLE_CLICK,
+                } as TrackServiceData)
+            }
           }
           .padding({
             left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
-            $r('sys.float.padding_level8') : 0,
+              $r('sys.float.padding_level8') : 0,
             right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
-            $r('sys.float.padding_level8') : 0,
+              $r('sys.float.padding_level8') : 0,
           })
         })
     }
@@ -70,13 +78,13 @@ export struct DeveloperCard {
       lg: $r('sys.float.padding_level8'),
     }).getValue(this.globalInfoModel.widthBreakpoint))
     .displayCount(
-      new BreakpointType({
+      new BreakpointType<number>({
         sm: this.discoverContents.length,
         md: CommonConstants.LANE_MD,
         lg: CommonConstants.LANE_LG,
       }).getValue(this.globalInfoModel.widthBreakpoint)
     )
-    .itemSpace(new BreakpointType({
+    .itemSpace(new BreakpointType<number>({
       sm: CommonConstants.SPACE_16,
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16,

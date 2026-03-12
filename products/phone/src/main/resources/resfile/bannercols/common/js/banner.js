@@ -5,9 +5,6 @@ const handleFooterImgChange = (e) => {
 };
 handleFooterImgChange(darkModeQuery);
 darkModeQuery.addEventListener('change', handleFooterImgChange);
-window.addEventListener('beforeunload', () => {
-  darkModeQuery.removeEventListener('change', handleFooterImgChange);
-});
 
 window.checkPreview = () => {
   return false;

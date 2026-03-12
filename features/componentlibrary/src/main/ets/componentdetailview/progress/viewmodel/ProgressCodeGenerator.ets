@@ -16,6 +16,7 @@
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   progressColorMapData,
   progressKindMapData,
@@ -25,11 +26,11 @@ import {
 } from '../entity/ProgressAttributeMapping';
 
 export class ProgressCodeGenerator implements CommonCodeGenerator {
-  private value: string = progressValueMapData.get('Default')!.code;
-  private color: string = progressColorMapData.get('Default')!.code;
-  private type: string = progressTypeMapData.get('Default')!.code;
-  private style: string = progressStyleMapData.get('Default')!.code;
-  private kind: string = progressKindMapData.get('Default')!.code;
+  private value: string = progressValueMapData.get(DEFAULT_KEY)!.code;
+  private color: string = progressColorMapData.get(DEFAULT_KEY)!.code;
+  private type: string = progressTypeMapData.get(DEFAULT_KEY)!.code;
+  private style: string = progressStyleMapData.get(DEFAULT_KEY)!.code;
+  private kind: string = progressKindMapData.get(DEFAULT_KEY)!.code;
   private height: number = DetailPageConstant.PROGRESS_LINE_HEIGHT;
 
   public generate(attributes: OriginAttribute[]): string {

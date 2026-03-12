@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import type { BusinessError } from '@kit.BasicServicesKit';
-import { ResponseData, SampleDistributionUtil } from '@ohos/common';
-import { Logger, MockRequest, PreferenceManager } from '@ohos/common';
-import type { SampleCardData, SampleCategory, SampleContent, SampleData } from '../model/SampleData';
+import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
+import type { PageData } from '@ohos/common';
+import { HmosRequest, Logger, PreferenceManager, TriggerEnums } from '@ohos/common';
+import { BaseDetailParam, BaseListParam } from '@ohos/commonbusiness';
+import type { SampleCardData, SampleData } from '../model/SampleData';
 import type { SampleCardDetail, SingleSampleData } from '../model/SampleDetailData';
 
 const TAG: string = '[SampleService]';
@@ -25,162 +26,163 @@ export class SampleService {
   public constructor() {
   }
 
-  public getSampleListByMock(): Promise<ResponseData<SampleData>> {
-    return new Promise((resolve: (value: ResponseData<SampleData>) => void,
+  public getSamplePage(currentPage: number, pageSize: number): Promise<PageData<SampleData>> {
+    Logger.info(TAG, `getComponentList param: currentPage ${currentPage}, pageSize: ${pageSize} `);
+    return new Promise((resolve: (value: PageData<SampleData>) => void,
       reject: (reason?: BusinessError) => void) => {
-      MockRequest.call<ResponseData<SampleData>>(SampleTrigger.SAMPLE_PAGE)
-        .then((result: ResponseData<SampleData>) => {
-          result.data.sampleCategories = this.filterAvailableSamples(result.data.sampleCategories);
+      const param: SamplePageParam = {
+        currentPage: currentPage,
+        pageSize: pageSize,
+        supportDevice: deviceInfo.deviceType,
+        apiVersion: deviceInfo.sdkApiVersion,
+      };
+      HmosRequest.getInstance().request<PageData<SampleData>>(TriggerEnums.SAMPLE_PAGE, param)
+        .then((result: PageData<SampleData>) => {
           resolve(result);
         })
         .catch((error: BusinessError) => {
+          Logger.error(TAG, `getSamplePage failed. cause: ${error.message}`);
           reject(error);
         });
     });
   }
 
-  public getSampleDetailsByMock(): Promise<SampleCardDetail[]> {
-    return new Promise((resolve: (value: SampleCardDetail[]) => void,
-      reject: (reason?: BusinessError) => void) => {
-      MockRequest.call<SampleCardDetail[]>(SampleTrigger.SAMPLE_DETAILS_ALL)
-        .then((result: SampleCardDetail[]) => {
-          resolve(result as SampleCardDetail[]);
-        })
-        .catch((error: BusinessError) => {
-          reject(error);
-        });
-    });
-  }
-
-  public getSamplePage(currentPage?: number, pageSize?: number): Promise<ResponseData<SampleData>> {
-    Logger.info(TAG, `getComponentList param: currentPage ${currentPage}, pageSize: ${pageSize} `);
-    return this.getSampleListByMock();
-  }
-
-  public getSamplePageByPreference(currentPage: number, pageSize: number): Promise<ResponseData<SampleData>> {
-    return new Promise((resolve: (value: ResponseData<SampleData>) => void,
+  public getSamplePageByPreference(currentPage: number, pageSize: number): Promise<PageData<SampleData>> {
+    return new Promise((resolve: (value: PageData<SampleData>) => void,
       reject: (reason?: string) => void) => {
       let response =
-        PreferenceManager.getInstance().getValue<Record<string, ResponseData<SampleData>>>(SampleTrigger.SAMPLE_PAGE);
+        PreferenceManager.getInstance().getValue<Record<string, PageData<SampleData>>>(TriggerEnums.SAMPLE_PAGE);
       if (!response) {
         reject('There is no data in the Preference');
+        return;
       }
-      response = (response as Record<string, ResponseData<SampleData>>);
+      response = (response as Record<string, PageData<SampleData>>);
       const ret = response[`${currentPage}_${pageSize}`];
       if (!ret) {
         reject('There is no data in the Preference');
+        return;
       }
       resolve(ret);
     });
   }
 
-  public setSamplePageToPreference(data: ResponseData<SampleData>): Promise<void> {
+  public setSamplePageToPreference(data: PageData<SampleData>): Promise<void> {
     return new Promise((resolve: () => void) => {
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_PAGE);
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(TriggerEnums.SAMPLE_PAGE);
       if (hasValue) {
         let resp =
-          PreferenceManager.getInstance().getValue<Record<string, ResponseData<SampleData>>>(SampleTrigger.SAMPLE_PAGE);
-        resp = (resp as Record<string, ResponseData<SampleData>>) || {};
+          PreferenceManager.getInstance().getValue<Record<string, PageData<SampleData>>>(TriggerEnums.SAMPLE_PAGE);
+        resp = (resp as Record<string, PageData<SampleData>>) || {};
         resp[`${data.currentPage}_${data.pageSize}`] = data;
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_PAGE, resp);
-        resolve();
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_PAGE, resp);
       } else {
-        const record: Record<string, ResponseData<SampleData>> = {};
+        const record: Record<string, PageData<SampleData>> = {};
         record[`${data.currentPage}_${data.pageSize}`] = data;
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_PAGE, record);
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_PAGE, record);
       }
+      resolve();
     });
   }
 
-  public getSampleList(categoryType: number, currentPage: number,
-    pageSize: number): Promise<ResponseData<SampleCardData[]>> {
-    return new Promise((resolve: (value: ResponseData<SampleCardData[]>) => void,
-      reject: (reason?: Object) => void) => {
-      this.getSampleListByMock().then((result: ResponseData<SampleData>) => {
-        const sampleCategoryList = result.data.sampleCategories;
-        const categoryData =
-          sampleCategoryList.find((category: SampleCategory) => category.categoryType === categoryType);
-        const response: ResponseData<SampleCardData[]> = {
-          currentPage,
-          pageSize,
-          totalSize: 0,
-          data: [],
-        };
-        if (categoryData) {
-          response.totalSize = categoryData.sampleCards.length;
-          response.data = categoryData.sampleCards;
-        }
-        resolve(response);
-      }).catch(() => {
-        reject();
-      });
+  public getSampleList(categoryId: number, currentPage: number,
+    pageSize: number): Promise<PageData<SampleCardData[]>> {
+    return new Promise((resolve: (value: PageData<SampleCardData[]>) => void, reject: (reason?: Object) => void) => {
+      const param: SampleListParam = {
+        categoryId,
+        singleId: categoryId,
+        currentPage: currentPage,
+        pageSize: pageSize,
+        supportDevice: deviceInfo.deviceType,
+        apiVersion: deviceInfo.sdkApiVersion,
+      };
+      HmosRequest.getInstance().request<PageData<SampleCardData[]>>(TriggerEnums.SAMPLE_LIST, param)
+        .then((result: PageData<SampleCardData[]>) => {
+          resolve(result);
+        })
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `getSampleList failed. cause: ${error.message}`);
+          reject(error);
+        });
     });
   }
 
-  public getSampleListByPreference(categoryType: number, currentPage: number,
-    pageSize: number): Promise<ResponseData<SampleCardData[]>> {
-    return new Promise((resolve: (value: ResponseData<SampleCardData[]>) => void,
+  public getSampleListByPreference(categoryId: number, currentPage: number,
+    pageSize: number): Promise<PageData<SampleCardData[]>> {
+    return new Promise((resolve: (value: PageData<SampleCardData[]>) => void,
       reject: (reason?: string) => void) => {
       let resp = PreferenceManager.getInstance()
-        .getValue<Record<string, ResponseData<SampleCardData[]>>>(SampleTrigger.SAMPLE_LIST);
+        .getValue<Record<string, PageData<SampleCardData[]>>>(TriggerEnums.SAMPLE_LIST);
       if (!resp) {
         reject('There is no data in the Preference');
+        return;
       }
-      resp = (resp as Record<string, ResponseData<SampleCardData[]>>);
-      const ret = resp[`${categoryType}_${currentPage}_${pageSize}`];
-      if (!ret) {
+      resp = (resp as Record<string, PageData<SampleCardData[]>>);
+      const ret = resp[`${categoryId}_${currentPage}_${pageSize}`];
+      if (!ret || ret.data?.length === 0) {
         reject('There is no data in the Preference');
+        return;
       }
       resolve(ret);
     });
   }
 
-  public setSampleListToPreference(categoryType: number, currentPage: number,
-    pageSize: number, data: ResponseData<SampleCardData[]>): Promise<void> {
+  public setSampleListToPreference(categoryId: number, currentPage: number,
+    pageSize: number, data: PageData<SampleCardData[]>): Promise<void> {
     return new Promise((resolve: () => void) => {
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_LIST);
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(TriggerEnums.SAMPLE_LIST);
       if (hasValue) {
         let resp = PreferenceManager.getInstance()
-          .getValue<Record<string, ResponseData<SampleCardData[]>>>(SampleTrigger.SAMPLE_LIST);
-        resp = (resp as Record<string, ResponseData<SampleCardData[]>>) || {};
-        resp[`${categoryType}_${currentPage}_${pageSize}`] = data;
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_LIST, resp);
-        resolve();
+          .getValue<Record<string, PageData<SampleCardData[]>>>(TriggerEnums.SAMPLE_LIST);
+        resp = (resp as Record<string, PageData<SampleCardData[]>>) || {};
+        resp[`${categoryId}_${currentPage}_${pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_LIST, resp);
       } else {
-        const record: Record<string, ResponseData<SampleCardData[]>> = {};
-        record[`${categoryType}_${currentPage}_${pageSize}`] = data;
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_LIST, record);
+        const record: Record<string, PageData<SampleCardData[]>> = {};
+        record[`${categoryId}_${currentPage}_${pageSize}`] = data;
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_LIST, record);
       }
+      resolve();
     });
   }
 
-  public getSampleDetails(sampleCardId: number): Promise<SingleSampleData[]> {
+  public getSampleDetails(sampleId: number, cardId: number, isUnion: boolean): Promise<SingleSampleData[]> {
     return new Promise((resolve: (value: SingleSampleData[]) => void, reject: (reason?: Object) => void) => {
-      this.getSampleDetailsByMock().then((result: SampleCardDetail[]) => {
-        const cardDetail = result.find((item: SampleCardDetail) => item.id === sampleCardId);
-        if (cardDetail) {
-          resolve(cardDetail.sampleDetail);
-        } else {
-          reject(`Cann't find this Sample Card. id: ${sampleCardId}`);
-        }
-      }).catch((error: BusinessError) => {
-        reject(error);
-      });
+      const params: SampleDetailParam = {
+        isUnion,
+        singleId: cardId,
+        supportDevice: deviceInfo.deviceType,
+        apiVersion: deviceInfo.sdkApiVersion,
+      }
+      if (cardId > 0) {
+        params.cardId = cardId;
+      } else {
+        params.id = sampleId;
+      }
+      HmosRequest.getInstance().request<SingleSampleData[]>(TriggerEnums.SAMPLE_DETAILS, params)
+        .then((result: SingleSampleData[]) => {
+          resolve(result as SingleSampleData[]);
+        })
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `getSampleDetails failed. cause: ${error.message}`);
+          reject(error);
+        });
     });
   }
 
   public getSampleDetailsByPreference(sampleCardId: number): Promise<SingleSampleData[]> {
     return new Promise((resolve: (value: SingleSampleData[]) => void,
       reject: (reason?: string) => void) => {
-      const detailsKey = SampleTrigger.SAMPLE_DETAILS;
+      const detailsKey = TriggerEnums.SAMPLE_DETAILS;
       const response: Record<string, SingleSampleData[]> = PreferenceManager.getInstance()
         .getValue<Record<string, SingleSampleData[]>>(detailsKey) as Record<string, SingleSampleData[]>;
       if (!response) {
         reject('There is no data in the Preference');
+        return;
       }
       const ret = response[`SampleCardDetail_${sampleCardId}`];
       if (!ret) {
         reject('There is no data in the Preference');
+        return;
       }
       resolve(ret);
     });
@@ -188,73 +190,58 @@ export class SampleService {
 
   public setSampleDetailsToPreference(data: SampleCardDetail[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_DETAILS);
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(TriggerEnums.SAMPLE_DETAILS);
       if (hasValue) {
         const response =
-          PreferenceManager.getInstance().getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS)
+          PreferenceManager.getInstance().getValue<Record<string, SingleSampleData[]>>(TriggerEnums.SAMPLE_DETAILS)
         const res: Record<string, SingleSampleData[]> = (response as Record<string, SingleSampleData[]>) || {};
         data.forEach((item: SampleCardDetail) => {
           res[`SampleCardDetail_${item.id}`] = item.sampleDetail;
         });
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, res);
-        resolve();
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_DETAILS, res);
       } else {
         const record: Record<string, SingleSampleData[]> = {};
         data.forEach((item: SampleCardDetail) => {
           record[`SampleCardDetail_${item.id}`] = item.sampleDetail;
         });
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, record);
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_DETAILS, record);
       }
+      resolve();
     });
   }
 
   public setSampleDetailToPreference(sampleCardId: number, data: SingleSampleData[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(SampleTrigger.SAMPLE_DETAILS);
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(TriggerEnums.SAMPLE_DETAILS);
       if (hasValue) {
         const response =
-          PreferenceManager.getInstance().getValue<Record<string, SingleSampleData[]>>(SampleTrigger.SAMPLE_DETAILS);
+          PreferenceManager.getInstance().getValue<Record<string, SingleSampleData[]>>(TriggerEnums.SAMPLE_DETAILS);
         const res: Record<string, SingleSampleData[]> = (response as Record<string, SingleSampleData[]>) || {};
         res[`SampleCardDetail_${sampleCardId}`] = data;
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, res);
-        resolve();
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_DETAILS, res);
       } else {
         const record: Record<string, SingleSampleData[]> = {};
         record[`SampleCardDetail_${sampleCardId}`] = data;
-        PreferenceManager.getInstance().setValue(SampleTrigger.SAMPLE_DETAILS, record);
+        PreferenceManager.getInstance().setValue(TriggerEnums.SAMPLE_DETAILS, record);
       }
+      resolve();
     });
-  }
-
-  private filterAvailableSamples(allCategories: SampleCategory[]): SampleCategory[] {
-    let sampleCategories: SampleCategory[] = [];
-    allCategories.forEach((sampleCategory: SampleCategory) => {
-      let sampleCards: SampleCardData[] = [];
-      sampleCategory.sampleCards.forEach((sampleCard: SampleCardData) => {
-        if (sampleCard.sampleContents.length !== 1 ||
-        SampleDistributionUtil.checkSampleSupport(sampleCard.sampleContents[0].requiredApiVersion,
-          sampleCard.sampleContents[0].supportDeviceList)) {
-          let supportSamples: SampleContent[] = [];
-          sampleCard.sampleContents.forEach((sampleContent: SampleContent) => {
-            if (SampleDistributionUtil.checkSampleSupport(sampleContent.requiredApiVersion,
-              sampleContent.supportDeviceList)) {
-              supportSamples.push(sampleContent);
-            }
-          });
-          sampleCard.sampleContents = supportSamples;
-          sampleCards.push(sampleCard);
-        }
-      });
-      sampleCategory.sampleCards = sampleCards;
-      sampleCategories.push(sampleCategory);
-    });
-    return sampleCategories;
   }
 }
 
-enum SampleTrigger {
-  SAMPLE_PAGE = 'sample-page',
-  SAMPLE_LIST = 'sample-list',
-  SAMPLE_DETAILS = 'sample-details',
-  SAMPLE_DETAILS_ALL = 'sample-details-all',
+interface SamplePageParam extends BaseListParam, BaseSampleParam {}
+
+interface SampleListParam extends BaseListParam, BaseDetailParam, BaseSampleParam {
+  categoryId: number,
+}
+
+interface SampleDetailParam extends BaseDetailParam, BaseSampleParam {
+  cardId?: number;
+  isUnion?: boolean;
+  id?: number;
+}
+
+interface BaseSampleParam {
+  supportDevice: string;
+  apiVersion: number;
 }

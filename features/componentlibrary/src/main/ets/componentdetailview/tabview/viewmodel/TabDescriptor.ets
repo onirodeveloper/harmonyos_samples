@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   barHeightMapData,
   barPositionMapData,
@@ -27,22 +28,26 @@ import {
 @Observed
 export class TabDescriptor extends CommonDescriptor {
   public controller: TabsController = new TabsController();
-  public barPosition: BarPosition = barPositionMapData.get('Default')!.value as BarPosition;
-  public vertical: boolean = verticalMapData.get('Default')!.value as boolean;
-  public barWidth: string = barWidthMapData.get('Default')!.value as string;
-  public barHeight: string = barHeightMapData.get('Default')!.value as string;
-  public backgroundBlurStyle: BlurStyle = blurStyleMapData.get('Default')!.value as BlurStyle;
-  public fadingEdge: boolean = fadingEdgeMapData.get('Default')!.value as boolean;
+  public barPosition: BarPosition = barPositionMapData.get(DEFAULT_KEY)!.value as BarPosition;
+  public vertical: boolean = verticalMapData.get(DEFAULT_KEY)!.value as boolean;
+  public barWidth: string = barWidthMapData.get(DEFAULT_KEY)!.value as string;
+  public barHeight: string = barHeightMapData.get(DEFAULT_KEY)!.value as string;
+  public backgroundBlurStyle: BlurStyle = blurStyleMapData.get(DEFAULT_KEY)!.value as BlurStyle;
+  public fadingEdge: boolean = fadingEdgeMapData.get(DEFAULT_KEY)!.value as boolean;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'barPosition':
           this.barPosition = barPositionMapData.get(attribute.currentValue)?.value as BarPosition ??
-            barPositionMapData.get('Default')!.value as BarPosition;
+            barPositionMapData.get(DEFAULT_KEY)!.value as BarPosition;
           break;
         case 'vertical':
-          this.vertical = JSON.parse(attribute.currentValue) ?? verticalMapData.get('Default')!.value as boolean;
+          try {
+            this.vertical = JSON.parse(attribute.currentValue);
+          } catch (_e) {
+            this.vertical = verticalMapData.get(DEFAULT_KEY)!.value as boolean;
+          }
           if (this.vertical) {
             this.barWidth = '64vp';
             this.barHeight = '100%';
@@ -53,10 +58,10 @@ export class TabDescriptor extends CommonDescriptor {
           break;
         case 'backgroundBlurStyle':
           this.backgroundBlurStyle = blurStyleMapData.get(attribute.currentValue)?.value as BlurStyle ??
-            blurStyleMapData.get('Default')!.value as BlurStyle;
+            blurStyleMapData.get(DEFAULT_KEY)!.value as BlurStyle;
           break;
         case 'fadingEdge':
-          this.fadingEdge = JSON.parse(attribute.currentValue) ?? fadingEdgeMapData.get('Default')!.value as boolean;
+          this.fadingEdge = JSON.parse(attribute.currentValue) ?? fadingEdgeMapData.get(DEFAULT_KEY)!.value as boolean;
           break;
         default:
           break;

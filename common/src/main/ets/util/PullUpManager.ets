@@ -49,21 +49,27 @@ export class PullUpManager {
   }
 
   /**
-   * Get the different form card from, if 'ARTICLE_SERVICE_CARD', then entryAbility invoke the update.
+   * Obtain different form cards. If 'ARTICLE_SERVICE_CARD' type, then entryAbility calls the update.
    *
    * @param want
    * @returns FormCardEnum or void.
    */
   public static getFormCardType(want: Want): FormCardEnum | void {
-    // The serviceCard and Lock screen card all has formID. Short cut entry doesn't has formID.
-    if (want.parameters && want.parameters?.['formID'] && want.parameters['params']) {
+    // The serviceCard and Lock screen card all have formID. Short cut entry doesn't has formID.
+    if (!PullUpManager.checkAndHandleParams(want)) {
+      PullUpManager.formCardType = undefined;
+      return;
+    }
+    if (want?.parameters?.['formID'] && want?.parameters?.['params']) {
       try {
         const cardWantParams: WantParams = JSON.parse(want.parameters['params'] as string);
-        const cardFrom: FormCardEnum = Reflect.get(cardWantParams, 'cardFrom') as FormCardEnum;
+        const cardFrom: FormCardEnum =
+          Reflect.has(cardWantParams, 'cardFrom') ? Reflect.get(cardWantParams, 'cardFrom') as FormCardEnum :
+            FormCardEnum.UNKNOWN;
         PullUpManager.formCardType = cardFrom;
         return cardFrom;
       } catch (err) {
-        Logger.error(TAG, `The getFormCardType occur error: ${err}}`)
+        Logger.error(TAG, `The getFormCardType occur error: ${err}`)
       }
     }
     // Reset the PullUpManager.FormCardType.
@@ -71,19 +77,16 @@ export class PullUpManager {
   }
 
   private static checkAndHandleParams(want: Want): boolean {
-    try {
-      if (want === undefined || want === null || want.parameters === undefined || want.parameters === null) {
-        return false;
-      }
-    } catch (err) {
-      Logger.error(TAG, `checkAndHandleParams failed: ${err}`);
+    if (want === undefined || want === null || want.parameters === undefined || want.parameters === null) {
+      return false;
     }
     return true;
   }
 
   private static isShortCutPullUp(want: Want): boolean {
     if (want.parameters) {
-      const isFromShortCut: string = Reflect.get(want.parameters, 'isFromShortCut') as string;
+      const isFromShortCut: string =
+        Reflect.has(want.parameters, 'isFromShortCut') ? Reflect.get(want.parameters, 'isFromShortCut') as string : '';
       return isFromShortCut === 'true';
     }
     return false;
@@ -96,11 +99,11 @@ export class PullUpManager {
   }
 
   private static navigationToHome(): void {
-    const pageContext: PageContext | undefined = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT);
-    const componentPageContext: PageContext | undefined = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT);
-    const samplePageContext: PageContext | undefined = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT);
-    const explorationPageContext: PageContext | undefined = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT);
-    const minePageContext: PageContext | undefined = AppStorage.get(StorageKey.MINE_PAGE_CONTEXT);
+    const pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
+    const componentPageContext = AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT);
+    const samplePageContext = AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT);
+    const explorationPageContext = AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT);
+    const minePageContext = AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT);
     pageContext?.popPageByIndex(0);
     // Adapt the PC situation.
     componentPageContext?.clear();

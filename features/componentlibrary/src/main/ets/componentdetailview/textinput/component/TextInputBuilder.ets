@@ -42,10 +42,14 @@ struct TextInputComponent {
   aboutToAppear(): void {
     ComponentDetailManager.getInstance()
       .getDetailViewModel('TextInput')?.sendEvent(new AttributeChangeEnable('fontColor', this.isText));
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     let keyboardHeight: number = 0;
 
     try {
+      if (!this.context) {
+        Logger.error(TAG, `GetLastWindow failed. Cause context is undefined.`);
+        return;
+      }
       window.getLastWindow(this.context).then(currentWindow => {
         // Monitor the appearance and disappearance of the soft keyboard.
         currentWindow.on('avoidAreaChange', async data => {
@@ -62,10 +66,12 @@ struct TextInputComponent {
             this.contentOffset = 0;
           }
         });
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG, `getLastWindow failed, cause code: ${err.code}, message: ${err.message}`);
       });
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.message}, the message is ${error.message}`);
+      Logger.error(TAG, `CurrentWindow invoke error, the code is ${error?.code}, the message is ${error?.message}`);
     }
   }
 

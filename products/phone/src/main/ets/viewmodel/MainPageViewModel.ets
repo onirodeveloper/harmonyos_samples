@@ -20,26 +20,33 @@ import {
   FormCardEnum,
   GlobalInfoModel,
   PageContext,
+  PageEnum,
   StorageKey,
   WantParams,
 } from '@ohos/common';
 import { ArticleDetailParams, TabBarType } from '@ohos/commonbusiness';
 
 export class MainPageViewModel extends BaseVM<BaseState> {
-  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-
   public constructor() {
     super(new BaseState())
   }
 
-  public sendEvent(event: JumpToPageEvent): number {
-    if (event.wantParams.shortCutKey) {
-      return this.navigateToModuleHome(event.wantParams.shortCutKey)
-    } else if (event.wantParams.cardFrom === FormCardEnum.ARTICLE_SERVICE_CARD) {
-      this.navigateToArticleDetail(event.wantParams.articleInfo);
+  public sendEvent<T>(event: HomeEventParam<T>): number | void {
+    if (event.type===HomeEventTypeEnum.JUMP_TO_PAGE) {
+      return this.jumpToPage(event.param as WantParams);
+    }
+  }
+
+  private jumpToPage(wantParams: WantParams): number {
+    if (wantParams?.shortCutKey) {
+      return this.navigateToModuleHome(wantParams.shortCutKey)
+    } else if (wantParams?.cardFrom === FormCardEnum.ARTICLE_SERVICE_CARD) {
+      if (wantParams?.articleInfo) {
+        this.navigateToArticleDetail(wantParams.articleInfo);
+      }
       return TabBarType.PRACTICE;
-    } else if (event.wantParams.cardFrom === FormCardEnum.LOCK_SCREEN_CARD ||
-      event.wantParams.cardFrom === FormCardEnum.LOCK_SCREEN_CARD_LG) {
+    } else if (wantParams?.cardFrom === FormCardEnum.LOCK_SCREEN_CARD ||
+      wantParams?.cardFrom === FormCardEnum.LOCK_SCREEN_CARD_LG) {
       return TabBarType.HOME;
     }
     return TabBarType.HOME;
@@ -60,28 +67,31 @@ export class MainPageViewModel extends BaseVM<BaseState> {
 
   private navigateToArticleDetail(articleInfo?: ArticleListItem) {
     if (articleInfo) {
-      const pageContext: PageContext | undefined = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-        AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT) : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT);
+      const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO)
+      const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+        AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT) :
+        AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
       const articleParams: ArticleDetailParams = {
         id: articleInfo.id,
         isArticle: articleInfo.isArticle ?? true,
         title: articleInfo.title,
-        detailsUrl: articleInfo.detailsUrl
+        detailsUrl: articleInfo.detailsUrl,
       }
       pageContext?.openPage({
-        routerName: 'ArticleDetailView',
+        routerName: PageEnum.ARTICLE_DETAIL_VIEW,
         param: articleParams,
       })
     }
   }
 }
 
-export class JumpToPageEvent {
-  public readonly wantParams: WantParams;
+export interface HomeEventParam<T> {
+  type: HomeEventTypeEnum,
+  param?: T,
+}
 
-  public constructor(wantParams: WantParams) {
-    this.wantParams = wantParams;
-  }
+export enum HomeEventTypeEnum {
+  JUMP_TO_PAGE = 'jumpToPage',
 }
 
 enum ShortCutKey {

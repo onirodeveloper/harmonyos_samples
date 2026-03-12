@@ -13,12 +13,18 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
-import { LoadingFailedView, LoadingStatus, LoadingView, NoNetworkView, StorageKey } from '@ohos/common';
+import {
+  GlobalInfoModel,
+  LoadingFailedView,
+  LoadingStatus,
+  LoadingView,
+  NoNetworkView,
+  StorageKey
+} from '@ohos/common';
 
 @Component
 export struct BaseDetailComponent {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   @Prop loadingStatus: LoadingStatus;
   @BuilderParam @Require detailContentView: () => void;
   @BuilderParam @Require topTitleView: () => void;

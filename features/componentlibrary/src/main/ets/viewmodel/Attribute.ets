@@ -18,14 +18,14 @@ import { AttributeTypeEnum } from './AttributeTypeEnum';
 @Observed
 export abstract class Attribute {
   public name: string;
-  public disPlayName: ResourceStr;
+  public displayName: ResourceStr;
   public currentValue: string;
   public type: AttributeTypeEnum;
   public enable: boolean;
 
-  constructor(name: string, disPlayName: ResourceStr, currentValue: string, type: AttributeTypeEnum) {
+  constructor(name: string, displayName: ResourceStr, currentValue: string, type: AttributeTypeEnum) {
     this.name = name;
-    this.disPlayName = disPlayName;
+    this.displayName = displayName;
     this.currentValue = currentValue;
     this.type = type;
     this.enable = true;

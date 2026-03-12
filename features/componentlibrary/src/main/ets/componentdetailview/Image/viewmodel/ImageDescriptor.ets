@@ -16,12 +16,13 @@
 import { StringUtil } from '../../../util/StringUtil';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { filterStyleMapData, imageFitStyleMapData } from '../entity/ImageAttributeMapping';
 
 @Observed
 export class ImageDescriptor extends CommonDescriptor {
-  private colorFilterMatrixStr: string = filterStyleMapData.get('Default')!.value;
-  public objectFit: ImageFit = imageFitStyleMapData.get('Default')!.value;
+  private colorFilterMatrixStr: string = filterStyleMapData.get(DEFAULT_KEY)!.value;
+  public objectFit: ImageFit = imageFitStyleMapData.get(DEFAULT_KEY)!.value;
   public colorFilterMatrix: number[] = StringUtil.stringToArray(this.colorFilterMatrixStr);
   public clip: boolean = false;
 
@@ -31,11 +32,11 @@ export class ImageDescriptor extends CommonDescriptor {
       switch (attribute.name) {
         case 'objectFit':
           this.objectFit =
-            imageFitStyleMapData.get(attribute.currentValue)?.value ?? imageFitStyleMapData.get('Default')!.value;
+            imageFitStyleMapData.get(attribute.currentValue)?.value ?? imageFitStyleMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'colorFilterMatrixStr':
           this.colorFilterMatrixStr =
-            filterStyleMapData.get(attribute.currentValue)?.value ?? filterStyleMapData.get('Default')!.value;
+            filterStyleMapData.get(attribute.currentValue)?.value ?? filterStyleMapData.get(DEFAULT_KEY)!.value;
           this.colorFilterMatrix = StringUtil.stringToArray(this.colorFilterMatrixStr);
           break;
         case 'clip':

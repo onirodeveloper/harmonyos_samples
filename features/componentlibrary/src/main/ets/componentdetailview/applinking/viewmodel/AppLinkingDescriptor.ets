@@ -15,11 +15,12 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { LinkType, typeMapData } from '../entity/AppLinkingAttributeMapping';
 
 @Observed
 export class AppLinkingDescriptor extends CommonDescriptor {
-  public type: LinkType = typeMapData.get('Default')!;
+  public type: LinkType = typeMapData.get(DEFAULT_KEY)!;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

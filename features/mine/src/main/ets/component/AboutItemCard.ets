@@ -48,7 +48,7 @@ export struct AboutItemCard {
             .fontColor($r('sys.color.font_primary'))
         }
 
-        Text(AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO)?.versionName as string)
+        Text(AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO)?.versionName ?? '')
           .margin({ top: $r('sys.float.padding_level2') })
           .fontWeight(FontWeight.Regular)
           .fontSize($r('sys.float.Subtitle_S'))

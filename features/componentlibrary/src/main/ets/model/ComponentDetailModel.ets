@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { Logger } from '@ohos/common';
 import { ComponentLibraryService } from '../service/ComponentLibraryService';
 import type { ComponentDetailData } from './ComponentDetailData';
@@ -34,15 +35,23 @@ export class ComponentDetailModel {
   }
 
   public init(id: number): Promise<ComponentDetailData> {
-    return this.service.getComponentDetailByPreference(id).then((data: ComponentDetailData) => {
-      return data;
-    }).catch((err: string) => {
-      Logger.error(TAG, `get data from network failed! try to get data form preference. ${err}`);
-      return this.service.getComponentDetail(id)
+    return new Promise((resolve, reject) => {
+      this.service.getComponentDetail(id)
         .then((data: ComponentDetailData) => {
           this.service.setComponentDetailToPreference(id, data);
-          return data;
+          resolve(data);
+        })
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `get data from network failed! try to get data form preference. ${error.message}`);
+          this.service.getComponentDetailByPreference(id)
+            .then((data: ComponentDetailData) => {
+              resolve(data);
+            })
+            .catch((err: string) => {
+              Logger.error(TAG, `get data from preference failed. ${err}`);
+              reject(error);
+            });
         });
-    });
+    })
   }
 }

@@ -16,6 +16,7 @@
 import { StringUtil } from '../../../util/StringUtil';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   columnsGapMapData,
   columnsTemplateMapData,
@@ -25,11 +26,11 @@ import {
 } from '../entity/WaterFlowAttributeMapping';
 
 export class WaterFlowCodeGenerator implements CommonCodeGenerator {
-  private layoutDirection: string = layoutDirectionMapData.get('Default')!.code;
-  private friction: string = frictionMapData.get('Default')!.code;
-  private columnsTemplate: string = columnsTemplateMapData.get('Default')!.code;
-  private rowsTemplate: string = rowsTemplateMapData.get('Default')!.code;
-  private columnsGap: string = columnsGapMapData.get('Default')!.code;
+  private layoutDirection: string = layoutDirectionMapData.get(DEFAULT_KEY)!.code;
+  private friction: string = frictionMapData.get(DEFAULT_KEY)!.code;
+  private columnsTemplate: string = columnsTemplateMapData.get(DEFAULT_KEY)!.code;
+  private rowsTemplate: string = rowsTemplateMapData.get(DEFAULT_KEY)!.code;
+  private columnsGap: string = columnsGapMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     let itemWidth = '';
@@ -38,7 +39,7 @@ export class WaterFlowCodeGenerator implements CommonCodeGenerator {
       switch (attribute.name) {
         case 'layoutDirection':
           this.layoutDirection =
-            layoutDirectionMapData.get(attribute.currentValue)?.code ?? layoutDirectionMapData.get('Default')!.code;
+            layoutDirectionMapData.get(attribute.currentValue)?.code ?? layoutDirectionMapData.get(DEFAULT_KEY)!.code;
           if (this.layoutDirection === `FlexDirection.Column` ||
             this.layoutDirection === `FlexDirection.ColumnReverse`) {
             itemWidth = `'100%'`;
@@ -49,7 +50,7 @@ export class WaterFlowCodeGenerator implements CommonCodeGenerator {
           }
           break;
         case 'friction':
-          this.friction = frictionMapData.get(attribute.currentValue)?.code ?? frictionMapData.get('Default')!.code;
+          this.friction = frictionMapData.get(attribute.currentValue)?.code ?? frictionMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'columnsTemplate':
           this.columnsTemplate = StringUtil.getTemplateString(Number(attribute.currentValue));

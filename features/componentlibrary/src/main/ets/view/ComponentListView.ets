@@ -15,8 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
-import { BreakpointType, CommonConstants, StorageKey, VersionUtil } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, PageContext, StorageKey, VersionUtil } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -24,7 +23,6 @@ import {
   BaseHomeView,
   CalculateHeightParam,
   CardStyleTypeEnum,
-  CardTypeEnum,
   FullScreenNavigation,
   LoadingMoreItemBuilder,
   OffsetParam,
@@ -40,16 +38,21 @@ import { ComponentListEventType, ComponentListViewModel } from '../viewmodel/Com
 @Component({ freezeWhenInactive: true })
 export struct ComponentListView {
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+  @StorageLink((StorageKey.COMPONENT_PAGE_CONTEXT)) componentListPageContext: PageContext =
+    AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) ?? new PageContext();
   viewModel: ComponentListViewModel = ComponentListViewModel.getInstance();
   @State componentListState: ComponentListState = this.viewModel.getState();
-  private componentListPageContext: PageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)!;
   scroller: Scroller = new Scroller();
 
   aboutToAppear(): void {
     this.viewModel.sendEvent({ type: ComponentListEventType.LOAD_COMPONENT_PAGE, param: null });
+    this.viewModel.sendEvent<OffsetParam>({
+      type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
+      param: { yOffset: 0, tabIndex: TabBarType.HOME },
+    });
   }
 
   handleBreakPointChange() {
@@ -75,9 +78,7 @@ export struct ComponentListView {
   }
 
   jumpCodelabDetailView(componentCard: ComponentCardData) {
-    if (componentCard.cardType === CardTypeEnum.COMPONENT) {
-      this.jumpComponentDetailView(componentCard.cardContents?.[0]);
-    }
+    this.jumpComponentDetailView(componentCard.componentContents?.[0]);
   }
 
   jumpBannerDetail(banner: BannerData) {
@@ -99,11 +100,12 @@ export struct ComponentListView {
           },
         })
       }
+      .height(this.componentListState.bannerHeight)
       .width('100%')
 
       LazyForEach(this.componentListState.cardSource, (item: ComponentCardData) => {
         FlowItem() {
-          if (item.cardStyleType === CardStyleTypeEnum.PICTURE_ABOVE_LIST) {
+          if (item.styleType === CardStyleTypeEnum.PICTURE_ABOVE_LIST) {
             PictureListCard({
               componentCardData: item,
               widthBreakpoint: this.globalInfoModel.widthBreakpoint,
@@ -112,7 +114,7 @@ export struct ComponentListView {
               },
             })
               .reuseId(CardStyleTypeEnum.PICTURE_ABOVE_LIST.toString())
-          } else if (item.cardStyleType === CardStyleTypeEnum.LIST) {
+          } else if (item.styleType === CardStyleTypeEnum.LIST) {
             ListCard({
               componentCardData: item,
               handleItemClick: (componentContent: ComponentContent) => {
@@ -123,9 +125,6 @@ export struct ComponentListView {
           } else {
             CodeLabCard({
               componentCardData: item,
-              handleClickAction: () => {
-                this.jumpCodelabDetailView(item);
-              },
             })
               .reuseId(CardStyleTypeEnum.PICTURE.toString())
               .onClick(() => {
@@ -162,7 +161,7 @@ export struct ComponentListView {
     }).getValue(this.globalInfoModel.widthBreakpoint))
     .edgeEffect(this.componentListState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
-      const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset().yOffset };
+      const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset()?.yOffset ?? 0 };
       const bannerHeightChange: boolean | void = this.viewModel.sendEvent<CalculateHeightParam>({
         type: BaseHomeEventType.CALCULATE_BANNER_HEIGHT,
         param,

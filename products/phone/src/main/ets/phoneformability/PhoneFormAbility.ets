@@ -27,14 +27,14 @@ export default class PhoneFormAbility extends FormExtensionAbility {
       return formBindingData.createFormBindingData('');
     }
     const formName: string = want.parameters?.[formInfo.FormParam.NAME_KEY] as string;
-    const formId: string = want.parameters[formInfo.FormParam.IDENTITY_KEY] as string;
-    if (formName === 'ArticleServiceCard') {
+    const formId: string = want.parameters?.[formInfo.FormParam.IDENTITY_KEY] as string;
+    if (formName === 'ArticleServiceCard' && formId) {
       return UpdateFormData.init(formId);
     }
     return formBindingData.createFormBindingData('');
   }
 
-  onCastToNormalForm(formId: string) {
+  onCastToNormalForm(_formId: string) {
     // Called when the form provider is notified that a temporary form is successfully
     // converted to a normal form.
   }
@@ -44,7 +44,7 @@ export default class PhoneFormAbility extends FormExtensionAbility {
     UpdateFormData.update(formId);
   }
 
-  onFormEvent(formId: string, message: string) {
+  onFormEvent(_formId: string, _message: string) {
     // Called when a specified message event defined by the form provider is triggered.
   }
 
@@ -53,7 +53,7 @@ export default class PhoneFormAbility extends FormExtensionAbility {
     UpdateFormData.removeDataOfFormId(formId);
   }
 
-  onAcquireFormState(want: Want) {
+  onAcquireFormState(_want: Want) {
     // Called to return a {@link FormState} object.
     return formInfo.FormState.READY;
   }

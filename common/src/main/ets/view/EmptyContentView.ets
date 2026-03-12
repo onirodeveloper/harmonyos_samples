@@ -16,7 +16,7 @@
 import { CommonConstants } from '../constant/CommonConstants';
 
 @Builder
-export function EmptyContentView(imgSrc: Resource, description: ResourceStr) {
+export function EmptyContentView(imgSrc: Resource, description: ResourceStr, handleRefresh?: () => void) {
   Column({ space: CommonConstants.SPACE_8 }) {
     Image(imgSrc)
       .draggable(false)
@@ -30,4 +30,5 @@ export function EmptyContentView(imgSrc: Resource, description: ResourceStr) {
   .backgroundColor($r('sys.color.background_secondary'))
   .width('100%')
   .layoutWeight(1)
+  .onClick(() => handleRefresh?.())
 }

@@ -8,8 +8,20 @@ const UP = 'up';
 const DOWN = 'down';
 
 let lastScrollTop = 0;
-code.addEventListener('scroll', handleScroll);
+const throttleScroll = throttle(handleScroll);
+code.addEventListener('scroll', throttleScroll);
 
+function throttle(func, wait = 100) {
+    let timeoutId;
+    return function (...args) {
+        if (!timeoutId) {
+            func.apply(this, args);
+            timeoutId = setTimeout(() => {
+                timeoutId = null;
+            }, wait);
+        }
+    };
+}
 function toFullScreen() {
     code.style.overflowY = 'scroll';
     code.style.paddingLeft = '16px';
@@ -28,7 +40,7 @@ function toSmallScreen() {
 }
 
 function changeColorMode(colorMode) {
-    link.href = colorMode === LIGHT ? './dist/light.css' : './dist/dark.css';
+    link.href = colorMode === LIGHT ? './commonDist/light.css' : './commonDist/dark.css';
 }
 
 function codeToHtml(codeParam, colorMode) {

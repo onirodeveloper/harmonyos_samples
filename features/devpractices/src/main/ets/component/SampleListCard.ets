@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { ImageComponent, TRACK_KEY, TrackEventType, TrackNode, TrackServiceData } from '@ohos/common';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
 
@@ -23,49 +24,57 @@ export struct SampleListCard {
 
   build() {
     Column() {
-      Text(this.sampleCardData.cardTitle)
+      Text(this.sampleCardData.title)
         .fontSize($r('sys.float.Subtitle_L'))
         .fontColor($r('sys.color.font_primary'))
         .fontWeight(FontWeight.Bold)
-      Text(this.sampleCardData.cardSubTitle)
+      Text(this.sampleCardData.subTitle)
         .fontSize($r('sys.float.Body_S'))
         .fontColor($r('sys.color.font_secondary'))
         .fontWeight(FontWeight.Regular)
         .margin({ top: $r('sys.float.padding_level2') })
       ForEach(this.sampleCardData.sampleContents.slice(0, 2), (item: SampleContent, index: number) => {
-        Row() {
-          Column() {
-            Image($rawfile(item.mediaUrl))
-              .draggable(false)
-              .alt($r('app.media.img_placeholder'))
-              .objectFit(ImageFit.Contain)
-              .height('100%')
-          }
-          .padding({ top: $r('sys.float.padding_level4'), bottom: $r('sys.float.padding_level2') })
-          .width($r('app.float.card_img_width'))
-          .backgroundColor($r('sys.color.comp_background_secondary'))
+        TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+          Row() {
+            Column() {
+              ImageComponent({
+                src: item.mediaUrl,
+                objectFit: ImageFit.Contain,
+                alt: $r('app.media.img_placeholder'),
+              })
+                .height('100%')
+            }
+            .padding({ top: $r('sys.float.padding_level4'), bottom: $r('sys.float.padding_level2') })
+            .width($r('app.float.card_img_width'))
+            .backgroundColor($r('sys.color.comp_background_secondary'))
 
-          Column() {
-            Text(item.title)
-              .fontSize($r('sys.float.Subtitle_M'))
-              .fontWeight(FontWeight.Medium)
-              .fontColor($r('sys.color.font_primary'))
-            TagLabel({ tags: item.tags })
+            Column() {
+              Text(item.title)
+                .fontSize($r('sys.float.Subtitle_M'))
+                .fontWeight(FontWeight.Medium)
+                .fontColor($r('sys.color.font_primary'))
+              TagLabel({ tags: item.tags })
+            }
+            .height('100%')
+            .padding($r('sys.float.padding_level8'))
+            .alignItems(HorizontalAlign.Start)
+            .justifyContent(FlexAlign.Center)
+            .layoutWeight(1)
+            .backgroundColor($r('sys.color.comp_background_tertiary'))
           }
-          .height('100%')
-          .padding($r('sys.float.padding_level8'))
-          .alignItems(HorizontalAlign.Start)
-          .justifyContent(FlexAlign.Center)
-          .layoutWeight(1)
-          .backgroundColor($r('sys.color.comp_background_tertiary'))
+          .onClick(() => this.handleItemClick?.(index, item))
+          .borderRadius($r('sys.float.corner_radius_level5'))
+          .clip(true)
+          .margin({ top: $r('sys.float.padding_level8') })
+          .backgroundColor($r('app.color.blur_bg'))
+          .width('100%')
+          .height($r('app.float.card_list_height'))
+          .customProperty(TRACK_KEY, {
+            content: item.title,
+            moduleType: item.contentType,
+            eventType: TrackEventType.SAMPLE_CLICK,
+          } as TrackServiceData)
         }
-        .onClick(() => this.handleItemClick?.(index, this.sampleCardData.sampleContents))
-        .borderRadius($r('sys.float.corner_radius_level5'))
-        .clip(true)
-        .margin({ top: $r('sys.float.padding_level8') })
-        .backgroundColor($r('app.color.blur_bg'))
-        .width('100%')
-        .height($r('app.float.card_list_height'))
       }, (item: SampleContent) => item.id.toString())
     }
     .clip(true)

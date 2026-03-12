@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonBoolMapping, CommonColorMapping } from '../../common/entity/CommonMapData';
+import { CommonBoolMapping, CommonColorMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 type ToggleValue = ToggleType | ResourceColor ;
 
@@ -28,20 +28,20 @@ class ToggleTypeMapping {
 }
 
 export const toggleTypeMapData: Map<string, ToggleTypeMapping> = new Map([
-  ['Default', new ToggleTypeMapping('ToggleType.Switch', ToggleType.Switch)],
+  [DEFAULT_KEY, new ToggleTypeMapping('ToggleType.Switch', ToggleType.Switch)],
   ['Switch', new ToggleTypeMapping('ToggleType.Switch', ToggleType.Switch)],
   ['Button', new ToggleTypeMapping('ToggleType.Button', ToggleType.Button)],
   ['Checkbox', new ToggleTypeMapping('ToggleType.Checkbox', ToggleType.Checkbox)],
 ]);
 
 export const trackBorderRadiusMapData: Map<string, ToggleTypeMapping> = new Map([
-  ['Default', new ToggleTypeMapping('16', $r('sys.float.ohos_id_corner_radius_default_l'))],
+  [DEFAULT_KEY, new ToggleTypeMapping('16', $r('sys.float.ohos_id_corner_radius_default_l'))],
 ]);
 
 export const isOnMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('true', true)],
+  [DEFAULT_KEY, new CommonBoolMapping('true', true)],
 ]);
 
 export const backgroundColorMapData: Map<string, CommonColorMapping> = new Map([
-  ['Default', new CommonColorMapping('rgba(0,85,255)', 'rgba(0,85,255)')],
+  [DEFAULT_KEY, new CommonColorMapping('rgba(0,85,255)', 'rgba(0,85,255)')],
 ]);

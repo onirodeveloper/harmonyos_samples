@@ -26,6 +26,6 @@ export function MenuItemBuilder(configuration: MenuItemConfiguration) {
   .width('100%')
   .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
   .onClick(() => {
-    configuration.triggerSelect(configuration.index, configuration.value.valueOf().toString());
+    configuration.triggerSelect(configuration.index, configuration.value.toString());
   })
 }

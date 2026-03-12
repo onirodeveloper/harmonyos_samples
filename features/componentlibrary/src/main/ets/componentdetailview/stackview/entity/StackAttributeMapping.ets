@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class StackAlignMapping {
   public readonly code: string;
@@ -33,5 +34,5 @@ export const stackAlignMapData: Map<string, StackAlignMapping> = new Map([
   ['BottomStart', new StackAlignMapping('Alignment.BottomStart', Alignment.BottomStart)],
   ['BottomEnd', new StackAlignMapping('Alignment.BottomEnd', Alignment.BottomEnd)],
   ['Bottom', new StackAlignMapping('Alignment.Bottom', Alignment.Bottom)],
-  ['Default', new StackAlignMapping('Alignment.Center', Alignment.Center)],
+  [DEFAULT_KEY, new StackAlignMapping('Alignment.Center', Alignment.Center)],
 ]);

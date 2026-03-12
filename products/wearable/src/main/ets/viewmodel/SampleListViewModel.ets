@@ -57,8 +57,12 @@ export class SampleListViewModel extends BaseVM<SampleListState> {
   }
 
   private loadSample(param: LoadSampleParam): void {
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT)!;
+    const context: common.UIAbilityContext = uiContext?.getHostContext() as common.UIAbilityContext;
+    if (!context) {
+      Logger.error(TAG, `LoadSample failed, cause context is undefined`);
+      return;
+    }
     ProcessUtil.startAbility(context, {
       bundleName: context.abilityInfo.bundleName,
       abilityName: param.abilityName,

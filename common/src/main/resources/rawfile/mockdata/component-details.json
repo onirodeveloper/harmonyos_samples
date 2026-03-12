@@ -1,13 +1,14 @@
 
 {
-  "code": 200,
-  "message": "Success",
-  "data": [
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
     {
       "id": 1,
+      "contentType": 1,
       "componentName": "Button",
       "subTitle": "按钮",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "controlSize",
@@ -58,9 +59,9 @@
     },
     {
       "id": 2,
+      "contentType": 1,
       "componentName": "Toggle",
       "subTitle": "开关",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "isOn",
@@ -97,9 +98,9 @@
     },
     {
       "id": 5,
+      "contentType": 1,
       "componentName": "Column",
       "subTitle": "线性布局 - 纵向",
-      "componentType": 2,
       "props": [
         {
           "propertyName": "padding",
@@ -139,9 +140,9 @@
     },
     {
       "id": 6,
+      "contentType": 1,
       "componentName": "Row",
       "subTitle": "线性布局 - 横向",
-      "componentType": 2,
       "props": [
         {
           "propertyName": "padding",
@@ -182,8 +183,8 @@
     {
       "id": 7,
       "componentName": "Stack",
+      "contentType": 1,
       "subTitle": "层叠布局",
-      "componentType": 2,
       "props": [
         {
           "propertyName": "alignDirection",
@@ -224,8 +225,8 @@
     {
       "id": 8,
       "componentName": "Grid",
+      "contentType": 1,
       "subTitle": "网格",
-      "componentType": 2,
       "props": [
         {
           "propertyName": "operationMode",
@@ -273,8 +274,8 @@
     {
       "id": 9,
       "componentName": "List",
+      "contentType": 1,
       "subTitle": "列表",
-      "componentType": 2,
       "props": [
         {
           "propertyName": "sticky",
@@ -319,8 +320,8 @@
     {
       "id": 10,
       "componentName": "Text",
+      "contentType": 1,
       "subTitle": "文本",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "fontWeight",
@@ -379,8 +380,8 @@
     {
       "id": 11,
       "componentName": "Image",
+      "contentType": 1,
       "subTitle": "图片",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "clip",
@@ -418,8 +419,8 @@
     {
       "id": 13,
       "componentName": "Progress",
+      "contentType": 1,
       "subTitle": "进度条",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "kind",
@@ -464,8 +465,8 @@
     {
       "id": 14,
       "componentName": "CalendarPicker",
+      "contentType": 1,
       "subTitle": "日历选择器",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "calendarAlignType",
@@ -524,8 +525,8 @@
     {
       "id": 15,
       "componentName": "DatePicker",
+      "contentType": 1,
       "subTitle": "日期滑动选择器",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "lunar",
@@ -577,8 +578,8 @@
     {
       "id": 18,
       "componentName": "Tabs",
+      "contentType": 1,
       "subTitle": "页签",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "barPosition",
@@ -623,8 +624,8 @@
     {
       "id": 20,
       "componentName": "AlertDialog",
+      "contentType": 1,
       "subTitle": "警告弹窗",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "dialogAlignment",
@@ -644,8 +645,8 @@
     {
       "id": 21,
       "componentName": "TextPickerDialog",
+      "contentType": 1,
       "subTitle": "文本滑动选择器弹窗",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "canLoop",
@@ -672,8 +673,8 @@
     {
       "id": 22,
       "componentName": "Rating",
+      "contentType": 1,
       "subTitle": "评分",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "starStyle",
@@ -714,8 +715,8 @@
     {
       "id": 23,
       "componentName": "Flex",
+      "contentType": 1,
       "subTitle": "弹性布局",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "elements",
@@ -777,8 +778,8 @@
     {
       "id": 24,
       "componentName": "Swiper",
+      "contentType": 1,
       "subTitle": "滑动轮播组件",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "vertical",
@@ -826,8 +827,8 @@
     {
       "id": 25,
       "componentName": "WaterFlow",
+      "contentType": 1,
       "subTitle": "瀑布流",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "friction",
@@ -875,8 +876,8 @@
     {
       "id": 26,
       "componentName": "PhotoViewPicker",
+      "contentType": 1,
       "subTitle": "图库选择器",
-      "componentType": 1,
       "props": [],
       "recommendList": [
         {
@@ -888,8 +889,8 @@
     {
       "id": 27,
       "componentName": "DocumentViewPicker",
+      "contentType": 1,
       "subTitle": "文件选择器",
-      "componentType": 1,
       "props": [],
       "recommendList": [
         {
@@ -901,8 +902,8 @@
     {
       "id": 28,
       "componentName": "CameraPicker",
+      "contentType": 1,
       "subTitle": "相机选择器",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "mediaTypes",
@@ -922,8 +923,8 @@
     {
       "id": 29,
       "componentName": "TextToSpeech",
+      "contentType": 1,
       "subTitle": "文本转语音",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "speed",
@@ -943,8 +944,8 @@
     {
       "id": 30,
       "componentName": "AICaptionComponent",
+      "contentType": 1,
       "subTitle": "AI字幕组件",
-      "componentType": 1,
       "props": [],
       "recommendList": [
         {
@@ -956,8 +957,8 @@
     {
       "id": 32,
       "componentName": "AI Matting",
+      "contentType": 1,
       "subTitle": "AI抠图",
-      "componentType": 1,
       "props": [],
       "recommendList": [
         {
@@ -969,8 +970,8 @@
     {
       "id": 33,
       "componentName": "ActionSheet",
+      "contentType": 1,
       "subTitle": "列表选择弹窗",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "sheetInfo",
@@ -1004,8 +1005,8 @@
     {
       "id": 34,
       "componentName": "Popup",
+      "contentType": 1,
       "subTitle": "气泡弹窗",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "placement",
@@ -1036,8 +1037,8 @@
     {
       "id": 35,
       "componentName": "CustomDialog",
+      "contentType": 1,
       "subTitle": "自定义弹窗",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "style",
@@ -1057,8 +1058,8 @@
     {
       "id": 36,
       "componentName": "AppLinking",
+      "contentType": 1,
       "subTitle": "应用拉起",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "type",
@@ -1078,8 +1079,8 @@
     {
       "id": 38,
       "componentName": "Penkit",
+      "contentType": 1,
       "subTitle": "手写笔服务",
-      "componentType": 1,
       "props": [],
       "recommendList": [
         {
@@ -1091,8 +1092,8 @@
     {
       "id": 40,
       "componentName": "TextArea",
+      "contentType": 1,
       "subTitle": "多行文本输入",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "textOverflowType",
@@ -1137,8 +1138,8 @@
     {
       "id": 41,
       "componentName": "TextStyle",
+      "contentType": 1,
       "subTitle": "属性字符串",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "overflow",
@@ -1179,8 +1180,8 @@
     {
       "id": 42,
       "componentName": "TextInput",
+      "contentType": 1,
       "subTitle": "单行文本输入",
-      "componentType": 1,
       "props": [
         {
           "propertyName": "placeholderFont",

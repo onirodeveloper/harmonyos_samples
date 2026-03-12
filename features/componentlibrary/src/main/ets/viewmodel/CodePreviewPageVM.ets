@@ -28,10 +28,9 @@ import { DetailPageConstant } from '../constant/DetailPageConstant';
 
 export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   private static instance: CodePreviewPageVM;
-  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
 
   constructor() {
-    super(new CodePreviewState(0, 0, 1));
+    super(new CodePreviewState());
   }
 
   public static getInstance(): CodePreviewPageVM {
@@ -49,9 +48,11 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   }
 
   public pop(animated?: boolean): void {
-    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
-    pageContext.popPage(animated);
+    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
+    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
+      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
+    pageContext?.popPage(animated);
   }
 
   private init(): void {
@@ -65,12 +66,13 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   }
 
   private changeScrollDirection = (direction: string, offset: number): void => {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO)!;
+    const globalInfoModel: GlobalInfoModel =
+      AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       return;
     }
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    uiContext.animateTo({
+    const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    uiContext?.animateTo({
       duration: 300,
       curve: Curve.EaseOut,
     }, () => {

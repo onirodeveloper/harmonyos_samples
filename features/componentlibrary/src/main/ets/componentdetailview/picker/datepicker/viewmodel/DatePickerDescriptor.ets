@@ -39,7 +39,7 @@ export class DatePickerDescriptor extends CommonDescriptor {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'lunar':
-          this.lunar = JSON.parse(attribute.currentValue);
+          this.lunar = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         case 'selectedTextColor':
           this.selectedTextStyle = {
@@ -51,10 +51,11 @@ export class DatePickerDescriptor extends CommonDescriptor {
           };
           break;
         case 'selectedFontSize':
+          const selectedFontSize = Number(attribute.currentValue);
           this.selectedTextStyle = {
             color: this.selectedTextStyle.color,
             font: {
-              size: Number(attribute.currentValue),
+              size: Number.isNaN(selectedFontSize) ? this.selectedTextStyle.font?.size : selectedFontSize,
               weight: this.selectedTextStyle.font?.weight,
             },
           };
@@ -69,9 +70,10 @@ export class DatePickerDescriptor extends CommonDescriptor {
           };
           break;
         case 'fontSize':
+          const fontSize = Number(attribute.currentValue);
           this.textStyle.font = {
-            size: Number(attribute.currentValue),
-            weight: FontWeight.Regular,
+            size: Number.isNaN(fontSize) ? this.textStyle.font?.size : fontSize,
+            weight: this.selectedTextStyle.font?.weight,
           };
           break;
         default:

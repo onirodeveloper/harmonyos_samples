@@ -15,7 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, ResponseData, StorageKey } from '@ohos/common';
+import { GlobalInfoModel, PageData, PageEnum, StorageKey } from '@ohos/common';
 import {
   LoadingModel,
   LoadingStatus,
@@ -78,7 +78,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
     this.state.showTab = this.state.topNavigationData.showTab;
     WindowUtil.updateStatusBarColor(isDark);
     this.sampleModel.getSamplePage(1, this.pageSize)
-      .then((result: ResponseData<SampleData>) => {
+      .then((result: PageData<SampleData>) => {
         if (result.data.bannerInfos) {
           result.data.bannerInfos.forEach((item: BannerData) => {
             item.tabViewType = TabBarType.SAMPLE;
@@ -90,26 +90,29 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
           sampleCategory.currentPage = 1;
           sampleCategory.loadingModel = new LoadingModel();
           sampleCategory.loadingModel.loadingStatus =
-            sampleCategory.sampleCards?.length === 0 ? LoadingStatus.OFF : LoadingStatus.SUCCESS;
+            (!sampleCategory.sampleCards || sampleCategory.sampleCards?.length === 0) ? LoadingStatus.OFF :
+              LoadingStatus.SUCCESS;
           sampleCategory.loadingModel.hasNextPage = false;
           categoryList.push(sampleCategory);
         });
         this.state.sampleCategories = categoryList;
-        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
           globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.SAMPLE] = true;
+          this.setTitleBarStyle();
         }
         this.state.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
-        param.callback();
+        param?.callback();
       })
       .catch((error: BusinessError) => {
         Logger.error(TAG, `load PracticePage Failed, ${error.code} ${error.message}`);
         WindowUtil.updateStatusBarColor(isDark);
         TAB_CONTENT_STATUSES[TabBarType.SAMPLE] = isDark;
-        if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
+        this.setTitleBarStyle(true);
+        if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
           this.state.loadingModel.loadingStatus = LoadingStatus.NO_NETWORK;
         } else {
           this.state.loadingModel.loadingStatus = LoadingStatus.FAILED;
@@ -119,18 +122,22 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
 
   protected loadSampleList(currentCategory: SampleCategory): void {
     currentCategory.loadingModel = new LoadingModel(LoadingStatus.LOADING);
-    this.changeSampleCategories(currentCategory);
-    this.sampleModel.getSampleList(currentCategory.categoryType, currentCategory.currentPage, this.pageSize)
-      .then((result: ResponseData<SampleCardData[]>) => {
-        currentCategory.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
-        currentCategory.loadingModel.hasNextPage =
-          result.data.length === this.pageSize && (result.totalSize > currentCategory.currentPage * this.pageSize);
+    this.sampleModel.getSampleList(currentCategory.id, currentCategory.currentPage, this.pageSize)
+      .then((result: PageData<SampleCardData[]>) => {
         currentCategory.sampleCards = (currentCategory.sampleCards || []).concat(result.data);
+        if (currentCategory.sampleCards.length === 0) {
+          currentCategory.loadingModel.loadingStatus = LoadingStatus.EMPTY_DATA;
+          currentCategory.loadingModel.hasNextPage = false;
+        } else {
+          currentCategory.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
+          currentCategory.loadingModel.hasNextPage =
+            result.data.length === this.pageSize && (result.totalSize > currentCategory.currentPage * this.pageSize);
+        }
         this.changeSampleCategories(currentCategory);
       })
       .catch((error: BusinessError) => {
         Logger.error(TAG, `getSampleList failed,cause ${error.code} ${error.message}`);
-        if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
+        if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
           currentCategory.loadingModel = new LoadingModel(LoadingStatus.NO_NETWORK);
         } else {
           currentCategory.loadingModel = new LoadingModel(LoadingStatus.FAILED);
@@ -140,12 +147,12 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   }
 
   protected jumpDetailView(param: SampleDetailParams): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-    const pageContext: PageContext =
-      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)! :
-        AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
-    pageContext.openPage({
-      routerName: 'SampleDetailView',
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+    const pageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT) :
+      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
+    pageContext?.openPage({
+      routerName: PageEnum.SAMPLE_DETAIL_VIEW,
       param: param,
     }, true);
   }
@@ -153,7 +160,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   private changeSampleCategories(currentCategory: SampleCategory): void {
     const categoryList: SampleCategory[] = [];
     this.state.sampleCategories.forEach((sampleCategory: SampleCategory) => {
-      if (sampleCategory.categoryType === currentCategory.categoryType) {
+      if (sampleCategory.id === currentCategory.id) {
         categoryList.push(currentCategory);
       } else {
         categoryList.push(sampleCategory);

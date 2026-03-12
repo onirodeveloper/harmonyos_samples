@@ -34,9 +34,9 @@ import { NewContentItem } from '../component/NewContentItem';
 @Component
 export struct NewContentView {
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
   @State currentIndex: number = 0;
   @State singleSelectCapsuleOptions: SegmentButtonOptions = SegmentButtonOptions.capsule({
@@ -82,21 +82,21 @@ export struct NewContentView {
     Tabs({ index: this.tabSelectedIndexes[0] }) {
       TabContent() {
         NewContentItem({
-          contentData: this.viewModel?.newComponentData,
+          contentData: this.newContentPageState?.newComponentData,
           emptyDescription: $r('app.string.no_component_content'),
         })
       }
 
       TabContent() {
         NewContentItem({
-          contentData: this.viewModel?.newSampleData,
+          contentData: this.newContentPageState?.newSampleData,
           emptyDescription: $r('app.string.no_sample_content'),
         })
       }
 
       TabContent() {
         NewContentItem({
-          contentData: this.viewModel?.newArticleData,
+          contentData: this.newContentPageState?.newArticleData,
           emptyDescription: $r('app.string.no_article_content'),
         })
       }
@@ -147,6 +147,9 @@ export struct NewContentView {
         if (!VersionUtil.canUseHds()) {
           this.TopTitleViewBuilder()
         }
+      },
+      reloadData: () => {
+        this.viewModel?.sendEvent(new InitContentNewEvent(this.tabSelectedIndexes[this.currentIndex]));
       },
       loadingStatus: this.newContentPageState?.loadingStatus,
     })

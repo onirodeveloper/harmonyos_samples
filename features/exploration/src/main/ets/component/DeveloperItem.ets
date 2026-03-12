@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { TagEnum } from '@ohos/common';
+import { ImageComponent } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 
@@ -27,13 +27,14 @@ export struct DeveloperItem {
         tags: this.discoverContent.tagIds,
         newSymbol: $r('app.media.big_new'),
       })
-      .zIndex(1)
-      .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+        .zIndex(1)
+        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
 
       Stack({ alignContent: Alignment.Bottom }) {
-        Image($rawfile(this.discoverContent.mediaUrl))
-          .draggable(false)
-          .alt($r('app.media.img_placeholder'))
+        ImageComponent({
+          src: this.discoverContent?.mediaUrl,
+          objectFit: ImageFit.Cover,
+        })
           .width('100%')
           .height('100%')
         Column() {

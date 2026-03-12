@@ -16,6 +16,7 @@
 import { StringUtil } from '../../../util/StringUtil';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   columnsGapMapData,
   columnsTemplateMapData,
@@ -26,12 +27,12 @@ import {
 } from '../entity/GridAttributeMapping';
 
 export class GridCodeGenerator implements CommonCodeGenerator {
-  private scroller: string = scrollerMapData.get('default')!.code;
-  private columnsGap: string = columnsGapMapData.get('default')!.code;
-  private rowsGap: string = rowsGapMapData.get('default')!.code;
-  private columnsTemplate: string = columnsTemplateMapData.get('default')!.code;
-  private rowsTemplate: string = rowsTemplateMapData.get('default')!.code;
-  private operationMode: string = operationModeMapData.get('default')!.code;
+  private scroller: string = scrollerMapData.get(DEFAULT_KEY)!.code;
+  private columnsGap: string = columnsGapMapData.get(DEFAULT_KEY)!.code;
+  private rowsGap: string = rowsGapMapData.get(DEFAULT_KEY)!.code;
+  private columnsTemplate: string = columnsTemplateMapData.get(DEFAULT_KEY)!.code;
+  private rowsTemplate: string = rowsTemplateMapData.get(DEFAULT_KEY)!.code;
+  private operationMode: string = operationModeMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {

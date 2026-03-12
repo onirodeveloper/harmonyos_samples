@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   canLoopMapData,
   itemHeightMapData,
@@ -23,8 +24,8 @@ import {
 @Observed
 export class TextPickerDialogDescriptor extends CommonDescriptor {
   public selected: number | number[] = 0;
-  public canLoop: boolean = canLoopMapData.get('Default')!.value as boolean;
-  public itemHeight: number = itemHeightMapData.get('Default')!.value as number;
+  public canLoop: boolean = canLoopMapData.get(DEFAULT_KEY)!.value as boolean;
+  public itemHeight: number = itemHeightMapData.get(DEFAULT_KEY)!.value as number;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

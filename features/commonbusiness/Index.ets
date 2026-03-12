@@ -1,10 +1,14 @@
-export { CardStyleTypeEnum, CardTypeEnum, MediaTypeEnum, CardData } from './src/main/ets/model/CardData';
+export { CardStyleTypeEnum, CardTypeEnum, MediaTypeEnum } from './src/main/ets/model/CardData';
 
 export { BannerData, BannerTypeEnum, BANNER_SCALE_FACTOR, TITLE_SCALE_FACTOR } from './src/main/ets/model/BannerData';
+
+export { BaseData } from './src/main/ets/model/BaseData';
 
 export { FullScreenNavigationData } from './src/main/ets/model/FullScreenNavigationData';
 
 export { ArticleDetailParams, ComponentDetailParams, SampleDetailParams } from './src/main/ets/model/RouterParams';
+
+export { BaseDetailParam, BaseListParam } from './src/main/ets/model/BaseParam';
 
 export { BannerCard } from './src/main/ets/component/BannerCard';
 

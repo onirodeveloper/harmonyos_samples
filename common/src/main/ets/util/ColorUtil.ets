@@ -23,12 +23,10 @@ export class ColorUtil {
   private static readonly MIN_BRIGHTNESS = 0.15;
   private static readonly BRIGHTNESS_OFFSET = 10;
   private static readonly MAX_RGB = 255;
-
   // HSB conversion constants
   private static readonly HUE_SEGMENTS = 6;
   private static readonly DEGREES_PER_SEGMENT = 60;
   private static readonly FULL_CIRCLE_DEGREES = 360;
-
   // Color component indices
   private static readonly HUE_INDEX = 0;
   private static readonly SATURATION_INDEX = 1;
@@ -42,12 +40,16 @@ export class ColorUtil {
    * @returns Adjusted RGB values as [r, g, b]
    */
   public static getDeepenImmersionColor(rRGB: number, gRGB: number, bRGB: number): number[] {
-    const hsb = ColorUtil.rgbToHsb(rRGB, gRGB, bRGB);
+    const r: number = Math.max(0, Math.min(rRGB, 255));
+    const g: number = Math.max(0, Math.min(gRGB, 255));
+    const b: number = Math.max(0, Math.min(bRGB, 255));
+    const hsb = ColorUtil.rgbToHsb(r, g, b);
     let saturation = hsb[ColorUtil.SATURATION_INDEX];
     let brightness = hsb[ColorUtil.BRIGHTNESS_INDEX];
 
     // Increase saturation
     saturation += ColorUtil.SATURATION_INCREMENT;
+    saturation = Math.min(saturation, 1);
 
     // Decrease brightness with minimum threshold
     if (brightness > ColorUtil.MIN_BRIGHTNESS) {
@@ -82,7 +84,7 @@ export class ColorUtil {
     const delta = max - min;
     let hue = 0;
     const saturation = max === 0 ? 0 : delta / max;
-    const brightness = (max * ColorUtil.MAX_RGB + ColorUtil.BRIGHTNESS_OFFSET) / ColorUtil.MAX_RGB;
+    const brightness = max;
 
     if (delta !== 0) {
       if (max === normalizedR) {
@@ -114,6 +116,7 @@ export class ColorUtil {
   ): number[] {
     const segment = Math.floor((hue / ColorUtil.DEGREES_PER_SEGMENT) % ColorUtil.HUE_SEGMENTS);
     const fractional = (hue / ColorUtil.DEGREES_PER_SEGMENT) - segment;
+    brightness = Math.max(0, Math.min(brightness, 1));
     const p = brightness * (1 - saturation);
     const q = brightness * (1 - fractional * saturation);
     const t = brightness * (1 - (1 - fractional) * saturation);

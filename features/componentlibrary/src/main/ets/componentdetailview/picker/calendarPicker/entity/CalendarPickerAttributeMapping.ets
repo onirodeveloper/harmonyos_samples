@@ -14,6 +14,7 @@
  */
 
 import { DetailPageConstant } from '../../../../constant/DetailPageConstant';
+import { DEFAULT_KEY } from '../../../common/entity/CommonMapData';
 
 class CalendarAlignMapping {
   public readonly code: string;
@@ -29,7 +30,7 @@ export const calendarAlignTypeMapData: Map<string, CalendarAlignMapping> = new M
   ['End', new CalendarAlignMapping('CalendarAlign.END', CalendarAlign.END)],
   ['Start', new CalendarAlignMapping('CalendarAlign.START', CalendarAlign.START)],
   ['Center', new CalendarAlignMapping('CalendarAlign.CENTER', CalendarAlign.CENTER)],
-  ['Default', new CalendarAlignMapping('CalendarAlign.END', CalendarAlign.END)],
+  [DEFAULT_KEY, new CalendarAlignMapping('CalendarAlign.END', CalendarAlign.END)],
 ]);
 
 export interface EdgeAlign {

@@ -1,0 +1,117 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "type": 1,
+      "data": []
+    },
+    {
+      "id": 2,
+      "type": 2,
+      "data": [
+        {
+          "id": 13,
+          "cardId": 7,
+          "title": "人脸检测",
+          "contentType": 2,
+          "sequence": 1,
+          "unionId": 0,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet"
+          ]
+        },
+        {
+          "id": 14,
+          "cardId": 8,
+          "title": "语音朗读",
+          "contentType": 2,
+          "sequence": 1,
+          "unionId": 0,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        },
+        {
+          "id": 15,
+          "cardId": 9,
+          "title": "文档扫描",
+          "contentType": 2,
+          "unionId": 0,
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet"
+          ]
+        },
+        {
+          "id": 16,
+          "cardId": 10,
+          "title": "表格提取",
+          "contentType": 2,
+          "unionId": 0,
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet"
+          ]
+        },
+        {
+          "id": 17,
+          "cardId": 11,
+          "title": "卡证识别",
+          "contentType": 2,
+          "unionId": 0,
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet"
+          ]
+        },
+        {
+          "id": 18,
+          "cardId": 12,
+          "title": "通用文字识别",
+          "contentType": 2,
+          "unionId": 0,
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        },
+        {
+          "id": 19,
+          "cardId": 13,
+          "title": "人脸比对",
+          "contentType": 2,
+          "unionId": 0,
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": 3,
+      "data": []
+    }
+  ]
+}

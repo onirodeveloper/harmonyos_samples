@@ -51,6 +51,26 @@
     {
       "name": "new_count_height",
       "value": "16vp"
+    },
+    {
+      "name": "score_area_height",
+      "value": "30vp"
+    },
+    {
+      "name": "score_area_width",
+      "value": "29vp"
+    },
+    {
+      "name": "mine_login_height",
+      "value": "68vp"
+    },
+    {
+      "name": "mine_image_size",
+      "value": "48vp"
+    },
+    {
+      "name": "score_list_width_md_lg",
+      "value": "328vp"
     }
   ]
 }

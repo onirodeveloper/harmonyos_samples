@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
-import { CommonConstants, StorageKey } from '@ohos/common';
+import { CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 import type { BannerState } from '../viewmodel/BaseHomeState';
 import { BannerItem } from './BannerItem';
@@ -28,7 +27,7 @@ const ANIMATION_DELAY = 50;
 
 @Component
 export struct BannerCard {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   @Prop @Require bannerState: BannerState;
   @Prop @Require tabViewType: number;
   handleItemClick?: (bannerData: BannerData) => void;
@@ -36,11 +35,19 @@ export struct BannerCard {
   private scrollerController: Scroller = new Scroller();
   private bannerOffset: number = this.bannerState.bannerHeight * BANNER_ASPECT;
   private isAnimating: boolean = false;
+  private timer?: number;
   @State catchCount: number = this.bannerState.bannerResource.totalCount();
   @State progressController: ProgressController = new ProgressController();
   @State currentIndex: number = 0;
   @State showLeftIcon: boolean = false;
   @State showRightIcon: boolean = true;
+
+  aboutToDisappear(): void {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = undefined;
+    }
+  }
 
   @Builder
   BannerSwiperBuilder() {
@@ -81,7 +88,10 @@ export struct BannerCard {
         this.progressController.stopBannerProgress();
       } else if (event.type === TouchType.Up) {
         if (!this.isAnimating) {
-          setTimeout(() => {
+          if (this.timer) {
+            clearTimeout(this.timer);
+          }
+          this.timer = setTimeout(() => {
             this.progressController.restartBannerProgress();
           }, ANIMATION_DELAY)
         }
@@ -98,7 +108,6 @@ export struct BannerCard {
             LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
               Column() {
                 BannerItem({ bannerData: bannerData, widthBreakpoint: this.globalInfoModel.widthBreakpoint })
-                  .reuseId('banner_scroll')
                   .geometryTransition(CommonConstants.BANNER_GEOMETRY + bannerData.id.toString(), { follow: true })
                   .transition(TransitionEffect.OPACITY)
                   .height('100%')
@@ -186,7 +195,7 @@ export struct BannerCard {
           totalCount: this.catchCount
         })
       }
-      .onVisibleAreaChange([0.0], (isVisible: boolean, currentRatio: number) => {
+      .onVisibleAreaChange([0.0], (_isVisible: boolean, currentRatio: number) => {
         if (currentRatio > 0) {
           this.progressController.restartBannerProgress();
         } else {

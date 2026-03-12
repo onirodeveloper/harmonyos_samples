@@ -15,21 +15,22 @@
 
 import type { TopNavigationData } from '@ohos/common';
 import { BaseState, LoadingStatus } from '@ohos/common';
+import { NewContentData } from '../model/NewContentData';
 
 @Observed
 export class NewContentPageState extends BaseState {
   public topNavigationData: TopNavigationData;
   public loadingStatus: LoadingStatus;
-  public currentPage: number;
+  public newComponentData: NewContentData[] = [];
+  public newSampleData: NewContentData[] = [];
+  public newArticleData: NewContentData[] = [];
 
   constructor(
     loadingStatus: LoadingStatus,
     topNavigationData: TopNavigationData,
-    currentPage: number,
   ) {
     super();
     this.loadingStatus = loadingStatus;
     this.topNavigationData = topNavigationData;
-    this.currentPage = currentPage;
   }
 }

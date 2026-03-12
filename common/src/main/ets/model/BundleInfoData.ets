@@ -24,8 +24,8 @@ export class BundleInfoData {
     bundleName: string) {
     this.labelResource = labelResource;
     this.iconResource = iconResource;
-    this.versionName = versionName || '1.0.0';
-    this.versionCode = versionCode || 1000000;
-    this.bundleName = bundleName || '';
+    this.versionName = versionName ?? '1.0.0';
+    this.versionCode = versionCode ?? 1000000;
+    this.bundleName = bundleName ?? '';
   }
 }

@@ -21,11 +21,11 @@ const TAG = '[WearableBackupAbility]';
 export default class WearableBackupAbility extends BackupExtensionAbility {
   async onBackup() {
     Logger.info(TAG, 'onBackup ok');
-    await Promise.resolve();
+    Promise.resolve();
   }
 
   async onRestore(bundleVersion: BundleVersion) {
-    Logger.info(TAG, `onRestore ok: ${JSON.stringify(bundleVersion)}`);
-    await Promise.resolve();
+    Logger.debug(TAG, `onRestore ok: ${JSON.stringify(bundleVersion)}`);
+    Promise.resolve();
   }
 }

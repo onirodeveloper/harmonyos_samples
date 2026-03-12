@@ -18,6 +18,7 @@ import { HdsNavigation, HdsNavigationAttribute } from '@kit.UIDesignKit';
 import {
   BundleInfoData,
   CommonConstants,
+  ImageKnifeUtil,
   Logger,
   PageContext,
   ResourceUtil,
@@ -35,8 +36,9 @@ struct SplashPage {
   context: Context = this.getUIContext().getHostContext() as Context;
   @StorageProp(StorageKey.BUNDLE_INFO) @Watch('updateIcon') bundleInfo?: BundleInfoData =
     AppStorage.get(StorageKey.BUNDLE_INFO);
-  private pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
-  private appPathInfo: NavPathStack = this.pageContext.navPathStack;
+  @StorageLink(StorageKey.HOME_PAGE_CONTEXT) pageContext: PageContext =
+    AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT) ?? new PageContext();
+  private appPathInfo: NavPathStack = this.pageContext?.navPathStack;
   private viewModel: SplashViewModel = new SplashViewModel();
   @Provide('appIconDescriptor') drawableDescriptor?: DrawableDescriptor = undefined;
 
@@ -49,20 +51,21 @@ struct SplashPage {
 
   async aboutToAppear(): Promise<void> {
     WindowUtil.updateStatusBarColor(true);
-    this.viewModel.sendEvent(SplashEventTypeEnum.CHECK_FIRST_START);
+    await ImageKnifeUtil.initialize(this.context);
+    this.viewModel.sendEvent<null>({ type: SplashEventTypeEnum.CHECK_FIRST_START });
     this.getUIContext().animateTo({
       delay: CommonConstants.ANIMATION_DELAY,
       duration: CommonConstants.ANIMATION_DURATION,
       onFinish: () => {
-        this.viewModel.sendEvent(SplashEventTypeEnum.JUMP_TO_MAIN);
+        this.viewModel.sendEvent<null>({ type: SplashEventTypeEnum.JUMP_TO_MAIN });
       }
     }, () => {
-      this.viewModel.sendEvent(SplashEventTypeEnum.PRELOAD_RESOURCES);
+      this.viewModel.sendEvent<null>({ type: SplashEventTypeEnum.PRELOAD_RESOURCES });
     })
     this.updateIcon();
   }
 
-  private updateIcon() {
+  updateIcon() {
     this.drawableDescriptor =
       ResourceUtil.getDrawableDescriptor(this.context, this.bundleInfo?.iconResource?.id);
   }

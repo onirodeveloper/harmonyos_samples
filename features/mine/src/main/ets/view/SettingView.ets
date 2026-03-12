@@ -13,40 +13,86 @@
  * limitations under the License.
  */
 
-import { HmosListItem } from '@ohos/common';
+import { CommonConstants, GlobalInfoModel, HmosListItem, StorageKey } from '@ohos/common';
+import { AlertDialog } from '@kit.ArkUI';
+import { SettingState } from '../viewmodel/SettingState';
+import { InitEvent, LogoutEvent, SettingPageVM } from '../viewmodel/SettingPageVM';
 
 @Component
 struct SettingView {
   pathStack: NavPathStack = new NavPathStack();
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  viewModel: SettingPageVM = SettingPageVM.getInstance();
+  @State settingState: SettingState = this.viewModel.getState();
+  dialogControllerConfirm: CustomDialogController = new CustomDialogController({
+    builder: AlertDialog({
+      primaryTitle: $r('app.string.exit_dialog_title'),
+      content: $r('app.string.exit_dialog_content'),
+      primaryButton: {
+        value: $r('app.string.exit_dialog_cancel'),
+        action: () => {
+          this.dialogControllerConfirm.close();
+        },
+      },
+      secondaryButton: {
+        value: $r('app.string.exit_dialog_exit'),
+        role: ButtonRole.ERROR,
+        action: () => {
+          this.viewModel.sendEvent(new LogoutEvent(this.getUIContext()));
+        },
+      },
+    }),
+  })
+
+  aboutToAppear(): void {
+    this.viewModel.sendEvent(new InitEvent());
+  }
 
   build() {
     Navigation(this.pathStack) {
-      List() {
-        ListItemGroup() {
-          ListItem() {
-            HmosListItem({
-              title: $r('app.string.about'),
-              handleClickAction: () => {
-                this.pathStack.pushPath({ name: 'AboutView' });
-              }
-            })
+      Column() {
+        List() {
+          ListItemGroup() {
+            ListItem() {
+              HmosListItem({
+                title: $r('app.string.about'),
+                handleClickAction: () => {
+                  this.pathStack.pushPath({ name: 'AboutView' });
+                }
+              })
+            }
+            .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
           }
-          .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+          .divider({
+            strokeWidth: $r('app.float.mine_divider'),
+            color: $r('sys.color.comp_divider'),
+            startMargin: $r('sys.float.padding_level6'),
+            endMargin: $r('sys.float.padding_level6'),
+          })
+          .padding({ top: $r('sys.float.padding_level2'), bottom: $r('sys.float.padding_level2') })
+          .backgroundColor($r('sys.color.comp_background_primary'))
+          .borderRadius($r('sys.float.corner_radius_level8'))
         }
-        .divider({
-          strokeWidth: $r('app.float.mine_divider'),
-          color: $r('sys.color.comp_divider'),
-          startMargin: $r('sys.float.padding_level6'),
-          endMargin: $r('sys.float.padding_level6'),
-        })
-        .padding({ top: $r('sys.float.padding_level2'), bottom: $r('sys.float.padding_level2') })
-        .backgroundColor($r('sys.color.comp_background_primary'))
-        .borderRadius($r('sys.float.corner_radius_level8'))
+
+        Button($r('app.string.log_out'))
+          .type(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? ButtonType.Normal :
+            ButtonType.Capsule)
+          .width(CommonConstants.FULL_PERCENT)
+          .fontSize($r('sys.float.Subtitle_M'))
+          .role(ButtonRole.ERROR)
+          .buttonStyle(ButtonStyleMode.NORMAL)
+          .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+            $r('sys.float.corner_radius_level4') : 0)
+          .visibility(Visibility.Hidden)
+          .onClick(() => {
+            this.dialogControllerConfirm.open();
+          })
       }
       .padding($r('sys.float.padding_level8'))
-      .height('100%')
-      .width('100%')
-      .clipContent(ContentClipMode.SAFE_AREA)
+      .height(CommonConstants.FULL_PERCENT)
+      .width(CommonConstants.FULL_PERCENT)
+      .justifyContent(FlexAlign.SpaceBetween)
     }
     .backgroundColor($r('sys.color.background_secondary'))
     .hideBackButton(true)

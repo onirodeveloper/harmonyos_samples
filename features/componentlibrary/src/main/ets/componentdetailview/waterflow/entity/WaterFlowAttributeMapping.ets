@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonNumberMapping, CommonStringMapping } from '../../common/entity/CommonMapData';
+import { CommonNumberMapping, CommonStringMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class FlexDirectionMapping {
   public code: string;
@@ -26,7 +26,7 @@ class FlexDirectionMapping {
 }
 
 export const layoutDirectionMapData: Map<string, FlexDirectionMapping> = new Map([
-  ['Default', new FlexDirectionMapping('FlexDirection.Column', FlexDirection.Column)],
+  [DEFAULT_KEY, new FlexDirectionMapping('FlexDirection.Column', FlexDirection.Column)],
   ['Column', new FlexDirectionMapping('FlexDirection.Column', FlexDirection.Column)],
   ['Row', new FlexDirectionMapping('FlexDirection.Row', FlexDirection.Row)],
   ['RowReverse', new FlexDirectionMapping('FlexDirection.RowReverse', FlexDirection.RowReverse)],
@@ -34,7 +34,7 @@ export const layoutDirectionMapData: Map<string, FlexDirectionMapping> = new Map
 ]);
 
 export const frictionMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('0.75', 0.75)],
+  [DEFAULT_KEY, new CommonNumberMapping('0.75', 0.75)],
   ['0.1', new CommonNumberMapping('0.1', 0.1)],
   ['0.6', new CommonNumberMapping('0.6', 0.6)],
   ['0.75', new CommonNumberMapping('0.75', 0.75)],
@@ -42,13 +42,13 @@ export const frictionMapData: Map<string, CommonNumberMapping> = new Map([
 ]);
 
 export const columnsTemplateMapData: Map<string, CommonStringMapping> = new Map([
-  ['Default', new CommonStringMapping('1fr', '1fr')],
+  [DEFAULT_KEY, new CommonStringMapping('1fr', '1fr')],
 ]);
 
 export const rowsTemplateMapData: Map<string, CommonStringMapping> = new Map([
-  ['Default', new CommonStringMapping('1fr', '1fr')],
+  [DEFAULT_KEY, new CommonStringMapping('1fr', '1fr')],
 ]);
 
 export const columnsGapMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('0', 0)],
+  [DEFAULT_KEY, new CommonNumberMapping('0', 0)],
 ]);

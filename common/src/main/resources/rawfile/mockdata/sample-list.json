@@ -1,0 +1,1342 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "categoryId": 1,
+      "currentPage": 1,
+      "pageSize": 30,
+      "totalPage": 1,
+      "totalSize": 26,
+      "data": [
+        {
+          "id": 14,
+          "unionId": 0,
+          "title": "一多旅行住宿",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 1,
+          "sampleContents": [
+            {
+              "id": 11,
+              "type": "commonSample",
+              "cardId": 14,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png",
+              "title": "一多旅行住宿",
+              "subTitle": "本示例通过自适应布局能力和响应式布局能力，实现了旅行住宿差异化的多场景响应式变化效果。",
+              "tags": [
+                "一次开发多端部署",
+                "Navigation"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "unionId": 0,
+          "title": "一多移动支付",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 2,
+          "sampleContents": [
+            {
+              "id": 9,
+              "type": "commonSample",
+              "cardId": 15,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/multidevice/sample_multi_mobile_payment.png",
+              "title": "一多移动支付",
+              "subTitle": "本示例使用自适应布局、栅格布局、自定义界面扫码能力、码图生成能力等实现了移动支付类应用在多设备上的扫码与收付款功能。",
+              "tags": [
+                "UI框架",
+                "扫码能力",
+                "码图生成"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "unionId": 0,
+          "title": "一多便捷生活",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 3,
+          "sampleContents": [
+            {
+              "id": 8,
+              "type": "commonSample",
+              "cardId": 16,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png",
+              "title": "一多便捷生活",
+              "subTitle": "本篇Sample基于自适应布局和响应式布局，实现一次开发，多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
+              "tags": [
+                "一次开发多端部署",
+                "自适应布局"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "unionId": 0,
+          "title": "一多新闻阅读",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 4,
+          "sampleContents": [
+            {
+              "id": 10,
+              "type": "commonSample",
+              "cardId": 17,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/multidevice/sample_multi_news_read.png",
+              "title": "一多新闻阅读",
+              "subTitle": "基于自适应布局和响应式布局，实现一次开发，多端部署的新闻阅读页面。根据手机、折叠屏以及不同的设备尺寸实现对应页面。",
+              "tags": [
+                "UI框架"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "unionId": 0,
+          "title": "一多分栏控件",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 5,
+          "sampleContents": [
+            {
+              "id": 12,
+              "type": "commonSample",
+              "cardId": 18,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/multidevice/sample_multi_columns.png",
+              "title": "一多分栏控件",
+              "subTitle": "本示例通过使用SideBarContainer组件与Navigation组件，实现了多场景下，一多分栏控件的响应式变化效果。",
+              "tags": [
+                "一次开发多端部署",
+                "Navigation"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "unionId": 0,
+          "title": "一多导航栏",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 6,
+          "sampleContents": [
+            {
+              "id": 7,
+              "type": "commonSample",
+              "cardId": 19,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png",
+              "title": "一多导航栏",
+              "subTitle": "本示例基于自适应布局和响应式布局，为开发者提供多设备分级导航栏的开发方案。在sm、md断点下，展示为底部页签和顶部页签；在lg断点下，展示为侧边页签和顶部页签；在xl断点下，展示为侧边栏分级导航。",
+              "tags": [
+                "一次开发多端部署",
+                "自适应布局"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "categoryId": 2,
+      "currentPage": 1,
+      "pageSize": 30,
+      "totalPage": 1,
+      "totalSize": 26,
+      "data": [
+        {
+          "id": 20,
+          "unionId": 0,
+          "title": "组件样式",
+          "subTitle": "组件样式Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 1,
+          "sampleContents": [
+            {
+              "id": 20,
+              "type": "commonSample",
+              "cardId": 20,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/style/sample_text_effects.webp",
+              "title": "文字特效合集",
+              "subTitle": "本示例基于Text组件及通用属性实现多种文字特效。",
+              "tags": [
+                "Text"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 21,
+              "type": "commonSample",
+              "cardId": 20,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png",
+              "title": "常见Tab导航样式合集",
+              "subTitle": "本示例为开发者提供常见的Tab导航的UI样式，包括底部导航，顶部导航，侧边导航等典型场景。",
+              "tags": [
+                "Tabs",
+                "TabContent",
+                "自定义Tab"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 22,
+              "type": "commonSample",
+              "cardId": 20,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png",
+              "title": "自定义弹窗合集",
+              "subTitle": "本示例使用自定义弹窗(CustomDialog)、全屏模态转场(bindContentCover)、半模态转场(bindSheet)等实现多种自定义弹窗。",
+              "tags": [
+                "CustomDialog",
+                "bindContentCover",
+                "bindSheet"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "unionId": 0,
+          "title": "布局",
+          "subTitle": "布局类Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 2,
+          "sampleContents": [
+            {
+              "id": 23,
+              "type": "commonSample",
+              "cardId": 21,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png",
+              "title": "Scroll组件嵌套滑动",
+              "subTitle": "该示例通过nestedScroll属性，实现了上滑Scroll容器，滑至Tabs子组件处，Tabs吸顶，List子组件中内容可继续滑动的功能。",
+              "tags": [
+                "滑动",
+                "吸顶",
+                "Tabs",
+                "Scroll",
+                "List"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 24,
+              "type": "commonSample",
+              "cardId": 21,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/layout/sample_water_flow.png",
+              "title": "WaterFlow瀑布流实例",
+              "subTitle": "基于WaterFlow容器，实现瀑布流布局，使用sections实现了混合排列，实现了Tab吸顶、下拉刷新、无限加载等功能。",
+              "tags": [
+                "瀑布流",
+                "waterflow",
+                "吸顶"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 25,
+              "type": "commonSample",
+              "cardId": 21,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/layout/sample_component_stack.png",
+              "title": "组件堆叠",
+              "subTitle": "本示例介绍运用Stack组件以构建多层次堆叠的视觉效果。通过绑定Scroll组件的onScrollFrameBegin滚动事件回调函数，精准捕获滚动动作的发生。当滚动时，实时地调节组件的透明度、高度等属性，从而成功实现了嵌套滚动效果、透明度动态变化以及平滑的组件切换。",
+              "tags": [
+                "UI框架"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 26,
+              "type": "commonSample",
+              "cardId": 21,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png",
+              "title": "基于Grid实现混合布局",
+              "subTitle": "本示例主要实现了Grid组件和List组件以及Swiper组件的嵌套混合布局。",
+              "tags": [
+                "Grid",
+                "List",
+                "Swiper"
+              ],
+              "tagIds": [],
+              "sequence": 4,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "unionId": 0,
+          "title": "动效",
+          "subTitle": "动效类Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 3,
+          "sampleContents": [
+            {
+              "id": 27,
+              "type": "commonSample",
+              "cardId": 22,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.webp",
+              "title": "转场动效合集",
+              "subTitle": "本示例基于基础组件，通过配置通用属性，灵活搭配显式动效，实现多种常见转场动效案例。",
+              "tags": [
+                "转场动效",
+                "NavDestination"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 28,
+              "type": "commonSample",
+              "cardId": 22,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png",
+              "title": "动效案例合集",
+              "subTitle": "本示例基于基础组件、通用属性、显式动效，实现多种常见动效案例。",
+              "tags": [
+                "UI框架",
+                "动效"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 29,
+              "type": "commonSample",
+              "cardId": 22,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png",
+              "title": "拖拽框架开发实践",
+              "subTitle": "本示例设置组件响应拖拽事件，实现图片、富文本、文本、输入框、列表等组件的拖拽功能。",
+              "tags": [
+                "拖拽事件"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "unionId": 0,
+          "title": "列表开发实践",
+          "subTitle": "列表开发实践类Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 4,
+          "sampleContents": [
+            {
+              "id": 30,
+              "type": "commonSample",
+              "cardId": 23,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png",
+              "title": "流畅刷文章",
+              "subTitle": "本示例通过设置期望帧率实现流畅刷文章。",
+              "tags": [
+                "LTPO"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 31,
+              "type": "commonSample",
+              "cardId": 23,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/list/sample_list_exchange.png",
+              "title": "列表项交换",
+              "subTitle": "本示例通过组合手势(GestureGroup)与动态属性(AttributeModifier)实现了List列表项的交换与删除功能。",
+              "tags": [
+                "List列表项交换",
+                "自定义手势"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 32,
+              "type": "commonSample",
+              "cardId": 23,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png",
+              "title": "列表编辑效果",
+              "subTitle": "本示例基于List组件，实现待办事项管理、文件管理、备忘录的等场景列表编辑效果。",
+              "tags": [
+                "List"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "categoryId": 3,
+      "currentPage": 1,
+      "pageSize": 30,
+      "totalPage": 1,
+      "totalSize": 26,
+      "data": [
+        {
+          "id": 24,
+          "unionId": 0,
+          "title": "多媒体",
+          "subTitle": "多媒体类Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 1,
+          "sampleContents": [
+            {
+              "id": 33,
+              "type": "commonSample",
+              "cardId": 24,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/media/sample_window_pip.png",
+              "title": "画中画效果实现",
+              "subTitle": "本示例通过@kit.ArkUI、@kit.MediaKit等接口，实现了视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
+              "tags": [
+                "视频",
+                "播放",
+                "画中画"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 34,
+              "type": "commonSample",
+              "cardId": 24,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/media/sample_multiple_image.png",
+              "title": "多图片合集",
+              "subTitle": "本示例是基于Swiper组件和自定义指示器实现多图片合集功能。",
+              "tags": [
+                "多图片",
+                "多图文"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 35,
+              "type": "commonSample",
+              "cardId": 24,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
+              "title": "AudioRenderer音频播控",
+              "subTitle": "本场景解决方案主要面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。功能包括后台播放、和播控中心的交互、适配不同类型的焦点打断策略、切换路由发声设备、切换输出设备等基础音频常见功能。",
+              "tags": [
+                "音频播放；播控中心交互"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "unionId": 0,
+          "title": "开放能力",
+          "subTitle": "开放能力类Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 2,
+          "sampleContents": [
+            {
+              "id": 36,
+              "type": "commonSample",
+              "cardId": 25,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/capacity/sample_page_redirection.png",
+              "title": "H5页面跳转",
+              "subTitle": "本示例基于ArkUI框架和Web实现了H5页面和ArkTS页面之间的相互跳转。帮助开发者在Web页面开发中掌握H5页面加载，H5页面跳转，H5页面与ArkTS页面参数传递等功能的实现方案。",
+              "tags": [
+                "Web",
+                "javascript"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 37,
+              "type": "commonSample",
+              "cardId": 25,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png",
+              "title": "Web页面瞬开效果实践",
+              "subTitle": "本示例基于预渲染技术，实现了点击后Web页面瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+              "tags": [
+                "Web",
+                "预渲染",
+                "瞬开"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 38,
+              "type": "commonSample",
+              "cardId": 25,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/capacity/sample_location_service.png",
+              "title": "定位服务",
+              "subTitle": "本示例通过@kit.LocationKit中的geoLocationManager实现获取缓存位置、获取当前位置，同时运用map.Marker将位置信息标记在地图上。开发者可以在查看所在城市、出行打车、旅行导航等场景使用该能力。",
+              "tags": [
+                "定位"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "unionId": 0,
+          "title": "典型开发场景",
+          "subTitle": "典型开发场景Sample",
+          "styleType": 2,
+          "version": 1000000,
+          "sequence": 3,
+          "sampleContents": [
+            {
+              "id": 39,
+              "type": "commonSample",
+              "cardId": 26,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/data/sample_preferences.png",
+              "title": "首选项",
+              "subTitle": "本示例使用@ohos.data.preferences接口，展示了使用首选项持久化存储数据的功能。",
+              "tags": [
+                "首选项",
+                "持久化存储"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 40,
+              "type": "commonSample",
+              "cardId": 26,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png",
+              "title": "验证码场景合集",
+              "subTitle": "本示例介绍了文本框显示光标、底部加横条、背景颜色改变、选择验证码、滑块验证码五种验证码实例。",
+              "tags": [
+                "验证码",
+                "inputMethod",
+                "Slider"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 41,
+              "type": "commonSample",
+              "cardId": 26,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/scene/sample_image_comment.png",
+              "title": "发布图片评论",
+              "subTitle": "本示例通过拉起系统相机实现发布图片评论。",
+              "tags": [
+                "系统相机"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 42,
+              "type": "commonSample",
+              "cardId": 26,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/function/data/sample_picker.png",
+              "title": "选择并查看文档与媒体文件",
+              "subTitle": "应用使用@ohos.file.picker、@ohos.file.photoAccessHelper、@ohos.file.fs等接口，实现了拉起文档编辑保存、拉起系统相册图片查看、拉起视频并播放的功能。",
+              "tags": [
+                "Picker"
+              ],
+              "tagIds": [],
+              "sequence": 4,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            },
+            {
+              "id": 43,
+              "type": "commonSample",
+              "cardId": 26,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/arkui/scene/sample_keyboard.png",
+              "title": "UI框架-软键盘弹出",
+              "subTitle": "本示例展示了输入框分别在屏幕顶部和底部时软键盘弹出对页面布局的影响，通过设置软键盘的避让模式为KeyboardAvoidMode.RESIZE、设置NavDestination的mode为NavDestinationMode.DIALOG等方式实现布局避让。",
+              "tags": [
+                "软键盘",
+                "输入框"
+              ],
+              "tagIds": [],
+              "sequence": 5,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "categoryId": 4,
+      "currentPage": 1,
+      "pageSize": 30,
+      "totalPage": 1,
+      "totalSize": 26,
+      "data": [
+        {
+          "id": 1,
+          "unionId": 1,
+          "title": "HarmonyOS代码工坊",
+          "styleType": 4,
+          "image": "image/common/sample_card_background_blue.png",
+          "version": 1000000,
+          "sequence": 1,
+          "sampleContents": [
+            {
+              "id": 1,
+              "type": "commonClient",
+              "cardId": 1,
+              "unionId": 1,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
+              "title": "HarmonyOS代码工坊",
+              "subTitle": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
+              "tags": [
+                "该案例已支持多设备"
+              ],
+              "tagIds": [],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "unionId": 1,
+          "title": "HarmonyOS代码工坊(手表版)",
+          "styleType": 4,
+          "image": "image/common/sample_card_background_green.png",
+          "version": 1000000,
+          "sequence": 2,
+          "sampleContents": [
+            {
+              "id": 2,
+              "type": "wearableClient",
+              "cardId": 2,
+              "unionId": 1,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
+              "title": "HarmonyOS代码工坊(手表版)",
+              "subTitle": "HarmonyOS代码工坊手表开发案例。",
+              "tags": [
+                "使用Watch5体验完整效果"
+              ],
+              "tagIds": [],
+              "sequence": 2,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "unionId": 1,
+          "title": "三折叠，怎么折都有面",
+          "styleType": 4,
+          "image": "image/common/sample_card_background_pink.png",
+          "version": 1000000,
+          "sequence": 3,
+          "sampleContents": [
+            {
+              "id": 3,
+              "type": "commonSample",
+              "cardId": 3,
+              "unionId": 1,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/hdc/sample_business.png",
+              "title": "三折叠，怎么折都有面",
+              "subTitle": "本示例主要使用断点监听和sidebarContainer组件、navigation组件相结合的方式，实现了商务办公类差异化的多场景响应式变化效果。",
+              "tags": [
+                "使用MateXT体验完整效果"
+              ],
+              "tagIds": [],
+              "sequence": 3,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "unionId": 1,
+          "title": "碰一碰视频快速分享",
+          "styleType": 4,
+          "image": "image/common/sample_card_background_green.png",
+          "version": 1000000,
+          "sequence": 4,
+          "sampleContents": [
+            {
+              "id": 4,
+              "type": "commonSample",
+              "cardId": 4,
+              "unionId": 1,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/hdc/sample_knockshare.png",
+              "title": "碰一碰视频快速分享",
+              "subTitle": "本示例利用Share Kit与App Linking的结合，实现了快速跨设备分享视频并直接进入应用内视频播放页面的功能。",
+              "tags": [
+                "使用两台手机体验完整效果"
+              ],
+              "tagIds": [],
+              "sequence": 4,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "unionId": 1,
+          "title": "视频投播更便捷",
+          "styleType": 4,
+          "image": "image/common/sample_card_background_pink.png",
+          "version": 1000000,
+          "sequence": 5,
+          "sampleContents": [
+            {
+              "id": 5,
+              "type": "commonSample",
+              "cardId": 5,
+              "unionId": 1,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/hdc/sample_videocast.png",
+              "title": "视频投播更便捷",
+              "subTitle": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度切换。",
+              "tags": [
+                "使用手机、PC体验完整效果"
+              ],
+              "tagIds": [],
+              "sequence": 5,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "unionId": 1,
+          "title": "跨设备内容编辑新体验",
+          "styleType": 4,
+          "image": "image/common/sample_card_background_blue.png",
+          "version": 1000000,
+          "sequence": 6,
+          "sampleContents": [
+            {
+              "id": 6,
+              "type": "commonSample",
+              "cardId": 6,
+              "unionId": 1,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/hdc/sample_continuepublic.png",
+              "title": "跨设备内容编辑新体验",
+              "subTitle": "本示例基于应用接续、分布式数据对象、分布式文件系统、跨设备互通等功能，实现文本图片数据跨设备交互及接续。",
+              "tags": [
+                "分布式照相机",
+                "键鼠穿越"
+              ],
+              "tagIds": [],
+              "sequence": 6,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "categoryId": 5,
+      "currentPage": 1,
+      "pageSize": 30,
+      "totalPage": 1,
+      "totalSize": 26,
+      "data": [
+        {
+          "id": 7,
+          "unionId": 0,
+          "title": "人脸检测",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 1,
+          "sampleContents": [
+            {
+              "id": 13,
+              "type": "commonSample",
+              "cardId": 7,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_face_detection.png",
+              "title": "人脸检测",
+              "subTitle": "本示例展示了使用视觉类AI能力中的人脸活体检测能力。",
+              "tags": [
+                "Vision Kit",
+                "人脸活体检测"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "unionId": 0,
+          "title": "语音朗读",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 2,
+          "sampleContents": [
+            {
+              "id": 14,
+              "type": "commonSample",
+              "cardId": 8,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_text_to_speech.png",
+              "title": "语音朗读",
+              "subTitle": "本示例展示了语音类AI能力中的朗读控件能力。",
+              "tags": [
+                "Speech Kit",
+                "朗读控件"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "unionId": 0,
+          "title": "文档扫描",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 3,
+          "sampleContents": [
+            {
+              "id": 15,
+              "type": "commonSample",
+              "cardId": 9,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_document_scan.png",
+              "title": "文档扫描",
+              "subTitle": "本示例展示了使用视觉类AI能力中的文档扫描能力。",
+              "tags": [
+                "Vision Kit",
+                "文档扫描控件"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "unionId": 0,
+          "title": "表格提取",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 4,
+          "sampleContents": [
+            {
+              "id": 16,
+              "type": "commonSample",
+              "cardId": 10,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_sheet_extraction.png",
+              "title": "表格提取",
+              "subTitle": "本示例展示了如何集成文档扫描控件，实现从图像中识别并提取表格的功能，表格内容支持保存为Excel文件。",
+              "tags": [
+                "Vision Kit",
+                "文档扫描控件"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "unionId": 0,
+          "title": "卡证识别",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 5,
+          "sampleContents": [
+            {
+              "id": 17,
+              "type": "commonSample",
+              "cardId": 11,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_card_recognition.png",
+              "title": "卡证识别",
+              "subTitle": "本示例展示了使用视觉类AI能力中的卡证识别能力。",
+              "tags": [
+                "Vision Kit",
+                "卡证识别控件"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "unionId": 0,
+          "title": "通用文字识别",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 6,
+          "sampleContents": [
+            {
+              "id": 18,
+              "type": "commonSample",
+              "cardId": 12,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_word_extraction.png",
+              "title": "通用文字识别",
+              "subTitle": "本示例展示了使用基础视觉服务提供的通用文字识别能力。",
+              "tags": [
+                "Core Vision Kit",
+                "文字识别"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "unionId": 0,
+          "title": "人脸比对",
+          "styleType": 4,
+          "image": "image/common/sample_card_background.png",
+          "version": 1000000,
+          "sequence": 7,
+          "sampleContents": [
+            {
+              "id": 19,
+              "type": "commonSample",
+              "cardId": 13,
+              "unionId": 0,
+              "mediaType": "IMAGE",
+              "mediaUrl": "image/sample/ai/sample_face_compare.png",
+              "title": "人脸比对",
+              "subTitle": "本示例展示了使用基础视觉服务提供的人脸比对能力。",
+              "tags": [
+                "Core Vision Kit",
+                "人脸比对"
+              ],
+              "tagIds": [
+                1
+              ],
+              "sequence": 1,
+              "contentType": 2,
+              "supportDeviceList": [
+                "phone",
+                "tablet",
+                "2in1"
+              ],
+              "requiredApiVersion": 14
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

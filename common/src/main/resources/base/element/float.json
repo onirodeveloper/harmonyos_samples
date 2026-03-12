@@ -67,6 +67,90 @@
     {
       "name": "badge_size",
       "value": "16vp"
+    },
+    {
+      "name": "feedback_button_size",
+      "value": "48vp"
+    },
+    {
+      "name": "feedback_vote_width",
+      "value": "48vp"
+    },
+    {
+      "name": "feedback_vote_height",
+      "value": "73vp"
+    },
+    {
+      "name": "feedback_item_height",
+      "value": "28vp"
+    },
+    {
+      "name": "feedback_text_input_height",
+      "value": "71vp"
+    },
+    {
+      "name": "feedback_input_height",
+      "value": "104vp"
+    },
+    {
+      "name": "feedback_top_height",
+      "value": "73vp"
+    },
+    {
+      "name": "vote_area_width",
+      "value": "174vp"
+    },
+    {
+      "name": "feedback_submit_height",
+      "value": "40vp"
+    },
+    {
+      "name": "account_sheet_view_title_height",
+      "value": "56vp"
+    },
+    {
+      "name": "xmark_icon_height_width",
+      "value": "40vp"
+    },
+    {
+      "name": "account_sheet_view_avatar_margin",
+      "value": "40vp"
+    },
+    {
+      "name": "account_sheet_view_avatar_size",
+      "value": "85vp"
+    },
+    {
+      "name": "account_sheet_view_avatar_size_md_lg",
+      "value": "100vp"
+    },
+    {
+      "name": "account_sheet_view_avatar_border_radius",
+      "value": "50vp"
+    },
+    {
+      "name": "account_sheet_view_avatar_border_radius_md_lg",
+      "value": "50vp"
+    },
+    {
+      "name": "feedback_width_sm",
+      "value": "480vp"
+    },
+    {
+      "name": "feedback_width_md_lg",
+      "value": "480vp"
+    },
+    {
+      "name": "feedback_top_padding_md_lg",
+      "value": "60vp"
+    },
+    {
+      "name": "feedback_sheet_button_size",
+      "value": "40vp"
+    },
+    {
+      "name": "feedback_right_padding_xl",
+      "value": "120vp"
     }
   ]
 }

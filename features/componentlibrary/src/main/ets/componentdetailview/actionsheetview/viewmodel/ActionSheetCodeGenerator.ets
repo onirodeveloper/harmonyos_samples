@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   actionSheetInfoMapData,
   autoCancelMapData,
@@ -24,11 +25,11 @@ import {
 } from '../entity/ActionSheetAttributeMapping';
 
 export class ActionSheetCodeGenerator implements CommonCodeGenerator {
-  private autoCancel: string = autoCancelMapData.get('Default')!.code;
-  private transition: string = transitionMapData.get('Default')!.code;
-  private sheetInfo: string = actionSheetInfoMapData.get('Default')!.code;
-  private transitionAppear: string = transitionAppearMapData.get('Default')!.code;
-  private transitionDisappear: string = transitionDisAppearMapData.get('Default')!.code;
+  private autoCancel: string = autoCancelMapData.get(DEFAULT_KEY)!.code;
+  private transition: string = transitionMapData.get(DEFAULT_KEY)!.code;
+  private sheetInfo: string = actionSheetInfoMapData.get(DEFAULT_KEY)!.code;
+  private transitionAppear: string = transitionAppearMapData.get(DEFAULT_KEY)!.code;
+  private transitionDisappear: string = transitionDisAppearMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
@@ -39,8 +40,8 @@ export class ActionSheetCodeGenerator implements CommonCodeGenerator {
         case 'transition':
           this.transition = attribute.currentValue;
           if (this.transition === 'true') {
-            this.transitionAppear = transitionAppearMapData.get('Default')!.code;
-            this.transitionDisappear = transitionDisAppearMapData.get('Default')!.code;
+            this.transitionAppear = transitionAppearMapData.get(DEFAULT_KEY)!.code;
+            this.transitionDisappear = transitionDisAppearMapData.get(DEFAULT_KEY)!.code;
           } else {
             this.transitionAppear = 'undefined';
             this.transitionDisappear = 'undefined';

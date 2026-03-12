@@ -22,27 +22,28 @@ import {
   styleMapData,
 } from '../entity/ButtonAttributeMapping';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 @Observed
 export class ButtonDescriptor extends CommonDescriptor {
-  public buttonStyle: ButtonStyleMode = styleMapData.get('Default')!.value;
-  public controlSize: ControlSize = sizeMapData.get('Default')!.value;
-  public buttonType: ButtonType = buttonTypeMapData.get('Default')!.value;
-  public backgroundColor: ResourceColor = buttonBgColorMap.get('Default')!.value;
-  public operation: string = buttonActionMap.get('Default')!.value;
+  public buttonStyle: ButtonStyleMode = styleMapData.get(DEFAULT_KEY)!.value;
+  public controlSize: ControlSize = sizeMapData.get(DEFAULT_KEY)!.value;
+  public buttonType: ButtonType = buttonTypeMapData.get(DEFAULT_KEY)!.value;
+  public backgroundColor: ResourceColor = buttonBgColorMap.get(DEFAULT_KEY)!.value;
+  public operation: string = buttonActionMap.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'buttonStyle':
-          this.buttonStyle = styleMapData.get(attribute.currentValue)?.value ?? styleMapData.get('Default')!.value;
+          this.buttonStyle = styleMapData.get(attribute.currentValue)?.value ?? styleMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'controlSize':
-          this.controlSize = sizeMapData.get(attribute.currentValue)?.value ?? sizeMapData.get('Default')!.value;
+          this.controlSize = sizeMapData.get(attribute.currentValue)?.value ?? sizeMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'buttonType':
           this.buttonType =
-            buttonTypeMapData.get(attribute.currentValue)?.value ?? buttonTypeMapData.get('Default')!.value;
+            buttonTypeMapData.get(attribute.currentValue)?.value ?? buttonTypeMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'backgroundColor':
           if (this.buttonStyle === ButtonStyleMode.EMPHASIZED) {

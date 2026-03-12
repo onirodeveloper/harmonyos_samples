@@ -14,7 +14,7 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { ImageUtil, ProductSeriesEnum } from '@ohos/common';
+import { ImageComponent, ProductSeriesEnum } from '@ohos/common';
 import type { ComponentCardData, ComponentContent } from '../model/ComponentData';
 import { ComponentItemList } from './ComponentItemList';
 
@@ -23,36 +23,24 @@ import { ComponentItemList } from './ComponentItemList';
 export struct PictureListCard {
   @State widthBreakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_SM;
   @State componentCardData?: ComponentCardData = undefined;
+  @State isVdeSeries: boolean = deviceInfo.productSeries === ProductSeriesEnum.VDE;
   handleItemClick?: (componentContent: ComponentContent) => void;
-  @State buttonColor: ResourceColor = '';
-
-  aboutToAppear(): void {
-    this.getColorFromImg();
-  }
 
   aboutToReuse(params: Record<string, Object>): void {
     this.componentCardData = params.componentCardData as ComponentCardData;
     this.widthBreakpoint = params.widthBreakpoint as WidthBreakpoint;
     this.handleItemClick = params.handleItemClick as (componentContent: ComponentContent) => void;
-    this.getColorFromImg();
-  }
-
-  getColorFromImg() {
-    ImageUtil.getColorFromImgUrl(this.componentCardData?.cardImage || '', false)
-      .then((colorArr: number[]) => {
-        this.buttonColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},1)`;
-      });
   }
 
   @Builder
   textOverlay() {
     Column() {
-      Text(this.componentCardData?.cardSubTitle)
+      Text(this.componentCardData?.subTitle)
         .fontSize($r('sys.float.Body_S'))
         .fontColor($r('sys.color.font_on_secondary'))
         .fontWeight(FontWeight.Medium)
         .margin({ bottom: $r('sys.float.padding_level2') })
-      Text(this.componentCardData?.cardTitle)
+      Text(this.componentCardData?.title)
         .fontSize($r('sys.float.Title_M'))
         .fontColor($r('sys.color.font_on_primary'))
         .fontWeight(FontWeight.Bold)
@@ -61,26 +49,25 @@ export struct PictureListCard {
     .justifyContent(FlexAlign.End)
     .padding($r('sys.float.padding_level6'))
     .width('100%')
-    .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.card_top_height_verde') :
-      $r('app.float.card_top_height'))
+    .height(this.isVdeSeries ? $r('app.float.card_top_height_verde') : $r('app.float.card_top_height'))
     .margin({ bottom: $r('sys.float.padding_level2') })
   }
 
   build() {
     Column() {
-      Image($rawfile(this.componentCardData?.cardImage))
+      ImageComponent({
+        src: this.componentCardData?.image,
+        objectFit: ImageFit.Cover,
+      })
         .width('100%')
-        .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.card_top_height_verde') :
-          $r('app.float.card_top_height'))
+        .height(this.isVdeSeries ? $r('app.float.card_top_height_verde') : $r('app.float.card_top_height'))
         .overlay(this.textOverlay())
-        .objectFit(ImageFit.Cover)
-        .alt($r('app.media.ic_placeholder'))
         .margin({ bottom: $r('sys.float.padding_level2') })
 
       ComponentItemList({
-        cardContents: this.componentCardData?.cardContents,
+        cardContents: this.componentCardData?.componentContents ?? [],
         widthBreakpoint: this.widthBreakpoint,
-        buttonColor: this.buttonColor,
+        buttonColor: this.componentCardData?.themeColor,
         handleItemClick: (item: ComponentContent) => {
           this.handleItemClick?.(item);
         }

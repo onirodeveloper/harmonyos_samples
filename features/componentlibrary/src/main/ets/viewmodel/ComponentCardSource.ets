@@ -28,7 +28,10 @@ export class ComponentCardSource implements IDataSource {
   }
 
   public getData(index: number): ComponentCardData {
-    return this.cardList[index];
+    if (index >= 0 && index < this.cardList.length) {
+      return this.cardList[index];
+    }
+    return new ComponentCardData();
   }
 
   public registerDataChangeListener(listener: DataChangeListener): void {

@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   indicatorMapData,
   ratingValueMapData,
@@ -22,28 +23,30 @@ import {
   starStyleMapData,
 } from '../entity/RatingAttributeMapping';
 
+const DEFAULT_STEP_SIZE: number = 0.5;
+
 @Observed
 export class RatingDescriptor extends CommonDescriptor {
-  public rating: number = ratingValueMapData.get('Default')!.value as number;
-  public indicator: boolean = indicatorMapData.get('Default')!.value as boolean;
-  public stars: number = starsMapData.get('Default')!.value as number;
-  public stepSize: number = 0.5;
-  public starStyle: boolean = starStyleMapData.get('Default')!.value as boolean;
+  public rating: number = ratingValueMapData.get(DEFAULT_KEY)!.value as number;
+  public indicator: boolean = indicatorMapData.get(DEFAULT_KEY)!.value as boolean;
+  public stars: number = starsMapData.get(DEFAULT_KEY)!.value as number;
+  public stepSize: number = DEFAULT_STEP_SIZE;
+  public starStyle: boolean = starStyleMapData.get(DEFAULT_KEY)!.value as boolean;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'rating':
-          this.rating = Number(attribute.currentValue) ?? ratingValueMapData.get('Default')!.value as number;
+          this.rating = Number(attribute.currentValue) ?? ratingValueMapData.get(DEFAULT_KEY)!.value as number;
           break;
         case 'indicator':
-          this.indicator = attribute.currentValue.toLowerCase() === 'true';
+          this.indicator = attribute.currentValue?.toLowerCase() === 'true';
           break;
         case 'stars':
-          this.stars = Number(attribute.currentValue) ?? starsMapData.get('Default')!.value as number;
+          this.stars = Number(attribute.currentValue) ?? starsMapData.get(DEFAULT_KEY)!.value as number;
           break;
         case 'starStyle':
-          this.starStyle = attribute.currentValue.toLowerCase() === 'true';
+          this.starStyle = attribute.currentValue?.toLowerCase() === 'true';
           break;
         default:
           break;

@@ -15,8 +15,15 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
-import { BreakpointType, CommonConstants, StorageKey, VersionUtil } from '@ohos/common';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  Logger,
+  PageContext,
+  StorageKey,
+  VersionUtil
+} from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -31,38 +38,50 @@ import { CategorySamples } from '../component/CategorySamples';
 import type { SampleCategory } from '../model/SampleData';
 import type { PracticeState } from '../viewmodel/PracticeState';
 import { LoadSamplePageParam, PracticeEventType, PracticeViewModel } from '../viewmodel/PracticeViewModel';
+import { BusinessError } from '@kit.BasicServicesKit';
+
+const TAG: string = '[PracticesView]';
 
 @Component({ freezeWhenInactive: true })
 export struct PracticesView {
-  viewModel: PracticeViewModel = PracticeViewModel.getInstance();
+  private viewModel: PracticeViewModel = PracticeViewModel.getInstance();
+  private listScroller: Scroller = new Scroller();
+  private headerScroller: Scroller = new Scroller();
+  private tabScroller: Scroller = new Scroller();
+  private categoryTabController: TabsController = new TabsController();
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+  @StorageLink(StorageKey.SAMPLE_PAGE_CONTEXT) samplePageContext: PageContext =
+    AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT) ?? new PageContext();
   @State naviStatusHeight: number = CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight;
   @State currentIndex: number = 0;
   @State practiceState: PracticeState = this.viewModel.getState();
   @State showTopTab: boolean = true;
-  listScroller: Scroller = new Scroller();
-  private categoryTabController: TabsController = new TabsController();
-  private headerScroller: Scroller = new Scroller();
-  private tabScroller: Scroller = new Scroller();
-  private samplePageContext: PageContext = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT)!;
 
   aboutToAppear(): void {
     this.viewModel.sendEvent<LoadSamplePageParam>({
       type: PracticeEventType.LOAD_SAMPLE_PAGE,
       param: {
         callback: () => {
-          const categorySize: number = this.practiceState.sampleCategories.length;
-          const preloadIndexList: number[] = [];
-          for (let i = 0; i < categorySize; i++) {
-            preloadIndexList.push(i);
-          }
-          this.categoryTabController.preloadItems(preloadIndexList);
+          this.preloadCategory();
         }
       },
     });
+    this.viewModel.sendEvent<OffsetParam>({
+      type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
+      param: { yOffset: 0, tabIndex: TabBarType.SAMPLE },
+    });
+  }
+
+  preloadCategory() {
+    const categorySize: number = this.practiceState.sampleCategories.length;
+    const preloadIndexList: number[] = [];
+    for (let i = 0; i < categorySize; i++) {
+      preloadIndexList.push(i);
+    }
+    this.categoryTabController.preloadItems(preloadIndexList);
   }
 
   handleBreakPointChange() {
@@ -92,8 +111,8 @@ export struct PracticesView {
         }) {
           ForEach(this.practiceState.sampleCategories, (item: SampleCategory, index: number) => {
             Row() {
-              if (item.tabIcon) {
-                Image($rawfile(this.currentIndex === index ? item.tabIcon : item.tabIconSelected))
+              if (item.defaultIcon) {
+                Image($rawfile(this.currentIndex === index ? item.defaultIcon : item.selectedIcon))
                   .height($r('app.float.tab_icon_height'))
                   .objectFit(ImageFit.Contain)
                   .margin({ right: $r('sys.float.padding_level2') })
@@ -182,9 +201,12 @@ export struct PracticesView {
               TabContent() {
                 CategorySamples({ sampleCategory })
               }
-            }, (item: SampleCategory) => `${item.categoryType}_${item.sampleCards?.length}`)
+            }, (item: SampleCategory) => `${item.id}_${item.sampleCards?.length}`)
           }
           .scrollable(false)
+          .onAttach(() => {
+            this.preloadCategory();
+          })
           .barHeight(0)
         }
       }
@@ -199,8 +221,8 @@ export struct PracticesView {
     .edgeEffect(this.practiceState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .sticky(StickyStyle.Header)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
-      const param: CalculateHeightParam = { offset, state, yOffset: this.listScroller.currentOffset().yOffset };
-      const bannerChangeHeight: boolean | void = this.viewModel.sendEvent<CalculateHeightParam>({
+      const param: CalculateHeightParam = { offset, state, yOffset: this.listScroller.currentOffset()?.yOffset ?? 0 };
+      const bannerChangeHeight: boolean = !!this.viewModel.sendEvent<CalculateHeightParam>({
         type: BaseHomeEventType.CALCULATE_BANNER_HEIGHT,
         param,
       });

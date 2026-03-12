@@ -15,7 +15,8 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
-import type { GlobalInfoModel } from '@ohos/common';
+import { emitter } from '@kit.BasicServicesKit';
+import { GlobalInfoModel, TrackEventType, TrackManager, TrackServiceData } from '@ohos/common';
 import {
   CommonConstants,
   LoadingStatus,
@@ -25,7 +26,7 @@ import {
   VersionUtil,
   WindowUtil,
 } from '@ohos/common';
-import { BaseDetailComponent, SampleDetailParams } from '@ohos/commonbusiness';
+import { BaseDetailComponent, CardTypeEnum, SampleDetailParams } from '@ohos/commonbusiness';
 import { SampleComponent } from '../component/SampleComponent';
 import type { SampleDetailData, SampleDetailState } from '../viewmodel/SampleDetailState';
 import {
@@ -44,13 +45,17 @@ export function SampleDetailViewBuilder() {
 @Component
 export struct SampleDetailView {
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   viewModel: SampleDetailPageVM = SampleDetailPageVM.getInstance();
   @State sampleDetailState: SampleDetailState = this.viewModel.getState();
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
   @Provide currentIndex: number = -1;
-  private sampleCardId: number = -1;
+  private sampleId: number = 0;
+  private cardId: number = 0;
+  private unionId?: number = 0;
+  private contentType: CardTypeEnum = CardTypeEnum.SAMPLE;
 
   aboutToAppear(): void {
     this.handleColorModeChange();
@@ -62,11 +67,15 @@ export struct SampleDetailView {
   }
 
   handleOnReady(cxt: NavDestinationContext) {
-    const params = cxt.pathInfo.param as SampleDetailParams;
-    this.sampleCardId = params.sampleCardId;
+    const params = cxt?.pathInfo?.param as SampleDetailParams;
+    this.sampleId = params.id;
+    this.cardId = params.cardId;
+    this.unionId = params.unionId;
     this.currentIndex = params.currentIndex;
-    this.viewModel.sendEvent(new InitSampleDetailEvent(this.sampleCardId, params.currentIndex));
-    this.viewModel?.sendEvent(new AssignPathStackEvent(cxt.pathStack));
+    this.contentType = params.contentType;
+    this.viewModel.sendEvent(new InitSampleDetailEvent(this.sampleId, this.cardId, params.currentIndex,
+      params.unionId));
+    this.viewModel.sendEvent(new AssignPathStackEvent(cxt?.pathStack));
   }
 
   @Builder
@@ -78,6 +87,7 @@ export struct SampleDetailView {
           sampleIndex: index,
           showIndicator: this.sampleDetailState.sampleCount > 1,
           widthBreakpoint: this.globalInfoModel.widthBreakpoint,
+          contentType: this.contentType,
         })
       }, (item: SampleDetailData) => item.id.toString())
     }
@@ -94,6 +104,11 @@ export struct SampleDetailView {
     .onChange((index: number) => {
       this.viewModel.sendEvent(new SetIndexEvent(index));
       this.currentIndex = index;
+      TrackManager.getInstance().reportData({
+        content: this.sampleDetailState.sampleDatas[index].sampleCard.title,
+        moduleType: this.contentType,
+        eventType: TrackEventType.SAMPLE_CLICK,
+      } as TrackServiceData)
     })
     .gesture(
       SwipeGesture({ direction: SwipeDirection.Horizontal })
@@ -113,8 +128,11 @@ export struct SampleDetailView {
         title: $r('app.string.sample_title'),
         onBackClick: () => {
           this.onBack();
-        }
+        },
       },
+      menuView: () => {
+        this.TopNavigationMenu();
+      }
     })
   }
 
@@ -130,6 +148,31 @@ export struct SampleDetailView {
         }
       },
       loadingStatus: this.sampleDetailState.loadingStatus,
+      reloadData: () => {
+        this.viewModel.sendEvent(new InitSampleDetailEvent(this.sampleId, this.cardId, this.currentIndex,
+          this.unionId));
+      }
+    })
+  }
+
+  @Builder
+  TopNavigationMenu() {
+    Button() {
+      SymbolGlyph($r('sys.symbol.square_and_pencil'))
+        .fontColor([$r('sys.color.icon_primary')])
+        .fontSize($r('sys.float.Title_M'))
+    }
+    .width($r('app.float.feedback_sheet_button_size'))
+    .height($r('app.float.feedback_sheet_button_size'))
+    .aspectRatio(1)
+    .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+      $r('sys.color.comp_background_tertiary'))
+    .onClick(() => {
+      emitter.emit(CommonConstants.BIND_SHEET_OPEN_EVENT + this.currentIndex);
+    })
+    .margin({
+      right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+        $r('app.float.feedback_right_padding_xl') : 0
     })
   }
 
@@ -149,6 +192,17 @@ export struct SampleDetailView {
         },
         content: {
           title: { mainTitle: $r('app.string.sample_title') },
+          menu: {
+            value: [{
+              content: {
+                icon: $r('sys.symbol.square_and_pencil'),
+                isEnabled: true,
+                action: () => {
+                  emitter.emit(CommonConstants.BIND_SHEET_OPEN_EVENT + this.currentIndex);
+                }
+              }
+            }]
+          },
         }
       })
       .backgroundColor($r('sys.color.background_secondary'))

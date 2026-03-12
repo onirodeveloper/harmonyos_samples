@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   CustomDialogStyle,
   dialogBuilderCodeMapData,
@@ -23,7 +24,7 @@ import {
 } from '../entity/CustomDialogAttributeMapping';
 
 export class CustomDialogCodeGenerator implements CommonCodeGenerator {
-  private style: CustomDialogStyle = dialogStyleMapData.get('Default')!;
+  private style: CustomDialogStyle = dialogStyleMapData.get(DEFAULT_KEY)!;
 
   public generate(attributes: OriginAttribute[]): string {
     let builderParamCode: string = 'this.tipDialogBuilder';

@@ -23,7 +23,7 @@ export class NetworkUtil {
     try {
       return connection.hasDefaultNetSync();
     } catch (err) {
-      Logger.error(TAG, `checkDefaultNet Failed. cause: ${err.code}`);
+      Logger.error(TAG, `checkDefaultNet Failed. cause: ${err.message}`);
       return false;
     }
   }

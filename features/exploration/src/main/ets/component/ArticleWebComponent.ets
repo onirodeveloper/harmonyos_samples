@@ -19,7 +19,6 @@ import type { BusinessError } from '@kit.BasicServicesKit';
 import {
   CommonConstants,
   GlobalInfoModel,
-  javascriptProxyPermission,
   LoadingStatus,
   Logger,
   NativeActionData,
@@ -37,6 +36,7 @@ import {
 } from '../viewmodel/ArticleDetailViewModel';
 import { ExplorationDetailState } from '../viewmodel/ExplorationDetailState';
 
+const NO_NETWORK_CODE = -106;
 const TAG = '[ArticleWebComponent]';
 
 @Component
@@ -46,9 +46,10 @@ export struct ArticleWebComponent {
   @Prop @Require detailsUrl: string;
   @Prop tabViewType: number = -1;
   @Link loadingStatus: LoadingStatus;
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @State bindSheetShow: boolean = false;
   @State bindSheetSrc: string = '';
   @State detailState: ExplorationDetailState = this.viewModel.getState();
@@ -69,7 +70,7 @@ export struct ArticleWebComponent {
       });
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(TAG, `Web load Data error. ${err.code}, ${err.message}`);
+      Logger.error(TAG, `Web load data error. ${err?.code}, ${err.message}`);
     }
   }
 
@@ -112,7 +113,7 @@ export struct ArticleWebComponent {
   WebContentBuilder() {
     Web({ src: this.detailsUrl, controller: this.webController })
       .zoomAccess(false)
-      .fileAccess(true)
+      .fileAccess(false)
       .mixedMode(MixedMode.None)
       .verticalScrollBarAccess(false)
       .horizontalScrollBarAccess(false)
@@ -125,7 +126,7 @@ export struct ArticleWebComponent {
         name: 'nativeActionData',
         methodList: ['webSheet', 'jumpPage'],
         controller: this.webController,
-        permission: javascriptProxyPermission,
+        permission: WebUtil.getJsPermission(),
       })
       .geolocationAccess(false)
       .backgroundColor($r('sys.color.background_secondary'))
@@ -134,7 +135,17 @@ export struct ArticleWebComponent {
       .forceDarkAccess(true)
       .allowDrop(null)
       .onPageEnd(() => {
-        this.loadingStatus = LoadingStatus.SUCCESS;
+        if (this.loadingStatus !== LoadingStatus.NO_NETWORK) {
+          this.loadingStatus = LoadingStatus.SUCCESS;
+        }
+      })
+      .onErrorReceive((event: OnErrorReceiveEvent) => {
+        const isMainFrame: boolean = event?.request?.isMainFrame();
+        const errCode: number = event?.error?.getErrorCode();
+        if (isMainFrame && errCode === NO_NETWORK_CODE) {
+          this.loadingStatus = LoadingStatus.NO_NETWORK;
+        }
+        Logger.error(TAG, `onErrorReceive.url: ${this.detailsUrl}; isMainFrame: ${isMainFrame}; code: ${errCode}`);
       })
       .onLoadIntercept((event: OnLoadInterceptEvent) => {
         return WebUtil.handleLoadIntercept(event);
@@ -150,10 +161,10 @@ export struct ArticleWebComponent {
       .onControllerAttached(() => {
         WebUtil.setWebController(this.detailsUrl, this.webController);
         // Setting the local file path that allows cross-domain access.
-        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-        const context: Context = uiContext.getHostContext() as Context;
+        const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+        const context: Context = uiContext?.getHostContext() as Context;
         try {
-          this.webController.setPathAllowingUniversalAccess([context.resourceDir]);
+          this.webController.setPathAllowingUniversalAccess([context?.resourceDir]);
         } catch (error) {
           Logger.error(TAG, `setPathAllowingUniversalAccess failed, error: ${error.message}`);
         }
@@ -182,6 +193,14 @@ export struct ArticleWebComponent {
       },
       topTitleView: () => {
         this.TopTitleViewBuilder()
+      },
+      reloadData: () => {
+        try {
+          this.loadingStatus = LoadingStatus.LOADING;
+          this.webController.refresh();
+        } catch (error) {
+          Logger.error(TAG, `Refresh failed.url: ${this.detailsUrl}`);
+        }
       },
       loadingStatus: this.loadingStatus,
     })

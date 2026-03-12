@@ -24,11 +24,55 @@ const TAG: string = '[ResourceUtil]';
 
 export class ResourceUtil {
   /**
+   * Obtains the raw file resource corresponding to the specified resource path.
+   * @param context Context.
+   * @param path the resource relative path.
+   * @returns the raw file resource corresponding to the specified resource path.
+   */
+  public static getDataFromRawfile(context: Context, path: string): Promise<object> {
+    return new Promise((resolve, reject) => {
+      if (!context) {
+        Logger.error(TAG, 'getDataFromRawfile context is null');
+        reject();
+        return;
+      }
+      if (!path || path.length === 0) {
+        Logger.error(TAG, 'getDataFromRawfile path is empty or null');
+        reject();
+        return;
+      }
+      try {
+        const result: Uint8Array = context.resourceManager.getRawFileContentSync(path);
+        const textDecoder = util.TextDecoder.create('utf-8', { ignoreBOM: true });
+        const content: string = textDecoder.decodeToString(result, { stream: false });
+        if (!content || content.length === 0) {
+          Logger.error(TAG, 'getDataFromRawfile content is empty');
+          reject();
+          return;
+        }
+        const contentObj = JSON.parse(content);
+        if (contentObj) {
+          resolve(contentObj);
+        } else {
+          reject();
+        }
+      } catch (error) {
+        Logger.error(TAG, `getDataFromRawfile failed. ${error.message}`);
+        reject();
+      }
+    });
+  }
+
+  /**
    * Obtains the character string corresponding to the specified resource ID.
    *
    * @param resource resource.
    */
   public static getResourceString(context: Context, resource: Resource): string {
+    if (!context) {
+      Logger.error(TAG, 'getResourceString context is null');
+      return '';
+    }
     if (ResourceUtil.isEmptyObj(resource)) {
       Logger.error(TAG, '[getResourceString] resource is empty.');
       return '';
@@ -50,6 +94,10 @@ export class ResourceUtil {
    */
   public static getDrawableDescriptor(context: Context, resourceId?: number): DrawableDescriptor | undefined {
     try {
+      if (!context) {
+        Logger.error(TAG, 'getDrawableDescriptor context is null');
+        return undefined;
+      }
       if (!resourceId) {
         return undefined;
       }
@@ -57,7 +105,7 @@ export class ResourceUtil {
       return drawableDescriptor;
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(TAG, `[getDrawableDescriptor]getStringSync failed, error: ${err.code}, ${err.message}.`);
+      Logger.error(TAG, `[getDrawableDescriptor] getDrawableDescriptor failed, error: ${err.code}, ${err.message}.`);
       return undefined;
     }
   }
@@ -68,8 +116,12 @@ export class ResourceUtil {
    * @param resource resource.
    */
   public static getResourceNumber(context: Context, resource: Resource): number {
+    if (!context) {
+      Logger.error(TAG, 'getResourceNumber context is null');
+      return 0;
+    }
     if (ResourceUtil.isEmptyObj(resource)) {
-      Logger.error(TAG, '[getResourceString] resource is empty.');
+      Logger.error(TAG, '[getResourceNumber] resource is empty.');
       return 0;
     }
     let num: number = 0;
@@ -77,29 +129,71 @@ export class ResourceUtil {
       num = context.resourceManager.getNumber(resource.id);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
-      Logger.error(TAG, `[getResourceString]getStringSync failed, error: ${err.code}, ${err.message}.`);
+      Logger.error(TAG, `[getResourceNumber] getStringSync failed, error: ${err.code}, ${err.message}.`);
     }
     return num;
   }
 
   /**
-   * Get content from the raw file resource "hmos_web_config.json" by key.
+   * Obtains the string array result with a specified resource.
+   *
+   * @param resource resource.
+   */
+  public static getResourceStringArray(context: Context, resource: Resource): string[] {
+    if (!context) {
+      Logger.error(TAG, 'getResourceStringArray context is null');
+      return [];
+    }
+    if (ResourceUtil.isEmptyObj(resource)) {
+      Logger.error(TAG, '[getResourceStringArray] resource is empty.');
+      return [];
+    }
+    let strArray: string[] = [];
+    try {
+      strArray = context.resourceManager.getStringArrayValueSync(resource.id);
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `[getResourceStringArray] getStringArrayValueSync failed, error: ${err.code}, ${err.message}.`);
+    }
+    return strArray;
+  }
+
+  /**
+   * Check whether the object is empty.
+   *
+   * @param obj Objects to be checked.
+   * @returns Return true if the object is empty or has no properties; Otherwise return false.
+   */
+  private static isEmptyObj(obj: Object): boolean {
+    if (obj === null || typeof obj !== 'object') {
+      return true;
+    }
+    return Object.keys(obj).length === 0;
+  }
+
+  /**
+   * Get content from the raw file resource "env.json" by key.
    * @param context The base context of an ability or an application.
    * @param key The Json key value.
    * @returns Return the value of the key.
    */
-  public static getRawFileStringByKey(context: Context, key: ConfigMapKey): string {
-    const configStr: string | undefined = AppStorage.get(key);
+  public static getRawFileStringByKey(context: Context, key: ConfigMapKey): string | object {
+    const configStr: string | object | undefined = AppStorage.get(key);
     if (configStr) {
       return configStr;
     }
+
     try {
-      const result: Uint8Array = context.resourceManager.getRawFileContentSync('hmos_web_config.json');
+      if (!context) {
+        Logger.error(TAG, 'getRawFileStringByKey context is null');
+        return '';
+      }
+      const result: Uint8Array = context.resourceManager.getRawFileContentSync('env.json');
       const textDecoder = util.TextDecoder.create('utf-8', { ignoreBOM: true });
       const content: string = textDecoder.decodeToString(result, { stream: false });
       const jsonContent: ConfigMapData = JSON.parse(content) as ConfigMapData;
       if (JSON.has(jsonContent, key)) {
-        const linkUrl: string = ResourceUtil.getDataByKey(jsonContent, key);
+        const linkUrl: string | object = ResourceUtil.getDataByKey(jsonContent, key);
         AppStorage.setOrCreate(key, linkUrl);
         return linkUrl;
       }
@@ -111,9 +205,26 @@ export class ResourceUtil {
     }
   }
 
+  private static getDataByKey(content: ConfigMapData, key: ConfigMapKey): string | object {
+    if (key === ConfigMapKey.GALLERY_URL) {
+      return content.galleryUrl;
+    } else if (key === ConfigMapKey.MIIT_URL) {
+      return content.miitUrl;
+    } else if (key === ConfigMapKey.WHITELIST) {
+      return content.webWhitelist;
+    } else if (key === ConfigMapKey.JS_WHITELIST) {
+      return content.jsWhitelist;
+    }
+    return '';
+  }
+
   public static getColorDataByPath(mediaUrl: string): Promise<number[]> {
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    const context: Context = uiContext.getHostContext() as Context;
+    const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    const context: Context | undefined = uiContext?.getHostContext();
+    if (!context) {
+      Logger.error(TAG, 'getColorDataByPath context is null');
+      return Promise.reject({ message: 'getColorDataByPath context is null' } as BusinessError);
+    }
     return new Promise((resolve: (value: number[]) => void, reject: (reason?: Object) => void) => {
       context.resourceManager.getRawFileContent(mediaUrl)
         .then((unit8Array: Uint8Array) => {
@@ -141,45 +252,23 @@ export class ResourceUtil {
             pixelMap?.release();
           }
         }).catch((error: BusinessError) => {
-        Logger.error(TAG, `[getPixelMapByPath] failed, error code: ${error.code}, message: ${error.message}.`);
+        Logger.error(TAG, `GetRawFileContent failed, error code: ${error.code}, message: ${error.message}.`);
         reject(error);
       });
     });
-  }
-
-  /**
-   * Check whether the object is empty.
-   *
-   * @param obj Objects to be checked.
-   * @returns Return true if the object is empty or has no properties; Otherwise return false.
-   */
-  private static isEmptyObj(obj: Object): boolean {
-    if (obj === null || typeof obj !== 'object') {
-      return true;
-    }
-    return Object.keys(obj).length === 0;
-  }
-
-  private static getDataByKey(content: ConfigMapData, key: ConfigMapKey): string {
-    if (key === ConfigMapKey.GALLERY_URL) {
-      return content.galleryUrl;
-    } else if (key === ConfigMapKey.MIIT_URL) {
-      return content.miitUrl;
-    } else if (key === ConfigMapKey.WHITELIST) {
-      return content.whitelist;
-    }
-    return '';
   }
 }
 
 export class ConfigMapData {
   public galleryUrl: string = '';
   public miitUrl: string = '';
-  public whitelist: string = '';
+  public webWhitelist: object[] = [];
+  public jsWhitelist: object[] = [];
 }
 
 export enum ConfigMapKey {
   GALLERY_URL = 'galleryUrl',
   MIIT_URL = 'miitUrl',
-  WHITELIST = 'whitelist',
+  WHITELIST = 'webWhitelist',
+  JS_WHITELIST = 'jsWhitelist',
 }

@@ -16,12 +16,13 @@
 import { StringUtil } from '../../../util/StringUtil';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { filterStyleMapData, imageFitStyleMapData } from '../entity/ImageAttributeMapping';
 
 export class ImageCodeGenerator implements CommonCodeGenerator {
-  private objectFit: string = imageFitStyleMapData.get('Default')!.code;
+  private objectFit: string = imageFitStyleMapData.get(DEFAULT_KEY)!.code;
   private clip: boolean = false;
-  private colorFilterMatrixStr: string = filterStyleMapData.get('Default')!.code;
+  private colorFilterMatrixStr: string = filterStyleMapData.get(DEFAULT_KEY)!.code;
   private colorFilterMatrix: number[] = StringUtil.stringToArray(this.colorFilterMatrixStr);
 
   public generate(attributes: OriginAttribute[]): string {
@@ -29,15 +30,15 @@ export class ImageCodeGenerator implements CommonCodeGenerator {
       switch (attribute.name) {
         case 'objectFit':
           this.objectFit =
-            imageFitStyleMapData.get(attribute.currentValue)?.code ?? imageFitStyleMapData.get('Default')!.code;
+            imageFitStyleMapData.get(attribute.currentValue)?.code ?? imageFitStyleMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'colorFilterMatrixStr':
           this.colorFilterMatrixStr =
-            filterStyleMapData.get(attribute.currentValue)?.code ?? filterStyleMapData.get('Default')!.code;
+            filterStyleMapData.get(attribute.currentValue)?.code ?? filterStyleMapData.get(DEFAULT_KEY)!.code;
           this.colorFilterMatrix = StringUtil.stringToArray(this.colorFilterMatrixStr);
           break;
         case 'clip':
-          this.clip = JSON.parse(attribute.currentValue);
+          this.clip = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         default:
           break;

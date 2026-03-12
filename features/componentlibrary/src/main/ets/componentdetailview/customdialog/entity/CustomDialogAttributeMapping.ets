@@ -13,13 +13,15 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 export enum CustomDialogStyle {
   StyleImage = '图文弹窗',
   StyleProgress = '进度弹窗',
 }
 
 export const dialogStyleMapData: Map<string, CustomDialogStyle> = new Map([
-  ['Default', CustomDialogStyle.StyleImage],
+  [DEFAULT_KEY, CustomDialogStyle.StyleImage],
   ['图文弹窗', CustomDialogStyle.StyleImage],
   ['进度弹窗', CustomDialogStyle.StyleProgress],
 ]);

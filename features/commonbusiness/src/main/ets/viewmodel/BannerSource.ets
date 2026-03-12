@@ -13,7 +13,10 @@
  * limitations under the License.
  */
 
+import { Logger } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
+
+const TAG: string = '[BannerSource]';
 
 export class BannerSource implements IDataSource {
   private splashArray: BannerData[] = [];
@@ -28,7 +31,12 @@ export class BannerSource implements IDataSource {
   }
 
   public getData(index: number): BannerData {
-    return this.splashArray[index];
+    try {
+      return this.splashArray[index];
+    } catch (e) {
+      Logger.error(TAG, `getData failed. ${e.message}`);
+      return this.splashArray[0];
+    }
   }
 
   public registerDataChangeListener(listener: DataChangeListener): void {

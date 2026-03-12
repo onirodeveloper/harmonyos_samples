@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-import { BaseState, BaseVM, Logger, PageContext, PreferenceManager } from '@ohos/common';
+import { BaseState, BaseVM, Logger, PageContext, PageEnum, PreferenceManager } from '@ohos/common';
 
 const TAG: string = '[SplashViewModel]';
 
 export class SplashViewModel extends BaseVM<BaseState> {
-  private pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+  private pageContext = AppStorage.get<PageContext>('pageContext');
   private preferenceManager: PreferenceManager = PreferenceManager.getInstance();
 
   public constructor() {
@@ -34,8 +34,8 @@ export class SplashViewModel extends BaseVM<BaseState> {
   }
 
   private jumpToMainPage(): void {
-    this.pageContext.replacePage({
-      routerName: 'MainPage',
+    this.pageContext?.replacePage({
+      routerName: PageEnum.MAIN_PAGE,
     });
   }
 

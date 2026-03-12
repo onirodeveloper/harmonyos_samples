@@ -19,6 +19,52 @@
           "value": "香蕉"
         }
       ]
+    },
+    {
+      "name": "component_like_reason_list",
+      "value": [
+        {
+          "value": "功能清晰"
+        },
+        {
+          "value": "代码可复用"
+        },
+        {
+          "value": "交互便捷"
+        },
+        {
+          "value": "对我有用"
+        },
+        {
+          "value": "加载流畅"
+        },
+        {
+          "value": "界面美观"
+        }
+      ]
+    },
+    {
+      "name": "component_dislike_reason_list",
+      "value": [
+        {
+          "value": "功能不易理解"
+        },
+        {
+          "value": "有bug"
+        },
+        {
+          "value": "交互复杂"
+        },
+        {
+          "value": "不实用"
+        },
+        {
+          "value": "崩溃/卡顿"
+        },
+        {
+          "value": "界面不美观"
+        }
+      ]
     }
   ]
 }

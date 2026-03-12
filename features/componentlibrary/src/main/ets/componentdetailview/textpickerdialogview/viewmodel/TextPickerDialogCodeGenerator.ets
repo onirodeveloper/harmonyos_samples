@@ -15,11 +15,12 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { canLoopMapData, itemHeightMapData, pickerDataCode, } from '../entity/TextDialogAttributeMapping';
 
 export class TextPickerDialogCodeGenerator implements CommonCodeGenerator {
-  private canLoop: string = canLoopMapData.get('Default')!.code;
-  private itemHeight: string = itemHeightMapData.get('Default')!.code;
+  private canLoop: string = canLoopMapData.get(DEFAULT_KEY)!.code;
+  private itemHeight: string = itemHeightMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {

@@ -16,18 +16,19 @@
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { backgroundColorMapData, isOnMapData, toggleTypeMapData } from '../entity/ToggleAttributeMapping';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export class ToggleCodeGenerator implements CommonCodeGenerator {
-  private toggleType: string = toggleTypeMapData.get('Default')!.code;
-  private isOn: string = isOnMapData.get('Default')!.code;
-  private backgroundColor: string = backgroundColorMapData.get('Default')!.code;
+  private toggleType: string = toggleTypeMapData.get(DEFAULT_KEY)!.code;
+  private isOn: string = isOnMapData.get(DEFAULT_KEY)!.code;
+  private backgroundColor: string = backgroundColorMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'toggleType':
           this.toggleType =
-            toggleTypeMapData.get(attribute.currentValue)?.code ?? toggleTypeMapData.get('Default')!.code;
+            toggleTypeMapData.get(attribute.currentValue)?.code ?? toggleTypeMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'isOn':
           this.isOn = JSON.parse(attribute.currentValue);

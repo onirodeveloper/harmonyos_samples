@@ -15,19 +15,21 @@
 
 import {
   EmptyContentView,
+  GlobalInfoModel,
   LoadingFailedView,
   LoadingStatus,
   LoadingView,
   NoNetworkView,
   StorageKey,
 } from '@ohos/common';
-import type { GlobalInfoModel, LoadingModel } from '@ohos/common';
+import type { LoadingModel } from '@ohos/common';
 
 @Component
 export struct BaseCategoryView {
   @Prop @Require loadingModel: LoadingModel;
   @BuilderParam @Require contentView: () => void;
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   scroller: Scroller = new Scroller();
   reloadData?: Function;
 
@@ -48,7 +50,9 @@ export struct BaseCategoryView {
               this.reloadData?.();
             })
           } else {
-            EmptyContentView($r('app.media.ic_browse_no'), $r('app.string.no_content'))
+            EmptyContentView($r('app.media.ic_browse_no'), $r('app.string.no_content'), () => {
+              this.reloadData?.();
+            })
           }
         }
         .width('100%')

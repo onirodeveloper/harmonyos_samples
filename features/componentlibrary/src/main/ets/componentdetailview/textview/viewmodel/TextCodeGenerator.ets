@@ -15,7 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
-import { fontWeightMapData } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY, fontWeightMapData } from '../../common/entity/CommonMapData';
 import {
   fontColorMapData,
   fontSizeMapData,
@@ -25,12 +25,12 @@ import {
 } from '../entity/TextAttributeMapping';
 
 export class TextCodeGenerator implements CommonCodeGenerator {
-  private fontWeight: string = fontWeightMapData.get('Default')!.code;
-  private fontSize: string = fontSizeMapData.get('Default')!.code;
-  private fontColor: string = fontColorMapData.get('Default')!.code;
-  private opacity: string = opacityMapData.get('Default')!.code;
-  private letterSpacing: string = letterSpacingMapData.get('Default')!.code;
-  private textShadowRadius: string = textShadowRadiusMapData.get('Default')!.code;
+  private fontWeight: string = fontWeightMapData.get(DEFAULT_KEY)!.code;
+  private fontSize: string = fontSizeMapData.get(DEFAULT_KEY)!.code;
+  private fontColor: string = fontColorMapData.get(DEFAULT_KEY)!.code;
+  private opacity: string = opacityMapData.get(DEFAULT_KEY)!.code;
+  private letterSpacing: string = letterSpacingMapData.get(DEFAULT_KEY)!.code;
+  private textShadowRadius: string = textShadowRadiusMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     const text = '开发者你好';
@@ -38,7 +38,7 @@ export class TextCodeGenerator implements CommonCodeGenerator {
       switch (attribute.name) {
         case 'fontWeight':
           this.fontWeight =
-            fontWeightMapData.get(attribute.currentValue)?.code ?? fontWeightMapData.get('Default')!.code;
+            fontWeightMapData.get(attribute.currentValue)?.code ?? fontWeightMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'fontColor':
           this.fontColor = attribute.currentValue;

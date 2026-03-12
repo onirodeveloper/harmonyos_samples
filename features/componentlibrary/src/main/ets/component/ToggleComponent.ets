@@ -23,17 +23,17 @@ import type { ToggleComAttribute } from '../viewmodel/ComponentDetailState';
 @Component
 export struct ToggleComponent {
   @ObjectLink attribute: ToggleComAttribute;
-  callback: (name: string, value: string) => void = (name: string, value: string) => {
+  callback: (name: string, value: string) => void = (_name: string, _value: string) => {
   };
 
   build() {
     if (VersionUtil.canUseHds()) {
       HdsListItemCard({
         textItem: {
-          primaryText: { text: this.attribute.disPlayName }
+          primaryText: { text: this.attribute.displayName }
         },
         suffixItem: new SuffixSwitch({
-          isCheck: JSON.parse(this.attribute.currentValue),
+          isCheck: (this.attribute.currentValue?.toLowerCase() === 'true'),
           selectColor: $r('sys.color.comp_background_emphasize'),
           onChange: (isOn: boolean) => {
             this.callback(this.attribute.name, isOn ? 'true' : 'false');
@@ -45,12 +45,12 @@ export struct ToggleComponent {
       })
     } else {
       Row() {
-        Text(this.attribute.disPlayName)
+        Text(this.attribute.displayName)
           .fontWeight(FontWeight.Medium)
           .fontSize($r('sys.float.Body_L'))
           .fontColor($r('sys.color.font_primary'))
         Blank()
-        Toggle({ type: ToggleType.Switch, isOn: JSON.parse(this.attribute.currentValue) })
+        Toggle({ type: ToggleType.Switch, isOn: (this.attribute.currentValue?.toLowerCase() === 'true') })
           .selectedColor($r('sys.color.comp_background_emphasize'))
           .onChange((isOn: boolean) => {
             this.callback(this.attribute.name, String(isOn));

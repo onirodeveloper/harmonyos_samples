@@ -17,11 +17,12 @@ import { BaseState, ObservedArray } from '@ohos/common';
 
 @Observed
 export class MinePageState extends BaseState {
-  public userExperienceShow: boolean = false;
-  public feedbackViewShow: boolean = false;
-  public aboutViewShow: boolean = false;
   public newContentNumber: number = 0;
   public listItemData: ListGroup[] = [];
+  public isLogin: boolean = false;
+  public isShowAccountInfo: boolean = false;
+  public nickName: string = '';
+  public avatarUrl: string = '';
 }
 
 @Observed
@@ -32,7 +33,6 @@ export class ListGroup {
 
 @Observed
 export class MineItem {
-  public isShow: boolean = false;
   public textContent: ResourceStr = '';
   public subTextContent?: ResourceStr = '';
   public symbolSrc?: Resource = $r('sys.symbol.bell');
@@ -45,5 +45,6 @@ export class MineItem {
 
 export enum BuilderEnum {
   USER_EXPERIENCE_CARD = 'UserExperienceCardItem',
-  CARD_ITEM = 'CardItem'
+  CARD_ITEM = 'CardItem',
+  LOGIN_ITEM = 'LoginItem'
 }

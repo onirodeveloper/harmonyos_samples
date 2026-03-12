@@ -61,18 +61,18 @@ struct PhotoViewPickerComponent {
             const photoPicker = new photoAccessHelper.PhotoViewPicker();
             photoPicker.select(photoSelectOptions).then((photoSelectResult: photoAccessHelper.PhotoSelectResult) => {
               this.imgUris = photoSelectResult.photoUris;
-              this.imageUri = this.imgUris[0];
-              this.selectedImageUri = this.imgUris[0];
+              this.imageUri = this.imgUris?.[0];
+              this.selectedImageUri = this.imgUris?.[0];
               if (this.selectedImageUri.length > 0) {
                 this.backBlur = true;
               }
-              Logger.info(TAG, `PhotoViewPicker.select successfully}`);
+              Logger.info(TAG, `PhotoViewPicker.select successfully`);
             }).catch((err: BusinessError) => {
               Logger.error(TAG, `PhotoViewPicker.select failed with err: ${err.code}, ${err.message}`);
             });
           } catch (error) {
             const err: BusinessError = error as BusinessError;
-            Logger.error(TAG, `PhotoViewPicker failed with err: ${err.code}, ${err.message}`);
+            Logger.error(TAG, `PhotoViewPicker failed with err: ${err?.code}, ${err?.message}`);
           }
         })
     }

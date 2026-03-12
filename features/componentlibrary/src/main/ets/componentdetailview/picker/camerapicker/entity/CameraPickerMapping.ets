@@ -14,6 +14,7 @@
  */
 
 import { cameraPicker } from '@kit.CameraKit';
+import { DEFAULT_KEY } from '../../../common/entity/CommonMapData';
 
 class CameraMediaType {
   public code: string;
@@ -26,7 +27,7 @@ class CameraMediaType {
 }
 
 export const pickerMediaType: Map<string, CameraMediaType> = new Map([
-  ['Default', new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]',
+  [DEFAULT_KEY, new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]',
     [cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO])],
   ['拍照模式', new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO]', [cameraPicker.PickerMediaType.PHOTO])],
   ['录制模式', new CameraMediaType('[cameraPicker.PickerMediaType.VIDEO]', [cameraPicker.PickerMediaType.VIDEO])],

@@ -14,34 +14,36 @@
  */
 
 import type { OriginAttribute } from '../../../../viewmodel/Attribute';
-import { commonFontColorMap, fontWeightMapData } from '../../../common/entity/CommonMapData';
+import { commonFontColorMap, DEFAULT_KEY, fontWeightMapData } from '../../../common/entity/CommonMapData';
 import { CommonCodeGenerator } from '../../../../viewmodel/CommonCodeGenerator';
 
 export class DatePickerCodeGenerator implements CommonCodeGenerator {
   private lunar: boolean = false;
-  private selectedTextColor: ResourceColor = commonFontColorMap.get('Default')!.code;
+  private selectedTextColor: ResourceColor = commonFontColorMap.get(DEFAULT_KEY)!.code;
   private selectedFontSize: number = 20;
-  private selectedFontWeight: string = fontWeightMapData.get('Default')!.code;
+  private selectedFontWeight: string = fontWeightMapData.get(DEFAULT_KEY)!.code;
   private fontSize: number = 16;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'lunar':
-          this.lunar = JSON.parse(attribute.currentValue);
+          this.lunar = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         case 'selectedTextColor':
           this.selectedTextColor = attribute.currentValue;
           break;
         case 'selectedFontSize':
-          this.selectedFontSize = Number(attribute.currentValue);
+          const selectedFontSize = Number(attribute.currentValue);
+          this.selectedFontSize = Number.isNaN(selectedFontSize) ? this.selectedFontSize : selectedFontSize;
           break;
         case 'selectedFontWeight':
           this.selectedFontWeight =
-            fontWeightMapData.get(attribute.currentValue)?.code ?? fontWeightMapData.get('Default')!.code;
+            fontWeightMapData.get(attribute.currentValue)?.code ?? fontWeightMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'fontSize':
-          this.fontSize = Number(attribute.currentValue);
+          const fontSize = Number(attribute.currentValue);
+          this.fontSize = Number.isNaN(fontSize) ? this.fontSize : fontSize;
           break;
         default:
           break;

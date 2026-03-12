@@ -15,13 +15,13 @@
 
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { Logger, PageContext, StorageKey } from '@ohos/common';
 
 const TAG = '[WearableAbility]';
 
 export default class WearableAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  onCreate(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
     this.checkAndHandleParams(want);
     Logger.info(TAG, 'Ability onCreate');
   }
@@ -38,11 +38,11 @@ export default class WearableAbility extends UIAbility {
   checkAndHandleParams(want: Want): void {
     Logger.info(TAG, `checkAndHandleParams`);
     try {
-      if (want === null || want.parameters === null || want === undefined || want.parameters === undefined) {
+      if (want === null || want === undefined || want.parameters === null || want.parameters === undefined) {
         return;
       }
     } catch (err) {
-      Logger.error(TAG, `checkAndHandleParams failed: ${err}`);
+      Logger.error(TAG, `checkAndHandleParams failed: ${err.message}`);
     }
   }
 
@@ -59,7 +59,7 @@ export default class WearableAbility extends UIAbility {
       try {
         AppStorage.setOrCreate<UIContext>(StorageKey.UI_CONTEXT, windowStage.getMainWindowSync().getUIContext());
       } catch (error) {
-        Logger.error(TAG, `setHostUIContext failed ${error}`);
+        Logger.error(TAG, `setHostUIContext failed ${error.message}`);
       }
       Logger.info(TAG, 'Succeeded in loading the content.');
     });

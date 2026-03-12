@@ -1,71 +1,168 @@
 {
-  "app": {
-    "signingConfigs": [],
-    "products": [
+  app: {
+    signingConfigs: [],
+    products: [
       {
-        "name": "default",
-        "signingConfig": "default",
-        "compatibleSdkVersion": "5.0.2(14)",
-        "runtimeOS": "HarmonyOS",
-      }
-    ],
-    "buildModeSet": [
-      {
-        "name": "debug",
+        name: 'default',
+        signingConfig: 'default',
+        compatibleSdkVersion: '5.0.5(17)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
       },
       {
-        "name": "release"
-      }
-    ]
+        name: 'dev',
+        signingConfig: 'default',
+        compatibleSdkVersion: '5.0.5(17)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
+      {
+        name: 'test',
+        signingConfig: 'default',
+        compatibleSdkVersion: '5.0.5(17)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
+      {
+        name: 'icsl',
+        signingConfig: 'default',
+        compatibleSdkVersion: '5.0.5(17)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
+      {
+        name: 'online',
+        signingConfig: 'default',
+        compatibleSdkVersion: '5.0.5(17)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
+    ],
+    buildModeSet: [
+      {
+        name: 'debug',
+      },
+      {
+        name: 'release',
+      },
+    ],
   },
-  "modules": [
+  modules: [
     {
-      "name": "phone",
-      "srcPath": "./products/phone",
-      "targets": [
+      name: 'phone',
+      srcPath: './products/phone',
+      targets: [
         {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "mine",
-      "srcPath": "./features/mine",
-    },
-    {
-      "name": "exploration",
-      "srcPath": "./features/exploration",
-    },
-    {
-      "name": "common",
-      "srcPath": "./common",
-    },
-    {
-      "name": "componentlibrary",
-      "srcPath": "./features/componentlibrary",
-    },
-    {
-      "name": "devpractices",
-      "srcPath": "./features/devpractices",
-    },
-    {
-      "name": "commonbusiness",
-      "srcPath": "./features/commonbusiness",
-    },
-    {
-      "name": "wearable",
-      "srcPath": "./products/wearable",
-      "targets": [
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
         {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
-        }
-      ]
-    }
-  ]
+          name: 'dev',
+          applyToProducts: [
+            'dev',
+          ],
+        },
+        {
+          name: 'test',
+          applyToProducts: [
+            'test',
+          ],
+        },
+        {
+          name: 'icsl',
+          applyToProducts: [
+            'icsl',
+          ],
+        },
+        {
+          name: 'online',
+          applyToProducts: [
+            'online',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'mine',
+      srcPath: './features/mine',
+    },
+    {
+      name: 'exploration',
+      srcPath: './features/exploration',
+    },
+    {
+      name: 'common',
+      srcPath: './common',
+    },
+    {
+      name: 'componentlibrary',
+      srcPath: './features/componentlibrary',
+    },
+    {
+      name: 'devpractices',
+      srcPath: './features/devpractices',
+    },
+    {
+      name: 'commonbusiness',
+      srcPath: './features/commonbusiness',
+    },
+    {
+      name: 'wearable',
+      srcPath: './products/wearable',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+        {
+          name: 'dev',
+          applyToProducts: [
+            'dev',
+          ],
+        },
+        {
+          name: 'test',
+          applyToProducts: [
+            'test',
+          ],
+        },
+        {
+          name: 'icsl',
+          applyToProducts: [
+            'icsl',
+          ],
+        },
+        {
+          name: 'online',
+          applyToProducts: [
+            'online',
+          ],
+        },
+      ],
+    },
+  ],
 }

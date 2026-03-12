@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { vibrator } from '@kit.SensorServiceKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
+import { vibrator } from '@kit.SensorServiceKit';
 import Logger from './Logger';
 
 const TAG: string = '[VibratorUtils]';

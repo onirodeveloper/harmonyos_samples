@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 export enum ElementsNums {
   TWO = '2',
   FOUR = '4',
@@ -31,7 +33,7 @@ class FlexDictionaryMapping {
 }
 
 export const flexDirectionMapData: Map<string, FlexDictionaryMapping> = new Map([
-  ['Default', new FlexDictionaryMapping('FlexDirection.Row', FlexDirection.Row)],
+  [DEFAULT_KEY, new FlexDictionaryMapping('FlexDirection.Row', FlexDirection.Row)],
   ['Row', new FlexDictionaryMapping('FlexDirection.Row', FlexDirection.Row)],
   ['RowReverse', new FlexDictionaryMapping('FlexDirection.RowReverse', FlexDirection.RowReverse)],
   ['Column', new FlexDictionaryMapping('FlexDirection.Column', FlexDirection.Column)],
@@ -39,14 +41,14 @@ export const flexDirectionMapData: Map<string, FlexDictionaryMapping> = new Map(
 ]);
 
 export const flexWrapMapData: Map<string, FlexDictionaryMapping> = new Map([
-  ['Default', new FlexDictionaryMapping('FlexWrap.NoWrap', FlexWrap.NoWrap)],
+  [DEFAULT_KEY, new FlexDictionaryMapping('FlexWrap.NoWrap', FlexWrap.NoWrap)],
   ['NoWrap', new FlexDictionaryMapping('FlexWrap.NoWrap', FlexWrap.NoWrap)],
   ['Wrap', new FlexDictionaryMapping('FlexWrap.Wrap', FlexWrap.Wrap)],
   ['WrapReverse', new FlexDictionaryMapping('FlexWrap.WrapReverse', FlexWrap.WrapReverse)],
 ]);
 
 export const flexContentMapData: Map<string, FlexDictionaryMapping> = new Map([
-  ['Default', new FlexDictionaryMapping('FlexAlign.Start', FlexAlign.Start)],
+  [DEFAULT_KEY, new FlexDictionaryMapping('FlexAlign.Start', FlexAlign.Start)],
   ['Start', new FlexDictionaryMapping('FlexAlign.Start', FlexAlign.Start)],
   ['Center', new FlexDictionaryMapping('FlexAlign.Center', FlexAlign.Center)],
   ['End', new FlexDictionaryMapping('FlexAlign.End', FlexAlign.End)],
@@ -56,7 +58,7 @@ export const flexContentMapData: Map<string, FlexDictionaryMapping> = new Map([
 ]);
 
 export const flexAlignItemMapData: Map<string, FlexDictionaryMapping> = new Map([
-  ['Default', new FlexDictionaryMapping('ItemAlign.Auto', ItemAlign.Auto)],
+  [DEFAULT_KEY, new FlexDictionaryMapping('ItemAlign.Auto', ItemAlign.Auto)],
   ['Auto', new FlexDictionaryMapping('ItemAlign.Auto', ItemAlign.Auto)],
   ['Start', new FlexDictionaryMapping('ItemAlign.Start', ItemAlign.Start)],
   ['Center', new FlexDictionaryMapping('ItemAlign.Center', ItemAlign.Center)],
@@ -66,5 +68,5 @@ export const flexAlignItemMapData: Map<string, FlexDictionaryMapping> = new Map(
 ]);
 
 export const elementsNumsMapData: Map<string, FlexDictionaryMapping> = new Map([
-  ['Default', new FlexDictionaryMapping('2', ElementsNums.TWO)],
+  [DEFAULT_KEY, new FlexDictionaryMapping('2', ElementsNums.TWO)],
 ]);

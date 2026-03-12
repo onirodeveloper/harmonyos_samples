@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonNumberMapping } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class DialogAlignmentMapping {
   public readonly code: string;
@@ -26,7 +26,7 @@ class DialogAlignmentMapping {
 }
 
 export const alertDialogAlignmentMapData: Map<string, DialogAlignmentMapping> = new Map([
-  ['Default', new DialogAlignmentMapping('DialogAlignment.Default', DialogAlignment.Default)],
+  [DEFAULT_KEY, new DialogAlignmentMapping('DialogAlignment.Default', DialogAlignment.Default)],
   ['Top', new DialogAlignmentMapping('DialogAlignment.Top', DialogAlignment.Top)],
   ['Center', new DialogAlignmentMapping('DialogAlignment.Center', DialogAlignment.Center)],
   ['Bottom', new DialogAlignmentMapping('DialogAlignment.Bottom', DialogAlignment.Bottom)],

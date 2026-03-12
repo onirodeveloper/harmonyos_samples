@@ -16,15 +16,16 @@
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { edgeEffectMapData, LanesStyle, listDirectionMapData } from '../entity/ListAttributeMapping';
 
 export class ListCodeGenerator implements CommonCodeGenerator {
-  private listDirection: string = listDirectionMapData.get('Default')!.code;
+  private listDirection: string = listDirectionMapData.get(DEFAULT_KEY)!.code;
   private lanes: LanesStyle = {
     value: 1,
     gutter: 0,
   };
-  private edgeEffect: string = edgeEffectMapData.get('Default')!.code;
+  private edgeEffect: string = edgeEffectMapData.get(DEFAULT_KEY)!.code;
   private sticky: boolean = true;
   private stickyName: string = 'StickyStyle.Header';
 
@@ -59,7 +60,7 @@ export class ListCodeGenerator implements CommonCodeGenerator {
           this.edgeEffect = edgeEffectMapData.get(attribute.currentValue)?.code ?? this.edgeEffect;
           break;
         case 'sticky':
-          this.sticky = JSON.parse(attribute.currentValue);
+          this.sticky = (attribute.currentValue?.toLowerCase() === 'true');
           this.sticky && (this.stickyName = 'StickyStyle.Header');
           !this.sticky && (this.stickyName = 'StickyStyle.None');
           break;

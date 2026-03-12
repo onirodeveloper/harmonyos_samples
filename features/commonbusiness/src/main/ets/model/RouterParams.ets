@@ -13,14 +13,20 @@
  * limitations under the License.
  */
 
+import { CardTypeEnum } from './CardData';
+
 export interface ComponentDetailParams {
   componentName: string;
-  componentId: number;
+  id: number;
+  contentType: CardTypeEnum;
 }
 
 export interface SampleDetailParams {
   currentIndex: number;
-  sampleCardId: number;
+  cardId: number;
+  unionId: number;
+  id: number;
+  contentType: CardTypeEnum;
 }
 
 export interface ArticleDetailParams {
@@ -29,4 +35,5 @@ export interface ArticleDetailParams {
   title: string;
   detailsUrl: string;
   tabViewType?: number;
+  contentType?: CardTypeEnum;
 }

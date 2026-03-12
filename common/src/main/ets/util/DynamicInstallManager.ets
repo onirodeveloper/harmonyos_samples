@@ -16,10 +16,11 @@
 import type { common, StartOptions } from '@kit.AbilityKit';
 import { display } from '@kit.ArkUI';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
-import { moduleInstallManager } from '@kit.StoreKit';
+import { moduleInstallManager } from '@kit.AppGalleryKit';
 import Logger from './Logger';
 import { CommonConstants } from '../constant/CommonConstants';
 import { StorageKey } from '../constant/CommonEnums';
+import { ProcessUtil } from './ProcessUtil';
 
 const DOWNLOAD_TIMEOUT_LIMIT: number = 1800;
 const TAG: string = '[DynamicInstallManager]';
@@ -57,10 +58,13 @@ export class DynamicInstallManager {
           .then((data: moduleInstallManager.ModuleInstallSessionState) => {
             Logger.debug(TAG, `fetchModule success, result: ${JSON.stringify(data)}`);
             resolve(data);
+          })
+          .catch((error: BusinessError) => {
+            Logger.error(TAG, `fetchModule failed, error: msg ${error.message}, code ${error.code}`);
+            reject(error);
           });
       } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG, `request installing module failed, error: ${err.code} ${err.message}`);
+        Logger.error(TAG, `request installing module failed, error: ${error.message}`);
         reject(error);
       }
     });
@@ -109,10 +113,10 @@ export class DynamicInstallManager {
       try {
         const isAVAbility: boolean = DynamicInstallManager.aVAbilityList.includes(moduleAbility);
         const isSameAbility: boolean = (moduleAbility === AppStorage.get('AVAbilityModule'));
-        const aVAbilityContext: common.UIAbilityContext =
-          AppStorage.get<common.UIAbilityContext>('AVAbilityContext') as common.UIAbilityContext;
+        const aVAbilityContext: common.UIAbilityContext | undefined =
+          AppStorage.get<common.UIAbilityContext>('AVAbilityContext');
         if (isAVAbility && !isSameAbility && aVAbilityContext) {
-          aVAbilityContext.terminateSelf();
+          ProcessUtil.terminateAbility(aVAbilityContext);
           AppStorage.delete('AVAbilityContext');
         }
         const option: StartOptions = DynamicInstallManager.setStartAbilityProperty();
@@ -130,23 +134,25 @@ export class DynamicInstallManager {
             reject(error);
           });
       } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG, `startAbility failed, error code is ${err.code}, message is ${err.message}`);
+        Logger.error(TAG, `startAbility failed, error message is ${error.message}`);
+        reject(error);
       }
     });
   }
 
   public static setStartAbilityProperty(): StartOptions {
     try {
-      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      const uiContext: UIContext | undefined = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
       const displayData = display.getDefaultDisplaySync();
       const windowWidth = displayData.availableWidth * CommonConstants.WINDOW_RATIO;
       const windowHeight = displayData.availableHeight * CommonConstants.WINDOW_RATIO;
       const windowLeft = (displayData.availableWidth - windowWidth) / 2.0;
       const windowTop = (displayData.availableHeight - windowHeight) / 2.0;
       const option: StartOptions = {
-        minWindowWidth: Math.min(uiContext.px2vp(windowWidth), CommonConstants.MIN_WINDOW_WIDTH),
-        minWindowHeight: Math.min(uiContext.px2vp(windowHeight), CommonConstants.MIN_WINDOW_HEIGHT),
+        minWindowWidth: Math.min(uiContext?.px2vp(windowWidth) ?? CommonConstants.MIN_WINDOW_WIDTH,
+          CommonConstants.MIN_WINDOW_WIDTH),
+        minWindowHeight: Math.min(uiContext?.px2vp(windowHeight) ?? CommonConstants.MIN_WINDOW_HEIGHT,
+          CommonConstants.MIN_WINDOW_HEIGHT),
         windowLeft: windowLeft,
         windowTop: windowTop,
         windowWidth: windowWidth,

@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 class TextOverflowTypeMap {
   public readonly code: string;
   public readonly value: TextOverflow;
@@ -28,7 +30,7 @@ export const textOverflowTypeMapData: Map<string, TextOverflowTypeMap> = new Map
   ['Clip', new TextOverflowTypeMap('TextOverflow.Clip', TextOverflow.Clip)],
   ['Ellipsis', new TextOverflowTypeMap('TextOverflow.Ellipsis', TextOverflow.Ellipsis)],
   ['Marquee', new TextOverflowTypeMap('TextOverflow.MARQUEE', TextOverflow.MARQUEE)],
-  ['Default', new TextOverflowTypeMap('TextOverflow.Clip', TextOverflow.Clip)],
+  [DEFAULT_KEY, new TextOverflowTypeMap('TextOverflow.Clip', TextOverflow.Clip)],
 ]);
 
 class TextAlignTypeMap {
@@ -46,5 +48,5 @@ export const textAlignTypeMapData: Map<string, TextAlignTypeMap> = new Map([
   ['Center', new TextAlignTypeMap('TextAlign.Center', TextAlign.Center)],
   ['End', new TextAlignTypeMap('TextAlign.End', TextAlign.End)],
   ['Justify', new TextAlignTypeMap('TextAlign.JUSTIFY', TextAlign.JUSTIFY)],
-  ['Default', new TextAlignTypeMap('TextAlign.Start', TextAlign.Start)],
+  [DEFAULT_KEY, new TextAlignTypeMap('TextAlign.Start', TextAlign.Start)],
 ]);

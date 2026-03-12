@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { updateManager } from '@kit.StoreKit';
+import { updateManager } from '@kit.AppGalleryKit';
 import type { common } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../util/Logger';
@@ -36,11 +36,15 @@ export class UpdateService {
   }
 
   public checkUpdate(): Promise<boolean> {
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+    const uiContext: UIContext | undefined = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    const context: common.UIAbilityContext = uiContext?.getHostContext() as common.UIAbilityContext;
     return new Promise((resolve: Function, reject: Function) => {
       try {
-
+        if (!context) {
+          Logger.error(TAG, `checkAppUpdate failed. cause context get failed`);
+          reject(false);
+          return;
+        }
         updateManager.checkAppUpdate(context)
           .then((checkResult: updateManager.CheckUpdateResult) => {
             Logger.info(TAG, `Succeeded in checking Result updateAvailable:` + checkResult.updateAvailable);
@@ -62,10 +66,15 @@ export class UpdateService {
   }
 
   public updateVersion(): Promise<boolean> {
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+    const uiContext: UIContext | undefined = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    const context: common.UIAbilityContext = uiContext?.getHostContext() as common.UIAbilityContext;
     return new Promise((resolve: Function, reject: Function) => {
       try {
+        if (!context) {
+          Logger.error(TAG, `updateVersion failed. cause context get failed`);
+          reject(false);
+          return;
+        }
         updateManager.showUpdateDialog(context)
           .then((resultCode: updateManager.ShowUpdateResultCode) => {
             Logger.info(TAG, `Succeeded in showing UpdateDialog resultCode:` + resultCode);

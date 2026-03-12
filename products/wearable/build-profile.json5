@@ -19,10 +19,22 @@
   ],
   "targets": [
     {
+      "name": "dev"
+    },
+    {
+      "name": "test"
+    },
+    {
+      "name": "online"
+    },
+    {
+      "name": "icsl"
+    },
+    {
       "name": "default"
     },
     {
-      "name": "ohosTest",
+      "name": "ohosTest"
     }
   ]
 }

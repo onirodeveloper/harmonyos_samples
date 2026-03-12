@@ -23,6 +23,7 @@ export enum LoadingStatus {
   SUCCESS = 'success',
   FAILED = 'failed',
   NO_NETWORK = 'no_network',
+  EMPTY_DATA = 'empty_data',
 }
 
 /**
@@ -73,5 +74,7 @@ export enum StorageKey {
   EXPLORATION_PAGE_CONTEXT = 'hmos_world_ExplorationPageContext',
   HOME_PAGE_CONTEXT = 'hmos_world_PageContext',
   MINE_PAGE_CONTEXT = 'hmos_world_MinePageContext',
-  WANT_PARAMETERS = 'hmos_world_WantParams'
+  WANT_PARAMETERS = 'hmos_world_WantParams',
+  APP_TRACK_DATA = 'hmos_world_track_data',
+  ACCOUNT_USER_ID = 'hmos_world_account_user_id',
 }

@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+export const DEFAULT_KEY: string = 'Default';
+
 export class CommonColorMapping {
   public readonly code: string;
   public readonly value: string;
@@ -24,11 +26,11 @@ export class CommonColorMapping {
 }
 
 export const commonFontColorMap: Map<string, CommonColorMapping> = new Map([
-  ['Default', new CommonColorMapping('rgba(0, 246, 255, 1.0)', 'rgba(0, 246, 255, 1.0)')],
+  [DEFAULT_KEY, new CommonColorMapping('rgba(0, 246, 255, 1.0)', 'rgba(0, 246, 255, 1.0)')],
 ]);
 
 export const highlightColorMap: Map<string, CommonColorMapping> = new Map([
-  ['Default', new CommonColorMapping('rgba(0, 85, 255, 1.0)', 'rgba(0, 85, 255, 1.0)')],
+  [DEFAULT_KEY, new CommonColorMapping('rgba(0, 85, 255, 1.0)', 'rgba(0, 85, 255, 1.0)')],
 ]);
 
 export class CommonFontWeightMapping {
@@ -45,7 +47,7 @@ export const fontWeightMapData: Map<string, CommonFontWeightMapping> = new Map([
   ['Normal', new CommonFontWeightMapping('FontWeight.Normal', FontWeight.Normal)],
   ['Lighter', new CommonFontWeightMapping('FontWeight.Lighter', FontWeight.Lighter)],
   ['Bolder', new CommonFontWeightMapping('FontWeight.Bolder', FontWeight.Bolder)],
-  ['Default', new CommonFontWeightMapping('FontWeight.Normal', FontWeight.Normal)],
+  [DEFAULT_KEY, new CommonFontWeightMapping('FontWeight.Normal', FontWeight.Normal)],
 ]);
 
 export class CommonNumberMapping {

@@ -22,9 +22,18 @@ export class ButtonAttributeFilter implements CommonAttributeFilter {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'buttonStyle':
-          const buttonTypeIndex = attributes.findIndex((item) => item.name === 'buttonType');
-          const operationIndex = attributes.findIndex((item) => item.name === 'operation');
-          const backgroundColorIndex = attributes.findIndex((item) => item.name === 'backgroundColor');
+          let buttonTypeIndex: number = -1;
+          let operationIndex: number = -1;
+          let backgroundColorIndex: number = -1;
+          attributes.forEach((item, index) => {
+            if (item.name === 'buttonType') {
+              buttonTypeIndex = index;
+            } else if (item.name === 'operation') {
+              operationIndex = index;
+            } else if (item.name === 'backgroundColor') {
+              backgroundColorIndex = index;
+            }
+          });
           if (buttonTypeIndex === -1 || operationIndex === -1 || backgroundColorIndex === -1) {
             return;
           }

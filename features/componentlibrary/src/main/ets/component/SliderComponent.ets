@@ -22,13 +22,14 @@ import type { SliderComAttribute } from '../viewmodel/ComponentDetailState';
 @Component
 export struct SliderComponent {
   @ObjectLink attribute: SliderComAttribute;
-  callback: (name: string, value: string, mode?: SliderChangeMode) => void = (name: string, value: string) => {
-  };
+  callback: (name: string, value: string, mode?: SliderChangeMode) => void =
+    (_name: string, _value: string, _mode?: SliderChangeMode) => {
+    };
 
   build() {
     Column() {
       HmosListItem({
-        title: this.attribute.disPlayName,
+        title: this.attribute.displayName,
         desc: this.attribute.currentValue,
       })
 

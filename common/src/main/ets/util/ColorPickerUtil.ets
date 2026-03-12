@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import Logger from './Logger';
+
 enum ColorAreaEnum {
   RED = 0,
   YELLOW = 1,
@@ -22,20 +24,22 @@ enum ColorAreaEnum {
   FUCHSIA = 5,
 }
 
+const TAG: string = '[ColorPickerUtil]';
+
 export class ColorPickerUtil {
   // Constants for color segment boundaries.
-  public static readonly SEGMENT_1 = 1 / 6;
-  public static readonly SEGMENT_2 = 2 / 6;
-  public static readonly SEGMENT_3 = 3 / 6;
-  public static readonly SEGMENT_4 = 4 / 6;
-  public static readonly SEGMENT_5 = 5 / 6;
-  public static readonly SEGMENT_6 = 6 / 6;
+  public static readonly COLOR_SEGMENT_1 = 1 / 6;
+  public static readonly COLOR_SEGMENT_2 = 2 / 6;
+  public static readonly COLOR_SEGMENT_3 = 3 / 6;
+  public static readonly COLOR_SEGMENT_4 = 4 / 6;
+  public static readonly COLOR_SEGMENT_5 = 5 / 6;
+  public static readonly COLOR_SEGMENT_6 = 6 / 6;
   // Constants for color segmentation.
   private static readonly COLOR_SEGMENTS = 6;
   private static readonly MAX_RGB_VALUE = 255;
   private static readonly FULL_OPACITY = 1.0;
   // Constants for RGB string processing. Length of "rgba(".
-  private static readonly RGB_PREFIX_LENGTH = 5;
+  private static readonly RGBA_PREFIX_LENGTH = 5;
 
   /**
    * Creates an RGBA color string from component values
@@ -56,6 +60,9 @@ export class ColorPickerUtil {
    */
   public static getBlockColor(value: number): string {
     // Calculate the corresponding color based on the area of the slider.colorPercent(0-1)
+    if (value < 0 || value > 100) {
+      return ''
+    }
     const colorPercent = value / 100 * ColorPickerUtil.COLOR_SEGMENTS;
     let selectedColor: string = '';
     const colorSegment: number = Math.trunc(colorPercent);
@@ -93,12 +100,20 @@ export class ColorPickerUtil {
 
   /**
    * Calculate the color number of red, blue, green area.
-   * @param rgb, rgba(0, 255, 1, 1.00)
+   * @param rgba, rgba(0, 255, 255, 1.00)
    * @returns the number of three area.
    */
-  public static getRgb(rgb: string): number[] {
-    rgb = rgb.substring(ColorPickerUtil.RGB_PREFIX_LENGTH, rgb.length - 1);
-    const rgbArray = rgb.split(',');
+  public static getRgb(rgba: string): number[] {
+    if (rgba.length < ColorPickerUtil.RGBA_PREFIX_LENGTH || !rgba.endsWith(')')) {
+      Logger.error(TAG, `getRgb failed. Cause param: ${rgba} is invalid`);
+      return [0, 0, 0];
+    }
+    rgba = rgba.substring(ColorPickerUtil.RGBA_PREFIX_LENGTH, rgba.length - 1);
+    const rgbArray = rgba.split(',');
+    if (rgbArray.length < 3) {
+      Logger.error(TAG, `getRgb failed. Cause param: ${rgba} is invalid`);
+      return [0, 0, 0];
+    }
     const redArea: number = parseFloat(rgbArray[0]);
     const greenArea: number = parseFloat(rgbArray[1]);
     const blueArea: number = parseFloat(rgbArray[2]);

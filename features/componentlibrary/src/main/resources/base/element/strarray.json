@@ -19,6 +19,52 @@
           "value": "banana"
         }
       ]
+    },
+    {
+      "name": "component_like_reason_list",
+      "value": [
+        {
+          "value": "Clear functionality"
+        },
+        {
+          "value": "Code is reusable"
+        },
+        {
+          "value": "Convenient interaction"
+        },
+        {
+          "value": "Useful to me"
+        },
+        {
+          "value": "Smooth loading"
+        },
+        {
+          "value": "Aesthetic Interface"
+        }
+      ]
+    },
+    {
+      "name": "component_dislike_reason_list",
+      "value": [
+        {
+          "value": "Not easy to understand"
+        },
+        {
+          "value": "There is a bug"
+        },
+        {
+          "value": "Complex interaction"
+        },
+        {
+          "value": "Impractical"
+        },
+        {
+          "value": "Crash/Stutter"
+        },
+        {
+          "value": "Unattractive Interface"
+        }
+      ]
     }
   ]
 }

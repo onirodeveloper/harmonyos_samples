@@ -13,11 +13,22 @@
  * limitations under the License.
  */
 
-import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
-import { CardStyleTypeEnum, TagTipLabel } from '@ohos/commonbusiness';
+import { ConfigurationConstant } from '@kit.AbilityKit';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  ImageComponent,
+  ImageUtil,
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData,
+} from '@ohos/common';
+import { TagTipLabel } from '@ohos/commonbusiness';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
-import { ConfigurationConstant } from '@kit.AbilityKit';
 
 const IMAGE_SIZE: number = 40;
 const TAG_PADDING: number = 32;
@@ -25,13 +36,14 @@ const TAG_PADDING: number = 32;
 @Component
 export struct PictureAboveTextCard {
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('calculateTagMaxWidth') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @Prop sampleCardData: SampleCardData;
   @Prop @Require widthBreakPoint: WidthBreakpoint;
   @State sampleContent?: SampleContent = undefined;
   @State maxWidth: number = 0;
+  handleItemClick?: Function;
 
   aboutToAppear(): void {
     this.sampleContent = this.sampleCardData.sampleContents?.[0];
@@ -58,80 +70,91 @@ export struct PictureAboveTextCard {
       lg: 3,
       xl: 3,
     }).getValue(this.globalInfoModel.widthBreakpoint);
-    const gutter = CommonConstants.SPACE_16;
-    this.maxWidth = Math.floor((currentWidth - paddingVal * 2 - gutter * (count - 1)) / count) - TAG_PADDING -
-      IMAGE_SIZE - CommonConstants.SPACE_16;
+    this.maxWidth = Math.max(0,
+      (Math.floor((currentWidth - paddingVal * 2 - CommonConstants.SPACE_16 * (count - 1)) / count) - TAG_PADDING -
+        IMAGE_SIZE - CommonConstants.SPACE_16));
   }
 
   build() {
-    Stack({ alignContent: Alignment.TopStart }) {
-      TagTipLabel({
-        tags: (this.sampleContent as SampleContent).tagIds,
-        newSymbol: $r('app.media.big_new'),
-      })
-        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
-        .width(CommonConstants.FULL_PERCENT)
-      Column() {
-        Row() {
-          Image($rawfile(this.sampleContent?.mediaUrl))
-            .alt($r('app.media.img_placeholder'))
-            .height('100%')
-            .width('100%')
-            .objectFit(ImageFit.Contain)
-            .draggable(true)
-        }
-        .justifyContent(FlexAlign.Center)
-        .width('100%')
-        .clip(true)
-        .layoutWeight(1)
-        .padding({ top: $r('sys.float.padding_level16'), bottom: $r('sys.float.padding_level8') })
-
-        Row() {
-          Column() {
-            Text(this.sampleContent?.title)
-              .fontSize($r('sys.float.Subtitle_M'))
-              .fontWeight(FontWeight.Medium)
-              .fontColor(this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-                $r('app.color.card_font_primary_color') : $r('sys.color.font_primary'))
-            TagLabel({
-              maxWidth: this.maxWidth,
-              tags: this.sampleContent?.tags || [],
-              cardStyleType: this.sampleCardData.cardStyleType
-            })
-          }
-          .alignItems(HorizontalAlign.Start)
-          .layoutWeight(1)
-
-          Button({ type: ButtonType.Normal }) {
-            SymbolGlyph($r('sys.symbol.chevron_right'))
-              .fontColor([this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-                $r('app.color.icon_secondary_color') : $r('sys.color.icon_secondary')])
-              .fontSize($r('sys.float.Title_M'))
-          }
-          .margin({ left: $r('sys.float.padding_level6') })
-          .height($r('app.float.card_button_height'))
-          .aspectRatio(1)
-          .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-            $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level10'))
-          .backgroundColor($r('sys.color.comp_background_tertiary'))
-        }
-        .padding({
-          left: $r('sys.float.padding_level8'),
-          right: $r('sys.float.padding_level8'),
-          top: $r('sys.float.padding_level6'),
-          bottom: $r('sys.float.padding_level10'),
+    TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+      Stack({ alignContent: Alignment.TopStart }) {
+        TagTipLabel({
+          tags: this.sampleContent?.tagIds ?? [],
+          newSymbol: $r('app.media.big_new'),
         })
-        .height($r('app.float.picture_card_content_height'))
-        .backgroundColor(this.sampleCardData.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-          $r('app.color.card_color') : $r('sys.color.comp_background_secondary'))
+          .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+          .width(CommonConstants.FULL_PERCENT)
+        Column() {
+          Row() {
+            ImageComponent({
+              src: this.sampleContent?.mediaUrl,
+              objectFit: ImageFit.Contain,
+              alt: $r('app.media.img_placeholder'),
+            })
+              .height('100%')
+              .width('100%')
+          }
+          .justifyContent(FlexAlign.Center)
+          .width('100%')
+          .clip(true)
+          .layoutWeight(1)
+          .padding({ top: $r('sys.float.padding_level16'), bottom: $r('sys.float.padding_level8') })
+
+          Row() {
+            Column() {
+              Text(this.sampleContent?.title)
+                .fontSize($r('sys.float.Subtitle_M'))
+                .fontWeight(FontWeight.Medium)
+                .fontColor(this.sampleCardData.unionId ? $r('app.color.card_font_primary_color') :
+                  $r('sys.color.font_primary'))
+              TagLabel({
+                maxWidth: this.maxWidth,
+                tags: this.sampleContent?.tags || [],
+                cardStyleType: this.sampleCardData.styleType
+              })
+            }
+            .alignItems(HorizontalAlign.Start)
+            .layoutWeight(1)
+
+            Button({ type: ButtonType.Normal }) {
+              SymbolGlyph($r('sys.symbol.chevron_right'))
+                .fontColor([this.sampleCardData.unionId ? $r('app.color.icon_secondary_color') :
+                  $r('sys.color.icon_secondary')])
+                .fontSize($r('sys.float.Title_M'))
+            }
+            .margin({ left: $r('sys.float.padding_level6') })
+            .height($r('app.float.card_button_height'))
+            .aspectRatio(1)
+            .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+              $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level10'))
+            .backgroundColor($r('sys.color.comp_background_tertiary'))
+          }
+          .padding({
+            left: $r('sys.float.padding_level8'),
+            right: $r('sys.float.padding_level8'),
+            top: $r('sys.float.padding_level6'),
+            bottom: $r('sys.float.padding_level10'),
+          })
+          .height($r('app.float.picture_card_content_height'))
+          .backgroundColor(this.sampleCardData.unionId ?
+            $r('app.color.card_color') : $r('sys.color.comp_background_secondary'))
+        }
       }
+      .onClick(() => {
+        this.handleItemClick?.(0, this.sampleContent);
+      })
+      .clip(true)
+      .backgroundColor($r('sys.color.comp_background_list_card'))
+      .backgroundImage(ImageUtil.getImgResource(this.sampleCardData.image))
+      .backgroundImageSize({ width: '100%', height: '100%' })
+      .clickEffect({ level: ClickEffectLevel.MIDDLE })
+      .borderRadius($r('sys.float.corner_radius_level8'))
+      .height($r('app.float.picture_card_height'))
+      .customProperty(TRACK_KEY, {
+        content: this.sampleContent?.title,
+        moduleType: this.sampleContent?.contentType,
+        eventType: TrackEventType.SAMPLE_CLICK,
+      } as TrackServiceData)
     }
-    .clip(true)
-    .backgroundColor($r('sys.color.comp_background_list_card'))
-    .backgroundImage($rawfile(this.sampleCardData.cardImage))
-    .backgroundImageSize({ width: '100%', height: '100%' })
-    .clickEffect({ level: ClickEffectLevel.MIDDLE })
-    .borderRadius($r('sys.float.corner_radius_level8'))
-    .height($r('app.float.picture_card_height'))
   }
 }

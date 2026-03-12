@@ -28,7 +28,8 @@ export function AICaptionBuilder(_$$: DescriptorWrapper) {
 
 @Component
 struct CaptionComponent {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State isShown: boolean = true;
   isReading: boolean = false;
   componentWidth: number = 0;
@@ -52,10 +53,16 @@ struct CaptionComponent {
     let fileData: Uint8Array;
     this.isReading = true;
     try {
-      fileData = await this.getUIContext().getHostContext()!.resourceManager.getMediaContent($r('app.media.16k').id);
+      const context = this.getUIContext().getHostContext();
+      if (!context) {
+        Logger.error(TAG, `GetMediaContent error, Cause context is undefined.`);
+        this.isReading = false;
+        return ;
+      }
+      fileData = await context.resourceManager.getMediaContent($r('app.media.16k').id);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `GetMediaContent error, the code is ${error.code}}, the message is ${error.message}`);
+      Logger.error(TAG, `GetMediaContent error, the code is ${error?.code}, the message is ${error?.message}`);
       this.isReading = false;
       return;
     }
@@ -66,11 +73,7 @@ struct CaptionComponent {
     const startTime = new Date().getTime();
     while (offset < byteLength) {
       const nextOffset = offset + bufferSize;
-      if (offset > byteLength) {
-        this.isReading = false;
-        return;
-      }
-      const arrayBuffer = fileData.buffer.slice(offset, nextOffset);
+      const arrayBuffer = fileData.buffer.slice(offset, nextOffset > byteLength ? (byteLength - offset) : nextOffset);
       const data = new Uint8Array(arrayBuffer);
       const audioData: AudioData = {
         data: data,
@@ -110,7 +113,7 @@ struct CaptionComponent {
           xl: $r('app.float.ai_caption_width_xl'),
         }).getValue(this.globalInfoModel.widthBreakpoint))
         .height(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-        $r('app.float.ai_caption_height_xl') : $r('app.float.ai_caption_height'))
+          $r('app.float.ai_caption_height_xl') : $r('app.float.ai_caption_height'))
         .margin({
           left: new BreakpointType({
             xs: DetailPageConstant.MARGIN_NEGATIVE_LARGER,

@@ -13,29 +13,30 @@
  * limitations under the License.
  */
 
-import type { BusinessError } from '@kit.BasicServicesKit';
-import type { ResponseData } from '@ohos/common';
-import { Logger, MockRequest, PreferenceManager } from '@ohos/common';
-import { AllContentData } from '../model/AllContentData';
-import { MineTrigger, NewContentData } from '../model/NewContentData';
-
-const TAG = '[MineService]';
+import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
+import { HmosRequest, PreferenceManager, TriggerEnums } from '@ohos/common';
+import { BaseDetailParam, CardTypeEnum } from '@ohos/commonbusiness';
+import { NewContentData } from '../model/NewContentData';
 
 export class MineService {
-  private static readonly NEW_COMPONENT_DATA = 'NEW_COMPONENT_DATA';
-  private static readonly NEW_SAMPLE_DATA = 'NEW_SAMPLE_DATA';
-  private static readonly NEW_ARTICLE_DATA = 'NEW_ARTICLE_DATA';
-  private static readonly ALL_CONTENT = 'ALL_CONTENT';
-
   constructor() {
   }
 
-  public getNewContentByMock(type: MineTrigger): Promise<ResponseData<NewContentData[]>> {
-    return new Promise((resolve: (value: ResponseData<NewContentData[]>) => void,
+  public getNewContent(cardType: CardTypeEnum): Promise<NewContentData[]> {
+    return new Promise((resolve: (value: NewContentData[]) => void,
       reject: (reason?: Object) => void) => {
-      MockRequest.call<ResponseData<NewContentData[]>>(type)
+      const param: NewContentParam = {
+        type: cardType,
+        singleId: cardType,
+      } as NewContentParam;
+      if (cardType === CardTypeEnum.SAMPLE) {
+        param.supportDevice = deviceInfo.deviceType;
+        param.apiVersion = deviceInfo.sdkApiVersion;
+      }
+      HmosRequest.getInstance()
+        .request<NewContentData[]>(TriggerEnums.NEW_CONTENTS, param)
         .then((result: Object) => {
-          resolve(result as ResponseData<NewContentData[]>);
+          resolve(result as NewContentData[]);
         })
         .catch((error: BusinessError) => {
           reject(error);
@@ -43,114 +44,46 @@ export class MineService {
     });
   }
 
-  public getNewContent(type: MineTrigger, currentPage?: number,
-    pageSize?: number): Promise<ResponseData<NewContentData[]>> {
-    Logger.info(TAG, `get new component content param: currentPage ${currentPage}, pageSize: ${pageSize} `);
-    return this.getNewContentByMock(type);
-  }
-
-  public getNewContentByPreference(type: MineTrigger, currentPage: number,
-    pageSize: number): Promise<ResponseData<NewContentData[]>> {
-    return new Promise((resolve: (value: ResponseData<NewContentData[]>) => void,
+  public getNewContentByPreference(type: CardTypeEnum): Promise<NewContentData[]> {
+    return new Promise((resolve: (value: NewContentData[]) => void,
       reject: (reason?: string) => void) => {
-      const key: string = this.getMineServiceKey(type);
-      let resp = PreferenceManager.getInstance()
-        .getValue<Record<string, ResponseData<NewContentData[]>>>(key);
-      if (!resp) {
+      const response: Record<string, NewContentData[]> = PreferenceManager.getInstance()
+        .getValue<Record<string, NewContentData[]>>(TriggerEnums.NEW_CONTENTS) as Record<string, NewContentData[]>;
+      if (!response) {
         reject('There is no data in the Preference');
+        return;
       }
-      resp = (resp as Record<string, ResponseData<NewContentData[]>>);
-      const ret = resp[`${currentPage}_${pageSize}`];
-      if (!ret) {
+      const ret = response[`${TriggerEnums.NEW_CONTENTS}_${type}`];
+      if (!ret || ret.length === 0) {
         reject('There is no data in the Preference');
+        return;
       }
       resolve(ret);
     });
   }
 
-  public setNewContentToPreference(type: MineTrigger, data: ResponseData<NewContentData[]>): Promise<void> {
+  public setNewContentToPreference(type: CardTypeEnum, data: NewContentData[]): Promise<void> {
     return new Promise((resolve: () => void) => {
-      const key: string = this.getMineServiceKey(type);
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(key);
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(TriggerEnums.NEW_CONTENTS);
       if (hasValue) {
-        let resp = PreferenceManager.getInstance()
-          .getValue<Record<string, ResponseData<NewContentData[]>>>(key);
-        resp = (resp as Record<string, ResponseData<NewContentData[]>>);
-        resp[`${data.currentPage}_${data.pageSize}`] = data;
-        PreferenceManager.getInstance().setValue(key, resp);
-        resolve();
+        const resp = PreferenceManager.getInstance()
+          .getValue<Record<string, NewContentData[]>>(TriggerEnums.NEW_CONTENTS);
+        const res: Record<string, NewContentData[]> = (resp as Record<string, NewContentData[]>) || {};
+        res[`${TriggerEnums.NEW_CONTENTS}_${type}`] = data;
+        PreferenceManager.getInstance().setValue(TriggerEnums.NEW_CONTENTS, res);
       } else {
-        const record: Record<string, ResponseData<NewContentData[]>> = {};
-        record[`${data.currentPage}_${data.pageSize}`] = data;
-        PreferenceManager.getInstance().setValue(key, record);
+        const record: Record<string, NewContentData[]> = {};
+        record[`${TriggerEnums.NEW_CONTENTS}_${type}`] = data;
+        PreferenceManager.getInstance().setValue(TriggerEnums.NEW_CONTENTS, record);
       }
+      resolve();
     });
   }
+}
 
-  public getNewContentNumByMock(type: MineTrigger): Promise<AllContentData> {
-    return new Promise((resolve: (value: AllContentData) => void,
-      reject: (reason?: Object) => void) => {
-      MockRequest.call<AllContentData>(type)
-        .then((result: Object) => {
-          resolve(result as AllContentData);
-        })
-        .catch((error: BusinessError) => {
-          reject(error);
-        });
-    });
-  }
-
-  public getNewContentNumByPreference(type: MineTrigger): Promise<AllContentData> {
-    return new Promise((resolve: (value: AllContentData) => void,
-      reject: (reason?: string) => void) => {
-      const key: string = this.getMineServiceKey(type);
-      let resp = PreferenceManager.getInstance()
-        .getValue<AllContentData>(key);
-      if (!resp) {
-        reject('There is no data in the Preference');
-      }
-      resp = (resp as AllContentData);
-      if (!resp) {
-        reject('There is no data in the Preference');
-      }
-      resolve(resp);
-    });
-  }
-
-  public setNewContentNumToPreference(type: MineTrigger, data: AllContentData): Promise<void> {
-    return new Promise((resolve: () => void) => {
-      const key: string = this.getMineServiceKey(type);
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(key);
-      if (hasValue) {
-        let resp = PreferenceManager.getInstance()
-          .getValue<AllContentData>(key);
-        resp = (resp as AllContentData);
-        PreferenceManager.getInstance().setValue(key, resp);
-        resolve();
-      } else {
-        PreferenceManager.getInstance().setValue(key, data);
-      }
-    });
-  }
-
-  private getMineServiceKey(type: MineTrigger): string {
-    let key: string = '';
-    switch (type) {
-      case MineTrigger.NEW_COMPONENT:
-        key = MineService.NEW_COMPONENT_DATA;
-        return key;
-      case MineTrigger.NEW_SAMPLE:
-        key = MineService.NEW_SAMPLE_DATA;
-        return key;
-      case MineTrigger.NEW_ARTICLE:
-        key = MineService.NEW_ARTICLE_DATA;
-        return key;
-      case MineTrigger.ALL_CONTENT:
-        key = MineService.ALL_CONTENT;
-        return key;
-      default:
-        key = MineService.NEW_COMPONENT_DATA;
-        return key;
-    }
-  }
+interface NewContentParam extends BaseDetailParam {
+  type: CardTypeEnum,
+  version?: string,
+  supportDevice?: string;
+  apiVersion?: number;
 }

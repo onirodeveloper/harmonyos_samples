@@ -15,7 +15,6 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel } from '@ohos/common';
 import {
   LoadingStatus,
   Logger,
@@ -24,6 +23,8 @@ import {
   StatusBarColorType,
   StorageKey,
   WindowUtil,
+  PageEnum,
+  GlobalInfoModel,
 } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
@@ -59,15 +60,15 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
   sendEvent<T>(eventParam: ExplorationEventParam<T>): void | boolean {
     const eventType: ExplorationEventType | BaseHomeEventType = eventParam.type;
     if (eventType === ExplorationEventType.LOAD_DISCOVERY_PAGE) {
-      return this.loadDiscoverList();
-    } else if (eventType === ExplorationEventType.JUMP_DETAIL_DETAIL) {
+      return this.loadDiscoveryPage();
+    } else if (eventType === ExplorationEventType.JUMP_DETAIL_VIEW) {
       return this.jumpDetailView(eventParam.param as DiscoverContent);
     } else {
       return super.sendEvent(eventParam as BaseHomeEventParam<T>);
     }
   }
 
-  protected loadDiscoverList(): void {
+  protected loadDiscoveryPage(): void {
     const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
     this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
@@ -80,12 +81,13 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
         });
         this.state.bannerState.bannerResource.setDataArray([...(result.bannerInfos || [])]);
         this.state.discoveryData = result.discoveryData;
-        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-        if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
-          globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
+        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+        if (globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
+          globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = true;
+          this.setTitleBarStyle();
         }
         this.state.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
         Logger.info(TAG, `Request DiscoveryPage Success`);
@@ -93,7 +95,8 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
       .catch((error: BusinessError) => {
         WindowUtil.updateStatusBarColor(isDark);
         TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = isDark;
-        if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
+        this.setTitleBarStyle(true);
+        if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
           this.state.loadingModel.loadingStatus = LoadingStatus.NO_NETWORK;
         } else {
           this.state.loadingModel.loadingStatus = LoadingStatus.FAILED;
@@ -102,26 +105,27 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
   }
 
   protected jumpDetailView(content: DiscoverContent): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-    const pathStack: PageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)! :
-      AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+    const pathStack = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT) :
+      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const articleParam: ArticleDetailParams = {
       id: content.id,
       isArticle: true,
       title: content.title,
       detailsUrl: content.detailsUrl,
+      contentType: content.contentType,
     };
-    pathStack.openPage({
-      routerName: 'ArticleDetailView',
+    pathStack?.openPage({
+      routerName: PageEnum.ARTICLE_DETAIL_VIEW,
       param: articleParam,
     }, true);
   }
 }
 
 export enum ExplorationEventType {
-  JUMP_DETAIL_DETAIL = 'jumpDetailView',
-  LOAD_DISCOVERY_PAGE = 'loadDiscoverList',
+  JUMP_DETAIL_VIEW = 'jumpDetailView',
+  LOAD_DISCOVERY_PAGE = 'loadDiscoveryPage',
 }
 
 export interface ExplorationEventParam<T> {

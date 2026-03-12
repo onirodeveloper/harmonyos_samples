@@ -13,47 +13,23 @@
  * limitations under the License.
  */
 
-export class CardContent {
-  public id: number = 0;
-  public type: CardTypeEnum = CardTypeEnum.UNKNOWN;
-  public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
-  public mediaUrl: string = '';
-  public title: string = '';
-  public subTitle: string = '';
-  public desc: string = '';
-  public detailsUrl?: string = '';
-  public originalUrl?: string = '';
-}
-
-export class CardData {
-  public id: number = 0;
-  public cardTitle: string = '';
-  public cardSubTitle: string = '';
-  public cardType: CardTypeEnum = CardTypeEnum.UNKNOWN;
-  public cardStyleType: CardStyleTypeEnum = CardStyleTypeEnum.LIST;
-  public cardImage: string = '';
-  public version: string = '';
-  public cardContents: CardContent[] = [];
-}
-
 export enum CardStyleTypeEnum {
   PICTURE_ABOVE_LIST = 1,
   LIST = 2,
   PICTURE = 3,
   PICTURE_ABOVE_TEXT = 4,
-  PICTURE_TO_SWIPER = 5,
+  UNKNOWN = 0,
 }
 
 export enum MediaTypeEnum {
-  IMAGE = 1,
-  VIDEO = 2,
-  SYMBOL = 3,
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO',
+  SYMBOL = 'SYMBOL',
 }
 
 export enum CardTypeEnum {
   COMPONENT = 1,
   SAMPLE = 2,
-  CODELAB = 3,
-  ARTICLE = 4,
+  ARTICLE = 3,
   UNKNOWN = 0,
 }

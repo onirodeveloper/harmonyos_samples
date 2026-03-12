@@ -1,510 +1,500 @@
 {
-  "code": 200,
-  "message": "Success",
-  "data": {
-    "currentPage": 1,
-    "pageSize": 30,
-    "totalSize": "12",
-    "data": {
-      "bannerInfos": [
-        {
-          "id": 1,
-          "bannerTitle": "开发者你好，欢迎来到HMOS代码工坊",
-          "bannerSubTitle": "HarmonyOS代码工坊",
-          "bannerDesc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
-          "bannerType": 4,
-          "bannerValue": 14,
-          "mediaType": 1,
-          "mediaUrl": "image/banner/banner_HMOS.png",
-          "detailsUrl": "bannercols/hmos-world/index.html"
-        },
-        {
-          "id": 4,
-          "bannerTitle": "HMOS代码工坊一多开发实践",
-          "bannerSubTitle": "一次开发，多端部署",
-          "bannerDesc": "探索HarmonyOS代码工坊一多开发实践",
-          "bannerType": 4,
-          "bannerValue": 18,
-          "mediaType": 1,
-          "mediaUrl": "image/banner/banner_ui_design.png",
-          "detailsUrl": "articlecols/articles/multi-adaptation/index.html"
-        },
-        {
-          "id": 5,
-          "bannerTitle": "开箱即用的AI语音播报能力",
-          "bannerSubTitle": "AI朗读",
-          "bannerDesc": "朗读文本转语音，新闻小说即享听。",
-          "bannerType": 4,
-          "bannerValue": 19,
-          "mediaType": 1,
-          "mediaUrl": "image/banner/banner_ai.png",
-          "detailsUrl": "bannercols/ai-voice-out-of-box/index.html"
+    "success": true,
+    "code": "0000",
+    "msg": "success",
+    "body": {
+        "currentPage": 1,
+        "pageSize": 50,
+        "totalPage": 1,
+        "totalSize": 12,
+        "data": {
+            "cardData": [
+                {
+                    "id": 7,
+                    "title": "安全使用相机",
+                    "subTitle": "CameraPicker",
+                    "styleType": 3,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E7%9B%B8%E6%9C%BA%E9%80%89%E6%8B%A9%E5%99%A8.png?token=f5ee7d05-e6df-4d7e-bd04-886836eb7083",
+                    "version": 1000000,
+                    "sequence": 2,
+                    "componentContents": [
+                        {
+                            "id": 28,
+                            "componentCardId": 7,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_camerapicker.png?token=26aaf64a-e25e-4cad-9380-d3dd7b4ba371",
+                            "title": "CameraPicker",
+                            "subTitle": "相机选择器",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "按钮、图片、进度条等",
+                    "subTitle": "常用组件",
+                    "styleType": 2,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%9B%BE%E6%96%87%E4%BD%8D.png?token=5d44228a-3220-4846-8d18-f21ffb96c294",
+                    "version": 1000000,
+                    "sequence": 3,
+                    "componentContents": [
+                        {
+                            "id": 1,
+                            "componentCardId": 2,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_button.png?token=db9560ca-c646-4f75-9947-9e29366980a2",
+                            "title": "Button",
+                            "subTitle": "按钮",
+                            "version": 1000000,
+                            "tagIds": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "id": 11,
+                            "componentCardId": 2,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_image.png?token=470a7067-8dab-46be-a207-fb2575b26958",
+                            "title": "Image",
+                            "subTitle": "图片",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 13,
+                            "componentCardId": 2,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_progress.png?token=a33ba5e5-5352-413c-9707-e38ec168f585",
+                            "title": "Progress",
+                            "subTitle": "进度条",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 22,
+                            "componentCardId": 2,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_rating.png?token=7ef152ae-1149-4e60-873f-0e0b587534aa",
+                            "title": "Rating",
+                            "subTitle": "评分",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 2,
+                            "componentCardId": 2,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_toggle.png?token=70c2b36d-1e16-4ba3-8973-fc5dbf3e248f",
+                            "title": "Toggle",
+                            "subTitle": "开关",
+                            "version": 1000000,
+                            "tagIds": [
+                                1,
+                                2
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": 13,
+                    "title": "安全使用图库",
+                    "subTitle": "PhotoPicker",
+                    "styleType": 3,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%9B%BE%E5%BA%93%E9%80%89%E6%8B%A9%E5%99%A8.png?token=9bbbeadf-e421-48bb-a330-82b5eaa1d057",
+                    "version": 1000000,
+                    "sequence": 4,
+                    "componentContents": [
+                        {
+                            "id": 26,
+                            "componentCardId": 13,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_photopicker.png?token=4612a775-4c41-438d-a2e2-5f21d931bba0",
+                            "title": "PhotoViewPicker",
+                            "subTitle": "图库选择器",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "title": "使用布局容器构建页面",
+                    "subTitle": "常用布局",
+                    "styleType": 1,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%20banner.png?token=1de79bb4-0b1a-488c-a399-035f3acf4d1c",
+                    "version": 1000000,
+                    "sequence": 5,
+                    "componentContents": [
+                        {
+                            "id": 5,
+                            "componentCardId": 4,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_column.png?token=20e3b374-88b2-418c-ad10-64db95636ea0",
+                            "title": "Column",
+                            "subTitle": "线性布局 - 纵向",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 6,
+                            "componentCardId": 4,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_row.png?token=4f67c34e-a2ae-4461-ac2e-3639380a1732",
+                            "title": "Row",
+                            "subTitle": "线性布局 - 横向",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 7,
+                            "componentCardId": 4,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_stack.png?token=9fc5ad08-7d05-4bac-bb4f-a26b95b0080d",
+                            "title": "Stack",
+                            "subTitle": "层叠布局",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 23,
+                            "componentCardId": 4,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_flex.png?token=c4491f27-76eb-447d-bde1-020093759684",
+                            "title": "Flex",
+                            "subTitle": "弹性布局",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "title": "手写笔服务",
+                    "subTitle": "Pen Kit",
+                    "styleType": 3,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E6%89%8B%E5%86%99%E7%AC%94.png?token=9a23aa17-c575-42bc-8edf-8a8cbf1954e0",
+                    "version": 1000000,
+                    "sequence": 6,
+                    "componentContents": [
+                        {
+                            "id": 38,
+                            "componentCardId": 11,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_penkit.png?token=5f4bada9-fe6c-40f1-b645-e6e6fecb6b40",
+                            "title": "Penkit",
+                            "subTitle": "手写笔服务",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "title": "构建列表类布局",
+                    "subTitle": "常用布局",
+                    "styleType": 2,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80.png?token=d94f1897-5a0c-4171-84ad-660bc9d7c18f",
+                    "version": 1000000,
+                    "sequence": 7,
+                    "componentContents": [
+                        {
+                            "id": 9,
+                            "componentCardId": 5,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_list.png?token=b90a9443-e21d-486a-a78f-6c44d674fdd8",
+                            "title": "List",
+                            "subTitle": "列表",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 8,
+                            "componentCardId": 5,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_grid.png?token=7d6b92fa-6124-41f7-a6db-298edc1b6ec7",
+                            "title": "Grid",
+                            "subTitle": "网格",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 25,
+                            "componentCardId": 5,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_waterflow.png?token=478ffdb1-7215-4a31-8dca-a56a0c9dc8e4",
+                            "title": "WaterFlow",
+                            "subTitle": "瀑布流",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 24,
+                            "componentCardId": 5,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_swiper.png?token=ca885181-f6d1-41a4-b583-58db09e9e8b3",
+                            "title": "Swiper",
+                            "subTitle": "滑动轮播组件",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 18,
+                            "componentCardId": 5,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_tabs.png?token=26b5972d-ccd0-48ef-a5ba-53c50113cbfa",
+                            "title": "Tabs",
+                            "subTitle": "页签",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 12,
+                    "title": "AI抠图",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2FAI%20%E6%8A%A0%E5%9B%BE.png?token=8f3e0270-5a7f-4028-9acb-a7db69499260",
+                    "version": 1000000,
+                    "sequence": 8,
+                    "componentContents": [
+                        {
+                            "id": 32,
+                            "componentCardId": 12,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_enable%20analyzer.png?token=0d6aed4d-3739-4b0c-b303-671a7c620199",
+                            "title": "AI Matting",
+                            "subTitle": "AI抠图",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "title": "给页面添加弹窗",
+                    "subTitle": "消息弹窗",
+                    "styleType": 2,
+                    "version": 1000000,
+                    "sequence": 9,
+                    "componentContents": [
+                        {
+                            "id": 20,
+                            "componentCardId": 9,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_alert%20dialog.png?token=d2373c49-1a13-455b-b269-fc5a9a7c077d",
+                            "title": "AlertDialog",
+                            "subTitle": "警告弹窗",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 21,
+                            "componentCardId": 9,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_text%20dialog.png?token=1080536e-5886-47e6-ac0d-c04e4d396507",
+                            "title": "TextPickerDialog",
+                            "subTitle": "文本滑动选择器弹窗",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 35,
+                            "componentCardId": 9,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_customerdilog.png?token=bd5514a1-9371-4ced-a22c-b21bd7466789",
+                            "title": "CustomDialog",
+                            "subTitle": "自定义弹窗",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 33,
+                            "componentCardId": 9,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_actionsheet.png?token=2309567b-2a6a-45d5-8fa6-88555ec7f97c",
+                            "title": "ActionSheet",
+                            "subTitle": "列表选择弹窗",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 34,
+                            "componentCardId": 9,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_popup.png?token=a967f46e-2018-442b-a049-da857abe4c56",
+                            "title": "Popup",
+                            "subTitle": "气泡弹窗",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "title": "AI语音播报",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2FAI%E8%AF%AD%E9%9F%B3.png?token=d7e11a2e-87bd-4887-92a2-03447f21c1b2",
+                    "version": 1000000,
+                    "sequence": 10,
+                    "componentContents": [
+                        {
+                            "id": 29,
+                            "componentCardId": 6,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2FAI%E8%83%BD%E5%8A%9B-texttospeech.png?token=52ee1293-44e2-4c74-ac63-574f7efefa4b",
+                            "title": "TextToSpeech",
+                            "subTitle": "文本转语音",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "title": "高效拉起系统应用",
+                    "subTitle": "Picker和Linking",
+                    "styleType": 1,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%20banner.png?token=b1bec2ac-da0d-4b74-ba8c-cd587fc0dd70",
+                    "version": 1000000,
+                    "sequence": 11,
+                    "componentContents": [
+                        {
+                            "id": 14,
+                            "componentCardId": 8,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_calendar.png?token=319dc0ff-9627-4335-ace9-ca1adad7f014",
+                            "title": "CalendarPicker",
+                            "subTitle": "日历选择器",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 15,
+                            "componentCardId": 8,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_datepicker.png?token=1a872d57-5f40-422f-8e2d-66a8b4d17c45",
+                            "title": "DatePicker",
+                            "subTitle": "日期滑动选择器",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 27,
+                            "componentCardId": 8,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_documentpicker.png?token=c70fc893-a507-4b41-98a0-7d7ac2ab5365",
+                            "title": "DocumentViewPicker",
+                            "subTitle": "文件选择器",
+                            "version": 1000000,
+                            "tagIds": []
+                        },
+                        {
+                            "id": 36,
+                            "componentCardId": 8,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_linking.png?token=cbe09774-92be-4f61-8118-ba1cc1a31eba",
+                            "title": "AppLinking",
+                            "subTitle": "应用拉起",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "title": "AI语音字幕",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2FAI%E5%AD%97%E5%B9%95.png?token=ada5364b-c7a2-485e-951d-26521fcfbc35",
+                    "version": 1000000,
+                    "sequence": 12,
+                    "componentContents": [
+                        {
+                            "id": 30,
+                            "componentCardId": 10,
+                            "contentType": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_component.png?token=8f35e9cb-d9c9-4619-b21e-ecea1c95cdc8",
+                            "title": "AICaptionComponent",
+                            "subTitle": "AI字幕组件",
+                            "version": 1000000,
+                            "tagIds": []
+                        }
+                    ]
+                }
+            ],
+            "bannerInfos": [
+                {
+                    "id": 1,
+                    "title": "开发者你好，欢迎来到HMOS世界",
+                    "contentType": 3,
+                    "subTitle": "HMOS世界",
+                    "desc": "鸿蒙世界是一个最佳实践，包含架构、体验鸿蒙世界是一个最佳实践，包含架构、体验",
+                    "type": "DISCOVERY",
+                    "value": "14",
+                    "mediaType": "IMAGE",
+                    "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E9%85%8D%E5%9B%BE-HMOS.png?token=11ee88cc-36f6-46cb-ace3-3c7d3643d4de",
+                    "detailsUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E9%85%8D%E5%9B%BE-HMOS.png?token=11ee88cc-36f6-46cb-ace3-3c7d3643d4de",
+                    "sequence": 0
+                },
+                {
+                    "id": 4,
+                    "title": "HarmonyOS UX设计新体验",
+                    "contentType": 3,
+                    "subTitle": "UX设计体验",
+                    "desc": "在HarmonyOS设备上提供生动而流程的用户界面在HarmonyOS设备上提供生动而流程的用户界面",
+                    "type": "DISCOVERY",
+                    "value": "18",
+                    "mediaType": "IMAGE",
+                    "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E4%BD%93%E9%AA%8C%2F%E4%BD%93%E9%AA%8C-UI%20%E6%96%B0%E4%BD%93%E9%AA%8C.png?token=ac556242-5e8f-4254-b4e8-e24e1e21a403",
+                    "detailsUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E9%85%8D%E5%9B%BE-HMOS.png?token=11ee88cc-36f6-46cb-ace3-3c7d3643d4de",
+                    "sequence": 0
+                },
+                {
+                    "id": 5,
+                    "title": "开箱即用的AI语音播报能力",
+                    "contentType": 3,
+                    "subTitle": "AI朗读",
+                    "desc": "朗读控件使用AI能力将文本实时转化成语音并进行朗读，适用于一些新闻类、小说类等文本内容浏览类APP，帮助用户在一些无法直接浏览文本内容的场景下，通过文本朗读来高效获取信息。",
+                    "type": "DISCOVERY",
+                    "value": "19",
+                    "mediaType": "IMAGE",
+                    "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E4%BD%93%E9%AA%8C%2F%E4%BD%93%E9%AA%8C-AI%20%E8%AF%AD%E9%9F%B3.png?token=2fe379e2-8a92-49eb-a090-a46c9772932b",
+                    "sequence": 0
+                }
+            ]
         }
-      ],
-      "cardData": [
-        {
-          "id": 1,
-          "cardTitle": "为页面添加文本",
-          "cardSubTitle": "文本类组件",
-          "cardType": 1,
-          "cardStyleType": 1,
-          "cardImage": "image/component/card/text.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 10,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/text.png",
-              "title": "Text",
-              "subTitle": "文本",
-              "tagIds": []
-            },
-            {
-              "id": 42,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/textinput.png",
-              "title": "TextInput",
-              "subTitle": "单行文本输入",
-              "tagIds": []
-            },
-            {
-              "id": 40,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/textarea.png",
-              "title": "TextArea",
-              "subTitle": "多行文本输入",
-              "tagIds": []
-            },
-            {
-              "id": 41,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/textstyle.png",
-              "title": "TextStyle",
-              "subTitle": "属性字符串",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "cardTitle": "安全使用相机",
-          "cardSubTitle": "CameraPicker",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/camerapicker.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 28,
-              "type": 1,
-              "cardId": 7,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/camerapicker.png",
-              "title": "CameraPicker",
-              "subTitle": "相机选择器",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "cardTitle": "按钮、图片、进度条等",
-          "cardSubTitle": "常用组件",
-          "cardType": 1,
-          "cardStyleType": 2,
-          "cardImage": null,
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 1,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/button.png",
-              "title": "Button",
-              "subTitle": "按钮",
-              "tagIds": []
-            },
-            {
-              "id": 11,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/image.png",
-              "title": "Image",
-              "subTitle": "图片",
-              "tagIds": []
-            },
-            {
-              "id": 13,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/progress.png",
-              "title": "Progress",
-              "subTitle": "进度条",
-              "tagIds": []
-            },
-            {
-              "id": 22,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/rating.png",
-              "title": "Rating",
-              "subTitle": "评分",
-              "tagIds": []
-            },
-            {
-              "id": 2,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/toggle.png",
-              "title": "Toggle",
-              "subTitle": "开关",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 13,
-          "cardTitle": "安全使用图库",
-          "cardSubTitle": "PhotoPicker",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/photopicker.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 26,
-              "type": 1,
-              "cardId": 13,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/photopicker.png",
-              "title": "PhotoViewPicker",
-              "subTitle": "图库选择器",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "cardTitle": "使用布局容器构建页面",
-          "cardSubTitle": "常用布局",
-          "cardType": 1,
-          "cardStyleType": 1,
-          "cardImage": "image/component/card/layout.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 5,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/column.png",
-              "title": "Column",
-              "subTitle": "线性布局 - 纵向",
-              "tagIds": []
-            },
-            {
-              "id": 6,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/row.png",
-              "title": "Row",
-              "subTitle": "线性布局 - 横向",
-              "tagIds": []
-            },
-            {
-              "id": 7,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/stack.png",
-              "title": "Stack",
-              "subTitle": "层叠布局",
-              "tagIds": []
-            },
-            {
-              "id": 23,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/flex.png",
-              "title": "Flex",
-              "subTitle": "弹性布局",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 11,
-          "cardTitle": "手写笔服务",
-          "cardSubTitle": "Pen Kit",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/pankit.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 38,
-              "type": 1,
-              "cardId": 11,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/penkit.png",
-              "title": "Penkit",
-              "subTitle": "手写笔服务",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "cardTitle": "构建列表类布局",
-          "cardSubTitle": "常用布局",
-          "cardType": 1,
-          "cardStyleType": 2,
-          "cardImage": null,
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 9,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/list.png",
-              "title": "List",
-              "subTitle": "列表",
-              "tagIds": []
-            },
-            {
-              "id": 8,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/grid.png",
-              "title": "Grid",
-              "subTitle": "网格",
-              "tagIds": []
-            },
-            {
-              "id": 25,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/waterflow.png",
-              "title": "WaterFlow",
-              "subTitle": "瀑布流",
-              "tagIds": []
-            },
-            {
-              "id": 24,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/swiper.png",
-              "title": "Swiper",
-              "subTitle": "滑动轮播组件",
-              "tagIds": []
-            },
-            {
-              "id": 18,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/tabs.png",
-              "title": "Tabs",
-              "subTitle": "页签",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 12,
-          "cardTitle": "AI抠图",
-          "cardSubTitle": "开箱即用的AI能力",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/enable_analyzer.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 32,
-              "type": 1,
-              "cardId": 12,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/enable_analyzer.png",
-              "title": "AI Matting",
-              "subTitle": "AI抠图",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 9,
-          "cardTitle": "给页面添加弹窗",
-          "cardSubTitle": "消息弹窗",
-          "cardType": 1,
-          "cardStyleType": 2,
-          "cardImage": null,
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 20,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/alert_dialog.png",
-              "title": "AlertDialog",
-              "subTitle": "警告弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 21,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/text_dialog.png",
-              "title": "TextPickerDialog",
-              "subTitle": "文本滑动选择器弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 35,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/custom_dialog.png",
-              "title": "CustomDialog",
-              "subTitle": "自定义弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 33,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/action_sheet.png",
-              "title": "ActionSheet",
-              "subTitle": "列表选择弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 34,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/popup.png",
-              "title": "Popup",
-              "subTitle": "气泡弹窗",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "cardTitle": "AI语音播报",
-          "cardSubTitle": "开箱即用的AI能力",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/texttospeech.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 29,
-              "type": 1,
-              "cardId": 6,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/texttospeech.png",
-              "title": "TextToSpeech",
-              "subTitle": "文本转语音",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 8,
-          "cardTitle": "高效拉起系统应用",
-          "cardSubTitle": "Picker和Linking",
-          "cardType": 1,
-          "cardStyleType": 1,
-          "cardImage": "image/component/card/link.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 14,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/calendar_picker.png",
-              "title": "CalendarPicker",
-              "subTitle": "日历选择器",
-              "tagIds": []
-            },
-            {
-              "id": 15,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/date_picker.png",
-              "title": "DatePicker",
-              "subTitle": "日期滑动选择器",
-              "tagIds": []
-            },
-            {
-              "id": 27,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/document_picker.png",
-              "title": "DocumentViewPicker",
-              "subTitle": "文件选择器",
-              "tagIds": []
-            },
-            {
-              "id": 36,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/linking.png",
-              "title": "AppLinking",
-              "subTitle": "应用拉起",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 10,
-          "cardTitle": "AI语音字幕",
-          "cardSubTitle": "开箱即用的AI能力",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/ai_caption_component.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 30,
-              "type": 1,
-              "cardId": 10,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/ai_caption_component.png",
-              "title": "AICaptionComponent",
-              "subTitle": "AI字幕组件",
-              "tagIds": []
-            }
-          ]
-        }
-      ]
     }
-  }
 }

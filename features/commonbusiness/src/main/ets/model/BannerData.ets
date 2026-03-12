@@ -13,16 +13,14 @@
  * limitations under the License.
  */
 
+import { BaseData } from './BaseData';
 import { MediaTypeEnum } from './CardData';
 
 @Observed
-export class BannerData {
-  public id: number = 0;
-  public bannerTitle: string = '';
-  public bannerSubTitle: string = '';
-  public bannerDesc: string = '';
-  public bannerType: BannerTypeEnum = 0;
-  public bannerValue: string = '';
+export class BannerData extends BaseData {
+  public desc: string = '';
+  public type: BannerTypeEnum = 0;
+  public value: string = '';
   public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
   public mediaUrl: string = '';
   public detailsUrl: string = '';
@@ -32,8 +30,7 @@ export class BannerData {
 export enum BannerTypeEnum {
   COMPONENT = 1,
   SAMPLE = 2,
-  CODELAB = 3,
-  ARTICLE = 4,
+  ARTICLE = 3,
   UNKNOWN = 0,
 }
 

@@ -25,7 +25,11 @@ class Toast {
 
   public showToast(message: ResourceStr, duration?: number) {
     try {
-      const uiContext: UIContext = AppStorage.get(StorageKey.UI_CONTEXT)!;
+      const uiContext: UIContext | undefined = AppStorage.get(StorageKey.UI_CONTEXT);
+      if (!uiContext) {
+        Logger.error(TAG, `Show toast failed, cause uicontext is undefined`);
+        return;
+      }
       const promptAction: PromptAction = uiContext.getPromptAction();
       promptAction.showToast({
         message: message,
@@ -33,7 +37,7 @@ class Toast {
       });
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `Show toast error, the code is ${error.code}}, the message is ${error.message}`);
+      Logger.error(TAG, `Show toast error, the code is ${error.code}, the message is ${error.message}`);
     }
   }
 

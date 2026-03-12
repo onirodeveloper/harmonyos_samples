@@ -17,9 +17,9 @@ import { ConfigurationConstant } from '@kit.AbilityKit';
 import { curves, window } from '@kit.ArkUI';
 import { BusinessError, settings } from '@kit.BasicServicesKit';
 import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
-import type { GlobalInfoModel, } from '@ohos/common';
 import {
   CommonConstants,
+  GlobalInfoModel,
   Logger,
   ScreenOrientation,
   StorageKey,
@@ -39,9 +39,10 @@ const ORIENTATION_LOCK_ON: string = '0';
 
 @Component
 export struct CodePreview {
-  @StorageLink(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageLink(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @State webNodeController?: WebNodeController = undefined;
   @State isFocus: boolean = false;
   @State isBack: boolean = false;
@@ -64,7 +65,7 @@ export struct CodePreview {
     this.webNodeController = undefined;
     this.resetScreenOrientation();
     this.preFinishAnimation();
-    this.uiContext.animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
+    this.uiContext?.animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
       this.viewModel?.pop(false);
     });
     return true;

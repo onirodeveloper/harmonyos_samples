@@ -26,10 +26,11 @@ import type { RecommendData } from '../model/ComponentDetailData';
 
 @Component
 export struct RecommendList {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop recommends: RecommendData[];
   @State showSheet: boolean = false;
-  @State selectedItem: RecommendData = this.recommends[0];
+  @State selectedItem?: RecommendData = undefined;
 
   build() {
     Column() {
@@ -51,18 +52,18 @@ export struct RecommendList {
             this.showSheet = true;
           }
         })
-      }, (_item: RecommendData) => _item.id?.toString())
+      }, (_item: RecommendData) => _item.url?.toString())
     }
     .backgroundColor($r('sys.color.comp_background_primary'))
     .padding($r('sys.float.padding_level2'))
     .width('100%')
     .clip(true)
     .borderRadius($r('sys.float.corner_radius_level8'))
-    .bindSheet(this.showSheet, WebSheetBuilder(this.selectedItem.url, WebUrlType.HARMONYOS), {
+    .bindSheet(this.showSheet, WebSheetBuilder(this.selectedItem?.url ?? '', WebUrlType.HARMONYOS), {
       showClose: true,
       onDisappear: () => {
         this.showSheet = false;
-        WebUtil.getWebNode(this.selectedItem.url)?.remove();
+        WebUtil.getWebNode(this.selectedItem?.url)?.remove();
       },
       preferType: SheetType.CENTER,
       height: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
@@ -70,7 +71,7 @@ export struct RecommendList {
         CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
       width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SHEET_WIDTH_XL :
         undefined,
-      title: { title: this.selectedItem.title },
+      title: { title: this.selectedItem?.title },
     })
   }
 }

@@ -15,13 +15,17 @@
 
 import { SegmentButtonTextItem } from '@kit.ArkUI';
 import { ConfigurationConstant } from '@kit.AbilityKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import {
   BaseVM,
   BaseVMEvent,
   GlobalInfoModel,
   LoadingStatus,
+  NetworkUtil,
   ObservedArray,
   PageContext,
+  PageEnum,
+  RequestErrorCode,
   StorageKey,
   TopNavigationData,
 } from '@ohos/common';
@@ -35,14 +39,14 @@ import {
   ToggleButtonAttribute,
   ToggleComAttribute,
 } from './ComponentDetailState';
-import type { AttributeData, ComponentDetailData, RecommendData } from '../model/ComponentDetailData';
+import { AttributeData, ComponentDetailData, RecommendData, RecommendTypeEnum } from '../model/ComponentDetailData';
 import { ComponentDetailModel } from '../model/ComponentDetailModel';
 import { Attribute, OriginAttribute } from './Attribute';
 import { AttributeTypeEnum } from './AttributeTypeEnum';
 import { CommonCodeGenerator } from './CommonCodeGenerator';
 import { CommonAttributeFilter } from './CommonAttributeFilter';
 import { CommonDescriptor } from './CommonDescriptor';
-import type { ConfigInterface } from '../componentdetailview/ComponentDetailConfig';
+import { componentDetailConfig, ConfigInterface } from '../componentdetailview/ComponentDetailConfig';
 import { ComponentDetailManager } from './ComponentDetailManager';
 
 export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
@@ -53,42 +57,21 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   public originAttributes: OriginAttribute[] = [];
   public fullAttributes: ObservedArray<Attribute> = [];
   private detailPageModel = ComponentDetailModel.getInstance();
-  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
   private detailData?: ComponentDetailData;
   private currentPathStack?: NavPathStack;
 
   constructor(componentName: string) {
-    const componentDetailConfig: Record<string, ConfigInterface> = AppStorage.get(StorageKey.COMPONENT_CONFIG)!;
-    super(new ComponentDetailState(componentDetailConfig[componentName].descriptor(), [], '', [], LoadingStatus.OFF,
-      new TopNavigationData()));
-    this.componentName = componentName;
-    this.codeGenerator = componentDetailConfig[componentName].codeGenerate;
-    this.attributeFilter = componentDetailConfig[componentName].attributeFilter;
-    this.descriptor = componentDetailConfig[componentName].descriptor();
-  }
-
-  init(event: InitComponentEvent): Promise<void> {
-    if (this.state.loadingStatus !== LoadingStatus.LOADING) {
-      this.state.loadingStatus = LoadingStatus.LOADING;
-      this.initTopNavigationData();
-      this.state.code = '';
-      this.state.recommends = [];
-      this.state.attributes = [];
-      if (this.detailData) {
-        this.processAttribute(this.detailData.props);
-        this.state.loadingStatus = LoadingStatus.SUCCESS;
-        return Promise.resolve();
-      }
-      return this.detailPageModel.init(event.id).then((data: ComponentDetailData) => {
-        this.detailData = data;
-        this.processAttribute(data.props);
-        this.state.loadingStatus = LoadingStatus.SUCCESS;
-        ComponentDetailManager.getInstance().updateDetailViewModelMap(this.componentName, this);
-      }).catch((_err: string) => {
-        this.state.loadingStatus = LoadingStatus.FAILED;
-      });
+    let componentConfig = AppStorage.get<Record<string, ConfigInterface>>(StorageKey.COMPONENT_CONFIG);
+    if (!componentConfig) {
+      AppStorage.setOrCreate(StorageKey.COMPONENT_CONFIG, componentDetailConfig);
+      componentConfig = componentDetailConfig
     }
-    return Promise.resolve();
+    const commonDescriptor: CommonDescriptor = componentConfig?.[componentName]?.descriptor();
+    super(new ComponentDetailState(commonDescriptor, [], '', [], LoadingStatus.OFF, new TopNavigationData()));
+    this.componentName = componentName;
+    this.codeGenerator = componentConfig[componentName].codeGenerate;
+    this.attributeFilter = componentConfig[componentName].attributeFilter;
+    this.descriptor = componentConfig[componentName].descriptor();
   }
 
   sendEvent(event: DetailPageEvent): Promise<string | void> | null {
@@ -114,15 +97,47 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
     return null;
   }
 
+  init(event: InitComponentEvent): Promise<void> {
+    if (this.state.loadingStatus !== LoadingStatus.LOADING) {
+      this.state.loadingStatus = LoadingStatus.LOADING;
+      this.initTopNavigationData();
+      this.state.code = '';
+      this.state.recommends = [];
+      this.state.attributes = [];
+      if (this.detailData && !NetworkUtil.hasDefaultNet()) {
+        this.processAttribute(this.detailData.props);
+        this.state.loadingStatus = LoadingStatus.SUCCESS;
+        return Promise.resolve();
+      }
+      return this.detailPageModel.init(event.id)
+        .then((data: ComponentDetailData) => {
+          this.detailData = data;
+          this.processAttribute(data.props);
+          this.state.loadingStatus = LoadingStatus.SUCCESS;
+          ComponentDetailManager.getInstance().updateDetailViewModelMap(this.componentName, this);
+        })
+        .catch((error: BusinessError) => {
+          if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
+            this.state.loadingStatus = LoadingStatus.NO_NETWORK;
+          } else {
+            this.state.loadingStatus = LoadingStatus.FAILED;
+          }
+        });
+    }
+    return Promise.resolve();
+  }
+
   public pop(animated?: boolean) {
     this.currentPathStack?.pop(animated);
   }
 
   public jumpToCodePreview(code: string, preRebuild: () => void) {
-    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
-    pageContext.openPage({
-      routerName: 'CodePreviewView',
+    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
+    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
+      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
+    pageContext?.openPage({
+      routerName: PageEnum.CODE_PREVIEW_VIEW,
       param: {
         code: code,
         componentName: this.componentName,
@@ -132,10 +147,12 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   }
 
   public jumpToPenKitView() {
-    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
-    pageContext.openPage({
-      routerName: 'PenKitView',
+    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
+    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
+      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
+    pageContext?.openPage({
+      routerName: PageEnum.PEN_KIT_VIEW,
     });
   }
 
@@ -183,7 +200,8 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
     const recommends: RecommendData[] = [];
     recommendList?.forEach((item) => {
       recommends.push({
-        title: item.articleType === 1 ? $r('app.string.develop_practice') : $r('app.string.design_practice'),
+        title: item.articleType === RecommendTypeEnum.DEVELOPMENT_GUIDE ? $r('app.string.develop_practice') :
+          $r('app.string.design_practice'),
         articleType: item.articleType,
         url: item.url,
       });
@@ -246,7 +264,7 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
 
   private processAttribute(attributes: AttributeData[]) {
     let curValueArray: string[] = [];
-    const systemColorMode: ConfigurationConstant.ColorMode = AppStorage.get(StorageKey.COLOR_MODE)!;
+    const systemColorMode = AppStorage.get<ConfigurationConstant.ColorMode>(StorageKey.COLOR_MODE);
     const originAttributeList: OriginAttribute[] = [];
     const attributeList: ObservedArray<Attribute> = [];
     attributes.forEach((attribute: AttributeData) => {

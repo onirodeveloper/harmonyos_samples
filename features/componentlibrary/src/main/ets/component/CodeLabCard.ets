@@ -14,7 +14,7 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { ProductSeriesEnum } from '@ohos/common';
+import { ImageComponent, ProductSeriesEnum } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import type { ComponentCardData, ComponentContent } from '../model/ComponentData';
 import { ComponentItemList, ItemSuffixType } from './ComponentItemList';
@@ -24,34 +24,34 @@ import { ComponentItemList, ItemSuffixType } from './ComponentItemList';
 export struct CodeLabCard {
   @State componentCardData?: ComponentCardData = undefined;
   @State content?: ComponentContent = undefined;
-  handleClickAction?: Function;
 
   aboutToAppear(): void {
-    this.content = this.componentCardData?.cardContents[0];
+    this.content = this.componentCardData?.componentContents?.[0];
   }
 
   aboutToReuse(params: Record<string, Object>): void {
-    this.componentCardData = params.componentCardData as ComponentCardData;
-    this.content = this.componentCardData.cardContents[0];
+    this.componentCardData = params?.componentCardData as ComponentCardData;
+    this.content = this.componentCardData?.componentContents?.[0];
   }
 
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
       TagTipLabel({
-        tags: (this.content as ComponentContent).tagIds,
+        tags: this.content?.tagIds ?? [],
         newSymbol: $r('app.media.big_new'),
       })
         .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
         .zIndex(1)
 
       Stack({ alignContent: Alignment.Bottom }) {
-        Image($rawfile(this.componentCardData?.cardImage))
-          .alt($r('app.media.ic_placeholder'))
-          .objectFit(ImageFit.Cover)
+        ImageComponent({
+          src: this.componentCardData?.image,
+          objectFit: ImageFit.Cover,
+        })
           .width('100%')
           .height('100%')
         Column() {
-          Text(this.componentCardData?.cardTitle)
+          Text(this.componentCardData?.title)
             .fontSize($r('sys.float.Body_S'))
             .fontColor($r('sys.color.font_on_secondary'))
             .fontWeight(FontWeight.Medium)
@@ -61,19 +61,16 @@ export struct CodeLabCard {
               top: $r('sys.float.padding_level6'),
               bottom: $r('sys.float.padding_level2'),
             })
-          Text(this.componentCardData?.cardSubTitle)
+          Text(this.componentCardData?.subTitle)
             .fontSize($r('sys.float.Title_M'))
             .fontColor($r('sys.color.font_on_primary'))
             .fontWeight(FontWeight.Bold)
             .margin({ left: $r('sys.float.padding_level6'), bottom: $r('sys.float.padding_level2') })
           ComponentItemList({
-            cardContents: this.componentCardData?.cardContents,
+            cardContents: this.componentCardData?.componentContents ?? [],
             suffixType: ItemSuffixType.ICON,
             itemHeight: $r('app.float.codelab_content_height'),
             widthBreakpoint: WidthBreakpoint.WIDTH_SM,
-            handleItemClick: () => {
-              this.handleClickAction?.();
-            },
           })
         }
         .renderGroup(true)

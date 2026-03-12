@@ -14,17 +14,17 @@
  */
 
 import type { OriginAttribute } from '../../../../viewmodel/Attribute';
-import { commonFontColorMap, fontWeightMapData } from '../../../common/entity/CommonMapData';
+import { commonFontColorMap, DEFAULT_KEY, fontWeightMapData } from '../../../common/entity/CommonMapData';
 import { CommonCodeGenerator } from '../../../../viewmodel/CommonCodeGenerator';
 import { calendarAlignTypeMapData } from '../entity/CalendarPickerAttributeMapping';
 
 export class CalendarPickerCodeGenerator implements CommonCodeGenerator {
   private calendarOffsetX: number = 0;
   private calendarOffsetY: number = 0;
-  private calendarAlignType: string = calendarAlignTypeMapData.get('Default')!.code;
-  private pickerFontColor: string = commonFontColorMap.get('Default')!.code;
+  private calendarAlignType: string = calendarAlignTypeMapData.get(DEFAULT_KEY)!.code;
+  private pickerFontColor: string = commonFontColorMap.get(DEFAULT_KEY)!.code;
   private pickerFontSize: number = 16;
-  private pickerFontWeight: string = fontWeightMapData.get('Default')!.code;
+  private pickerFontWeight: string = fontWeightMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
@@ -34,16 +34,19 @@ export class CalendarPickerCodeGenerator implements CommonCodeGenerator {
             calendarAlignTypeMapData.get(attribute.currentValue)?.code ?? this.calendarAlignType;
           break;
         case 'calendarOffsetX':
-          this.calendarOffsetX = Number(attribute.currentValue);
+          const calendarOffsetX = Number(attribute.currentValue);
+          this.calendarOffsetX = Number.isNaN(calendarOffsetX) ? this.calendarOffsetX : calendarOffsetX;
           break;
         case 'calendarOffsetY':
-          this.calendarOffsetY = Number(attribute.currentValue);
+          const calendarOffsetY = Number(attribute.currentValue);
+          this.calendarOffsetY = Number.isNaN(calendarOffsetY) ? this.calendarOffsetY : calendarOffsetY;
           break;
         case 'pickerFontColor':
           this.pickerFontColor = attribute.currentValue;
           break;
         case 'pickerFontSize':
-          this.pickerFontSize = Number(attribute.currentValue);
+          const pickerFontSize = Number(attribute.currentValue);
+          this.pickerFontSize = Number.isNaN(pickerFontSize) ? this.pickerFontSize : pickerFontSize;
           break;
         case 'pickerFontWeight':
           this.pickerFontWeight = fontWeightMapData.get(attribute.currentValue)?.code ?? this.pickerFontWeight;

@@ -19,6 +19,86 @@
     {
       "name": "network_setting",
       "value": "设置网络"
+    },
+    {
+      "name": "feedback_reason",
+      "value": "请反馈原因"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "留下您的意见"
+    },
+    {
+      "name": "like",
+      "value": "点赞"
+    },
+    {
+      "name": "dislike",
+      "value": "点踩"
+    },
+    {
+      "name": "submit",
+      "value": "提交"
+    },
+    {
+      "name": "submitted",
+      "value": "意见已反馈"
+    },
+    {
+      "name": "questionnaire",
+      "value": "问卷反馈"
+    },
+    {
+      "name": "questionnaire_reason",
+      "value": "请反馈分数"
+    },
+    {
+      "name": "exit_dialog_title",
+      "value": "是否确定退出账号"
+    },
+    {
+      "name": "exit_dialog_content",
+      "value": "退出后,仅从当前应用退出账号."
+    },
+    {
+      "name": "exit_dialog_exit",
+      "value": "退出"
+    },
+    {
+      "name": "exit_dialog_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "log_out_of_the_account",
+      "value": "退出账号登录"
+    },
+    {
+      "name": "current_account",
+      "value": "当前登录账号"
+    },
+    {
+      "name": "select_account_title",
+      "value": "选择账号登录"
+    },
+    {
+      "name": "log_out",
+      "value": "退出账号"
+    },
+    {
+      "name": "select_account_to_log_in",
+      "value": "使用已登录华为账号"
+    },
+    {
+      "name": "log_in_with_this_account",
+      "value": "使用此账号登录"
+    },
+    {
+      "name": "feedback_sheet_title",
+      "value": "意见反馈"
+    },
+    {
+      "name": "submit_fail",
+      "value": "提交失败"
     }
   ]
 }

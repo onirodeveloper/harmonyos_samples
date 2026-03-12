@@ -16,9 +16,10 @@
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { stackAlignMapData } from '../entity/StackAttributeMapping';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export class StackCodeGenerator implements CommonCodeGenerator {
-  private alignContent: string = stackAlignMapData.get('Default')!.code;
+  private alignContent: string = stackAlignMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     const index: number = attributes.findIndex((item) => item.name === 'alignDirection');

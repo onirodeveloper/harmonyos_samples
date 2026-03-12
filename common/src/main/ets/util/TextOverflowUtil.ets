@@ -12,9 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { CommonConstants } from '../constant/CommonConstants';
 
-const TAG = '[TextOverflowUtil]';
+import { CommonConstants } from '../constant/CommonConstants';
 
 export interface TextOverflowData {
   overflowStatus: boolean;
@@ -36,9 +35,9 @@ export class TextOverflowUtil {
       const subStr: string = textContent.substring(0, i);
       const heightOfLimit: Length | undefined =
         TextOverflowUtil.getTextHeight(uiContext, subStr, textOverflowProperty, maxLine);
-      const heightOfUnlimit: Length | undefined =
+      const heightOfUnLimit: Length | undefined =
         TextOverflowUtil.getTextHeight(uiContext, subStr, textOverflowProperty, CommonConstants.UNLIMITED_LINES);
-      if (heightOfLimit && heightOfUnlimit && heightOfLimit !== heightOfUnlimit) {
+      if (heightOfLimit && heightOfUnLimit && heightOfLimit !== heightOfUnLimit) {
         return { overflowStatus: true, breakWordIndex: i - CommonConstants.BREAK_WORD_OFFSET };
       }
     }
@@ -47,7 +46,7 @@ export class TextOverflowUtil {
 
   public static getTextHeight(uiContext: UIContext, textContent: string,
     textOverflowProperty: TextOverflowProperty, maxLines: number): Length | undefined {
-    return uiContext.getMeasureUtils()
+    return uiContext?.getMeasureUtils()
       .measureTextSize({
         maxLines: maxLines,
         textContent: textContent,

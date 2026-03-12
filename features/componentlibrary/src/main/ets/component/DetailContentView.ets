@@ -14,8 +14,18 @@
  */
 
 import { curves } from '@kit.ArkUI';
-import type { GlobalInfoModel } from '@ohos/common';
-import { BreakpointType, CommonConstants, Logger, StorageKey, WebNodeController, WebUtil, } from '@ohos/common';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  Logger,
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackServiceData,
+  WebNodeController,
+  WebUtil,
+} from '@ohos/common';
 import { CodePreviewComponent } from './CodePreviewComponent';
 import type { ConfigInterface } from '../componentdetailview/ComponentDetailConfig';
 import { ComponentDetailPageVM, TopNavigationChangeEvent } from '../viewmodel/ComponentDetailPageVM';
@@ -25,6 +35,7 @@ import { DetailPageConstant } from '../constant/DetailPageConstant';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 import { AttributeChangeArea } from './AttributeChangeArea';
 import { RecommendList } from './RecommendList';
+import { CardTypeEnum } from '@ohos/commonbusiness';
 
 const PREVIEW_HEIGHT_SM: number = DetailPageConstant.PREVIEW_HEIGHT_SM;
 const TAG: string = '[DetailContentView]';
@@ -33,8 +44,9 @@ const TAG: string = '[DetailContentView]';
 export struct DetailContentView {
   @ObjectLink componentDetailState: ComponentDetailState;
   @Prop componentName: string;
+  @Prop contentType: CardTypeEnum;
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State isShowCodePreview: boolean = false;
   @State scaleValue: number = 1;
   @State showDivider: boolean = false;
@@ -45,7 +57,7 @@ export struct DetailContentView {
     ComponentDetailManager.getInstance().getDetailViewModel(this.componentName);
   private paddingToTop: number = 0;
   private paddingToBottom: number = 36;
-  private detailConfig: Record<string, ConfigInterface> = AppStorage.get(StorageKey.COMPONENT_CONFIG)!
+  private detailConfig: Record<string, ConfigInterface> = AppStorage.get(StorageKey.COMPONENT_CONFIG) ?? {};
 
   @Builder
   textTip(text: ResourceStr) {
@@ -95,7 +107,7 @@ export struct DetailContentView {
 
   backFromCodePreview(): void {
     this.webNodeController = WebUtil.getWebNode(WebUtil.getComponentCodeUrl()) as WebNodeController;
-    this.webNodeController.add();
+    this.webNodeController?.add();
   }
 
   handleBreakPointChange() {
@@ -111,7 +123,7 @@ export struct DetailContentView {
       Column() {
         this.textTip($r('app.string.preview'))
         Column() {
-          (this.detailConfig[this.componentName] as ConfigInterface).previewComponentBuilder.builder({
+          (this.detailConfig?.[this.componentName] as ConfigInterface)?.previewComponentBuilder.builder({
             descriptor: this.componentDetailState.descriptor,
           })
         }
@@ -139,7 +151,7 @@ export struct DetailContentView {
           md: $r('sys.float.padding_level4'),
           lg: $r('sys.float.padding_level6'),
         }).getValue(this.globalInfoModel.widthBreakpoint),
-        bottom:  new BreakpointType({
+        bottom: new BreakpointType({
           sm: $r('sys.float.padding_level4'),
           md: $r('sys.float.padding_level0'),
           lg: $r('sys.float.padding_level0'),
@@ -166,6 +178,7 @@ export struct DetailContentView {
             webNodeController: this.webNodeController,
             code: this.componentDetailState.code,
             componentName: this.componentName,
+            contentType: this.contentType,
             pageContainer: false,
             pushPage: () => {
               this.jumpCodePreviewView();
@@ -179,9 +192,19 @@ export struct DetailContentView {
             .onClick(() => {
               this.jumpCodePreviewView();
             })
-          if (this.componentDetailState.recommends.length > 0) {
+            .customProperty(TRACK_KEY, {
+              content: this.componentName,
+              moduleType: this.contentType,
+              eventType: TrackEventType.COMPONENT_CODE_CLICK,
+            } as TrackServiceData)
+          if (this.componentDetailState?.recommends?.length > 0) {
             this.textTip($r('app.string.recommend'))
             RecommendList({ recommends: this.componentDetailState.recommends })
+              .customProperty(TRACK_KEY, {
+                content: this.componentName,
+                moduleType: this.contentType,
+                eventType: TrackEventType.COMPONENT_RECOMMEND_CLICK,
+              } as TrackServiceData)
           }
         }
         .alignItems(HorizontalAlign.Start)
@@ -202,7 +225,7 @@ export struct DetailContentView {
           if (!this.showDivider) {
             this.showDivider = true;
           }
-          this.isShowTopDivider = this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_SM ? true : false;
+          this.isShowTopDivider = (this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_SM);
           this.viewModel?.sendEvent(new TopNavigationChangeEvent(this.isShowTopDivider));
         } else if (this.scroller.currentOffset().yOffset <= DetailPageConstant.SCROLL_OFFSET_Y) {
           this.showDivider = false;

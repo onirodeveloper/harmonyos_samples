@@ -14,9 +14,17 @@
  */
 
 import type { common, Want } from '@kit.AbilityKit';
-import type { BusinessError } from '@kit.BasicServicesKit';
-import { BundleInfoData, StorageKey } from '@ohos/common';
-import { BaseVM, BaseVMEvent, ConfigMapKey, Logger, ResourceUtil, UpdateService } from '@ohos/common';
+import type { BundleInfoData } from '@ohos/common';
+import {
+  BaseVM,
+  BaseVMEvent,
+  ConfigMapKey,
+  Logger,
+  ProcessUtil,
+  ResourceUtil,
+  StorageKey,
+  UpdateService
+} from '@ohos/common';
 import { AboutState } from './AboutState';
 
 const TAG: string = '[AboutVM]';
@@ -42,16 +50,14 @@ export class AboutVM extends BaseVM<AboutState> {
     } else if (event instanceof UpdateVersionEvent) {
       this.updateVersion();
     } else if (event instanceof ViewRegistrationInfoEvent) {
-      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-      const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
-      this.jumpToBrowser(context);
+      this.jumpToBrowser();
     }
   }
 
   private checkVersion(): void {
     this.updateService.checkUpdate().then((existNewVersion: boolean) => {
       this.state.laterVersionExist = existNewVersion;
-      this.state.currentVersion = AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO)?.versionName as string;
+      this.state.currentVersion = AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO)?.versionName ?? '';
     });
   }
 
@@ -62,20 +68,19 @@ export class AboutVM extends BaseVM<AboutState> {
     });
   }
 
-  private jumpToBrowser(context: common.UIAbilityContext): void {
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+  private jumpToBrowser(): void {
+    const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    const context = uiContext?.getHostContext();
+    if (!uiContext || !context) {
+      Logger.error(TAG, `Failed to jumpToBrowser. Cause uicontext or context is undefined.`);
+      return;
+    }
     const want: Want = {
       action: 'ohos.want.action.viewData',
       entities: ['entity.system.browsable'],
-      uri: ResourceUtil.getRawFileStringByKey(uiContext.getHostContext() as Context, ConfigMapKey.MIIT_URL),
+      uri: ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.MIIT_URL) as string,
     };
-    context.startAbility(want)
-      .then(() => {
-        Logger.info(TAG, 'Start browsableAbility successfully.');
-      })
-      .catch((err: BusinessError) => {
-        Logger.error(TAG, `Failed to startAbility. Code: ${err.code}, message: ${err.message}`);
-      });
+    ProcessUtil.startAbility(context as common.UIAbilityContext, want);
   }
 }
 

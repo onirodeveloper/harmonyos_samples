@@ -13,7 +13,12 @@
  * limitations under the License.
  */
 
-import { CommonColorMapping, CommonNumberMapping, CommonStringMapping } from '../../common/entity/CommonMapData';
+import {
+  CommonColorMapping,
+  CommonNumberMapping,
+  CommonStringMapping,
+  DEFAULT_KEY,
+} from '../../common/entity/CommonMapData';
 
 class StyleMapping {
   public readonly code: string;
@@ -49,7 +54,7 @@ export const progressStyleMapData: Map<string, StyleMapping> = new Map([
     fontColor: Color.Gray,
     showDefaultPercentage: true,
   } as CapsuleStyleOptions)],
-  ['Default', new StyleMapping('{ strokeWidth: 4, enableSmoothEffect: true }',
+  [DEFAULT_KEY, new StyleMapping('{ strokeWidth: 4, enableSmoothEffect: true }',
     { strokeWidth: 4, enableSmoothEffect: true } as LinearStyleOptions)],
 ]);
 
@@ -71,19 +76,19 @@ export const progressTypeMapData: Map<string, ProgressTypeMap> = new Map([
   ['EclipseStyle', new ProgressTypeMap('ProgressType.Eclipse', ProgressType.Eclipse)],
   ['ScaleRingStyle', new ProgressTypeMap('ProgressType.ScaleRing', ProgressType.ScaleRing)],
   ['CapsuleStyle', new ProgressTypeMap('ProgressType.Capsule', ProgressType.Capsule)],
-  ['Default', new ProgressTypeMap('ProgressType.Linear', ProgressType.Linear)],
+  [DEFAULT_KEY, new ProgressTypeMap('ProgressType.Linear', ProgressType.Linear)],
 ]);
 
 export const progressValueMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('10', 10)],
+  [DEFAULT_KEY, new CommonNumberMapping('10', 10)],
 ]);
 
 export const progressColorMapData: Map<string, CommonColorMapping> = new Map([
-  ['Default', new CommonColorMapping('rgba(0,85,255,1.00)', 'rgba(0,85,255,1.00)')],
+  [DEFAULT_KEY, new CommonColorMapping('rgba(0,85,255,1.00)', 'rgba(0,85,255,1.00)')],
 ]);
 
 export const progressKindMapData: Map<string, CommonStringMapping> = new Map([
   ['Progress', new CommonStringMapping('Progress', 'Progress')],
   ['LoadingProgress', new CommonStringMapping('LoadingProgress', 'LoadingProgress')],
-  ['Default', new CommonStringMapping('LoadingProgress', 'LoadingProgress')],
+  [DEFAULT_KEY, new CommonStringMapping('LoadingProgress', 'LoadingProgress')],
 ]);

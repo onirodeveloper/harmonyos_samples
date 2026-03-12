@@ -18,6 +18,7 @@ import { PreferenceManager } from '../storagemanager/PreferenceManager';
 import { ColorUtil } from './ColorUtil';
 import Logger from './Logger';
 import { ResourceUtil } from './ResourceUtil';
+import { UrlUtil } from './UrlUtil';
 
 const BANNER_IMAGE_COLOR = 'banner_image_color';
 const TAG = '[ImageUtil]';
@@ -25,6 +26,11 @@ const TAG = '[ImageUtil]';
 export class ImageUtil {
   public static getColorFromImgUrl(imgUrl: string, isDeepColor?: boolean): Promise<number[]> {
     return new Promise((resolve: (value: number[]) => void, reject: (reason?: Object) => void) => {
+      if (!imgUrl || imgUrl.length === 0) {
+        Logger.error(TAG, `Failed to getColorFromImgUrl, imgUrl is empty or null`);
+        reject();
+        return;
+      }
       ImageUtil.getColorDataByPreference(imgUrl).then((data: number[]) => {
         resolve(data);
       }).catch(() => {
@@ -32,7 +38,7 @@ export class ImageUtil {
           resolve(colorData);
         }).catch((err: BusinessError) => {
           Logger.error(TAG, `Failed to Save ImageData. error ${err.code}  ${err.message}`);
-          reject();
+          reject(err);
         });
       });
     });
@@ -58,12 +64,12 @@ export class ImageUtil {
     return new Promise((resolve: (value: number[]) => void, reject: (reason?: Object) => void) => {
       let resp = PreferenceManager.getInstance().getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR);
       if (!resp) {
-        reject('There is no data in the Preference');
+        reject({ message: 'There is no data in the Preference' } as BusinessError);
       }
       resp = (resp as Record<string, number[]>);
       const ret = resp[imgUrl];
       if (!ret) {
-        reject('There is no data in the Preference');
+        reject({ message: 'There is no data in the Preference' } as BusinessError);
       }
       resolve(ret);
     });
@@ -73,7 +79,7 @@ export class ImageUtil {
     return new Promise((resolve: () => void) => {
       const hasValue: boolean = PreferenceManager.getInstance().hasValue(BANNER_IMAGE_COLOR);
       if (hasValue) {
-        let resp = PreferenceManager.getInstance().getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR);
+        let resp = PreferenceManager.getInstance().getValue<Record<string, number[]>>(BANNER_IMAGE_COLOR) ?? {};
         resp = (resp as Record<string, number[]>);
         resp[imgUrl] = data;
         PreferenceManager.getInstance().setValue(BANNER_IMAGE_COLOR, resp);
@@ -82,7 +88,19 @@ export class ImageUtil {
         const record: Record<string, number[]> = {};
         record[imgUrl] = data;
         PreferenceManager.getInstance().setValue(BANNER_IMAGE_COLOR, record);
+        resolve();
       }
     });
+  }
+
+  public static getImgResource(url?: string): ResourceStr {
+    if (!url) {
+      return $r('app.media.ic_placeholder');
+    }
+
+    if (UrlUtil.isNetUrl(url)) {
+      return url;
+    }
+    return $rawfile(url);
   }
 }

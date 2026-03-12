@@ -27,8 +27,8 @@ export function ActionSheetBuilder($$: DescriptorWrapper) {
       .fontSize($r('sys.float.Body_L'))
       .fontColor($r('sys.color.font_emphasize'))
       .onClick(() => {
-        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-        uiContext.showActionSheet({
+        const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+        uiContext?.showActionSheet({
           title: $r('app.string.title'),
           subtitle: $r('app.string.subtitle'),
           message: $r('app.string.content'),

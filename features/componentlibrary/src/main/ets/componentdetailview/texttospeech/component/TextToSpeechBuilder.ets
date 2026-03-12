@@ -137,7 +137,7 @@ struct TextToSpeechComponent {
         AppStorage.setOrCreate(StorageKey.IS_PLAYING, true);
       },
       onComplete(requestId: string, response: textToSpeech.CompleteResponse) {
-        Logger.info(TAG, `onComplete, requestId: ${requestId} response: ${JSON.stringify(response)}`);
+        Logger.debug(TAG, `onComplete, requestId: ${requestId} response: ${JSON.stringify(response)}`);
         // Only playback completion is handled here, with no regard to stream file generation.
         // 'type === 1' means broadcast over situation.
         if (response.type === 1) {

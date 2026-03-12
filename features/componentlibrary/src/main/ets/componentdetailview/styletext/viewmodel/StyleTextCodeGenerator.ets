@@ -14,28 +14,30 @@
  */
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
-import { highlightColorMap } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY, highlightColorMap } from '../../common/entity/CommonMapData';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 import { textOverflowTypeMapData } from '../../textarea/entity/TextAreaAttributeMapping';
 
 export class StyleTextCodeGenerator implements CommonCodeGenerator {
   private textIndent: number = 0;
   private maxLines: number = 2;
-  private overflowStr: string = textOverflowTypeMapData.get('Default')!.code;
-  private highlightColor: string = highlightColorMap.get('Default')!.code;
+  private overflowStr: string = textOverflowTypeMapData.get(DEFAULT_KEY)!.code;
+  private highlightColor: string = highlightColorMap.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'textIndent':
-          this.textIndent = Number(attribute.currentValue) as number;
+          const textIndent = Number(attribute.currentValue);
+          this.textIndent = Number.isNaN(textIndent) ? this.textIndent : textIndent;
           break;
         case 'maxLines':
-          this.maxLines = Number(attribute.currentValue) as number;
+          const maxLines = Number(attribute.currentValue);
+          this.maxLines = Number.isNaN(maxLines) ? this.maxLines : maxLines;
           break;
         case 'overflow':
           this.overflowStr =
-            textOverflowTypeMapData.get(attribute.currentValue)?.code ?? textOverflowTypeMapData.get('Default')!.code;
+            textOverflowTypeMapData.get(attribute.currentValue)?.code ?? textOverflowTypeMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'highlightColor':
           this.highlightColor = attribute.currentValue;

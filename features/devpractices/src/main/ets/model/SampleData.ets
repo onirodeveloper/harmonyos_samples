@@ -14,32 +14,24 @@
  */
 
 import { LoadingModel, TagEnum } from '@ohos/common';
-import type { BannerData, } from '@ohos/commonbusiness';
-import { CardStyleTypeEnum, CardTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
+import { BannerData, BaseData, } from '@ohos/commonbusiness';
+import { CardStyleTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
 
-export class SampleContent {
-  public id: number = 0;
-  public type: CardTypeEnum = CardTypeEnum.UNKNOWN;
+export class SampleContent extends BaseData {
+  public type: SampleTypeEnum = SampleTypeEnum.UNKNOWN;
   public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
   public mediaUrl: string = '';
-  public title: string = '';
-  public subTitle: string = '';
   public tags: string[] = [];
   public tagIds: TagEnum[] = [];
-  public requiredApiVersion: number = 0;
-  public supportDeviceList: string[] = [];
+  public cardId: number = 0;
+  public unionId: number = 0;
 }
 
-export class SampleCardData {
-  public id: number = 0;
-  public cardTitle: string = '';
-  public cardSubTitle: string = '';
-  public cardType: CardTypeEnum = CardTypeEnum.UNKNOWN;
-  public cardStyleType: CardStyleTypeEnum = CardStyleTypeEnum.LIST;
-  public cardImage: string = '';
-  public version: string = '';
+export class SampleCardData extends BaseData {
+  public styleType: CardStyleTypeEnum = CardStyleTypeEnum.LIST;
+  public image: string = '';
   public sampleContents: SampleContent[] = [];
-  public detailCardId: number = 0;
+  public unionId: number = 0;
 }
 
 @Observed
@@ -48,14 +40,21 @@ export class SampleCategory {
   public currentPage: number = 1;
   public id: number = 0;
   public categoryName: string = '';
-  public categoryType: number = 0;
-  public tabIcon: string = '';
-  public tabIconSelected: string = '';
+  public defaultIcon: string = '';
+  public selectedIcon: string = '';
   public sampleCards: SampleCardData[] = [];
+  public sequence: number = 0;
 }
 
 @Observed
 export class SampleData {
   public bannerInfos?: BannerData[];
   public sampleCategories: SampleCategory[] = [];
+}
+
+export enum SampleTypeEnum {
+  COMMON_CLIENT = 'commonClient',
+  WEARABLE_CLIENT = 'wearableClient',
+  COMMON_SAMPLE = 'commonSample',
+  UNKNOWN = 'unknown',
 }

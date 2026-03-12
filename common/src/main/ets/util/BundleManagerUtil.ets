@@ -22,20 +22,24 @@ import { StorageKey } from '../constant/CommonEnums';
 const TAG = '[BundleManagerUtil]';
 
 export class BundleManagerUtil {
-  public static getBundleInfo(): void {
+  public static getBundleInfo(): Promise<void> {
     try {
-      bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION)
+      return bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION)
         .then((bundleInfo: bundleManager.BundleInfo) => {
-          Logger.debug(TAG, `getBundleInfoForSelf successed. ${bundleInfo}`);
+          Logger.debug(TAG, `getBundleInfoForSelf successed.`);
           const appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo;
           const bundleInfoData: BundleInfoData =
             new BundleInfoData(appInfo.labelResource, appInfo.iconResource, bundleInfo.versionName,
               bundleInfo.versionCode, bundleInfo.name);
           AppStorage.setOrCreate(StorageKey.BUNDLE_INFO, bundleInfoData);
+        })
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `getBundleInfoForSelf failed: code ${error.code}, message ${error.message}`);
         });
     } catch (err) {
       const error = err as BusinessError;
       Logger.error(TAG, `getBundleInfoForSelf failed: code ${error.code}, message ${error.message}`);
+      return Promise.reject();
     }
   }
 }
