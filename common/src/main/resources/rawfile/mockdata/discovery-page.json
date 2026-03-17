@@ -50,9 +50,7 @@
             "desc": "实时信息随处展示。",
             "publishTime": "",
             "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/live-window-service/index.html",
-            "tagIds": [
-              1
-            ],
+            "tagIds": [],
             "sequence": 1,
             "contentType": 3
           },
@@ -64,9 +62,7 @@
             "desc": "纯净安全，打造全新体验。",
             "publishTime": "",
             "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/native-safety/index.html",
-            "tagIds": [
-              1
-            ],
+            "tagIds": [],
             "sequence": 2,
             "contentType": 3
           },
