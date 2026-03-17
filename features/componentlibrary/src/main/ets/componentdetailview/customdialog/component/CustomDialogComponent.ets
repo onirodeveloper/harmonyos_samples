@@ -29,10 +29,8 @@ export struct CustomDialogComponent {
     builder: this.tipDialogBuilder,
     cancel: this.existApp,
     onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
-      if (dismissDialogAction.reason === DismissReason.PRESS_BACK) {
-        dismissDialogAction.dismiss();
-      }
-      if (dismissDialogAction.reason === DismissReason.TOUCH_OUTSIDE) {
+      if (dismissDialogAction.reason === DismissReason.PRESS_BACK ||
+        dismissDialogAction.reason === DismissReason.TOUCH_OUTSIDE) {
         dismissDialogAction.dismiss();
       }
     },
@@ -44,10 +42,8 @@ export struct CustomDialogComponent {
     builder: this.progressDialogBuilder,
     cancel: this.existApp,
     onWillDismiss: (dismissDialogAction: DismissDialogAction) => {
-      if (dismissDialogAction.reason === DismissReason.PRESS_BACK) {
-        dismissDialogAction.dismiss();
-      }
-      if (dismissDialogAction.reason === DismissReason.TOUCH_OUTSIDE) {
+      if (dismissDialogAction.reason === DismissReason.PRESS_BACK ||
+        dismissDialogAction.reason === DismissReason.TOUCH_OUTSIDE) {
         dismissDialogAction.dismiss();
       }
     },

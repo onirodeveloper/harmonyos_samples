@@ -19,6 +19,86 @@
     {
       "name": "network_setting",
       "value": "Setting up the network."
+    },
+    {
+      "name": "feedback_reason",
+      "value": "Please provide the reason"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "Leave your comments"
+    },
+    {
+      "name": "like",
+      "value": "Like"
+    },
+    {
+      "name": "dislike",
+      "value": "Dislike"
+    },
+    {
+      "name": "submit",
+      "value": "Submit"
+    },
+    {
+      "name": "submitted",
+      "value": "Feedback has been received"
+    },
+    {
+      "name": "questionnaire",
+      "value": "Questionnaire Feedback"
+    },
+    {
+      "name": "questionnaire_reason",
+      "value": "Please provide feedback on the score"
+    },
+    {
+      "name": "exit_dialog_title",
+      "value": "Are you sure to log out of the account?"
+    },
+    {
+      "name": "exit_dialog_content",
+      "value": "After exiting, only exit the account from the current application."
+    },
+    {
+      "name": "exit_dialog_exit",
+      "value": "Exit"
+    },
+    {
+      "name": "exit_dialog_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "log_out_of_the_account",
+      "value": "log out of the_account"
+    },
+    {
+      "name": "current_account",
+      "value": "current account"
+    },
+    {
+      "name": "select_account_title",
+      "value": "select account to log in"
+    },
+    {
+      "name": "log_out",
+      "value": "log out"
+    },
+    {
+      "name": "select_account_to_log_in",
+      "value": "select huawei account to login in"
+    },
+    {
+      "name": "log_in_with_this_account",
+      "value": "log in with this account"
+    },
+    {
+      "name": "feedback_sheet_title",
+      "value": "Feedback"
+    },
+    {
+      "name": "submit_fail",
+      "value": "Submit failed"
     }
   ]
 }

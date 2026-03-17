@@ -15,7 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { GlobalInfoModel, ResponseData, } from '@ohos/common';
+import type { PageData } from '@ohos/common';
 import {
   BreakpointType,
   CommonConstants,
@@ -26,6 +26,8 @@ import {
   StatusBarColorType,
   StorageKey,
   WindowUtil,
+  PageEnum,
+  GlobalInfoModel,
 } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
@@ -44,7 +46,7 @@ const TAG = '[ComponentListViewModel]';
 
 export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState> {
   private static instance: ComponentListViewModel;
-  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  private globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   private componentListModel: ComponentListModel = ComponentListModel.getInstance();
   private bannerColumnSection: SectionOptions = {
     itemsCount: 1,
@@ -96,8 +98,8 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
     this.state.topNavigationData.isBlur = false;
     WindowUtil.updateStatusBarColor(isDark);
     this.componentListModel.getComponentPage(this.state.currentPage, this.pageSize)
-      .then((result: ResponseData<ComponentData>) => {
-        if (result.data.bannerInfos) {
+      .then((result: PageData<ComponentData>) => {
+        if (result.data.bannerInfos && Array.isArray(result.data.bannerInfos)) {
           result.data.bannerInfos.forEach((item: BannerData) => {
             item.tabViewType = TabBarType.HOME;
           });
@@ -107,19 +109,21 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
         this.updateFlowSection();
         this.state.loadingModel.hasNextPage =
           result.data.cardData.length === this.pageSize && (result.totalSize > this.state.currentPage * this.pageSize);
-        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+        const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
           globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
           this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.HOME] = true;
+          this.setTitleBarStyle();
         }
         this.state.loadingModel.loadingStatus = LoadingStatus.SUCCESS;
       })
       .catch((error: BusinessError) => {
         WindowUtil.updateStatusBarColor(isDark);
         TAB_CONTENT_STATUSES[TabBarType.HOME] = isDark;
-        if (error.code === RequestErrorCode.ERROR_NETWORK_CONNECT_FAILED) {
+        this.setTitleBarStyle(true);
+        if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
           this.state.loadingModel.loadingStatus = LoadingStatus.NO_NETWORK;
         } else {
           this.state.loadingModel.loadingStatus = LoadingStatus.FAILED;
@@ -128,29 +132,30 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
   }
 
   protected updateFlowSection(): void {
+    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     this.componentColumnSection.itemsCount = this.state.cardSource.totalCount();
     const crossCount: number = new BreakpointType({
       sm: 1,
       md: 2,
       lg: 3,
-    }).getValue(this.globalInfoModel.widthBreakpoint);
+    }).getValue(globalInfoModel.widthBreakpoint);
     const leftMargin: Length =
       new BreakpointType<Length>({
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
         lg: CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
         xl: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.widthBreakpoint);
+      }).getValue(globalInfoModel.widthBreakpoint);
     const rightMargin: Resource = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
       md: $r('sys.float.padding_level12'),
       lg: $r('sys.float.padding_level16'),
-    }).getValue(this.globalInfoModel.widthBreakpoint);
+    }).getValue(globalInfoModel.widthBreakpoint);
     const columnMargin: Resource = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
       md: $r('sys.float.padding_level10'),
       lg: $r('sys.float.padding_level12'),
-    }).getValue(this.globalInfoModel.widthBreakpoint);
+    }).getValue(globalInfoModel.widthBreakpoint);
     const margin: Margin = {
       left: leftMargin,
       right: rightMargin,
@@ -167,14 +172,17 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
   }
 
   protected jumpComponentDetail(componentContent: ComponentContent) {
-    const pageContext: PageContext = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT)! : AppStorage.get(StorageKey.HOME_PAGE_CONTEXT)!;
+    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
+    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
+      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const params: ComponentDetailParams = {
       componentName: componentContent.title,
-      componentId: componentContent.id,
+      id: componentContent.id,
+      contentType: componentContent.contentType,
     };
-    pageContext.openPage({
-      routerName: 'ComponentDetailView',
+    pageContext?.openPage({
+      routerName: PageEnum.COMPONENT_DETAIL_VIEW,
       param: params,
     }, true);
   }

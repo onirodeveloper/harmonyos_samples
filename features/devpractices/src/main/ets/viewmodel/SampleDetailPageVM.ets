@@ -16,7 +16,7 @@
 import type { common } from '@kit.AbilityKit';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
 import { connection } from '@kit.NetworkKit';
-import { moduleInstallManager } from '@kit.StoreKit';
+import { moduleInstallManager } from '@kit.AppGalleryKit';
 import {
   BaseVM,
   BaseVMEvent,
@@ -24,7 +24,7 @@ import {
   DynamicInstallManager,
   LoadingStatus,
   Logger,
-  SampleDistributionUtil,
+  RequestErrorCode,
   StorageKey,
   TextOverflowData,
   TextOverflowProperty,
@@ -86,7 +86,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
     this.state.currentIndex = event.currentIndex;
     this.state.downloadingStatus = false;
     this.state.installingStatus = false;
-    this.initSampleData(event.sampleCardId);
+    this.initSampleData(event.id, event.sampleCardId, event.unionId);
   }
 
   private setInstalledStatus(event: SetInstalledEvent): void {
@@ -101,11 +101,15 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
   }
 
   private terminateTask(event: TerminateTaskEvent): void {
-    if (this.state.downloadingStatus) {
+    if (this.state.installingStatus) {
+      Toast.showToast($r('app.string.installing_status'));
+    } else if (this.state.downloadingStatus) {
       DynamicInstallManager.cancelDownloadTask(this.state.taskId);
+      this.state.taskId = '';
+      this.setSampleDownloadingStatus(event.sampleIndex, false, -1);
+      this.setInstallingStatus(false);
+      Logger.info(TAG, 'cancelDownloadListener success');
     }
-    this.state.taskId = '';
-    this.setSampleDownloadingStatus(event.sampleIndex, false, -1);
   }
 
   private changeDownloadProgress(event: ChangeDownloadProgressEvent): void {
@@ -132,69 +136,84 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
     }
   }
 
-  private initSampleData(sampleCardId: number): void {
+  private initSampleData(sampleId: number, sampleCardId: number, unionId: number): void {
     const sampleDetailData: SampleDetailData[] = [];
     this.state.sampleDatas = [];
-    this.sampleDetailModel.getSampleCardDetails(sampleCardId).then((result: SingleSampleData[]) => {
-      this.state.sampleCount = result.length;
-      result.forEach((singleSampleData: SingleSampleData) => {
-        if (!SampleDistributionUtil.checkSampleSupport(singleSampleData.requiredApiVersion,
-          singleSampleData.supportDeviceList)) {
-          return;
+    const cardId: number = unionId || sampleCardId;
+    const isUnion: boolean = unionId ? true : false;
+    this.sampleDetailModel.getSampleCardDetails(sampleId, cardId, isUnion)
+      .then((result: SingleSampleData[]) => {
+        this.state.sampleCount = result.length;
+        result.forEach((singleSampleData: SingleSampleData) => {
+          const sampleData: SampleDetailData = new SampleDetailData();
+          sampleData.sampleCard = new SampleCardData();
+          sampleData.id = sampleData.sampleCard.sampleId = singleSampleData.id;
+          sampleData.isFavorite = singleSampleData.isFavorite;
+          sampleData.mediaUrl = singleSampleData.mediaUrl;
+          sampleData.mediaType = singleSampleData.mediaType;
+          sampleData.sampleCard.title = singleSampleData.title;
+          sampleData.sampleCard.installed = singleSampleData.preInstalled;
+          sampleData.sampleCard.type = singleSampleData.type;
+          sampleData.sampleCard.desc = singleSampleData.desc;
+          sampleData.sampleCard.originalUrl = singleSampleData.originalUrl;
+          sampleData.sampleCard.moduleName = singleSampleData.moduleName;
+          sampleData.sampleCard.abilityName = singleSampleData.abilityName;
+          if (DynamicInstallManager.getModuleStatus(sampleData.sampleCard.moduleName) ===
+          moduleInstallManager.InstallStatus.INSTALLED) {
+            sampleData.sampleCard.installed = true;
+          }
+          sampleDetailData.push(sampleData);
+        });
+        this.state.sampleDatas = sampleDetailData;
+        this.initDownloadListener();
+      })
+      .catch((error: BusinessError) => {
+        if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
+          this.state.loadingStatus = LoadingStatus.NO_NETWORK;
+        } else {
+          this.state.loadingStatus = LoadingStatus.FAILED;
         }
-        const sampleData: SampleDetailData = new SampleDetailData();
-        sampleData.sampleCard = new SampleCardData();
-        sampleData.id = sampleData.sampleCard.sampleId = singleSampleData.id;
-        sampleData.isFavorite = singleSampleData.isFavorite;
-        sampleData.mediaUrl = singleSampleData.mediaUrl;
-        sampleData.mediaType = singleSampleData.mediaType;
-        sampleData.sampleCard.title = singleSampleData.title;
-        sampleData.sampleCard.installed = singleSampleData.preInstalled;
-        sampleData.sampleCard.sampleType = singleSampleData.sampleType;
-        sampleData.sampleCard.desc = singleSampleData.desc;
-        sampleData.sampleCard.originalUrl = singleSampleData.originalUrl;
-        sampleData.sampleCard.moduleName = singleSampleData.moduleName;
-        sampleData.sampleCard.abilityName = singleSampleData.abilityName;
-        if (DynamicInstallManager.getModuleStatus(sampleData.sampleCard.moduleName) ===
-        moduleInstallManager.InstallStatus.INSTALLED) {
-          sampleData.sampleCard.installed = true;
-        }
-        sampleDetailData.push(sampleData);
       });
-      this.state.sampleDatas = sampleDetailData;
-      this.initDownloadListener();
-    }).catch(() => {
-      this.state.loadingStatus = LoadingStatus.FAILED;
-    });
   }
 
   private initDownloadListener(): void {
     emitter.on(CommonConstants.DYNAMIC_INSTALL_EVENT, (eventData) => {
-      if (eventData.data?.taskStatus === moduleInstallManager.TaskStatus.DOWNLOADING) {
-        if (eventData.data?.downloadedSize === eventData.data?.totalSize) {
+      const data = eventData.data;
+      Logger.info(TAG,
+        `downloadedSize: ${data?.downloadedSize}, totalSize:${data?.totalSize}, status: ${data?.taskStatus}`);
+      if (data?.taskStatus === moduleInstallManager.TaskStatus.DOWNLOADING) {
+        if (data?.downloadedSize === data?.totalSize) {
           this.setInstallingStatus(true);
         }
         this.setSampleDownloadingStatus(this.state.currentIndex, true,
-          Math.floor(((eventData.data?.downloadedSize ?? SampleDetailConstant.PROGRESS_START) /
-            (eventData.data?.totalSize ?? SampleDetailConstant.PROGRESS_FINISH)) *
+          Math.floor(((data?.downloadedSize ?? SampleDetailConstant.PROGRESS_START) /
+            (data?.totalSize ?? SampleDetailConstant.PROGRESS_FINISH)) *
           SampleDetailConstant.PROGRESS_FINISH));
-        Logger.info(TAG, `loadSampleCallback downloading size: ${eventData.data?.downloadedSize}`);
-      } else if (eventData.data?.taskStatus === moduleInstallManager.TaskStatus.INSTALL_SUCCESSFUL) {
-        this.setSampleInstalledStatus(this.state.currentIndex, true);
+        Logger.info(TAG,
+          `loadSampleCallback downloading progress: ${this.state.sampleDatas[this.state.currentIndex].sampleCard.downloadProgress}`);
+      } else if (data?.taskStatus === moduleInstallManager.TaskStatus.INSTALL_SUCCESSFUL) {
         this.setSampleDownloadingStatus(this.state.currentIndex, false, -1);
         this.setInstallingStatus(false);
+        this.setSampleInstalledStatus(this.state.currentIndex, true);
         const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-        const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+        const context: common.UIAbilityContext = uiContext?.getHostContext() as common.UIAbilityContext;
+        if (!context) {
+          Logger.error(TAG, `LoadModule failed. cause context is undefined.`);
+          return;
+        }
         DynamicInstallManager.loadModule(context,
           this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName);
         Logger.info(TAG,
           `loadSampleCallback installed : ${this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName}`);
-      } else if (eventData.data?.taskStatus === moduleInstallManager.TaskStatus.INSTALL_WAITING ||
-        eventData.data?.taskStatus === moduleInstallManager.TaskStatus.INSTALLING) {
-        this.setInstallingStatus(true);
+      } else if (data?.taskStatus === moduleInstallManager.TaskStatus.INSTALL_WAITING ||
+        data?.taskStatus === moduleInstallManager.TaskStatus.INSTALLING) {
         Logger.info(TAG, `loadSampleCallback installing`);
-      } else if (eventData.data?.taskStatus === moduleInstallManager.TaskStatus.TASK_UNFOUND) {
-        DynamicInstallManager.unsubscribeDownloadProgress();
+      } else if (data?.taskStatus === moduleInstallManager.TaskStatus.DOWNLOAD_SUCCESSFUL) {
+        Logger.info(TAG, `loadSampleCallback download success`);
+      } else if (data?.taskStatus === moduleInstallManager.TaskStatus.TASK_UNFOUND) {
+        this.setSampleDownloadingStatus(this.state.currentIndex, false, -1);
+        this.setInstallingStatus(false);
+        Logger.info(TAG, 'loadSampleCallback task unfound');
       }
     });
     Logger.info(TAG, 'initDownloadListener success');
@@ -204,7 +223,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
     if (this.state.currentIndex < 0 || !this.state.sampleDatas[this.state.currentIndex]) {
       return;
     }
-    const currentSampleType = this.state.sampleDatas[this.state.currentIndex].sampleCard.sampleType;
+    const currentSampleType = this.state.sampleDatas[this.state.currentIndex].sampleCard.type;
     if (currentSampleType === SampleTypeEnum.COMMON_CLIENT) {
       Toast.showToast($r('app.string.client_prompt'));
     } else if (currentSampleType === SampleTypeEnum.WEARABLE_CLIENT) {
@@ -216,9 +235,13 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
 
   private startTask(): void {
     if (this.state.sampleDatas[this.state.currentIndex].sampleCard.installed) {
-      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-      const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
       try {
+        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+        const context: common.UIAbilityContext = uiContext?.getHostContext() as common.UIAbilityContext;
+        if (!context) {
+          Logger.error(TAG, `Failed to loadModule, cause context is undefined`);
+          return;
+        }
         DynamicInstallManager.loadModule(context,
           this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName);
       } catch (error) {
@@ -247,13 +270,21 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
   private startDownload(): void {
     Logger.info(TAG, `start download sample: ${this.state.sampleDatas[this.state.currentIndex].sampleCard.title}`);
     const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+    const context: common.UIAbilityContext = uiContext?.getHostContext() as common.UIAbilityContext;
     DynamicInstallManager.fetchModule(context, this.state.sampleDatas[this.state.currentIndex].sampleCard.moduleName)
       .then((data: moduleInstallManager.ModuleInstallSessionState) => {
         if (data.code === moduleInstallManager.RequestErrorCode.SUCCESS) {
           this.state.taskId = data.taskId;
         } else if (data.code === moduleInstallManager.RequestErrorCode.DOWNLOAD_WAIT_WIFI) {
-          moduleInstallManager.showCellularDataConfirmation(context, data.taskId);
+          if (!context) {
+            Logger.error(TAG, `Failed to fetchModule. cause context is undefined`);
+            return;
+          }
+          try {
+            moduleInstallManager.showCellularDataConfirmation(context, data.taskId);
+          } catch (error) {
+            Logger.error(TAG, `ShowCellularDataConfirmation failed. Cause code: ${error.code}, msg: ${error.message}`);
+          }
           this.state.taskId = data.taskId;
         } else {
           if (data.code === moduleInstallManager.RequestErrorCode.MODULE_UNAVAILABLE) {
@@ -390,12 +421,16 @@ export class SetInstalledEvent implements BaseVMEvent {
 }
 
 export class InitSampleDetailEvent implements BaseVMEvent {
+  public readonly id: number;
   public readonly sampleCardId: number;
   public readonly currentIndex: number;
+  public readonly unionId: number;
 
-  public constructor(sampleCardId: number, currentIndex: number) {
+  public constructor(id: number, sampleCardId: number, currentIndex: number, unionId?: number) {
+    this.id = id;
     this.sampleCardId = sampleCardId;
     this.currentIndex = currentIndex;
+    this.unionId = unionId || 0;
   }
 }
 

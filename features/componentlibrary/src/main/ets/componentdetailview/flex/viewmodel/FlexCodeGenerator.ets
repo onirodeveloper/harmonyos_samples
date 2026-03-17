@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   ElementsNums,
   flexAlignItemMapData,
@@ -24,12 +25,12 @@ import {
 } from '../entity/FlexAttributeMapping';
 
 export class FlexCodeGenerator implements CommonCodeGenerator {
-  private direction: string = flexDirectionMapData.get('Default')!.code;
-  private wrap: string = flexWrapMapData.get('Default')!.code;
-  private justifyContent: string = flexContentMapData.get('Default')!.code;
-  private alignItems: string = flexAlignItemMapData.get('Default')!.code;
-  private alignSelf: string = flexAlignItemMapData.get('Default')!.code;
-  private alignContent: string = flexContentMapData.get('Default')!.code;
+  private direction: string = flexDirectionMapData.get(DEFAULT_KEY)!.code;
+  private wrap: string = flexWrapMapData.get(DEFAULT_KEY)!.code;
+  private justifyContent: string = flexContentMapData.get(DEFAULT_KEY)!.code;
+  private alignItems: string = flexAlignItemMapData.get(DEFAULT_KEY)!.code;
+  private alignSelf: string = flexAlignItemMapData.get(DEFAULT_KEY)!.code;
+  private alignContent: string = flexContentMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     let codeFragment = '';
@@ -54,26 +55,26 @@ export class FlexCodeGenerator implements CommonCodeGenerator {
           break;
         case 'direction':
           this.direction =
-            flexDirectionMapData.get(attribute.currentValue)?.code ?? flexDirectionMapData.get('Default')!.code;
+            flexDirectionMapData.get(attribute.currentValue)?.code ?? flexDirectionMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'wrap':
-          this.wrap = flexWrapMapData.get(attribute.currentValue)?.code ?? flexWrapMapData.get('Default')!.code;
+          this.wrap = flexWrapMapData.get(attribute.currentValue)?.code ?? flexWrapMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'justifyContent':
           this.justifyContent =
-            flexContentMapData.get(attribute.currentValue)?.code ?? flexContentMapData.get('Default')!.code;
+            flexContentMapData.get(attribute.currentValue)?.code ?? flexContentMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'alignItems':
           this.alignItems =
-            flexAlignItemMapData.get(attribute.currentValue)?.code ?? flexAlignItemMapData.get('Default')!.code;
+            flexAlignItemMapData.get(attribute.currentValue)?.code ?? flexAlignItemMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'alignContent':
           this.alignContent =
-            flexContentMapData.get(attribute.currentValue)?.code ?? flexContentMapData.get('Default')!.code;
+            flexContentMapData.get(attribute.currentValue)?.code ?? flexContentMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'alignSelf':
           this.alignSelf =
-            flexAlignItemMapData.get(attribute.currentValue)?.code ?? flexAlignItemMapData.get('Default')!.code;
+            flexAlignItemMapData.get(attribute.currentValue)?.code ?? flexAlignItemMapData.get(DEFAULT_KEY)!.code;
           break;
         default:
           break;

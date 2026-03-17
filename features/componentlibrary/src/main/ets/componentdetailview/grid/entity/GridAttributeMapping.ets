@@ -13,7 +13,12 @@
  * limitations under the License.
  */
 
-import { CommonBoolMapping, CommonNumberMapping, CommonStringMapping } from '../../common/entity/CommonMapData';
+import {
+  CommonBoolMapping,
+  CommonNumberMapping,
+  CommonStringMapping,
+  DEFAULT_KEY,
+} from '../../common/entity/CommonMapData';
 
 const DATA_SIZE = 30;
 
@@ -49,25 +54,25 @@ class ScrollMapping {
 }
 
 export const scrollerMapData: Map<string, ScrollMapping> = new Map([
-  ['default', new ScrollMapping('new Scroller()', new Scroller())],
+  [DEFAULT_KEY, new ScrollMapping('new Scroller()', new Scroller())],
 ]);
 
 export const columnsGapMapData: Map<string, CommonNumberMapping> = new Map([
-  ['default', new CommonNumberMapping('10', 10)],
+  [DEFAULT_KEY, new CommonNumberMapping('10', 10)],
 ]);
 
 export const rowsGapMapData: Map<string, CommonNumberMapping> = new Map([
-  ['default', new CommonNumberMapping('10', 10)],
+  [DEFAULT_KEY, new CommonNumberMapping('10', 10)],
 ]);
 
 export const columnsTemplateMapData: Map<string, CommonStringMapping> = new Map([
-  ['default', new CommonStringMapping('1fr 1fr 1fr', '1fr 1fr 1fr')],
+  [DEFAULT_KEY, new CommonStringMapping('1fr 1fr 1fr', '1fr 1fr 1fr')],
 ]);
 
 export const rowsTemplateMapData: Map<string, CommonStringMapping> = new Map([
-  ['default', new CommonStringMapping('1fr 1fr 1fr', '1fr 1fr 1fr')],
+  [DEFAULT_KEY, new CommonStringMapping('1fr 1fr 1fr', '1fr 1fr 1fr')],
 ]);
 
 export const operationModeMapData: Map<string, CommonBoolMapping> = new Map([
-  ['default', new CommonBoolMapping('true', true)],
+  [DEFAULT_KEY, new CommonBoolMapping('true', true)],
 ]);

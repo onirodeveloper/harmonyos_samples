@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
+import { emitter } from '@kit.BasicServicesKit';
+import { HdsNavigation, HdsNavigationTitleMode, HdsNavigationAttribute } from '@kit.UIDesignKit';
+import { AccountService, GlobalInfoModel, LoginSheetViewBuilder, PageContext } from '@ohos/common';
 import {
   BreakpointType,
   CommonConstants,
@@ -23,19 +24,30 @@ import {
   TopNavigationView,
   VersionUtil,
 } from '@ohos/common';
-import { InitEvent, LoadContentNumberEvent, MinePageVM } from '../viewmodel/MinePageVM';
+import {
+  FlushLogoutUIEvent,
+  InitEvent,
+  LoadContentNumberEvent,
+  LoginEvent,
+  LogoutEvent,
+  MinePageVM,
+  UpdateAccountStatusEvent
+} from '../viewmodel/MinePageVM';
 import { BuilderEnum, ListGroup, MineItem, MinePageState } from '../viewmodel/MinePageState';
 import { UserExperienceCardItem } from '../component/UserExperienceCardItem';
+import { MineConstant } from '../constant/CommonConstants';
 
 @Component
 export struct MineView {
-  viewModel: MinePageVM = MinePageVM.getInstance();
+  @State viewModel: MinePageVM = MinePageVM.getInstance();
   @State minePageState: MinePageState = this.viewModel.getState();
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  @StorageLink(StorageKey.MINE_PAGE_CONTEXT) minePageContext: PageContext =
+    AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT) ?? new PageContext();
   @State bindSheetShow: boolean = false;
   @State bindSheetItem?: MineItem = undefined;
   scroller: Scroller = new Scroller();
-  private minePageContext: PageContext = AppStorage.get(StorageKey.MINE_PAGE_CONTEXT)!;
 
   throttle(func: Function, interval: number) {
     let lastTime = 0;
@@ -49,9 +61,99 @@ export struct MineView {
     };
   }
 
-  aboutToAppear(): void {
+  async aboutToAppear(): Promise<void> {
+    await AccountService.getInstance().init();
     this.viewModel.sendEvent(new InitEvent());
     this.viewModel.sendEvent(new LoadContentNumberEvent());
+    AccountService.getInstance().addAppLogoutListener(() => {
+      MinePageVM.getInstance().sendEvent(new FlushLogoutUIEvent());
+    });
+    emitter.on(CommonConstants.BIND_SHEET_CLOSE_EVENT, () => {
+      this.bindSheetShow = false;
+    });
+    emitter.on(CommonConstants.BIND_LOGOUT_EVENT, () => {
+      MinePageVM.getInstance().sendEvent(new UpdateAccountStatusEvent());
+    });
+    emitter.on(CommonConstants.BIND_MINE_LOGIN_EVENT, () => {
+      MinePageVM.getInstance().sendEvent(new UpdateAccountStatusEvent());
+    });
+  }
+
+  aboutToDisappear(): void {
+    emitter.off(CommonConstants.BIND_SHEET_CLOSE_EVENT);
+    emitter.off(CommonConstants.BIND_LOGOUT_EVENT);
+    emitter.off(CommonConstants.BIND_MINE_LOGIN_EVENT);
+  }
+
+  @Builder
+  itemHead() {
+    ListItem({ style: ListItemStyle.CARD }) {
+      Row() {
+        if (this.minePageState.isLogin) {
+          if (this.minePageState.avatarUrl !== '') {
+            Image(this.minePageState.avatarUrl)
+              .draggable(false)
+              .width($r('app.float.mine_image_size'))
+              .height($r('app.float.mine_image_size'))
+              .borderRadius($r('sys.float.corner_radius_level12'))
+          } else {
+            Text(this.minePageState.nickName.slice(-1))
+              .width($r('app.float.mine_image_size'))
+              .height($r('app.float.mine_image_size'))
+              .borderRadius($r('sys.float.corner_radius_level12'))
+              .backgroundColor($r('app.color.mine_image_background'))
+              .linearGradient({
+                colors: [
+                  [$r('app.color.mine_image_background_linearGradient_start'), 0.0],
+                  [$r('app.color.mine_image_background_linearGradient_end'), 1.0],
+                ],
+              })
+              .fontColor($r('sys.color.font_on_primary'))
+              .fontSize($r('sys.float.Title_M'))
+              .fontWeight(FontWeight.Bold)
+              .textAlign(TextAlign.Center)
+          }
+          Text(this.minePageState.nickName)
+            .margin({ left: $r('sys.float.padding_level8') })
+            .fontColor($r('sys.color.ohos_id_color_text_primary'))
+            .fontSize($r('sys.float.ohos_id_text_size_headline9'))
+            .fontFamily('HarmonyOS Heiti')
+            .fontWeight(FontWeight.Medium)
+            .align(Alignment.Start)
+        } else {
+          SymbolGlyph($r('sys.symbol.person_crop_circle_fill_1'))
+            .fontSize($r('sys.float.Display_L'))
+            .fontColor([$r('sys.color.icon_fourth')])
+          Text($r('app.string.unregistered_title'))
+            .fontSize($r('sys.float.Subtitle_L'))
+            .fontWeight(FontWeight.Medium)
+            .fontColor($r('sys.color.font_primary'))
+            .margin({ left: $r('sys.float.padding_level6') })
+        }
+      }
+      .width('100%')
+      .height($r('app.float.mine_login_height'))
+      .bindSheet($$this.minePageState.isShowAccountInfo, this.LoginSheetViewBuilder(), {
+        height: SheetSize.MEDIUM,
+        preferType: SheetType.CENTER,
+        hoverModeArea: HoverModeAreaType.BOTTOM_SCREEN,
+        enableOutsideInteractive: false,
+        blurStyle: BlurStyle.Regular,
+        onWillDismiss: ((dismissSheetAction: DismissSheetAction) => {
+          if (dismissSheetAction.reason == DismissReason.CLOSE_BUTTON) {
+            dismissSheetAction.dismiss();
+          }
+        }),
+      })
+      .onClick(this.throttle(() => {
+        if (!this.minePageState.isLogin) {
+          this.viewModel.sendEvent(new LoginEvent(this.getUIContext()));
+        } else {
+          this.viewModel.sendEvent(new LogoutEvent(this.getUIContext()));
+        }
+      }, MineConstant.BUTTON_CLICK_THROTTLE))
+    }
+    .height(undefined)
   }
 
   @Builder
@@ -64,11 +166,16 @@ export struct MineView {
             wrap: FlexWrap.Wrap
           }) {
             ForEach(groupData.group, (item: MineItem, index: number) => {
-              if (item.type === BuilderEnum.USER_EXPERIENCE_CARD) {
+              if (item.type === BuilderEnum.LOGIN_ITEM) {
+                this.itemHead()
+              } else if (item.type === BuilderEnum.USER_EXPERIENCE_CARD) {
                 UserExperienceCardItem({
                   textContent: item.textContent,
                   subTextContent: item.subTextContent,
-                  onclick: item.onclick,
+                  onclick: () => {
+                    this.bindSheetItem = item;
+                    this.bindSheetShow = true;
+                  },
                 }) {
                   if (item.builder) {
                     item.builder.builder()
@@ -150,6 +257,17 @@ export struct MineView {
     .height('100%')
     .width('100%')
     .backgroundColor($r('sys.color.background_secondary'))
+  }
+
+  @Builder
+  LoginSheetViewBuilder() {
+    LoginSheetViewBuilder({
+      nickname: this.minePageState.nickName,
+      avatarUrl: this.minePageState.avatarUrl,
+      email: '',
+      unionId: ' ',
+      openId: ''
+    })
   }
 
   build() {

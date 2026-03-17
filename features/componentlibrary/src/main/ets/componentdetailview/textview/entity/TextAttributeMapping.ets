@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonColorMapping, CommonNumberMapping } from '../../common/entity/CommonMapData';
+import { CommonColorMapping, CommonNumberMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class TextMapping {
   public readonly code: string;
@@ -26,21 +26,21 @@ class TextMapping {
 }
 
 export const fontSizeMapData: Map<string, TextMapping> = new Map([
-  ['Default', new TextMapping('16', $r('sys.float.ohos_id_text_size_body1'))],
+  [DEFAULT_KEY, new TextMapping('16', $r('sys.float.ohos_id_text_size_body1'))],
 ]);
 
 export const fontColorMapData: Map<string, CommonColorMapping> = new Map([
-  ['Default', new CommonColorMapping('rgba(0,85,255)', 'rgba(0,85,255)')],
+  [DEFAULT_KEY, new CommonColorMapping('rgba(0,85,255)', 'rgba(0,85,255)')],
 ]);
 
 export const opacityMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('1', 1)],
+  [DEFAULT_KEY, new CommonNumberMapping('1', 1)],
 ]);
 
 export const letterSpacingMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('0', 0)],
+  [DEFAULT_KEY, new CommonNumberMapping('0', 0)],
 ]);
 
 export const textShadowRadiusMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('0', 0)],
+  [DEFAULT_KEY, new CommonNumberMapping('0', 0)],
 ]);

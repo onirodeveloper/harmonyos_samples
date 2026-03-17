@@ -16,6 +16,7 @@
 import { StringUtil } from '../../../util/StringUtil';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   columnsGapMapData,
   columnsTemplateMapData,
@@ -27,21 +28,23 @@ import {
 
 @Observed
 export class GridDescriptor extends CommonDescriptor {
-  public scroller: Scroller = scrollerMapData.get('default')!.value;
-  public columnsGap: number = columnsGapMapData.get('default')!.value;
-  public rowsGap: number = rowsGapMapData.get('default')!.value;
-  public columnsTemplate: string = columnsTemplateMapData.get('default')!.value;
-  public rowsTemplate: string = rowsTemplateMapData.get('default')!.value;
-  public operationMode: boolean = operationModeMapData.get('default')!.value;
+  public scroller: Scroller = scrollerMapData.get(DEFAULT_KEY)!.value;
+  public columnsGap: number = columnsGapMapData.get(DEFAULT_KEY)!.value;
+  public rowsGap: number = rowsGapMapData.get(DEFAULT_KEY)!.value;
+  public columnsTemplate: string = columnsTemplateMapData.get(DEFAULT_KEY)!.value;
+  public rowsTemplate: string = rowsTemplateMapData.get(DEFAULT_KEY)!.value;
+  public operationMode: boolean = operationModeMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'columnsGap':
-          this.columnsGap = Number(attribute.currentValue);
+          const columnsGap = Number(attribute.currentValue);
+          this.columnsGap = Number.isNaN(columnsGap) ? this.columnsGap : columnsGap;
           break;
         case 'rowsGap':
-          this.rowsGap = Number(attribute.currentValue);
+          const rowsGap = Number(attribute.currentValue);
+          this.rowsGap = Number.isNaN(rowsGap) ? this.rowsGap : rowsGap;
           break;
         case 'columnsNum':
           this.columnsTemplate = StringUtil.getTemplateString(Number(attribute.currentValue));
@@ -50,7 +53,7 @@ export class GridDescriptor extends CommonDescriptor {
           this.rowsTemplate = StringUtil.getTemplateString(Number(attribute.currentValue));
           break;
         case 'operationMode':
-          this.operationMode = JSON.parse(attribute.currentValue);
+          this.operationMode = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         default:
           break;

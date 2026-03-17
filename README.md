@@ -64,11 +64,13 @@
 ## 四、工程结构
 ```
 ├──common/src/main/ets                                  // 公共模块
+│  ├──accountservice                                    // 账号管理模块
 │  ├──component                                         // 公共组件库
 │  ├──constant                                          // 公共常量文件
 │  ├──model                                             // 公共数据类
 │  ├──routermanager                                     // 路由管理类
 │  ├──storagemanager                                    // 存储模块
+│  ├──trackmanager                                      // 埋点模块
 │  ├──updateservice                                     // 包更新模块
 │  ├──util                                              // 工具类
 │  ├──view                                              // 公共页面库
@@ -143,6 +145,11 @@ animationcollectionsample、audiointeractionsample、componentstacksample、cust
 4. HarmonyOS SDK版本：HarmonyOS 6.0.0 Release SDK及以上。
 
 ## 七、版本更新说明
+【v1.0.2.200】版本更新
+- 代码工坊华为账号接入（请在应用市场最新版本体验）
+- 应用接入问卷反馈功能
+- 代码工坊样例和组件模块新增意见反馈
+
 【V1.0.1.100】版本更新
 - 代码工坊锁屏卡片需求
 - 我的页面集成问题与建议模块
@@ -152,13 +159,5 @@ animationcollectionsample、audiointeractionsample、componentstacksample、cust
 - 代码工坊快捷入口需求
 - Sample卡片支持展开
 - 样例页新增AI类sample
-
-【鸿蒙新特性】新增6个创新案例，欢迎体验：
-- 「HarmonyOS代码工坊」本体（支持华为穿戴设备、手机、折叠屏、平板、PC/2in1）。
-- MateXT适配案例：备忘录&日历。
-- PuraX适配案例：内外屏沉浸式扩感导航。
-- 碰一碰视频快速分享。
-- 多设备视频投播。
-- 跨设备内容编辑（分布式照相机、键鼠穿越）。 
 
 以上代码全部开源，欢迎下载体验！

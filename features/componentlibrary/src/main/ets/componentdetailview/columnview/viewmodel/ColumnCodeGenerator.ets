@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   columnAlignMapData,
   columnPaddingMapData,
@@ -23,10 +24,10 @@ import {
 } from '../entity/ColumnAttributeMapping';
 
 export class ColumnCodeGenerator implements CommonCodeGenerator {
-  private alignItems: string = columnAlignMapData.get('Default')!.code;
-  private space: string = columnSpaceMapData.get('Default')!.code;
-  private padding: string = columnPaddingMapData.get('Default')!.code;
-  private paddingNum: string = paddingNumMapData.get('Default')!.code;
+  private alignItems: string = columnAlignMapData.get(DEFAULT_KEY)!.code;
+  private space: string = columnSpaceMapData.get(DEFAULT_KEY)!.code;
+  private padding: string = columnPaddingMapData.get(DEFAULT_KEY)!.code;
+  private paddingNum: string = paddingNumMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {

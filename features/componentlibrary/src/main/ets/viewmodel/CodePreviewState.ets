@@ -21,10 +21,10 @@ export class CodePreviewState extends BaseState {
   public bottomTranslateY: number;
   public navigationOpacity: number;
 
-  constructor(topTranslateY: number, bottomTranslateY: number, navigationOpacity: number) {
+  constructor(topTranslateY?: number, bottomTranslateY?: number, navigationOpacity?: number) {
     super();
-    this.topTranslateY = topTranslateY;
-    this.bottomTranslateY = bottomTranslateY;
-    this.navigationOpacity = navigationOpacity;
+    this.topTranslateY = topTranslateY ?? 0;
+    this.bottomTranslateY = bottomTranslateY ?? 0;
+    this.navigationOpacity = navigationOpacity ?? 1;
   }
 }

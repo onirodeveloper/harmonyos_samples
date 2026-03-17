@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-import { CommonBoolMapping, CommonNumberMapping } from '../../common/entity/CommonMapData';
+import { CommonBoolMapping, CommonNumberMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export const ratingValueMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('0', 0)],
+  [DEFAULT_KEY, new CommonNumberMapping('0', 0)],
 ]);
 
 export const starsMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('5', 5)]
+  [DEFAULT_KEY, new CommonNumberMapping('5', 5)]
 ]);
 
 export const indicatorMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('false', false)],
+  [DEFAULT_KEY, new CommonBoolMapping('false', false)],
 ]);
 
 export const starStyleMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('false', false)],
+  [DEFAULT_KEY, new CommonBoolMapping('false', false)],
 ]);

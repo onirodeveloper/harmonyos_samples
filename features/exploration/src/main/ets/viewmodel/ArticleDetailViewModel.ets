@@ -13,17 +13,24 @@
  * limitations under the License.
  */
 
+import { UIContext } from '@kit.ArkUI';
 import {
   BaseVM,
   CommonConstants,
+  FileUtil,
   GlobalInfoModel,
   LoadingStatus,
+  Logger,
   PageContext,
+  PageEnum,
   StorageKey,
+  UrlUtil,
 } from '@ohos/common';
-import { ComponentDetailParams, SampleDetailParams, TabBarType } from '@ohos/commonbusiness';
+import { CardTypeEnum, ComponentDetailParams, SampleDetailParams, TabBarType } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExplorationDetailState } from './ExplorationDetailState';
+
+const TAG: string = '[ArticleDetailViewModel]';
 
 export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
   private currentPathStack?: NavPathStack;
@@ -53,7 +60,23 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
   private getArticleDetail(detailParam: DetailParam): Promise<void> {
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
     this.state.content = detailParam.content;
-    this.state.content.detailsUrl = `resource://resfile/${detailParam.content.detailsUrl}`;
+    const detailUrl: string = detailParam.content.detailsUrl;
+    if (UrlUtil.isNetUrl(detailUrl)) {
+      this.state.content.detailsUrl = detailUrl;
+    } else {
+      if (FileUtil.isInvalidPath(detailUrl)) {
+        Logger.error(TAG, `getArticleDetail failed. Cause: detailUrl is invalid.`);
+        return Promise.reject();
+      }
+      const uiContext: UIContext | undefined = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+      const context = uiContext?.getHostContext();
+      if (context) {
+        this.state.content.detailsUrl = `${context.resourceDir}/${detailUrl}`;
+      } else {
+        Logger.error(TAG, `getArticleDetail failed. Cause: uicontext is null`);
+        return Promise.reject();
+      }
+    }
     this.state.topNavigationData.onBackClick = detailParam.onBackClick;
     this.state.topNavigationData.isFullScreen = true;
     this.changeTitleBarStyle(0);
@@ -70,27 +93,29 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
   }
 
   private jumpNativePage(param: NativePageParam): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-    let pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+    let pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
       if (param.tabBarView === TabBarType.HOME) {
-        pageContext = AppStorage.get(StorageKey.COMPONENT_PAGE_CONTEXT) as PageContext;
+        pageContext = AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT);
       } else if (param.tabBarView === TabBarType.SAMPLE) {
-        pageContext = AppStorage.get(StorageKey.SAMPLE_PAGE_CONTEXT) as PageContext;
+        pageContext = AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT);
       } else {
-        pageContext = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT) as PageContext;
+        pageContext = AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT);
       }
     }
-    pageContext.openPage({
-      routerName: param.type === 'component' ? 'ComponentDetailView' : 'SampleDetailView',
+    pageContext?.openPage({
+      routerName: param.type === 'component' ? PageEnum.COMPONENT_DETAIL_VIEW : PageEnum.SAMPLE_DETAIL_VIEW,
       param: param.type === 'component' ?
         {
           componentName: param.componentName,
-          componentId: param.id,
+          id: param.id,
+          contentType: CardTypeEnum.COMPONENT,
         } as ComponentDetailParams :
         {
           currentIndex: param.currentIndex,
-          sampleCardId: param.id,
+          cardId: param.id,
+          contentType: CardTypeEnum.SAMPLE,
         } as SampleDetailParams,
     }, true);
   }
@@ -112,7 +137,7 @@ export interface ExplorationDetailEventParam<T> {
 
 export interface DetailParam {
   content: DiscoverContent;
-  onBackClick: Function;
+  onBackClick: () => void;
 }
 
 export interface PopParam {

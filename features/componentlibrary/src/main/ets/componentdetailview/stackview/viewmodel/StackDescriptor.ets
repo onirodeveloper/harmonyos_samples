@@ -15,11 +15,12 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { stackAlignMapData } from '../entity/StackAttributeMapping';
 
 @Observed
 export class StackDescriptor extends CommonDescriptor {
-  public alignContent: Alignment = stackAlignMapData.get('Default')!.value;
+  public alignContent: Alignment = stackAlignMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     const index: number = attributes.findIndex((item) => item.name === 'alignDirection');

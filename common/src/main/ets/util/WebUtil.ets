@@ -51,7 +51,7 @@ interface WebBuilderParam {
 function webBuilder(param: WebBuilderParam) {
   Web({ src: param.webUrl, controller: param.webController })
     .zoomAccess(false)
-    .fileAccess(true)
+    .fileAccess(false)
     .imageAccess(true)
     .mixedMode(MixedMode.None)
     .verticalScrollBarAccess(param.verticalScrollBarAccess)
@@ -64,7 +64,7 @@ function webBuilder(param: WebBuilderParam) {
       name: 'nativeActionData',
       methodList: ['webSheet', 'jumpPage'],
       controller: param.webController,
-      permission: javascriptProxyPermission,
+      permission: WebUtil.getJsPermission(),
     } : undefined)
     .geolocationAccess(false)
     .backgroundColor(Color.Transparent)
@@ -73,8 +73,12 @@ function webBuilder(param: WebBuilderParam) {
     .forceDarkAccess(true)
     .allowDrop(null)
     .onPageBegin(() => {
-      param.webController.onActive();
-      Logger.debug(TAG, `onPageBegin with url: ${param.webUrl}`);
+      try {
+        param.webController.onActive();
+        Logger.debug(TAG, `onPageBegin with url: ${param.webUrl}`);
+      } catch (error) {
+        Logger.error(TAG, `onPageBegin with url: ${param.webUrl} failed. error ${error.message}`);
+      }
     })
     .onPageEnd(() => {
       AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
@@ -100,13 +104,13 @@ function webBuilder(param: WebBuilderParam) {
       }
     })
     .onControllerAttached(() => {
-      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+      const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
       try {
         param.webController.onActive();
         const userAgent = `${param.webController.getUserAgent()} Mobile`;
         param.webController.setCustomUserAgent(userAgent);
         // Setting the local file path that allows cross-domain access.
-        param.webController.setPathAllowingUniversalAccess([uiContext.getHostContext()!.resourceDir]);
+        param.webController.setPathAllowingUniversalAccess([uiContext?.getHostContext()?.resourceDir]);
       } catch (error) {
         const err: BusinessError = error as BusinessError;
         Logger.error(TAG, `Web User-Agent setting error: ${err.code}, ${err.message}.`);
@@ -160,7 +164,7 @@ export class WebUtil {
 
   public static removeNode(url: string) {
     if (nodeRequiredMap.has(url)) {
-      Logger.info(TAG, `Web Node is Required again, should not dispose: ${url}`);
+      Logger.debug(TAG, `Web Node is Required again, should not dispose: ${url}`);
       nodeRequiredMap.delete(url);
       return;
     }
@@ -229,7 +233,11 @@ export class WebUtil {
 
   public static updateWebNode(webUrl: string, nestedScrollMode?: NestedScrollMode, module?: ModuleNameEnum,
     onlyWhiteMode?: boolean, verticalScrollBarAccess?: boolean) {
-    const webController = webControllerMap.get(webUrl)!;
+    const webController = webControllerMap.get(webUrl);
+    if (!webController) {
+      Logger.error(TAG, `updateWebNode failed. cause webController is null`);
+      return;
+    }
     const webBuilderParam: WebBuilderParam = {
       webUrl: webUrl,
       webController: webController,
@@ -268,11 +276,18 @@ export class WebUtil {
   }
 
   public static setTrustList(webUrl: string): void {
-    const webController: webview.WebviewController = webControllerMap.get(webUrl)!;
+    const webController: webview.WebviewController | undefined = webControllerMap?.get(webUrl);
     try {
-      const whitelist: string =
-        ResourceUtil.getRawFileStringByKey(WebUtil.uiContext.getHostContext()!, ConfigMapKey.WHITELIST);
-      webController?.setUrlTrustList(whitelist);
+      const context = WebUtil.uiContext.getHostContext();
+      if (!context) {
+        Logger.error(TAG, `setTrustList failed cause context is undefined.`);
+        return;
+      }
+      const whitelist: object =
+        ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.WHITELIST) as object;
+      const permissionList: Record<string, object> = { 'UrlPermissionList': whitelist };
+      const trustStr = JSON.stringify(permissionList);
+      webController?.setUrlTrustList(trustStr);
     } catch (error) {
       const err: BusinessError = error as BusinessError;
       Logger.error(TAG, `Web User-Agent setting error: ${err.code}, ${err.message}.`);
@@ -292,9 +307,13 @@ export class WebUtil {
         'ohos.ability.params.showDefaultPicker': true
       }
     };
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-    const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
-    ProcessUtil.startAbility(context, want);
+    const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    const context = uiContext?.getHostContext();
+    if (!context) {
+      Logger.error(TAG, `HandleLoadIntercept failed, cause context is undefined.`);
+      return true;
+    }
+    ProcessUtil.startAbility(context as common.UIAbilityContext, want);
     return true;
   }
 
@@ -302,19 +321,28 @@ export class WebUtil {
     const tempUri: uri.URI = new uri.URI(url);
     const res: uri.URI = tempUri.normalize();
     Logger.debug(TAG, `Web request url : ${res.toString()}`);
-    // Allow application internal resource.
-    if (res.scheme === 'file' || res.scheme === 'resource') {
-      return true;
+    const context = WebUtil.uiContext.getHostContext();
+    if (!context) {
+      Logger.error(TAG, `CheckUrl failed cause context is undefined.`);
+      return false;
     }
-    if (res.scheme === 'https') {
-      // Allow official site.
-      if (res.host.endsWith('huawei.com')) {
-        return true;
+    const whitelist: TrustUri[] =
+      ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.WHITELIST) as TrustUri[];
+
+    const currentTrustUri = whitelist.find((item) => {
+      const trustScheme: Boolean = item.scheme === res.scheme;
+      if (!item.host) {
+        return trustScheme;
       }
-      // Allow official sample code repo site.
-      if (res.host === 'gitee.com' && res.path.startsWith('/harmonyos_samples')) {
-        return true;
+      const trustHost = (res.host || '').endsWith(item.host);
+      if (!item.path) {
+        return trustScheme && trustHost;
       }
+      const trustPath = (res.path || '').startsWith(item.path);
+      return trustScheme && trustHost && trustPath;
+    });
+    if (currentTrustUri) {
+      return true;
     }
     return false;
   }
@@ -339,8 +367,28 @@ export class WebUtil {
     webNodeMap.get(url)?.remove();
   }
 
-  public static getComponentCodeUrl() {
-    return WebUtil.uiContext.getHostContext()!.resourceDir + componentCodeHtml;
+  public static getComponentCodeUrl(): string {
+    const context = WebUtil.uiContext.getHostContext();
+    if (!context) {
+      Logger.error(TAG, `GetComponentCodeUrl failed cause context is undefined.`);
+      return '';
+    }
+    return context.resourceDir + componentCodeHtml;
+  }
+
+  public static getJsPermission(): string {
+    const context = WebUtil.uiContext.getHostContext();
+    if (!context) {
+      Logger.error(TAG, `GetJsPermission failed cause context is undefined.`);
+      return '';
+    }
+    const trustList: object = ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.JS_WHITELIST) as object;
+    const permissionStr: string = `{
+      'javascriptProxyPermission': {
+        'urlPermissionList': ${JSON.stringify(trustList)}
+      }
+    }`;
+    return permissionStr;
   }
 }
 
@@ -388,50 +436,9 @@ export class WebNodeController extends NodeController {
   }
 }
 
-export const javascriptProxyPermission = `{
-    "javascriptProxyPermission": {
-      "urlPermissionList": [
-        {
-          "scheme": "resource",
-          "host": "resfile",
-          "port": "",
-          "path": ""
-        }
-      ],
-      "methodList": [
-        {
-          "methodName": "toHref",
-          "urlPermissionList": [
-            {
-              "scheme": "resource",
-              "host": "resfile",
-              "port": "",
-              "path": ""
-            }
-          ]
-        },
-        {
-          "methodName": "jumpSampleDetail",
-          "urlPermissionList": [
-            {
-              "scheme": "resource",
-              "host": "resfile",
-              "port": "",
-              "path": ""
-            }
-          ]
-        },
-        {
-          "methodName": "jumpComponentDetail",
-          "urlPermissionList": [
-            {
-              "scheme": "resource",
-              "host": "resfile",
-              "port": "",
-              "path": ""
-            }
-          ]
-        }
-      ]
-    }
-  }`;
+interface TrustUri {
+  scheme: string;
+  host?: string;
+  path?: string;
+  port?: string;
+}

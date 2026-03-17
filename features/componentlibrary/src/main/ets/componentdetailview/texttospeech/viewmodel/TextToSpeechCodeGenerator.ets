@@ -144,7 +144,10 @@ struct TextToSpeechComponent {
       },
       onComplete(requestId: string, response: textToSpeech.CompleteResponse) {
         console.log('onComplete');
-        AppStorage.setOrCreate('isPlaying', true);
+         if (response.type === 1) {
+          AppStorage.setOrCreate(StorageKey.IS_PLAYING, false);
+          ttsEngine?.stop();
+        }
       },
       onStop(requestId: string, response: textToSpeech.StopResponse) {
         console.log('onStop');

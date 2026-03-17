@@ -68,7 +68,7 @@ struct HandWritingComponent {
       this.controller?.save(this.initPath);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      console.error(\`HandwriteController save error, the code is \${error.code}, the message is \${error.message}\`);
+      console.error(\`HandwriteController save error, the code is \${error?.code}, the message is \${error?.message}\`);
     }
   }
 
@@ -82,7 +82,7 @@ struct HandWritingComponent {
               this.controller?.load(this.initPath);
             } catch (err) {
               const error: BusinessError = err as BusinessError;
-              console.error(\`HandwriteController load error, the code is \${error.code}, the message is \${error.message}\`);
+              console.error(\`HandwriteController load error, the code is \${error?.code}, the message is \${error?.message}\`);
             }
           }
         })

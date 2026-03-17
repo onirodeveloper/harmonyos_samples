@@ -52,7 +52,7 @@ export class ArticleServiceCardVM extends BaseVM<ArticleServiceCardState> {
 
   private updateData(formId: string): void {
     const currentDataOfFormId: ArticleListItem[] = this.state.formDataRecord.get(formId) ?? [];
-    Logger.info(TAG, `The currentDataOfFormId is ${JSON.stringify(currentDataOfFormId)} in updateData.`);
+    Logger.debug(TAG, `The currentDataOfFormId is ${JSON.stringify(currentDataOfFormId)} in updateData.`);
     this.removeFormData(formId);
     const newDataOfFormId: ArticleListItem[] = this.getRandomThreeArticle(currentDataOfFormId);
     this.state.cardList = newDataOfFormId;

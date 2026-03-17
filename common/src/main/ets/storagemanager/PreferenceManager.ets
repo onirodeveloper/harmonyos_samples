@@ -14,6 +14,7 @@
  */
 
 import { preferences, ValueType } from '@kit.ArkData';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { StorageKey } from '../constant/CommonEnums';
 import Logger from '../util/Logger';
 
@@ -36,15 +37,19 @@ export class PreferenceManager {
   }
 
   private initPreference(storeName: string): void {
-    const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
+    const uiContext: UIContext | undefined = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
     try {
+      if (!uiContext) {
+        Logger.error(TAG, `initPreference failed, cause uiContext is undefined.`);
+        return;
+      }
       this.preferences = preferences.getPreferencesSync(uiContext.getHostContext() as Context, { name: storeName });
     } catch (err) {
-      Logger.error(TAG, `getPreferences failed, err code:${err.code},msg:${err.message}`);
+      Logger.error(TAG, `initPreference failed, err code:${err.code},msg:${err.message}`);
     }
   }
 
-  public setValue<T>(key: string, value: T): void {
+  public setValue<T>(key: string, value: T, retry: boolean = true): void {
     if (this.preferences) {
       try {
         this.preferences.putSync(key, JSON.stringify(value));
@@ -53,12 +58,14 @@ export class PreferenceManager {
         Logger.error(TAG, `Preferences put ${key} failed, err code:${e?.code},msg:${e?.message}`);
       }
     } else {
-      this.initPreference(PREFERENCES_NAME);
-      this.setValue<T>(key, value);
+      if (retry) {
+        this.initPreference(PREFERENCES_NAME);
+        this.setValue<T>(key, value, false);
+      }
     }
   }
 
-  public getValue<T>(key: string, defaultValue?: ValueType): T | null {
+  public getValue<T>(key: string, defaultValue?: ValueType, retry: boolean = true): T | null {
     if (this.preferences) {
       try {
         const res = this.preferences.getSync(key, defaultValue)
@@ -72,8 +79,11 @@ export class PreferenceManager {
         return null;
       }
     } else {
-      this.initPreference(PREFERENCES_NAME);
-      return this.getValue<T>(key);
+      if (retry) {
+        this.initPreference(PREFERENCES_NAME);
+        return this.getValue<T>(key, defaultValue, false);
+      }
+      return null;
     }
   }
 
@@ -91,7 +101,7 @@ export class PreferenceManager {
     }
   }
 
-  public deleteValue(key: string): void {
+  public deleteValue(key: string, retry: boolean = true): void {
     if (this.preferences) {
       try {
         this.preferences.deleteSync(key);
@@ -100,14 +110,19 @@ export class PreferenceManager {
         Logger.error(TAG, `Preferences delete ${key} failed. err code:${err.code},msg:${err.message}`);
       }
     } else {
-      this.initPreference(PREFERENCES_NAME);
-      this.deleteValue(key);
+      if (retry) {
+        this.initPreference(PREFERENCES_NAME);
+        this.deleteValue(key, false);
+      }
     }
   }
 
   saveValue() {
     try {
-      this.preferences?.flush();
+      this.preferences?.flush()
+        .catch((err: BusinessError) => {
+          Logger.error(TAG, `Preferences flush failed.err code:${err.code},msg:${err.message}`);
+        });
     } catch (err) {
       Logger.error(TAG, `Preferences flush failed.err code:${err.code},msg:${err.message}`);
     }

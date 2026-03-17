@@ -25,8 +25,18 @@ import {
   DividerMode,
   HdsTabsController,
 } from '@kit.UIDesignKit';
-import type { GlobalInfoModel, WantParams } from '@ohos/common';
-import { BreakpointType, CommonConstants, ProcessUtil, StorageKey, Toast, VersionUtil, WindowUtil } from '@ohos/common';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  Logger,
+  ProcessUtil,
+  StorageKey,
+  Toast,
+  VersionUtil,
+  WantParams,
+  WindowUtil
+} from '@ohos/common';
 import { TAB_CONTENT_STATUSES, TabBarType } from '@ohos/commonbusiness';
 import { ComponentListView } from '@ohos/componentlibrary';
 import { PracticesView } from '@ohos/devpractices';
@@ -35,9 +45,10 @@ import { MineView } from '@ohos/mine';
 import { CustomSideBar } from '../component/CustomSideBar';
 import { CustomTabBar } from '../component/CustomTabBar';
 import { TABS_LIST } from '../model/TabBarModel';
-import { JumpToPageEvent, MainPageViewModel } from '../viewmodel/MainPageViewModel';
+import { HomeEventTypeEnum, MainPageViewModel } from '../viewmodel/MainPageViewModel';
 
-const PRESS_TIME = 1500;
+const PRESS_TIME: number = 1500;
+const TAG: string = '[MainPage]';
 
 @Builder
 export function MainPageBuilder() {
@@ -46,9 +57,10 @@ export function MainPageBuilder() {
 
 @Component({ freezeWhenInactive: true })
 struct MainPage {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @State currentIndex: number = 0;
   private tabController: TabsController | HdsTabsController =
     VersionUtil.canUseHds() ? new HdsTabsController() : new TabsController();
@@ -103,7 +115,10 @@ struct MainPage {
     const wantParams: WantParams | undefined = AppStorage.get<WantParams>(StorageKey.WANT_PARAMETERS);
     AppStorage.delete(StorageKey.WANT_PARAMETERS);
     if (wantParams) {
-      const tabIndex: number = this.mainPageViewModel.sendEvent(new JumpToPageEvent(wantParams));
+      const tabIndex: number = this.mainPageViewModel.sendEvent<WantParams>({
+        type: HomeEventTypeEnum.JUMP_TO_PAGE,
+        param: wantParams,
+      }) as number;
       this.currentIndex = tabIndex;
     }
     this.changeTabStatus(this.currentIndex);
@@ -170,6 +185,9 @@ struct MainPage {
     .scrollable(false)
     .onAttach(() => {
       this.tabController?.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
+        .catch((error: Error) => {
+          Logger.error(TAG, `onAttach failed. cause: ${error.message}`);
+        });
     })
     .onChange((index: number) => {
       this.changeTabStatus(index);
@@ -193,6 +211,9 @@ struct MainPage {
     }
     .onAttach(() => {
       this.tabController.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
+        .catch((error: Error) => {
+          Logger.error(TAG, `onAttach failed. cause: ${error.message}`);
+        })
     })
     .onAnimationStart((index: number, targetIndex: number) => {
       this.changeTabStatus(targetIndex);
@@ -237,12 +258,7 @@ struct MainPage {
     } else {
       NavDestination() {
         SideBarContainer(SideBarContainerType.Embed) {
-          CustomSideBar({
-            currentIndex: this.currentIndex,
-            sideBarChange: (currentIndex: number) => {
-              this.changeTabStatus(currentIndex);
-            }
-          })
+          this.CustomSideBarBuilder()
           Stack({ alignContent: Alignment.BottomStart }) {
             this.TabComponent()
             CustomTabBar({

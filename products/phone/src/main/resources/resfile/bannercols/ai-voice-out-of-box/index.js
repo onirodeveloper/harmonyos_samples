@@ -1,5 +1,5 @@
 function jump() {
-  nativeActionData.jumpPage('component', 29, -1, 'TextToSpeech');
+  nativeActionData.jumpPage('component', 28, -1, 'TextToSpeech');
 }
 
 let video = document.getElementById('voice-video');

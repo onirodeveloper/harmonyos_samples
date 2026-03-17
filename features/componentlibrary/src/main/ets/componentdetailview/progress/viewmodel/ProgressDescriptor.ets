@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   progressColorMapData,
   progressKindMapData,
@@ -25,11 +26,11 @@ import {
 
 @Observed
 export class ProgressDescriptor extends CommonDescriptor {
-  public value: number = progressValueMapData.get('Default')!.value;
-  public color: ResourceColor = progressColorMapData.get('Default')!.value;
-  public style: CommonProgressStyleOptions = progressStyleMapData.get('Default')!.value;
+  public value: number = progressValueMapData.get(DEFAULT_KEY)!.value;
+  public color: ResourceColor = progressColorMapData.get(DEFAULT_KEY)!.value;
+  public style: CommonProgressStyleOptions = progressStyleMapData.get(DEFAULT_KEY)!.value;
   public type: ProgressType = ProgressType.Linear;
-  public kind: string = progressKindMapData.get('Default')!.value;
+  public kind: string = progressKindMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
@@ -45,7 +46,7 @@ export class ProgressDescriptor extends CommonDescriptor {
           break;
         case 'style':
           this.style =
-            progressStyleMapData.get(attribute.currentValue)?.value ?? progressStyleMapData.get('Default')!.value;
+            progressStyleMapData.get(attribute.currentValue)?.value ?? progressStyleMapData.get(DEFAULT_KEY)!.value;
           this.type = progressTypeMapData.get(attribute.currentValue)?.value ?? ProgressType.Linear;
           break;
         default:

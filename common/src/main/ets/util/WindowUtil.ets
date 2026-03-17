@@ -15,10 +15,10 @@
 
 import type { common } from '@kit.AbilityKit';
 import { AbilityConstant } from '@kit.AbilityKit';
-import { display, window } from '@kit.ArkUI';
-import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { CommonConstants } from '../constant/CommonConstants';
-import { ProductSeriesEnum, StorageKey } from '../constant/CommonEnums';
+import { StorageKey } from '../constant/CommonEnums';
 import { GlobalInfoModel } from '../model/GlobalInfoModel';
 import Logger from './Logger';
 
@@ -75,32 +75,12 @@ export class WindowUtil {
   private static requestFullScreen(): void {
     // Realize the immersive effect.
     try {
-      if (deviceInfo.productSeries === ProductSeriesEnum.HPR) {
-        WindowUtil.resetWindowSize();
-      }
-      WindowUtil.windowClass?.setWindowLayoutFullScreen(true);
+      WindowUtil.windowClass?.setWindowLayoutFullScreen(true)
+        .catch((err: BusinessError) => {
+          Logger.error(TAG, `Failed to set the window layout to full-screen mode. cause: ${err.code} ${err.message}`);
+        });
     } catch (err) {
       Logger.error(TAG, `Failed to set the window layout to full-screen mode. cause: ${err.code} ${err.message}`);
-    }
-  }
-
-  private static resetWindowSize(): void {
-    if (canIUse('SystemCapability.Window.SessionManager')) {
-      try {
-        const windowSize: display.Display = display.getDefaultDisplaySync();
-        const appWidth: number = windowSize.width * 9 / 10;
-        const appHeight: number = windowSize.height * 7 / 8;
-        const windowLimits: window.WindowLimits = {
-          maxWidth: appWidth,
-          maxHeight: appHeight,
-          minWidth: appWidth,
-          minHeight: appHeight,
-        };
-        WindowUtil.windowClass?.setWindowLimits(windowLimits);
-        WindowUtil.windowClass?.moveWindowToAsync(windowSize.width / 20, windowSize.height / 16);
-      } catch (err) {
-        Logger.error(TAG, `Failed to getDefaultDisplaySync.`);
-      }
     }
   }
 
@@ -144,7 +124,11 @@ export class WindowUtil {
   public static enableFloatWindowRotate(): void {
     try {
       if (canIUse('SystemCapability.Window.SessionManager')) {
-        WindowUtil.windowClass?.enableLandscapeMultiWindow();
+        WindowUtil.windowClass?.enableLandscapeMultiWindow()
+          .catch((error: BusinessError) => {
+            Logger.error(TAG,
+              `Failed to enableLandscapeMultiWindow. Cause code: ${error.code}, message: ${error.message}.`);
+          });
       } else {
         Logger.error(TAG, `enableLandscapeMultiWindow invalid`);
       }
@@ -157,7 +141,11 @@ export class WindowUtil {
   public static disableFloatWindowRotate(): void {
     try {
       if (canIUse('SystemCapability.Window.SessionManager')) {
-        WindowUtil.windowClass?.disableLandscapeMultiWindow();
+        WindowUtil.windowClass?.disableLandscapeMultiWindow()
+          .catch((error: BusinessError) => {
+            Logger.error(TAG,
+              `Failed to disableLandscapeMultiWindow. Cause code: ${error.code}, message: ${error.message}.`);
+          });
       } else {
         Logger.error(TAG, `disableLandscapeMultiWindow invalid`);
       }
@@ -170,12 +158,12 @@ export class WindowUtil {
   private static registerBreakpoint(windowClass: window.Window) {
     try {
       WindowUtil.getDeviceSize();
-      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+      const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
       const systemAvoidArea: window.AvoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(systemAvoidArea.topRect.height);
+      globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(systemAvoidArea?.topRect?.height);
       const bottomArea: window.AvoidArea =
         windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
-      globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(bottomArea.bottomRect.height);
+      globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(bottomArea?.bottomRect?.height);
       AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
       windowClass.on('windowSizeChange', (windowSize: window.Size) => WindowUtil.setWindowSize(windowSize));
       windowClass.on('avoidAreaChange', (avoidAreaOption) => {
@@ -191,17 +179,17 @@ export class WindowUtil {
 
   // Get status bar height and indicator height.
   public static setAvoidArea(type: window.AvoidAreaType, area: window.AvoidArea) {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     if (type === window.AvoidAreaType.TYPE_SYSTEM) {
-      globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(area.topRect.height);
+      globalInfoModel.statusBarHeight = WindowUtil.uiContext.px2vp(area?.topRect?.height);
     } else {
-      globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(area.bottomRect.height);
+      globalInfoModel.naviIndicatorHeight = WindowUtil.uiContext.px2vp(area?.bottomRect?.height);
     }
     AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
   }
 
   public static setWindowSize(windowSize?: window.Size | window.Rect) {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     if (windowSize) {
       globalInfoModel.deviceHeight = WindowUtil.uiContext.px2vp(windowSize.height);
       globalInfoModel.deviceWidth = WindowUtil.uiContext.px2vp(windowSize.width);
@@ -209,8 +197,12 @@ export class WindowUtil {
     globalInfoModel.widthBreakpoint = WindowUtil.uiContext.getWindowWidthBreakpoint();
     globalInfoModel.heightBreakpoint = WindowUtil.uiContext.getWindowHeightBreakpoint();
     if (canIUse('SystemCapability.Window.SessionManager')) {
-      const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() || 0;
-      globalInfoModel.decorHeight = decorHeight;
+      try {
+        const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() ?? 0;
+        globalInfoModel.decorHeight = decorHeight;
+      } catch (error) {
+        Logger.error(TAG, `getWindowDecorHeight failed. error message: ${error.message}`);
+      }
     }
     AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);
   }

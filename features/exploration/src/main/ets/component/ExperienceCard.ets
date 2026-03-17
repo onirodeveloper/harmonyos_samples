@@ -15,8 +15,17 @@
 
 import { curves } from '@kit.ArkUI';
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, CommonConstants, ProductSeriesEnum } from '@ohos/common';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  ProductSeriesEnum,
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData
+} from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExperienceItem } from './ExperienceItem';
 
@@ -27,10 +36,10 @@ const ENLARGE_COEFFICIENTS = 2;
 @Component
 export struct ExperienceCard {
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('calculateItemWidth') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  componentWidth: number = this.globalInfoModel.deviceWidth;
   @Prop @Require discoverContents: DiscoverContent[];
   handleItemClick?: Function;
-  componentWidth: number = this.globalInfoModel.deviceWidth;
   scroller: Scroller = new Scroller();
   @State enlargeIndex: number = -1;
   @State itemWidth: number = 0;
@@ -77,14 +86,21 @@ export struct ExperienceCard {
       Scroll(this.scroller) {
         Row({ space: CommonConstants.SPACE_16 }) {
           ForEach(this.discoverContents, (discoverContent: DiscoverContent, index: number) => {
-            ExperienceItem({ discoverContent: discoverContent })
-              .height('100%')
-              .width(index === this.enlargeIndex ?
-                (this.itemWidth * ENLARGE_COEFFICIENTS + CommonConstants.SPACE_16) : this.itemWidth)
-              .onHover((isHover: boolean) => this.onHoverAction(isHover, index))
-              .onClick(() => {
-                this.handleItemClick?.(discoverContent);
-              })
+            TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+              ExperienceItem({ discoverContent: discoverContent })
+                .height('100%')
+                .width(index === this.enlargeIndex ?
+                  (this.itemWidth * ENLARGE_COEFFICIENTS + CommonConstants.SPACE_16) : this.itemWidth)
+                .onHover((isHover: boolean) => this.onHoverAction(isHover, index))
+                .onClick(() => {
+                  this.handleItemClick?.(discoverContent);
+                })
+                .customProperty(TRACK_KEY, {
+                  content: discoverContent.title,
+                  moduleType: discoverContent.contentType,
+                  eventType: TrackEventType.ARTICLE_CLICK,
+                } as TrackServiceData)
+            }
           }, (discoverContent: DiscoverContent) => discoverContent.id.toString())
         }
         .padding({
@@ -102,13 +118,21 @@ export struct ExperienceCard {
     } else {
       Swiper() {
         ForEach(this.discoverContents, (discoverContent: DiscoverContent) => {
-          ExperienceItem({
-            discoverContent: discoverContent,
-            hasPadding: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM,
-          })
-            .onClick(() => {
-              this.handleItemClick?.(discoverContent);
+          TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+
+            ExperienceItem({
+              discoverContent: discoverContent,
+              hasPadding: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM,
             })
+              .onClick(() => {
+                this.handleItemClick?.(discoverContent);
+              })
+              .customProperty(TRACK_KEY, {
+                content: discoverContent.title,
+                moduleType: discoverContent.contentType,
+                eventType: TrackEventType.ARTICLE_CLICK,
+              } as TrackServiceData)
+          }
         }, (discoverContent: DiscoverContent) => discoverContent.id.toString())
       }
       .prevMargin(new BreakpointType<Length>({
@@ -135,13 +159,13 @@ export struct ExperienceCard {
       .effectMode(EdgeEffect.None)
       .indicator((this.discoverContents.length > 1 &&
         this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM) ?
-      new DotIndicator()
-        .color($r('sys.color.icon_on_tertiary'))
-        .selectedColor($r('sys.color.icon_on_primary')) :
+        new DotIndicator()
+          .color($r('sys.color.icon_on_tertiary'))
+          .selectedColor($r('sys.color.icon_on_primary')) :
         false)
       .width('100%')
       .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.img_card_height_verde') :
-      $r('app.float.img_card_height'))
+        $r('app.float.img_card_height'))
     }
   }
 }

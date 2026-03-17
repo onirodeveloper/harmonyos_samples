@@ -17,6 +17,6 @@ import type { OriginAttribute } from './Attribute';
 
 @Observed
 export class CommonDescriptor {
-  public convert(attributes: OriginAttribute[]): void {
+  public convert(_attributes: OriginAttribute[]): void {
   }
 }

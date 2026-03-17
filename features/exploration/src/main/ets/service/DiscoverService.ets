@@ -14,69 +14,61 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { MockRequest, PreferenceManager } from '@ohos/common';
+import { HmosRequest, Logger, PreferenceManager, TriggerEnums } from '@ohos/common';
 import type { DiscoverData } from '../model/DiscoverData';
+
+const TAG: string = '[DiscoverService]';
 
 export class DiscoverService {
   constructor() {
   }
 
-  public getSampleListByMock(): Promise<DiscoverData> {
+  getDiscoverPage(): Promise<DiscoverData> {
     return new Promise((resolve: (value: DiscoverData) => void,
       reject: (reason?: Object) => void) => {
-      MockRequest.call<DiscoverData>(DiscoverTrigger.DISCOVER_PAGE)
+      HmosRequest.getInstance().request<DiscoverData>(TriggerEnums.DISCOVER_PAGE)
         .then((result: Object) => {
           resolve(result as DiscoverData);
         })
         .catch((error: BusinessError) => {
+          Logger.error(TAG, `getDiscoverPage failed. cause: ${error.message}`);
           reject(error);
         });
     });
-  }
-
-  getDiscoverPage(): Promise<DiscoverData> {
-    return this.getSampleListByMock();
   }
 
   getDiscoveryPageByPreference(): Promise<DiscoverData> {
     return new Promise((resolve: (value: DiscoverData) => void,
       reject: (reason?: string) => void) => {
       const result: Record<string, DiscoverData> = PreferenceManager.getInstance()
-        .getValue<Record<string, DiscoverData>>(DiscoverTrigger.DISCOVER_PAGE) as Record<string, DiscoverData>;
+        .getValue<Record<string, DiscoverData>>(TriggerEnums.DISCOVER_PAGE) as Record<string, DiscoverData>;
       if (!result) {
         reject('There is no data in the Preference');
+        return;
       }
-      const ret = result[DiscoverTrigger.DISCOVER_PAGE];
+      const ret = result[TriggerEnums.DISCOVER_PAGE];
       if (!ret) {
         reject('There is no data in the Preference');
+        return;
       }
       resolve(ret);
     });
   }
 
   setDiscoveryPageToPreference(data: DiscoverData): Promise<void> {
-    return new Promise((resolve: () => void, reject: (reason?: string) => void) => {
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(DiscoverTrigger.DISCOVER_PAGE);
+    return new Promise((resolve: () => void) => {
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(TriggerEnums.DISCOVER_PAGE);
       if (hasValue) {
         const result: Record<string, DiscoverData> = PreferenceManager.getInstance()
-          .getValue<Record<string, DiscoverData>>(DiscoverTrigger.DISCOVER_PAGE) as Record<string, DiscoverData>;
-        if (!result) {
-          reject('There is no data in the Preference');
-        }
-        result[DiscoverTrigger.DISCOVER_PAGE] = data;
-        PreferenceManager.getInstance().setValue(DiscoverTrigger.DISCOVER_PAGE, result);
-        resolve();
-
+          .getValue<Record<string, DiscoverData>>(TriggerEnums.DISCOVER_PAGE) as Record<string, DiscoverData> || {};
+        result[TriggerEnums.DISCOVER_PAGE] = data;
+        PreferenceManager.getInstance().setValue(TriggerEnums.DISCOVER_PAGE, result);
       } else {
         const record: Record<string, DiscoverData> = {};
-        record[DiscoverTrigger.DISCOVER_PAGE] = data;
-        PreferenceManager.getInstance().setValue(DiscoverTrigger.DISCOVER_PAGE, record);
+        record[TriggerEnums.DISCOVER_PAGE] = data;
+        PreferenceManager.getInstance().setValue(TriggerEnums.DISCOVER_PAGE, record);
       }
+      resolve();
     });
   }
-}
-
-enum DiscoverTrigger {
-  DISCOVER_PAGE = 'discovery-page',
-  DISCOVER_ARTICLE = 'discovery-article',
 }

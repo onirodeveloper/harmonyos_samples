@@ -15,20 +15,16 @@
 
 import { TagEnum } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
-import { MediaTypeEnum } from '@ohos/commonbusiness';
+import { BaseData, MediaTypeEnum } from '@ohos/commonbusiness';
 
-export class DiscoverContent {
-  public id: number = 0;
-  public type: ArticleTypeEnum = ArticleTypeEnum.UNKNOWN;
+export class DiscoverContent extends BaseData {
+  public discoveryId: number = 0;
   public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
   public mediaUrl: string = '';
-  public title: string = '';
-  public subTitle: string = '';
   public desc: string = '';
   public publishTime: string = '';
   public author: string = '';
   public detailsUrl: string = '';
-  public urlData: string = '';
   public tagIds: TagEnum[] = [];
 }
 
@@ -36,7 +32,7 @@ export class DiscoverContent {
 export class DiscoverCardData {
   public id: number = 0;
   public name: string = '';
-  public type: ArticleTypeEnum = ArticleTypeEnum.UNKNOWN;
+  public styleType: ArticleStyleTypeEnum = ArticleStyleTypeEnum.UNKNOWN;
   public contents: DiscoverContent[] = [];
 }
 
@@ -45,7 +41,7 @@ export class DiscoverData {
   public discoveryData: DiscoverCardData[] = [];
 }
 
-export enum ArticleTypeEnum {
+export enum ArticleStyleTypeEnum {
   FEED = 1,
   EXPERIENCES = 2,
   ARCHITECTURE = 3,

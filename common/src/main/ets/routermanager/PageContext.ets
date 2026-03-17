@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
+import { PageEnum } from '../model/PageEnum';
 import Logger from '../util/Logger';
 
 export interface RouterParam {
-  routerName: string;
+  routerName: PageEnum;
   param?: object;
 }
 
@@ -73,10 +74,18 @@ export class PageContext implements IPageContext {
   }
 
   public popPageByIndex(index: number, animated: boolean = true): void {
-    this.pathStack.popToIndex(index, animated);
+    try {
+      this.pathStack.popToIndex(index, animated);
+    } catch (err) {
+      Logger.error(TAG, `PopToIndex failed. ${err.code} ${err.message}.`);
+    }
   }
 
   public clear(animated: boolean = true): void {
-    this.pathStack.clear(animated);
+    try {
+      this.pathStack.clear(animated);
+    } catch (err) {
+      Logger.error(TAG, `Clear Page failed. ${err.code} ${err.message}.`);
+    }
   }
 }

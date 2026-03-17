@@ -29,11 +29,12 @@ import { SampleScrollCard } from './SampleScrollCard';
 export struct CategorySamples {
   scroller: Scroller = new Scroller();
   viewModel: PracticeViewModel = PracticeViewModel.getInstance();
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop sampleCategory: SampleCategory;
 
   aboutToAppear(): void {
-    if (!this.sampleCategory.sampleCards) {
+    if (!this.sampleCategory.sampleCards || this.sampleCategory.sampleCards.length === 0) {
       this.viewModel.sendEvent<SampleCategory>({
         type: PracticeEventType.LOAD_SAMPLE_LIST,
         param: this.sampleCategory,
@@ -41,10 +42,16 @@ export struct CategorySamples {
     }
   }
 
-  jumpToDetail(currentIndex: number, sampleCardId: number) {
+  jumpToDetail(currentIndex: number, sampleContent: SampleContent) {
     this.viewModel.sendEvent<SampleDetailParams>({
       type: PracticeEventType.JUMP_DETAIL_DETAIL,
-      param: { currentIndex, sampleCardId },
+      param: {
+        currentIndex,
+        cardId: sampleContent.cardId,
+        contentType: sampleContent.contentType,
+        unionId: sampleContent.unionId,
+        id: sampleContent.id,
+      },
     });
   }
 
@@ -61,30 +68,24 @@ export struct CategorySamples {
             PictureAboveTextCard({
               sampleCardData: repeatItem.item,
               widthBreakPoint: this.globalInfoModel.widthBreakpoint,
+              handleItemClick: (index: number, sample: SampleContent) => {
+                this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample);
+              },
             })
-              .onClick(() => this.jumpToDetail(0, repeatItem.item.id))
           }
         })
         .key((item: SampleCardData) => item.id.toString())
-        .templateId((item: SampleCardData) => item.cardStyleType.toString())
-        .template(CardStyleTypeEnum.PICTURE_TO_SWIPER.toString(),
-          (repeatItem: RepeatItem<SampleCardData>) => {
-            GridCol({ span: CommonConstants.SPAN_4 }) {
-              PictureAboveTextCard({
-                sampleCardData: repeatItem.item,
-                widthBreakPoint: this.globalInfoModel.widthBreakpoint,
-              })
-                .onClick(() => this.jumpToDetail(repeatItem.index, repeatItem.item.detailCardId))
-            }
-          })
+        .templateId((item: SampleCardData) => item.styleType.toString())
         .template(CardStyleTypeEnum.PICTURE_ABOVE_TEXT.toString(),
           (repeatItem: RepeatItem<SampleCardData>) => {
             GridCol({ span: CommonConstants.SPAN_4 }) {
               PictureAboveTextCard({
                 sampleCardData: repeatItem.item,
                 widthBreakPoint: this.globalInfoModel.widthBreakpoint,
+                handleItemClick: (index: number, sample: SampleContent) => {
+                  this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample);
+                },
               })
-                .onClick(() => this.jumpToDetail(0, repeatItem.item.id))
             }
           })
         .template(CardStyleTypeEnum.LIST.toString(), (repeatItem: RepeatItem<SampleCardData>) => {
@@ -94,8 +95,8 @@ export struct CategorySamples {
             }) {
               SampleScrollCard({
                 sampleCardData: repeatItem.item,
-                handleItemClick: (index: number, samples: SampleContent[]) => {
-                  this.jumpToDetail(index, repeatItem.item.id);
+                handleItemClick: (index: number, sample: SampleContent) => {
+                  this.jumpToDetail(index, sample);
                 },
               })
                 .margin({
@@ -116,8 +117,8 @@ export struct CategorySamples {
             GridCol({ span: CommonConstants.SPAN_4 }) {
               SampleListCard({
                 sampleCardData: repeatItem.item,
-                handleItemClick: (index: number, samples: SampleContent[]) => {
-                  this.jumpToDetail(index, repeatItem.item.id);
+                handleItemClick: (index: number, sample: SampleContent) => {
+                  this.jumpToDetail(index, sample);
                 },
               })
             }
@@ -125,8 +126,12 @@ export struct CategorySamples {
         })
         .template(CardStyleTypeEnum.PICTURE.toString(), (repeatItem: RepeatItem<SampleCardData>) => {
           GridCol({ span: { sm: CommonConstants.SPAN_4, md: CommonConstants.SPAN_4, lg: CommonConstants.SPAN_8 } }) {
-            PictureCard({ sampleCardData: repeatItem.item })
-              .onClick(() => this.jumpToDetail(0, repeatItem.item.id))
+            PictureCard({
+              sampleCardData: repeatItem.item,
+              handleItemClick: (index: number, sample: SampleContent) => {
+                this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample);
+              },
+            })
           }
         })
       GridCol({ span: { sm: CommonConstants.SPAN_4, md: CommonConstants.SPAN_8, lg: CommonConstants.SPAN_12 } }) {

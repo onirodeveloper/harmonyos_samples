@@ -17,9 +17,6 @@ import { deviceInfo } from '@kit.BasicServicesKit';
 
 export class VersionUtil {
   public static canUseHds(): boolean {
-    if (deviceInfo.distributionOSApiVersion >= 60000 && canIUse('SystemCapability.UIDesign.HDSComponent.Core')) {
-      return true;
-    }
-    return false;
+    return (deviceInfo.distributionOSApiVersion >= 60000 && canIUse('SystemCapability.UIDesign.HDSComponent.Core'));
   }
 }

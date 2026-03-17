@@ -17,13 +17,17 @@ import type { DescriptorWrapper } from '../../../../viewmodel/DescriptorWrapper'
 import { DatePickerAttributeModifier } from '../viewmodel/DatePickerAttributeModifier';
 import type { DatePickerDescriptor } from '../viewmodel/DatePickerDescriptor';
 
+const START_DATE: string = '1970-1-1';
+const END_DATE: string = '2100-1-1'
+const SELECTED_DATE: string = '2021-08-08'
+
 @Builder
 export function DatePickerBuilder($$: DescriptorWrapper) {
   Column() {
     DatePicker({
-      start: new Date('1970-1-1'),
-      end: new Date('2100-1-1'),
-      selected: new Date('2021-08-08'),
+      start: new Date(START_DATE),
+      end: new Date(END_DATE),
+      selected: new Date(SELECTED_DATE),
     })
       .margin({
         left: $r('sys.float.padding_level12'),

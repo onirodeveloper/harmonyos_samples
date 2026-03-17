@@ -18,11 +18,13 @@ import type { DescriptorWrapper } from '../../../../viewmodel/DescriptorWrapper'
 import { CalendarPickerAttributeModifier } from '../viewmodel/CalendarPickerAttributeModifier';
 import type { CalendarPickerDescriptor } from '../viewmodel/CalendarPickerDescriptor';
 
+const DEFAULT_PICKER_WIDTH: string = '30%';
+
 @Builder
 export function CalendarPickerBuilder($$: DescriptorWrapper) {
   Column() {
     CalendarPicker({ hintRadius: DetailPageConstant.DATE_HINT_RADIUS })
-      .width('30%')
+      .width(DEFAULT_PICKER_WIDTH)
       .attributeModifier(new CalendarPickerAttributeModifier($$.descriptor as CalendarPickerDescriptor))
   }
   .justifyContent(FlexAlign.Center)

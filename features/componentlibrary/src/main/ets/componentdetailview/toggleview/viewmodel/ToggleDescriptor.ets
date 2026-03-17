@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   backgroundColorMapData,
   isOnMapData,
@@ -24,20 +25,24 @@ import {
 
 @Observed
 export class ToggleDescriptor extends CommonDescriptor {
-  public toggleType: ToggleType = toggleTypeMapData.get('Default')!.value as ToggleType;
-  public trackBorderRadius: number = trackBorderRadiusMapData.get('Default')!.value as number;
-  public isOn: boolean = isOnMapData.get('Default')!.value as boolean;
-  public backgroundColor: ResourceColor = backgroundColorMapData.get('Default')!.value as ResourceColor;
+  public toggleType: ToggleType = toggleTypeMapData.get(DEFAULT_KEY)!.value as ToggleType;
+  public trackBorderRadius: number = trackBorderRadiusMapData.get(DEFAULT_KEY)!.value as number;
+  public isOn: boolean = isOnMapData.get(DEFAULT_KEY)!.value as boolean;
+  public backgroundColor: ResourceColor = backgroundColorMapData.get(DEFAULT_KEY)!.value as ResourceColor;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'toggleType':
           this.toggleType = toggleTypeMapData.get(attribute.currentValue)?.value as ToggleType ??
-            toggleTypeMapData.get('Default')!.value as ToggleType;
+            toggleTypeMapData.get(DEFAULT_KEY)!.value as ToggleType;
           break;
         case 'isOn':
-          this.isOn = JSON.parse(attribute.currentValue) ?? isOnMapData.get('Default')!.value as boolean;
+          try {
+            this.isOn = JSON.parse(attribute.currentValue);
+          } catch (_e) {
+            this.isOn = isOnMapData.get(DEFAULT_KEY)!.value as boolean;
+          }
           break;
         case 'backgroundColor':
           this.backgroundColor = attribute.currentValue;

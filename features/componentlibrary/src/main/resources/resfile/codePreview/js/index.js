@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 const code = document.getElementById('code');
 const pre = document.getElementsByTagName('pre')[0];
 const link = document.getElementsByTagName('link')[0];
@@ -8,8 +23,20 @@ const UP = 'up';
 const DOWN = 'down';
 
 let lastScrollTop = 0;
-code.addEventListener('scroll', handleScroll);
+const throttleScroll = throttle(handleScroll);
+code.addEventListener('scroll', throttleScroll);
 
+function throttle(func, wait = 100) {
+    let timeoutId;
+    return function (...args) {
+        if (!timeoutId) {
+            func.apply(this, args);
+            timeoutId = setTimeout(() => {
+                timeoutId = null;
+            }, wait);
+        }
+    };
+}
 function toFullScreen() {
     code.style.overflowY = 'scroll';
     code.style.paddingLeft = '16px';
@@ -28,7 +55,7 @@ function toSmallScreen() {
 }
 
 function changeColorMode(colorMode) {
-    link.href = colorMode === LIGHT ? './dist/light.css' : './dist/dark.css';
+    link.href = colorMode === LIGHT ? './commonDist/light.css' : './commonDist/dark.css';
 }
 
 function codeToHtml(codeParam, colorMode) {

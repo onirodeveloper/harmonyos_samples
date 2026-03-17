@@ -25,7 +25,7 @@ export class RatingAttributeFilter implements CommonAttributeFilter {
         case 'stars':
           const ratingAttributeIndex = attributes.findIndex((attribute) => {
             return attribute.name === 'rating';
-          })
+          });
           if (ratingAttributeIndex !== -1) {
             (attributes[ratingAttributeIndex] as SliderComAttribute).rightRange = Number(attribute.currentValue);
           }

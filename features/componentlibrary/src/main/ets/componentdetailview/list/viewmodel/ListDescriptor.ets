@@ -15,16 +15,17 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { edgeEffectMapData, LanesStyle, listDirectionMapData } from '../entity/ListAttributeMapping';
 
 @Observed
 export class ListDescriptor extends CommonDescriptor {
-  public listDirection: Axis = listDirectionMapData.get('Default')!.value;
+  public listDirection: Axis = listDirectionMapData.get(DEFAULT_KEY)!.value;
   public lanes: LanesStyle = {
     value: 1,
     gutter: 0,
   };
-  public edgeEffect: EdgeEffect = edgeEffectMapData.get('Default')!.value;
+  public edgeEffect: EdgeEffect = edgeEffectMapData.get(DEFAULT_KEY)!.value;
   public sticky: boolean = true;
 
   public convert(attributes: OriginAttribute[]): void {
@@ -32,7 +33,7 @@ export class ListDescriptor extends CommonDescriptor {
       switch (attribute.name) {
         case 'listDirection':
           this.listDirection =
-            listDirectionMapData.get(attribute.currentValue)?.value ?? listDirectionMapData.get('Default')!.value;
+            listDirectionMapData.get(attribute.currentValue)?.value ?? listDirectionMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'lanesNum':
           this.lanes = {
@@ -48,10 +49,10 @@ export class ListDescriptor extends CommonDescriptor {
           break;
         case 'edgeEffect':
           this.edgeEffect =
-            edgeEffectMapData.get(attribute.currentValue)?.value ?? edgeEffectMapData.get('Default')!.value;
+            edgeEffectMapData.get(attribute.currentValue)?.value ?? edgeEffectMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'sticky':
-          this.sticky = JSON.parse(attribute.currentValue);
+          this.sticky = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         default:
           break;

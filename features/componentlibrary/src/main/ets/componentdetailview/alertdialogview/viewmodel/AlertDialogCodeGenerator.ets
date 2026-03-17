@@ -16,9 +16,10 @@
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { alertDialogAlignmentMapData } from '../entity/AlertDialogAttributeMapping';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export class AlertDialogCodeGenerator implements CommonCodeGenerator {
-  private alertDialogAlignment: string = alertDialogAlignmentMapData.get('Default')!.code;
+  private alertDialogAlignment: string = alertDialogAlignmentMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {

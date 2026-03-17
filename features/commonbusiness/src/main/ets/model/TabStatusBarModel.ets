@@ -14,7 +14,7 @@
  */
 
 // TabContent views is dark StatusBar or not.
-export const TAB_CONTENT_STATUSES: boolean[] = [true, true, true];
+export const TAB_CONTENT_STATUSES: boolean[] = [true, true, true, false];
 
 export enum TabBarType {
   HOME = 0,

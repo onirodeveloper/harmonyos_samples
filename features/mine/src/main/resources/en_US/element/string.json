@@ -79,6 +79,22 @@
     {
       "name": "no_article_content",
       "value": "no article content"
+    },
+    {
+      "name": "score_title",
+      "value": "Based on your actual experience, how would you rate your overall satisfaction with Sample_in_HarmonyOS?"
+    },
+    {
+      "name": "description_title",
+      "value": "What other suggestions do you have for Sample_in_HarmonyOS? What features would you like us to provide?"
+    },
+    {
+      "name": "unregistered_title",
+      "value": "Login to Huawei account"
+    },
+    {
+      "name": "feedback_desc",
+      "value": "This feature is for display purposes only"
     }
   ]
 }

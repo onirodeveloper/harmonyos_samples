@@ -19,7 +19,7 @@
 export class ArticleListItem {
   public title: string = '';
   public id: number = 0;
-  public isArticle?: boolean = true;
+  public isArticle: boolean = true;
   public detailsUrl: string = '';
   public name: string = '';
 }

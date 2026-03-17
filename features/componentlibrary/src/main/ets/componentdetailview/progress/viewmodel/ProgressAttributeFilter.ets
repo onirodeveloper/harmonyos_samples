@@ -22,8 +22,15 @@ export class ProgressAttributeFilter implements CommonAttributeFilter {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'kind':
-          const valueIndex = attributes.findIndex((item) => item.name === 'value');
-          const styleIndex = attributes.findIndex((item) => item.name === 'style');
+          let valueIndex: number = -1;
+          let styleIndex: number = -1;
+          attributes.forEach((item, index) => {
+            if (item.name === 'value') {
+              valueIndex = index;
+            } else if (item.name === 'style') {
+              styleIndex = index;
+            }
+          });
           if (valueIndex !== -1 && styleIndex !== -1) {
             if (attribute.currentValue === 'Progress') {
               attributes[valueIndex].enable = true;

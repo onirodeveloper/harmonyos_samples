@@ -1,510 +1,586 @@
 {
-  "code": 200,
-  "message": "Success",
-  "data": {
-    "currentPage": 1,
-    "pageSize": 30,
-    "totalSize": "12",
-    "data": {
-      "bannerInfos": [
-        {
-          "id": 1,
-          "bannerTitle": "开发者你好，欢迎来到HMOS代码工坊",
-          "bannerSubTitle": "HarmonyOS代码工坊",
-          "bannerDesc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
-          "bannerType": 4,
-          "bannerValue": 14,
-          "mediaType": 1,
-          "mediaUrl": "image/banner/banner_HMOS.png",
-          "detailsUrl": "bannercols/hmos-world/index.html"
-        },
-        {
-          "id": 4,
-          "bannerTitle": "HMOS代码工坊一多开发实践",
-          "bannerSubTitle": "一次开发，多端部署",
-          "bannerDesc": "探索HarmonyOS代码工坊一多开发实践",
-          "bannerType": 4,
-          "bannerValue": 18,
-          "mediaType": 1,
-          "mediaUrl": "image/banner/banner_ui_design.png",
-          "detailsUrl": "articlecols/articles/multi-adaptation/index.html"
-        },
-        {
-          "id": 5,
-          "bannerTitle": "开箱即用的AI语音播报能力",
-          "bannerSubTitle": "AI朗读",
-          "bannerDesc": "朗读文本转语音，新闻小说即享听。",
-          "bannerType": 4,
-          "bannerValue": 19,
-          "mediaType": 1,
-          "mediaUrl": "image/banner/banner_ai.png",
-          "detailsUrl": "bannercols/ai-voice-out-of-box/index.html"
+    "success": true,
+    "code": "0000",
+    "msg": "success",
+    "body": {
+        "currentPage": 1,
+        "pageSize": 50,
+        "totalPage": 1,
+        "totalSize": 12,
+        "data": {
+            "cardData": [
+                {
+                    "id": 1,
+                    "title": "为页面添加文本",
+                    "subTitle": "文本类组件",
+                    "styleType": 1,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_900_9/12/v3/component_card/1_comcardaa.png",
+                    "sequence": 1,
+                    "componentContents": [
+                        {
+                            "id": 10,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259162622_29c01c80.png",
+                            "title": "Text",
+                            "subTitle": "文本",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 42,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259212668_c5f4d164.png",
+                            "title": "TextInput",
+                            "subTitle": "单行文本输入",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 3,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259220643_8fddf95a.png",
+                            "title": "TextArea",
+                            "subTitle": "多行文本输入",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 4,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259228271_71b54494.png",
+                            "title": "TextStyle",
+                            "subTitle": "属性字符串",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 28,
+                    "title": "安全使用相机",
+                    "subTitle": "CameraPicker",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_900_9/12/v3/component_card/2_comcardbb.png",
+                    "sequence": 2,
+                    "componentContents": [
+                        {
+                            "id": 5,
+                            "componentCardId": 2,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193628705_dabe77f5.png",
+                            "title": "CameraPicker",
+                            "subTitle": "相机选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "title": "按钮、图片、进度条等",
+                    "subTitle": "常用组件",
+                    "styleType": 2,
+                    "image": "",
+                    "sequence": 3,
+                    "componentContents": [
+                        {
+                            "id": 6,
+                            "componentCardId": 3,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193667686_964e6e30.png",
+                            "title": "Button",
+                            "subTitle": "按钮",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 7,
+                            "componentCardId": 3,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193678228_75698fd7.png",
+                            "title": "Image",
+                            "subTitle": "图片",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 8,
+                            "componentCardId": 3,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193688045_2b45ff54.png",
+                            "title": "Progress",
+                            "subTitle": "进度条",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 9,
+                            "componentCardId": 3,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193697096_7e00a341.png",
+                            "title": "Rating",
+                            "subTitle": "评分",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 2,
+                            "componentCardId": 3,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193707451_31a00b6c.png",
+                            "title": "Toggle",
+                            "subTitle": "开关",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "title": "安全使用图库",
+                    "subTitle": "PhotoPicker",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763176468443_d750d892.png",
+                    "sequence": 4,
+                    "componentContents": [
+                        {
+                            "id": 11,
+                            "componentCardId": 4,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193727480_0b053fd3.png",
+                            "title": "PhotoViewPicker",
+                            "subTitle": "图库选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "title": "使用布局容器构建页面",
+                    "subTitle": "常用布局",
+                    "styleType": 1,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763192588415_acee5263.png",
+                    "themeColor": "#F08028",
+                    "sequence": 5,
+                    "componentContents": [
+                        {
+                            "id": 12,
+                            "componentCardId": 5,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193744040_775cb0a7.png",
+                            "title": "Column",
+                            "subTitle": "线性布局 - 纵向",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 13,
+                            "componentCardId": 5,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193754271_69c2f208.png",
+                            "title": "Row",
+                            "subTitle": "线性布局 - 横向",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 14,
+                            "componentCardId": 5,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193765209_d7f93377.png",
+                            "title": "Stack",
+                            "subTitle": "层叠布局",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 15,
+                            "componentCardId": 5,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193779307_d00a3bbb.png",
+                            "title": "Flex",
+                            "subTitle": "弹性布局",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "title": "手写笔服务",
+                    "subTitle": "Pen Kit",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763192978744_cea4a9cb.png",
+                    "sequence": 6,
+                    "componentContents": [
+                        {
+                            "id": 16,
+                            "componentCardId": 6,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193792694_98eb3093.png",
+                            "title": "Penkit",
+                            "subTitle": "手写笔服务",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "title": "构建列表类布局",
+                    "subTitle": "常用布局",
+                    "styleType": 2,
+                    "image": "",
+                    "sequence": 7,
+                    "componentContents": [
+                        {
+                            "id": 17,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193810617_bc109841.png",
+                            "title": "List",
+                            "subTitle": "列表",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 18,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193823024_356a1481.png",
+                            "title": "Grid",
+                            "subTitle": "网格",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 19,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193835375_b6196aef.png",
+                            "title": "WaterFlow",
+                            "subTitle": "瀑布流",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 20,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193847315_ee8d794b.png",
+                            "title": "Swiper",
+                            "subTitle": "滑动轮播组件",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 21,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193860107_4f5bf1a0.png",
+                            "title": "Tabs",
+                            "subTitle": "页签",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "title": "AI抠图",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193075863_10552162.png",
+                    "sequence": 8,
+                    "componentContents": [
+                        {
+                            "id": 22,
+                            "componentCardId": 8,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193873503_4b3edbb3.png",
+                            "title": "AI Matting",
+                            "subTitle": "AI抠图",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "title": "给页面添加弹窗",
+                    "subTitle": "消息弹窗",
+                    "styleType": 2,
+                    "image": "",
+                    "sequence": 9,
+                    "componentContents": [
+                        {
+                            "id": 23,
+                            "componentCardId": 9,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193894456_633edf38.png",
+                            "title": "AlertDialog",
+                            "subTitle": "警告弹窗",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 24,
+                            "componentCardId": 9,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193907009_079cd74d.png",
+                            "title": "TextPickerDialog",
+                            "subTitle": "文本滑动选择器弹窗",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 25,
+                            "componentCardId": 9,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193923115_c0e23b4c.png",
+                            "title": "CustomDialog",
+                            "subTitle": "自定义弹窗",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 26,
+                            "componentCardId": 9,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193936106_8eec725c.png",
+                            "title": "ActionSheet",
+                            "subTitle": "列表选择弹窗",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 27,
+                            "componentCardId": 9,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193947097_3cdb71b6.png",
+                            "title": "Popup",
+                            "subTitle": "气泡弹窗",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "title": "AI语音播报",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193150898_9b4b25b6.png",
+                    "sequence": 10,
+                    "componentContents": [
+                        {
+                            "id": 28,
+                            "componentCardId": 10,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193974850_af81c550.png",
+                            "title": "TextToSpeech",
+                            "subTitle": "文本转语音",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "title": "高效拉起系统应用",
+                    "subTitle": "Picker和Linking",
+                    "styleType": 1,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193224935_662c5255.png",
+                    "themeColor": "#20A858",
+                    "sequence": 11,
+                    "componentContents": [
+                        {
+                            "id": 29,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_900_9/b0/v3/component_info/1766739154605_6c2d635a.png",
+                            "title": "CalendarPicker",
+                            "subTitle": "日历选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 30,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194006806_01abab4d.png",
+                            "title": "DatePicker",
+                            "subTitle": "日期滑动选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 31,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194016593_53c7fd13.png",
+                            "title": "DocumentViewPicker",
+                            "subTitle": "文件选择器",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 32,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194028248_c6e62acd.png",
+                            "title": "AppLinking",
+                            "subTitle": "应用拉起",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 12,
+                    "title": "AI语音字幕",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193288249_71e148e2.png",
+                    "sequence": 12,
+                    "componentContents": [
+                        {
+                            "id": 33,
+                            "componentCardId": 12,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194041467_af433343.png",
+                            "title": "AICaptionComponent",
+                            "subTitle": "AI字幕组件",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        }
+                    ]
+                }
+            ],
+            "bannerInfos": [
+                {
+                    "id": 1,
+                    "title": "开发者你好，欢迎来到HMOS代码工坊",
+                    "subTitle": "HarmonyOS代码工坊",
+                    "desc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
+                    "type": 3,
+                    "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763175438389_1d5333c9.png",
+                    "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/hmos-world/index.html",
+                    "sequence": 1
+                },
+                {
+                    "id": 2,
+                    "title": "HMOS代码工坊一多开发实践",
+                    "subTitle": "一次开发，多端部署",
+                    "desc": "探索HarmonyOS代码工坊一多开发实践",
+                    "type": 3,
+                    "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191496899_ada8ae8b.png",
+                    "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/multi-adaptation/index.html",
+                    "sequence": 2
+                },
+                {
+                    "id": 3,
+                    "title": "开箱即用的AI语音播报能力",
+                    "subTitle": "AI朗读",
+                    "desc": "朗读文本转语音，新闻小说即享听。",
+                    "type": 3,
+                    "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191636698_81d51bfb.png",
+                    "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/ai-voice-out-of-box/index.html",
+                    "sequence": 3
+                }
+            ]
         }
-      ],
-      "cardData": [
-        {
-          "id": 1,
-          "cardTitle": "为页面添加文本",
-          "cardSubTitle": "文本类组件",
-          "cardType": 1,
-          "cardStyleType": 1,
-          "cardImage": "image/component/card/text.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 10,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/text.png",
-              "title": "Text",
-              "subTitle": "文本",
-              "tagIds": []
-            },
-            {
-              "id": 42,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/textinput.png",
-              "title": "TextInput",
-              "subTitle": "单行文本输入",
-              "tagIds": []
-            },
-            {
-              "id": 40,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/textarea.png",
-              "title": "TextArea",
-              "subTitle": "多行文本输入",
-              "tagIds": []
-            },
-            {
-              "id": 41,
-              "type": 1,
-              "cardId": 1,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/text/textstyle.png",
-              "title": "TextStyle",
-              "subTitle": "属性字符串",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "cardTitle": "安全使用相机",
-          "cardSubTitle": "CameraPicker",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/camerapicker.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 28,
-              "type": 1,
-              "cardId": 7,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/camerapicker.png",
-              "title": "CameraPicker",
-              "subTitle": "相机选择器",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "cardTitle": "按钮、图片、进度条等",
-          "cardSubTitle": "常用组件",
-          "cardType": 1,
-          "cardStyleType": 2,
-          "cardImage": null,
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 1,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/button.png",
-              "title": "Button",
-              "subTitle": "按钮",
-              "tagIds": []
-            },
-            {
-              "id": 11,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/image.png",
-              "title": "Image",
-              "subTitle": "图片",
-              "tagIds": []
-            },
-            {
-              "id": 13,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/progress.png",
-              "title": "Progress",
-              "subTitle": "进度条",
-              "tagIds": []
-            },
-            {
-              "id": 22,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/rating.png",
-              "title": "Rating",
-              "subTitle": "评分",
-              "tagIds": []
-            },
-            {
-              "id": 2,
-              "type": 1,
-              "cardId": 2,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/common/toggle.png",
-              "title": "Toggle",
-              "subTitle": "开关",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 13,
-          "cardTitle": "安全使用图库",
-          "cardSubTitle": "PhotoPicker",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/photopicker.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 26,
-              "type": 1,
-              "cardId": 13,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/photopicker.png",
-              "title": "PhotoViewPicker",
-              "subTitle": "图库选择器",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "cardTitle": "使用布局容器构建页面",
-          "cardSubTitle": "常用布局",
-          "cardType": 1,
-          "cardStyleType": 1,
-          "cardImage": "image/component/card/layout.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 5,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/column.png",
-              "title": "Column",
-              "subTitle": "线性布局 - 纵向",
-              "tagIds": []
-            },
-            {
-              "id": 6,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/row.png",
-              "title": "Row",
-              "subTitle": "线性布局 - 横向",
-              "tagIds": []
-            },
-            {
-              "id": 7,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/stack.png",
-              "title": "Stack",
-              "subTitle": "层叠布局",
-              "tagIds": []
-            },
-            {
-              "id": 23,
-              "type": 1,
-              "cardId": 4,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/layout/flex.png",
-              "title": "Flex",
-              "subTitle": "弹性布局",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 11,
-          "cardTitle": "手写笔服务",
-          "cardSubTitle": "Pen Kit",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/pankit.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 38,
-              "type": 1,
-              "cardId": 11,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/penkit.png",
-              "title": "Penkit",
-              "subTitle": "手写笔服务",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "cardTitle": "构建列表类布局",
-          "cardSubTitle": "常用布局",
-          "cardType": 1,
-          "cardStyleType": 2,
-          "cardImage": null,
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 9,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/list.png",
-              "title": "List",
-              "subTitle": "列表",
-              "tagIds": []
-            },
-            {
-              "id": 8,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/grid.png",
-              "title": "Grid",
-              "subTitle": "网格",
-              "tagIds": []
-            },
-            {
-              "id": 25,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/waterflow.png",
-              "title": "WaterFlow",
-              "subTitle": "瀑布流",
-              "tagIds": []
-            },
-            {
-              "id": 24,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/swiper.png",
-              "title": "Swiper",
-              "subTitle": "滑动轮播组件",
-              "tagIds": []
-            },
-            {
-              "id": 18,
-              "type": 1,
-              "cardId": 5,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/list/tabs.png",
-              "title": "Tabs",
-              "subTitle": "页签",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 12,
-          "cardTitle": "AI抠图",
-          "cardSubTitle": "开箱即用的AI能力",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/enable_analyzer.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 32,
-              "type": 1,
-              "cardId": 12,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/enable_analyzer.png",
-              "title": "AI Matting",
-              "subTitle": "AI抠图",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 9,
-          "cardTitle": "给页面添加弹窗",
-          "cardSubTitle": "消息弹窗",
-          "cardType": 1,
-          "cardStyleType": 2,
-          "cardImage": null,
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 20,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/alert_dialog.png",
-              "title": "AlertDialog",
-              "subTitle": "警告弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 21,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/text_dialog.png",
-              "title": "TextPickerDialog",
-              "subTitle": "文本滑动选择器弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 35,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/custom_dialog.png",
-              "title": "CustomDialog",
-              "subTitle": "自定义弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 33,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/action_sheet.png",
-              "title": "ActionSheet",
-              "subTitle": "列表选择弹窗",
-              "tagIds": []
-            },
-            {
-              "id": 34,
-              "type": 1,
-              "cardId": 9,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/dialog/popup.png",
-              "title": "Popup",
-              "subTitle": "气泡弹窗",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "cardTitle": "AI语音播报",
-          "cardSubTitle": "开箱即用的AI能力",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/texttospeech.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 29,
-              "type": 1,
-              "cardId": 6,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/texttospeech.png",
-              "title": "TextToSpeech",
-              "subTitle": "文本转语音",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 8,
-          "cardTitle": "高效拉起系统应用",
-          "cardSubTitle": "Picker和Linking",
-          "cardType": 1,
-          "cardStyleType": 1,
-          "cardImage": "image/component/card/link.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 14,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/calendar_picker.png",
-              "title": "CalendarPicker",
-              "subTitle": "日历选择器",
-              "tagIds": []
-            },
-            {
-              "id": 15,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/date_picker.png",
-              "title": "DatePicker",
-              "subTitle": "日期滑动选择器",
-              "tagIds": []
-            },
-            {
-              "id": 27,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/document_picker.png",
-              "title": "DocumentViewPicker",
-              "subTitle": "文件选择器",
-              "tagIds": []
-            },
-            {
-              "id": 36,
-              "type": 1,
-              "cardId": 8,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/link/linking.png",
-              "title": "AppLinking",
-              "subTitle": "应用拉起",
-              "tagIds": []
-            }
-          ]
-        },
-        {
-          "id": 10,
-          "cardTitle": "AI语音字幕",
-          "cardSubTitle": "开箱即用的AI能力",
-          "cardType": 1,
-          "cardStyleType": 3,
-          "cardImage": "image/component/card/ai_caption_component.png",
-          "version": 1000000,
-          "cardContents": [
-            {
-              "id": 30,
-              "type": 1,
-              "cardId": 10,
-              "mediaType": 1,
-              "mediaUrl": "image/component/icon/ai_caption_component.png",
-              "title": "AICaptionComponent",
-              "subTitle": "AI字幕组件",
-              "tagIds": []
-            }
-          ]
-        }
-      ]
     }
-  }
 }

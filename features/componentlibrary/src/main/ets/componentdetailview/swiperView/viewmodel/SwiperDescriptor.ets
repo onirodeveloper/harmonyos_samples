@@ -15,13 +15,14 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { indicatorEffectMapping, indicatorStyleMapData } from '../entity/SwiperAttributeMapping';
 
 @Observed
 export class SwiperDescriptor extends CommonDescriptor {
-  public indicator: DotIndicator | DigitIndicator | boolean = indicatorStyleMapData.get('Default')!.value;
+  public indicator: DotIndicator | DigitIndicator | boolean = indicatorStyleMapData.get(DEFAULT_KEY)!.value;
   public vertical: boolean = false;
-  public effectMode: EdgeEffect = indicatorEffectMapping.get('Default')!.value;
+  public effectMode: EdgeEffect = indicatorEffectMapping.get(DEFAULT_KEY)!.value;
   public isDisplayArrow: boolean = true;
   public displayArrow: ArrowStyle | boolean = false;
   public autoPlay: boolean = true;
@@ -33,7 +34,7 @@ export class SwiperDescriptor extends CommonDescriptor {
           this.indicator = indicatorStyleMapData.get(attribute.currentValue)?.value ?? this.indicator;
           break;
         case 'vertical':
-          this.vertical = JSON.parse(attribute.currentValue);
+          this.vertical = (attribute.currentValue?.toLowerCase() === 'true');
           break;
         case 'effectMode':
           this.effectMode = indicatorEffectMapping.get(attribute.currentValue)?.value ?? this.effectMode;

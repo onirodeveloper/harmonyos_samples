@@ -15,6 +15,7 @@
 
 import { curves } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { CommonConstants, LoadingStatus, Logger, WebUtil } from '@ohos/common';
 import { DiscoveryConstant } from '../common/DiscoveryConstant';
 import { ArticleWebComponent } from '../component/ArticleWebComponent';
@@ -53,11 +54,11 @@ struct BannerDetailView {
       this.webController = WebUtil.getWebController(this.discoverContent.detailsUrl)!;
       try {
         if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(method) >= 0) {
-          this.webController.runJavaScriptExt(
+          this.webController?.runJavaScriptExt(
             method,
             (error, result) => {
               if (error) {
-                reject(`Run javascript error. ${JSON.stringify(error)}`);
+                reject(`Run javascript error. Cause: ${error.message}`);
               }
               if (result) {
                 const type = result.getType();
@@ -72,7 +73,7 @@ struct BannerDetailView {
           Logger.error(TAG, `Input method ${method} not in whitelist`);
         }
       } catch (error) {
-        reject(`Run javascript failed error.${JSON.stringify(error)}`);
+        reject(`Run javascript failed error. Cause: ${error.message}`);
       }
     });
   }
@@ -80,7 +81,7 @@ struct BannerDetailView {
   customBackPressed(): boolean {
     // Suppress repeated triggers occurring within 1 second
     const now = Date.now();
-    if (now - this.lastBackTs < DiscoveryConstant.CLICK_TIME_INTERVAL) {
+    if (now - this.lastBackTs < DiscoveryConstant.CLICK_TIME_INTERVAL_MS) {
       return true;
     }
     this.lastBackTs = now;
@@ -89,7 +90,10 @@ struct BannerDetailView {
         if (res) {
           const closePreviewMethod: string = 'closePreview()';
           if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(closePreviewMethod) >= 0) {
-            this.webController.runJavaScript(closePreviewMethod);
+            this.webController?.runJavaScript(closePreviewMethod)
+              .catch((error: BusinessError) => {
+                Logger.error(TAG, `runJavaScript failed. Cause: ${error.message}`);
+              });
           } else {
             Logger.error(TAG, `Input method ${closePreviewMethod} not in whitelist`);
           }
@@ -110,16 +114,21 @@ struct BannerDetailView {
     this.getUIContext().animateTo({
       curve: curves.interpolatingSpring(0, 1, 363, 38),
     }, () => {
-      WebUtil.getWebController(this.discoverContent.detailsUrl)?.onInactive();
-      this.viewModel.sendEvent<PopParam>({
-        type: ExplorationDetailEventType.POP,
-        param: { animation: isAnimation, tabBarView: this.tabViewType },
-      });
+      try {
+        WebUtil.getWebController(this.discoverContent.detailsUrl)?.onInactive();
+      } catch (error) {
+        Logger.error(TAG, `WebController.onInactive failed. Cause message: ${error.message}`);
+      } finally {
+        this.viewModel.sendEvent<PopParam>({
+          type: ExplorationDetailEventType.POP,
+          param: { animation: isAnimation, tabBarView: this.tabViewType },
+        });
+      }
     });
   }
 
   handleOnReady(cxt: NavDestinationContext) {
-    const params = cxt.pathInfo.param as Record<string, string | number | boolean>;
+    const params = cxt?.pathInfo?.param as Record<string, string | number | boolean>;
     this.discoverContent.id = params.id as number;
     this.discoverContent.detailsUrl = params.detailsUrl as string;
     this.discoverContent.title = params.title as string;
@@ -136,7 +145,7 @@ struct BannerDetailView {
     this.viewModel.sendEvent<AssignPathStackParam>({
       type: ExplorationDetailEventType.ASSIGN_PATH_STACK,
       param: {
-        navPathStack: cxt.pathStack
+        navPathStack: cxt?.pathStack
       }
     });
   }

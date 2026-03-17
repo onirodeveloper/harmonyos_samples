@@ -19,15 +19,21 @@ import {
   EmptyContentView,
   GlobalInfoModel,
   HmosListItem,
-  StorageKey
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData
 } from '@ohos/common';
 import { CardTypeEnum } from '@ohos/commonbusiness';
-import { ContentData, JumpToPage, NewContentVM } from '../viewmodel/NewContentVM';
+import { NewContentData } from '../model/NewContentData';
+import { JumpToPage, NewContentVM } from '../viewmodel/NewContentVM';
 
 @Component
 export struct NewContentItem {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-  @Prop @Require contentData: ContentData[] = [];
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  @Prop @Require contentData: NewContentData[] = [];
   @Prop @Require emptyDescription: Resource;
   private viewModel: NewContentVM = NewContentVM.getInstance();
 
@@ -39,7 +45,7 @@ export struct NewContentItem {
         .fontColor($r('sys.color.font_tertiary'))
         .margin({
           top: $r('sys.float.padding_level24'),
-          bottom: CommonConstants.SPACE_24 + this.globalInfoModel.naviIndicatorHeight,
+          bottom: CommonConstants.SPACE_24 + this.globalInfoModel?.naviIndicatorHeight,
         })
     }
     .justifyContent(FlexAlign.Center)
@@ -54,18 +60,31 @@ export struct NewContentItem {
       } else {
         List() {
           ListItemGroup() {
-            ForEach(this.contentData, (item: ContentData) => {
+            ForEach(this.contentData, (item: NewContentData) => {
               ListItem() {
-                HmosListItem({
-                  title: item.title,
-                  subTitle: item.subTitle,
-                  itemHeight: $r('app.float.content_item_height'),
-                  buttonTitle: item.type !== CardTypeEnum.ARTICLE ? $r('app.string.view') : undefined,
-                  widthBreakpoint: this.globalInfoModel.widthBreakpoint,
-                  handleClickAction: () => {
-                    this.viewModel.sendEvent(new JumpToPage(item));
-                  },
-                })
+                TrackNode({
+                  eventType: item.contentType === CardTypeEnum.COMPONENT ? TrackEventType.COMPONENT_EXPOSURE :
+                    item.contentType === CardTypeEnum.SAMPLE ? TrackEventType.SAMPLE_EXPOSURE :
+                      TrackEventType.ARTICLE_EXPOSURE
+                }) {
+                  HmosListItem({
+                    title: item.title,
+                    subTitle: item.subTitle,
+                    itemHeight: $r('app.float.content_item_height'),
+                    buttonTitle: item.contentType !== CardTypeEnum.ARTICLE ? $r('app.string.view') : undefined,
+                    widthBreakpoint: this.globalInfoModel?.widthBreakpoint,
+                    handleClickAction: () => {
+                      this.viewModel.sendEvent(new JumpToPage(item));
+                    },
+                  })
+                    .customProperty(TRACK_KEY, {
+                      content: item.title,
+                      moduleType: item.contentType,
+                      eventType: item.contentType === CardTypeEnum.COMPONENT ? TrackEventType.COMPONENT_CLICK :
+                        item.contentType === CardTypeEnum.SAMPLE ? TrackEventType.SAMPLE_CLICK :
+                          TrackEventType.ARTICLE_CLICK
+                    } as TrackServiceData)
+                }
               }
               .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
               .height($r('app.float.content_item_height'))

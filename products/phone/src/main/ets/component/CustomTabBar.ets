@@ -13,17 +13,18 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, CommonConstants } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import type { TabBarData } from '../model/TabBarModel';
 import { TABS_LIST } from '../model/TabBarModel';
 
 @Component
 export struct CustomTabBar {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.BLUE_RENDER_GROUP) blurRenderGroup: boolean = false;
   @Prop @Require currentIndex: number;
-  tabBarChange: (index: number) => void = (index: number) => {
+  @State symbolEffect: BounceSymbolEffect = new BounceSymbolEffect(EffectScope.LAYER, EffectDirection.UP);
+  tabBarChange: (index: number) => void = (_index: number) => {
   };
 
   @Builder
@@ -34,7 +35,7 @@ export struct CustomTabBar {
         .fontColor(tabBar.id === this.currentIndex ? [$r('sys.color.interactive_active')] :
           [$r('sys.color.font_tertiary')])
         .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
-        .symbolEffect(new BounceSymbolEffect(EffectScope.LAYER, EffectDirection.UP), tabBar.id === this.currentIndex)
+        .symbolEffect(this.symbolEffect, tabBar.id === this.currentIndex)
       Text(tabBar.title)
         .fontSize($r('sys.float.Caption_M'))
         .margin({ top: $r('sys.float.padding_level1') })
@@ -72,7 +73,7 @@ export struct CustomTabBar {
       }) {
         ForEach(TABS_LIST, (item: TabBarData) => {
           this.TabItemBuilder(item)
-        }, (item: TabBarData) => JSON.stringify(item) + this.currentIndex)
+        }, (item: TabBarData, index: number) => item.id.toString() + (this.currentIndex === index))
       }
       .size(new BreakpointType<SizeOptions>({
         sm: { width: '100%', height: CommonConstants.TAB_BAR_HEIGHT },

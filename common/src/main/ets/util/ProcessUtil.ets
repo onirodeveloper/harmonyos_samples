@@ -22,6 +22,10 @@ const TAG = '[ProcessUtil]';
 export class ProcessUtil {
   public static terminateAbility(context: common.UIAbilityContext): void {
     try {
+      if (!context) {
+        Logger.error(TAG, `terminateAbility failed, cause context is null or undefined.`);
+        return;
+      }
       context.terminateSelf().then(() => {
         Logger.info(TAG, 'terminateSelf succeed');
       }).catch((err: BusinessError) => {
@@ -35,6 +39,10 @@ export class ProcessUtil {
 
   public static moveAbilityToBackground(context: common.UIAbilityContext): void {
     try {
+      if (!context) {
+        Logger.error(TAG, `moveAbilityToBackground failed, cause context is null or undefined.`);
+        return;
+      }
       context.moveAbilityToBackground().then(() => {
         Logger.info(TAG, 'moveAbilityToBackground succeed');
       }).catch((err: BusinessError) => {
@@ -48,6 +56,10 @@ export class ProcessUtil {
 
   public static startAbility(context: common.UIAbilityContext, want: Want, options?: StartOptions): Promise<boolean> {
     try {
+      if (!context) {
+        Logger.error(TAG, `startAbility failed, cause context is null or undefined.`);
+        return Promise.resolve(false);
+      }
       return context.startAbility(want, options).then(() => {
         Logger.info(TAG, 'startAbility succeed');
         return true;

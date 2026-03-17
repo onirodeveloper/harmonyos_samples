@@ -22,8 +22,15 @@ export class FlexAttributeFilter implements CommonAttributeFilter {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'wrap':
-          const alignSelfIndex = attributes.findIndex((item) => item.name === 'alignSelf');
-          const alignContentIndex = attributes.findIndex((item) => item.name === 'alignContent');
+          let alignSelfIndex = -1;
+          let alignContentIndex = -1
+          attributes.forEach((item, index) => {
+            if (item.name === 'alignSelf') {
+              alignSelfIndex = index;
+            } else if (item.name === 'alignContent') {
+              alignContentIndex = index;
+            }
+          });
           if (alignSelfIndex !== -1 && alignContentIndex !== -1) {
             if (attribute.currentValue === 'Wrap' || attribute.currentValue === 'WrapReverse') {
               attributes[alignSelfIndex].enable = false;

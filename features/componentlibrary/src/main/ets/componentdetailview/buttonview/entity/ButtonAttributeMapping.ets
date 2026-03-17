@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonColorMapping } from '../../common/entity/CommonMapData';
+import { CommonColorMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class ButtonStyleMapping {
  public code: string;
@@ -59,27 +59,27 @@ export const styleMapData: Map<string, ButtonStyleMapping> = new Map([
   ['Normal', new ButtonStyleMapping('ButtonStyleMode.NORMAL', ButtonStyleMode.NORMAL)],
   ['Emphasized', new ButtonStyleMapping('ButtonStyleMode.EMPHASIZED', ButtonStyleMode.EMPHASIZED)],
   ['Textual', new ButtonStyleMapping('ButtonStyleMode.TEXTUAL', ButtonStyleMode.TEXTUAL)],
-  ['Default', new ButtonStyleMapping('ButtonStyleMode.EMPHASIZED', ButtonStyleMode.EMPHASIZED)],
+  [DEFAULT_KEY, new ButtonStyleMapping('ButtonStyleMode.EMPHASIZED', ButtonStyleMode.EMPHASIZED)],
 ]);
 
 export const sizeMapData: Map<string, ControlSizeMapping> = new Map([
   ['Normal', new ControlSizeMapping('ControlSize.NORMAL', ControlSize.NORMAL)],
   ['Small', new ControlSizeMapping('ControlSize.SMALL', ControlSize.SMALL)],
-  ['Default', new ControlSizeMapping('ControlSize.SMALL', ControlSize.SMALL)],
+  [DEFAULT_KEY, new ControlSizeMapping('ControlSize.SMALL', ControlSize.SMALL)],
 ]);
 
 export const buttonTypeMapData: Map<string, ButtonTypeMapping> = new Map([
   ['Capsule', new ButtonTypeMapping('ButtonType.Capsule', ButtonType.Capsule)],
   ['Normal', new ButtonTypeMapping('ButtonType.Normal', ButtonType.Normal)],
-  ['Default', new ButtonTypeMapping('ButtonType.Capsule', ButtonType.Capsule)],
+  [DEFAULT_KEY, new ButtonTypeMapping('ButtonType.Capsule', ButtonType.Capsule)],
 ]);
 
 export const buttonBgColorMap: Map<string, CommonColorMapping> = new Map([
-  ['Default', new CommonColorMapping('rgb(255, 255, 255)', 'rgb(255, 255, 255)')],
+  [DEFAULT_KEY, new CommonColorMapping('rgb(255, 255, 255)', 'rgb(255, 255, 255)')],
 ]);
 
 export const buttonActionMap: Map<string, ButtonActionMapping> = new Map([
   ['Click', new ButtonActionMapping('Click', 'Click')],
   ['LongGesture', new ButtonActionMapping('LongGesture', 'LongGesture')],
-  ['Default', new ButtonActionMapping('Click', 'Click')],
+  [DEFAULT_KEY, new ButtonActionMapping('Click', 'Click')],
 ]);

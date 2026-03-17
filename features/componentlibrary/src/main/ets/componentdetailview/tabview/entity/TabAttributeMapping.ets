@@ -14,7 +14,7 @@
  */
 
 
-import { CommonBoolMapping, CommonStringMapping } from '../../common/entity/CommonMapData';
+import { CommonBoolMapping, CommonStringMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 type TabsValue = BarPosition | BlurStyle;
 
@@ -29,13 +29,13 @@ class TabsMapping {
 }
 
 export const barPositionMapData: Map<string, TabsMapping> = new Map([
-  ['Default', new TabsMapping('BarPosition.Start', BarPosition.Start)],
+  [DEFAULT_KEY, new TabsMapping('BarPosition.Start', BarPosition.Start)],
   ['Start', new TabsMapping('BarPosition.Start', BarPosition.Start)],
   ['End', new TabsMapping('BarPosition.End', BarPosition.End)],
 ]);
 
 export const blurStyleMapData: Map<string, TabsMapping> = new Map([
-  ['Default', new TabsMapping('BlurStyle.NONE', BlurStyle.NONE)],
+  [DEFAULT_KEY, new TabsMapping('BlurStyle.NONE', BlurStyle.NONE)],
   ['None', new TabsMapping('BlurStyle.NONE', BlurStyle.NONE)],
   ['Thin', new TabsMapping('BlurStyle.Thin', BlurStyle.Thin)],
   ['Regular', new TabsMapping('BlurStyle.Regular', BlurStyle.Regular)],
@@ -52,17 +52,17 @@ export const blurStyleMapData: Map<string, TabsMapping> = new Map([
 ]);
 
 export const fadingEdgeMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('true', true)],
+  [DEFAULT_KEY, new CommonBoolMapping('true', true)],
 ]);
 
 export const verticalMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('false', false)],
+  [DEFAULT_KEY, new CommonBoolMapping('false', false)],
 ]);
 
 export const barWidthMapData: Map<string, CommonStringMapping> = new Map([
-  ['Default', new CommonStringMapping('56vp', '56vp')],
+  [DEFAULT_KEY, new CommonStringMapping('56vp', '56vp')],
 ]);
 
 export const barHeightMapData: Map<string, CommonStringMapping> = new Map([
-  ['Default', new CommonStringMapping('30vp', '30vp')],
+  [DEFAULT_KEY, new CommonStringMapping('30vp', '30vp')],
 ]);

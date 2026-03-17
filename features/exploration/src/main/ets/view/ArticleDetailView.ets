@@ -14,6 +14,7 @@
  */
 
 import { webview } from '@kit.ArkWeb';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { CommonConstants, LoadingStatus, Logger, WebUtil } from '@ohos/common';
 import { ArticleWebComponent } from '../component/ArticleWebComponent';
 import { DiscoverContent } from '../model/DiscoverData';
@@ -46,11 +47,11 @@ struct ArticleDetailView {
       this.webController = WebUtil.getWebController(this.discoverContent.detailsUrl)!;
       try {
         if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(method) >= 0) {
-          this.webController.runJavaScriptExt(
+          this.webController?.runJavaScriptExt(
             method,
             (error, result) => {
               if (error) {
-                reject(`Run javascript error. ${JSON.stringify(error)}`);
+                reject(`Run javascript error. Cause: ${error.message}`);
               }
               if (result) {
                 const type = result.getType();
@@ -65,7 +66,7 @@ struct ArticleDetailView {
           Logger.error(TAG, `Input method ${method} not in whitelist`);
         }
       } catch (error) {
-        reject(`Run javascript failed error.${JSON.stringify(error)}`);
+        reject(`Run javascript failed error. Cause: ${error.message}`);
       }
     });
   }
@@ -76,7 +77,10 @@ struct ArticleDetailView {
         if (res) {
           const closePreviewMethod: string = 'closePreview()';
           if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(closePreviewMethod) >= 0) {
-            this.webController.runJavaScript(closePreviewMethod);
+            this.webController?.runJavaScript(closePreviewMethod)
+              .catch((error: BusinessError) => {
+                Logger.error(TAG, `runJavaScript failed. Cause: ${error.message}`);
+            });
           } else {
             Logger.error(TAG, `Input method ${closePreviewMethod} not in whitelist`);
           }
@@ -93,7 +97,7 @@ struct ArticleDetailView {
 
   popAction(isAnimation: boolean) {
     try {
-      this.webController.onInactive();
+      this.webController?.onInactive();
     } catch {
       Logger.error(TAG, `PopAction onInactive failed.`);
     }
@@ -114,14 +118,14 @@ struct ArticleDetailView {
     }
     .defaultFocus(true)
     .onReady((cxt: NavDestinationContext) => {
-      const params = cxt.pathInfo.param as Record<string, string | number | boolean>;
+      const params = cxt?.pathInfo?.param as Record<string, string | number | boolean>;
       this.discoverContent.id = params.id as number;
       this.discoverContent.detailsUrl = params.detailsUrl as string;
       this.discoverContent.title = params.title as string;
       this.viewModel.sendEvent<AssignPathStackParam>({
         type: ExplorationDetailEventType.ASSIGN_PATH_STACK,
         param: {
-          navPathStack: cxt.pathStack
+          navPathStack: cxt?.pathStack
         }
       });
       this.viewModel.sendEvent<DetailParam>({

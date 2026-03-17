@@ -15,7 +15,7 @@
 
 import { Toast } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
-import { CommonBoolMapping } from '../../common/entity/CommonMapData';
+import { CommonBoolMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class ActionSheetInfoMapping {
   public code: string;
@@ -28,11 +28,11 @@ class ActionSheetInfoMapping {
 }
 
 export const autoCancelMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('true', true)],
+  [DEFAULT_KEY, new CommonBoolMapping('true', true)],
 ]);
 
 export const transitionMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('true', true)],
+  [DEFAULT_KEY, new CommonBoolMapping('true', true)],
 ]);
 
 const sheetOne: SheetInfo[] = [
@@ -164,20 +164,20 @@ const sheetTwoStr: string = `[{
             }]`;
 
 export const actionSheetInfoMapData: Map<string, ActionSheetInfoMapping> = new Map([
-  ['Default', new ActionSheetInfoMapping(sheetOneStr, sheetOne)],
+  [DEFAULT_KEY, new ActionSheetInfoMapping(sheetOneStr, sheetOne)],
   ['sheetInfo1', new ActionSheetInfoMapping(sheetTwoStr, sheetTwo)],
   ['sheetInfo2', new ActionSheetInfoMapping(sheetOneStr, sheetOne)],
 ]);
 
 const transitionAppearCode: string = `TransitionEffect.OPACITY
-                .animation({ duration: 500, curve: Curve.Sharp })
+                .animation({ duration: ${DetailPageConstant.ANIMATION_DURATION}, curve: Curve.Sharp })
                 .combine(TransitionEffect.scale({ x: 1.5, y: 1.5 })
-                .animation({ duration: 500, curve: Curve.Sharp }))`;
+                .animation({ duration: ${DetailPageConstant.ANIMATION_DURATION}, curve: Curve.Sharp }))`;
 
 const transitionDisappearCode: string = `TransitionEffect.OPACITY
-                .animation({ duration: 300, curve: Curve.Smooth })
+                .animation({ duration: ${DetailPageConstant.ANIMATION_DURATION_SHORT}, curve: Curve.Smooth })
                 .combine(TransitionEffect.scale({ x: 0.5, y: 0.5 })
-                .animation({ duration: 300, curve: Curve.Smooth }))`;
+                .animation({ duration:  ${DetailPageConstant.ANIMATION_DURATION_SHORT}, curve: Curve.Smooth }))`;
 
 class TransitionMap {
   public code: string;
@@ -190,7 +190,7 @@ class TransitionMap {
 }
 
 export const transitionAppearMapData: Map<string, TransitionMap> = new Map([
-  ['Default',
+  [DEFAULT_KEY,
     new TransitionMap(transitionAppearCode,
       TransitionEffect.OPACITY.animation({ duration: DetailPageConstant.ANIMATION_DURATION, curve: Curve.Sharp })
         .combine(TransitionEffect.scale({ x: 1.5, y: 1.5 })
@@ -198,7 +198,7 @@ export const transitionAppearMapData: Map<string, TransitionMap> = new Map([
 ]);
 
 export const transitionDisAppearMapData: Map<string, TransitionMap> = new Map([
-  ['Default',
+  [DEFAULT_KEY,
     new TransitionMap(transitionDisappearCode,
       TransitionEffect.OPACITY.animation({ duration: DetailPageConstant.ANIMATION_DURATION_SHORT, curve: Curve.Smooth })
         .combine(TransitionEffect.scale({ x: 0.5, y: 0.5 })

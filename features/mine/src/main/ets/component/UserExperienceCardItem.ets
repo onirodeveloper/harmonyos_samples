@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel, } from '@ohos/common';
-import { CommonConstants, StorageKey } from '@ohos/common';
+import { CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 
 @Component
 export struct UserExperienceCardItem {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @BuilderParam contentView: () => void = this.defaultBuilder;
   textContent?: ResourceStr;
   subTextContent?: ResourceStr;
@@ -54,6 +54,7 @@ export struct UserExperienceCardItem {
       }
       .alignItems(HorizontalAlign.Start)
       .padding($r('sys.float.padding_level6'))
+
       Blank()
       Image($r('app.media.userExperience'))
         .height($r('app.float.user_experience_size'))

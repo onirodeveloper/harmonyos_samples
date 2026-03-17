@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { BusinessError } from '@kit.BasicServicesKit';
 import type { SingleSampleData } from '../model/SampleDetailData';
 import { SampleService } from '../service/SampleService';
 
@@ -30,17 +31,22 @@ export class SampleDetailModel {
     return SampleDetailModel.instance;
   }
 
-  public getSampleCardDetails(sampleCardId: number): Promise<SingleSampleData[]> {
-    return this.service.getSampleDetailsByPreference(sampleCardId)
-      .then((data: SingleSampleData[]) => {
-        return data;
-      })
-      .catch(() => {
-        return this.service.getSampleDetails(sampleCardId)
-          .then((data: SingleSampleData[]) => {
-            this.service.setSampleDetailToPreference(sampleCardId, data);
-            return data;
-          });
-      });
+  public getSampleCardDetails(sampleId: number, sampleCardId: number, isUnion: boolean): Promise<SingleSampleData[]> {
+    return new Promise((resolve, reject) => {
+      this.service.getSampleDetails(sampleId, sampleCardId, isUnion)
+        .then((data: SingleSampleData[]) => {
+          this.service.setSampleDetailToPreference(sampleCardId, data);
+          resolve(data);
+        })
+        .catch((error: BusinessError) => {
+          this.service.getSampleDetailsByPreference(sampleCardId)
+            .then((data: SingleSampleData[]) => {
+              resolve(data);
+            })
+            .catch(() => {
+              reject(error);
+            });
+        });
+    });
   }
 }

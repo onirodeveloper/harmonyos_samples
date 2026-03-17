@@ -14,29 +14,29 @@
  */
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
-import { highlightColorMap } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY, highlightColorMap } from '../../common/entity/CommonMapData';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
 import { textInputFontMapData, textInputTypeMapData } from '../entity/TextInputAttributeMapping';
 
 @Observed
 export class TextInputDescriptor extends CommonDescriptor {
-  public type: InputType = textInputTypeMapData.get('Default')!.value;
-  public fontColor: string = highlightColorMap.get('Default')!.value;
-  public placeholderFont: Font = textInputFontMapData.get('Default')!.value;
+  public type: InputType = textInputTypeMapData.get(DEFAULT_KEY)!.value;
+  public fontColor: string = highlightColorMap.get(DEFAULT_KEY)!.value;
+  public placeholderFont: Font = textInputFontMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'type':
           this.type =
-            textInputTypeMapData.get(attribute.currentValue)?.value ?? textInputTypeMapData.get('Default')!.value;
+            textInputTypeMapData.get(attribute.currentValue)?.value ?? textInputTypeMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'fontColor':
           this.fontColor = attribute.currentValue;
           break;
         case 'placeholderFont':
           this.placeholderFont =
-            textInputFontMapData.get(attribute.currentValue)?.value ?? textInputFontMapData.get('Default')!.value;
+            textInputFontMapData.get(attribute.currentValue)?.value ?? textInputFontMapData.get(DEFAULT_KEY)!.value;
           break;
         default:
           break;

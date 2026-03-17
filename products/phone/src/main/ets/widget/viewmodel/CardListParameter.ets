@@ -13,55 +13,49 @@
  * limitations under the License.
  */
 
-export class CardListParameter {
+export interface CardListParameter {
   /**
    * Card background color.
    */
-  public backgroundColor: ResourceColor = '';
+  backgroundColor: ResourceColor;
+
   /**
    * Background image.
    */
-  public backgroundImage: ResourceStr = '';
+  backgroundImage: ResourceStr;
+
   /**
    * ImageSize of background image.
    */
-  public backgroundImageSize?: ImageSize = ImageSize.Auto;
+  backgroundImageSize?: ImageSize;
+
   /**
    * Card list title.
    */
-  public title: ResourceStr = '';
+  title: ResourceStr;
+
   /**
    * Card list title color.
    */
-  public titleColor: ResourceColor = $r('sys.color.comp_background_primary');
+  titleColor: ResourceColor;
+
   /**
    * Logo icon.
    */
-  public logo: ResourceStr = '';
+  logo: ResourceStr;
+
   /**
    * Card list subtitle.
    */
-  public subTitle?: ResourceStr = '';
+  subTitle?: ResourceStr;
+
   /**
    * Card list subtitle color.
    */
-  public subTitleColor?: ResourceColor;
+  subTitleColor?: ResourceColor;
+
   /**
    * Card list arrow icon.
    */
-  public rightArrowIcon?: Resource;
-
-  constructor(backgroundColor: ResourceColor, title: ResourceStr, backgroundImage: ResourceStr,
-    backgroundImageSize: ImageSize, titleColor: ResourceColor, logo: ResourceStr, subTitle?: ResourceStr,
-    subTitleColor?: ResourceColor, rightArrowIcon?: Resource) {
-    this.backgroundColor = backgroundColor;
-    this.title = title;
-    this.backgroundImage = backgroundImage;
-    this.backgroundImageSize = backgroundImageSize;
-    this.titleColor = titleColor;
-    this.logo = logo;
-    this.subTitle = subTitle;
-    this.subTitleColor = subTitleColor;
-    this.rightArrowIcon = rightArrowIcon;
-  }
+  rightArrowIcon?: Resource;
 }

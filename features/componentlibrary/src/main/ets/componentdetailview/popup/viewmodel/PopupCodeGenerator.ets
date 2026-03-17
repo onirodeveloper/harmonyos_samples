@@ -15,11 +15,12 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { placementMapData, PopupStyle, popupStyleCodeMapData, popupStyleMapData } from '../entity/PopupMapping';
 
 export class PopupCodeGenerator implements CommonCodeGenerator {
-  private placement: string = placementMapData.get('Default')!.code;
-  private type: PopupStyle = popupStyleMapData.get('Default')!;
+  private placement: string = placementMapData.get(DEFAULT_KEY)!.code;
+  private type: PopupStyle = popupStyleMapData.get(DEFAULT_KEY)!;
   private styleCode: string = popupStyleCodeMapData.get(this.type)!;
 
   public generate(_attributes: OriginAttribute[]): string {

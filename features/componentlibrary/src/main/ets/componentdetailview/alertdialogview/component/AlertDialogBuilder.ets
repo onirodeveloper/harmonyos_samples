@@ -29,8 +29,8 @@ export function AlertDialogBuilder($$: DescriptorWrapper) {
       .fontSize($r('sys.float.Body_L'))
       .fontColor($r('sys.color.font_emphasize'))
       .onClick(() => {
-        const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-        uiContext.showAlertDialog(
+        const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+        uiContext?.showAlertDialog(
           {
             title: $r('app.string.title'),
             subtitle: $r('app.string.subtitle'),

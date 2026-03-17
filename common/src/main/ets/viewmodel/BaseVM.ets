@@ -27,5 +27,5 @@ export abstract class BaseVM<T extends BaseState> {
     return this.state;
   }
 
-  public abstract sendEvent(baseVMEvent: BaseVMEvent);
+  abstract sendEvent(baseVMEvent: BaseVMEvent);
 }

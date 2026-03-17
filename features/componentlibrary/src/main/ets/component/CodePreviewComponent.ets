@@ -18,18 +18,24 @@ import { uniformTypeDescriptor as utd } from '@kit.ArkData';
 import { window } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
 import { systemShare } from '@kit.ShareKit';
-import { GlobalInfoModel, TopNavigationView, VersionUtil } from '@ohos/common';
 import {
   CommonConstants,
+  GlobalInfoModel,
   Logger,
   ResourceUtil,
   ScreenOrientation,
   StorageKey,
   Toast,
+  TopNavigationView,
+  TRACK_KEY,
+  TrackEventType,
+  TrackServiceData,
+  VersionUtil,
   WebNodeController,
   WIDTH_BREAKPOINTS,
-  WindowUtil,
+  WindowUtil
 } from '@ohos/common';
+import { CardTypeEnum } from '@ohos/commonbusiness';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 
 const TAG: string = '[CodePreviewComponent]';
@@ -37,8 +43,12 @@ const TAG: string = '[CodePreviewComponent]';
 @Component
 export struct CodePreviewComponent {
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+  @State isDarkMode: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+  colorMode: ConfigurationConstant.ColorMode = this.systemColorMode;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
+  @State screenOrientation: string = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
+    ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
   @Prop @Watch('flushCode') code: string = '';
   @Prop pageContainer: boolean = false;
   @Prop isFocus: boolean = false;
@@ -46,22 +56,20 @@ export struct CodePreviewComponent {
   @Prop topTranslateY: number = 0;
   @Prop bottomTranslateY: number = 0;
   @Prop navigationOpacity: number = 1;
-  colorMode: ConfigurationConstant.ColorMode = this.systemColorMode;
-  @State isDarkMode: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-  @State screenOrientation: string = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
-    ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
   @State isFloatWindowType: boolean = false;
   @State isHover: boolean = false;
   @Link webNodeController: WebNodeController;
   onBackPage?: () => void;
   public pushPage?: (value: string) => void;
   public componentName: string = '';
+  public contentType: CardTypeEnum = CardTypeEnum.COMPONENT;
   private windowClass: window.Window | undefined = undefined;
   private topIconItems: ItemData[] = [
     new ItemData(
       {
         iconResource: $r('sys.symbol.arrow_up_left_and_arrow_down_right'),
       } as ResourceInterface,
+      TrackEventType.UNKNOWN,
       () => {
         this.pushPage?.(this.code);
       }, 0)
@@ -71,6 +79,7 @@ export struct CodePreviewComponent {
       {
         iconResource: $r('sys.symbol.share'),
       } as ResourceInterface,
+      TrackEventType.COMPONENT_CODE_SHARE_CLICK,
       () => {
         this.handleShare();
       }, 5);
@@ -79,8 +88,9 @@ export struct CodePreviewComponent {
       {
         iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
           $r('sys.symbol.plus_square_on_square') : $r('sys.symbol.plus_square_on_square_fill'),
-        iconTitle: $r('app.string.copy')
+        iconTitle: $r('app.string.copy'),
       } as ResourceInterface,
+      TrackEventType.COMPONENT_CODE_COPY_CLICK,
       () => {
         this.copyText(this.code);
       }, 0),
@@ -90,6 +100,7 @@ export struct CodePreviewComponent {
           $r('sys.symbol.sun_max') : $r('sys.symbol.sun_max_fill'),
         iconTitle: $r('app.string.dark_mode'),
       } as ResourceInterface,
+      TrackEventType.UNKNOWN,
       () => {
         this.changeColorMode();
       }, 1,
@@ -102,8 +113,9 @@ export struct CodePreviewComponent {
       {
         iconResource: $r('sys.symbol.screen_rotation'),
         iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-          $r('app.string.portrait_screen')
+          $r('app.string.portrait_screen'),
       } as ResourceInterface,
+      TrackEventType.UNKNOWN,
       () => {
         this.changeScreenOrientation();
       }, 2)
@@ -129,6 +141,54 @@ export struct CodePreviewComponent {
     }
     this.changeBottomIconData();
   };
+
+  private changeScreenOrientation(): void {
+    if (this.screenOrientation === ScreenOrientation.PORTRAIT) {
+      WindowUtil.enableFloatWindowRotate();
+      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE, () => {
+        this.updateStatusBar();
+      });
+    } else {
+      WindowUtil.disableFloatWindowRotate();
+      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT, () => {
+        this.updateStatusBar();
+      });
+    }
+  }
+
+  private changeBottomIconData(): void {
+    if (this.bottomIconItems[2]) {
+      this.bottomIconItems[2].lightMode = {
+        iconResource: $r('sys.symbol.screen_rotation'),
+        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
+          $r('app.string.portrait_screen'),
+      };
+      this.bottomIconItems[2].darkMode = {
+        iconResource: $r('sys.symbol.screen_rotation'),
+        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
+          $r('app.string.portrait_screen'),
+      }
+    }
+  }
+
+  private handleShare(): void {
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const shareDescription = ResourceUtil.getResourceString(context, $r('app.string.share_description'));
+    const shareData: systemShare.SharedData = new systemShare.SharedData({
+      utd: utd.UniformDataType.PLAIN_TEXT,
+      content: this.code,
+      title: this.componentName,
+      description: shareDescription
+    });
+
+    const controller: systemShare.ShareController = new systemShare.ShareController(shareData);
+    controller.show(context, {
+      selectionMode: systemShare.SelectionMode.SINGLE,
+      previewMode: systemShare.SharePreviewMode.DEFAULT
+    }).catch((error: BusinessError) => {
+      Logger.error(TAG, `Component code sharing error. Code: ${error.code}, message: ${error.message}`);
+    });
+  }
 
   aboutToAppear?(): void {
     if (this.pageContainer) {
@@ -183,6 +243,19 @@ export struct CodePreviewComponent {
     } catch (error) {
       const err: BusinessError = error as BusinessError;
       Logger.error(TAG,
+        `Failed to register callback. Cause code: ${err.code}, message: ${err.message}`);
+    }
+  }
+
+  unregisterWindowChange() {
+    try {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        // Retrieve the floating window status
+        this.windowClass!.off('windowStatusChange');
+      }
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG,
         `Failed to unregister callback. Cause code: ${err.code}, message: ${err.message}`);
     }
   }
@@ -213,60 +286,12 @@ export struct CodePreviewComponent {
     CodePreviewJSUtil.codeViewRunJS(changeColorModeMethod, params);
   }
 
-  private changeScreenOrientation(): void {
-    if (this.screenOrientation === ScreenOrientation.PORTRAIT) {
-      WindowUtil.enableFloatWindowRotate();
-      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE, () => {
-        this.updateStatusBar();
-      });
-    } else {
-      WindowUtil.disableFloatWindowRotate();
-      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT, () => {
-        this.updateStatusBar();
-      });
-    }
-  }
-
   updateStatusBar() {
     if (VersionUtil.canUseHds()) {
       setTimeout(() => {
         WindowUtil.updateStatusBarColor(this.isDarkMode);
       }, 500);
     }
-  }
-
-  private changeBottomIconData(): void {
-    if (this.bottomIconItems[2]) {
-      this.bottomIconItems[2].lightMode = {
-        iconResource: $r('sys.symbol.screen_rotation'),
-        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-          $r('app.string.portrait_screen'),
-      };
-      this.bottomIconItems[2].darkMode = {
-        iconResource: $r('sys.symbol.screen_rotation'),
-        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-          $r('app.string.portrait_screen'),
-      }
-    }
-  }
-
-  private handleShare(): void {
-    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-    const shareDescription = ResourceUtil.getResourceString(context, $r('app.string.share_description'));
-    const shareData: systemShare.SharedData = new systemShare.SharedData({
-      utd: utd.UniformDataType.PLAIN_TEXT,
-      content: this.code,
-      title: this.componentName,
-      description: shareDescription
-    });
-
-    const controller: systemShare.ShareController = new systemShare.ShareController(shareData);
-    controller.show(context, {
-      selectionMode: systemShare.SelectionMode.SINGLE,
-      previewMode: systemShare.SharePreviewMode.DEFAULT
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `Component code sharing error. Code: ${error.code}, message: ${error.message}`);
-    });
   }
 
   copyText(text: string) {
@@ -277,16 +302,17 @@ export struct CodePreviewComponent {
         Toast.showToast($r('app.string.copy_success'))
       }).catch((error: BusinessError) => {
         Toast.showToast($r('app.string.copy_fail'));
-        Logger.error(TAG, `Copy data failed, the code is ${error.code}}, the message is ${error.message}`);
+        Logger.error(TAG, `Copy data failed, the code is ${error.code}, the message is ${error.message}`);
       })
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `Pasteboard invoke error, the code is ${error.code}}, the message is ${error.message}`);
+      Logger.error(TAG, `Pasteboard invoke error, the code is ${error.code}, the message is ${error.message}`);
     }
   }
 
   @Builder
-  TopIconItem(resourceData: ResourceInterface | undefined, onClickIcon: (() => void) | undefined) {
+  TopIconItem(resourceData: ResourceInterface | undefined, onClickIcon: (() => void) | undefined,
+    eventType: TrackEventType) {
     Row({ space: CommonConstants.SPACE_4 }) {
       SymbolGlyph(resourceData?.iconResource)
         .fontSize($r('sys.float.Title_S'))
@@ -298,6 +324,11 @@ export struct CodePreviewComponent {
           .fontWeight(FontWeight.Medium)
       }
     }
+    .customProperty(TRACK_KEY, {
+      content: this.componentName,
+      moduleType: this.contentType,
+      eventType: eventType,
+    } as TrackServiceData)
     .backgroundColor($r('sys.color.comp_background_tertiary'))
     .borderRadius($r('sys.float.corner_radius_level10'))
     .padding($r('sys.float.padding_level5'))
@@ -311,8 +342,7 @@ export struct CodePreviewComponent {
   TopMenu() {
     Row({ space: CommonConstants.SPACE_8 }) {
       ForEach(this.topIconItems, (item: ItemData) => {
-        this.TopIconItem(this.isDarkMode ? item?.darkMode : item?.lightMode, item?.onClickIcon
-        )
+        this.TopIconItem(this.isDarkMode ? item?.darkMode : item?.lightMode, item?.onClickIcon, item.eventType)
       }, (_item: ItemData, index: number) => index.toString())
     }
     .justifyContent(FlexAlign.End)
@@ -329,6 +359,11 @@ export struct CodePreviewComponent {
           isDark: this.isDarkMode,
           itemData: item,
         })
+          .customProperty(TRACK_KEY, {
+            content: this.componentName,
+            moduleType: this.contentType,
+            eventType: item.eventType,
+          } as TrackServiceData)
       }, (_item: ItemData, index: number) => index.toString())
     }
     .translate({ y: this.bottomTranslateY })
@@ -343,13 +378,18 @@ export struct CodePreviewComponent {
   TopNavigationMenu() {
     WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
       Row({ space: CommonConstants.SPACE_8 }) {
-        ForEach(this.topMenuList, (item: ItemData, index: number) => {
+        ForEach(this.topMenuList, (item: ItemData, _index: number) => {
           Button() {
             SymbolGlyph(this.isDarkMode ? item.darkMode.iconResource : item.lightMode.iconResource)
               .fontSize($r('sys.float.Title_M'))
               .fontColor([$r('sys.color.icon_primary')])
               .opacity(this.isFocus ? 1 : 0.4)
           }
+          .customProperty(TRACK_KEY, {
+            content: this.componentName,
+            moduleType: this.contentType,
+            eventType: item.eventType,
+          } as TrackServiceData)
           .height($r('app.float.code_preview_top_navigation_height'))
           .aspectRatio(1)
           .hoverEffect(HoverEffect.Highlight)
@@ -421,6 +461,11 @@ export struct CodePreviewComponent {
         .fontColor([$r('sys.color.icon_primary')])
     }
     .width('100%')
+    .customProperty(TRACK_KEY, {
+      content: this.componentName,
+      moduleType: this.contentType,
+      eventType: TrackEventType.COMPONENT_CODE_COPY_CLICK,
+    } as TrackServiceData)
     .justifyContent(FlexAlign.SpaceBetween)
     .onClick(() => this.copyText(this.code))
     .padding({
@@ -483,6 +528,9 @@ export struct CodePreviewComponent {
       })
       .onDisAppear(() => {
         WindowUtil.disableFloatWindowRotate();
+        if (this.pageContainer) {
+          this.unregisterWindowChange();
+        }
       })
       .backgroundColor($r('sys.color.comp_background_primary'))
       .padding(this.pageContainer === false ? {
@@ -533,12 +581,15 @@ class ResourceInterface {
 class ItemData {
   public id: number;
   public lightMode: ResourceInterface;
+  public eventType: TrackEventType;
   public darkMode: ResourceInterface;
   public onClickIcon: () => void;
 
-  constructor(lightMode: ResourceInterface, onClickIcon: () => void, index: number, darkMode?: ResourceInterface) {
+  constructor(lightMode: ResourceInterface, eventType: TrackEventType, onClickIcon: () => void, index: number,
+    darkMode?: ResourceInterface) {
     this.lightMode = lightMode;
     this.darkMode = darkMode || lightMode;
+    this.eventType = eventType;
     this.onClickIcon = onClickIcon;
     this.id = index;
   }

@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   barHeightMapData,
   barPositionMapData,
@@ -25,19 +26,19 @@ import {
 } from '../entity/TabAttributeMapping';
 
 export class TabCodeGenerator implements CommonCodeGenerator {
-  private barPosition: string = barPositionMapData.get('Default')!.code;
-  private vertical: string = verticalMapData.get('Default')!.code;
-  private barWidth: string = barWidthMapData.get('Default')!.code;
-  private barHeight: string = barHeightMapData.get('Default')!.code;
-  private backgroundBlurStyle: string = blurStyleMapData.get('Default')!.code;
-  private fadingEdge: string = fadingEdgeMapData.get('Default')!.code;
+  private barPosition: string = barPositionMapData.get(DEFAULT_KEY)!.code;
+  private vertical: string = verticalMapData.get(DEFAULT_KEY)!.code;
+  private barWidth: string = barWidthMapData.get(DEFAULT_KEY)!.code;
+  private barHeight: string = barHeightMapData.get(DEFAULT_KEY)!.code;
+  private backgroundBlurStyle: string = blurStyleMapData.get(DEFAULT_KEY)!.code;
+  private fadingEdge: string = fadingEdgeMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'barPosition':
           this.barPosition =
-            barPositionMapData.get(attribute.currentValue)?.code ?? barPositionMapData.get('Default')!.code;
+            barPositionMapData.get(attribute.currentValue)?.code ?? barPositionMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'vertical':
           this.vertical = attribute.currentValue;
@@ -51,7 +52,7 @@ export class TabCodeGenerator implements CommonCodeGenerator {
           break;
         case 'backgroundBlurStyle':
           this.backgroundBlurStyle =
-            blurStyleMapData.get(attribute.currentValue)?.code ?? blurStyleMapData.get('Default')!.code;
+            blurStyleMapData.get(attribute.currentValue)?.code ?? blurStyleMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'fadingEdge':
           this.fadingEdge = attribute.currentValue;

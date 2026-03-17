@@ -15,11 +15,11 @@
 
 export class StringUtil {
   public static getTemplateString(num: number): string {
-    let str = '';
+    const templateList: string[] = [];
     for (let i = 0; i < num; i++) {
-      str += '1fr ';
+     templateList.push('1fr');
     }
-    return str.trim();
+    return templateList.join(' ').trim();
   }
 
   // Translate the input numeric string into an array of individual character numbers.
@@ -27,6 +27,6 @@ export class StringUtil {
     if (inputStr.trim() === '') {
       return [];
     }
-    return inputStr.split(',').map(Number);
+    return inputStr.split(',').map(Number).filter(Number.isFinite);
   }
 }

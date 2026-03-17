@@ -42,14 +42,14 @@ export class CalendarPickerDescriptor extends CommonDescriptor {
           this.edgeAlign =
             {
               alignType: this.edgeAlign.alignType,
-              offset: { dx: Number(attribute.currentValue), dy: this.edgeAlign.offset?.dy || 0 },
+              offset: { dx: Number(attribute.currentValue) || 0, dy: this.edgeAlign.offset?.dy || 0 },
             };
           break;
         case 'calendarOffsetY':
           this.edgeAlign =
             {
               alignType: this.edgeAlign.alignType,
-              offset: { dx: this.edgeAlign.offset?.dx || 0, dy: Number(attribute.currentValue) },
+              offset: { dx: this.edgeAlign.offset?.dx || 0, dy: Number(attribute.currentValue) || 0 },
             };
           break;
         case 'pickerFontColor':
@@ -67,7 +67,10 @@ export class CalendarPickerDescriptor extends CommonDescriptor {
           this.textStyle =
             {
               color: this.textStyle.color,
-              font: { size: this.textStyle.font?.size, weight: fontWeightMapData.get(attribute.currentValue)?.value },
+              font: {
+                size: this.textStyle.font?.size,
+                weight: fontWeightMapData.get(attribute.currentValue)?.value || this.textStyle.font?.weight,
+              },
             };
           break;
         default:

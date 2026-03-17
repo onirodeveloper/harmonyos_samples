@@ -15,11 +15,12 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { CustomDialogStyle, dialogStyleMapData } from '../entity/CustomDialogAttributeMapping';
 
 @Observed
 export class CustomDialogDescriptor extends CommonDescriptor {
-  public style: CustomDialogStyle = dialogStyleMapData.get('Default')!;
+  public style: CustomDialogStyle = dialogStyleMapData.get(DEFAULT_KEY)!;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

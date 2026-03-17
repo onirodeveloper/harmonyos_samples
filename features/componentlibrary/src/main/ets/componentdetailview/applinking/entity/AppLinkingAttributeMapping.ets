@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 export enum LinkType {
   TYPE_GALLERY = '应用市场',
   TYPE_MAP = '地图',
@@ -21,7 +23,7 @@ export enum LinkType {
 }
 
 export const typeMapData: Map<string, LinkType> = new Map([
-  ['Default', LinkType.TYPE_GALLERY],
+  [DEFAULT_KEY, LinkType.TYPE_GALLERY],
   ['应用市场', LinkType.TYPE_GALLERY],
   ['地图', LinkType.TYPE_MAP],
   ['设置', LinkType.TYPE_SETTINGS],
@@ -99,7 +101,7 @@ export const linkCodeSettings: string = `const context: common.UIAbilityContext 
             uri: '',
           };
           try {
-            context.startAbility(want);;
+            context.startAbility(want);
           } catch (err) {
             const error: BusinessError = err as BusinessError;
             console.error(\`StartAbility error, the code is \${error.code}, the message is \${error.message}\`);

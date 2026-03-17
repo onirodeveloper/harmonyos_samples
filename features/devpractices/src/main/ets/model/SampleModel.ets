@@ -14,11 +14,9 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { ResponseData } from '@ohos/common';
-import { Logger } from '@ohos/common';
+import { ImageKnifeUtil, Logger, PageData } from '@ohos/common';
 import { SampleService } from '../service/SampleService';
-import type { SampleCardData, SampleData } from './SampleData';
-import type { SampleCardDetail } from './SampleDetailData';
+import type { SampleCardData, SampleCategory, SampleContent, SampleData } from './SampleData';
 
 const TAG = '[SampleModel]';
 
@@ -36,43 +34,51 @@ export class SampleModel {
     return SampleModel.instance;
   }
 
-  public getSamplePage(currentPage: number, pageSize: number): Promise<ResponseData<SampleData>> {
+  public getSamplePage(currentPage: number, pageSize: number): Promise<PageData<SampleData>> {
     return this.service.getSamplePageByPreference(currentPage, pageSize)
-      .then((data: ResponseData<SampleData>) => {
+      .then((data: PageData<SampleData>) => {
         return data;
       }).catch((err: string) => {
         Logger.error(TAG,
           `getSamplePage data from network failed! try to get data form preference. ${err}`);
         return this.service.getSamplePage(currentPage, pageSize)
-          .then((data: ResponseData<SampleData>) => {
+          .then((data: PageData<SampleData>) => {
             this.service.setSamplePageToPreference(data);
             return data;
           });
       });
   }
 
-  public getSampleList(categoryType: number, currentPage: number,
-    pageSize: number): Promise<ResponseData<SampleCardData[]>> {
-    return this.service.getSampleListByPreference(categoryType, currentPage, pageSize)
-      .then((data: ResponseData<SampleCardData[]>) => {
+  public getSampleList(categoryId: number, currentPage: number, pageSize: number): Promise<PageData<SampleCardData[]>> {
+    return this.service.getSampleListByPreference(categoryId, currentPage, pageSize)
+      .then((data: PageData<SampleCardData[]>) => {
         return data;
       }).catch((err: string) => {
         Logger.error(TAG,
           `getSamplePage data from network failed! try to get data form preference. ${err}`);
-        return this.service.getSampleList(categoryType, currentPage, pageSize)
-          .then((data: ResponseData<SampleCardData[]>) => {
-            this.service.setSampleListToPreference(categoryType, currentPage, pageSize, data);
+        return this.service.getSampleList(categoryId, currentPage, pageSize)
+          .then((data: PageData<SampleCardData[]>) => {
+            data.data?.forEach((sampleCard: SampleCardData) => {
+              sampleCard.sampleContents?.forEach((sample: SampleContent) => {
+                ImageKnifeUtil.preloadImg(sample.mediaUrl);
+              });
+            });
+            this.service.setSampleListToPreference(categoryId, currentPage, pageSize, data);
             return data;
           });
       });
   }
 
   public preloadSamplePageData(): Promise<void> {
-    this.service.getSampleDetailsByMock().then((sampleDetailList: SampleCardDetail[]) => {
-      this.service.setSampleDetailsToPreference(sampleDetailList);
-    });
-    return this.service.getSamplePage()
-      .then((result: ResponseData<SampleData>) => {
+    return this.service.getSamplePage(1, 30)
+      .then((result: PageData<SampleData>) => {
+        result.data.sampleCategories?.forEach((category: SampleCategory) => {
+          category.sampleCards?.forEach((sampleCard: SampleCardData) => {
+            sampleCard.sampleContents?.forEach((sample: SampleContent) => {
+              ImageKnifeUtil.preloadImg(sample.mediaUrl);
+            });
+          });
+        });
         this.service.setSamplePageToPreference(result);
       }).catch((err: BusinessError) => {
         Logger.error(TAG,

@@ -17,6 +17,7 @@ export class SampleConstant {
   public static SCROLL_MARGIN_SM: number = -16;
   public static SCROLL_MARGIN_MD: number = -24;
   public static SCROLL_MARGIN_LG: number = -32;
+  public static MIN_CLICK_INTERVAL: number = 1000;
 }
 
 export enum SampleTypeEnum {

@@ -35,7 +35,7 @@ export struct TagLabel {
   @Prop cardStyleType: CardStyleTypeEnum;
   @State tagList: TagInfo[] = [];
   @State showEllipsis: boolean = false;
-  @State globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @State globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State displayPopup: boolean = false;
   private allTagStr: string = '';
 
@@ -82,8 +82,6 @@ export struct TagLabel {
       ForEach(this.tagList, (item: TagInfo) => {
         Row() {
           Text(item.tag)
-            .fontColor(this.cardStyleType === CardStyleTypeEnum.PICTURE_TO_SWIPER ?
-            $r('app.color.card_font_secondary_color') : $r('sys.color.font_secondary'))
             .width(item.width - PADDING_WIDTH)
             .maxLines(1)
             .textOverflow({ overflow: TextOverflow.Ellipsis })

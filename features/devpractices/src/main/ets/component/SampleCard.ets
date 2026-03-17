@@ -18,22 +18,28 @@ import { uniformTypeDescriptor as utd } from '@kit.ArkData';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { systemShare } from '@kit.ShareKit';
 import {
-  Logger,
   BreakpointType,
   CommonConstants,
+  GlobalInfoModel,
+  Logger,
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackServiceData,
   WebSheetBuilder,
   WebUrlType,
   WebUtil,
-  type GlobalInfoModel,
-  StorageKey,
 } from '@ohos/common';
+import { CardTypeEnum } from '@ohos/commonbusiness';
+import { SampleConstant } from '../common/SampleConstant';
 import { SampleDetailConstant } from '../constant/CommonConstants';
 import {
   BindSheetEvent,
-  SampleDetailPageVM,
+  ChangeCardStatusEvent,
   LoadSampleEvent,
+  SampleDetailPageVM,
   SetOverflowStatusEvent,
-  ChangeCardStatusEvent
+  TerminateTaskEvent,
 } from '../viewmodel/SampleDetailPageVM';
 import type { SampleCardData } from '../viewmodel/SampleDetailState';
 
@@ -42,14 +48,17 @@ const TAG = '[SampleCard]';
 @Component
 export struct SampleCard {
   viewModel: SampleDetailPageVM = SampleDetailPageVM.getInstance();
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
-  @Consume currentIndex: number;
-  @Prop sampleIndex: number;
-  @ObjectLink sampleCard: SampleCardData;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State backIconBgColor: ResourceColor =
     this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
-    $r('sys.color.comp_background_tertiary');
+      $r('sys.color.comp_background_tertiary');
+  @Consume currentIndex: number;
+  @Prop sampleIndex: number;
+  @Prop contentType: CardTypeEnum;
+  @ObjectLink sampleCard: SampleCardData;
   private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  private lastClickTime: number = 0;
 
   aboutToAppear(): void {
     WebUtil.createWebNode(this.sampleCard.originalUrl, this.getUIContext(), NestedScrollMode.SELF_ONLY);
@@ -57,24 +66,6 @@ export struct SampleCard {
 
   aboutToDisappear(): void {
     WebUtil.removeNode(this.sampleCard.originalUrl);
-  }
-
-  private handleShare(): void {
-    if (canIUse('SystemCapability.Collaboration.SystemShare')) {
-      const shareData: systemShare.SharedData = new systemShare.SharedData({
-        utd: utd.UniformDataType.HYPERLINK,
-        content: this.sampleCard.originalUrl,
-        title: this.sampleCard.title,
-        description: this.sampleCard.originalUrl
-      });
-      let controller: systemShare.ShareController = new systemShare.ShareController(shareData);
-      controller.show(this.context, {
-        selectionMode: systemShare.SelectionMode.SINGLE,
-        previewMode: systemShare.SharePreviewMode.DEFAULT
-      }).catch((error: BusinessError) => {
-        Logger.error(TAG, `Sample link sharing error. Code: ${error.code}, message: ${error.message}`);
-      });
-    }
   }
 
   @Builder
@@ -97,6 +88,11 @@ export struct SampleCard {
       .aspectRatio(1)
       .backgroundColor(this.backIconBgColor)
       .onClick(() => this.handleShare())
+      .customProperty(TRACK_KEY, {
+        content: this.sampleCard.title,
+        eventType: TrackEventType.SAMPLE_SOURCECODE_SHARE_CLICK,
+        moduleType: this.contentType,
+      } as TrackServiceData)
       .onHover((isHover: boolean) => {
         this.backIconBgColor = isHover ? $r('sys.color.comp_background_tertiary') : Color.Transparent;
       })
@@ -116,7 +112,7 @@ export struct SampleCard {
           [$r('sys.color.ohos_id_background_secondary'), SampleDetailConstant.LINEAR_GRADIENT_END]]
       })
       .visibility(this.sampleCard.isOverflow && !this.sampleCard.cardOpenStatus ? Visibility.Visible :
-      Visibility.Hidden)
+        Visibility.Hidden)
       .blendMode(BlendMode.DST_IN, BlendApplyType.OFFSCREEN)
       .hitTestBehavior(HitTestMode.None)
   }
@@ -136,7 +132,7 @@ export struct SampleCard {
 
         Text(this.sampleCard.desc)
           .maxLines(this.sampleCard.cardOpenStatus ? SampleDetailConstant.SUBTITLE_OPEN_MAXLINE :
-          SampleDetailConstant.SUBTITLE_MAXLINE)
+            SampleDetailConstant.SUBTITLE_MAXLINE)
           .fontSize($r('sys.float.Subtitle_S'))
           .fontWeight(FontWeight.Regular)
           .lineHeight($r('app.float.cardsubtitle_lineheight'))
@@ -187,7 +183,7 @@ export struct SampleCard {
                 ((this.globalInfoModel.deviceHeight - this.globalInfoModel.decorHeight) *
                 CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
               width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-              CommonConstants.SHEET_WIDTH_XL :
+                CommonConstants.SHEET_WIDTH_XL :
                 undefined,
               onWillDisappear: () => {
                 WebUtil.getWebNode(this.sampleCard.originalUrl)?.remove();
@@ -198,6 +194,11 @@ export struct SampleCard {
                   `The springBack is not registered, causing the half-modal sheet to lack bounce-back behavior when pulled down.`);
               }
             })
+          .customProperty(TRACK_KEY, {
+            content: this.sampleCard.title,
+            eventType: TrackEventType.SAMPLE_SOURCECODE_READ_CLICK,
+            moduleType: this.contentType,
+          } as TrackServiceData)
 
         Blank()
           .width(new BreakpointType({
@@ -216,7 +217,7 @@ export struct SampleCard {
             .value(this.sampleCard.downloadProgress)
             .layoutWeight(1)
             .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-            $r('sys.float.corner_radius_level4') : '50%')
+              $r('sys.float.corner_radius_level4') : '50%')
             .height($r('app.float.progress_height'))
             .color($r('sys.color.background_emphasize'))
             .backgroundColor($r('sys.color.background_primary'))
@@ -227,14 +228,26 @@ export struct SampleCard {
               font: { size: $r('sys.float.Body_S'), style: FontStyle.Normal, weight: FontWeight.Medium },
               fontColor: $r('sys.color.font_primary'),
             })
+            .onClick(() => {
+              this.handleClickWithRateLimit(() => {
+                this.viewModel.sendEvent(new TerminateTaskEvent(this.sampleIndex));
+              })
+            })
         } else {
           Button(this.sampleCard.installed ? $r('app.string.experience_sample') : $r('app.string.download_sample'),
             { type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.SMALL })
             .cardButtonStyle($r('sys.color.background_emphasize'), $r('sys.color.font_on_primary'),
               this.globalInfoModel.widthBreakpoint)
             .onClick(() => {
-              this.viewModel.sendEvent(new LoadSampleEvent());
+              this.handleClickWithRateLimit(() => {
+                this.viewModel.sendEvent(new LoadSampleEvent());
+              })
             })
+            .customProperty(TRACK_KEY, {
+              content: this.sampleCard.title,
+              eventType: TrackEventType.SAMPLE_EXPERIENCE_CLICK,
+              moduleType: this.contentType,
+            } as TrackServiceData)
         }
       }
       .width('100%')
@@ -247,7 +260,7 @@ export struct SampleCard {
     .borderRadius($r('sys.float.corner_radius_level8'))
     .backgroundColor($r('sys.color.comp_background_primary'))
     .height(this.sampleCard.cardOpenStatus && this.sampleCard.isOverflow ? $r('app.float.sample_card_open_height') :
-    $r('app.float.sample_card_height'))
+      $r('app.float.sample_card_height'))
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(HorizontalAlign.Start)
     .clip(true)
@@ -265,12 +278,38 @@ export struct SampleCard {
     .padding({
       top: $r('sys.float.padding_level8'),
       bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? $r('sys.float.padding_level12') :
-      $r('sys.float.padding_level8'),
+        $r('sys.float.padding_level8'),
       left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? $r('sys.float.padding_level16') :
-      $r('sys.float.padding_level8'),
+        $r('sys.float.padding_level8'),
       right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? $r('sys.float.padding_level16') :
-      $r('sys.float.padding_level8'),
+        $r('sys.float.padding_level8'),
     })
+  }
+
+  private handleShare(): void {
+    if (canIUse('SystemCapability.Collaboration.SystemShare')) {
+      const shareData: systemShare.SharedData = new systemShare.SharedData({
+        utd: utd.UniformDataType.HYPERLINK,
+        content: this.sampleCard.originalUrl,
+        title: this.sampleCard.title,
+        description: this.sampleCard.originalUrl
+      });
+      let controller: systemShare.ShareController = new systemShare.ShareController(shareData);
+      controller.show(this.context, {
+        selectionMode: systemShare.SelectionMode.SINGLE,
+        previewMode: systemShare.SharePreviewMode.DEFAULT
+      }).catch((error: BusinessError) => {
+        Logger.error(TAG, `Sample link sharing error. Code: ${error.code}, message: ${error.message}`);
+      });
+    }
+  }
+
+  private handleClickWithRateLimit(handleClickEvent: () => void): void {
+    const currentTime = new Date().getTime();
+    if (currentTime - this.lastClickTime >= SampleConstant.MIN_CLICK_INTERVAL) {
+      handleClickEvent();
+      this.lastClickTime = currentTime;
+    }
   }
 }
 

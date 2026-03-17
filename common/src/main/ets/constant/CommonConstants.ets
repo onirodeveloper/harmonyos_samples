@@ -57,6 +57,10 @@ export class CommonConstants {
   public static readonly LANE_LG: number = 3;
   public static readonly LINEAR_GRADIENT_ANGLE: number = 180;
   public static readonly DYNAMIC_INSTALL_EVENT: string = 'DynamicInstallEvent';
+  public static readonly BIND_SHEET_CLOSE_EVENT: string = 'BindSheetCloseEvent';
+  public static readonly BIND_SHEET_OPEN_EVENT: string = 'BindSheetOpenEvent';
+  public static readonly BIND_LOGOUT_EVENT: string = 'BindLogoutEvent';
+  public static readonly BIND_MINE_LOGIN_EVENT: string = 'BindMineLoginEvent';
   public static readonly PROMISE_WAIT = (delay: number) => new Promise<void>((resolve) => setTimeout(resolve, delay));
   public static readonly BANNER_GEOMETRY: string = 'hmos_world_banner_geometry';
   public static readonly CODE_PREVIEW_GEOMETRY_ID: string = 'hmos_world_preview_geometry_id';
@@ -70,4 +74,22 @@ export class CommonConstants {
   public static readonly UNLIMITED_LINES: number = 1000;
   // Break Word Offset
   public static readonly BREAK_WORD_OFFSET: number = 5;
+  // Text Input Max Lines
+  public static readonly TEXT_INPUT_MAX_LINES: number = 3;
+  // Text Input Max Length
+  public static readonly TEXT_INPUT_MAX_LENGTH: number = 100;
+  // Feedback Sheet Type
+  public static readonly SHEET_BOTTOM_ATTACHED: string = 'bottom_attached';
+  public static readonly SHEET_CENTER_FLOATING: string = 'center_floating';
+  // Feedback Sheet Height Type
+  public static readonly SHEET_HEIGHT_LOW: string = 'low';
+  public static readonly SHEET_HEIGHT_MID: string = 'mid';
+  public static readonly SHEET_HEIGHT_HIGH: string = 'high';
+  // Feedback Height Mapper
+  public static SHEET_HEIGHT_MAPPER: Record<string, Record<string, number>> = {
+    'bottom_attached': { 'low': 278, 'mid': 516, 'high': 748 },
+    'center_floating': { 'low': 320, 'mid': 490, 'high': 490 },
+  };
+  // PC device type
+  public static readonly PC_DEVICE_TYPE: string = '2in1';
 }

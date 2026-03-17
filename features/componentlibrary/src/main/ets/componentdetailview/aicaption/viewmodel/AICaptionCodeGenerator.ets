@@ -49,7 +49,7 @@ struct CaptionComponent {
       fileData = await this.getUIContext().getHostContext()!.resourceManager.getMediaContent($r('app.media.16k').id);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      console.error(\`GetMediaContent error, the code is \${error.code}, the message is \${error.message}\`);
+      console.error(\`GetMediaContent error, the code is \${error?.code}, the message is \${error.message}\`);
       this.isReading = false;
       return;
     }
@@ -57,12 +57,8 @@ struct CaptionComponent {
     const byteLength = fileData.byteLength;
     let offset = 0;
     while (offset < byteLength) {
-      let nextOffset = offset + bufferSize
-      if (offset > byteLength) {
-        this.isReading = false;
-        return;
-      }
-      const arrayBuffer = fileData.buffer.slice(offset, nextOffset);
+      const nextOffset = offset + bufferSize;
+      const arrayBuffer = fileData.buffer.slice(offset, nextOffset > byteLength ? (byteLength - offset) : nextOffset);
       let data = new Uint8Array(arrayBuffer);
       const audioData: AudioData = {
         data: data

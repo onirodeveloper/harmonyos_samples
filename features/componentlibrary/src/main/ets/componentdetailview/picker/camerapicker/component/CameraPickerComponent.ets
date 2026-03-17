@@ -35,6 +35,10 @@ export struct CameraPickerComponent {
   aboutToAppear() {
     let cameraManager: camera.CameraManager;
     try {
+      if (!this.context) {
+        Logger.error(TAG, `GetCameraManager failed. Cause context is undefined.`);
+        return;
+      }
       cameraManager = camera.getCameraManager(this.context);
     } catch (err) {
       const error: BusinessError = err as BusinessError;
@@ -74,7 +78,6 @@ export struct CameraPickerComponent {
           // some device did not have any camera.
           if (this.cameraNum === 0) {
             Toast.showToast($r('app.string.device_camera'));
-
             return;
           }
           try {
@@ -93,7 +96,7 @@ export struct CameraPickerComponent {
             }
           } catch (error) {
             const err = error as BusinessError;
-            Logger.error(TAG, `${err.code},${err.message}`);
+            Logger.error(TAG, `${err?.code},${err?.message}`);
           }
         })
     }
@@ -105,7 +108,7 @@ export struct CameraPickerComponent {
       cameras = cameraManager.getSupportedCameras();
     } catch (error) {
       const err = error as BusinessError;
-      Logger.error(TAG, `The getSupportedCameras call failed. error code: ${err.code}`);
+      Logger.error(TAG, `The getSupportedCameras call failed. error code: ${err?.code}`);
     }
     return cameras;
   }

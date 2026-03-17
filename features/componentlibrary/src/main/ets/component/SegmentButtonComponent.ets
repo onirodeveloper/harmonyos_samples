@@ -28,19 +28,21 @@ export struct SegmentButtonComponent {
     fontColor: $r('sys.color.font_secondary'),
     selectedBackgroundColor: $r('sys.color.ohos_id_color_foreground_contrary_disable'),
   });
-  callback: (name: string, value: string) => void = (name: string, value: string) => {
-  };
+  callback?: (name: string, value: string) => void;
 
   onChangeSelectIndex() {
-    if (this.selectIndex) {
+    if (this.selectIndex && this.selectIndex.length > 0) {
       const index = this.selectIndex[0];
-      this.callback(this.attribute.name, this.attribute.selectOption[index]?.text as string);
+      // The value of index may be -1.
+      const text: string = (index >= 0 && index < this.attribute.selectOption.length) ?
+        this.attribute.selectOption[index]?.text as string : '';
+      this.callback?.(this.attribute.name, text);
     }
   }
 
   build() {
     Row() {
-      Text(this.attribute.disPlayName)
+      Text(this.attribute.displayName)
         .fontWeight(FontWeight.Medium)
         .fontSize($r('sys.float.Body_L'))
         .fontColor($r('sys.color.font_primary'))

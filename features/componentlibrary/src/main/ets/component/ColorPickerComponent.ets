@@ -25,13 +25,13 @@ const SLIDER_MAX_VALUE: number = 100;
 export struct ColorPickerComponent {
   @ObjectLink attribute: ColorPickerAttribute;
   @State curVal: number = 0;
-  callback: (name: string, value: string, mode?: SliderChangeMode) => void = (name: string, value: string) => {
+  callback: (name: string, value: string, mode?: SliderChangeMode) => void = (_name: string, _value: string) => {
   };
 
   build() {
     Column() {
       HmosListItem({
-        title: this.attribute.disPlayName,
+        title: this.attribute.displayName,
         desc: ' ',
       })
 
@@ -53,12 +53,12 @@ export struct ColorPickerComponent {
         .selectedColor(Color.Transparent)
         .trackColor(new LinearGradient([
           { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: 0 },
-          { color: ColorPickerUtil.setRgba(255, 255, 0, 1.00), offset: ColorPickerUtil.SEGMENT_1 },
-          { color: ColorPickerUtil.setRgba(0, 255, 0, 1.00), offset: ColorPickerUtil.SEGMENT_2 },
-          { color: ColorPickerUtil.setRgba(0, 255, 255, 1.00), offset: ColorPickerUtil.SEGMENT_3 },
-          { color: ColorPickerUtil.setRgba(0, 0, 255, 1.00), offset: ColorPickerUtil.SEGMENT_4 },
-          { color: ColorPickerUtil.setRgba(255, 0, 255, 1.00), offset: ColorPickerUtil.SEGMENT_5 },
-          { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: ColorPickerUtil.SEGMENT_6 },
+          { color: ColorPickerUtil.setRgba(255, 255, 0, 1.00), offset: ColorPickerUtil.COLOR_SEGMENT_1 },
+          { color: ColorPickerUtil.setRgba(0, 255, 0, 1.00), offset: ColorPickerUtil.COLOR_SEGMENT_2 },
+          { color: ColorPickerUtil.setRgba(0, 255, 255, 1.00), offset: ColorPickerUtil.COLOR_SEGMENT_3 },
+          { color: ColorPickerUtil.setRgba(0, 0, 255, 1.00), offset: ColorPickerUtil.COLOR_SEGMENT_4 },
+          { color: ColorPickerUtil.setRgba(255, 0, 255, 1.00), offset: ColorPickerUtil.COLOR_SEGMENT_5 },
+          { color: ColorPickerUtil.setRgba(255, 0, 0, 1.00), offset: ColorPickerUtil.COLOR_SEGMENT_6 },
         ]))
         .sliderInteractionMode(SliderInteraction.SLIDE_AND_CLICK)
         .trackThickness($r('app.float.slider_track_thick_large'))

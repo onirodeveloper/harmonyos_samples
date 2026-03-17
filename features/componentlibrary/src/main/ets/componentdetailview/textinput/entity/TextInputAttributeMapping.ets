@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 class TextInputTypeMap {
   public readonly code: string;
   public readonly value: InputType;
@@ -27,7 +29,7 @@ export const textInputTypeMapData: Map<string, TextInputTypeMap> = new Map([
   ['Normal', new TextInputTypeMap('InputType.Normal', InputType.Normal)],
   ['Number', new TextInputTypeMap('InputType.Number', InputType.Number)],
   ['NewPassword', new TextInputTypeMap('InputType.NEW_PASSWORD', InputType.NEW_PASSWORD)],
-  ['Default', new TextInputTypeMap('InputType.Default', InputType.Normal)],
+  [DEFAULT_KEY, new TextInputTypeMap('InputType.Default', InputType.Normal)],
 ]);
 
 class TextInputFontMap {
@@ -47,6 +49,6 @@ export const textInputFontMapData: Map<string, TextInputFontMap> = new Map([
     { size: $r('sys.float.Body_L'), weight: FontWeight.Regular })],
   ['较粗字体', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Bold }',
     { size: $r('sys.float.Body_L'), weight: FontWeight.Bold })],
-  ['Default', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Regular }',
+  [DEFAULT_KEY, new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Regular }',
     { size: $r('sys.float.Body_L'), weight: FontWeight.Regular })],
 ]);

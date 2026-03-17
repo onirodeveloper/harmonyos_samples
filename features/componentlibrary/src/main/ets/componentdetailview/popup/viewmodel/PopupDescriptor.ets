@@ -15,12 +15,13 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { placementMapData, PopupStyle, popupStyleMapData } from '../entity/PopupMapping';
 
 @Observed
 export class PopupDescriptor extends CommonDescriptor {
-  public placement: Placement = placementMapData.get('Default')!.value;
-  public type: PopupStyle = popupStyleMapData.get('Default')!;
+  public placement: Placement = placementMapData.get(DEFAULT_KEY)!.value;
+  public type: PopupStyle = popupStyleMapData.get(DEFAULT_KEY)!;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

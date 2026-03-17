@@ -13,14 +13,23 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, CommonConstants } from '@ohos/common';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData
+} from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { FeedItem } from './FeedItem';
 
 @Component
 export struct FeedCard {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop @Require discoverContents: DiscoverContent[];
   handleItemClick?: Function;
 
@@ -28,10 +37,17 @@ export struct FeedCard {
     Swiper() {
       Repeat(this.discoverContents)
         .each((repeatItem: RepeatItem<DiscoverContent>) => {
-          FeedItem({ discoverContent: repeatItem.item })
-            .onClick(() => {
-              this.handleItemClick?.(repeatItem.item);
-            })
+          TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+            FeedItem({ discoverContent: repeatItem.item })
+              .customProperty(TRACK_KEY, {
+                content: repeatItem.item.title,
+                moduleType: repeatItem.item.contentType,
+                eventType: TrackEventType.ARTICLE_CLICK,
+              } as TrackServiceData)
+              .onClick(() => {
+                this.handleItemClick?.(repeatItem.item);
+              })
+          }
         })
         .key((item: DiscoverContent) => item.id.toString())
     }
@@ -44,20 +60,20 @@ export struct FeedCard {
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.widthBreakpoint))
+    }).getValue(this.globalInfoModel?.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({
       sm: CommonConstants.SPACE_8,
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.widthBreakpoint))
-    .displayCount(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? CommonConstants.LANE_MD :
-    CommonConstants.LANE_LG)
+    }).getValue(this.globalInfoModel?.widthBreakpoint))
+    .displayCount(this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? CommonConstants.LANE_MD :
+      CommonConstants.LANE_LG)
     .itemSpace(new BreakpointType({
       sm: CommonConstants.SPACE_8,
       md: CommonConstants.SPACE_12,
       lg: CommonConstants.SPACE_16,
       xl: CommonConstants.SPACE_16,
-    }).getValue(this.globalInfoModel.widthBreakpoint))
+    }).getValue(this.globalInfoModel?.widthBreakpoint))
   }
 }

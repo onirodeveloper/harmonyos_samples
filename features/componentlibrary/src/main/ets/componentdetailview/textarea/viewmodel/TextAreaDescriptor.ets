@@ -15,14 +15,15 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { textAlignTypeMapData, textOverflowTypeMapData } from '../entity/TextAreaAttributeMapping';
 
 @Observed
 export class TextAreaDescriptor extends CommonDescriptor {
   public maxLines: number = 2;
   public lineSpacing: number = 5;
-  public textOverflowTypeData: TextOverflow = textOverflowTypeMapData.get('Default')!.value;
-  public textAlign: TextAlign = textAlignTypeMapData.get('Default')!.value;
+  public textOverflowTypeData: TextOverflow = textOverflowTypeMapData.get(DEFAULT_KEY)!.value;
+  public textAlign: TextAlign = textAlignTypeMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
@@ -34,12 +35,12 @@ export class TextAreaDescriptor extends CommonDescriptor {
           this.lineSpacing = Number(attribute.currentValue);
           break;
         case 'textOverflowType':
-          this.textOverflowTypeData =
-            textOverflowTypeMapData.get(attribute.currentValue)?.value ?? textOverflowTypeMapData.get('Default')!.value;
+          this.textOverflowTypeData = textOverflowTypeMapData.get(attribute.currentValue)?.value ??
+          textOverflowTypeMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'textAlign':
           this.textAlign =
-            textAlignTypeMapData.get(attribute.currentValue)?.value ?? textAlignTypeMapData.get('Default')!.value;
+            textAlignTypeMapData.get(attribute.currentValue)?.value ?? textAlignTypeMapData.get(DEFAULT_KEY)!.value;
           break;
         default:
           break;

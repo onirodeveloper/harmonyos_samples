@@ -14,7 +14,7 @@
  */
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
-import { highlightColorMap } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY, highlightColorMap } from '../../common/entity/CommonMapData';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
 import { textOverflowTypeMapData } from '../../textarea/entity/TextAreaAttributeMapping';
 
@@ -22,21 +22,24 @@ import { textOverflowTypeMapData } from '../../textarea/entity/TextAreaAttribute
 export class StyleTextDescriptor extends CommonDescriptor {
   public textIndent: number = 0;
   public maxLines: number = 2;
-  public overflow: TextOverflow = textOverflowTypeMapData.get('Default')!.value;
-  public highlightColor: string = highlightColorMap.get('Default')!.value;
+  public overflow: TextOverflow = textOverflowTypeMapData.get(DEFAULT_KEY)!.value;
+  public highlightColor: string = highlightColorMap.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'textIndent':
-          this.textIndent = Number(attribute.currentValue);
+          const textIndent = Number(attribute.currentValue);
+          this.textIndent = isNaN(textIndent) ? 0 : textIndent;
           break;
         case 'maxLines':
-          this.maxLines = Number(attribute.currentValue);
+          const maxLines = Number(attribute.currentValue);
+          this.maxLines = isNaN(maxLines) ? 2 : maxLines;
           break;
         case 'overflow':
           this.overflow =
-            textOverflowTypeMapData.get(attribute.currentValue)?.value ?? textOverflowTypeMapData.get('Default')!.value;
+            textOverflowTypeMapData.get(attribute.currentValue)?.value ??
+            textOverflowTypeMapData.get(DEFAULT_KEY)!.value;
           break;
         case 'highlightColor':
           this.highlightColor = attribute.currentValue;

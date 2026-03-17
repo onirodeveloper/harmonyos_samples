@@ -15,11 +15,12 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { alertDialogAlignmentMapData } from '../entity/AlertDialogAttributeMapping';
 
 @Observed
 export class AlertDialogDescriptor extends CommonDescriptor {
-  public alertDialogAlignment: DialogAlignment = alertDialogAlignmentMapData.get('Default')!.value as DialogAlignment;
+  public alertDialogAlignment: DialogAlignment = alertDialogAlignmentMapData.get(DEFAULT_KEY)!.value as DialogAlignment;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

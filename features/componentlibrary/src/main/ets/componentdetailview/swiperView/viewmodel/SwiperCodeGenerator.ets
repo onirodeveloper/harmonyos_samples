@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import { indicatorEffectMapping, indicatorStyleMapData } from '../entity/SwiperAttributeMapping';
 
 export class SwiperCodeGenerator implements CommonCodeGenerator {
@@ -22,7 +23,7 @@ export class SwiperCodeGenerator implements CommonCodeGenerator {
   private displayArrow: string = '';
   private indicatorType: string = 'DotIndicator';
   private isVertical: boolean = true;
-  private effectMode: string = indicatorEffectMapping.get('Default')!.code;
+  private effectMode: string = indicatorEffectMapping.get(DEFAULT_KEY)!.code;
   private autoPlay: boolean = true;
 
   public generate(attributes: OriginAttribute[]): string {

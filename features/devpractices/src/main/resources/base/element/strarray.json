@@ -1,0 +1,68 @@
+{
+  "strarray": [
+    {
+      "name": "sample_like_reason_list",
+      "value": [
+        {
+          "value": "Code is reusable"
+        },
+        {
+          "value": "The scene is clear"
+        },
+        {
+          "value": "Highly practical"
+        },
+        {
+          "value": "Innovative"
+        },
+        {
+          "value": "Version compatibility"
+        },
+        {
+          "value": "Device compatibility"
+        },
+        {
+          "value": "Smooth loading"
+        },
+        {
+          "value": "Convenient interaction"
+        },
+        {
+          "value": "Aesthetic Interface"
+        }
+      ]
+    },
+    {
+      "name": "sample_dislike_reason_list",
+      "value": [
+        {
+          "value": "Download issues"
+        },
+        {
+          "value": "The scene is unclear"
+        },
+        {
+          "value": "Not very practical"
+        },
+        {
+          "value": "Not innovative"
+        },
+        {
+          "value": "Version incompatibility"
+        },
+        {
+          "value": "Device is not compatible"
+        },
+        {
+          "value": "Crash/Freeze"
+        },
+        {
+          "value": "Interaction logic is confusing."
+        },
+        {
+          "value": "Unattractive Interface"
+        }
+      ]
+    }
+  ]
+}

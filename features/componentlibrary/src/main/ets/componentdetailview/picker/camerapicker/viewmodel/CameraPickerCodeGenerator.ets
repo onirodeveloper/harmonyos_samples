@@ -15,10 +15,11 @@
 
 import type { OriginAttribute } from '../../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../../common/entity/CommonMapData';
 import { pickerMediaType } from '../entity/CameraPickerMapping';
 
 export class CameraPickerCodeGenerator implements CommonCodeGenerator {
-  private mediaTypes: string = pickerMediaType.get('Default')!.code;
+  private mediaTypes: string = pickerMediaType.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {

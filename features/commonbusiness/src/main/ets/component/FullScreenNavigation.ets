@@ -13,13 +13,12 @@
  * limitations under the License.
  */
 
-import type { GlobalInfoModel } from '@ohos/common';
-import { BreakpointType, CommonConstants, StorageKey } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import { FullScreenNavigationData } from '../model/FullScreenNavigationData';
 
 @Component
 export struct FullScreenNavigation {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   @Prop topNavigationData: FullScreenNavigationData = new FullScreenNavigationData();
   @StorageProp(StorageKey.BLUE_RENDER_GROUP) blurRenderGroup: boolean = false;
   @BuilderParam tabView?: () => void;
@@ -49,18 +48,20 @@ export struct FullScreenNavigation {
       .margin({ top: this.topNavigationData.titleOffsetY })
       .alignItems(VerticalAlign.Center)
       .height(CommonConstants.NAVIGATION_HEIGHT)
-      .padding({
-        left: new BreakpointType({
-          sm: $r('sys.float.padding_level8'),
-          md: $r('sys.float.padding_level12'),
-          lg: $r('sys.float.padding_level16'),
-        }).getValue(this.globalInfoModel.widthBreakpoint),
-        right: new BreakpointType({
-          sm: $r('sys.float.padding_level8'),
-          md: $r('sys.float.padding_level12'),
-          lg: $r('sys.float.padding_level16'),
-        }).getValue(this.globalInfoModel.widthBreakpoint),
-      })
+      .padding(new BreakpointType<Padding>({
+        sm: {
+          left: $r('sys.float.padding_level8'),
+          right: $r('sys.float.padding_level8'),
+        },
+        md: {
+          left: $r('sys.float.padding_level12'),
+          right: $r('sys.float.padding_level12'),
+        },
+        lg: {
+          left: $r('sys.float.padding_level16'),
+          right: $r('sys.float.padding_level16'),
+        },
+      }).getValue(this.globalInfoModel.widthBreakpoint))
 
       if (this.tabView && this.topNavigationData.showTab) {
         this.tabView()

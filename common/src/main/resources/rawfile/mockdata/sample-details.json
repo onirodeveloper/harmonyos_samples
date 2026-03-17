@@ -1,0 +1,907 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "categoryId": 4,
+      "sequence": 1,
+      "sampleContents": [
+        {
+          "id": 60,
+          "cardId": 60,
+          "unionId": 35,
+          "title": "HarmonyOS代码工坊",
+          "desc": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
+          "preInstalled": true,
+          "type": "commonClient",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos/blob/master/README.md",
+          "moduleName": "",
+          "abilityName": "",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 63,
+          "cardId": 60,
+          "unionId": 35,
+          "title": "HarmonyOS代码工坊(手表版)",
+          "desc": "HarmonyOS代码工坊手表开发案例。",
+          "preInstalled": true,
+          "type": "wearableClient",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos/blob/master/README.md",
+          "moduleName": "",
+          "abilityName": "",
+          "sequence": 7,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 61,
+          "cardId": 60,
+          "unionId": 35,
+          "title": "三折叠，怎么折都有面",
+          "desc": "本示例主要使用断点监听和sidebarContainer组件、navigation组件相结合的方式，实现了商务办公类差异化的多场景响应式变化效果。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/hdc/sample_business.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiBusinessOffice/blob/br_release_hmos/README.md",
+          "moduleName": "multibusinesssample",
+          "abilityName": "MultibusinesssampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 64,
+          "cardId": 60,
+          "unionId": 35,
+          "title": "碰一碰视频快速分享",
+          "desc": "本示例利用Share Kit与App Linking的结合，实现了快速跨设备分享视频并直接进入应用内视频播放页面的功能。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/hdc/sample_knockshare.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/knock-share/blob/br_release_hmos/README.md",
+          "moduleName": "knocksharesample",
+          "abilityName": "KnocksharesampleAbility",
+          "sequence": 4,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 65,
+          "cardId": 60,
+          "unionId": 35,
+          "title": "视频投播更便捷",
+          "desc": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度切换。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/hdc/sample_videocast.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/VideoCast/blob/br_release_hmos/README.md",
+          "moduleName": "videocastsample",
+          "abilityName": "VideocastsampleAbility",
+          "sequence": 5,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "categoryId": 1,
+      "sequence": 1,
+      "sampleContents": [
+        {
+          "id": 16,
+          "title": "一多导航栏",
+          "desc": "本示例基于自适应布局和响应式布局，实现多设备上的分级导航栏效果。在sm、md断点下，展示为底部页签和顶部页签；在lg断点下，展示为侧边页签和顶部页签；在xl断点下，展示为侧边栏分级导航。为开发者提供分级导航栏的开发方案。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-nav-bar/blob/br_release_hmos/README.md",
+          "moduleName": "multinavbarsample",
+          "abilityName": "MultinavbarsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "categoryId": 1,
+      "sequence": 2,
+      "sampleContents": [
+        {
+          "id": 33,
+          "title": "一多便捷生活",
+          "desc": "本篇Sample基于自适应布局和响应式布局，实现一次开发，多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/blob/br_release_hmos/README.md",
+          "moduleName": "multiconvenientlifesample",
+          "abilityName": "MulticonvenientlifesampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "categoryId": 1,
+      "sequence": 3,
+      "sampleContents": [
+        {
+          "id": 34,
+          "title": "一多移动支付",
+          "desc": "本篇Sample基于Scan Kit中的默认界面扫码能力与码图生成能力实现移动支付应用中常见的扫一扫和收付款功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/multidevice/sample_multi_mobile_payment.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment/blob/br_release_hmos/README.md",
+          "moduleName": "multimobilepaymentsample",
+          "abilityName": "MultimobilepaymentsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "categoryId": 1,
+      "sequence": 5,
+      "sampleContents": [
+        {
+          "id": 45,
+          "title": "一多新闻阅读",
+          "desc": "本示例基于自适应布局和响应式布局，实现一次开发，多端部署的新闻阅读页面。根据手机、折叠屏以及平板不同的设备尺寸实现对应页面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/multidevice/sample_multi_news_read.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-news-read/blob/br_release_hmos/README.md",
+          "moduleName": "multinewsreadsample",
+          "abilityName": "MultinewsreadsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "categoryId": 1,
+      "sequence": 6,
+      "sampleContents": [
+        {
+          "id": 55,
+          "title": "一多旅行住宿",
+          "desc": "本示例主要使用栅格布局和List组件相结合的方式，实现了旅行住宿差异化的多场景响应式变化效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-travel-accommodation/blob/br_release_hmos/README.md",
+          "moduleName": "multitravelsample",
+          "abilityName": "MultitravelsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "categoryId": 1,
+      "sequence": 8,
+      "sampleContents": [
+        {
+          "id": 57,
+          "title": "一多分栏控件",
+          "desc": "本示例通过使用SideBarContainer组件与Navigation组件，实现了多场景下，一多分栏控件的响应式变化效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/multidevice/sample_multi_columns.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-columns/blob/br_release_hmos/README.md",
+          "moduleName": "multicolumnssample",
+          "abilityName": "MulticolumnssampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "categoryId": 2,
+      "sequence": 1,
+      "sampleContents": [
+        {
+          "id": 20,
+          "title": "文字特效合集",
+          "desc": "本示例基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTS页面开发中实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/style/sample_text_effects.gif",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/text-effects/blob/br_release_hmos/README.md",
+          "moduleName": "texteffectssample",
+          "abilityName": "TexteffectssampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 21,
+          "title": "常见Tab导航样式合集",
+          "desc": "Tabs组件可以让用户能聚焦于当前显示的内容，对页面内容进行分类，提高页面空间利用率。本示例基于Tabs组件，为开发者提供不同场景下的导航样式，如：常见底部导航、舵式底部导航、可滑动+更多按钮样式、侧边导航等。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-tab-navigation/blob/br_release_hmos/README.md",
+          "moduleName": "multitabnavigationsample",
+          "abilityName": "MultitabnavigationsampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 22,
+          "title": "自定义弹窗合集",
+          "desc": "本示例通过CustomDialog、bindContentCover、bindSheet等接口，实现多种样式的弹窗。帮助开发者掌握自定义弹窗开发的步骤，灵活的实现自己业务需要用到的弹窗场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/custom-dialog-gathers/blob/br_release_hmos/README.md",
+          "moduleName": "customdialogsample",
+          "abilityName": "CustomdialogsampleAbility",
+          "sequence": 3,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "categoryId": 2,
+      "sequence": 2,
+      "sampleContents": [
+        {
+          "id": 23,
+          "title": "Scroll组件嵌套滑动",
+          "desc": "本示例通过Scroll组件的滑动能力和List组件的nestedScroll属性，实现当Scroll嵌套List滑动时，优先滑动最外层的Scroll，当Scroll滑动至末端时，List再继续滚动。帮助开发者掌握Scroll嵌套List滑动时的场景如何处理。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/scroll-component-nested-sliding/blob/br_release_hmos/README.md",
+          "moduleName": "scrollcomponentsample",
+          "abilityName": "NestedslidingsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 24,
+          "title": "WaterFlow瀑布流实例",
+          "desc": "本示例为开发者展示使用WaterFlow瀑布流容器实现首页布局效果，包括使用sections实现混排布局、结合item实现滑动吸顶、多种组件混合排列等场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/layout/sample_water_flow.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/water-flow/blob/br_release_hmos/README.md",
+          "moduleName": "waterflowsample",
+          "abilityName": "WaterflowsampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 25,
+          "title": "组件堆叠",
+          "desc": "本示例介绍运用Stack组件以构建多层次堆叠的视觉效果。通过绑定Scroll组件的onScrollFrameBegin滚动事件回调函数，精准捕获滚动动作的发生。当滚动时，实时地调节组件的透明度、高度等属性，从而成功实现了嵌套滚动效果、透明度动态变化以及平滑的组件切换。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/layout/sample_component_stack.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/component-stack/blob/br_release_hmos/README.md",
+          "moduleName": "componentstacksample",
+          "abilityName": "ComponentstacksampleAbility",
+          "sequence": 3,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 26,
+          "title": "基于Grid实现混合布局",
+          "desc": "本示例主要实现了Grid组件和List组件以及Swiper组件的嵌套混合布局。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/grid-hybrid/blob/br_release_hmos/README.md",
+          "moduleName": "gridhybridsample",
+          "abilityName": "GridhybridsampleAbility",
+          "sequence": 4,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "categoryId": 2,
+      "sequence": 3,
+      "sampleContents": [
+        {
+          "id": 27,
+          "title": "转场动效合集",
+          "desc": "本示例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见一镜到底转场动效，便于用户进行常见的转场动效场景开发。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.gif",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/transitions-collection/blob/br_release_hmos/README.md",
+          "moduleName": "transitionscollectionsample",
+          "abilityName": "TransitioncollectionsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 28,
+          "title": "动效案例合集",
+          "desc": "本示例基于基础组件、通用属性、显式动效，实现多种常见动效案例，便于用户进行常见的动效场景开发。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/animation-collection/blob/br_release_hmos/README.md",
+          "moduleName": "animationcollectionsample",
+          "abilityName": "AnimationcollectionsampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 29,
+          "title": "拖拽框架开发实践",
+          "desc": "本示例基于ArkUI的拖拽框架，实现图片、富文本、文本、输入框、列表等组件的拖拽功能，通过设置拖拽事件中的接口信息自定义拖拽响应，实现拖拽图像增加水印、自定义拖拽背板图、AI识别拖拽内容等拖拽场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/DragFramework/blob/br_release_hmos/README.md",
+          "moduleName": "dragframeworksample",
+          "abilityName": "DragframeworksampleAbility",
+          "sequence": 3,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "categoryId": 2,
+      "sequence": 4,
+      "sampleContents": [
+        {
+          "id": 30,
+          "title": "流畅刷文章",
+          "desc": "本示例实现了文章和媒体文件浏览的功能，通过设置组件的属性来控制屏幕刷新率，达到低功耗的目的，参考本示例可学习开发类似博客场景，并进行低功耗的适配。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/fluent-blog/blob/br_release_hmos/README.md",
+          "moduleName": "fluentblogsample",
+          "abilityName": "FluentblogsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 31,
+          "title": "列表项交换",
+          "desc": "本示例介绍了如何通过组合手势结合List组件，来实现对List组件中列表项的交换排序。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/list/sample_list_exchange.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-exchange/blob/br_release_hmos/README.md",
+          "moduleName": "listexchangesample",
+          "abilityName": "ListexchangesampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 32,
+          "title": "列表编辑效果",
+          "desc": "本示例基于List组件，实现待办事项管理、文件管理、备忘录的等场景列表编辑效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-item-edit/blob/br_release_hmos/README.md",
+          "moduleName": "listitemeditsample",
+          "abilityName": "ListitemeditsampleAbility",
+          "sequence": 3,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "categoryId": 3,
+      "sequence": 2,
+      "sampleContents": [
+        {
+          "id": 33,
+          "title": "画中画效果实现",
+          "desc": "本示例基于媒体服务和ArkUI的基本能力，实现视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/media/sample_window_pip.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/window-pip/blob/br_release_hmos/README.md",
+          "moduleName": "windowpipsample",
+          "abilityName": "WindowpipsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 34,
+          "title": "多图片合集",
+          "desc": "本示例介绍了如何使用Swiper组件实现图片轮播效果，以及如何自定义Swiper组件的指示器，来实现图片的切换效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/media/sample_multiple_image.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultipleImage/blob/br_release_hmos/README.md",
+          "moduleName": "multipleimagesample",
+          "abilityName": "MultipleimagesampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 35,
+          "title": "基于AudioRenderer的音频播控和多场景交互",
+          "desc": "本场景解决方案主要面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。功能包括后台播放、和播控中心的交互、适配不同类型的焦点打断策略、切换路由发声设备、切换输出设备等基础音频常见功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-interaction/blob/br_release_hmos/README.md",
+          "moduleName": "audiointeractionsample",
+          "abilityName": "AudiointeractionsampleAbility",
+          "sequence": 3,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "categoryId": 3,
+      "sequence": 3,
+      "sampleContents": [
+        {
+          "id": 36,
+          "title": "H5页面跳转",
+          "desc": "本示例基于ArkUI框架和Web实现了H5页面和ArkTS页面之间的相互跳转。帮助开发者在Web页面开发中掌握H5页面加载，H5页面跳转，H5页面与ArkTS页面参数传递等功能的实现方案。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/capacity/sample_page_redirection.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/page-redirection/blob/br_release_hmos/README.md",
+          "moduleName": "pageredirectionsample",
+          "abilityName": "PageredirectionsampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 39,
+          "title": "首选项",
+          "desc": "本示例使用@ohos.data.preferences接口，展示了使用首选项持久化存储数据的功能。帮助开发者实现主题切换且主题数据缓存读取的场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/data/sample_preferences.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/web-pre-render/blob/br_release_hmos/README.md",
+          "moduleName": "preferencessample",
+          "abilityName": "PreferencessampleAbility",
+          "sequence": 1,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 37,
+          "title": "Web页面瞬开效果实践",
+          "desc": "本示例基于预渲染技术，实现了点击后Web页面瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/location-service/blob/br_release_hmos/README.md",
+          "moduleName": "webprerendersample",
+          "abilityName": "WebprerendersampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "categoryId": 3,
+      "sequence": 5,
+      "sampleContents": [
+        {
+          "id": 40,
+          "title": "验证码场景合集",
+          "desc": "本示例实现了5种验证码场景，基本涵盖了大部分应用的验证码场景。开发者可按需下载代码，实现自己应用的验证码场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/verification-code-scenario/blob/br_release_hmos/README.md",
+          "moduleName": "verificationcodescenariosample",
+          "abilityName": "VerificationcodescenariosampleAbility",
+          "sequence": 2,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 41,
+          "title": "发布图片评论",
+          "desc": "本示例通过拉起系统相机实现发布图片评论，便于用户了解系统相机接口的调用方式。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/scene/sample_image_comment.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/image-comment/blob/br_release_hmos/README.md",
+          "moduleName": "imagecommentsample",
+          "abilityName": "ImagecommentsampleAbility",
+          "sequence": 3,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 42,
+          "title": "选择并查看文档与媒体文件",
+          "desc": "应用使用@ohos.file.picker、@ohos.file.photoAccessHelper、@ohos.file.fs等接口，实现了拉起文档编辑保存、拉起系统相册图片查看、拉起视频并播放的功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/function/data/sample_picker.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/picker/blob/br_release_hmos/README.md",
+          "moduleName": "pickersample",
+          "abilityName": "PickersampleAbility",
+          "sequence": 4,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        },
+        {
+          "id": 43,
+          "title": "UI框架-软键盘弹出",
+          "desc": "本示例展示了输入框分别在屏幕顶部和底部时软键盘弹出对页面布局的影响，通过设置软键盘的避让模式为KeyboardAvoidMode.RESIZE、设置NavDestination的mode为NavDestinationMode.DIALOG等方式实现布局的避让，帮助开发者在多种软件盘弹出场景下实现合理的页面布局。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/arkui/scene/sample_keyboard.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/keyboard/blob/br_release_hmos/README.md",
+          "moduleName": "keyboardsample",
+          "abilityName": "KeyboardsampleAbility",
+          "sequence": 5,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ],
+          "requiredApiVersion": 14
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "categoryId": 5,
+      "sequence": 1,
+      "sampleContents": [
+        {
+          "id": 14,
+          "unionId": 0,
+          "title": "语音朗读",
+          "desc": "本示例展示了语音类AI能力中的朗读控件能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174136550_80671883.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts/blob/br_release_hmos/README.md",
+          "moduleName": "speechkitsample",
+          "abilityName": "SpeechkitsampleEntryAbility",
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "categoryId": 5,
+      "sequence": 2,
+      "sampleContents": [
+        {
+          "id": 15,
+          "unionId": 0,
+          "title": "文档扫描",
+          "desc": "本示例展示了使用视觉类AI能力中的文档扫描能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174158803_364fc12f.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts/blob/br_release_hmos/readme_cn.md",
+          "moduleName": "documentscansample",
+          "abilityName": "DocScanSampleAbility",
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "categoryId": 5,
+      "sequence": 3,
+      "sampleContents": [
+        {
+          "id": 16,
+          "unionId": 0,
+          "title": "表格提取",
+          "desc": "本示例展示了如何集成文档扫描控件，实现从图像中识别并提取表格的功能，表格内容支持保存为Excel文件。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174182254_d8892bce.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts/blob/br_release_hmos/README.md",
+          "moduleName": "sheetrecognitionsample",
+          "abilityName": "SheetRecognitionAbility",
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "categoryId": 5,
+      "sequence": 4,
+      "sampleContents": [
+        {
+          "id": 18,
+          "unionId": 0,
+          "title": "通用文字识别",
+          "desc": "本示例展示了使用基础视觉服务提供的通用文字识别能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "isFavorite": false,
+          "mediaType": "IMAGE",
+          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174229629_3e2819bb.png",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo/blob/br_release_hmos/readme_cn.md",
+          "moduleName": "textrecognitionsample",
+          "abilityName": "TextRecognitionAbility",
+          "sequence": 1,
+          "requiredApiVersion": 14,
+          "supportDeviceList": [
+            "phone",
+            "tablet",
+            "2in1"
+          ]
+        }
+      ]
+    }
+  ]
+}

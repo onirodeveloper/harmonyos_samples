@@ -26,5 +26,5 @@ export class SampleDetailConstant {
   //Expand animation
   public static readonly ANIMATION_DURATION: number = 300;
   // The offset of the popup component relative to the display position defined by the placement setting.
-  public static HOVER_POPUP_LEFT: number = 10;
+  public static readonly HOVER_POPUP_LEFT: number = 10;
 }

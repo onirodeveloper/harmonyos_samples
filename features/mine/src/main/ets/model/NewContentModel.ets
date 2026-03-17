@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import { Logger, ResponseData } from '@ohos/common';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { Logger } from '@ohos/common';
+import { CardTypeEnum } from '@ohos/commonbusiness';
 import { MineService } from '../service/MineService';
-import { AllContentData } from './AllContentData';
-import { MineTrigger, NewContentData } from './NewContentData';
+import { NewContentData } from './NewContentData';
 
 const TAG = '[NewContentModel]';
 
@@ -34,34 +35,24 @@ export class NewContentModel {
     return NewContentModel.instance;
   }
 
-  public getNewContent(type: MineTrigger, currentPage: number,
-    pageSize: number): Promise<ResponseData<NewContentData[]>> {
-    return this.service.getNewContentByPreference(type, currentPage, pageSize)
-      .then((data: ResponseData<NewContentData[]>) => {
-        return data;
-      }).catch((err: string) => {
-        Logger.error(TAG,
-          `getNewContent data from network failed! try to get data form preference. ${err}`);
-        return this.service.getNewContent(type, currentPage, pageSize)
-          .then((data: ResponseData<NewContentData[]>) => {
-            this.service.setNewContentToPreference(type, data);
-            return data;
-          });
-      });
-  }
-
-  public getNewContentNumber(type: MineTrigger): Promise<AllContentData> {
-    return this.service.getNewContentNumByPreference(type)
-      .then((data: AllContentData) => {
-        return data;
-      }).catch((err: string) => {
-        Logger.error(TAG,
-          `getNewContent data from network failed! try to get data form preference. ${err}`);
-        return this.service.getNewContentNumByMock(type)
-          .then((data: AllContentData) => {
-            this.service.setNewContentNumToPreference(type, data);
-            return data;
-          });
-      });
+  public getNewContent(type: CardTypeEnum): Promise<NewContentData[]> {
+    return new Promise((resolve, reject) => {
+      this.service.getNewContent(type)
+        .then((data: NewContentData[]) => {
+          this.service.setNewContentToPreference(type, data);
+          resolve(data);
+        })
+        .catch((err: BusinessError) => {
+          Logger.error(TAG,
+            `getNewContent from network failed! Retried form preference. code: ${err.code}; message: ${err.message}`);
+          this.service.getNewContentByPreference(type)
+            .then((data: NewContentData[]) => {
+              resolve(data);
+            })
+            .catch(() => {
+              reject(err);
+            });
+        });
+    });
   }
 }

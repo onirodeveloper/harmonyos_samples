@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 type IndicatorType = DotIndicator | DigitIndicator | boolean;
 
 class IndicatorMap {
@@ -49,7 +51,7 @@ export const indicatorStyleMapData: Map<string, IndicatorMap> = new Map([
     .selectedFontColor($r('sys.color.font_primary'))
     .digitFont({ size: 16, weight: FontWeight.Bold }))],
   ['None', new IndicatorMap('false', false)],
-  ['Default', new IndicatorMap(dotIndicatorCode, new DotIndicator().itemWidth(6)
+  [DEFAULT_KEY, new IndicatorMap(dotIndicatorCode, new DotIndicator().itemWidth(6)
     .itemHeight(6)
     .selectedItemWidth(12)
     .selectedItemHeight(6)
@@ -68,7 +70,7 @@ export class IndicatorEffectMap {
 }
 
 export const indicatorEffectMapping: Map<string, IndicatorEffectMap> = new Map([
-  ['Default', new IndicatorEffectMap('EdgeEffect.Spring', EdgeEffect.Spring)],
+  [DEFAULT_KEY, new IndicatorEffectMap('EdgeEffect.Spring', EdgeEffect.Spring)],
   ['Spring', new IndicatorEffectMap('EdgeEffect.Spring', EdgeEffect.Spring)],
   ['Fade', new IndicatorEffectMap('EdgeEffect.Fade', EdgeEffect.Fade)],
   ['None', new IndicatorEffectMap('EdgeEffect.None', EdgeEffect.None)],

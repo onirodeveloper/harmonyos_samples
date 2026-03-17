@@ -26,10 +26,13 @@ export class CodePreviewJSUtil {
         runMethod = runMethod.replace('%param', params);
       }
       try {
-        const promise = WebUtil.getWebController(WebUtil.getComponentCodeUrl())?.runJavaScript(runMethod);
-        callback && promise?.then(() => {
-          callback();
-        })
+        WebUtil.getWebController(WebUtil.getComponentCodeUrl())?.runJavaScript(runMethod)
+          .then(() => {
+            callback?.();
+          })
+          .catch((error: BusinessError) => {
+            Logger.error(TAG, `RunJavaScript Failed, the code is ${error.code}, the message is ${error.message}`);
+          });
       } catch (err) {
         const error: BusinessError = err as BusinessError;
         Logger.error(TAG, `RunJavaScript error, the code is ${error.code}, the message is ${error.message}`);

@@ -2,279 +2,255 @@
   "data": [
     {
       "branch": "master",
-      "originalUrl": "https://gitee.com/zq-kexin/WearableMusic",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/WearableMusic",
       "moduleName": "wearablemusicsample",
       "abilityName": "WearableMusicSampleAbility"
     },
     {
       "branch": "master",
-      "originalUrl": "https://gitee.com/lv-yuanyuan001/SmartWatchShortVideo",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchShortVideo",
       "moduleName": "smartwatchshortvideosample",
       "abilityName": "SmartWatchShortVideoSampleAbility"
     },
     {
       "branch": "master",
-      "originalUrl": "https://gitee.com/lv-yuanyuan001/SmartWatchMap",
-      "moduleName": "smartwatchmapsample",
-      "abilityName": "SmartWatchMapSampleAbility"
-    },
-    {
-      "branch": "master",
-      "originalUrl": "https://gitee.com/dong-haifan/SmartWatchCarControl",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchCarControl",
       "moduleName": "smartwatchcarcontrolsample",
       "abilityName": "SmartWatchCarControlSampleAbility"
     },
     {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/MultiBusinessOffice/",
-      "moduleName": "multibusinesssample",
-      "abilityName": "MultibusinesssampleAbility"
-    },
-    {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/LiveViewLockScreen/",
-      "moduleName": "liveviewlockscreensample",
-      "abilityName": "LiveviewlockscreensampleAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/knock-share/",
-      "moduleName": "knocksharesample",
-      "abilityName": "KnocksharesampleAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/VideoCast",
-      "moduleName": "videocastsample",
-      "abilityName": "VideocastsampleAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/ContinuePublish/",
-      "moduleName": "continuepublishsample",
-      "abilityName": "ContinuepublishsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-nav-bar/",
-      "moduleName": "multinavbarsample",
-      "abilityName": "MultinavbarsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-convenient-life/",
-      "moduleName": "multiconvinientlifesample",
-      "abilityName": "MulticonvinientlifesampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-mobile-payment/",
-      "moduleName": "multimobilepaymentsample",
-      "abilityName": "MultimobilepaymentsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read/",
-      "moduleName": "multinewsreadsample",
-      "abilityName": "MultinewsreadsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-travel-accommodation/",
-      "moduleName": "multitravelsample",
-      "abilityName": "MultitravelsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-columns/",
-      "moduleName": "multicolumnssample",
-      "abilityName": "MulticolumnssampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/text-effects/",
-      "moduleName": "texteffectssample",
-      "abilityName": "TexteffectssampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-tab-navigation/",
-      "moduleName": "multitabnavigationsample",
-      "abilityName": "MultitabnavigationsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/custom-dialog-gathers/",
-      "moduleName": "customdialogsample",
-      "abilityName": "CustomdialogsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/scroll-component-nested-sliding/",
-      "moduleName": "nestedslidingsample",
-      "abilityName": "NestedslidingsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/water-flow/",
-      "moduleName": "waterflowsample",
-      "abilityName": "WaterflowsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/component-stack/",
-      "moduleName": "componentstacksample",
-      "abilityName": "ComponentstacksampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/grid-hybrid/",
-      "moduleName": "gridhybridsample",
-      "abilityName": "GridhybridsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/transitions-collection/",
-      "moduleName": "transitionscollectionsample",
-      "abilityName": "TransitionscollectionsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/animation-collection/",
-      "moduleName": "animationcollectionsample",
-      "abilityName": "AnimationcollectionsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/DragFramework/",
-      "moduleName": "dragframeworksample",
-      "abilityName": "DragframeworksampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/fluent-blog/",
-      "moduleName": "fluentblogsample",
-      "abilityName": "FluentblogsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/list-exchange/",
-      "moduleName": "listexchangesample",
-      "abilityName": "ListexchangesampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/list-item-edit/",
-      "moduleName": "listitemeditsample",
-      "abilityName": "ListitemeditsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/window-pip/",
-      "moduleName": "windowpipsample",
-      "abilityName": "WindowpipsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/MultipleImage/",
-      "moduleName": "multipleimagesample",
-      "abilityName": "MultipleimagesampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/audio-interaction/",
-      "moduleName": "audiointeractionsample",
-      "abilityName": "AudiointeractionsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/page-redirection/",
-      "moduleName": "pageredirectionsample",
-      "abilityName": "PageredirectionsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/web-pre-render/",
-      "moduleName": "webprerendersample",
-      "abilityName": "WebprerendersampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/location-service/",
-      "moduleName": "locationservicesample",
-      "abilityName": "LocationservicesampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/preferences/",
-      "moduleName": "preferencessample",
-      "abilityName": "PreferencessampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/verification-code-scenario/",
-      "moduleName": "verificationcodescenariosample",
-      "abilityName": "VerificationcodescenariosampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/image-comment/",
-      "moduleName": "imagecommentsample",
-      "abilityName": "ImagecommentsampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/picker/",
-      "moduleName": "pickersample",
-      "abilityName": "PickersampleAbility"
-    },
-    {
-      "branch": "br_release_hmosworld_new",
-      "originalUrl": "https://gitee.com/harmonyos_samples/keyboard/",
-      "moduleName": "keyboardsample",
-      "abilityName": "KeyboardsampleAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-sample-code-arkts/",
-      "moduleName": "visionkitsample",
-      "abilityName": "VisionkitsampleEntryAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/speech-kit-sample-TextReader_-arkts/",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts/",
       "moduleName": "speechkitsample",
       "abilityName": "SpeechkitsampleEntryAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-sample-code-document-scan-demo-ark-ts/",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts/",
       "moduleName": "documentscansample",
-      "abilityName": "DocumentscansampleEntryAbility"
+      "abilityName": "DocScanSampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-samplecode-sheet-extraction-demo-arkts/",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts/",
       "moduleName": "sheetrecognitionsample",
-      "abilityName": "SheetrecognitionsampleEntryAbility"
+      "abilityName": "SheetRecognitionAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/visionkit-sample-code-card-recognition-demo-ark-ts/",
-      "moduleName": "cardrecognitionsample",
-      "abilityName": "CardrecognitionsampleEntryAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/core-vision-kit-sample-code-ark-ts-ocr-demo/",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo/",
       "moduleName": "textrecognitionsample",
-      "abilityName": "TextrecognitionsampleEntryAbility"
+      "abilityName": "TextRecognitionAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/core-vision-kit-sample-code-ark-ts-face-compare-demo/",
-      "moduleName": "facecomparesample",
-      "abilityName": "FacecomparesampleEntryAbility"
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiBusinessOffice/",
+      "moduleName": "multibusinesssample",
+      "abilityName": "MultibusinesssampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/LiveViewLockScreen/",
+      "moduleName": "liveviewlockscreensample",
+      "abilityName": "LiveviewlockscreensampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/knock-share/",
+      "moduleName": "knocksharesample",
+      "abilityName": "KnocksharesampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/VideoCast/",
+      "moduleName": "videocastsample",
+      "abilityName": "VideocastsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/ContinuePublish/",
+      "moduleName": "continuepublishsample",
+      "abilityName": "ContinuepublishsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-nav-bar/",
+      "moduleName": "multinavbarsample",
+      "abilityName": "MultinavbarsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/",
+      "moduleName": "multiconvinientlifesample",
+      "abilityName": "MulticonvinientlifesampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment/",
+      "moduleName": "multimobilepaymentsample",
+      "abilityName": "MultimobilepaymentsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read/",
+      "moduleName": "multinewsreadsample",
+      "abilityName": "MultinewsreadsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-travel-accommodation/",
+      "moduleName": "multitravelsample",
+      "abilityName": "MultitravelsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-columns/",
+      "moduleName": "multicolumnssample",
+      "abilityName": "MulticolumnssampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/text-effects/",
+      "moduleName": "texteffectssample",
+      "abilityName": "TexteffectssampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-tab-navigation/",
+      "moduleName": "multitabnavigationsample",
+      "abilityName": "MultitabnavigationsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/custom-dialog-gathers/",
+      "moduleName": "customdialogsample",
+      "abilityName": "CustomdialogsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/scroll-component-nested-sliding/",
+      "moduleName": "nestedslidingsample",
+      "abilityName": "NestedslidingsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/water-flow/",
+      "moduleName": "waterflowsample",
+      "abilityName": "WaterflowsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/component-stack/",
+      "moduleName": "componentstacksample",
+      "abilityName": "ComponentstacksampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/grid-hybrid/",
+      "moduleName": "gridhybridsample",
+      "abilityName": "GridhybridsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/transitions-collection/",
+      "moduleName": "transitionscollectionsample",
+      "abilityName": "TransitionscollectionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/animation-collection/",
+      "moduleName": "animationcollectionsample",
+      "abilityName": "AnimationcollectionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/DragFramework/",
+      "moduleName": "dragframeworksample",
+      "abilityName": "DragframeworksampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/fluent-blog/",
+      "moduleName": "fluentblogsample",
+      "abilityName": "FluentblogsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-exchange/",
+      "moduleName": "listexchangesample",
+      "abilityName": "ListexchangesampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-item-edit/",
+      "moduleName": "listitemeditsample",
+      "abilityName": "ListitemeditsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/window-pip/",
+      "moduleName": "windowpipsample",
+      "abilityName": "WindowpipsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultipleImage/",
+      "moduleName": "multipleimagesample",
+      "abilityName": "MultipleimagesampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-interaction/",
+      "moduleName": "audiointeractionsample",
+      "abilityName": "AudiointeractionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/page-redirection/",
+      "moduleName": "pageredirectionsample",
+      "abilityName": "PageredirectionsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/web-pre-render/",
+      "moduleName": "webprerendersample",
+      "abilityName": "WebprerendersampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/location-service/",
+      "moduleName": "locationservicesample",
+      "abilityName": "LocationservicesampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/preferences/",
+      "moduleName": "preferencessample",
+      "abilityName": "PreferencessampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/verification-code-scenario/",
+      "moduleName": "verificationcodescenariosample",
+      "abilityName": "VerificationcodescenariosampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/image-comment/",
+      "moduleName": "imagecommentsample",
+      "abilityName": "ImagecommentsampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/picker/",
+      "moduleName": "pickersample",
+      "abilityName": "PickersampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/keyboard/",
+      "moduleName": "keyboardsample",
+      "abilityName": "KeyboardsampleAbility"
     }
   ]
 }

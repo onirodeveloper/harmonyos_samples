@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 class ImageFitStyleMap {
   public code: string;
   public value: ImageFit;
@@ -24,7 +26,7 @@ class ImageFitStyleMap {
 }
 
 export const imageFitStyleMapData: Map<string, ImageFitStyleMap> = new Map([
-  ['Default', new ImageFitStyleMap('ImageFit.Cover', ImageFit.Cover)],
+  [DEFAULT_KEY, new ImageFitStyleMap('ImageFit.Cover', ImageFit.Cover)],
   ['Contain', new ImageFitStyleMap('ImageFit.Contain', ImageFit.Contain)],
   ['Cover', new ImageFitStyleMap('ImageFit.Cover', ImageFit.Cover)],
   ['Auto', new ImageFitStyleMap('ImageFit.Auto', ImageFit.Auto)],
@@ -62,5 +64,5 @@ export const filterStyleMapData: Map<string, FilterStyleMap> = new Map([
       '0.3086,0.6094,0.0820,0,0,0.3086,0.6094,0.0820,0,0,0.3086,0.6094,0.0820,0,0,0,0,0,1,0')],
   ['增色滤镜',
     new FilterStyleMap('1,0,0,0,0,0,1,0,0,255,0,0,1,0,0,0,0,0,1,0', '1,0,0,0,0,0,1,0,0,255,0,0,1,0,0,0,0,0,1,0')],
-  ['Default', new FilterStyleMap('1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0', '1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0')]
+  [DEFAULT_KEY, new FilterStyleMap('1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0', '1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0')]
 ]);

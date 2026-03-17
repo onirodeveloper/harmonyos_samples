@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import type { BusinessError } from '@kit.BasicServicesKit';
+import { Logger } from '@ohos/common';
 import { WearableSampleService } from '../service/WearableSampleService';
 import { WearableSampleData } from './WearableSampleData';
 
@@ -26,16 +28,19 @@ export class WearableSampleModel {
   }
 
   public static getInstance(): WearableSampleModel {
-   if (!WearableSampleModel.instance) {
-     WearableSampleModel.instance = new WearableSampleModel();
-   }
-   return WearableSampleModel.instance;
+    if (!WearableSampleModel.instance) {
+      WearableSampleModel.instance = new WearableSampleModel();
+    }
+    return WearableSampleModel.instance;
   }
 
   public getWearableSampleList(): Promise<WearableSampleData[]> {
     return this.service.getWearableSampleListByMock()
       .then((data: WearableSampleData[]) => {
         return data;
-      })
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG, `getWearableSampleList failed. cause code: ${err.code}; message: ${err.message}`);
+        return [];
+      });
   }
 }

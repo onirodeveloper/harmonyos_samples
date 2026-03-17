@@ -13,7 +13,17 @@
  * limitations under the License.
  */
 
-import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey, TagEnum } from '@ohos/common';
+import {
+  BreakpointType,
+  CommonConstants,
+  GlobalInfoModel,
+  ImageComponent,
+  StorageKey,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData
+} from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
@@ -27,7 +37,7 @@ const MARGIN_COUNT: number = 2;
 @Component
 export struct SampleScrollCard {
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop sampleCardData: SampleCardData;
   handleItemClick?: Function;
   @State sampleItemWidth: number = ITEM_HEIGHT * ITEM_ASPECT;
@@ -49,7 +59,7 @@ export struct SampleScrollCard {
   handleBreakPointChange() {
     const barWidth =
       this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SIDE_BAR_WIDTH :
-      CommonConstants.TAB_BAR_WIDTH;
+        CommonConstants.TAB_BAR_WIDTH;
     this.horizontalPadding = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
       md: $r('sys.float.padding_level12'),
@@ -71,53 +81,61 @@ export struct SampleScrollCard {
 
   @Builder
   SampleItemBuilder(item: SampleContent, index: number) {
-    Stack({ alignContent: Alignment.TopStart }) {
-      TagTipLabel({
-        tags: item.tagIds,
-        newSymbol: $r('app.media.big_new'),
-      })
-      .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
-      .width(CommonConstants.FULL_PERCENT)
-
-      Column() {
-        Column() {
-          Image($rawfile(item.mediaUrl))
-            .draggable(false)
-            .alt($r('app.media.img_placeholder'))
-            .objectFit(ImageFit.Contain)
-            .height('100%')
-        }
-        .layoutWeight(1)
+    TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+      Stack({ alignContent: Alignment.TopStart }) {
+        TagTipLabel({
+          tags: item.tagIds,
+          newSymbol: $r('app.media.big_new'),
+        })
+          .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+          .width(CommonConstants.FULL_PERCENT)
 
         Column() {
-          Text(item.title)
-            .fontSize($r('sys.float.Body_L'))
-            .fontWeight(FontWeight.Bold)
-            .fontColor($r('sys.color.font_primary'))
-          TagLabel({ tags: item.tags, maxWidth: LOG_MAX_WIDTH })
+          Column() {
+            ImageComponent({
+              src: item.mediaUrl,
+              objectFit: ImageFit.Contain,
+              alt: $r('app.media.img_placeholder'),
+            })
+              .height('100%')
+          }
+          .layoutWeight(1)
+
+          Column() {
+            Text(item.title)
+              .fontSize($r('sys.float.Body_L'))
+              .fontWeight(FontWeight.Bold)
+              .fontColor($r('sys.color.font_primary'))
+            TagLabel({ tags: item.tags, maxWidth: LOG_MAX_WIDTH })
+          }
+          .width('100%')
+          .padding({ top: $r('sys.float.padding_level8') })
+          .renderGroup(true)
         }
-        .width('100%')
-        .padding({ top: $r('sys.float.padding_level8') })
-        .renderGroup(true)
       }
+      .clickEffect({ level: ClickEffectLevel.MIDDLE })
+      .onClick(() => this.handleItemClick?.(index, item))
+      .padding($r('sys.float.padding_level8'))
+      .backgroundColor($r('sys.color.comp_background_list_card'))
+      .borderRadius($r('sys.float.corner_radius_level8'))
+      .height($r('app.float.card_scroll_height'))
+      .width(this.sampleItemWidth)
+      .customProperty(TRACK_KEY, {
+        content: item.title,
+        moduleType: item.contentType,
+        eventType: TrackEventType.SAMPLE_CLICK,
+      } as TrackServiceData)
     }
-    .clickEffect({ level: ClickEffectLevel.MIDDLE })
-    .onClick(() => this.handleItemClick?.(index, this.sampleCardData.sampleContents))
-    .padding($r('sys.float.padding_level8'))
-    .backgroundColor($r('sys.color.comp_background_list_card'))
-    .borderRadius($r('sys.float.corner_radius_level8'))
-    .height($r('app.float.card_scroll_height'))
-    .width(this.sampleItemWidth)
   }
 
   build() {
     Column() {
       Column() {
-        Text(this.sampleCardData.cardTitle)
+        Text(this.sampleCardData.title)
           .fontSize($r('sys.float.Subtitle_L'))
           .fontColor($r('sys.color.ohos_id_color_foreground'))
           .fontWeight(FontWeight.Bold)
-        Text(this.sampleCardData.cardSubTitle)
+        Text(this.sampleCardData.subTitle)
           .fontSize($r('sys.float.Body_S'))
           .fontColor($r('sys.color.font_secondary'))
           .fontWeight(FontWeight.Regular)

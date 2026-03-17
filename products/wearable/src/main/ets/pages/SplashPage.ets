@@ -16,12 +16,11 @@
 import { CommonConstants, PageContext } from '@ohos/common';
 import { SplashEventTypeEnum, SplashViewModel } from '../viewmodel/SplashViewModel';
 
-const TAG: string = '[SplashPage]';
-
 @Entry
 @Component
 struct SplashPage {
-  private pageContext: PageContext = AppStorage.get('pageContext') as PageContext;
+  @StorageLink('pageContext') pageContext: PageContext =
+    AppStorage.get<PageContext>('pageContext') ?? new PageContext();
   private appPathInfo: NavPathStack = this.pageContext.navPathStack;
   private viewModel: SplashViewModel = new SplashViewModel();
 

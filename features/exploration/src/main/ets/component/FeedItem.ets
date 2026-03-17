@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 
-import { BreakpointType, GlobalInfoModel, StorageKey, TagEnum } from '@ohos/common';
+import { BreakpointType, GlobalInfoModel, ImageComponent, StorageKey } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 
 @Component
 export struct FeedItem {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop discoverContent: DiscoverContent;
 
   build() {
@@ -30,10 +31,11 @@ export struct FeedItem {
           newSymbol: $r('app.media.big_new'),
         })
           .zIndex(1)
-        Image($rawfile(this.discoverContent.mediaUrl))
-          .draggable(false)
+        ImageComponent({
+          src: this.discoverContent?.mediaUrl,
+          objectFit: ImageFit.Cover,
+        })
           .borderRadius($r('sys.float.corner_radius_level4'))
-          .alt($r('app.media.img_placeholder'))
           .width('100%')
           .height('100%')
       }

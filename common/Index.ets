@@ -4,6 +4,8 @@ export { BundleManagerUtil } from './src/main/ets/util/BundleManagerUtil';
 
 export { ColorUtil } from './src/main/ets/util/ColorUtil';
 
+export { FileUtil } from './src/main/ets/util/FileUtil';
+
 export { ImageUtil } from './src/main/ets/util/ImageUtil';
 
 export { default as Logger } from './src/main/ets/util/Logger';
@@ -20,11 +22,11 @@ export { GlobalInfoModel, WIDTH_BREAKPOINTS } from './src/main/ets/model/GlobalI
 
 export { BundleInfoData } from './src/main/ets/model/BundleInfoData';
 
-export { ResponseData } from './src/main/ets/model/ResponseData';
+export { PageData } from './src/main/ets/model/ResponseData';
 
 export { LoadingModel } from './src/main/ets/model/LoadingModel';
 
-export { default as MockRequest } from './src/main/ets/storagemanager/MockRequest';
+export { MockRequest as HmosRequest } from './src/main/ets/storagemanager/MockRequest';
 
 export { PreferenceManager } from './src/main/ets/storagemanager/PreferenceManager';
 
@@ -51,14 +53,11 @@ export {
   ProductSeriesEnum,
 } from './src/main/ets/constant/CommonEnums';
 
+export { TriggerEnums } from './src/main/ets/constant/TriggerEnums';
+
 export { IPageContext, PageContext } from './src/main/ets/routermanager/PageContext';
 
-export {
-  NativeActionData,
-  WebUtil,
-  type WebNodeController,
-  javascriptProxyPermission,
-} from './src/main/ets/util/WebUtil';
+export { NativeActionData, WebUtil, type WebNodeController } from './src/main/ets/util/WebUtil';
 
 export { VideoComponent } from './src/main/ets/component/VideoComponent';
 
@@ -72,7 +71,7 @@ export { NoNetworkView } from './src/main/ets/view/NoNetworkView';
 
 export { ObservedArray } from './src/main/ets/util/ObservedArray';
 
-export { RequestErrorCode } from './src/main/ets/constant/ErrorCodeConstants';
+export { RequestErrorCode } from './src/main/ets/constant/RequestErrorCode';
 
 export { BaseState } from './src/main/ets/viewmodel/BaseState';
 
@@ -104,4 +103,30 @@ export { TextOverflowProperty } from './src/main/ets/util/TextOverflowUtil';
 
 export { FormCardEnum, ArticleListItem } from './src/main/ets/model/FormCardInfo';
 
-export { SampleDistributionUtil } from './src/main/ets/util/SampleDistributionUtil';
+export { PageEnum } from './src/main/ets/model/PageEnum';
+
+export { TrackModel, TRACK_KEY, TrackServiceData, TrackEventType } from './src/main/ets/model/TrackModel';
+
+export { TrackManager } from './src/main/ets/trackmanager/TrackManager';
+
+export { TrackNode } from './src/main/ets/component/TrackNode';
+
+export { FeedbackSheet } from './src/main/ets/component/FeedbackSheet';
+
+export { ImageComponent } from './src/main/ets/component/ImageComponent';
+
+export { FeedbackDomain, FeedbackType, FeedbackInitParams } from './src/main/ets/model/FeedbackData';
+
+export { SubmitInfoUtil } from './src/main/ets/util/SubmitInfoUtil';
+
+export { UserAccount } from './src/main/ets/accountservice/model/UserAccount';
+
+export { AccountService } from './src/main/ets/accountservice/AccountService';
+
+export { LoginSheetViewBuilder } from './src/main/ets/accountservice/component/AccountSheetView'
+
+export { UrlUtil } from './src/main/ets/util/UrlUtil';
+
+export { ImageKnifeUtil } from './src/main/ets/util/ImageKnifeUtil';
+
+export { ImageKnifeComponent, ImageKnifeOption } from '@ohos/imageknife';

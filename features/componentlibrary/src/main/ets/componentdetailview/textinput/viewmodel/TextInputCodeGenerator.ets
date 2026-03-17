@@ -14,28 +14,28 @@
  */
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
-import { highlightColorMap } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY, highlightColorMap } from '../../common/entity/CommonMapData';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 import { textInputFontMapData, textInputTypeMapData } from '../entity/TextInputAttributeMapping';
 
 export class TextInputCodeGenerator implements CommonCodeGenerator {
-  private typeStr: string = textInputTypeMapData.get('Default')!.code;
-  private fontColor: string = highlightColorMap.get('Default')!.code;
-  private placeholderFont: string = textInputFontMapData.get('Default')!.code;
+  private typeStr: string = textInputTypeMapData.get(DEFAULT_KEY)!.code;
+  private fontColor: string = highlightColorMap.get(DEFAULT_KEY)!.code;
+  private placeholderFont: string = textInputFontMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'type':
           this.typeStr =
-            textInputTypeMapData.get(attribute.currentValue)?.code ?? textInputTypeMapData.get('Default')!.code;
+            textInputTypeMapData.get(attribute.currentValue)?.code ?? textInputTypeMapData.get(DEFAULT_KEY)!.code;
           break;
         case 'fontColor':
           this.fontColor = attribute.currentValue;
           break;
         case 'placeholderFont':
           this.placeholderFont =
-            textInputFontMapData.get(attribute.currentValue)?.code ?? textInputFontMapData.get('Default')!.code;
+            textInputFontMapData.get(attribute.currentValue)?.code ?? textInputFontMapData.get(DEFAULT_KEY)!.code;
           break;
         default:
           break;

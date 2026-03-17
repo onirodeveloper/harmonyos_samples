@@ -32,6 +32,42 @@
   ],
   "targets": [
     {
+      "name": "dev",
+      "resource": {
+        "directories": [
+          "./src/main/resources_dev",
+          "./src/main/resources"
+        ]
+      }
+    },
+    {
+      "name": "test",
+      "resource": {
+        "directories": [
+          "./src/main/resources_test",
+          "./src/main/resources"
+        ]
+      }
+    },
+    {
+      "name": "icsl",
+      "resource": {
+        "directories": [
+          "./src/main/resources_icsl",
+          "./src/main/resources"
+        ]
+      }
+    },
+    {
+      "name": "online",
+      "resource": {
+        "directories": [
+          "./src/main/resources_online",
+          "./src/main/resources"
+        ]
+      }
+    },
+    {
       "name": "default"
     },
     {

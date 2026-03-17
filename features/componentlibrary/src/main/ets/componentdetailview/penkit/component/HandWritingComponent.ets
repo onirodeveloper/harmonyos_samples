@@ -24,7 +24,8 @@ const BUTTON_OFFSET: number = 16;
 
 @Component
 export struct HandWritingComponent {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   private controller: HandwriteController = new HandwriteController();
   private initPath: string = 'savePath';
   private closeButtonTop: number = BUTTON_OFFSET;
@@ -42,7 +43,10 @@ export struct HandWritingComponent {
   aboutToDisappear() {
     // Invoke the saving interface when the HandWriteDemo exits.
     try {
-      this.controller?.save(this.initPath);
+      this.controller?.save(this.initPath)
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `HandwriteController save failed, cause code ${error.code}, message ${error.message}`);
+        });
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       Logger.error(TAG, `HandwriteController save error, the code is ${error.code}, the message is ${error.message}`);

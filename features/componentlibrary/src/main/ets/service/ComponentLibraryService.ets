@@ -14,8 +14,9 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import type { ResponseData } from '@ohos/common';
-import { Logger, MockRequest, PreferenceManager } from '@ohos/common';
+import type { PageData } from '@ohos/common';
+import { HmosRequest, Logger, PreferenceManager, TriggerEnums } from '@ohos/common';
+import { BaseDetailParam, BaseListParam } from '@ohos/commonbusiness';
 import type { ComponentData } from '../model/ComponentData';
 import type { ComponentDetailData } from '../model/ComponentDetailData';
 
@@ -28,70 +29,76 @@ export class ComponentLibraryService {
   constructor() {
   }
 
-  public getComponentListByMock(): Promise<ResponseData<ComponentData>> {
-    return new Promise((resolve: (value: ResponseData<ComponentData>) => void,
+  public getComponentList(currentPage: number, pageSize: number): Promise<PageData<ComponentData>> {
+    Logger.info(TAG, `getComponentList param: currentPage ${currentPage}, pageSize: ${pageSize} `);
+    const param: ComponentListParam = {
+      currentPage: currentPage,
+      pageSize: pageSize,
+    };
+    return new Promise((resolve: (value: PageData<ComponentData>) => void,
       reject: (reason?: Object) => void) => {
-      MockRequest.call<ResponseData<ComponentData>>(ComponentLibraryTrigger.COMPONENT_PAGE)
+      HmosRequest.getInstance().request<PageData<ComponentData>>(TriggerEnums.COMPONENT_PAGE, param)
         .then((result: Object) => {
-          resolve(result as ResponseData<ComponentData>);
+          resolve(result as PageData<ComponentData>);
         })
         .catch((error: BusinessError) => {
+          Logger.error(TAG, `getComponentList failed. cause: ${error.message}`);
           reject(error);
         });
     });
   }
 
-  public getComponentList(currentPage?: number, pageSize?: number): Promise<ResponseData<ComponentData>> {
-    Logger.info(TAG, `getComponentList param: currentPage ${currentPage}, pageSize: ${pageSize} `);
-    return this.getComponentListByMock();
-  }
-
-  public getComponentListByPreference(currentPage: number, pageSize: number): Promise<ResponseData<ComponentData>> {
-    return new Promise((resolve: (value: ResponseData<ComponentData>) => void,
-      reject: (reason?: string) => void) => {
+  public getComponentListByPreference(currentPage: number, pageSize: number): Promise<PageData<ComponentData>> {
+    return new Promise((resolve: (value: PageData<ComponentData>) => void,
+      reject: (e?: BusinessError) => void) => {
       let resp = PreferenceManager.getInstance()
-        .getValue<Record<string, ResponseData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA);
+        .getValue<Record<string, PageData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA);
       if (!resp) {
-        reject('There is no data in the Preference');
+        reject({ message: 'There is no data in the Preference' } as BusinessError);
+        return;
       }
-      resp = (resp as Record<string, ResponseData<ComponentData>>);
+      resp = (resp as Record<string, PageData<ComponentData>>);
       const ret = resp[`${currentPage}_${pageSize}`];
       if (!ret) {
-        reject('There is no data in the Preference');
+        reject({ message: 'There is no data in the Preference' } as BusinessError);
+        return;
       }
       resolve(ret);
     });
   }
 
-  public setComponentListToPreference(data: ResponseData<ComponentData>): Promise<void> {
+  public setComponentListToPreference(data: PageData<ComponentData>): Promise<void> {
     return new Promise((resolve: () => void) => {
       const hasValue: boolean = PreferenceManager.getInstance().hasValue(ComponentLibraryService.MAIN_PAGE_DATA);
       if (hasValue) {
         let resp = PreferenceManager.getInstance()
-          .getValue<Record<string, ResponseData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA);
-        resp = (resp as Record<string, ResponseData<ComponentData>>);
+          .getValue<Record<string, PageData<ComponentData>>>(ComponentLibraryService.MAIN_PAGE_DATA) ?? {};
+        resp = (resp as Record<string, PageData<ComponentData>>);
         resp[`${data.currentPage}_${data.pageSize}`] = data;
         PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, resp);
-        resolve();
       } else {
-        const record: Record<string, ResponseData<ComponentData>> = {};
+        const record: Record<string, PageData<ComponentData>> = {};
         record[`${data.currentPage}_${data.pageSize}`] = data;
         PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, record);
       }
+      resolve();
     });
   }
 
-  public getComponentDetail(componentId: number): Promise<ComponentDetailData> {
+  public getComponentDetail(componentId: number) {
+    const param: ComponentDetailParam = {
+      componentId,
+      singleId: componentId,
+    };
     return new Promise((resolve: (value: ComponentDetailData) => void, reject: (reason?: Object) => void) => {
-      this.getComponentDetailListByMock().then((result: ComponentDetailData[]) => {
-        const item = result.find((item: ComponentDetailData) => item.id === componentId);
-        if (item !== undefined) {
-          resolve(item);
-        } else {
-          Logger.error(TAG, `getComponentDetailListByMock failed, error: can't find detail data by id ${componentId}`);
-          reject();
-        }
-      });
+      HmosRequest.getInstance().request<ComponentDetailData>(TriggerEnums.COMPONENT_DETAIL, param)
+        .then((result: ComponentDetailData) => {
+          resolve(result);
+        })
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `getComponentDetail failed. cause: ${error.message}`);
+          reject(error);
+        });
     });
   }
 
@@ -102,11 +109,13 @@ export class ComponentLibraryService {
         .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA);
       if (!resp) {
         reject('There is no data in the Preference');
+        return;
       }
       resp = (resp as Record<string, ComponentDetailData>)
       const ret = resp[String(componentId)];
       if (!ret) {
         reject('There is no data in the Preference');
+        return;
       }
       resolve(ret);
     });
@@ -121,60 +130,19 @@ export class ComponentLibraryService {
         resp = (resp as Record<string, ComponentDetailData>);
         resp[String(componentId)] = data;
         PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, resp);
-        resolve();
       } else {
         const record: Record<string, ComponentDetailData> = {};
         record[String(componentId)] = data;
         PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
       }
+      resolve();
     });
-  }
-
-  public setDetailsToPreference(details: ComponentDetailData[]): Promise<void> {
-    return new Promise((resolve: () => void) => {
-      const hasValue: boolean = PreferenceManager.getInstance().hasValue(ComponentLibraryService.DETAIL_PAGE_DATA);
-      if (hasValue) {
-        const resp = PreferenceManager.getInstance()
-          .getValue<Record<string, ComponentDetailData>>(ComponentLibraryService.DETAIL_PAGE_DATA);
-        const record: Record<string, ComponentDetailData> = resp || {};
-        details.forEach((detail: ComponentDetailData) => {
-          record[String(detail.id)] = detail;
-        })
-        PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
-        resolve();
-      } else {
-        const record: Record<string, ComponentDetailData> = {};
-        details.forEach((detail: ComponentDetailData) => {
-          record[String(detail.id)] = detail;
-        });
-        PreferenceManager.getInstance().setValue(ComponentLibraryService.DETAIL_PAGE_DATA, record);
-      }
-    });
-  }
-
-  public getComponentDetailListByMock(): Promise<ComponentDetailData[]> {
-    return new Promise((resolve: (value: ComponentDetailData[]) => void,
-      reject: (reason?: Object) => void) => {
-      MockRequest.call<ComponentDetailData[]>(ComponentLibraryTrigger.COMPONENT_DETAIL_LIST)
-        .then((result: ComponentDetailData[]) => {
-          const details: ComponentDetailData[] = result as ComponentDetailData[];
-          this.setDetailsToPreference(details);
-          resolve(result as ComponentDetailData[]);
-        })
-        .catch((error: BusinessError) => {
-          reject(error);
-        });
-    });
-  }
-
-  public getComponentDetailList(): Promise<ComponentDetailData[]> {
-    return this.getComponentDetailListByMock();
   }
 }
 
-enum ComponentLibraryTrigger {
-  COMPONENT_PAGE = 'component-page',
-  COMPONENT_DETAIL = 'component-details',
-  COMPONENT_DETAIL_LIST = 'file-data',
-  CODELAB_DETAIL = 'codelab-details',
+interface ComponentListParam extends BaseListParam {
+}
+
+interface ComponentDetailParam extends BaseDetailParam {
+  componentId: number;
 }

@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-import { CommonBoolMapping, CommonNumberMapping } from '../../common/entity/CommonMapData';
+import { CommonBoolMapping, CommonNumberMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export const itemHeightMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('56', 56)],
+  [DEFAULT_KEY, new CommonNumberMapping('56', 56)],
 ])
 
 export const canLoopMapData: Map<string, CommonBoolMapping> = new Map([
-  ['Default', new CommonBoolMapping('true', true)],
+  [DEFAULT_KEY, new CommonBoolMapping('true', true)],
 ])
 
 export const pickerData: string[] = ['apple', 'orange', 'peach', 'grape', 'banana'];

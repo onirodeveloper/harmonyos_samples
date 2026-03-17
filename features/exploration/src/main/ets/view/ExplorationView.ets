@@ -15,8 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
-import type { GlobalInfoModel, PageContext } from '@ohos/common';
-import { BreakpointType, CommonConstants, StorageKey, VersionUtil } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, PageContext, StorageKey, VersionUtil } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -32,23 +31,28 @@ import { DeveloperCard } from '../component/DeveloperCard';
 import { ExperienceCard } from '../component/ExperienceCard';
 import { FeedCard } from '../component/FeedCard';
 import type { DiscoverCardData, DiscoverContent } from '../model/DiscoverData';
-import { ArticleTypeEnum } from '../model/DiscoverData';
+import { ArticleStyleTypeEnum } from '../model/DiscoverData';
 import type { ExplorationState } from '../viewmodel/ExplorationState';
 import { ExplorationEventType, ExplorationViewModel } from '../viewmodel/ExplorationViewModel';
 
 @Component({ freezeWhenInactive: true })
 export struct ExplorationView {
   viewModel: ExplorationViewModel = ExplorationViewModel.getInstance();
-  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
-  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE)!;
-  @State explorationState: ExplorationState = this.viewModel.getState();
   scroller: Scroller = new Scroller();
-  private explorationPageContext: PageContext = AppStorage.get(StorageKey.EXPLORATION_PAGE_CONTEXT)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
+  @StorageLink(StorageKey.EXPLORATION_PAGE_CONTEXT) explorationPageContext: PageContext =
+    AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT) ?? new PageContext();
+  @State explorationState: ExplorationState = this.viewModel.getState();
 
   aboutToAppear(): void {
     this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });
+    this.viewModel.sendEvent<OffsetParam>({
+      type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
+      param: { yOffset: 0, tabIndex: TabBarType.PRACTICE },
+    });
   }
 
   handleBreakPointChange() {
@@ -67,7 +71,7 @@ export struct ExplorationView {
 
   jumpArticleDetail(componentContent: DiscoverContent) {
     this.viewModel.sendEvent<DiscoverContent>({
-      type: ExplorationEventType.JUMP_DETAIL_DETAIL,
+      type: ExplorationEventType.JUMP_DETAIL_VIEW,
       param: componentContent,
     });
   }
@@ -127,8 +131,8 @@ export struct ExplorationView {
           }
         })
         .key((item: DiscoverCardData) => item.id.toString())
-        .templateId((item: DiscoverCardData) => item.type.toString())
-        .template(ArticleTypeEnum.EXPERIENCES.toString(), (repeatItem: RepeatItem<DiscoverCardData>) => {
+        .templateId((item: DiscoverCardData) => item.styleType.toString())
+        .template(ArticleStyleTypeEnum.EXPERIENCES.toString(), (repeatItem: RepeatItem<DiscoverCardData>) => {
           ListItem() {
             Column() {
               this.CategoryHeaderBuilder(repeatItem.item.name)
@@ -147,7 +151,7 @@ export struct ExplorationView {
             }
           }
         })
-        .template(ArticleTypeEnum.DEVELOPER.toString(), (repeatItem: RepeatItem<DiscoverCardData>) => {
+        .template(ArticleStyleTypeEnum.DEVELOPER.toString(), (repeatItem: RepeatItem<DiscoverCardData>) => {
           ListItem() {
             Column() {
               this.CategoryHeaderBuilder(repeatItem.item.name)
@@ -181,7 +185,7 @@ export struct ExplorationView {
     .scrollBar(BarState.Off)
     .edgeEffect(this.explorationState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
-      const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset().yOffset };
+      const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset()?.yOffset ?? 0 };
       const bannerChangeHeight: boolean | void = this.viewModel.sendEvent<CalculateHeightParam>({
         type: BaseHomeEventType.CALCULATE_BANNER_HEIGHT,
         param,

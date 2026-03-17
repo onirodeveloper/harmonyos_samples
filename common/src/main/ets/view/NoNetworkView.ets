@@ -17,7 +17,10 @@ import type { common, Want } from '@kit.AbilityKit';
 import { CommonConstants } from '../constant/CommonConstants';
 import { ColumnEnum, StorageKey } from '../constant/CommonEnums';
 import { BreakpointType } from '../util/BreakpointSystem';
+import Logger from '../util/Logger';
 import { ProcessUtil } from '../util/ProcessUtil';
+
+const TAG: string = '[NoNetworkView]';
 
 @Builder
 export function NoNetworkView(breakpoint: WidthBreakpoint, handleReload?: () => void) {
@@ -48,14 +51,20 @@ export function NoNetworkView(breakpoint: WidthBreakpoint, handleReload?: () => 
           { buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.NORMAL })
           .width('100%')
           .onClick(() => {
-            const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-            const context: common.UIAbilityContext = uiContext.getHostContext() as common.UIAbilityContext;
+            const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+            const context: Context | undefined = uiContext?.getHostContext();
+            if (!context) {
+              Logger.error(TAG, `Jump to settings failed. Cause context is undefined`);
+              return;
+            }
             const want: Want = {
               bundleName: 'com.huawei.hmos.settings',
               abilityName: 'com.huawei.hmos.settings.MainAbility',
               uri: 'wifi_entry',
             };
-            ProcessUtil.startAbility(context, want);
+            if (context) {
+              ProcessUtil.startAbility(context as common.UIAbilityContext, want);
+            }
           })
           .margin({ bottom: $r('app.float.loading_size_sm') })
       }

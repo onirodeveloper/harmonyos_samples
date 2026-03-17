@@ -32,8 +32,8 @@ export class GlobalContext {
     return this._objects.get(key);
   }
 
-  public setObject(key: string, objectClass: Object): void {
-    this._objects.set(key, objectClass);
+  public setObject(key: string, objectInstance: Object): void {
+    this._objects.set(key, objectInstance);
   }
 
   public deleteObject(key: string): void {

@@ -1,6 +1,18 @@
 {
   "color": [
-        {
+    {
+      "name": "mine_image_background",
+      "value": "#999999"
+    },
+    {
+      "name": "mine_image_background_linearGradient_start",
+      "value": "#99FFFFFF"
+    },
+    {
+      "name": "mine_image_background_linearGradient_end",
+      "value": "#00FFFFFF"
+    },
+    {
       "name": "about_badge_color",
       "value": "#FA2A2D"
     }

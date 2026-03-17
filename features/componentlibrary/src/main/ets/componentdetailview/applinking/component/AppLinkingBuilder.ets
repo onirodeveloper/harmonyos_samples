@@ -32,8 +32,8 @@ export function AppLinkingBuilder($$: DescriptorWrapper) {
 struct AppLinkingComponent {
   @Prop appLinkingDescriptor: AppLinkingDescriptor;
   private galleryUrl: string = '';
-  private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private uiContext: UIContext = this.getUIContext();
+  private context: common.UIAbilityContext = this.uiContext.getHostContext() as common.UIAbilityContext;
 
   build() {
     Column() {
@@ -61,8 +61,13 @@ struct AppLinkingComponent {
   }
 
   jumpToGallery(): void {
+    if (!this.context) {
+      Logger.error(TAG, `JumpToGallery failed. Cause context is undefined.`);
+      return;
+    }
     if (!this.galleryUrl) {
-      this.galleryUrl = ResourceUtil.getRawFileStringByKey(this.context, ConfigMapKey.GALLERY_URL);
+      this.galleryUrl = ResourceUtil.getRawFileStringByKey(this.context, ConfigMapKey.GALLERY_URL) as string;
+      this.galleryUrl += '?id=com.huawei.hmos.tips';
     }
     try {
       this.context.openLink(this.galleryUrl, { appLinkingOnly: false })
@@ -88,7 +93,10 @@ struct AppLinkingComponent {
       }
     }
     try {
-      this.context.startAbilityByType('navigation', wantParam, abilityStartCallback);
+      this.context.startAbilityByType('navigation', wantParam, abilityStartCallback)
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `StartAbilityByType error, the code is ${error.code}, the message is ${error.message}`);
+        });
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       Logger.error(TAG, `StartAbilityByType error, the code is ${error.code}, the message is ${error.message}`);
@@ -106,17 +114,19 @@ struct AppLinkingComponent {
 
   jumpToDial(): void {
     // Check whether support call function
-    let isSupport = call.hasVoiceCapability();
-    if (isSupport) {
-      if (canIUse('SystemCapability.Applications.Contacts')) {
-        call.makeCall('', (err: BusinessError) => {
-          if (err) {
-            Logger.error(TAG, `MakeCall fail, error code ${err.code}, message: ${err.message}`);
-          } else {
-            Logger.info(TAG, `MakeCall success`);
-          }
-        });
-        return;
+    if (canIUse('SystemCapability.Telephony.CallManager')) {
+      let isSupport = call.hasVoiceCapability();
+      if (isSupport) {
+        if (canIUse('SystemCapability.Applications.Contacts')) {
+          call.makeCall('', (err: BusinessError) => {
+            if (err) {
+              Logger.error(TAG, `MakeCall fail, error code ${err.code}, message: ${err.message}`);
+            } else {
+              Logger.info(TAG, `MakeCall success`);
+            }
+          });
+          return;
+        }
       }
     }
     this.uiContext.showAlertDialog({

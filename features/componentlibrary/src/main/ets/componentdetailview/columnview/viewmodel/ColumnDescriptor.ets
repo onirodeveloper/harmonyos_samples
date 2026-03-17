@@ -21,13 +21,14 @@ import {
   paddingNumMapData,
 } from '../entity/ColumnAttributeMapping';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 @Observed
 export class ColumnDescriptor extends CommonDescriptor {
-  public alignItems: HorizontalAlign = columnAlignMapData.get('Default')!.value;
-  public space: number = columnSpaceMapData.get('Default')!.value;
-  public padding: string = columnPaddingMapData.get('Default')!.value;
-  public paddingNum: number = paddingNumMapData.get('Default')!.value;
+  public alignItems: HorizontalAlign = columnAlignMapData.get(DEFAULT_KEY)!.value;
+  public space: number = columnSpaceMapData.get(DEFAULT_KEY)!.value;
+  public padding: string = columnPaddingMapData.get(DEFAULT_KEY)!.value;
+  public paddingNum: number = paddingNumMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

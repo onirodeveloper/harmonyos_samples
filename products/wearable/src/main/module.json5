@@ -20,7 +20,7 @@
         "label": "$string:WearableAbility_label",
         "startWindowIcon": "$media:ic_start_icon_800",
         "startWindowBackground": "$color:start_window_background",
-        "exported": true,
+        "exported": false,
         "skills": [
           {
             "entities": [

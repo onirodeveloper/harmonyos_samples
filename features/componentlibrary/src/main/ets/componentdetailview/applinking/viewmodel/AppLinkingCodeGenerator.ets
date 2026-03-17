@@ -16,6 +16,7 @@
 import { ConfigMapKey, ResourceUtil, StorageKey } from '@ohos/common';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   LinkType,
   typeImportCodeMapData,
@@ -24,7 +25,7 @@ import {
 } from '../entity/AppLinkingAttributeMapping';
 
 export class AppLinkingCodeGenerator implements CommonCodeGenerator {
-  private type: LinkType = typeMapData.get('Default')!;
+  private type: LinkType = typeMapData.get(DEFAULT_KEY)!;
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
@@ -38,9 +39,12 @@ export class AppLinkingCodeGenerator implements CommonCodeGenerator {
     });
     let codeStr: string = typeInvokeCodeMapData.get(this.type)!;
     if (this.type === LinkType.TYPE_GALLERY) {
-      const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-      const context: Context = uiContext.getHostContext() as Context;
-      const linkUrl: string = ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.GALLERY_URL);
+      const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+      const context = uiContext?.getHostContext();
+      if (!context) {
+        return '';
+      }
+      const linkUrl: string = ResourceUtil.getRawFileStringByKey(context, ConfigMapKey.GALLERY_URL) as string;
       codeStr = codeStr.replace('%s', linkUrl);
     }
     return `${typeImportCodeMapData.get(this.type)!}

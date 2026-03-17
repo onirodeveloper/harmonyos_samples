@@ -22,8 +22,15 @@ export class WaterFlowAttributeFilter implements CommonAttributeFilter {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'layoutDirection':
-          const rowsTemplateIndex = attributes.findIndex((item) => item.name === 'rowsTemplate');
-          const columnsTemplateIndex = attributes.findIndex((item) => item.name === 'columnsTemplate');
+          let rowsTemplateIndex: number = -1;
+          let columnsTemplateIndex: number = -1;
+          attributes.forEach((item, index) => {
+            if (item.name === 'rowsTemplate') {
+              rowsTemplateIndex = index;
+            } else if (item.name === 'columnsTemplate') {
+              columnsTemplateIndex = index;
+            }
+          });
           if (rowsTemplateIndex !== -1 && columnsTemplateIndex !== -1) {
             if (attribute.currentValue === 'Column' || attribute.currentValue === 'ColumnReverse') {
               attributes[rowsTemplateIndex].enable = false;

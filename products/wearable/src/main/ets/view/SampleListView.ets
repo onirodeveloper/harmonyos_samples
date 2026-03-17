@@ -14,6 +14,7 @@
  */
 
 import { ArcList, ArcListAttribute, ArcListItem, LengthMetrics, ComponentContent } from '@kit.ArkUI';
+import { ImageUtil } from '@ohos/common';
 import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { WearableSampleData } from '../model/WearableSampleData';
 import { SampleListState } from '../viewmodel/SampleListState';
@@ -25,7 +26,6 @@ import {
 
 const ITEM_SPACE: number = 6;
 const ITEM_WIDTH: string = '88%';
-const TAG: string = '[SampleListComponent]';
 
 @Builder
 function SampleListHeader() {
@@ -71,7 +71,7 @@ export struct SampleListView {
         .height($r('app.float.button_size'))
         .backgroundColor(wearableSampleData.symbolGlyphColor)
       } else if (wearableSampleData.mediaType == MediaTypeEnum.IMAGE) {
-        Image($r(wearableSampleData.mediaUrl))
+        Image(ImageUtil.getImgResource(wearableSampleData.mediaUrl))
           .width($r('app.float.button_size'))
           .height($r('app.float.button_size'))
       }

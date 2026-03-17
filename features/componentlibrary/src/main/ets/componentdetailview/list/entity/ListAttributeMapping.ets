@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
+
 class ListDirectionType {
   public readonly code: string;
   public readonly value: Axis;
@@ -26,7 +28,7 @@ class ListDirectionType {
 export const listDirectionMapData: Map<string, ListDirectionType> = new Map([
   ['Vertical', new ListDirectionType('Axis.Vertical', Axis.Vertical)],
   ['Horizontal', new ListDirectionType('Axis.Horizontal', Axis.Horizontal)],
-  ['Default', new ListDirectionType('Axis.Vertical', Axis.Vertical)],
+  [DEFAULT_KEY, new ListDirectionType('Axis.Vertical', Axis.Vertical)],
 ]);
 
 class EdgeEffectMap {
@@ -43,7 +45,7 @@ export const edgeEffectMapData: Map<string, EdgeEffectMap> = new Map([
   ['Spring', new EdgeEffectMap('EdgeEffect.Spring', EdgeEffect.Spring)],
   ['Fade', new EdgeEffectMap('EdgeEffect.Fade', EdgeEffect.Fade)],
   ['None', new EdgeEffectMap('EdgeEffect.None', EdgeEffect.None)],
-  ['Default', new EdgeEffectMap('EdgeEffect.Spring', EdgeEffect.Spring)],
+  [DEFAULT_KEY, new EdgeEffectMap('EdgeEffect.Spring', EdgeEffect.Spring)],
 ]);
 
 export interface TimeTable {

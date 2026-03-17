@@ -23,11 +23,17 @@ import { FormCardConstants } from '../constants/FormCardConstants';
 struct ArticleServiceCard {
   @LocalStorageProp('cardList') cardList: ArticleListItem[] = [];
   @LocalStorageProp('formId') formId: string = '';
-  @State cardListParameter: CardListParameter = new CardListParameter($r('sys.color.ohos_id_color_background'),
-    $r('app.string.hmos_app_name'), $r('app.media.list_card_bg'), ImageSize.Cover,
-    $r('app.color.article_card_icon_emphasize'),
-    $r('app.media.list_card_logo'),
-    $r('app.string.card_list_subtitle'), $r('app.color.article_card_font_secondary'), $r('sys.symbol.chevron_right'));
+  @State cardListParameter: CardListParameter = {
+    backgroundColor: $r('sys.color.ohos_id_color_background'),
+    title: $r('app.string.hmos_app_name'),
+    backgroundImage: $r('app.media.list_card_bg'),
+    backgroundImageSize: ImageSize.Cover,
+    titleColor: $r('app.color.article_card_icon_emphasize'),
+    logo: $r('app.media.list_card_logo'),
+    subTitle: $r('app.string.card_list_subtitle'),
+    subTitleColor: $r('app.color.article_card_font_secondary'),
+    rightArrowIcon: $r('sys.symbol.chevron_right')
+  };
   private readonly orderImageArray: Resource[] =
     [$r('app.media.first_order'), $r('app.media.second_order'), $r('app.media.third_order')];
 
@@ -37,7 +43,7 @@ struct ArticleServiceCard {
       ForEach(this.cardList, (item: ArticleListItem, index: number) => {
         Row() {
           Row() {
-            Image(this.orderImageArray[index])
+            Image(index < this.orderImageArray.length ? this.orderImageArray[index] : undefined)
               .width($r('app.float.order_image_size'))
               .objectFit(ImageFit.Cover)
             Text(item.title)

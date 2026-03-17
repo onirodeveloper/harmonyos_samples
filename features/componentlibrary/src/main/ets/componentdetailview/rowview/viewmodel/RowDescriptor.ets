@@ -15,6 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
+import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 import {
   paddingNumMapData,
   rowAlignMapData,
@@ -24,10 +25,10 @@ import {
 
 @Observed
 export class RowDescriptor extends CommonDescriptor {
-  public alignItems: VerticalAlign = rowAlignMapData.get('Default')!.value;
-  public space: number = rowSpaceMapData.get('Default')!.value;
-  public padding: string = rowPaddingMapData.get('Default')!.value;
-  public paddingNum: number = paddingNumMapData.get('Default')!.value;
+  public alignItems: VerticalAlign = rowAlignMapData.get(DEFAULT_KEY)!.value;
+  public space: number = rowSpaceMapData.get(DEFAULT_KEY)!.value;
+  public padding: string = rowPaddingMapData.get(DEFAULT_KEY)!.value;
+  public paddingNum: number = paddingNumMapData.get(DEFAULT_KEY)!.value;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
@@ -36,13 +37,15 @@ export class RowDescriptor extends CommonDescriptor {
           this.alignItems = rowAlignMapData.get(attribute.currentValue)?.value ?? this.alignItems;
           break;
         case 'space':
-          this.space = Number(attribute.currentValue);
+          const space = Number(attribute.currentValue);
+          this.space = Number.isNaN(space) ? this.space : space;
           break;
         case 'padding':
           this.padding = attribute.currentValue;
           break;
         case 'paddingNum':
-          this.paddingNum = Number(attribute.currentValue);
+          const paddingNum = Number(attribute.currentValue);
+          this.paddingNum = Number.isNaN(paddingNum) ? this.paddingNum : paddingNum;
           break;
         default:
           break;

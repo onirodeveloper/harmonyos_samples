@@ -24,7 +24,8 @@ const TAG: string = '[AIImageComponent]';
 
 @Component
 export struct AIImageComponent {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State imagePixelMap?: image.PixelMap = undefined;
   @State showPopup: boolean = true;
   @State imageWidth: number = 0;
@@ -114,18 +115,20 @@ export struct AIImageComponent {
 
   private async getPixmapFromMedia(resource: Resource) {
     let createPixelMap: image.PixelMap;
+    let imageSource: image.ImageSource | undefined = undefined;
     try {
-      const unit8Array = await this.getUIContext().getHostContext()!.resourceManager?.getMediaContent(resource.id);
-      const imageSource = image.createImageSource(unit8Array.buffer.slice(0, unit8Array.buffer.byteLength));
+      const unit8Array = await this.getUIContext().getHostContext()?.resourceManager?.getMediaContent(resource.id);
+      imageSource = image.createImageSource(unit8Array?.buffer?.slice(0, unit8Array?.buffer?.byteLength));
       createPixelMap = await imageSource.createPixelMap({
         desiredPixelFormat: image.PixelMapFormat.RGBA_8888,
       });
-      await imageSource.release();
       this.imagePixelMap?.release();
     } catch (err) {
       const error: BusinessError = err as BusinessError;
       Logger.error(TAG, `Get pixmapFromMedia error, the code is ${error.code}, the message is ${error.message}`);
       return;
+    } finally {
+      imageSource?.release();
     }
     return createPixelMap;
   }

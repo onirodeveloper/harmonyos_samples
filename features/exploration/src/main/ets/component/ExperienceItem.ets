@@ -14,7 +14,7 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { ProductSeriesEnum } from '@ohos/common';
+import { ImageComponent, ProductSeriesEnum } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import { DiscoverContent } from '../model/DiscoverData';
 
@@ -35,10 +35,10 @@ export struct ExperienceItem {
         .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
 
       Stack({ alignContent: Alignment.Bottom }) {
-        Image($rawfile(this.discoverContent.mediaUrl))
-          .alt($r('app.media.img_placeholder'))
-          .objectFit(ImageFit.Cover)
-          .draggable(false)
+        ImageComponent({
+          src: this.discoverContent?.mediaUrl,
+          objectFit: ImageFit.Cover,
+        })
           .width('100%')
           .height('100%')
         Column() {
@@ -61,7 +61,7 @@ export struct ExperienceItem {
         .padding({
           left: $r('sys.float.padding_level8'),
           right: $r('sys.float.padding_level8'),
-          bottom: this.hasPadding ? $r('sys.float.corner_radius_level16') : $r('sys.float.padding_level8'),
+          bottom: this.hasPadding ? $r('sys.float.padding_level16') : $r('sys.float.padding_level8'),
           top: $r('sys.float.padding_level6'),
         })
         .height($r('app.float.img_card_content_height'))

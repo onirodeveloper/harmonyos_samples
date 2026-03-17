@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { BaseState, BaseVM, Logger, PageContext, PreferenceManager, StorageKey } from '@ohos/common';
+import { BaseState, BaseVM, Logger, PageContext, PageEnum, PreferenceManager, StorageKey } from '@ohos/common';
 import { DiscoverModel } from '@ohos/exploration';
 import { ComponentListModel } from '@ohos/componentlibrary';
 import { SampleModel } from '@ohos/devpractices';
@@ -21,7 +21,7 @@ import { SampleModel } from '@ohos/devpractices';
 const TAG: string = '[SplashViewModel]';
 
 export class SplashViewModel extends BaseVM<BaseState> {
-  private pageContext: PageContext = AppStorage.get(StorageKey.HOME_PAGE_CONTEXT) as PageContext;
+  private pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
   private componentListModel: ComponentListModel = ComponentListModel.getInstance();
   private sampleModel: SampleModel = SampleModel.getInstance();
   private discoverModel: DiscoverModel = DiscoverModel.getInstance();
@@ -31,19 +31,19 @@ export class SplashViewModel extends BaseVM<BaseState> {
     super(new BaseState());
   }
 
-  public sendEvent(eventType: SplashEventTypeEnum): void {
-    if (eventType === SplashEventTypeEnum.JUMP_TO_MAIN) {
+  public sendEvent<T>(eventParam: SplashEventParam<T>): void {
+    if (eventParam.type === SplashEventTypeEnum.JUMP_TO_MAIN) {
       this.jumpToMainPage();
-    } else if (eventType === SplashEventTypeEnum.PRELOAD_RESOURCES) {
+    } else if (eventParam.type === SplashEventTypeEnum.PRELOAD_RESOURCES) {
       this.preloadResources();
-    } else if (eventType === SplashEventTypeEnum.CHECK_FIRST_START) {
+    } else if (eventParam.type === SplashEventTypeEnum.CHECK_FIRST_START) {
       this.checkIsFirstStart();
     }
   }
 
   private jumpToMainPage(): void {
-    this.pageContext.replacePage({
-      routerName: 'MainPage',
+    this.pageContext?.replacePage({
+      routerName: PageEnum.MAIN_PAGE,
     });
   }
 
@@ -62,6 +62,11 @@ export class SplashViewModel extends BaseVM<BaseState> {
       this.preferenceManager.setValue('isFirstStart', false);
     }
   }
+}
+
+export interface SplashEventParam<T> {
+  type: SplashEventTypeEnum,
+  param?: T,
 }
 
 export enum SplashEventTypeEnum {

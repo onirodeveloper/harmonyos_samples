@@ -16,7 +16,7 @@
 import { PaddingOptions, TitleBarStyleOptions } from '@kit.UIDesignKit';
 import { CommonConstants } from '../constant/CommonConstants';
 import { StorageKey } from '../constant/CommonEnums';
-import type { GlobalInfoModel } from '../model/GlobalInfoModel';
+import { GlobalInfoModel } from '../model/GlobalInfoModel';
 import { BreakpointType } from '../util/BreakpointSystem';
 
 const BACK_ICON_WIDTH: number = 40;
@@ -25,17 +25,17 @@ const TOTAL_PADDING: number = 40;
 /**
  * Custom Title Block
  */
-
 @Component
 export struct TopNavigationView {
+  private readonly minFontSize: number = 14;
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('calculateTitleSize') globalInfoModel: GlobalInfoModel =
-    AppStorage.get(StorageKey.GLOBAL_INFO)!;
+    new GlobalInfoModel();
   @StorageProp(StorageKey.BLUE_RENDER_GROUP) blurRenderGroup: boolean = false;
   @Prop topNavigationData: TopNavigationData = new TopNavigationData();
   @BuilderParam menuView?: () => void;
   @State fontSize: number = 20;
   @State backIconBgColor: ResourceColor =
-    this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+    this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
       $r('sys.color.comp_background_tertiary');
 
   aboutToAppear(): void {
@@ -46,14 +46,15 @@ export struct TopNavigationView {
 
   calculateTitleSize(): void {
     const uiContext: UIContext = this.getUIContext();
-    const maxWidth = this.globalInfoModel.deviceWidth - BACK_ICON_WIDTH - TOTAL_PADDING;
+    const maxWidth =
+      this.globalInfoModel.deviceWidth - (this.topNavigationData.onBackClick ? BACK_ICON_WIDTH : 0) - TOTAL_PADDING;
     let currentFontSize: number = this.fontSize;
     let titleWidth: number = Math.ceil(uiContext.px2vp(uiContext.getMeasureUtils().measureText({
       textContent: this.topNavigationData.title,
       fontWeight: FontWeight.Bold,
       fontSize: currentFontSize,
     })));
-    while (currentFontSize > 14 && titleWidth > maxWidth) {
+    while (currentFontSize > this.minFontSize && titleWidth > maxWidth) {
       currentFontSize--;
       titleWidth = Math.ceil(uiContext.px2vp(uiContext.getMeasureUtils().measureText({
         textContent: this.topNavigationData.title,
@@ -131,8 +132,8 @@ export class TopNavigationData {
   public isFullScreen?: boolean = true;
   public titleColor?: ResourceStr = $r('sys.color.font_primary');
   public isBlur?: boolean = false;
-  public bgColor?: ResourceStr | Color = Color.Transparent;
-  public onBackClick?: Function;
+  public bgColor?: ResourceColor = Color.Transparent;
+  public onBackClick?: () => void;
   public hdsTitleBarStyle?: TitleBarStyleOptions;
   public hdsTitleBarPadding?: PaddingOptions;
 }

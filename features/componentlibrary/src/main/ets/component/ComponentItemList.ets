@@ -14,8 +14,24 @@
  */
 
 import { TextModifier } from '@kit.ArkUI';
-import { HdsListItemCard, PrefixCustomBuilder, SuffixButton, SuffixCustomBuilder, } from '@kit.UIDesignKit';
-import { CommonConstants, ResourceUtil, TagEnum, VersionUtil } from '@ohos/common';
+import {
+  HdsListItemCard,
+  HdsListItemCardAttribute,
+  PrefixCustomBuilder,
+  SuffixButton,
+  SuffixCustomBuilder
+} from '@kit.UIDesignKit';
+import {
+  CommonConstants,
+  ImageUtil,
+  ResourceUtil,
+  TagEnum,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData,
+  VersionUtil,
+} from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import type { ComponentContent } from '../model/ComponentData';
 
@@ -30,7 +46,7 @@ export struct ComponentItemList {
   @Prop @Require widthBreakpoint: WidthBreakpoint;
   @Prop itemHeight: Resource = $r('app.float.component_item_height');
   @Prop suffixType: ItemSuffixType = ItemSuffixType.BUTTON;
-  @Prop buttonColor: ResourceColor = $r('sys.color.interactive_active')
+  @Prop buttonColor: ResourceColor = $r('sys.color.interactive_active');
   handleItemClick?: Function;
 
   @Builder
@@ -42,7 +58,7 @@ export struct ComponentItemList {
   }
 
   @Builder
-  IconBuilder(iconUrl: string, showTag: boolean, tagIds: TagEnum[]) {
+  IconBuilder(iconUrl: ResourceStr, showTag: boolean, tagIds: TagEnum[]) {
     ComponentIcon({ iconUrl, showTag, tagIds })
   }
 
@@ -51,49 +67,63 @@ export struct ComponentItemList {
       Repeat(this.cardContents)
         .each((repeatItem: RepeatItem<ComponentContent>) => {
           ListItem() {
-            if (VersionUtil.canUseHds()) {
-              HdsListItemCard({
-                prefixItem: new PrefixCustomBuilder(() => {
-                  this.IconBuilder(repeatItem.item.mediaUrl, this.suffixType !== ItemSuffixType.ICON,
-                    repeatItem.item.tagIds);
-                }),
-                textItem: {
-                  primaryText: {
-                    text: repeatItem.item.subTitle,
-                    modifier:
-                    new TextModifier()
-                      .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_primary') :
-                        $r('sys.color.font_on_primary')),
-                  },
-                  secondaryText: {
-                    text: repeatItem.item.title,
-                    modifier: new TextModifier()
-                      .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_secondary') :
-                        $r('sys.color.font_on_primary'))
-                  }
-                },
-                suffixItem: this.suffixType === ItemSuffixType.BUTTON ?
-                  new SuffixButton({ text: $r('app.string.open'), textColor: this.buttonColor }) :
-                  new SuffixCustomBuilder(() => this.CircleArrowBuilder()),
-                cardHeight: this.itemHeight,
-                cardPrefixMargin: $r('sys.float.padding_level0'),
-                cardSuffixMargin: $r('sys.float.padding_level2'),
-                cardBorderRadius: 0,
-                cardBackgroundColor: $r('sys.color.ohos_id_color_background_transparent'),
-              })
-            } else {
-              ComponentItem({
-                componentContent: repeatItem.item,
-                widthBreakpoint: this.widthBreakpoint,
-                buttonColor: this.buttonColor,
-                suffixType: this.suffixType,
-                itemHeight: this.itemHeight,
-              })
+            TrackNode({ eventType: TrackEventType.COMPONENT_EXPOSURE }) {
+              Column() {
+                if (VersionUtil.canUseHds()) {
+                  HdsListItemCard({
+                    prefixItem: new PrefixCustomBuilder(() => {
+                      this.IconBuilder(ImageUtil.getImgResource(repeatItem.item.mediaUrl),
+                        this.suffixType !== ItemSuffixType.ICON, repeatItem.item.tagIds);
+                    }),
+                    textItem: {
+                      primaryText: {
+                        text: repeatItem.item.subTitle,
+                        modifier:
+                        new TextModifier()
+                          .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_primary') :
+                            $r('sys.color.font_on_primary')),
+                      },
+                      secondaryText: {
+                        text: repeatItem.item.title,
+                        modifier: new TextModifier()
+                          .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_secondary') :
+                            $r('sys.color.font_on_primary'))
+                      }
+                    },
+                    suffixItem: this.suffixType === ItemSuffixType.BUTTON ?
+                      new SuffixButton({ text: $r('app.string.open'), textColor: this.buttonColor }) :
+                      new SuffixCustomBuilder(() => this.CircleArrowBuilder()),
+                    cardHeight: this.itemHeight,
+                    cardPrefixMargin: $r('sys.float.padding_level0'),
+                    cardSuffixMargin: $r('sys.float.padding_level2'),
+                    cardBorderRadius: 0,
+                    cardBackgroundColor: $r('sys.color.ohos_id_color_background_transparent'),
+                  })
+                } else {
+                  ComponentItem({
+                    componentContent: repeatItem.item,
+                    widthBreakpoint: this.widthBreakpoint,
+                    buttonColor: this.buttonColor,
+                    suffixType: this.suffixType,
+                    itemHeight: this.itemHeight,
+                  })
+                }
+              }
+              .customProperty(TRACK_KEY, {
+                content: repeatItem.item.title,
+                moduleType: repeatItem.item.contentType,
+                eventType: TrackEventType.COMPONENT_CLICK,
+              } as TrackServiceData)
             }
           }
-          .onClick(() => {
+          .customProperty(TRACK_KEY, {
+            content: repeatItem.item.title,
+            moduleType: repeatItem.item.contentType,
+            eventType: TrackEventType.COMPONENT_CLICK,
+          } as TrackServiceData)
+          .onClick(this.handleItemClick ? () => {
             this.handleItemClick?.(repeatItem.item);
-          })
+          } : undefined)
         })
         .key((componentContent: ComponentContent) => componentContent.id.toString())
     }
@@ -130,11 +160,11 @@ struct CircleArrow {
 struct ComponentIcon {
   @Prop showTag: boolean;
   @Prop tagIds: TagEnum[];
-  @Prop @Require iconUrl: string;
+  @Prop @Require iconUrl: ResourceStr;
 
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
-      Image($rawfile(this.iconUrl))
+      Image(this.iconUrl)
         .draggable(false)
         .alt($r('app.media.ic_placeholder'))
         .borderRadius($r('sys.float.corner_radius_level5'))
@@ -160,7 +190,7 @@ struct ComponentItem {
   build() {
     Row() {
       ComponentIcon({
-        iconUrl: this.componentContent.mediaUrl,
+        iconUrl: ImageUtil.getImgResource(this.componentContent.mediaUrl),
         showTag: this.suffixType !== ItemSuffixType.ICON,
         tagIds: this.componentContent.tagIds,
       })

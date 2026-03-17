@@ -21,7 +21,8 @@ import { ComponentItemList } from './ComponentItemList';
 @Reusable
 @Component
 export struct ListCard {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO)!;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State componentCardData?: ComponentCardData = undefined;
   handleItemClick?: (componentContent: ComponentContent) => void;
 
@@ -33,12 +34,12 @@ export struct ListCard {
   build() {
     Column() {
       Column() {
-        Text(this.componentCardData?.cardSubTitle)
+        Text(this.componentCardData?.subTitle)
           .fontSize($r('sys.float.Body_S'))
           .fontColor($r('sys.color.font_secondary'))
           .fontWeight(FontWeight.Regular)
           .margin({ left: $r('sys.float.padding_level8'), bottom: $r('sys.float.padding_level2') })
-        Text(this.componentCardData?.cardTitle)
+        Text(this.componentCardData?.title)
           .fontSize($r('sys.float.Title_M'))
           .fontColor($r('sys.color.font_primary'))
           .fontWeight(FontWeight.Bold)
@@ -50,7 +51,7 @@ export struct ListCard {
       .height(CommonConstants.NAVIGATION_HEIGHT)
 
       ComponentItemList({
-        cardContents: this.componentCardData?.cardContents,
+        cardContents: this.componentCardData?.componentContents ?? [],
         widthBreakpoint: this.globalInfoModel.widthBreakpoint,
         handleItemClick: (item: ComponentContent) => {
           this.handleItemClick?.(item);

@@ -36,6 +36,10 @@ struct DocumentViewPickerComponent {
 
   readFile() {
     try {
+      if (!this.context) {
+        Logger.error(TAG, `ReadFile failed. Cause context is undefined.`);
+        return;
+      }
       const documentSelectOptions = new picker.DocumentSelectOptions();
       const documentPicker = new picker.DocumentViewPicker(this.context);
       documentPicker.select(documentSelectOptions).then((documentSelectResult: string[]) => {

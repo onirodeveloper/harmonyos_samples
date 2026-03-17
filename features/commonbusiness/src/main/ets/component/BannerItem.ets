@@ -14,8 +14,7 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, ProductSeriesEnum } from '@ohos/common';
+import { BreakpointType, ImageComponent, ProductSeriesEnum, } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 
 @Reusable
@@ -25,29 +24,31 @@ export struct BannerItem {
   @State bannerData?: BannerData = undefined;
 
   aboutToReuse(params: Record<string, BannerData>): void {
-    console.log('aboutToReuse');
     this.bannerData = params.bannerData;
   }
 
   build() {
     Stack({ alignContent: Alignment.Bottom }) {
-      Image($rawfile(this.bannerData?.mediaUrl))
-        .alt($r('app.media.ic_placeholder'))
-        .objectFit(ImageFit.Cover)
+      ImageComponent({
+        src: this.bannerData?.mediaUrl,
+        objectFit: ImageFit.Cover,
+        alt: $r(undefined),
+      })
+        .reuseId('bannerItem')
         .width('100%')
         .height('100%')
       Column() {
-        Text(this.bannerData?.bannerTitle)
+        Text(this.bannerData?.title)
           .fontColor($r('sys.color.font_on_primary'))
           .fontSize(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('sys.float.Subtitle_M') :
-          $r('sys.float.Subtitle_L'))
+            $r('sys.float.Subtitle_L'))
           .fontWeight(FontWeight.Bold)
-        Text(this.bannerData?.bannerSubTitle)
+        Text(this.bannerData?.subTitle)
           .margin({ top: $r('sys.float.padding_level3'), bottom: $r('sys.float.padding_level2') })
           .fontColor($r('sys.color.font_on_primary'))
           .fontSize($r('sys.float.Body_S'))
           .fontWeight(FontWeight.Medium)
-        Text(this.bannerData?.bannerDesc)
+        Text(this.bannerData?.desc)
           .fontColor($r('sys.color.font_on_secondary'))
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })

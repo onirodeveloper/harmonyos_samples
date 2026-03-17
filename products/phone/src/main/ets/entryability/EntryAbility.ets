@@ -24,6 +24,7 @@ import {
   PageContext,
   PullUpManager,
   StorageKey,
+  TrackManager,
   WebUtil,
   WindowUtil,
 } from '@ohos/common';
@@ -35,10 +36,7 @@ const TAG = '[EntryAbility]';
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info(TAG, `Ability onCreate launchReason: ${launchParam.launchReason}`);
-    if (PullUpManager.getFormCardType(want) === FormCardEnum.ARTICLE_SERVICE_CARD) {
-      UpdateFormData.update(want.parameters?.['formId'] as string);
-    }
-    PullUpManager.pullUpApp(want);
+    this.handleWantParam(want);
     AppStorage.setOrCreate(StorageKey.COLOR_MODE, this.context.config.colorMode);
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
@@ -49,6 +47,10 @@ export default class EntryAbility extends UIAbility {
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info(TAG, `onNewWant launchReason: ${launchParam.launchReason}`);
+    this.handleWantParam(want);
+  }
+
+  handleWantParam(want: Want) {
     if (PullUpManager.getFormCardType(want) === FormCardEnum.ARTICLE_SERVICE_CARD) {
       UpdateFormData.update(want.parameters?.['formId'] as string);
     }
@@ -71,13 +73,15 @@ export default class EntryAbility extends UIAbility {
     AppStorage.setOrCreate(StorageKey.EXPLORATION_PAGE_CONTEXT, new PageContext());
     AppStorage.setOrCreate(StorageKey.MINE_PAGE_CONTEXT, new PageContext());
     BundleManagerUtil.getBundleInfo();
+    DynamicInstallManager.subscribeDownloadProgress();
     windowStage.loadContent('page/SplashPage', (err: BusinessError) => {
-      WebUtil.initialize(windowStage);
-      WindowUtil.initialize(windowStage);
       if (err.code) {
         Logger.error(TAG, `Failed to load the content. Cause: ${err.code} ${err.message}`);
         return;
       }
+      WebUtil.initialize(windowStage);
+      WindowUtil.initialize(windowStage);
+      TrackManager.getInstance().initTrackManager();
       Logger.info(TAG, 'Succeeded in loading the content.');
     });
   }
@@ -94,6 +98,7 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
+    TrackManager.getInstance().offTrackManager();
     Logger.info(TAG, 'Ability onWindowStageDestroy');
   }
 

@@ -13,28 +13,17 @@
  * limitations under the License.
  */
 
-import { CardTypeEnum } from '@ohos/commonbusiness';
+import { BaseData } from '@ohos/commonbusiness';
 
 @Observed
-export class NewContentData {
-  public id: number = 0;
-  public title: string = '';
-  public type: CardTypeEnum = CardTypeEnum.UNKNOWN;
-  public subTitle?: string = '';
-  public currentIndex?: number = 0;
+export class NewContentData extends BaseData {
+  public isArticle?: boolean;
+  public cardId: number = 0;
   public detailsUrl?: string = '';
-  public requiredApiVersion?: number = 0;
-  public supportDeviceList?: string[] = [];
+  public unionId?: number;
 }
 
 @Observed
 export class NewContentNumData {
   public totalSize: number = 0;
-}
-
-export enum MineTrigger {
-  NEW_COMPONENT = 'new-component',
-  NEW_SAMPLE = 'new-sample',
-  NEW_ARTICLE = 'new-article',
-  ALL_CONTENT = 'all-content',
 }

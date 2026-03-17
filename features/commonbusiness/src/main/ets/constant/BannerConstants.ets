@@ -14,6 +14,9 @@
  */
 
 export class BannerConstants {
+  /**
+   * The max duration of banner loop.
+   */
   public static readonly PROGRESS_VALUE_MAX: number = 2300;
   /**
    * The frame rate of the animation is 30fps.

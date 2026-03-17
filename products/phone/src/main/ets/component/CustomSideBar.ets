@@ -21,7 +21,8 @@ export struct CustomSideBar {
   @Prop @Require currentIndex: number;
   @State focus: boolean = false;
   @Consume('appIconDescriptor') drawableDescriptor?: DrawableDescriptor;
-  sideBarChange: (index: number) => void = (index: number) => {
+  @State symbolEffect: BounceSymbolEffect = new BounceSymbolEffect(EffectScope.LAYER, EffectDirection.UP);
+  sideBarChange: (index: number) => void = (_index: number) => {
   };
 
   @Builder
@@ -32,13 +33,13 @@ export struct CustomSideBar {
         .fontColor(item.id === this.currentIndex ? [$r('sys.color.icon_emphasize')] :
           [$r('sys.color.icon_secondary')])
         .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
-        .symbolEffect(new BounceSymbolEffect(EffectScope.LAYER, EffectDirection.UP), item.id === this.currentIndex)
+        .symbolEffect(this.symbolEffect, item.id === this.currentIndex)
         .padding({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
       Text(item.title)
         .fontSize($r('sys.float.Body_L'))
         .fontWeight(FontWeight.Medium)
         .fontColor(item.id === this.currentIndex ? $r('sys.color.interactive_active') :
-        $r('sys.color.font_tertiary'))
+          $r('sys.color.font_tertiary'))
     }
     .alignItems(VerticalAlign.Center)
     .backgroundColor(this.currentIndex !== item.id ? Color.Transparent :
@@ -75,7 +76,7 @@ export struct CustomSideBar {
 
       ForEach(TABS_LIST, (item: TabBarData) => {
         this.BarItemBuilder(item)
-      }, (item: TabBarData) => JSON.stringify(item) + this.currentIndex)
+      }, (item: TabBarData, index: number) => item.id.toString() + (this.currentIndex === index))
     }
     .width(CommonConstants.SIDE_BAR_WIDTH)
     .height('100%')

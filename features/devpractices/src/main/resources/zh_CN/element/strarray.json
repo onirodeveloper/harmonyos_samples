@@ -1,0 +1,68 @@
+{
+  "strarray": [
+    {
+      "name": "sample_like_reason_list",
+      "value": [
+        {
+          "value": "代码可复用"
+        },
+        {
+          "value": "场景清晰"
+        },
+        {
+          "value": "实用性强"
+        },
+        {
+          "value": "有创新性"
+        },
+        {
+          "value": "多版本兼容"
+        },
+        {
+          "value": "多设备适配"
+        },
+        {
+          "value": "加载流畅"
+        },
+        {
+          "value": "交互便捷"
+        },
+        {
+          "value": "界面美观"
+        }
+      ]
+    },
+    {
+      "name": "sample_dislike_reason_list",
+      "value": [
+        {
+          "value": "下载体验问题"
+        },
+        {
+          "value": "场景不清晰"
+        },
+        {
+          "value": "实用性不强"
+        },
+        {
+          "value": "没创新性"
+        },
+        {
+          "value": "版本不兼容"
+        },
+        {
+          "value": "多设备不适配"
+        },
+        {
+          "value": "崩溃/卡顿"
+        },
+        {
+          "value": "交互逻辑混乱"
+        },
+        {
+          "value": "界面不美观"
+        }
+      ]
+    }
+  ]
+}

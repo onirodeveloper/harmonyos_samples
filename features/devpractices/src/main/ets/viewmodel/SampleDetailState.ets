@@ -14,6 +14,7 @@
  */
 
 import { BaseState, LoadingStatus } from '@ohos/common';
+import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { SampleTypeEnum } from '../common/SampleConstant';
 
 @Observed
@@ -26,13 +27,14 @@ export class SampleDetailState extends BaseState {
   public installingStatus: boolean = false;
   public downloadingStatus: boolean = false;
   public isBackPressed: boolean = false;
+  public bindFeedbackSheet: boolean = false;
 }
 
 @Observed
 export class SampleDetailData {
   public id: number = 0;
   public isFavorite: boolean = false;
-  public mediaType: number = 0;
+  public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
   public mediaUrl: string = '';
   public sampleCard: SampleCardData = new SampleCardData();
 }
@@ -41,7 +43,7 @@ export class SampleDetailData {
 export class SampleCardData {
   public title: string = '';
   public desc: string = '';
-  public sampleType: SampleTypeEnum = SampleTypeEnum.COMMON_SAMPLE;
+  public type: SampleTypeEnum = SampleTypeEnum.COMMON_SAMPLE;
   public sampleId: number = 0;
   public originalUrl: string = '';
   public moduleName: string = '';

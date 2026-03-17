@@ -21,8 +21,8 @@ import { AboutVM, ViewRegistrationInfoEvent } from '../viewmodel/AboutVM';
 export struct AboutView {
   viewModel: AboutVM = AboutVM.getInstance();
   context: Context = this.getUIContext().getHostContext() as Context;
-  @StorageProp(StorageKey.BUNDLE_INFO) bundleInfo: BundleInfoData =
-    AppStorage.get(StorageKey.BUNDLE_INFO) as BundleInfoData;
+  @StorageProp(StorageKey.BUNDLE_INFO) bundleInfo?: BundleInfoData =
+    AppStorage.get<BundleInfoData>(StorageKey.BUNDLE_INFO);
   @Consume('appIconDescriptor') drawableDescriptor: DrawableDescriptor;
 
   build() {
@@ -34,7 +34,7 @@ export struct AboutView {
             .width($r('app.float.about_image_size'))
             .height($r('app.float.about_image_size'))
             .borderRadius($r('sys.float.corner_radius_level8'))
-          Text(ResourceUtil.getResourceString(this.context, this.bundleInfo.labelResource))
+          Text(ResourceUtil.getResourceString(this.context, this.bundleInfo?.labelResource ?? $r(undefined)))
             .fontSize($r('sys.float.Title_S'))
             .fontWeight(FontWeight.Bold)
             .margin({ top: $r('sys.float.padding_level4') })

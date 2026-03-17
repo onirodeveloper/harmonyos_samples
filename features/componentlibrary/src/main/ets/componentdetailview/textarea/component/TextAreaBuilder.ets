@@ -37,30 +37,48 @@ struct TextAreaComponent {
   @State contentOffset: number = 0;
   private uiContext: UIContext = this.getUIContext();
   private context: Context = this.uiContext.getHostContext() as Context;
+  private currentWindow?: window.Window;
 
   aboutToAppear(): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) || new GlobalInfoModel();
     try {
+      if (!this.context) {
+        Logger.error(TAG, `GetLastWindow failed. Cause context is undefined.`);
+        return;
+      }
       window.getLastWindow(this.context).then(currentWindow => {
         // Monitor the appearance and disappearance of the soft keyboard.
-        currentWindow.on('avoidAreaChange', async data => {
-          if (data.type !== window.AvoidAreaType.TYPE_KEYBOARD) {
-            return;
-          }
-          const keyboardHeight: number = this.uiContext.px2vp(data.area.bottomRect.height);
-          /* When the size of the component preview area exceeds half the screen, the keyboard
-           will cover the preview area. At this time, the component needs to move up when the keyboard appears.
-           */
-          if (keyboardHeight > 0 && this.textAreaInputHeight / globalInfoModel.deviceHeight > 0.5) {
-            this.contentOffset = keyboardHeight / 2;
-          } else {
-            this.contentOffset = 0;
-          }
-        });
+        this.currentWindow = currentWindow;
+        currentWindow.on('avoidAreaChange', this.handleKeyboard);
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG, `getLastWindow failed, cause code: ${err.code}, message: ${err.message}`);
       });
     } catch (err) {
       const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.message}, the message is ${error.message}`);
+      Logger.error(TAG, `CurrentWindow invoke error, the code is ${error.code}, the message is ${error.message}`);
+    }
+  }
+
+  private handleKeyboard = async (areaOption: window.AvoidAreaOptions) => {
+    if (areaOption.type !== window.AvoidAreaType.TYPE_KEYBOARD) {
+      return;
+    }
+    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+    const keyboardHeight: number = this.uiContext.px2vp(areaOption.area.bottomRect.height);
+    /* When the size of the component preview area exceeds half the screen, the keyboard
+     will cover the preview area. At this time, the component needs to move up when the keyboard appears.
+     */
+    if (keyboardHeight > 0 && this.textAreaInputHeight / globalInfoModel.deviceHeight > 0.5) {
+      this.contentOffset = keyboardHeight / 2;
+    } else {
+      this.contentOffset = 0;
+    }
+  }
+
+  aboutToDisappear(): void {
+    try {
+      this.currentWindow?.off('avoidAreaChange', this.handleKeyboard);
+    } catch (error) {
+      Logger.error(TAG, `Off avoidAreaChange failed, cause code:${error.code}, message:${error.message}`);
     }
   }
 

@@ -25,7 +25,7 @@ export function OpacityComponent(attribute: OpacityPickerAttribute,
 
   Column() {
     HmosListItem({
-      title: attribute.disPlayName,
+      title: attribute.displayName,
       desc: ' ',
     })
 

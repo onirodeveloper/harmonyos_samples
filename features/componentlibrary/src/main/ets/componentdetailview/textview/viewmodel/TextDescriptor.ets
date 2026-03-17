@@ -15,7 +15,7 @@
 
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
-import { fontWeightMapData } from '../../common/entity/CommonMapData';
+import { DEFAULT_KEY, fontWeightMapData } from '../../common/entity/CommonMapData';
 import {
   fontColorMapData,
   fontSizeMapData,
@@ -26,19 +26,19 @@ import {
 
 @Observed
 export class TextDescriptor extends CommonDescriptor {
-  public fontWeight: FontWeight = fontWeightMapData.get('Default')!.value as FontWeight;
-  public fontSize: number | string = fontSizeMapData.get('Default')!.value as number;
-  public fontColor: ResourceColor = fontColorMapData.get('Default')!.value as string;
-  public opacity: number = opacityMapData.get('Default')!.value as number;
-  public letterSpacing: number = letterSpacingMapData.get('Default')!.value as number;
-  public textShadowRadius: number = textShadowRadiusMapData.get('Default')!.value as number;
+  public fontWeight: FontWeight = fontWeightMapData.get(DEFAULT_KEY)!.value as FontWeight;
+  public fontSize: number | string = fontSizeMapData.get(DEFAULT_KEY)!.value as number;
+  public fontColor: ResourceColor = fontColorMapData.get(DEFAULT_KEY)!.value as string;
+  public opacity: number = opacityMapData.get(DEFAULT_KEY)!.value as number;
+  public letterSpacing: number = letterSpacingMapData.get(DEFAULT_KEY)!.value as number;
+  public textShadowRadius: number = textShadowRadiusMapData.get(DEFAULT_KEY)!.value as number;
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'fontWeight':
           this.fontWeight = (fontWeightMapData.get(attribute.currentValue)?.value ??
-          fontWeightMapData.get('Default')!.value) as FontWeight;
+          fontWeightMapData.get(DEFAULT_KEY)!.value) as FontWeight;
           break;
         case 'fontColor':
           this.fontColor = attribute.currentValue;

@@ -15,6 +15,7 @@
 
 import { common } from '@kit.AbilityKit';
 import { ArcSwiper, ArcSwiperAttribute, ArcSwiperController } from '@kit.ArkUI';
+import { ProcessUtil } from '@ohos/common';
 import { HomePageComponent } from '../component/HomepageComponent';
 import { SampleListView } from '../view/SampleListView';
 
@@ -39,12 +40,15 @@ struct MainPage {
       .onChange((index: number) => {
         this.currentIndex = index;
       })
+      .onAnimationStart((index: number, targetIndex: number, event: SwiperAnimationEvent) => {
+        if (index === 0 && targetIndex === 0 && event.currentOffset > 0) {
+          ProcessUtil.moveAbilityToBackground(this.getUIContext().getHostContext() as common.UIAbilityContext);
+        }
+      })
     }
     .onBackPressed(() => {
       if (this.currentIndex === 0) {
-        const uiAbilityContext: common.UIAbilityContext =
-          this.getUIContext().getHostContext() as common.UIAbilityContext;
-        uiAbilityContext.moveAbilityToBackground();
+        ProcessUtil.moveAbilityToBackground(this.getUIContext().getHostContext() as common.UIAbilityContext);
       } else {
         this.wearableSwiperController.showPrevious();
       }

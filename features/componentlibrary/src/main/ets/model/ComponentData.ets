@@ -14,31 +14,23 @@
  */
 
 import { TagEnum } from '@ohos/common';
-import type { BannerData } from '@ohos/commonbusiness';
-import { CardStyleTypeEnum, CardTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
+import { BannerData, BaseData } from '@ohos/commonbusiness';
+import { CardStyleTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
 
 @Observed
-export class ComponentContent {
-  public id: number = 0;
-  public type: CardTypeEnum = CardTypeEnum.UNKNOWN;
+export class ComponentContent extends BaseData {
+  public componentCardId: number = 0;
   public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
   public mediaUrl: string = '';
-  public title: string = '';
-  public subTitle: string = '';
-  public desc: string = '';
   public tagIds: TagEnum[] = [];
 }
 
 @Observed
-export class ComponentCardData {
-  public id: number = 0;
-  public cardTitle: string = '';
-  public cardSubTitle: string = '';
-  public cardType: CardTypeEnum = CardTypeEnum.UNKNOWN;
-  public cardStyleType: CardStyleTypeEnum = CardStyleTypeEnum.LIST;
-  public cardImage: string = '';
-  public version: string = '';
-  public cardContents: ComponentContent[] = [];
+export class ComponentCardData extends BaseData {
+  public styleType: CardStyleTypeEnum = CardStyleTypeEnum.LIST;
+  public image: string = '';
+  public componentContents: ComponentContent[] = [];
+  public themeColor: string = '';
 }
 
 export class ComponentData {

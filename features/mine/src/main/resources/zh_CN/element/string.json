@@ -11,7 +11,6 @@
     {
       "name": "setting",
       "value": "设置"
-
     },
     {
       "name": "version_information",
@@ -80,6 +79,22 @@
     {
       "name": "no_article_content",
       "value": "当前无文章上新，敬请期待。"
+    },
+    {
+      "name": "score_title",
+      "value": "根据您的实际体验，您对 HMOS代码工坊 的整体满意度如何？"
+    },
+    {
+      "name": "description_title",
+      "value": "您对 HMOS代码工坊 还有哪些建议？还希望我们能提供哪些功能？"
+    },
+    {
+      "name": "unregistered_title",
+      "value": "登录华为账号"
+    },
+    {
+      "name": "feedback_desc",
+      "value": "当前功能仅做展示"
     }
   ]
 }

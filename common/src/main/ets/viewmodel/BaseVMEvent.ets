@@ -14,5 +14,4 @@
  */
 
 export interface BaseVMEvent {
-
 }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonNumberMapping, CommonStringMapping } from '../../common/entity/CommonMapData';
+import { CommonNumberMapping, CommonStringMapping, DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 class RowAlignMapping {
   public readonly code: string;
@@ -29,7 +29,7 @@ export const rowAlignMapData: Map<string, RowAlignMapping> = new Map([
   ['Top', new RowAlignMapping('VerticalAlign.Top', VerticalAlign.Top)],
   ['Center', new RowAlignMapping('VerticalAlign.Center', VerticalAlign.Center)],
   ['Bottom', new RowAlignMapping('VerticalAlign.Bottom', VerticalAlign.Bottom)],
-  ['Default', new RowAlignMapping('VerticalAlign.Center', VerticalAlign.Center)],
+  [DEFAULT_KEY, new RowAlignMapping('VerticalAlign.Center', VerticalAlign.Center)],
 ]);
 
 class RowJustifyContentMapping {
@@ -43,16 +43,16 @@ class RowJustifyContentMapping {
 }
 
 export const rowSpaceMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('3', 3)],
+  [DEFAULT_KEY, new CommonNumberMapping('3', 3)],
 ]);
 
 export const rowPaddingMapData: Map<string, CommonStringMapping> = new Map([
   ['Vertical', new CommonStringMapping('Vertical', 'Vertical')],
   ['Horizontal', new CommonStringMapping('Horizontal', 'Horizontal')],
   ['All', new CommonStringMapping('All', 'All')],
-  ['Default', new CommonStringMapping('All', 'All')],
+  [DEFAULT_KEY, new CommonStringMapping('All', 'All')],
 ]);
 
 export const paddingNumMapData: Map<string, CommonNumberMapping> = new Map([
-  ['Default', new CommonNumberMapping('3', 3)],
+  [DEFAULT_KEY, new CommonNumberMapping('3', 3)],
 ]);

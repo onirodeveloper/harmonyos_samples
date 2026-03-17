@@ -13,35 +13,30 @@
  * limitations under the License.
  */
 
+import { BusinessError } from '@kit.BasicServicesKit';
+import { BaseVM, BaseVMEvent, LoadingStatus, PageEnum, RequestErrorCode, TopNavigationData, } from '@ohos/common';
 import {
-  BaseVM,
-  BaseVMEvent,
-  LoadingStatus,
-  ResponseData,
-  SampleDistributionUtil,
-  TopNavigationData
-} from '@ohos/common';
-import { ArticleDetailParams, CardTypeEnum, ComponentDetailParams, SampleDetailParams } from '@ohos/commonbusiness';
-import { MineTrigger, NewContentData } from '../model/NewContentData';
+  ArticleDetailParams,
+  CardTypeEnum,
+  ComponentDetailParams,
+  SampleDetailParams
+} from '@ohos/commonbusiness';
+import { NewContentData } from '../model/NewContentData';
 import { NewContentModel } from '../model/NewContentModel';
 import { NewContentPageState } from './NewContentPageState';
 
 export class NewContentVM extends BaseVM<NewContentPageState> {
   private static instance: NewContentVM;
-  public segmentItems: SegmentItem[] = [];
-  public newComponentData: ContentData[] = [];
-  public newSampleData: ContentData[] = [];
-  public newArticleData: ContentData[] = [];
+  public segmentItems: ContentSegmentItem[] = [];
   private model: NewContentModel = NewContentModel.getInstance();
-  private pageSize: number = 30;
   private currentPathStack?: NavPathStack;
 
   private constructor() {
-    super(new NewContentPageState(LoadingStatus.OFF, new TopNavigationData(), 1));
+    super(new NewContentPageState(LoadingStatus.OFF, new TopNavigationData()));
     this.segmentItems = [
-      { title: $r('app.string.component'), trigger: MineTrigger.NEW_COMPONENT },
-      { title: $r('app.string.sample'), trigger: MineTrigger.NEW_SAMPLE },
-      { title: $r('app.string.article'), trigger: MineTrigger.NEW_ARTICLE },
+      { title: $r('app.string.component'), type: CardTypeEnum.COMPONENT },
+      { title: $r('app.string.sample'), type: CardTypeEnum.SAMPLE },
+      { title: $r('app.string.article'), type: CardTypeEnum.ARTICLE },
     ];
   }
 
@@ -62,23 +57,29 @@ export class NewContentVM extends BaseVM<NewContentPageState> {
     }
   }
 
-  private jumpToPage(item: ContentData): void {
-    let param: NewContentPageParams;
+  private jumpToPage(item: NewContentData): void {
     let name: string = '';
-    if (item.type === CardTypeEnum.COMPONENT) {
-      name = RouterName.COMPONENT_DETAIL_VIEW;
-      param = { componentName: item.title, componentId: item.id };
-    } else if (item.type === CardTypeEnum.SAMPLE) {
-      name = RouterName.SAMPLE_DETAIL_VIEW;
-      param = { currentIndex: item.currentIndex ?? 0, sampleCardId: item.id };
-    } else if (item.type === CardTypeEnum.ARTICLE) {
-      name = RouterName.ARTICLE_DETAIL_VIEW;
+    let param: ComponentDetailParams | SampleDetailParams | ArticleDetailParams | undefined;
+    if (item.contentType === CardTypeEnum.COMPONENT) {
+      name = PageEnum.COMPONENT_DETAIL_VIEW;
+      param = { componentName: item.title, id: item.id, contentType: item.contentType } as ComponentDetailParams;
+    } else if (item.contentType === CardTypeEnum.SAMPLE) {
+      name = PageEnum.SAMPLE_DETAIL_VIEW;
+      param = {
+        currentIndex: item.sequence ?? 0,
+        cardId: item.cardId,
+        id: item.id,
+        contentType: item.contentType,
+        unionId: item.unionId,
+      } as SampleDetailParams;
+    } else if (item.contentType === CardTypeEnum.ARTICLE) {
+      name = PageEnum.ARTICLE_DETAIL_VIEW;
       param = {
         id: item.id,
         title: item.title,
         isArticle: true,
         detailsUrl: item.detailsUrl || '',
-      };
+      } as ArticleDetailParams;
     }
     this.currentPathStack?.pushPath({ name, param }, true);
   }
@@ -86,42 +87,45 @@ export class NewContentVM extends BaseVM<NewContentPageState> {
   private init(index: number): void {
     this.initTopNavigationData();
     this.state.loadingStatus = LoadingStatus.LOADING;
-    this.newComponentData = [];
-    this.newSampleData = [];
-    this.newArticleData = [];
-    this.model.getNewContent(this.segmentItems[index].trigger, this.state.currentPage, this.pageSize)
-      .then((res: ResponseData<NewContentData[]>) => {
-        const contentList: ContentData[] = [];
-        res.data.forEach((item: NewContentData) => {
-          if (item.type === CardTypeEnum.SAMPLE &&
-          SampleDistributionUtil.checkSampleSupport(item.requiredApiVersion ?? 0, item.supportDeviceList ?? [])) {
-            contentList.push({
-              id: item.id,
-              title: item.title,
-              type: item.type,
-              subTitle: item.subTitle as string,
-              currentIndex: item.currentIndex,
-              detailsUrl: item.detailsUrl,
-            } as ContentData);
-          }
+    this.state.newComponentData = [];
+    this.state.newSampleData = [];
+    this.state.newArticleData = [];
+    this.model.getNewContent(this.segmentItems[index].type)
+      .then((res: NewContentData[]) => {
+        const contentList: NewContentData[] = [];
+        res.forEach((item: NewContentData) => {
+          contentList.push({
+            id: item.id,
+            cardId: item.cardId,
+            unionId: item.unionId,
+            title: item.title,
+            contentType: item.contentType,
+            subTitle: item.subTitle as string,
+            sequence: item.sequence,
+            detailsUrl: item.detailsUrl,
+          } as NewContentData);
         });
         switch (index) {
           case 0:
-            this.newComponentData = contentList;
+            this.state.newComponentData = contentList;
             break;
           case 1:
-            this.newSampleData = contentList;
+            this.state.newSampleData = contentList;
             break;
           case 2:
-            this.newArticleData = contentList;
+            this.state.newArticleData = contentList;
             break;
           default:
             break;
         }
         this.state.loadingStatus = LoadingStatus.SUCCESS;
       })
-      .catch(() => {
-        this.state.loadingStatus = LoadingStatus.FAILED;
+      .catch((error: BusinessError) => {
+        if (error.code === RequestErrorCode.NETWORK_CONNECT_FAILED) {
+          this.state.loadingStatus = LoadingStatus.NO_NETWORK;
+        } else {
+          this.state.loadingStatus = LoadingStatus.FAILED;
+        }
       });
   }
 
@@ -159,32 +163,14 @@ export class InitContentNewEvent implements BaseVMEvent {
 }
 
 export class JumpToPage implements BaseVMEvent {
-  public item: ContentData;
+  public item: NewContentData;
 
-  constructor(item: ContentData) {
+  constructor(item: NewContentData) {
     this.item = item;
   }
 }
 
-export enum RouterName {
-  COMPONENT_DETAIL_VIEW = 'ComponentDetailView',
-  SAMPLE_DETAIL_VIEW = 'SampleDetailView',
-  ARTICLE_DETAIL_VIEW = 'ArticleDetailView',
-}
-
-export interface SegmentItem {
+export interface ContentSegmentItem {
   title: Resource;
-  trigger: MineTrigger;
+  type: CardTypeEnum;
 }
-
-export class ContentData {
-  public id: number = 0;
-  public title: string = '';
-  public type: CardTypeEnum = CardTypeEnum.UNKNOWN;
-  public subTitle?: string = '';
-  public detailsUrl?: string = '';
-  public isArticle?: boolean = true;
-  public currentIndex?: number = 0;
-}
-
-export type NewContentPageParams = ComponentDetailParams | SampleDetailParams | ArticleDetailParams | undefined;
