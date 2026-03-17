@@ -117,8 +117,9 @@ export struct ExperienceCard {
       .width('100%')
     } else {
       Swiper() {
-        TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
-          ForEach(this.discoverContents, (discoverContent: DiscoverContent) => {
+        ForEach(this.discoverContents, (discoverContent: DiscoverContent) => {
+          TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+
             ExperienceItem({
               discoverContent: discoverContent,
               hasPadding: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM,
@@ -131,8 +132,8 @@ export struct ExperienceCard {
                 moduleType: discoverContent.contentType,
                 eventType: TrackEventType.ARTICLE_CLICK,
               } as TrackServiceData)
-          }, (discoverContent: DiscoverContent) => discoverContent.id.toString())
-        }
+          }
+        }, (discoverContent: DiscoverContent) => discoverContent.id.toString())
       }
       .prevMargin(new BreakpointType<Length>({
         sm: 0,
