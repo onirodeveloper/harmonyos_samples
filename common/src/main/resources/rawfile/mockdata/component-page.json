@@ -10,283 +10,369 @@
         "data": {
             "cardData": [
                 {
-                    "id": 7,
-                    "title": "安全使用相机",
-                    "subTitle": "CameraPicker",
-                    "styleType": 3,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E7%9B%B8%E6%9C%BA%E9%80%89%E6%8B%A9%E5%99%A8.png?token=f5ee7d05-e6df-4d7e-bd04-886836eb7083",
-                    "version": 1000000,
-                    "sequence": 2,
+                    "id": 1,
+                    "title": "为页面添加文本",
+                    "subTitle": "文本类组件",
+                    "styleType": 1,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_900_9/12/v3/component_card/1_comcardaa.png",
+                    "sequence": 1,
                     "componentContents": [
                         {
-                            "id": 28,
-                            "componentCardId": 7,
-                            "contentType": 1,
+                            "id": 10,
+                            "componentCardId": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_camerapicker.png?token=26aaf64a-e25e-4cad-9380-d3dd7b4ba371",
-                            "title": "CameraPicker",
-                            "subTitle": "相机选择器",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259162622_29c01c80.png",
+                            "title": "Text",
+                            "subTitle": "文本",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 42,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259212668_c5f4d164.png",
+                            "title": "TextInput",
+                            "subTitle": "单行文本输入",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 3,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259220643_8fddf95a.png",
+                            "title": "TextArea",
+                            "subTitle": "多行文本输入",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 4,
+                            "componentCardId": 1,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763259228271_71b54494.png",
+                            "title": "TextStyle",
+                            "subTitle": "属性字符串",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         }
                     ]
                 },
                 {
-                    "id": 2,
+                    "id": 28,
+                    "title": "安全使用相机",
+                    "subTitle": "CameraPicker",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_900_9/12/v3/component_card/2_comcardbb.png",
+                    "sequence": 2,
+                    "componentContents": [
+                        {
+                            "id": 5,
+                            "componentCardId": 2,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193628705_dabe77f5.png",
+                            "title": "CameraPicker",
+                            "subTitle": "相机选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
                     "title": "按钮、图片、进度条等",
                     "subTitle": "常用组件",
                     "styleType": 2,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%9B%BE%E6%96%87%E4%BD%8D.png?token=5d44228a-3220-4846-8d18-f21ffb96c294",
-                    "version": 1000000,
+                    "image": "",
                     "sequence": 3,
                     "componentContents": [
                         {
-                            "id": 1,
-                            "componentCardId": 2,
-                            "contentType": 1,
+                            "id": 6,
+                            "componentCardId": 3,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_button.png?token=db9560ca-c646-4f75-9947-9e29366980a2",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193667686_964e6e30.png",
                             "title": "Button",
                             "subTitle": "按钮",
                             "version": 1000000,
                             "tagIds": [
-                                1,
-                                2
-                            ]
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 11,
-                            "componentCardId": 2,
-                            "contentType": 1,
+                            "id": 7,
+                            "componentCardId": 3,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_image.png?token=470a7067-8dab-46be-a207-fb2575b26958",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193678228_75698fd7.png",
                             "title": "Image",
                             "subTitle": "图片",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 13,
-                            "componentCardId": 2,
-                            "contentType": 1,
+                            "id": 8,
+                            "componentCardId": 3,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_progress.png?token=a33ba5e5-5352-413c-9707-e38ec168f585",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193688045_2b45ff54.png",
                             "title": "Progress",
                             "subTitle": "进度条",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 22,
-                            "componentCardId": 2,
-                            "contentType": 1,
+                            "id": 9,
+                            "componentCardId": 3,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_rating.png?token=7ef152ae-1149-4e60-873f-0e0b587534aa",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193697096_7e00a341.png",
                             "title": "Rating",
                             "subTitle": "评分",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
                             "id": 2,
-                            "componentCardId": 2,
-                            "contentType": 1,
+                            "componentCardId": 3,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_toggle.png?token=70c2b36d-1e16-4ba3-8973-fc5dbf3e248f",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193707451_31a00b6c.png",
                             "title": "Toggle",
                             "subTitle": "开关",
                             "version": 1000000,
                             "tagIds": [
-                                1,
-                                2
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": 13,
-                    "title": "安全使用图库",
-                    "subTitle": "PhotoPicker",
-                    "styleType": 3,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%9B%BE%E5%BA%93%E9%80%89%E6%8B%A9%E5%99%A8.png?token=9bbbeadf-e421-48bb-a330-82b5eaa1d057",
-                    "version": 1000000,
-                    "sequence": 4,
-                    "componentContents": [
-                        {
-                            "id": 26,
-                            "componentCardId": 13,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_photopicker.png?token=4612a775-4c41-438d-a2e2-5f21d931bba0",
-                            "title": "PhotoViewPicker",
-                            "subTitle": "图库选择器",
-                            "version": 1000000,
-                            "tagIds": []
+                                1
+                            ],
+                            "contentType": 1
                         }
                     ]
                 },
                 {
                     "id": 4,
-                    "title": "使用布局容器构建页面",
-                    "subTitle": "常用布局",
-                    "styleType": 1,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%20banner.png?token=1de79bb4-0b1a-488c-a399-035f3acf4d1c",
-                    "version": 1000000,
-                    "sequence": 5,
-                    "componentContents": [
-                        {
-                            "id": 5,
-                            "componentCardId": 4,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_column.png?token=20e3b374-88b2-418c-ad10-64db95636ea0",
-                            "title": "Column",
-                            "subTitle": "线性布局 - 纵向",
-                            "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 6,
-                            "componentCardId": 4,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_row.png?token=4f67c34e-a2ae-4461-ac2e-3639380a1732",
-                            "title": "Row",
-                            "subTitle": "线性布局 - 横向",
-                            "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 7,
-                            "componentCardId": 4,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_stack.png?token=9fc5ad08-7d05-4bac-bb4f-a26b95b0080d",
-                            "title": "Stack",
-                            "subTitle": "层叠布局",
-                            "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 23,
-                            "componentCardId": 4,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80%2Fic_flex.png?token=c4491f27-76eb-447d-bde1-020093759684",
-                            "title": "Flex",
-                            "subTitle": "弹性布局",
-                            "version": 1000000,
-                            "tagIds": []
-                        }
-                    ]
-                },
-                {
-                    "id": 11,
-                    "title": "手写笔服务",
-                    "subTitle": "Pen Kit",
+                    "title": "安全使用图库",
+                    "subTitle": "PhotoPicker",
                     "styleType": 3,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E6%89%8B%E5%86%99%E7%AC%94.png?token=9a23aa17-c575-42bc-8edf-8a8cbf1954e0",
-                    "version": 1000000,
-                    "sequence": 6,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763176468443_d750d892.png",
+                    "sequence": 4,
                     "componentContents": [
                         {
-                            "id": 38,
-                            "componentCardId": 11,
-                            "contentType": 1,
+                            "id": 11,
+                            "componentCardId": 4,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_penkit.png?token=5f4bada9-fe6c-40f1-b645-e6e6fecb6b40",
-                            "title": "Penkit",
-                            "subTitle": "手写笔服务",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193727480_0b053fd3.png",
+                            "title": "PhotoViewPicker",
+                            "subTitle": "图库选择器",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         }
                     ]
                 },
                 {
                     "id": 5,
-                    "title": "构建列表类布局",
+                    "title": "使用布局容器构建页面",
                     "subTitle": "常用布局",
-                    "styleType": 2,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E5%B8%B8%E7%94%A8%E5%B8%83%E5%B1%80.png?token=d94f1897-5a0c-4171-84ad-660bc9d7c18f",
-                    "version": 1000000,
-                    "sequence": 7,
+                    "styleType": 1,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763192588415_acee5263.png",
+                    "themeColor": "#F08028",
+                    "sequence": 5,
                     "componentContents": [
                         {
-                            "id": 9,
+                            "id": 12,
                             "componentCardId": 5,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_list.png?token=b90a9443-e21d-486a-a78f-6c44d674fdd8",
-                            "title": "List",
-                            "subTitle": "列表",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193744040_775cb0a7.png",
+                            "title": "Column",
+                            "subTitle": "线性布局 - 纵向",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 8,
+                            "id": 13,
                             "componentCardId": 5,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_grid.png?token=7d6b92fa-6124-41f7-a6db-298edc1b6ec7",
-                            "title": "Grid",
-                            "subTitle": "网格",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193754271_69c2f208.png",
+                            "title": "Row",
+                            "subTitle": "线性布局 - 横向",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 25,
+                            "id": 14,
                             "componentCardId": 5,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_waterflow.png?token=478ffdb1-7215-4a31-8dca-a56a0c9dc8e4",
-                            "title": "WaterFlow",
-                            "subTitle": "瀑布流",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193765209_d7f93377.png",
+                            "title": "Stack",
+                            "subTitle": "层叠布局",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 24,
+                            "id": 15,
                             "componentCardId": 5,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_swiper.png?token=ca885181-f6d1-41a4-b583-58db09e9e8b3",
-                            "title": "Swiper",
-                            "subTitle": "滑动轮播组件",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193779307_d00a3bbb.png",
+                            "title": "Flex",
+                            "subTitle": "弹性布局",
                             "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 18,
-                            "componentCardId": 5,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_tabs.png?token=26b5972d-ccd0-48ef-a5ba-53c50113cbfa",
-                            "title": "Tabs",
-                            "subTitle": "页签",
-                            "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         }
                     ]
                 },
                 {
-                    "id": 12,
+                    "id": 6,
+                    "title": "手写笔服务",
+                    "subTitle": "Pen Kit",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763192978744_cea4a9cb.png",
+                    "sequence": 6,
+                    "componentContents": [
+                        {
+                            "id": 16,
+                            "componentCardId": 6,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193792694_98eb3093.png",
+                            "title": "Penkit",
+                            "subTitle": "手写笔服务",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "title": "构建列表类布局",
+                    "subTitle": "常用布局",
+                    "styleType": 2,
+                    "image": "",
+                    "sequence": 7,
+                    "componentContents": [
+                        {
+                            "id": 17,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193810617_bc109841.png",
+                            "title": "List",
+                            "subTitle": "列表",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 18,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193823024_356a1481.png",
+                            "title": "Grid",
+                            "subTitle": "网格",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 19,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193835375_b6196aef.png",
+                            "title": "WaterFlow",
+                            "subTitle": "瀑布流",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 20,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193847315_ee8d794b.png",
+                            "title": "Swiper",
+                            "subTitle": "滑动轮播组件",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 21,
+                            "componentCardId": 7,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193860107_4f5bf1a0.png",
+                            "title": "Tabs",
+                            "subTitle": "页签",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
                     "title": "AI抠图",
                     "subTitle": "开箱即用的AI能力",
                     "styleType": 3,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2FAI%20%E6%8A%A0%E5%9B%BE.png?token=8f3e0270-5a7f-4028-9acb-a7db69499260",
-                    "version": 1000000,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193075863_10552162.png",
                     "sequence": 8,
                     "componentContents": [
                         {
-                            "id": 32,
-                            "componentCardId": 12,
-                            "contentType": 1,
+                            "id": 22,
+                            "componentCardId": 8,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_enable%20analyzer.png?token=0d6aed4d-3739-4b0c-b303-671a7c620199",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193873503_4b3edbb3.png",
                             "title": "AI Matting",
                             "subTitle": "AI抠图",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         }
                     ]
                 },
@@ -295,162 +381,170 @@
                     "title": "给页面添加弹窗",
                     "subTitle": "消息弹窗",
                     "styleType": 2,
-                    "version": 1000000,
+                    "image": "",
                     "sequence": 9,
                     "componentContents": [
                         {
-                            "id": 20,
+                            "id": 23,
                             "componentCardId": 9,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_alert%20dialog.png?token=d2373c49-1a13-455b-b269-fc5a9a7c077d",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193894456_633edf38.png",
                             "title": "AlertDialog",
                             "subTitle": "警告弹窗",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 21,
+                            "id": 24,
                             "componentCardId": 9,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_text%20dialog.png?token=1080536e-5886-47e6-ac0d-c04e4d396507",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193907009_079cd74d.png",
                             "title": "TextPickerDialog",
                             "subTitle": "文本滑动选择器弹窗",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         },
                         {
-                            "id": 35,
+                            "id": 25,
                             "componentCardId": 9,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_customerdilog.png?token=bd5514a1-9371-4ced-a22c-b21bd7466789",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193923115_c0e23b4c.png",
                             "title": "CustomDialog",
                             "subTitle": "自定义弹窗",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [],
+                            "contentType": 1
                         },
                         {
-                            "id": 33,
+                            "id": 26,
                             "componentCardId": 9,
-                            "contentType": 1,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_actionsheet.png?token=2309567b-2a6a-45d5-8fa6-88555ec7f97c",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193936106_8eec725c.png",
                             "title": "ActionSheet",
                             "subTitle": "列表选择弹窗",
                             "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 34,
-                            "componentCardId": 9,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_popup.png?token=a967f46e-2018-442b-a049-da857abe4c56",
-                            "title": "Popup",
-                            "subTitle": "气泡弹窗",
-                            "version": 1000000,
-                            "tagIds": []
-                        }
-                    ]
-                },
-                {
-                    "id": 6,
-                    "title": "AI语音播报",
-                    "subTitle": "开箱即用的AI能力",
-                    "styleType": 3,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2FAI%E8%AF%AD%E9%9F%B3.png?token=d7e11a2e-87bd-4887-92a2-03447f21c1b2",
-                    "version": 1000000,
-                    "sequence": 10,
-                    "componentContents": [
-                        {
-                            "id": 29,
-                            "componentCardId": 6,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2FAI%E8%83%BD%E5%8A%9B-texttospeech.png?token=52ee1293-44e2-4c74-ac63-574f7efefa4b",
-                            "title": "TextToSpeech",
-                            "subTitle": "文本转语音",
-                            "version": 1000000,
-                            "tagIds": []
-                        }
-                    ]
-                },
-                {
-                    "id": 8,
-                    "title": "高效拉起系统应用",
-                    "subTitle": "Picker和Linking",
-                    "styleType": 1,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%20banner.png?token=b1bec2ac-da0d-4b74-ba8c-cd587fc0dd70",
-                    "version": 1000000,
-                    "sequence": 11,
-                    "componentContents": [
-                        {
-                            "id": 14,
-                            "componentCardId": 8,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_calendar.png?token=319dc0ff-9627-4335-ace9-ca1adad7f014",
-                            "title": "CalendarPicker",
-                            "subTitle": "日历选择器",
-                            "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 15,
-                            "componentCardId": 8,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_datepicker.png?token=1a872d57-5f40-422f-8e2d-66a8b4d17c45",
-                            "title": "DatePicker",
-                            "subTitle": "日期滑动选择器",
-                            "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [],
+                            "contentType": 1
                         },
                         {
                             "id": 27,
-                            "componentCardId": 8,
-                            "contentType": 1,
+                            "componentCardId": 9,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_documentpicker.png?token=c70fc893-a507-4b41-98a0-7d7ac2ab5365",
-                            "title": "DocumentViewPicker",
-                            "subTitle": "文件选择器",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193947097_3cdb71b6.png",
+                            "title": "Popup",
+                            "subTitle": "气泡弹窗",
                             "version": 1000000,
-                            "tagIds": []
-                        },
-                        {
-                            "id": 36,
-                            "componentCardId": 8,
-                            "contentType": 1,
-                            "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2F%E9%AB%98%E6%95%88%E6%8B%89%E8%B5%B7%2Fic_linking.png?token=cbe09774-92be-4f61-8118-ba1cc1a31eba",
-                            "title": "AppLinking",
-                            "subTitle": "应用拉起",
-                            "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
                         }
                     ]
                 },
                 {
                     "id": 10,
+                    "title": "AI语音播报",
+                    "subTitle": "开箱即用的AI能力",
+                    "styleType": 3,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193150898_9b4b25b6.png",
+                    "sequence": 10,
+                    "componentContents": [
+                        {
+                            "id": 28,
+                            "componentCardId": 10,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763193974850_af81c550.png",
+                            "title": "TextToSpeech",
+                            "subTitle": "文本转语音",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "title": "高效拉起系统应用",
+                    "subTitle": "Picker和Linking",
+                    "styleType": 1,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193224935_662c5255.png",
+                    "themeColor": "#20A858",
+                    "sequence": 11,
+                    "componentContents": [
+                        {
+                            "id": 29,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_900_9/b0/v3/component_info/1766739154605_6c2d635a.png",
+                            "title": "CalendarPicker",
+                            "subTitle": "日历选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 30,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194006806_01abab4d.png",
+                            "title": "DatePicker",
+                            "subTitle": "日期滑动选择器",
+                            "version": 1000000,
+                            "tagIds": [
+                                1
+                            ],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 31,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194016593_53c7fd13.png",
+                            "title": "DocumentViewPicker",
+                            "subTitle": "文件选择器",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        },
+                        {
+                            "id": 32,
+                            "componentCardId": 11,
+                            "mediaType": "IMAGE",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194028248_c6e62acd.png",
+                            "title": "AppLinking",
+                            "subTitle": "应用拉起",
+                            "version": 1000000,
+                            "tagIds": [],
+                            "contentType": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 12,
                     "title": "AI语音字幕",
                     "subTitle": "开箱即用的AI能力",
                     "styleType": 3,
-                    "image": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Fcard%2FAI%E5%AD%97%E5%B9%95.png?token=ada5364b-c7a2-485e-951d-26521fcfbc35",
-                    "version": 1000000,
+                    "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/12/v3/component_card/1763193288249_71e148e2.png",
                     "sequence": 12,
                     "componentContents": [
                         {
-                            "id": 30,
-                            "componentCardId": 10,
-                            "contentType": 1,
+                            "id": 33,
+                            "componentCardId": 12,
                             "mediaType": "IMAGE",
-                            "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/component%2Ficon%2Fic_component.png?token=8f35e9cb-d9c9-4619-b21e-ecea1c95cdc8",
+                            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/b0/v3/component_info/1763194041467_af433343.png",
                             "title": "AICaptionComponent",
                             "subTitle": "AI字幕组件",
                             "version": 1000000,
-                            "tagIds": []
+                            "tagIds": [],
+                            "contentType": 1
                         }
                     ]
                 }
@@ -458,41 +552,33 @@
             "bannerInfos": [
                 {
                     "id": 1,
-                    "title": "开发者你好，欢迎来到HMOS世界",
-                    "contentType": 3,
-                    "subTitle": "HMOS世界",
-                    "desc": "鸿蒙世界是一个最佳实践，包含架构、体验鸿蒙世界是一个最佳实践，包含架构、体验",
-                    "type": "DISCOVERY",
-                    "value": "14",
-                    "mediaType": "IMAGE",
-                    "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E9%85%8D%E5%9B%BE-HMOS.png?token=11ee88cc-36f6-46cb-ace3-3c7d3643d4de",
-                    "detailsUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E9%85%8D%E5%9B%BE-HMOS.png?token=11ee88cc-36f6-46cb-ace3-3c7d3643d4de",
-                    "sequence": 0
+                    "title": "开发者你好，欢迎来到HMOS代码工坊",
+                    "subTitle": "HarmonyOS代码工坊",
+                    "desc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
+                    "type": 3,
+                    "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763175438389_1d5333c9.png",
+                    "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/hmos-world/index.html",
+                    "sequence": 1
                 },
                 {
-                    "id": 4,
-                    "title": "HarmonyOS UX设计新体验",
-                    "contentType": 3,
-                    "subTitle": "UX设计体验",
-                    "desc": "在HarmonyOS设备上提供生动而流程的用户界面在HarmonyOS设备上提供生动而流程的用户界面",
-                    "type": "DISCOVERY",
-                    "value": "18",
-                    "mediaType": "IMAGE",
-                    "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E4%BD%93%E9%AA%8C%2F%E4%BD%93%E9%AA%8C-UI%20%E6%96%B0%E4%BD%93%E9%AA%8C.png?token=ac556242-5e8f-4254-b4e8-e24e1e21a403",
-                    "detailsUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E9%85%8D%E5%9B%BE-HMOS.png?token=11ee88cc-36f6-46cb-ace3-3c7d3643d4de",
-                    "sequence": 0
+                    "id": 2,
+                    "title": "HMOS代码工坊一多开发实践",
+                    "subTitle": "一次开发，多端部署",
+                    "desc": "探索HarmonyOS代码工坊一多开发实践",
+                    "type": 3,
+                    "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191496899_ada8ae8b.png",
+                    "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/multi-adaptation/index.html",
+                    "sequence": 2
                 },
                 {
-                    "id": 5,
+                    "id": 3,
                     "title": "开箱即用的AI语音播报能力",
-                    "contentType": 3,
                     "subTitle": "AI朗读",
-                    "desc": "朗读控件使用AI能力将文本实时转化成语音并进行朗读，适用于一些新闻类、小说类等文本内容浏览类APP，帮助用户在一些无法直接浏览文本内容的场景下，通过文本朗读来高效获取信息。",
-                    "type": "DISCOVERY",
-                    "value": "19",
-                    "mediaType": "IMAGE",
-                    "mediaUrl": "https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-mcm1x/banner%2F%E4%BD%93%E9%AA%8C%2F%E4%BD%93%E9%AA%8C-AI%20%E8%AF%AD%E9%9F%B3.png?token=2fe379e2-8a92-49eb-a090-a46c9772932b",
-                    "sequence": 0
+                    "desc": "朗读文本转语音，新闻小说即享听。",
+                    "type": 3,
+                    "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191636698_81d51bfb.png",
+                    "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/ai-voice-out-of-box/index.html",
+                    "sequence": 3
                 }
             ]
         }

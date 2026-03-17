@@ -20,6 +20,30 @@
     },
     {
       "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts/",
+      "moduleName": "speechkitsample",
+      "abilityName": "SpeechkitsampleEntryAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts/",
+      "moduleName": "documentscansample",
+      "abilityName": "DocScanSampleAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts/",
+      "moduleName": "sheetrecognitionsample",
+      "abilityName": "SheetRecognitionAbility"
+    },
+    {
+      "branch": "br_release_hmos",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo/",
+      "moduleName": "textrecognitionsample",
+      "abilityName": "TextRecognitionAbility"
+    },
+    {
+      "branch": "br_release_hmos",
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiBusinessOffice/",
       "moduleName": "multibusinesssample",
       "abilityName": "MultibusinesssampleAbility"
