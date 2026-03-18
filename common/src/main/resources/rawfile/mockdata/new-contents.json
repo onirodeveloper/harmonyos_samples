@@ -11,62 +11,7 @@
     {
       "id": 2,
       "type": 2,
-      "data": [
-        {
-          "id": 14,
-          "cardId": 8,
-          "unionId": 0,
-          "title": "语音朗读",
-          "sequence": 1,
-          "contentType": 2,
-          "requiredApiVersion": 14,
-          "supportDeviceList": [
-            "phone",
-            "tablet",
-            "2in1"
-          ]
-        },
-        {
-          "id": 15,
-          "cardId": 9,
-          "unionId": 0,
-          "title": "文档扫描",
-          "sequence": 1,
-          "contentType": 2,
-          "requiredApiVersion": 14,
-          "supportDeviceList": [
-            "phone",
-            "tablet"
-          ]
-        },
-        {
-          "id": 16,
-          "cardId": 10,
-          "unionId": 0,
-          "title": "表格提取",
-          "sequence": 1,
-          "contentType": 2,
-          "requiredApiVersion": 14,
-          "supportDeviceList": [
-            "phone",
-            "tablet"
-          ]
-        },
-        {
-          "id": 18,
-          "cardId": 12,
-          "unionId": 0,
-          "title": "通用文字识别",
-          "sequence": 1,
-          "contentType": 2,
-          "requiredApiVersion": 14,
-          "supportDeviceList": [
-            "phone",
-            "tablet",
-            "2in1"
-          ]
-        }
-      ]
+      "data": []
     },
     {
       "id": 3,

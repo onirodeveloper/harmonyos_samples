@@ -16,8 +16,8 @@
   ![image](hmosword-build/image/download_small.png)
 
 【代码开源地址】
-- 「HarmonyOS代码工坊」源码地址：https://gitee.com/harmonyos_samples/sample_in_harmonyos
-- 示例代码汇总地址：https://gitee.com/harmonyos_samples
+- 「HarmonyOS代码工坊」源码地址：https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos
+- 示例代码汇总地址：https://gitcode.com/HarmonyOS_Samples
 
 【效果图】
 ![image](hmosword-build/image/9.png)
