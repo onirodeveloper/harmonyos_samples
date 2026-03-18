@@ -81,8 +81,8 @@
     {
       "branch": "br_release_hmos",
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/",
-      "moduleName": "multiconvinientlifesample",
-      "abilityName": "MulticonvinientlifesampleAbility"
+      "moduleName": "multiconvenientlifesample",
+      "abilityName": "MulticonvenientlifesampleAbility"
     },
     {
       "branch": "br_release_hmos",
@@ -123,13 +123,13 @@
     {
       "branch": "br_release_hmos",
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/custom-dialog-gathers/",
-      "moduleName": "customdialogsample",
-      "abilityName": "CustomdialogsampleAbility"
+      "moduleName": "customdialoggatherssample",
+      "abilityName": "CustomDialogGathersSampleAbility"
     },
     {
       "branch": "br_release_hmos",
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/scroll-component-nested-sliding/",
-      "moduleName": "nestedslidingsample",
+      "moduleName": "scrollcomponentsample",
       "abilityName": "NestedslidingsampleAbility"
     },
     {
