@@ -25,9 +25,7 @@
                             "title": "Text",
                             "subTitle": "文本",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -38,9 +36,7 @@
                             "title": "TextInput",
                             "subTitle": "单行文本输入",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -51,9 +47,7 @@
                             "title": "TextArea",
                             "subTitle": "多行文本输入",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -64,9 +58,7 @@
                             "title": "TextStyle",
                             "subTitle": "属性字符串",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -87,9 +79,7 @@
                             "title": "CameraPicker",
                             "subTitle": "相机选择器",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -110,9 +100,7 @@
                             "title": "Button",
                             "subTitle": "按钮",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -123,9 +111,7 @@
                             "title": "Image",
                             "subTitle": "图片",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -136,9 +122,7 @@
                             "title": "Progress",
                             "subTitle": "进度条",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -149,9 +133,7 @@
                             "title": "Rating",
                             "subTitle": "评分",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -162,9 +144,7 @@
                             "title": "Toggle",
                             "subTitle": "开关",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -185,9 +165,7 @@
                             "title": "PhotoViewPicker",
                             "subTitle": "图库选择器",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -209,9 +187,7 @@
                             "title": "Column",
                             "subTitle": "线性布局 - 纵向",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -222,9 +198,7 @@
                             "title": "Row",
                             "subTitle": "线性布局 - 横向",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -235,9 +209,7 @@
                             "title": "Stack",
                             "subTitle": "层叠布局",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -248,9 +220,7 @@
                             "title": "Flex",
                             "subTitle": "弹性布局",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -271,9 +241,7 @@
                             "title": "Penkit",
                             "subTitle": "手写笔服务",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -294,9 +262,7 @@
                             "title": "List",
                             "subTitle": "列表",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -307,9 +273,7 @@
                             "title": "Grid",
                             "subTitle": "网格",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -320,9 +284,7 @@
                             "title": "WaterFlow",
                             "subTitle": "瀑布流",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -333,9 +295,7 @@
                             "title": "Swiper",
                             "subTitle": "滑动轮播组件",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -346,9 +306,7 @@
                             "title": "Tabs",
                             "subTitle": "页签",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -369,9 +327,7 @@
                             "title": "AI Matting",
                             "subTitle": "AI抠图",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -392,9 +348,7 @@
                             "title": "AlertDialog",
                             "subTitle": "警告弹窗",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -405,9 +359,7 @@
                             "title": "TextPickerDialog",
                             "subTitle": "文本滑动选择器弹窗",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -440,9 +392,7 @@
                             "title": "Popup",
                             "subTitle": "气泡弹窗",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         }
                     ]
@@ -485,9 +435,7 @@
                             "title": "CalendarPicker",
                             "subTitle": "日历选择器",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {
@@ -498,9 +446,7 @@
                             "title": "DatePicker",
                             "subTitle": "日期滑动选择器",
                             "version": 1000000,
-                            "tagIds": [
-                                1
-                            ],
+                            "tagIds": [],
                             "contentType": 1
                         },
                         {

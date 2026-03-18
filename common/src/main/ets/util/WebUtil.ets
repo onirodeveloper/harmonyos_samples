@@ -107,7 +107,7 @@ function webBuilder(param: WebBuilderParam) {
       const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
       try {
         param.webController.onActive();
-        const userAgent = `${param.webController.getUserAgent()} Mobile`;
+        const userAgent = `${param.webController.getUserAgent()} Mobile (Phone; OpenHarmony)`;
         param.webController.setCustomUserAgent(userAgent);
         // Setting the local file path that allows cross-domain access.
         param.webController.setPathAllowingUniversalAccess([uiContext?.getHostContext()?.resourceDir]);
@@ -127,14 +127,14 @@ export class NativeActionData {
   constructor(url: string) {
     this.webSheet = (src: string, type: number) => {
       const sheetEvent = sheetEventMap.get(url);
-      if (sheetEvent !== undefined) {
+      if (sheetEvent) {
         sheetEvent(src, type);
       }
     };
 
     this.jumpPage = (type: string, id: number, currentIndex?: number, componentName?: string) => {
       const sheetEvent = pageEventMap.get(url);
-      if (sheetEvent !== undefined) {
+      if (sheetEvent) {
         sheetEvent(type, id, currentIndex, componentName);
       }
     }
@@ -296,6 +296,9 @@ export class WebUtil {
 
   public static handleLoadIntercept(event: OnLoadInterceptEvent): boolean {
     const tempUrl = event.data.getRequestUrl();
+    if (!event.data.isMainFrame()) {
+      return true;
+    }
     if (WebUtil.checkUrl(tempUrl)) {
       return false;
     }
@@ -397,17 +400,17 @@ export class WebNodeController extends NodeController {
   private isRemove: boolean = false;
 
   makeNode(): FrameNode | null {
-    if (this.isRemove === true) {
+    if (this.isRemove) {
       return null;
     }
-    if (this.rootNode) {
-      return this.rootNode.getFrameNode();
-    }
-    return null;
+    return this.rootNode?.getFrameNode() ?? null;
   }
 
   disposeNode() {
-    this.rootNode?.dispose();
+    if (this.rootNode) {
+      this.rootNode.dispose();
+      this.rootNode = null;
+    }
   }
 
   remove() {
@@ -431,7 +434,12 @@ export class WebNodeController extends NodeController {
 
   updateWebNode(webBuilderParam: WebBuilderParam) {
     if (this.rootNode) {
-      this.rootNode.update(webBuilderParam);
+      try {
+        this.rootNode.update(webBuilderParam);
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        Logger.error(TAG, `Failed to update web node, ${err.code}, ${err.message}`);
+      }
     }
   }
 }
