@@ -68,12 +68,6 @@
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/ContinuePublish/",
-      "moduleName": "continuepublishsample",
-      "abilityName": "ContinuepublishsampleAbility"
-    },
-    {
-      "branch": "br_release_hmos",
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-nav-bar/",
       "moduleName": "multinavbarsample",
       "abilityName": "MultinavbarsampleAbility"
@@ -83,12 +77,6 @@
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/",
       "moduleName": "multiconvenientlifesample",
       "abilityName": "MulticonvenientlifesampleAbility"
-    },
-    {
-      "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment/",
-      "moduleName": "multimobilepaymentsample",
-      "abilityName": "MultimobilepaymentsampleAbility"
     },
     {
       "branch": "br_release_hmos",
