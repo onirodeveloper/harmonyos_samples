@@ -107,6 +107,8 @@ export struct PictureAboveTextCard {
                 .fontWeight(FontWeight.Medium)
                 .fontColor(this.sampleCardData.unionId ? $r('app.color.card_font_primary_color') :
                   $r('sys.color.font_primary'))
+                .maxLines(1)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
               TagLabel({
                 maxWidth: this.maxWidth,
                 tags: this.sampleContent?.tags || [],

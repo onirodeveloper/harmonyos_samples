@@ -37,6 +37,7 @@ import {
 } from '@ohos/common';
 import { CardTypeEnum } from '@ohos/commonbusiness';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
+import { JSON } from '@kit.ArkTS';
 
 const TAG: string = '[CodePreviewComponent]';
 
@@ -129,7 +130,7 @@ export struct CodePreviewComponent {
       if (this.pageContainer && !this.isBack) {
         const showLandscapeMethod: string =
           this.isFloatWindowType ? 'showLandscapeFloatView(%param)' : 'showLandscapeView(%param)';
-        const params: string = WIDTH_BREAKPOINTS[this.beginBreakpoint];
+        const params: string = JSON.stringify(WIDTH_BREAKPOINTS[this.beginBreakpoint]);
         CodePreviewJSUtil.codeViewRunJS(showLandscapeMethod, params);
       }
     } else {

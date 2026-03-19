@@ -29,6 +29,9 @@ export struct HandWritingComponent {
   private controller: HandwriteController = new HandwriteController();
   private initPath: string = 'savePath';
   private closeButtonTop: number = BUTTON_OFFSET;
+  @State backIconBgColor: ResourceColor =
+    this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+    $r('sys.color.comp_background_tertiary');
 
   aboutToAppear(): void {
     // Close button offset.
@@ -55,7 +58,7 @@ export struct HandWritingComponent {
 
   build() {
     NavDestination() {
-      Stack({ alignContent: Alignment.TopEnd }) {
+      Stack({ alignContent: Alignment.TopStart }) {
         HandwriteComponent({
           handwriteController: this.controller,
           onInit: () => {
@@ -68,17 +71,21 @@ export struct HandWritingComponent {
             }
           }
         })
-        Button({ type: ButtonType.Circle }) {
-          SymbolGlyph($r('sys.symbol.xmark'))
+        Button() {
+          SymbolGlyph($r('sys.symbol.chevron_backward'))
             .fontColor([$r('sys.color.icon_primary')])
             .fontSize($r('sys.float.ohos_id_textfield_icon_size'))
         }
-        .width($r('sys.float.ohos_id_button_height'))
-        .height($r('sys.float.ohos_id_button_height'))
-        .backgroundColor($r('sys.color.comp_background_tertiary'))
+        .height($r('app.float.back_button_height'))
+        .aspectRatio(1)
+        .backgroundColor(this.backIconBgColor)
+        .onHover((isHover: boolean) => {
+          this.backIconBgColor = isHover ? $r('sys.color.comp_background_tertiary') : Color.Transparent;
+        })
         .margin({
-          top: this.closeButtonTop + this.globalInfoModel.statusBarHeight,
-          right: $r('sys.float.padding_level8')
+          top: this.globalInfoModel.statusBarHeight + 10,
+          left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? $r('sys.float.padding_level12') :
+                $r('sys.float.padding_level8')
         })
         .onClick(() => {
           ComponentDetailManager.getInstance().getDetailViewModel('Penkit')?.pop();
