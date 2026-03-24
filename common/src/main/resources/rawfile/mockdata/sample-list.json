@@ -169,7 +169,7 @@
               "cardId": 20,
               "unionId": 0,
               "mediaType": "IMAGE",
-              "mediaUrl": "image/sample/arkui/style/sample_text_effects.gif",
+              "mediaUrl": "image/sample/arkui/style/sample_text_effects.webp",
               "title": "文字特效合集",
               "desc": "本示例基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTS页面开发中实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果。",
               "tags": [
@@ -313,7 +313,7 @@
               "cardId": 22,
               "unionId": 0,
               "mediaType": "IMAGE",
-              "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.gif",
+              "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.webp",
               "title": "转场动效合集",
               "desc": "本示例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见一镜到底转场动效，便于用户进行常见的转场动效场景开发。",
               "tags": [
