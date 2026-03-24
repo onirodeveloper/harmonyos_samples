@@ -10,8 +10,8 @@
         "subTitle": "UX设计体验",
         "desc": "助力开发者打造鸿蒙应用新体验，共建和谐数字世界。",
         "type": 3,
-        "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191960003_4fe63d08.png",
-        "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/ux-design-new-experience/index.html",
+        "mediaUrl": "image/banner/banner_new_features.png",
+        "detailsUrl": "bannercols/ux-design-new-experience/index.html",
         "sequence": 1
       },
       {
@@ -20,8 +20,8 @@
         "subTitle": "设计与开发",
         "desc": "打造高端精致、简单易用、极致流畅、纯净安全的应用。",
         "type": 3,
-        "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763192029555_cc8a3822.png",
-        "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/app-design-development/index.html",
+        "mediaUrl": "image/banner/banner_develop_design.png",
+        "detailsUrl": "bannercols/app-design-development/index.html",
         "sequence": 2
       },
       {
@@ -30,8 +30,8 @@
         "subTitle": "HarmonyOS代码工坊",
         "desc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
         "type": 3,
-        "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763283439496_d8e76702.png",
-        "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/hmos-world/index.html",
+        "mediaUrl": "image/banner/banner_HMOS.png",
+        "detailsUrl": "bannercols/hmos-world/index.html",
         "sequence": 3
       }
     ],
@@ -45,11 +45,11 @@
           {
             "id": 1,
             "discoveryId": 1,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170281428_e99fc4dd.png",
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_3.png",
             "title": "小窗口大世界，智享实况窗服务",
             "desc": "实时信息随处展示。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/live-window-service/index.html",
+            "detailsUrl": "articlecols/articles/live-window-service/index.html",
             "tagIds": [],
             "sequence": 1,
             "contentType": 3
@@ -57,11 +57,11 @@
           {
             "id": 2,
             "discoveryId": 1,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170428320_5f3f9668.png",
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_4.png",
             "title": "Picker安心取，用户主导安全新体验",
             "desc": "纯净安全，打造全新体验。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/native-safety/index.html",
+            "detailsUrl": "articlecols/articles/native-safety/index.html",
             "tagIds": [],
             "sequence": 2,
             "contentType": 3
@@ -69,11 +69,11 @@
           {
             "id": 3,
             "discoveryId": 1,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170519545_fd4e8b71.png",
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_1.png",
             "title": "一镜到底，畅享无界丝滑视觉之旅",
             "desc": "极致流畅，畅享丝滑。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/shared-element-transition/index.html",
+            "detailsUrl": "articlecols/articles/shared-element-transition/index.html",
             "tagIds": [
               2
             ],
@@ -83,11 +83,11 @@
           {
             "id": 4,
             "discoveryId": 1,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170586009_60083367.png",
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_5.png",
             "title": "跨设备互联，打造无缝流转极致体验",
             "desc": "跨设备互联，无缝流转。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/app-continuation/index.html",
+            "detailsUrl": "articlecols/articles/app-continuation/index.html",
             "tagIds": [],
             "sequence": 4,
             "contentType": 3
@@ -95,11 +95,11 @@
           {
             "id": 5,
             "discoveryId": 1,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170647096_9ede3495.png",
+            "mediaUrl": "image/practice/latestAdvice/discovery_article_id_2.png",
             "title": "AI识图，开启智能图像处理新纪元",
             "desc": "开启图像智能新纪元。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/smart-visual-recognition/index.html",
+            "detailsUrl": "articlecols/articles/smart-visual-recognition/index.html",
             "tagIds": [],
             "sequence": 5,
             "contentType": 3
@@ -115,12 +115,12 @@
           {
             "id": 6,
             "discoveryId": 2,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170774435_7701a330.png",
+            "mediaUrl": "image/practice/experienceDesign/ux_multi.png",
             "title": "多端UX设计",
             "subTitle": "HarmonyOS",
             "desc": "提供特征型场景界面设计，结合应用业务场景，实现最佳界面适配和创新设计。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/native-ux-design/index.html",
+            "detailsUrl": "articlecols/articles/native-ux-design/index.html",
             "tagIds": [],
             "sequence": 1,
             "contentType": 3
@@ -128,12 +128,12 @@
           {
             "id": 7,
             "discoveryId": 2,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170823477_2e186e2e.png",
+            "mediaUrl": "image/practice/experienceDesign/ux_experience.png",
             "title": "应用UX体验标准",
             "subTitle": "HarmonyOS",
             "desc": "提前了解HarmonyOS应用UX体验标准，快速满足上架条件。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/ux-guidelines/index.html",
+            "detailsUrl": "articlecols/articles/ux-guidelines/index.html",
             "tagIds": [],
             "sequence": 2,
             "contentType": 3
@@ -141,12 +141,12 @@
           {
             "id": 8,
             "discoveryId": 2,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170870621_956a17e8.png",
+            "mediaUrl": "image/practice/experienceDesign/ux_effect_design.png",
             "title": "UX动效设计",
             "subTitle": "HarmonyOS",
             "desc": "HarmonyOS UX动效设计，通过适配不同场景，提升用户体验，满足多样化需求。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/design-animation/index.html",
+            "detailsUrl": "articlecols/articles/design-animation/index.html",
             "tagIds": [],
             "sequence": 3,
             "contentType": 3
@@ -162,13 +162,13 @@
           {
             "id": 9,
             "discoveryId": 4,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170923301_6558ee3c.png",
+            "mediaUrl": "image/practice/functionDevelopment/discovery_article_id_8.png",
             "title": "分层架构设计",
             "subTitle": "HarmonyOS",
             "desc": "HarmonyOS应用采用分层架构，一套代码工程，支持华为手机、PC/2in1等1+8全场景设备。",
             "publishTime": "",
             "author": "发布者",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/layered-architecture-design/index.html",
+            "detailsUrl": "articlecols/articles/layered-architecture-design/index.html",
             "tagIds": [],
             "sequence": 1,
             "contentType": 3
@@ -176,12 +176,12 @@
           {
             "id": 10,
             "discoveryId": 4,
-            "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/67/v3/discovery_article/1763170949766_6adcaa29.png",
+            "mediaUrl": "image/practice/functionDevelopment/discovery_article_id_12.png",
             "title": "HMOS代码工坊一多开发实践",
             "subTitle": "HarmonyOS",
             "desc": "践行“一次开发，多端部署”理念，实现多设备无缝协同，提供一致且高效的用户体验。",
             "publishTime": "",
-            "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/multi-adaptation/index.html",
+            "detailsUrl": "articlecols/articles/multi-adaptation/index.html",
             "tagIds": [],
             "sequence": 2,
             "contentType": 3
