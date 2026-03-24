@@ -12,8 +12,8 @@
         {
           "id": 4,
           "categoryName": "2025 HDC",
-          "defaultIcon": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/f3/v3/sample_category/1763112366555_69251385..png",
-          "selectedIcon": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/f3/v3/sample_category/1763112366994_9307b639..png",
+          "defaultIcon": "image/common/hdc_tab_white.png",
+          "selectedIcon": "image/common/hdc_tab_color.png",
           "sequence": 1,
           "sampleCards": [
             {
@@ -21,7 +21,7 @@
               "unionId": 1,
               "title": "HarmonyOS代码工坊",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171478345_f841f13c.png",
+              "image": "image/common/sample_card_background_blue.png",
               "sequence": 1,
               "sampleContents": [
                 {
@@ -30,7 +30,7 @@
                   "cardId": 1,
                   "unionId": 1,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763172357628_dc8d11d1.png",
+                  "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
                   "title": "HarmonyOS代码工坊",
                   "desc": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
                   "tags": [
@@ -47,7 +47,7 @@
               "unionId": 1,
               "title": "HarmonyOS代码工坊(手表版)",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171534721_d09f1df1.png",
+              "image": "image/common/sample_card_background_green.png",
               "sequence": 2,
               "sampleContents": [
                 {
@@ -56,7 +56,7 @@
                   "cardId": 2,
                   "unionId": 1,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173867698_4d54b6a0.png",
+                  "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
                   "title": "HarmonyOS代码工坊(手表版)",
                   "desc": "HarmonyOS代码工坊手表开发案例。",
                   "tags": [
@@ -73,7 +73,7 @@
               "unionId": 1,
               "title": "三折叠，怎么折都有面",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171589090_8973a0ea.png",
+              "image": "image/common/sample_card_background_pink.png",
               "sequence": 3,
               "sampleContents": [
                 {
@@ -82,7 +82,7 @@
                   "cardId": 3,
                   "unionId": 1,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173358916_0e341468.png",
+                  "mediaUrl": "image/sample/hdc/sample_business.png",
                   "title": "三折叠，怎么折都有面",
                   "desc": "本示例主要使用断点监听和sidebarContainer组件、navigation组件相结合的方式，实现了商务办公类差异化的多场景响应式变化效果。",
                   "tags": [
@@ -99,7 +99,7 @@
               "unionId": 1,
               "title": "碰一碰视频快速分享",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171600138_7b7584dd.png",
+              "image": "image/common/sample_card_background_pink.png",
               "sequence": 4,
               "sampleContents": [
                 {
@@ -108,7 +108,7 @@
                   "cardId": 4,
                   "unionId": 1,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173538388_5140c552.png",
+                  "mediaUrl": "image/sample/hdc/sample_knockshare.png",
                   "title": "碰一碰视频快速分享",
                   "desc": "本示例利用Share Kit与App Linking的结合，实现了快速跨设备分享视频并直接进入应用内视频播放页面的功能。",
                   "tags": [
@@ -125,7 +125,7 @@
               "unionId": 1,
               "title": "视频投播更便捷",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171610758_e21dc1a1.png",
+              "image": "image/common/sample_card_background_blue.png",
               "sequence": 5,
               "sampleContents": [
                 {
@@ -134,7 +134,7 @@
                   "cardId": 5,
                   "unionId": 1,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173558010_c8f5d019.png",
+                  "mediaUrl": "image/sample/hdc/sample_videocast.png",
                   "title": "视频投播更便捷",
                   "desc": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度切换。",
                   "tags": [
@@ -158,7 +158,7 @@
               "unionId": 0,
               "title": "语音朗读",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171838885_e1f95210.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 2,
               "sampleContents": [
                 {
@@ -167,7 +167,7 @@
                   "cardId": 8,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174136550_80671883.png",
+                  "mediaUrl": "image/sample/ai/sample_text_to_speech.png",
                   "title": "语音朗读",
                   "desc": "本示例展示了语音类AI能力中的朗读控件能力。",
                   "tags": [
@@ -187,7 +187,7 @@
               "unionId": 0,
               "title": "文档扫描",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171838885_e1f95210.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 3,
               "sampleContents": [
                 {
@@ -196,7 +196,7 @@
                   "cardId": 9,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174158803_364fc12f.png",
+                  "mediaUrl": "image/sample/ai/sample_document_scan.png",
                   "title": "文档扫描",
                   "desc": "本示例展示了使用视觉类AI能力中的文档扫描能力。",
                   "tags": [
@@ -216,7 +216,7 @@
               "unionId": 0,
               "title": "表格提取",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171838885_e1f95210.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 4,
               "sampleContents": [
                 {
@@ -225,7 +225,7 @@
                   "cardId": 10,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174182254_d8892bce.png",
+                  "mediaUrl": "image/sample/ai/sample_sheet_extraction.png",
                   "title": "表格提取",
                   "desc": "本示例展示了如何集成文档扫描控件，实现从图像中识别并提取表格的功能，表格内容支持保存为Excel文件。",
                   "tags": [
@@ -245,7 +245,7 @@
               "unionId": 0,
               "title": "通用文字识别",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171870079_f000bbd8.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 6,
               "sampleContents": [
                 {
@@ -254,7 +254,7 @@
                   "cardId": 12,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174229629_3e2819bb.png",
+                  "mediaUrl": "image/sample/ai/sample_word_extraction.png",
                   "title": "通用文字识别",
                   "desc": "本示例展示了使用基础视觉服务提供的通用文字识别能力。",
                   "tags": [
@@ -282,7 +282,7 @@
               "unionId": 0,
               "title": "一多旅行住宿",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171965469_c9df6626.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 1,
               "sampleContents": [
                 {
@@ -291,7 +291,7 @@
                   "cardId": 14,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174033117_cf199692.png",
+                  "mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png",
                   "title": "一多旅行住宿",
                   "desc": "本示例主要使用栅格布局和List组件相结合的方式，实现了旅行住宿差异化的多场景响应式变化效果。",
                   "tags": [
@@ -305,39 +305,11 @@
               ]
             },
             {
-              "id": 15,
-              "unionId": 0,
-              "title": "一多移动支付",
-              "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171975446_2f374160.png",
-              "sequence": 2,
-              "sampleContents": [
-                {
-                  "id": 9,
-                  "type": "commonSample",
-                  "cardId": 15,
-                  "unionId": 0,
-                  "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173953169_26af1744.png",
-                  "title": "一多移动支付",
-                  "desc": "本篇Sample基于Scan Kit中的默认界面扫码能力与码图生成能力实现移动支付应用中常见的扫一扫和收付款功能。",
-                  "tags": [
-                    "UI框架",
-                    "扫码能力",
-                    "码图生成"
-                  ],
-                  "tagIds": [],
-                  "sequence": 1,
-                  "contentType": 2
-                }
-              ]
-            },
-            {
               "id": 16,
               "unionId": 0,
               "title": "一多便捷生活",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171984949_88cab76c.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 3,
               "sampleContents": [
                 {
@@ -346,7 +318,7 @@
                   "cardId": 16,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173920620_bacb4bf0.png",
+                  "mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png",
                   "title": "一多便捷生活",
                   "desc": "本篇Sample基于自适应布局和响应式布局，实现一次开发，多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
                   "tags": [
@@ -364,7 +336,7 @@
               "unionId": 0,
               "title": "一多新闻阅读",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763171995219_81857b08.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 4,
               "sampleContents": [
                 {
@@ -373,7 +345,7 @@
                   "cardId": 17,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173976548_3f8523f5.png",
+                  "mediaUrl": "image/sample/multidevice/sample_multi_news_read.png",
                   "title": "一多新闻阅读",
                   "desc": "基于自适应布局和响应式布局，实现一次开发，多端部署的新闻阅读页面。根据手机、折叠屏以及不同的设备尺寸实现对应页面。",
                   "tags": [
@@ -390,7 +362,7 @@
               "unionId": 0,
               "title": "一多分栏控件",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763172006450_6a9ec8c7.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 5,
               "sampleContents": [
                 {
@@ -399,7 +371,7 @@
                   "cardId": 18,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174061842_fef5e53f.png",
+                  "mediaUrl": "image/sample/multidevice/sample_multi_columns.png",
                   "title": "一多分栏控件",
                   "desc": "本示例通过使用SideBarContainer组件与Navigation组件，实现了多场景下，一多分栏控件的响应式变化效果。",
                   "tags": [
@@ -417,7 +389,7 @@
               "unionId": 0,
               "title": "一多导航栏",
               "styleType": 4,
-              "image": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/85/v3/sample_card/1763172018876_7c0e3f59.png",
+              "image": "image/common/sample_card_background.png",
               "sequence": 6,
               "sampleContents": [
                 {
@@ -426,7 +398,7 @@
                   "cardId": 19,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763173823586_da91144e.png",
+                  "mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png",
                   "title": "一多导航栏",
                   "desc": "本示例基于自适应布局和响应式布局，实现多设备上的分级导航栏效果。在sm、md断点下，展示为底部页签和顶部页签；在lg断点下，展示为侧边页签和顶部页签；在xl断点下，展示为侧边栏分级导航。为开发者提供分级导航栏的开发方案。",
                   "tags": [
@@ -461,7 +433,7 @@
                   "cardId": 20,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174396222_6796ebc2.webp",
+                  "mediaUrl": "image/sample/arkui/style/sample_text_effects.gif",
                   "title": "文字特效合集",
                   "desc": "本示例基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTS页面开发中实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果。",
                   "tags": [
@@ -477,7 +449,7 @@
                   "cardId": 20,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174449418_51b3f84e.png",
+                  "mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png",
                   "title": "常见Tab导航样式合集",
                   "desc": "Tabs组件可以让用户能聚焦于当前显示的内容，对页面内容进行分类，提高页面空间利用率。本示例基于Tabs组件，为开发者提供不同场景下的导航样式，如：常见底部导航、舵式底部导航、侧边导航等。",
                   "tags": [
@@ -495,7 +467,7 @@
                   "cardId": 20,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174464517_2bd72644.png",
+                  "mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png",
                   "title": "自定义弹窗合集",
                   "desc": "本示例通过CustomDialog、bindContentCover、bindSheet等接口，实现多种样式的弹窗。帮助开发者掌握自定义弹窗开发的步骤，灵活的实现自己业务需要用到的弹窗场景。",
                   "tags": [
@@ -523,7 +495,7 @@
                   "cardId": 21,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174504512_60237d04.png",
+                  "mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png",
                   "title": "Scroll组件嵌套滑动",
                   "desc": "本示例通过Scroll组件的滑动能力和List组件的nestedScroll属性，实现当Scroll嵌套List滑动时，优先滑动最外层的Scroll，当Scroll滑动至末端时，List再继续滚动。帮助开发者掌握Scroll嵌套List滑动时的场景如何处理。",
                   "tags": [
@@ -543,7 +515,7 @@
                   "cardId": 21,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174520981_4ddf7379.png",
+                  "mediaUrl": "image/sample/arkui/layout/sample_water_flow.png",
                   "title": "WaterFlow瀑布流实例",
                   "desc": "本示例为开发者展示使用WaterFlow瀑布流容器实现首页布局效果，包括使用sections实现混排布局、结合item实现滑动吸顶、多种组件混合排列等场景。",
                   "tags": [
@@ -561,7 +533,7 @@
                   "cardId": 21,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174536220_e3e9d310.png",
+                  "mediaUrl": "image/sample/arkui/layout/sample_component_stack.png",
                   "title": "组件堆叠",
                   "desc": "本示例介绍通过Stack组件构建多层次堆叠的视觉效果。通过绑定Scroll组件的onScrollFrameBegin滚动事件。当滚动时，实时地调节组件的透明度、高度等属性。实现了嵌套滚动、透明度动态变化以及平滑的组件切换。",
                   "tags": [
@@ -577,7 +549,7 @@
                   "cardId": 21,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174552028_d2b3b1ec.png",
+                  "mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png",
                   "title": "基于Grid实现混合布局",
                   "desc": "本示例主要实现了Grid组件和List组件以及Swiper组件的嵌套混合布局。",
                   "tags": [
@@ -605,7 +577,7 @@
                   "cardId": 22,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174577048_89dd64a8.webp",
+                  "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.gif",
                   "title": "转场动效合集",
                   "desc": "本示例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见一镜到底转场动效，便于用户进行常见的转场动效场景开发。",
                   "tags": [
@@ -622,7 +594,7 @@
                   "cardId": 22,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174598670_30289056.png",
+                  "mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png",
                   "title": "动效案例合集",
                   "desc": "本示例基于基础组件、通用属性、显式动效，实现多种常见动效案例，便于用户进行常见的动效场景开发。",
                   "tags": [
@@ -639,7 +611,7 @@
                   "cardId": 22,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174610973_34b25fcd.png",
+                  "mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png",
                   "title": "拖拽框架开发实践",
                   "desc": "本示例基于ArkUI的拖拽框架，实现图片、富文本、文本、输入框、列表等组件的拖拽功能，通过设置拖拽事件中的接口信息自定义拖拽响应，实现拖拽图像增加水印、自定义拖拽背板图、AI识别拖拽内容等拖拽场景。",
                   "tags": [
@@ -665,7 +637,7 @@
                   "cardId": 23,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174644261_352367bd.png",
+                  "mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png",
                   "title": "流畅刷文章",
                   "desc": "本示例实现了文章和媒体文件浏览的功能，通过设置组件的属性来控制屏幕刷新率，达到低功耗的目的，参考本示例可学习开发类似博客场景，并进行低功耗的适配。",
                   "tags": [
@@ -681,7 +653,7 @@
                   "cardId": 23,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174660036_2a989ca2.png",
+                  "mediaUrl": "image/sample/arkui/list/sample_list_exchange.png",
                   "title": "列表项交换",
                   "desc": "本示例介绍了如何通过组合手势结合List组件，来实现对List组件中列表项的交换排序。",
                   "tags": [
@@ -698,7 +670,7 @@
                   "cardId": 23,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174676951_0307a5e9.png",
+                  "mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png",
                   "title": "列表编辑效果",
                   "desc": "本示例基于List组件，实现待办事项管理、文件管理、备忘录的等场景列表编辑效果。",
                   "tags": [
@@ -731,7 +703,7 @@
                   "cardId": 24,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174717621_0f7d0803.png",
+                  "mediaUrl": "image/sample/function/media/sample_window_pip.png",
                   "title": "画中画效果实现",
                   "desc": "本示例基于媒体服务和ArkUI的基本能力，实现视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
                   "tags": [
@@ -749,7 +721,7 @@
                   "cardId": 24,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174743683_d73479f0.png",
+                  "mediaUrl": "image/sample/function/media/sample_multiple_image.png",
                   "title": "多图片合集",
                   "desc": "本示例介绍了如何使用Swiper组件实现图片轮播效果，以及如何自定义Swiper组件的指示器，来实现图片的切换效果。",
                   "tags": [
@@ -766,7 +738,7 @@
                   "cardId": 24,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174761499_4ea71c15.png",
+                  "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
                   "title": "AudioRenderer音频播控",
                   "desc": "本场景解决方案主要面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。功能包括后台播放、和播控中心的交互、适配不同类型的焦点打断策略、切换路由发声设备、切换输出设备等基础音频常见功能。",
                   "tags": [
@@ -792,7 +764,7 @@
                   "cardId": 25,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174793116_b6f28399.png",
+                  "mediaUrl": "image/sample/function/capacity/sample_page_redirection.png",
                   "title": "H5页面跳转",
                   "desc": "本示例基于ArkUI框架和Web实现了H5页面和ArkTS页面之间的相互跳转。帮助开发者在Web页面开发中掌握H5页面加载，H5页面跳转，H5页面与ArkTS页面参数传递等功能的实现方案。",
                   "tags": [
@@ -809,7 +781,7 @@
                   "cardId": 25,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174856855_8ab6864e.png",
+                  "mediaUrl": "image/sample/function/data/sample_preferences.png",
                   "title": "首选项",
                   "desc": "本示例使用@ohos.data.preferences接口，展示了使用首选项持久化存储数据的功能。帮助开发者实现主题切换且主题数据缓存读取的场景。",
                   "tags": [
@@ -826,7 +798,7 @@
                   "cardId": 25,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174811643_50a857ac.png",
+                  "mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png",
                   "title": "Web页面瞬开效果实践",
                   "desc": "本示例基于预渲染技术，实现了点击后Web页面瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
                   "tags": [
@@ -854,7 +826,7 @@
                   "cardId": 26,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174892174_aa079c86.png",
+                  "mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png",
                   "title": "验证码场景合集",
                   "desc": "本示例实现了5种验证码场景，基本涵盖了大部分应用的验证码场景。开发者可按需下载代码，实现自己应用的验证码场景。",
                   "tags": [
@@ -872,7 +844,7 @@
                   "cardId": 26,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174914253_df8171c6.png",
+                  "mediaUrl": "image/sample/arkui/scene/sample_image_comment.png",
                   "title": "发布图片评论",
                   "desc": "本示例通过拉起系统相机实现发布图片评论，便于用户了解系统相机接口的调用方式。",
                   "tags": [
@@ -888,7 +860,7 @@
                   "cardId": 26,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174947696_78123540.png",
+                  "mediaUrl": "image/sample/function/data/sample_picker.png",
                   "title": "选择并查看文档与媒体文件",
                   "desc": "应用使用@ohos.file.picker、@ohos.file.photoAccessHelper、@ohos.file.fs等接口，实现了拉起文档编辑保存、拉起系统相册图片查看、拉起视频并播放的功能。",
                   "tags": [
@@ -904,7 +876,7 @@
                   "cardId": 26,
                   "unionId": 0,
                   "mediaType": "IMAGE",
-                  "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/23/v3/sample_info/1763174973416_7e36e05d.png",
+                  "mediaUrl": "image/sample/arkui/scene/sample_keyboard.png",
                   "title": "UI框架-软键盘弹出",
                   "desc": "本示例展示了输入框分别在屏幕顶部和底部时软键盘弹出对页面布局的影响，通过设置软键盘的避让模式为KeyboardAvoidMode.RESIZE、设置NavDestination的mode为NavDestinationMode.DIALOG等方式实现布局避让。",
                   "tags": [
@@ -927,8 +899,8 @@
           "subTitle": "赋能套件介绍",
           "desc": "打造开发者赋能产品，助力鸿蒙应用开发。",
           "type": 3,
-          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191701582_c1c69c7c.png",
-          "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/harmonyos-empowerment/index.html",
+          "mediaUrl": "image/banner/banner_arkui.png",
+          "detailsUrl": "bannercols/harmonyos-empowerment/index.html",
           "sequence": 1
         },
         {
@@ -937,8 +909,8 @@
           "subTitle": "多端UX设计介绍",
           "desc": "适配特征场景，助力高效设计适配。",
           "type": 3,
-          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191791371_e89e4917.png",
-          "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/articlecols/articles/native-ux-design/index.html",
+          "mediaUrl": "image/banner/banner_enabling_kit.png",
+          "detailsUrl": "articlecols/articles/native-ux-design/index.html",
           "sequence": 2
         },
         {
@@ -947,8 +919,8 @@
           "subTitle": "快速入门介绍",
           "desc": "快速上手HarmonyOS开发，轻松打造精美界面。",
           "type": 3,
-          "mediaUrl": "https://lfcontentcenterdev.hwcloudtest.cn/pub_5/hmosworld_ImageRealtimeProcess_100_1/2c/v3/banner/1763191883704_f4b494f0.png",
-          "detailsUrl": "https://lfcontentcenterdev.hwcloudtest.cn/cch5/hmosworld/web_uat/bannercols/quick-start/index.html",
+          "mediaUrl": "image/banner/banner_quick_start.png",
+          "detailsUrl": "bannercols/quick-start/index.html",
           "sequence": 3
         }
       ]
