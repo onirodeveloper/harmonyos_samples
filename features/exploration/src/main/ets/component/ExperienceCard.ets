@@ -22,9 +22,11 @@ import {
   ProductSeriesEnum,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
-  TrackServiceData
+  TrackServiceData,
+  HdsUtil,
+  InteractionTypeEnum,
+  ActionName,
 } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExperienceItem } from './ExperienceItem';
@@ -86,7 +88,7 @@ export struct ExperienceCard {
       Scroll(this.scroller) {
         Row({ space: CommonConstants.SPACE_16 }) {
           ForEach(this.discoverContents, (discoverContent: DiscoverContent, index: number) => {
-            TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+            TrackNode() {
               ExperienceItem({ discoverContent: discoverContent })
                 .height('100%')
                 .width(index === this.enlargeIndex ?
@@ -96,9 +98,9 @@ export struct ExperienceCard {
                   this.handleItemClick?.(discoverContent);
                 })
                 .customProperty(TRACK_KEY, {
-                  content: discoverContent.title,
-                  moduleType: discoverContent.contentType,
-                  eventType: TrackEventType.ARTICLE_CLICK,
+                  interactionType: InteractionTypeEnum.ARTICLE,
+                  interactionContent: discoverContent.title,
+                  actionName: ActionName.ARTICLE_CLICK,
                 } as TrackServiceData)
             }
           }, (discoverContent: DiscoverContent) => discoverContent.id.toString())
@@ -118,8 +120,7 @@ export struct ExperienceCard {
     } else {
       Swiper() {
         ForEach(this.discoverContents, (discoverContent: DiscoverContent) => {
-          TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
-
+          TrackNode() {
             ExperienceItem({
               discoverContent: discoverContent,
               hasPadding: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM,
@@ -128,9 +129,9 @@ export struct ExperienceCard {
                 this.handleItemClick?.(discoverContent);
               })
               .customProperty(TRACK_KEY, {
-                content: discoverContent.title,
-                moduleType: discoverContent.contentType,
-                eventType: TrackEventType.ARTICLE_CLICK,
+                interactionContent: discoverContent.title,
+                interactionType: InteractionTypeEnum.ARTICLE,
+                actionName: ActionName.ARTICLE_CLICK,
               } as TrackServiceData)
           }
         }, (discoverContent: DiscoverContent) => discoverContent.id.toString())
@@ -138,7 +139,9 @@ export struct ExperienceCard {
       .prevMargin(new BreakpointType<Length>({
         sm: 0,
         md: $r('sys.float.padding_level6'),
-        lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
+        lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_16 :
+          CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
+        xl: CommonConstants.SPACE_16,
       }).getValue(this.globalInfoModel.widthBreakpoint))
       .nextMargin(new BreakpointType<Length>({
         sm: 0,

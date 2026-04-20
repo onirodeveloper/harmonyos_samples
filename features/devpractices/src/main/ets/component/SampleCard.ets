@@ -13,10 +13,7 @@
  * limitations under the License.
  */
 
-import { common } from '@kit.AbilityKit';
 import { uniformTypeDescriptor as utd } from '@kit.ArkData';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { systemShare } from '@kit.ShareKit';
 import {
   BreakpointType,
   CommonConstants,
@@ -29,6 +26,9 @@ import {
   WebSheetBuilder,
   WebUrlType,
   WebUtil,
+  ShareUtil,
+  ActionName,
+  InteractionTypeEnum,
 } from '@ohos/common';
 import { CardTypeEnum } from '@ohos/commonbusiness';
 import { SampleConstant } from '../common/SampleConstant';
@@ -55,9 +55,7 @@ export struct SampleCard {
       $r('sys.color.comp_background_tertiary');
   @Consume currentIndex: number;
   @Prop sampleIndex: number;
-  @Prop contentType: CardTypeEnum;
   @ObjectLink sampleCard: SampleCardData;
-  private context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private lastClickTime: number = 0;
 
   aboutToAppear(): void {
@@ -89,9 +87,9 @@ export struct SampleCard {
       .backgroundColor(this.backIconBgColor)
       .onClick(() => this.handleShare())
       .customProperty(TRACK_KEY, {
-        content: this.sampleCard.title,
-        eventType: TrackEventType.SAMPLE_SOURCECODE_SHARE_CLICK,
-        moduleType: this.contentType,
+        interactionContent: this.sampleCard.title,
+        actionName: ActionName.SOURCE_CODE_SHARE,
+        interactionType: InteractionTypeEnum.SAMPLE,
       } as TrackServiceData)
       .onHover((isHover: boolean) => {
         this.backIconBgColor = isHover ? $r('sys.color.comp_background_tertiary') : Color.Transparent;
@@ -143,7 +141,6 @@ export struct SampleCard {
           .blendMode(BlendMode.SRC_OVER, BlendApplyType.OFFSCREEN)
       }
       .alignItems(HorizontalAlign.Start)
-      .layoutWeight(1)
       .onAreaChange((oldValue, newValue) => {
         if (newValue.width !== oldValue.width) {
           this.viewModel.sendEvent(new SetOverflowStatusEvent(this.getUIContext(), newValue, this.sampleIndex));
@@ -154,6 +151,9 @@ export struct SampleCard {
         SymbolGlyph(this.sampleCard.cardOpenStatus ? $r('sys.symbol.chevron_up') : $r('sys.symbol.chevron_down'))
           .fontSize($r('app.float.expand_icon_size'))
           .fontColor([$r('sys.color.icon_tertiary')])
+          .margin({
+            right: $r('sys.float.padding_level1'),
+          })
         Text(this.sampleCard.cardOpenStatus ? $r('app.string.card_collapse') : $r('app.string.card_expand'))
           .fontSize($r('sys.float.Body_S'))
           .fontColor($r('sys.color.font_tertiary'))
@@ -163,6 +163,10 @@ export struct SampleCard {
       .height($r('app.float.expand_area_height'))
       .justifyContent(FlexAlign.Center)
       .visibility(this.sampleCard.isOverflow ? Visibility.Visible : Visibility.Hidden)
+      .margin({
+        top: this.sampleCard.cardOpenStatus && this.sampleCard.isOverflow ? $r('sys.float.padding_level4') :
+          $r('sys.float.padding_level0'),
+      })
       .onClick(() => {
         this.viewModel.sendEvent(new ChangeCardStatusEvent(this.sampleIndex));
       })
@@ -176,7 +180,7 @@ export struct SampleCard {
             this.viewModel.sendEvent(new BindSheetEvent(this.sampleIndex, true));
           })
           .bindSheet(this.sampleCard.bindSheetShow,
-            WebSheetBuilder(this.sampleCard.originalUrl, WebUrlType.GITEE), {
+            WebSheetBuilder(this.sampleCard.originalUrl, WebUrlType.GITCODE), {
               title: () => this.TitleComponent(),
               preferType: SheetType.CENTER,
               height: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
@@ -195,9 +199,9 @@ export struct SampleCard {
               }
             })
           .customProperty(TRACK_KEY, {
-            content: this.sampleCard.title,
-            eventType: TrackEventType.SAMPLE_SOURCECODE_READ_CLICK,
-            moduleType: this.contentType,
+            interactionContent: this.sampleCard.title,
+            actionName:ActionName.SOURCE_CODE_VIEW ,
+            interactionType: InteractionTypeEnum.SAMPLE,
           } as TrackServiceData)
 
         Blank()
@@ -244,9 +248,9 @@ export struct SampleCard {
               })
             })
             .customProperty(TRACK_KEY, {
-              content: this.sampleCard.title,
-              eventType: TrackEventType.SAMPLE_EXPERIENCE_CLICK,
-              moduleType: this.contentType,
+              interactionContent: this.sampleCard.title,
+              actionName: ActionName.EXPERIENCE_CLICK,
+              interactionType: InteractionTypeEnum.SAMPLE,
             } as TrackServiceData)
         }
       }
@@ -254,26 +258,17 @@ export struct SampleCard {
       .height($r('app.float.card_button_height'))
       .justifyContent(FlexAlign.SpaceAround)
       .margin({
-        top: $r('sys.float.padding_level2'),
+        top: $r('sys.float.padding_level4'),
       })
     }
     .borderRadius($r('sys.float.corner_radius_level8'))
     .backgroundColor($r('sys.color.comp_background_primary'))
-    .height(this.sampleCard.cardOpenStatus && this.sampleCard.isOverflow ? $r('app.float.sample_card_open_height') :
-      $r('app.float.sample_card_height'))
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(HorizontalAlign.Start)
     .clip(true)
     .animation({
       duration: SampleDetailConstant.ANIMATION_DURATION,
       curve: Curve.EaseOut,
-    })
-    .margin({
-      top: new BreakpointType({
-        sm: $r('app.float.margin_36'),
-        md: $r('sys.float.padding_level12'),
-        lg: $r('sys.float.padding_level12'),
-      }).getValue(this.globalInfoModel.widthBreakpoint),
     })
     .padding({
       top: $r('sys.float.padding_level8'),
@@ -288,18 +283,11 @@ export struct SampleCard {
 
   private handleShare(): void {
     if (canIUse('SystemCapability.Collaboration.SystemShare')) {
-      const shareData: systemShare.SharedData = new systemShare.SharedData({
+      ShareUtil.shareData({
         utd: utd.UniformDataType.HYPERLINK,
         content: this.sampleCard.originalUrl,
         title: this.sampleCard.title,
         description: this.sampleCard.originalUrl
-      });
-      let controller: systemShare.ShareController = new systemShare.ShareController(shareData);
-      controller.show(this.context, {
-        selectionMode: systemShare.SelectionMode.SINGLE,
-        previewMode: systemShare.SharePreviewMode.DEFAULT
-      }).catch((error: BusinessError) => {
-        Logger.error(TAG, `Sample link sharing error. Code: ${error.code}, message: ${error.message}`);
       });
     }
   }

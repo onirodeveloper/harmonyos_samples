@@ -9,7 +9,7 @@
 }
 
 html {
-  margin: 108px auto 0;
+  margin: 0px auto 0;
   background-color: #f3f4f6;
   min-width: 302px;
   overflow: scroll;
@@ -34,7 +34,7 @@ html {
 
 .title-container {
   position: absolute;
-  top: 48px;
+  top: 78px;
   width: 100%;
 }
 

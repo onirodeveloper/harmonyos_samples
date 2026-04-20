@@ -38,7 +38,10 @@ export default class WearableAbility extends UIAbility {
   checkAndHandleParams(want: Want): void {
     Logger.info(TAG, `checkAndHandleParams`);
     try {
-      if (want === null || want === undefined || want.parameters === null || want.parameters === undefined) {
+      if (!want) {
+        return;
+      }
+      if (!want.parameters) {
         return;
       }
     } catch (err) {

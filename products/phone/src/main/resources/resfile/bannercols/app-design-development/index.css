@@ -232,13 +232,10 @@
 }
 .container-image {
   height: 100%;
-  position: absolute; /* 绝对定位 */
-  top: 50%; /* 将图片的顶部定位到容器垂直中心 */
-  left: 50%; /* 将图片的左侧定位到容器水平中心 */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* 将图片向左和向上移动自身宽度和高度的 50%，实现居中显示 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 /* list-card */
 .list-card {

@@ -16,8 +16,6 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 import {
   AccountService,
-  BaseVM,
-  BaseVMEvent,
   GlobalInfoModel,
   Logger,
   PageContext,
@@ -27,7 +25,7 @@ import {
   Toast,
   UserAccount,
 } from '@ohos/common';
-import { CardTypeEnum } from '@ohos/commonbusiness';
+import { BaseHomeEventParam, BaseHomeEventType, BaseHomeViewModel, CardTypeEnum } from '@ohos/commonbusiness';
 import { NewContentData } from '../model/NewContentData';
 import { NewContentModel } from '../model/NewContentModel';
 import { SettingViewBuilder } from '../view/SettingView';
@@ -36,7 +34,7 @@ import { QuestionnaireViewBuilder } from '../view/QuestionnaireView';
 
 const TAG: string = '[MinePageVM]';
 
-export class MinePageVM extends BaseVM<MinePageState> {
+export class MinePageVM extends BaseHomeViewModel<MinePageState> {
   private static instance: MinePageVM;
   public listGroupData: ListGroup[] = [
     {
@@ -68,7 +66,10 @@ export class MinePageVM extends BaseVM<MinePageState> {
           symbolSrc: $r('sys.symbol.bell'),
           showTotalNum: true,
           onclick: () => {
-            MinePageVM.getInstance().sendEvent(new MinePageEvent(PageEnum.NEW_CONTENT_VIEW))
+            MinePageVM.getInstance().sendEvent<null>({
+              type: MineEventType.JUMP_TO_NEW_CONTENT_PAGE,
+              param: null,
+            });
           },
           type: BuilderEnum.CARD_ITEM,
         } as MineItem,
@@ -108,19 +109,22 @@ export class MinePageVM extends BaseVM<MinePageState> {
     return MinePageVM.instance;
   }
 
-  public sendEvent(event: BaseVMEvent | MinePageEvent<pageParams>): void {
-    if (event instanceof MinePageEvent) {
-      this.jumpToNewPage(event.routerPage, event.params);
-    } else if (event instanceof LoadContentNumberEvent) {
+  public sendEvent<T>(event: MineEventParam<T>): void | boolean {
+    const eventType: MineEventType | BaseHomeEventType = event.type;
+    if (eventType === MineEventType.JUMP_TO_NEW_CONTENT_PAGE) {
+      this.jumpToNewContentPage();
+    } else if (eventType === MineEventType.LOAD_CONTENT_NUMBER) {
       this.loadContentNumber();
-    } else if (event instanceof InitEvent) {
+    } else if (eventType === MineEventType.INIT_DATA) {
       this.assignData();
-    } else if (event instanceof LoginEvent) {
-      this.login(event.uiContext);
-    } else if (event instanceof LogoutEvent) {
-      this.logout(event.uiContext);
-    } else if (event instanceof UpdateAccountStatusEvent) {
+    } else if (eventType === MineEventType.LOGIN) {
+      this.login();
+    } else if (eventType === MineEventType.LOGOUT) {
+      this.logout();
+    } else if (eventType === MineEventType.UPDATE_ACCOUNT_DATA) {
       this.updateAccountData();
+    } else {
+      return super.sendEvent<T>(event as BaseHomeEventParam<T>);
     }
   }
 
@@ -144,7 +148,7 @@ export class MinePageVM extends BaseVM<MinePageState> {
     }
   }
 
-  private jumpToNewPage(page: PageEnum, params: pageParams) {
+  private jumpToNewContentPage() {
     this.state.newContentNumber = 0;
     this.preferenceManager.setValue('hasViewedNewContent', true);
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
@@ -152,8 +156,7 @@ export class MinePageVM extends BaseVM<MinePageState> {
       AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT) :
       AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     pageContext?.openPage({
-      routerName: page,
-      param: params,
+      routerName: PageEnum.NEW_CONTENT_VIEW,
     }, true);
   }
 
@@ -180,7 +183,12 @@ export class MinePageVM extends BaseVM<MinePageState> {
       })
   }
 
-  private login(uiContext: UIContext): void {
+  private login(): void {
+    const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    if (!uiContext) {
+      Logger.error(TAG, `login failed, cause uiContext or context is undefined.`);
+      return;
+    }
     AccountService.getInstance().login(uiContext)
       .then((userAccount: UserAccount) => {
         if (userAccount) {
@@ -195,7 +203,12 @@ export class MinePageVM extends BaseVM<MinePageState> {
       });
   }
 
-  private logout(uiContext: UIContext): void {
+  private logout(): void {
+    const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+    if (!uiContext) {
+      Logger.error(TAG, `logout failed, cause uiContext or context is undefined.`);
+      return;
+    }
     AccountService.getInstance().logout(uiContext)
       .then((isLogout: boolean) => {
         if (isLogout) {
@@ -209,49 +222,16 @@ export class MinePageVM extends BaseVM<MinePageState> {
   }
 }
 
-export class MinePageEvent<T> {
-  public readonly routerPage: PageEnum;
-  public readonly params?: T;
-
-  constructor(page: PageEnum, params?: T) {
-    this.routerPage = page;
-    this.params = params;
-  }
+export enum MineEventType {
+  INIT_DATA = 'initData',
+  LOAD_CONTENT_NUMBER = 'loadContentNumber',
+  LOGIN = 'login',
+  LOGOUT = 'logout',
+  UPDATE_ACCOUNT_DATA = 'updateAccountData',
+  JUMP_TO_NEW_CONTENT_PAGE = 'jumpToNewContentPage',
 }
 
-export class LoadContentNumberEvent {
-  constructor() {
-  }
+export interface MineEventParam<T> {
+  type: MineEventType | BaseHomeEventType;
+  param: T;
 }
-
-export class InitEvent {
-  constructor() {
-  }
-}
-
-export class UpdateAccountStatusEvent {
-  constructor() {
-  }
-}
-
-export class LoginEvent implements BaseVMEvent {
-  uiContext: UIContext;
-
-  constructor(uiContext: UIContext) {
-    this.uiContext = uiContext;
-  }
-}
-
-export class LogoutEvent implements BaseVMEvent {
-  uiContext: UIContext;
-
-  constructor(uiContext: UIContext) {
-    this.uiContext = uiContext;
-  }
-}
-
-export class FlushLogoutUIEvent implements BaseVMEvent {
-}
-
-
-export type pageParams = undefined;

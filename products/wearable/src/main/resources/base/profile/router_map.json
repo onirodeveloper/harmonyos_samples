@@ -4,6 +4,11 @@
       "name": "MainPage",
       "pageSourceFile": "src/main/ets/pages/MainPage.ets",
       "buildFunction": "MainPageBuilder"
+    },
+    {
+      "name": "WearableSourceCodeView",
+      "pageSourceFile": "src/main/ets/pages/SourceCodeLinkPage.ets",
+      "buildFunction": "SourceCodeLinkPageBuilder"
     }
   ]
 }

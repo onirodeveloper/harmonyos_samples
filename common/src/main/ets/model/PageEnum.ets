@@ -15,12 +15,21 @@
 
 export enum PageEnum {
   MAIN_PAGE = 'MainPage',
+  COMPONENT_LIST_VIEW = 'ComponentListView',
   COMPONENT_DETAIL_VIEW = 'ComponentDetailView',
+  PRACTICES_VIEW = 'PracticesView',
   SAMPLE_DETAIL_VIEW = 'SampleDetailView',
   BANNER_DETAIL_VIEW = 'BannerDetailView',
   CODE_PREVIEW_VIEW = 'CodePreviewView',
   PEN_KIT_VIEW = 'PenKitView',
+  EXPLORATION_VIEW = 'ExplorationView',
   ARTICLE_DETAIL_VIEW = 'ArticleDetailView',
+  MINE_VIEW = 'MineView',
   NEW_CONTENT_VIEW = 'NewContentView',
   ABOUT_VIEW = 'AboutView',
+  WEARABLE_SOURCE_CODE_VIEW = 'WearableSourceCodeView',
+  TV_SETTINGS_VIEW = 'TvSettingsView',
+  TV_SOURCECODE_VIEW = 'TvSourceView',
+  TV_ABOUT_VIEW = 'TvAboutView',
+  IMAGE_PREVIEW = 'ImagePreview'
 }

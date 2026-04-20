@@ -9,10 +9,6 @@
       "value": "暂无数据"
     },
     {
-      "name": "sample_title",
-      "value": "开发样例"
-    },
-    {
       "name": "sample_code",
       "value": "示例代码"
     },
@@ -63,6 +59,18 @@
     {
       "name": "card_collapse",
       "value": "收起"
+    },
+    {
+      "name": "api_prompt",
+      "value": "当前设备版本较低，请升级体验"
+    },
+    {
+      "name": "device_prompt",
+      "value": "当前设备版本不支持该样例"
+    },
+    {
+      "name": "save_image",
+      "value": "保存图片"
     }
   ]
 }

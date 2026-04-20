@@ -23,7 +23,7 @@
     // 配置为0，表示不启用内存缓存配置，默认为4，数值越低，内存中缓存数据越少
     "hvigor.pool.cache.capacity": 0,
     // 默认配置为cpu核数-1， 包含ohos.arkCompile.maxSize4，值越小，占用内存越少
-    "hvigor.pool.maxSize": 5,
+    "hvigor.pool.maxSize" : 5,
     // 默认配置值为5, 值越小，占用内存越少
     "ohos.arkCompile.maxSize": 3,
     // 默认配置值为true, 表示开启内存缓存，占用内存较多，配置为false,关闭内存缓存，占用内存较少

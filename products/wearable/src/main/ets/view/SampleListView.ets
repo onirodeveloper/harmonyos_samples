@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ArcList, ArcListAttribute, ArcListItem, LengthMetrics, ComponentContent } from '@kit.ArkUI';
+import { ArcList, ArcListItem, LengthMetrics, ComponentContent } from '@kit.ArkUI';
 import { ImageUtil } from '@ohos/common';
 import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { WearableSampleData } from '../model/WearableSampleData';
@@ -21,7 +21,8 @@ import { SampleListState } from '../viewmodel/SampleListState';
 import {
   LoadSampleParam,
   SampleListEventType,
-  SampleListViewModel
+  SampleListViewModel,
+  SourceCodeLinkPageParam
 } from '../viewmodel/SampleListViewModel';
 
 const ITEM_SPACE: number = 6;
@@ -63,7 +64,7 @@ export struct SampleListView {
     Row() {
       if (wearableSampleData.mediaType === MediaTypeEnum.SYMBOL) {
         Button({ type: ButtonType.Circle }) {
-          SymbolGlyph($r(wearableSampleData.mediaUrl))
+          SymbolGlyph($r(wearableSampleData.mediaInfoList[0].mediaUrl))
             .fontSize($r('app.float.icon_size'))
             .fontColor([$r('sys.color.font_on_primary')])
         }
@@ -71,7 +72,7 @@ export struct SampleListView {
         .height($r('app.float.button_size'))
         .backgroundColor(wearableSampleData.symbolGlyphColor)
       } else if (wearableSampleData.mediaType == MediaTypeEnum.IMAGE) {
-        Image(ImageUtil.getImgResource(wearableSampleData.mediaUrl))
+        Image(ImageUtil.getImgResource(wearableSampleData.mediaInfoList[0].mediaUrl))
           .width($r('app.float.button_size'))
           .height($r('app.float.button_size'))
       }
@@ -102,12 +103,22 @@ export struct SampleListView {
     })
     .backgroundColor($r('app.color.item_background'))
     .onClick(() => {
-      this.viewModel.sendEvent<LoadSampleParam>({
-        type: SampleListEventType.LOAD_SAMPLE,
-        param: {
-          abilityName: wearableSampleData.abilityName,
-        }
-      });
+      if (wearableSampleData.isSourceCode === true) {
+        this.viewModel.sendEvent<SourceCodeLinkPageParam>({
+          type: SampleListEventType.JUMP_TO_SOURCE_CODE_LINK_PAGE,
+          param: {
+            sourceCodeLink: wearableSampleData.originalUrl,
+            title: wearableSampleData.title
+          }
+        })
+      } else {
+        this.viewModel.sendEvent<LoadSampleParam>({
+          type: SampleListEventType.LOAD_SAMPLE,
+          param: {
+            abilityName: wearableSampleData.abilityName,
+          }
+        });
+      }
     })
   }
 

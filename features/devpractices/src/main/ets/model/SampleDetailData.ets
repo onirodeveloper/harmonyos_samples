@@ -12,8 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { MediaTypeEnum } from '@ohos/commonbusiness';
+
 import { SampleTypeEnum } from '../common/SampleConstant';
+import { MediaInfo } from './SampleData';
 
 export class SingleSampleData {
   public id: number = 0;
@@ -22,12 +23,11 @@ export class SingleSampleData {
   public preInstalled: boolean = false;
   public type: SampleTypeEnum = SampleTypeEnum.COMMON_SAMPLE;
   public isFavorite: boolean = false;
-  public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
-  public mediaUrl: string = '';
+  public mediaInfoList: MediaInfo[] = [];
   public originalUrl: string = '';
   public moduleName: string = '';
   public abilityName: string = '';
-  public requiredApiVersion: number = 0;
+  public apiVersion: number = 0;
   public supportDeviceList: string[] = [];
 }
 

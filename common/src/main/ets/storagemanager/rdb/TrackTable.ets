@@ -14,7 +14,7 @@
  */
 
 import { relationalStore } from '@kit.ArkData';
-import { TrackEventType, TrackServiceData } from '../../model/TrackModel';
+import { MainTabEnum, ReferTypeEnum, TrackEventType, TrackServiceData } from '../../model/TrackModel';
 import Logger from '../../util/Logger';
 import { TableTypeEnum } from './model/TableTypeEnum';
 import { RdbStore } from './RdbStore';
@@ -26,22 +26,30 @@ const TAG: string = '[TrackTable]';
  */
 const TRACK_TABLE: TableConfig = {
   tableName: 'trackTable',
-  sqlCreate: 'CREATE TABLE IF NOT EXISTS trackTable(id INTEGER PRIMARY KEY AUTOINCREMENT, moduleType INTEGER, ' +
-    'eventType VARCHAR(30), operTime VARCHAR(20), content VARCHAR(20), ownerPage VARCHAR(20)) ',
+  sqlCreate: 'CREATE TABLE IF NOT EXISTS trackTable(id INTEGER PRIMARY KEY AUTOINCREMENT, eventType VARCHAR(20),' +
+    'interactionType VARCHAR(20), time VARCHAR(20), interactionContent VARCHAR(20), pageName VARCHAR(20),' +
+    'mainTab VARCHAR(20), secondaryTab VARCHAR(20), actionName VARCHAR(30), referType VARCHAR(30), ' +
+    'referSourceId VARCHAR(30), duration INTEGER, pushMessageTitle VARCHAR(30))',
   sqlAlert: 'DELETE FROM sqlite_sequence WHERE name=\'trackTable\'',
-  type: [TableTypeEnum.NUMBER, TableTypeEnum.NUMBER, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING,
-    TableTypeEnum.STRING],
+  type: [
+    TableTypeEnum.NUMBER, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING,
+    TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING,
+    TableTypeEnum.STRING, TableTypeEnum.NUMBER, TableTypeEnum.STRING
+  ],
 };
 
 export default class TrackTable {
   private trackTable: RdbStore =
     new RdbStore(TRACK_TABLE.tableName, TRACK_TABLE.sqlCreate, TRACK_TABLE.sqlAlert, TRACK_TABLE.type);
 
-  public constructor(ctx: Context) {
+  public constructor() {
+  }
+
+  public async getRdbStore(ctx: Context) {
     if (!ctx) {
       Logger.error(TAG, `Constructor TrackTable failed. cause: ctx is undefined.`);
     }
-    this.trackTable.getRdbStore(ctx);
+    await this.trackTable.getRdbStore(ctx);
   }
 
   public insertTrackData(trackData: TrackServiceData): void {
@@ -71,11 +79,17 @@ export default class TrackTable {
     const resArray = await this.trackTable.query() as Array<Record<string, string | number>>;
     resArray.forEach((item: Record<string, string | number>) => {
       trackServiceDataArray.push({
-        moduleType: Reflect.get(item, 'moduleType') as number,
         eventType: Reflect.get(item, 'eventType') as TrackEventType,
-        operTime: Reflect.get(item, 'operTime') as string,
-        content: Reflect.get(item, 'content') as string,
-        ownerPage: Reflect.get(item, 'ownerPage') as string,
+        pageName: Reflect.get(item, 'pageName') as string,
+        mainTab: Reflect.get(item, 'mainTab') as MainTabEnum,
+        secondaryTab: Reflect.get(item, 'secondaryTab') as string,
+        interactionType: Reflect.get(item, 'interactionType') as string,
+        interactionContent: Reflect.get(item, 'interactionContent') as string,
+        actionName: Reflect.get(item, 'actionName') as string,
+        referType: Reflect.get(item, 'referType') as ReferTypeEnum,
+        time: Reflect.get(item, 'time') as string,
+        duration: Reflect.get(item, 'duration') as number,
+        pushMessageTitle: Reflect.get(item, 'pushMessageTitle') as string,
       })
     })
     return trackServiceDataArray;
@@ -93,11 +107,18 @@ export default class TrackTable {
    */
   private generateBucket(trackData: TrackServiceData): relationalStore.ValuesBucket {
     const trackBucket: relationalStore.ValuesBucket = {};
-    trackBucket.moduleType = trackData.moduleType;
-    trackBucket.eventType = trackData.eventType;
-    trackBucket.operTime = trackData.operTime;
-    trackBucket.content = trackData.content;
-    trackBucket.ownerPage = trackData.ownerPage;
+    trackBucket.eventType = trackData.eventType ?? TrackEventType.UNKNOWN;
+    trackBucket.pageName = trackData.pageName ?? '';
+    trackBucket.mainTab = trackData.mainTab ?? MainTabEnum.UNKNOWN;
+    trackBucket.secondaryTab = trackData.secondaryTab ?? '';
+    trackBucket.interactionType = trackData.interactionType ?? '';
+    trackBucket.interactionContent = trackData.interactionContent ?? '';
+    trackBucket.actionName = trackData.actionName ?? '';
+    trackBucket.referType = trackData.referType ?? ReferTypeEnum.UNKNOWN;
+    trackBucket.referSourceId = trackData.referSourceId ?? '';
+    trackBucket.time = trackData.time ?? '';
+    trackBucket.duration = trackData.duration ?? -1;
+    trackBucket.pushMessageTitle = trackData.pushMessageTitle ?? '';
     return trackBucket;
   }
 }

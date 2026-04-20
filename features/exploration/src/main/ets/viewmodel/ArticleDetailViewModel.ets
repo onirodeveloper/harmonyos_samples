@@ -16,9 +16,9 @@
 import { UIContext } from '@kit.ArkUI';
 import {
   BaseVM,
-  CommonConstants,
   FileUtil,
   GlobalInfoModel,
+  InteractionTypeEnum,
   LoadingStatus,
   Logger,
   PageContext,
@@ -37,7 +37,6 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
 
   public constructor() {
     super(new ExplorationDetailState());
-    this.state.topNavigationData.isBlur = true;
   }
 
   sendEvent<T>(eventParam: ExplorationDetailEventParam<T>): Promise<void> | void {
@@ -51,8 +50,6 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
     } else if (eventParam.type === ExplorationDetailEventType.ASSIGN_PATH_STACK) {
       this.currentPathStack = (eventParam.param as AssignPathStackParam).navPathStack;
       return;
-    } else if (eventParam.type === ExplorationDetailEventType.CHANGE_TITLE_BAR_STYLE) {
-      return this.changeTitleBarStyle(eventParam.param as number);
     }
     throw new Error('Method not implemented.');
   }
@@ -79,13 +76,7 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
     }
     this.state.topNavigationData.onBackClick = detailParam.onBackClick;
     this.state.topNavigationData.isFullScreen = true;
-    this.changeTitleBarStyle(0);
     return Promise.resolve();
-  }
-
-  private changeTitleBarStyle(yOffset: number): void {
-    this.state.topNavigationData.title = yOffset > CommonConstants.NAVIGATION_HEIGHT ? this.state.content.title : '';
-    this.state.topNavigationData.isBlur = yOffset > CommonConstants.SPACE_12;
   }
 
   private pop(animated: boolean = true): void {
@@ -108,14 +99,14 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
       routerName: param.type === 'component' ? PageEnum.COMPONENT_DETAIL_VIEW : PageEnum.SAMPLE_DETAIL_VIEW,
       param: param.type === 'component' ?
         {
-          componentName: param.componentName,
+          title: param.title,
           id: param.id,
-          contentType: CardTypeEnum.COMPONENT,
+          interactionType: InteractionTypeEnum.COMPONENT,
         } as ComponentDetailParams :
         {
           currentIndex: param.currentIndex,
           cardId: param.id,
-          contentType: CardTypeEnum.SAMPLE,
+          interactionType: InteractionTypeEnum.SAMPLE,
         } as SampleDetailParams,
     }, true);
   }
@@ -150,7 +141,7 @@ export interface NativePageParam {
   type: string;
   id: number;
   currentIndex?: number;
-  componentName?: string;
+  title?: string;
 }
 
 export interface AssignPathStackParam {

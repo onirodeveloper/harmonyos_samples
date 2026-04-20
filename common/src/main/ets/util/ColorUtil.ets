@@ -12,6 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ColorMetrics } from '@kit.ArkUI';
+import Logger from './Logger';
 
 /**
  * Color conversion processing class.
@@ -62,6 +64,26 @@ export class ColorUtil {
       saturation,
       brightness
     );
+  }
+
+  /**
+   * Overlay the background color with the foreground color to obtain the final color.
+   * @param tag Calling Components
+   * @param backgroundColor BackgroundColor
+   * @param foregroundColor ForegroundColor
+   * @returns Overlay color
+   */
+  public static getBlendColor(tag: string, backgroundColor: ResourceColor,
+    foregroundColor: ResourceColor): ResourceColor {
+    let resultColor: ResourceColor;
+    try {
+      resultColor =
+        ColorMetrics.resourceColor(backgroundColor).blendColor(ColorMetrics.resourceColor(foregroundColor)).color;
+    } catch (error) {
+      Logger.error(tag, `getBelndColor failed. Cause: ${error.code}, ${error.message}.`);
+      resultColor = ColorMetrics.resourceColor(foregroundColor).color;
+    }
+    return resultColor;
   }
 
   /**

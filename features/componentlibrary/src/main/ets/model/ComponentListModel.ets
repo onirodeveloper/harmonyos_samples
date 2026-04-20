@@ -16,7 +16,6 @@
 import type { BusinessError } from '@kit.BasicServicesKit';
 import { ImageKnifeUtil, Logger, PageData, StorageKey } from '@ohos/common';
 import { BannerData } from '@ohos/commonbusiness';
-import { componentDetailConfig } from '../componentdetailview/ComponentDetailConfig';
 import { ComponentLibraryService } from '../service/ComponentLibraryService';
 import type { ComponentCardData, ComponentData } from './ComponentData';
 
@@ -40,9 +39,9 @@ export class ComponentListModel {
     return this.service.getComponentListByPreference(currentPage, pageSize)
       .then((data: PageData<ComponentData>) => {
         return data;
-      }).catch((err: string) => {
+      }).catch((err: BusinessError) => {
         Logger.error(TAG,
-          `getComponentPage data from network failed! try to get data form preference. ${err}`);
+          `getComponentPage data from network failed! try to get data form preference. ${err.message}`);
         return this.service.getComponentList(currentPage, pageSize)
           .then((data: PageData<ComponentData>) => {
             this.service.setComponentListToPreference(data);
@@ -51,16 +50,36 @@ export class ComponentListModel {
       });
   }
 
+  public getComponentBanner(): Promise<BannerData[]> {
+    return this.service.getComponentBannerByPreference()
+      .then((data: BannerData[]) => {
+        return data;
+      }).catch((err: BusinessError) => {
+        Logger.error(TAG,
+          `getComponentPage data from network failed! try to get data form preference. ${err.message}`);
+        return this.service.getComponentBanner()
+          .then((data: BannerData[]) => {
+            this.service.setComponentBannerToPreference(data);
+            return data;
+          });
+      });
+  }
+
   public preloadComponentData(): Promise<void> {
-    AppStorage.setOrCreate(StorageKey.COMPONENT_CONFIG, componentDetailConfig);
     return new Promise((resolve) => {
-      this.service.getComponentList(1, 30)
-        .then((result: PageData<ComponentData>) => {
-          this.service.setComponentListToPreference(result);
-          result.data.bannerInfos?.forEach((banner: BannerData) => {
+      Promise.all([
+        this.service.getComponentList(1, 30),
+        this.service.getComponentBanner(),
+      ])
+        .then((result: object) => {
+          const cards: PageData<ComponentData> = result[0] as PageData<ComponentData>;
+          const banners: BannerData[] = result[1] as BannerData[];
+          this.service.setComponentBannerToPreference(banners);
+          this.service.setComponentListToPreference(cards);
+          banners.forEach((banner: BannerData) => {
             ImageKnifeUtil.preloadImg(banner.mediaUrl);
           });
-          result.data.cardData?.forEach((card: ComponentCardData) => {
+          cards.data.cardData?.forEach((card: ComponentCardData) => {
             ImageKnifeUtil.preloadImg(card.image);
           });
           resolve();

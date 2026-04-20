@@ -18,7 +18,7 @@ import type { BusinessError } from '@kit.BasicServicesKit';
 import { StorageKey } from '../constant/CommonEnums';
 import Logger from '../util/Logger';
 
-const PREFERENCES_NAME: string = 'HMosWorldStore';
+const PREFERENCES_NAME: string = 'HMosWorldStoreWithNet';
 const TAG: string = '[PreferenceManager]';
 
 export class PreferenceManager {

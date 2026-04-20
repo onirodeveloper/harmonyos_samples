@@ -33,7 +33,7 @@ export struct FeedItem {
           .zIndex(1)
         ImageComponent({
           src: this.discoverContent?.mediaUrl,
-          objectFit: ImageFit.Cover,
+          objectFit: ImageFit.Contain,
         })
           .borderRadius($r('sys.float.corner_radius_level4'))
           .width('100%')

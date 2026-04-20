@@ -177,14 +177,6 @@
       "value": "landscape screen"
     },
     {
-      "name": "copy_success",
-      "value": "copy success"
-    },
-    {
-      "name": "copy_fail",
-      "value": "copy fail"
-    },
-    {
       "name": "copy",
       "value": "copy"
     },

@@ -17,42 +17,40 @@
 <body>
   <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002189455958"><a name="ZH-CN_TOPIC_0000002189455958"></a><a
       name="ZH-CN_TOPIC_0000002189455958"></a>
-    <h1 class="topictitle1"><span class="topictitlenumber1">1</span>HMOS代码工坊一多开发实践</h1>
-    <div class="topicbody" id="body0000002189455958">
-      <p id="ZH-CN_TOPIC_0000002189455958__p118001879175">
-        HarmonyOS代码工坊是一个基于开发者技术演进的大型代码工程最佳实践；该应用以开发者技术地图为根，体现HarmonyOS家族式的UX设计，用来展示HarmonyOS亮点特性、关键体验特征、生态创新场景、高频开发场景等；本应用除了能在手机端正常运行，也通过“一次开发，多端部署”的原则，实现了Pad和PC/2in1的适配。下边简要介绍下在开发过程中一多的适配过程。
-      </p>
-    </div>
     <div>
       <ul class="ullinks">
-        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002125935186">1.1 一多应用开发流程</a></strong><br>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002189455958__p118001879175">1.1 介绍</a></strong><br>
         </li>
-        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002159756417">1.2 HarmonyOS代码工坊一多适配过程</a></strong><br>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002125935186">1.2 一多应用开发流程</a></strong><br>
         </li>
-        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002124320948">1.3 总结</a></strong><br>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002159756417">1.3 HarmonyOS代码工坊一多适配过程</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002124320948">1.4 总结</a></strong><br>
         </li>
       </ul>
     </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002189455958__p118001879175"><a
+        name="ZH-CN_TOPIC_0000002189455958__p118001879175"></a><a
+        name="ZH-CN_TOPIC_0000002189455958__p118001879175"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 介绍</h2>
+      <p>
+        HarmonyOS代码工坊是一个基于开发者技术演进的大型代码工程最佳实践；该应用以开发者技术地图为根，体现HarmonyOS家族式的UX设计，用来展示HarmonyOS亮点特性、关键体验特征、生态创新场景、高频开发场景等；本应用除了能在手机端正常运行，也通过“一次开发，多端部署”的原则，实现了Pad和PC/2in1的适配。下边简要介绍下在开发过程中一多的适配过程。
+      </p>
+    </div>
     <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002125935186"><a
         name="ZH-CN_TOPIC_0000002125935186"></a><a name="ZH-CN_TOPIC_0000002125935186"></a>
-      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 一多应用开发流程</h2>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> 一多应用开发流程</h2>
       <div class="topicbody" id="body0000002125935186">
         <p id="ZH-CN_TOPIC_0000002125935186__p148141039132414">一多应用开发的整体过程大致分为：UX设计-&gt;工程管理-&gt;页面开发。</p>
         <ul id="ZH-CN_TOPIC_0000002125935186__ul9244552135615">
           <li id="ZH-CN_TOPIC_0000002125935186__li2740948192919">
             UX设计：一多的应用UX设计需遵循通用设计规则，应该考虑多设备的“差异性”、“一致性”、“灵活性”和“兼容性，以此来保障各设备上应用界面的体验，在开发过程中最大程度复用界面代码。详细规范请参见<a
-              href="article_multidevice_1"
-              target="_blank" rel="noopener noreferrer">应用UX设计原则</a>。</li>
-          <li id="ZH-CN_TOPIC_0000002125935186__li1374004816298">工程管理：“一多”推荐在应用开发过程中使用“<a
-              href="article_multidevice_2"
+              href="article_multidevice_1" target="_blank" rel="noopener noreferrer">应用UX设计原则</a>。</li>
+          <li id="ZH-CN_TOPIC_0000002125935186__li1374004816298">工程管理：“一多”推荐在应用开发过程中使用“<a href="article_multidevice_2"
               target="_blank" rel="noopener noreferrer">三层工程结构</a>”，以便在不同设备之间更好的实现代码复用，减少不同模块之间不必要的依赖。</li>
-          <li id="ZH-CN_TOPIC_0000002125935186__li224420528569">页面开发：<a
-              href="article_multidevice_3"
-              target="_blank" rel="noopener noreferrer">页面开发</a>主要通过<a
-              href="article_multidevice_4"
-              target="_blank" rel="noopener noreferrer">自适应布局</a>和<a
-              href="article_multidevice_5"
-              target="_blank"
+          <li id="ZH-CN_TOPIC_0000002125935186__li224420528569">页面开发：<a href="article_multidevice_3" target="_blank"
+              rel="noopener noreferrer">页面开发</a>主要通过<a href="article_multidevice_4" target="_blank"
+              rel="noopener noreferrer">自适应布局</a>和<a href="article_multidevice_5" target="_blank"
               rel="noopener noreferrer">响应式布局</a>能力来实现同一页面在不同设备上的不同显示效果，同时建议开发者多使用自定义组件，这样在增加代码可读性和可维护性的同时也可以尽可能的实现代码复用。
           </li>
         </ul>
@@ -62,23 +60,24 @@
     </div>
     <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159756417"><a
         name="ZH-CN_TOPIC_0000002159756417"></a><a name="ZH-CN_TOPIC_0000002159756417"></a>
-      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> HarmonyOS代码工坊一多适配过程</h2>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> HarmonyOS代码工坊一多适配过程</h2>
       <div class="topicbody" id="body0000002159756417"></div>
       <div></div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002186745681"><a
           name="ZH-CN_TOPIC_0000002186745681"></a><a name="ZH-CN_TOPIC_0000002186745681"></a>
-        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.1</span> UX设计</h3>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.1</span> UX设计</h3>
         <div class="topicbody" id="body0000002186745681">
-          <p id="ZH-CN_TOPIC_0000002186745681__ZH-CN_TOPIC_0000002186745681_mMcCpPsS_p8060118">HarmonyOS代码工坊UX设计相关内容，参考UX设计技术文章
+          <p id="ZH-CN_TOPIC_0000002186745681__ZH-CN_TOPIC_0000002186745681_mMcCpPsS_p8060118">
+            HarmonyOS代码工坊UX设计相关内容，参考UX设计技术文章
           </p>
         </div>
       </div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002126157984"><a
           name="ZH-CN_TOPIC_0000002126157984"></a><a name="ZH-CN_TOPIC_0000002126157984"></a>
-        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> 工程管理</h3>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.2</span> 工程管理</h3>
         <div class="topicbody" id="body0000002126157984">
-          <p id="ZH-CN_TOPIC_0000002126157984__p3973278311">HarmonyOS代码工坊根据一多推荐的common（公共能力层）、feature（基础特性层）、product（产品定制层）的“<a
-              href="article_multidevice_6"
+          <p id="ZH-CN_TOPIC_0000002126157984__p3973278311">
+            HarmonyOS代码工坊根据一多推荐的common（公共能力层）、feature（基础特性层）、product（产品定制层）的“<a href="article_multidevice_6"
               target="_blank" rel="noopener noreferrer">分层架构设计规则</a>”划分目录。</p>
           <pre class="screen" id="ZH-CN_TOPIC_0000002126157984__screen487343773311">&#9500;&#9472;common                  // 公共能力模块
 &#9500;&#9472;features                // 基础特性层
@@ -93,26 +92,22 @@
       </div>
       <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002153695066"><a
           name="ZH-CN_TOPIC_0000002153695066"></a><a name="ZH-CN_TOPIC_0000002153695066"></a>
-        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.3</span> 页面开发</h3>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.3</span> 页面开发</h3>
         <div class="topicbody" id="body0000002153695066"></div>
         <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002172191206"><a
             name="ZH-CN_TOPIC_0000002172191206"></a><a name="ZH-CN_TOPIC_0000002172191206"></a>
-          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.1</span> 断点使用</h4>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.3.1</span> 断点使用</h4>
           <div class="topicbody" id="body0000002172191206">
-            <p id="ZH-CN_TOPIC_0000002172191206__p143732045195419"><a
-                href="article_multidevice_7"
-                target="_blank"
+            <p id="ZH-CN_TOPIC_0000002172191206__p143732045195419"><a href="article_multidevice_7" target="_blank"
                 rel="noopener noreferrer">断点</a>以应用窗口的宽度为切入点，将应用窗口在宽度维度上分为不同的区间即不同的断点，在不同的区间下，开发者可以根据需要实现不同的页面布局效果，解决多设备的UX布局问题。<a
-                href="article_multidevice_7"
-                target="_blank"
+                href="article_multidevice_7" target="_blank"
                 rel="noopener noreferrer">断点</a>功能又分为横向断点和纵向断点，使用断点来适配一多时开发者无需关注设备类型，即可达到多设备的自适应UI布局效果。纵向和横向断点的详细信息请参考<a
-                href="article_multidevice_7"
-                target="_blank" rel="noopener noreferrer">多设备断点开发实践</a>。</p>
+                href="article_multidevice_7" target="_blank" rel="noopener noreferrer">多设备断点开发实践</a>。</p>
           </div>
         </div>
         <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002124479096"><a
             name="ZH-CN_TOPIC_0000002124479096"></a><a name="ZH-CN_TOPIC_0000002124479096"></a>
-          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.2</span> 组件列表页</h4>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.3.2</span> 组件列表页</h4>
           <div class="topicbody" id="body0000002124479096">
             <p id="ZH-CN_TOPIC_0000002124479096__p72062416017">
               组件列表页面作为app的入口页面，主要负责展示组件卡片，给用户提供不同组件的展示入口。主要包含页签区域和内容区域两部分，页签区域在手机和折叠屏展开态时会在页面底部，在Pad上会在页面左侧；内容区域会根据设备大小不同展示不同列数，详细样式见下表。
@@ -229,7 +224,7 @@ WaterFlow({
         </div>
         <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159759045"><a
             name="ZH-CN_TOPIC_0000002159759045"></a><a name="ZH-CN_TOPIC_0000002159759045"></a>
-          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.3</span> 样例页</h4>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.3.3</span> 样例页</h4>
           <div class="topicbody" id="body0000002159759045">
             <p id="ZH-CN_TOPIC_0000002159759045__p18687843121113">
               样例页面以多种形态的卡片来展示sample信息，单sample有大图卡片和上图下文两种卡片样式，sample合集有列表卡片和通栏横向滑动样式效果，具体UX效果见下表。</p>
@@ -277,8 +272,8 @@ WaterFlow({
             </div>
             <p id="ZH-CN_TOPIC_0000002159759045__p19466131011203">
               页面在手机上以列表形式展示，在pad上存在多种不同的样式，每个卡片的高度一致，宽度占比有1/3，2/3，3/3等多种效果，结合一多的适配规则，选择响应式布局<a
-                href="article_multidevice_8"
-                target="_blank" rel="noopener noreferrer">GridRow组件</a>来解决不同的卡片在不同设备上的动态布局问题。</p>
+                href="article_multidevice_8" target="_blank"
+                rel="noopener noreferrer">GridRow组件</a>来解决不同的卡片在不同设备上的动态布局问题。</p>
             <p id="ZH-CN_TOPIC_0000002159759045__p419791916249">在不同尺寸的设备上，按照断点分别将栅格的布局列数设置为4， 8， 12，
               然后根据sample卡片的类型以及其在不同设备上的宽度占比，分别设置其所在GridCol占用栅格容器组件的列数。</p>
             <p id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_p257718184810">代码实现如下：</p>
@@ -306,7 +301,7 @@ WaterFlow({
         </div>
         <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159640661"><a
             name="ZH-CN_TOPIC_0000002159640661"></a><a name="ZH-CN_TOPIC_0000002159640661"></a>
-          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.4</span> 实践页</h4>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.3.4</span> 实践页</h4>
           <div class="topicbody" id="body0000002159640661">
             <p id="ZH-CN_TOPIC_0000002159640661__p1379514831110">实践页以分组的形式来展示各个分类下的文章列表，每个分类下的文章卡片样式各不相同，UX效果见下表</p>
 
@@ -385,7 +380,7 @@ Swiper() {
         </div>
         <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002124320944"><a
             name="ZH-CN_TOPIC_0000002124320944"></a><a name="ZH-CN_TOPIC_0000002124320944"></a>
-          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.5</span> 组件详情页</h4>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.3.5</span> 组件详情页</h4>
           <div class="topicbody" id="body0000002124320944">
             <p id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_p8060118">
               组件详情页包含组件效果预览区域、组件属性调整区域、示例代码和相关推荐，具体效果见下表。</p>
@@ -454,13 +449,11 @@ Flex({
         </div>
         <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159759049"><a
             name="ZH-CN_TOPIC_0000002159759049"></a><a name="ZH-CN_TOPIC_0000002159759049"></a>
-          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.6</span> 资源使用</h4>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.3.3.6</span> 资源使用</h4>
           <div class="topicbody" id="body0000002159759049">
             <p id="ZH-CN_TOPIC_0000002159759049__p686611165225">HarmonyOS代码工坊中，各个页面在多端显示的效果不同，使用的资源也需要随着屏幕尺寸变化，推荐使用<a
-                href="article_multidevice_9"
-                target="_blank" rel="noopener noreferrer">媒体查询</a>获取资源的方式来做适配，借助媒体查询中的<a
-                href="article_multidevice_7"
-                target="_blank" rel="noopener noreferrer">断点</a>功能做简单的封装。下面以横向断点做简单介绍。</p>
+                href="article_multidevice_9" target="_blank" rel="noopener noreferrer">媒体查询</a>获取资源的方式来做适配，借助媒体查询中的<a
+                href="article_multidevice_7" target="_blank" rel="noopener noreferrer">断点</a>功能做简单的封装。下面以横向断点做简单介绍。</p>
             <p id="ZH-CN_TOPIC_0000002159759049__p16365111017718">
               创建BreakpointType类，通过getValue()方法获取对应的资源值。在使用时，创建不同的资源文件传入BreakpointType代表sm、md和lg断点下的资源值，实现应用窗口大小变化时的不同效果。
             </p>
@@ -566,7 +559,7 @@ export function NoNetworkView(breakpoint: BreakpointTypeEnum, handleReload?: () 
     </div>
     <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002124320948"><a
         name="ZH-CN_TOPIC_0000002124320948"></a><a name="ZH-CN_TOPIC_0000002124320948"></a>
-      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 总结</h2>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.4</span> 总结</h2>
       <div class="topicbody" id="body0000002124320948">
         <p id="ZH-CN_TOPIC_0000002124320948__p16700352151615">
           本文通过组件、样例、实践和组件详情页等几个典型场景，介绍了HarmonyOS代码工坊中关于“一多”开发的适配过程。由上文可以看出几种常用组件在一多适配过程中适用的典型场景如下：</p>

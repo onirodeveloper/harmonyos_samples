@@ -26,7 +26,7 @@
     },
     {
       "name": "input_placeholder",
-      "value": "留下您的意见"
+      "value": "留下您的信息（勿包含个人信息）…"
     },
     {
       "name": "like",
@@ -99,6 +99,14 @@
     {
       "name": "submit_fail",
       "value": "提交失败"
+    },
+    {
+      "name": "copy_success",
+      "value": "复制成功"
+    },
+    {
+      "name": "copy_fail",
+      "value": "复制失败"
     }
   ]
 }

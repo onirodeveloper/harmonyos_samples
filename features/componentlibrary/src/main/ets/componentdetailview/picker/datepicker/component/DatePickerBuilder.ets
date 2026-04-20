@@ -18,8 +18,8 @@ import { DatePickerAttributeModifier } from '../viewmodel/DatePickerAttributeMod
 import type { DatePickerDescriptor } from '../viewmodel/DatePickerDescriptor';
 
 const START_DATE: string = '1970-1-1';
-const END_DATE: string = '2100-1-1'
-const SELECTED_DATE: string = '2021-08-08'
+const END_DATE: string = '2100-1-1';
+const SELECTED_DATE: string = '2021-08-08';
 
 @Builder
 export function DatePickerBuilder($$: DescriptorWrapper) {

@@ -21,13 +21,11 @@ import { LoadingView } from '../view/LoadingView';
 import { NoNetworkView } from '../view/NoNetworkView';
 
 export enum WebUrlType {
-  GITEE = 0,
+  GITCODE = 0,
   HARMONYOS = 1,
 }
 
-const GITEE_WEB_BASE_WIDTH: number = 540.00;
-const GITEE_TOP_HEIGHT_MD: number = 57;
-const GITEE_TOP_HEIGHT_XL: number = 64;
+const GITCODE_TOP_HEIGHT: number = 57;
 const HARMONYOS_TOP_HEIGHT: number = 56;
 
 @Component
@@ -55,12 +53,7 @@ struct WebSheet {
       NodeContainer(WebUtil.getWebNode(this.url))
         .width('100%')
         .margin({
-          top: -(this.urlType === WebUrlType.GITEE ? new BreakpointType({
-            sm: (this.globalInfoModel.deviceWidth / GITEE_WEB_BASE_WIDTH) * GITEE_TOP_HEIGHT_XL,
-            md: GITEE_TOP_HEIGHT_MD,
-            lg: GITEE_TOP_HEIGHT_MD,
-            xl: GITEE_TOP_HEIGHT_XL,
-          }).getValue(this.globalInfoModel.widthBreakpoint) : HARMONYOS_TOP_HEIGHT),
+          top: -(this.urlType === WebUrlType.GITCODE ? GITCODE_TOP_HEIGHT : HARMONYOS_TOP_HEIGHT),
         })
       if (this.isLoading) {
         LoadingView(this.globalInfoModel.widthBreakpoint)

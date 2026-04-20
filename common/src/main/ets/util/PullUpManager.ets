@@ -14,6 +14,7 @@
  */
 
 import { Want } from '@kit.AbilityKit';
+import { notificationManager } from '@kit.NotificationKit';
 import { StorageKey } from '../constant/CommonEnums';
 import { ArticleListItem, FormCardEnum } from '../model/FormCardInfo';
 import { PageContext } from '../routermanager/PageContext';
@@ -36,15 +37,19 @@ export class PullUpManager {
     }
     if (PullUpManager.isShortCutPullUp(want)) {
       AppStorage.setOrCreate<WantParams>(StorageKey.WANT_PARAMETERS, want.parameters);
-      PullUpManager.navigationToHome();
-    } else if (PullUpManager.isFromFormCard()) {
+    } else if (PullUpManager.isFromFormCard() || PullUpManager.isPushMessage(want)) {
       try {
-        AppStorage.setOrCreate<WantParams>(StorageKey.WANT_PARAMETERS,
-          JSON.parse(want.parameters?.['params'] as string));
+        const wantParams: WantParams = JSON.parse(want.parameters?.['params'] as string);
+        if (PullUpManager.isPushMessage(want)) {
+          const messageID: number = want.parameters?.['_push_notifyid'] as number;
+          notificationManager.cancel(messageID);
+          notificationManager.setBadgeNumber(0);
+          wantParams.messageID = messageID;
+        }
+        AppStorage.setOrCreate<WantParams>(StorageKey.WANT_PARAMETERS, wantParams);
       } catch (error) {
         Logger.error(TAG, `Parse fail, cause: ${error}`);
       }
-      PullUpManager.navigationToHome();
     }
   }
 
@@ -92,13 +97,27 @@ export class PullUpManager {
     return false;
   }
 
-  private static isFromFormCard() {
+  private static isFromFormCard(): boolean {
     return PullUpManager.formCardType === FormCardEnum.ARTICLE_SERVICE_CARD ||
       PullUpManager.formCardType === FormCardEnum.LOCK_SCREEN_CARD ||
       PullUpManager.formCardType === FormCardEnum.LOCK_SCREEN_CARD_LG;
   }
 
-  private static navigationToHome(): void {
+  private static isPushMessage(want: Want): boolean {
+    if (want?.parameters?.['params']) {
+      try {
+        const wantParams: WantParams = JSON.parse(want.parameters['params'] as string);
+        const pushMessage: boolean =
+          Reflect.has(wantParams, 'pushMessage') ? Reflect.get(wantParams, 'pushMessage') as boolean : false;
+        return pushMessage;
+      } catch (err) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public static navigationToHome(): void {
     const pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const componentPageContext = AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT);
     const samplePageContext = AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT);
@@ -106,10 +125,10 @@ export class PullUpManager {
     const minePageContext = AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT);
     pageContext?.popPageByIndex(0);
     // Adapt the PC situation.
-    componentPageContext?.clear();
-    samplePageContext?.clear();
-    explorationPageContext?.clear();
-    minePageContext?.clear();
+    componentPageContext?.popPageByIndex(0);
+    samplePageContext?.popPageByIndex(0);
+    explorationPageContext?.popPageByIndex(0);
+    minePageContext?.popPageByIndex(0);
   }
 }
 
@@ -125,4 +144,18 @@ export class WantParams {
   public formId?: string;
   public cardFrom?: FormCardEnum;
   public articleInfo?: ArticleListItem;
+  /**
+   * Push Kit
+   */
+  public messageID?: number;
+  public messageTitle?: string;
+  public pushMessage?: boolean;
+  public id?: number;
+  public title?: string;
+  public moduleType?: number;
+  public cardId?: number;
+  public unionId?: number;
+  public currentIndex?: number;
+  public detailsUrl?: string;
+  public categoryName?: string;
 }

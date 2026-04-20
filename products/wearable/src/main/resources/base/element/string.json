@@ -27,6 +27,10 @@
     {
       "name": "watch_development_sample",
       "value": "Watch Development Sample"
+    },
+    {
+      "name": "qrcode_base",
+      "value": "Scan for Details"
     }
   ]
 }

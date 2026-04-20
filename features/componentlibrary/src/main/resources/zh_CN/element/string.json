@@ -177,10 +177,6 @@
       "value": "竖屏"
     },
     {
-      "name": "copy_fail",
-      "value": "复制失败"
-    },
-    {
       "name": "copy",
       "value": "复制"
     },
@@ -215,10 +211,6 @@
     {
       "name": "content",
       "value": "内容"
-    },
-    {
-      "name": "copy_success",
-      "value": "复制成功"
     },
     {
       "name": "confirm_click",

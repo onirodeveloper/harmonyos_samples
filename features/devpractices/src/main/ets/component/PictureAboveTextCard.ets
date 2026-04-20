@@ -22,9 +22,11 @@ import {
   ImageUtil,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
   TrackServiceData,
+  HdsUtil,
+  InteractionTypeEnum,
+  ActionName,
 } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
@@ -54,7 +56,7 @@ export struct PictureAboveTextCard {
     let barWidth: number = new BreakpointType({
       sm: 0,
       md: 0,
-      lg: CommonConstants.TAB_BAR_WIDTH,
+      lg: HdsUtil.isSupportNewMaterialApi() ? 0 : CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SIDE_BAR_WIDTH,
     }).getValue(this.globalInfoModel.widthBreakpoint);
     const paddingVal = new BreakpointType({
@@ -76,7 +78,7 @@ export struct PictureAboveTextCard {
   }
 
   build() {
-    TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+    TrackNode() {
       Stack({ alignContent: Alignment.TopStart }) {
         TagTipLabel({
           tags: this.sampleContent?.tagIds ?? [],
@@ -87,7 +89,7 @@ export struct PictureAboveTextCard {
         Column() {
           Row() {
             ImageComponent({
-              src: this.sampleContent?.mediaUrl,
+              src: this.sampleContent?.mediaInfoList[0].mediaUrl,
               objectFit: ImageFit.Contain,
               alt: $r('app.media.img_placeholder'),
             })
@@ -105,14 +107,15 @@ export struct PictureAboveTextCard {
               Text(this.sampleContent?.title)
                 .fontSize($r('sys.float.Subtitle_M'))
                 .fontWeight(FontWeight.Medium)
-                .fontColor(this.sampleCardData.unionId ? $r('app.color.card_font_primary_color') :
+                .fontColor(this.sampleCardData.unionId === 1 ? $r('app.color.card_font_primary_color') :
                   $r('sys.color.font_primary'))
                 .maxLines(1)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
               TagLabel({
                 maxWidth: this.maxWidth,
                 tags: this.sampleContent?.tags || [],
-                cardStyleType: this.sampleCardData.styleType
+                cardStyleType: this.sampleCardData.styleType,
+                unionId: this.sampleCardData.unionId
               })
             }
             .alignItems(HorizontalAlign.Start)
@@ -120,7 +123,7 @@ export struct PictureAboveTextCard {
 
             Button({ type: ButtonType.Normal }) {
               SymbolGlyph($r('sys.symbol.chevron_right'))
-                .fontColor([this.sampleCardData.unionId ? $r('app.color.icon_secondary_color') :
+                .fontColor([this.sampleCardData.unionId === 1 ? $r('app.color.icon_secondary_color') :
                   $r('sys.color.icon_secondary')])
                 .fontSize($r('sys.float.Title_M'))
             }
@@ -138,8 +141,8 @@ export struct PictureAboveTextCard {
             bottom: $r('sys.float.padding_level10'),
           })
           .height($r('app.float.picture_card_content_height'))
-          .backgroundColor(this.sampleCardData.unionId ?
-            $r('app.color.card_color') : $r('sys.color.comp_background_secondary'))
+          .backgroundColor(this.sampleCardData.unionId === 1 ? $r('app.color.card_color') :
+            $r('sys.color.comp_background_secondary'))
         }
       }
       .onClick(() => {
@@ -153,9 +156,9 @@ export struct PictureAboveTextCard {
       .borderRadius($r('sys.float.corner_radius_level8'))
       .height($r('app.float.picture_card_height'))
       .customProperty(TRACK_KEY, {
-        content: this.sampleContent?.title,
-        moduleType: this.sampleContent?.contentType,
-        eventType: TrackEventType.SAMPLE_CLICK,
+        interactionContent: this.sampleContent?.title,
+        interactionType: InteractionTypeEnum.SAMPLE,
+        actionName: ActionName.SAMPLE_CLICK,
       } as TrackServiceData)
     }
   }

@@ -41,6 +41,20 @@
       "abilityName": "SmartWatchCarControlSampleAbility",
       "order": 1,
       "symbolGlyphColor": "#00A5AD"
+    },
+    {
+      "id": 4,
+      "title": "项目源码",
+      "desc": "项目源码",
+      "isFavorite": false,
+      "mediaType": "SYMBOL",
+      "mediaUrl": "sys.symbol.application_develop_fil",
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos",
+      "moduleName": "",
+      "abilityName": "",
+      "order": 1,
+      "symbolGlyphColor": "#00A5AD",
+      "isSourceCode": true
     }
   ]
 }

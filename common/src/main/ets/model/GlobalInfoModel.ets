@@ -23,6 +23,8 @@ export class GlobalInfoModel {
   public decorHeight: number = 0;
   public deviceHeight: number = 0;
   public deviceWidth: number = 0;
+  public needDynamicHideBar: boolean = false;
+  public aspectRatio: number = 0;
 }
 
 export const WIDTH_BREAKPOINTS: string[] = ['xs', 'sm', 'md', 'lg', 'xl'];

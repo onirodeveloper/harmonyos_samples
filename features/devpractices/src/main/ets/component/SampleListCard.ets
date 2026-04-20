@@ -13,7 +13,14 @@
  * limitations under the License.
  */
 
-import { ImageComponent, TRACK_KEY, TrackEventType, TrackNode, TrackServiceData } from '@ohos/common';
+import {
+  ImageComponent,
+  TRACK_KEY,
+  TrackEventType,
+  TrackNode,
+  TrackServiceData,
+  InteractionTypeEnum,
+} from '@ohos/common';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
 
@@ -34,11 +41,11 @@ export struct SampleListCard {
         .fontWeight(FontWeight.Regular)
         .margin({ top: $r('sys.float.padding_level2') })
       ForEach(this.sampleCardData.sampleContents.slice(0, 2), (item: SampleContent, index: number) => {
-        TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+        TrackNode() {
           Row() {
             Column() {
               ImageComponent({
-                src: item.mediaUrl,
+                src: item.mediaInfoList[0].mediaUrl,
                 objectFit: ImageFit.Contain,
                 alt: $r('app.media.img_placeholder'),
               })
@@ -70,9 +77,8 @@ export struct SampleListCard {
           .width('100%')
           .height($r('app.float.card_list_height'))
           .customProperty(TRACK_KEY, {
-            content: item.title,
-            moduleType: item.contentType,
-            eventType: TrackEventType.SAMPLE_CLICK,
+            interactionContent: item.title,
+            interactionType: InteractionTypeEnum.SAMPLE,
           } as TrackServiceData)
         }
       }, (item: SampleContent) => item.id.toString())

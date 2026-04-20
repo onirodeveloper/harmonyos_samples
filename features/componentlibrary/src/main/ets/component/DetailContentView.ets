@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { ConfigurationConstant } from '@kit.AbilityKit';
 import { curves } from '@kit.ArkUI';
 import {
   BreakpointType,
@@ -25,6 +26,8 @@ import {
   TrackServiceData,
   WebNodeController,
   WebUtil,
+  InteractionTypeEnum,
+  ActionName,
 } from '@ohos/common';
 import { CodePreviewComponent } from './CodePreviewComponent';
 import type { ConfigInterface } from '../componentdetailview/ComponentDetailConfig';
@@ -44,9 +47,10 @@ const TAG: string = '[DetailContentView]';
 export struct DetailContentView {
   @ObjectLink componentDetailState: ComponentDetailState;
   @Prop componentName: string;
-  @Prop contentType: CardTypeEnum;
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
+    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @State isShowCodePreview: boolean = false;
   @State scaleValue: number = 1;
   @State showDivider: boolean = false;
@@ -178,8 +182,8 @@ export struct DetailContentView {
             webNodeController: this.webNodeController,
             code: this.componentDetailState.code,
             componentName: this.componentName,
-            contentType: this.contentType,
             pageContainer: false,
+            isDarkMode: (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK),
             pushPage: () => {
               this.jumpCodePreviewView();
             },
@@ -193,17 +197,17 @@ export struct DetailContentView {
               this.jumpCodePreviewView();
             })
             .customProperty(TRACK_KEY, {
-              content: this.componentName,
-              moduleType: this.contentType,
-              eventType: TrackEventType.COMPONENT_CODE_CLICK,
+              interactionContent: this.componentName,
+              interactionType: InteractionTypeEnum.COMPONENT,
+              actionName: ActionName.CODE_CLICK,
             } as TrackServiceData)
           if (this.componentDetailState?.recommends?.length > 0) {
             this.textTip($r('app.string.recommend'))
             RecommendList({ recommends: this.componentDetailState.recommends })
               .customProperty(TRACK_KEY, {
-                content: this.componentName,
-                moduleType: this.contentType,
-                eventType: TrackEventType.COMPONENT_RECOMMEND_CLICK,
+                interactionContent: this.componentName,
+                interactionType: InteractionTypeEnum.COMPONENT,
+                actionName: ActionName.RECOMMEND_CLICK,
               } as TrackServiceData)
           }
         }

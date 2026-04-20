@@ -1,9 +1,19 @@
 {
   "routerMap": [
     {
+      "name": "PracticesView",
+      "pageSourceFile": "src/main/ets/view/PracticesView.ets",
+      "buildFunction": "PracticesViewBuilder"
+    },
+    {
       "name": "SampleDetailView",
       "pageSourceFile": "src/main/ets/view/PracticeDetailView.ets",
       "buildFunction": "SampleDetailViewBuilder"
+    },
+    {
+      "name": "ImagePreview",
+      "pageSourceFile": "src/main/ets/view/ImagePreview.ets",
+      "buildFunction": "ImagePreviewBuilder"
     }
   ]
 }

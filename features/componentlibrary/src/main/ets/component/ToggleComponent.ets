@@ -14,7 +14,6 @@
  */
 
 import { HdsListItemCard, SuffixSwitch } from '@kit.UIDesignKit';
-import { VersionUtil } from '@ohos/common';
 import type { ToggleComAttribute } from '../viewmodel/ComponentDetailState';
 
 /**
@@ -27,39 +26,20 @@ export struct ToggleComponent {
   };
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsListItemCard({
-        textItem: {
-          primaryText: { text: this.attribute.displayName }
+    HdsListItemCard({
+      textItem: {
+        primaryText: { text: this.attribute.displayName }
+      },
+      suffixItem: new SuffixSwitch({
+        isCheck: (this.attribute.currentValue?.toLowerCase() === 'true'),
+        selectColor: $r('sys.color.comp_background_emphasize'),
+        onChange: (isOn: boolean) => {
+          this.callback(this.attribute.name, isOn ? 'true' : 'false');
         },
-        suffixItem: new SuffixSwitch({
-          isCheck: (this.attribute.currentValue?.toLowerCase() === 'true'),
-          selectColor: $r('sys.color.comp_background_emphasize'),
-          onChange: (isOn: boolean) => {
-            this.callback(this.attribute.name, isOn ? 'true' : 'false');
-          },
-        }),
-        cardHeight: $r('app.float.common_component_height'),
-        cardPrefixMargin: $r('sys.float.padding_level2'),
-        cardSuffixMargin: $r('sys.float.padding_level2'),
-      })
-    } else {
-      Row() {
-        Text(this.attribute.displayName)
-          .fontWeight(FontWeight.Medium)
-          .fontSize($r('sys.float.Body_L'))
-          .fontColor($r('sys.color.font_primary'))
-        Blank()
-        Toggle({ type: ToggleType.Switch, isOn: (this.attribute.currentValue?.toLowerCase() === 'true') })
-          .selectedColor($r('sys.color.comp_background_emphasize'))
-          .onChange((isOn: boolean) => {
-            this.callback(this.attribute.name, String(isOn));
-          })
-      }
-      .height($r('app.float.common_component_height'))
-      .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level4') })
-      .alignItems(VerticalAlign.Center)
-      .width('100%')
-    }
+      }),
+      cardHeight: $r('app.float.common_component_height'),
+      cardPrefixMargin: $r('sys.float.padding_level2'),
+      cardSuffixMargin: $r('sys.float.padding_level2'),
+    })
   }
 }

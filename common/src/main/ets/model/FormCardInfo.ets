@@ -15,6 +15,7 @@
 
 export class ArticleListItem {
   public title: string = '';
+  public desc: string = '';
   public id: number = 0;
   public isArticle: boolean = true;
   public detailsUrl: string = '';

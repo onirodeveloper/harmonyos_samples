@@ -72,10 +72,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   protected loadSamplePage(param: LoadSamplePageParam): void {
     const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
-    this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
-    this.state.topNavigationData.isBlur = false;
-    this.state.topNavigationData.showTab = false;
-    this.state.showTab = this.state.topNavigationData.showTab;
+    this.state.showTab = false;
     WindowUtil.updateStatusBarColor(isDark);
     this.sampleModel.getSamplePage(1, this.pageSize)
       .then((result: PageData<SampleData>) => {
@@ -99,7 +96,6 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
           globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
-          this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.SAMPLE] = true;
           this.setTitleBarStyle();

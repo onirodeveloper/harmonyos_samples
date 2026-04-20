@@ -69,7 +69,6 @@
       "value": "Not notice"
     },
     {
-
       "name": "btn_click",
       "value": "The button has been clicked."
     },
@@ -120,7 +119,8 @@
     {
       "name": "hexagon",
       "value": "hexagon"
-    },{
+    },
+    {
       "name": "aiMatting",
       "value": "AIMatting"
     },
@@ -195,14 +195,6 @@
     {
       "name": "content",
       "value": "Content"
-    },
-    {
-      "name": "copy_success",
-      "value": "Copy Success"
-    },
-    {
-      "name": "copy_fail",
-      "value": "Copy Fail"
     },
     {
       "name": "copy_code",

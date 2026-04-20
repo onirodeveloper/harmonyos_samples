@@ -15,7 +15,7 @@
 
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BaseVM, Logger, ProcessUtil, StorageKey } from '@ohos/common';
+import { BaseVM, Logger, PageContext, ProcessUtil, StorageKey, PageEnum } from '@ohos/common';
 import { WearableSampleData } from '../model/WearableSampleData';
 import { WearableSampleModel } from '../model/WearableSampleModel';
 import { SampleListState } from './SampleListState';
@@ -43,6 +43,8 @@ export class SampleListViewModel extends BaseVM<SampleListState> {
       this.loadWearableSampleList();
     } else if (eventType === SampleListEventType.LOAD_SAMPLE) {
       this.loadSample(eventParam.param as LoadSampleParam);
+    } else if (eventType === SampleListEventType.JUMP_TO_SOURCE_CODE_LINK_PAGE) {
+      this.jumpToSourceCodeLinkPage(eventParam.param as SourceCodeLinkPageParam);
     }
   }
 
@@ -68,11 +70,21 @@ export class SampleListViewModel extends BaseVM<SampleListState> {
       abilityName: param.abilityName,
     });
   }
+
+  private jumpToSourceCodeLinkPage(param: SourceCodeLinkPageParam): void {
+    const pageContext: PageContext =
+      AppStorage.get<PageContext>('pageContext') ?? new PageContext();
+    pageContext.openPage({
+      routerName: PageEnum.WEARABLE_SOURCE_CODE_VIEW,
+      param: param
+    });
+  }
 }
 
 export enum SampleListEventType {
   LOAD_SAMPLE_LIST = 'loadSamplePage',
   LOAD_SAMPLE = 'loadSample',
+  JUMP_TO_SOURCE_CODE_LINK_PAGE = 'jumpToSourceCodeLinkPage',
 }
 
 export interface SampleListEventParam<T> {
@@ -82,4 +94,9 @@ export interface SampleListEventParam<T> {
 
 export interface LoadSampleParam {
   abilityName: string;
+}
+
+export interface SourceCodeLinkPageParam {
+  sourceCodeLink: string;
+  title: string;
 }

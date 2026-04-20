@@ -39,6 +39,13 @@
     {
       "name": "lock_screen_icon_size",
       "value": "32vp"
+    },
+    {
+      "name": "skip_button_width",
+      "value": "66vp"
+    },{
+      "name": "experience_button_width",
+      "value": "192vp"
     }
   ]
 }

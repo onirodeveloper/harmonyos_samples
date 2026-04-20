@@ -64,7 +64,7 @@ struct TextToSpeechComponent {
 
       Row({ space: DetailPageConstant.COMPONENT_GAP_SIZE2 }) {
         Button() {
-          SymbolGlyph(this.isPlaying ? $r('sys.symbol.pause_circle_fill') : $r('sys.symbol.play_circle_fill'))
+          SymbolGlyph($r('sys.symbol.play_circle_fill'))
             .fontSize($r('app.float.default_font_40'))
             .fontColor([$r('sys.color.icon_emphasize')])
         }
@@ -72,6 +72,9 @@ struct TextToSpeechComponent {
         .width($r('app.float.button_height_normal'))
         .backgroundColor(Color.Transparent)
         .onClick(() => {
+          if (this.isPlaying) {
+            return;
+          }
           try {
             this.createByCallback();
           } catch (err) {

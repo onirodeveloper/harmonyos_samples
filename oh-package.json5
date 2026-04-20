@@ -3,7 +3,7 @@
   "description": "Please describe the basic information.",
   "dependencies": {},
   "devDependencies": {
-    "@ohos/hypium": "1.0.24",
+    "@ohos/hypium": "@param:dependencies.hypium-version",
     "@ohos/hamock": "@param:dependencies.hamock-version",
   },
   "parameterFile": "VersionFile.json5",

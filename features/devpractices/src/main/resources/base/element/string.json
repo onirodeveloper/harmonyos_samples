@@ -9,10 +9,6 @@
       "value": "No data available."
     },
     {
-      "name": "sample_title",
-      "value": "Development Sample"
-    },
-    {
       "name": "sample_code",
       "value": "Sample Code"
     },
@@ -63,6 +59,18 @@
     {
       "name": "card_collapse",
       "value": "collapse"
+    },
+    {
+      "name": "api_prompt",
+      "value": "The current device version is low, please upgrade to experience."
+    },
+    {
+      "name": "device_prompt",
+      "value": "The current device version does not support this sample"
+    },
+    {
+      "name": "save_image",
+      "value": "save image"
     }
   ]
 }

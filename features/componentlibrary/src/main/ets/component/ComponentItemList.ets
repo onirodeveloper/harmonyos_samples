@@ -22,7 +22,6 @@ import {
   SuffixCustomBuilder
 } from '@kit.UIDesignKit';
 import {
-  CommonConstants,
   ImageUtil,
   ResourceUtil,
   TagEnum,
@@ -30,7 +29,9 @@ import {
   TrackEventType,
   TrackNode,
   TrackServiceData,
-  VersionUtil,
+  InteractionTypeEnum,
+  ActionName,
+  CommonConstants,
 } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import type { ComponentContent } from '../model/ComponentData';
@@ -58,8 +59,8 @@ export struct ComponentItemList {
   }
 
   @Builder
-  IconBuilder(iconUrl: ResourceStr, showTag: boolean, tagIds: TagEnum[]) {
-    ComponentIcon({ iconUrl, showTag, tagIds })
+  IconBuilder(iconUrl: ResourceStr, showTag: boolean, tagIds: TagEnum[], buttonColor: ResourceColor) {
+    ComponentIcon({ iconUrl, showTag, tagIds, buttonColor })
   }
 
   build() {
@@ -67,60 +68,51 @@ export struct ComponentItemList {
       Repeat(this.cardContents)
         .each((repeatItem: RepeatItem<ComponentContent>) => {
           ListItem() {
-            TrackNode({ eventType: TrackEventType.COMPONENT_EXPOSURE }) {
+            TrackNode() {
               Column() {
-                if (VersionUtil.canUseHds()) {
-                  HdsListItemCard({
-                    prefixItem: new PrefixCustomBuilder(() => {
-                      this.IconBuilder(ImageUtil.getImgResource(repeatItem.item.mediaUrl),
-                        this.suffixType !== ItemSuffixType.ICON, repeatItem.item.tagIds);
-                    }),
-                    textItem: {
-                      primaryText: {
-                        text: repeatItem.item.subTitle,
-                        modifier:
-                        new TextModifier()
-                          .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_primary') :
-                            $r('sys.color.font_on_primary')),
-                      },
-                      secondaryText: {
-                        text: repeatItem.item.title,
-                        modifier: new TextModifier()
-                          .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_secondary') :
-                            $r('sys.color.font_on_primary'))
-                      }
+                HdsListItemCard({
+                  prefixItem: new PrefixCustomBuilder(() => {
+                    this.IconBuilder(ImageUtil.getImgResource(repeatItem.item.mediaUrl),
+                      this.suffixType !== ItemSuffixType.ICON, repeatItem.item.tagIds, this.buttonColor);
+                  }),
+                  textItem: {
+                    primaryText: {
+                      text: repeatItem.item.subTitle,
+                      modifier:
+                      new TextModifier()
+                        .maxLines(1)
+                        .ellipsisMode(EllipsisMode.END)
+                        .textOverflow({ overflow: TextOverflow.Ellipsis })
+                        .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_primary') :
+                          $r('sys.color.font_on_primary')),
                     },
-                    suffixItem: this.suffixType === ItemSuffixType.BUTTON ?
-                      new SuffixButton({ text: $r('app.string.open'), textColor: this.buttonColor }) :
-                      new SuffixCustomBuilder(() => this.CircleArrowBuilder()),
-                    cardHeight: this.itemHeight,
-                    cardPrefixMargin: $r('sys.float.padding_level0'),
-                    cardSuffixMargin: $r('sys.float.padding_level2'),
-                    cardBorderRadius: 0,
-                    cardBackgroundColor: $r('sys.color.ohos_id_color_background_transparent'),
-                  })
-                } else {
-                  ComponentItem({
-                    componentContent: repeatItem.item,
-                    widthBreakpoint: this.widthBreakpoint,
-                    buttonColor: this.buttonColor,
-                    suffixType: this.suffixType,
-                    itemHeight: this.itemHeight,
-                  })
-                }
+                    secondaryText: {
+                      text: repeatItem.item.title,
+                      modifier: new TextModifier()
+                        .maxLines(1)
+                        .ellipsisMode(EllipsisMode.END)
+                        .textOverflow({ overflow: TextOverflow.Ellipsis })
+                        .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_secondary') :
+                          $r('sys.color.font_on_primary'))
+                    }
+                  },
+                  suffixItem: this.suffixType === ItemSuffixType.BUTTON ?
+                    new SuffixButton({ text: $r('app.string.open'), textColor: this.buttonColor }) :
+                    new SuffixCustomBuilder(() => this.CircleArrowBuilder()),
+                  cardHeight: this.itemHeight,
+                  cardPrefixMargin: $r('sys.float.padding_level0'),
+                  cardSuffixMargin: $r('sys.float.padding_level2'),
+                  cardBorderRadius: 0,
+                  cardBackgroundColor: $r('sys.color.ohos_id_color_background_transparent'),
+                })
               }
               .customProperty(TRACK_KEY, {
-                content: repeatItem.item.title,
-                moduleType: repeatItem.item.contentType,
-                eventType: TrackEventType.COMPONENT_CLICK,
+                interactionContent: repeatItem.item.title,
+                interactionType: InteractionTypeEnum.COMPONENT,
+                actionName: ActionName.COMPONENT_CLICK,
               } as TrackServiceData)
             }
           }
-          .customProperty(TRACK_KEY, {
-            content: repeatItem.item.title,
-            moduleType: repeatItem.item.contentType,
-            eventType: TrackEventType.COMPONENT_CLICK,
-          } as TrackServiceData)
           .onClick(this.handleItemClick ? () => {
             this.handleItemClick?.(repeatItem.item);
           } : undefined)
@@ -161,73 +153,25 @@ struct ComponentIcon {
   @Prop showTag: boolean;
   @Prop tagIds: TagEnum[];
   @Prop @Require iconUrl: ResourceStr;
+  @Prop buttonColor: ResourceColor;
 
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
       Image(this.iconUrl)
         .draggable(false)
-        .alt($r('app.media.ic_placeholder'))
         .borderRadius($r('sys.float.corner_radius_level5'))
         .width($r('app.float.tip_image_height'))
         .margin({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level8') })
         .aspectRatio(1)
+        .backgroundColor(this.buttonColor)
+        .animation({
+          duration: CommonConstants.ANIMATION_DURATION,
+          curve: Curve.EaseIn
+        })
       if (this.showTag) {
         TagTipLabel({ tags: this.tagIds, isSmall: true })
           .margin({ left: $r('sys.float.padding_level3'), top: $r('app.float.small_new_margin_top') })
       }
     }
-  }
-}
-
-@Component
-struct ComponentItem {
-  @Prop componentContent: ComponentContent;
-  @Prop itemHeight: Length = $r('app.float.component_item_height');
-  @Prop buttonColor: ResourceColor = $r('sys.color.interactive_active');
-  @Prop suffixType: ItemSuffixType = ItemSuffixType.BUTTON;
-  @Prop @Require widthBreakpoint: WidthBreakpoint;
-
-  build() {
-    Row() {
-      ComponentIcon({
-        iconUrl: ImageUtil.getImgResource(this.componentContent.mediaUrl),
-        showTag: this.suffixType !== ItemSuffixType.ICON,
-        tagIds: this.componentContent.tagIds,
-      })
-      Column({ space: CommonConstants.SPACE_6 }) {
-        Text(this.componentContent.subTitle)
-          .fontSize($r('sys.float.Subtitle_M'))
-          .fontWeight(FontWeight.Medium)
-          .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_primary') :
-            $r('sys.color.font_on_primary'))
-          .maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-        Text(this.componentContent.title)
-          .fontSize($r('sys.float.Body_M'))
-          .fontColor(this.suffixType === ItemSuffixType.BUTTON ? $r('sys.color.font_secondary') :
-            $r('sys.color.font_on_primary'))
-          .maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-      }
-      .alignItems(HorizontalAlign.Start)
-      .layoutWeight(1)
-
-      if (this.suffixType === ItemSuffixType.BUTTON) {
-        Button($r('app.string.open'),
-          { type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.SMALL })
-          .borderRadius(this.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-            $r('sys.float.corner_radius_level4') : '50%')
-          .margin({ left: $r('sys.float.padding_level8') })
-          .width($r('app.float.tip_button_width'))
-          .fontColor(this.buttonColor)
-      } else {
-        CircleArrow()
-      }
-    }
-    .alignItems(VerticalAlign.Center)
-    .width('100%')
-    .height(this.itemHeight)
-    .padding({ right: $r('sys.float.padding_level6') })
-    .renderGroup(true)
   }
 }

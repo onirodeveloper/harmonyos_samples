@@ -18,11 +18,12 @@ import {
   CommonConstants,
   GlobalInfoModel,
   ImageComponent,
+  InteractionTypeEnum,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
-  TrackServiceData
+  TrackServiceData,
+  HdsUtil,
 } from '@ohos/common';
 import { TagTipLabel } from '@ohos/commonbusiness';
 import { SampleCardData, SampleContent } from '../model/SampleData';
@@ -59,7 +60,7 @@ export struct SampleScrollCard {
   handleBreakPointChange() {
     const barWidth =
       this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SIDE_BAR_WIDTH :
-        CommonConstants.TAB_BAR_WIDTH;
+        (HdsUtil.isSupportNewMaterialApi() ? 0 : CommonConstants.TAB_BAR_WIDTH);
     this.horizontalPadding = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
       md: $r('sys.float.padding_level12'),
@@ -81,7 +82,7 @@ export struct SampleScrollCard {
 
   @Builder
   SampleItemBuilder(item: SampleContent, index: number) {
-    TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+    TrackNode() {
       Stack({ alignContent: Alignment.TopStart }) {
         TagTipLabel({
           tags: item.tagIds,
@@ -93,7 +94,7 @@ export struct SampleScrollCard {
         Column() {
           Column() {
             ImageComponent({
-              src: item.mediaUrl,
+              src: item.mediaInfoList[0].mediaUrl,
               objectFit: ImageFit.Contain,
               alt: $r('app.media.img_placeholder'),
             })
@@ -121,9 +122,8 @@ export struct SampleScrollCard {
       .height($r('app.float.card_scroll_height'))
       .width(this.sampleItemWidth)
       .customProperty(TRACK_KEY, {
-        content: item.title,
-        moduleType: item.contentType,
-        eventType: TrackEventType.SAMPLE_CLICK,
+        interactionContent: item.title,
+        interactionType: InteractionTypeEnum.SAMPLE,
       } as TrackServiceData)
     }
   }

@@ -14,25 +14,46 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { curves, window } from '@kit.ArkUI';
+import { uniformTypeDescriptor } from '@kit.ArkData';
+import { CommonModifier, curves, window } from '@kit.ArkUI';
 import { BusinessError, settings } from '@kit.BasicServicesKit';
-import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
 import {
+  hdsMaterial,
+  HdsNavDestination,
+  HdsNavDestinationAttribute,
+  HdsNavigationMenuItemOptions,
+  ScrollEffectType,
+  TitleBarStyleOptions,
+} from '@kit.UIDesignKit';
+import {
+  ActionName,
   CommonConstants,
   GlobalInfoModel,
+  HdsUtil,
+  InteractionTypeEnum,
   Logger,
+  PasteboardUtil,
+  ResourceUtil,
   ScreenOrientation,
+  ShareUtil,
   StorageKey,
-  VersionUtil,
+  TopNavigationView,
+  TrackServiceData,
+  TRACK_KEY,
   WebNodeController,
   WebUtil,
+  WIDTH_BREAKPOINTS,
   WindowUtil,
+  TrackManager,
+  TrackEventType,
 } from '@ohos/common';
+import { CardTypeEnum } from '@ohos/commonbusiness';
 import { CodePreviewComponent } from '../component/CodePreviewComponent';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 import { CodePreviewEvent, CodePreviewPageVM } from '../viewmodel/CodePreviewPageVM';
 import type { CodePreviewState } from '../viewmodel/CodePreviewState';
 import { CodeViewParams } from '../viewmodel/ComponentDetailPageVM';
+import { CustomToolBarItem } from '../model/CustomToolBarItem';
 
 const TAG: string = '[CodePreview]';
 const ORIENTATION_LOCK_ON: string = '0';
@@ -41,21 +62,184 @@ const ORIENTATION_LOCK_ON: string = '0';
 export struct CodePreview {
   @StorageLink(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-  @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
+  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @State webNodeController?: WebNodeController = undefined;
-  @State isFocus: boolean = false;
-  @State isBack: boolean = false;
-  @State isOrientationLockChange: boolean = false;
   private viewModel?: CodePreviewPageVM;
-  @State codePreviewState?: CodePreviewState = this.viewModel?.getState();
   private beginScreenOrientation: string = ScreenOrientation.PORTRAIT;
   private beginBreakpoint: WidthBreakpoint = this.globalInfoModel.widthBreakpoint;
   private beginOrientationLockState?: string;
   private code: string = '';
-  private componentName: string = '';
   private context: Context = this.getUIContext().getHostContext() as Context;
   private uiContext: UIContext = this.getUIContext();
+  public contentType: CardTypeEnum = CardTypeEnum.COMPONENT;
+  private windowClass: window.Window | undefined = undefined;
+  private colorMode: ConfigurationConstant.ColorMode = this.systemColorMode;
+  private isSupportMaterial: boolean = HdsUtil.isSupportNewMaterialApi();
+  @State webNodeController?: WebNodeController = undefined;
+  @State isFocus: boolean = false;
+  @State isBack: boolean = false;
+  @State isOrientationLockChange: boolean = false;
+  @State codePreviewState?: CodePreviewState = this.viewModel?.getState();
+  @State componentName: string = '';
+  @State isDarkMode: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+  @State screenOrientation: string = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
+    ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
+  @State isFloatWindowType: boolean = false;
+  @State titleBarStyle: TitleBarStyleOptions = {
+    scrollEffectOpts: {
+      scrollEffectType: ScrollEffectType.COMMON_BLUR,
+      enableScrollEffect: true,
+    },
+  };
+  private navCommonModifier?: CommonModifier = new CommonModifier()
+    .onFocus(() => {
+      this.isFocus = true;
+    })
+    .onBlur(() => {
+      this.isFocus = false;
+    });
+  private toolbarOptions: NavigationToolbarOptions = {
+    backgroundColor: Color.Transparent,
+    barStyle: BarStyle.STACK,
+  };
+  private topMenuItems: CustomToolBarItem[] = [
+    {
+      symbolIcon: $r('sys.symbol.share'),
+      value: '',
+      actionValue: '',
+      actionName: ActionName.CODE_SHARE,
+      action: () => {
+        this.handleShare();
+      },
+    }
+  ];
+  private hdsMenuItems: HdsNavigationMenuItemOptions[] = [
+    {
+      content: {
+        icon: $r('sys.symbol.share'),
+        isEnabled: true,
+        action: () => {
+          this.reportTrackData(ActionName.CODE_SHARE);
+          this.handleShare();
+        },
+      },
+    },
+    {
+      content: {
+        icon: $r('sys.symbol.plus_square_on_square'),
+        isEnabled: true,
+        action: () => {
+          this.reportTrackData(ActionName.CODE_COPY);
+          PasteboardUtil.copyText(this.code);
+        },
+      },
+    }]
+  @State toolBarItems: CustomToolBarItem[] = [
+    {
+      symbolIcon: $r('sys.symbol.plus_square_on_square_fill'),
+      value: $r('app.string.copy'),
+      actionValue: $r('app.string.copy'),
+      actionName: ActionName.CODE_COPY,
+      action: () => {
+        PasteboardUtil.copyText(this.code);
+      },
+    },
+    {
+      symbolIcon: $r('sys.symbol.sun_max_fill'),
+      activeSymbolIcon: $r('sys.symbol.moon_fill'),
+      value: $r('app.string.light_mode'),
+      actionValue: $r('app.string.dark_mode'),
+      status: this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK ? ToolbarItemStatus.NORMAL :
+        ToolbarItemStatus.ACTIVE,
+      actionName: ActionName.UNKNOWN,
+      action: () => {
+        this.changeColorMode();
+      },
+    },
+    {
+      symbolIcon: $r('sys.symbol.screen_rotation'),
+      value: $r('app.string.portrait_screen'),
+      actionValue: $r('app.string.landscape_screen'),
+      status: this.screenOrientation === ScreenOrientation.LANDSCAPE ? ToolbarItemStatus.NORMAL :
+        ToolbarItemStatus.ACTIVE,
+      actionName: ActionName.UNKNOWN,
+      action: () => {
+        this.changeScreenOrientation();
+      },
+    }
+  ];
+  private windowSizeCallback: Callback<window.Size> = (size) => {
+    if (size.width > size.height) {
+      this.screenOrientation = ScreenOrientation.LANDSCAPE;
+      if (!this.isBack) {
+        const showLandscapeMethod: string =
+          this.isFloatWindowType ? 'showLandscapeFloatView(%param)' : 'showLandscapeView(%param)';
+        const params: string = JSON.stringify(WIDTH_BREAKPOINTS[this.beginBreakpoint]);
+        CodePreviewJSUtil.codeViewRunJS(showLandscapeMethod, params);
+      }
+    } else {
+      this.screenOrientation = ScreenOrientation.PORTRAIT;
+      if (!this.isBack) {
+        const showPortraitMethod: string = 'showPortraitView()';
+        CodePreviewJSUtil.codeViewRunJS(showPortraitMethod);
+      }
+    }
+    this.toolBarItems[2].status = this.screenOrientation === ScreenOrientation.LANDSCAPE ? ToolbarItemStatus.NORMAL :
+      ToolbarItemStatus.ACTIVE;
+  };
+
+  handleColorModeChange() {
+    if (this.colorMode !== this.systemColorMode) {
+      this.changeColorMode();
+    }
+  }
+
+  changeColorMode() {
+    if (this.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT) {
+      this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+      this.isDarkMode = true;
+      this.toolBarItems[1].status = ToolbarItemStatus.NORMAL;
+    } else {
+      this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
+      this.isDarkMode = false;
+      this.toolBarItems[1].status = ToolbarItemStatus.ACTIVE;
+    }
+    WindowUtil.updateStatusBarColor(this.isDarkMode);
+  }
+
+  reportTrackData(actionName: ActionName): void {
+    const trackData: TrackServiceData = {
+      eventType: TrackEventType.CLICK,
+      interactionContent: this.componentName,
+      interactionType: InteractionTypeEnum.COMPONENT,
+      actionName,
+    } as TrackServiceData;
+    TrackManager.getInstance().reportData(trackData);
+  }
+
+  private changeScreenOrientation(): void {
+    if (this.screenOrientation === ScreenOrientation.PORTRAIT) {
+      this.toolBarItems[2].status = ToolbarItemStatus.NORMAL;
+      this.screenOrientation = ScreenOrientation.LANDSCAPE;
+      WindowUtil.enableFloatWindowRotate();
+      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE, () => {
+        this.updateStatusBar();
+      });
+    } else {
+      this.toolBarItems[2].status = ToolbarItemStatus.ACTIVE;
+      this.screenOrientation = ScreenOrientation.PORTRAIT;
+      WindowUtil.disableFloatWindowRotate();
+      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT, () => {
+        this.updateStatusBar();
+      });
+    }
+  }
+
+  updateStatusBar() {
+      setTimeout(() => {
+        WindowUtil.updateStatusBarColor(this.isDarkMode);
+      }, 500);
+  }
 
   onBackPage(): boolean {
     this.isBack = true;
@@ -83,14 +267,89 @@ export struct CodePreview {
     this.viewModel = CodePreviewPageVM.getInstance();
     this.initOrientationState();
     this.viewModel.sendEvent(CodePreviewEvent.INIT);
+    this.handleDeviceOrientation();
+    if (this.isSupportMaterial) {
+      this.titleBarStyle = {
+        systemMaterialEffect: {
+          materialType: hdsMaterial.MaterialType.IMMERSIVE,
+          materialLevel: hdsMaterial.MaterialLevel.ADAPTIVE,
+        },
+        scrollEffectOpts: {
+          enableScrollEffect: true,
+          scrollEffectType: hdsMaterial.getSystemMaterialTypes().length > 0 ? ScrollEffectType.GRADIENT_BLUR :
+            ScrollEffectType.COMMON_BLUR,
+        },
+      };
+    }
+    try {
+      window.getLastWindow(this.context).then((windowClass: window.Window) => {
+        if (windowClass === undefined) {
+          Logger.error(TAG, `MainWindowClass is undefined`);
+          return;
+        }
+        this.windowClass = windowClass;
+        this.windowClass.on('windowSizeChange', this.windowSizeCallback);
+      });
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG,
+        `Failed to register windowSizeChange. Cause code: ${err.code}, message: ${err.message}`);
+    }
   }
 
   aboutToDisappear(): void {
     WindowUtil.setMainWindowOrientation(window.Orientation.UNSPECIFIED);
+    this.unregisterWindowChange();
+    try {
+      this.windowClass?.off('windowSizeChange', this.windowSizeCallback);
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG,
+        `Failed to unregister windowSizeChange. Cause code: ${err.code}, message: ${err.message}`);
+    }
     if (canIUse('SystemCapability.Applications.Settings.Core')) {
       settings.unregisterKeyObserver(this.context,
         settings.general.ACCELEROMETER_ROTATION_STATUS,
         settings.domainName.DEVICE_SHARED);
+    }
+  }
+
+  handleDeviceOrientation() {
+    try {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        // Retrieve the floating window status
+        this.windowClass!.on('windowStatusChange', (windowStatusType) => {
+          if (windowStatusType === window.WindowStatusType.FLOATING) {
+            this.isFloatWindowType = true;
+            // For the first time, directly set it to vertical floating mode.
+            this.screenOrientation = ScreenOrientation.PORTRAIT;
+          } else {
+            this.isFloatWindowType = false;
+            // if it is in fullscreen mode, restore it based on the device.
+            // Restore the tablet to landscape mode.
+            if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM) {
+              this.screenOrientation = ScreenOrientation.PORTRAIT;
+            }
+          }
+        });
+      }
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG,
+        `Failed to register callback. Cause code: ${err.code}, message: ${err.message}`);
+    }
+  }
+
+  unregisterWindowChange() {
+    try {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        // Retrieve the floating window status
+        this.windowClass!.off('windowStatusChange');
+      }
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG,
+        `Failed to unregister callback. Cause code: ${err.code}, message: ${err.message}`);
     }
   }
 
@@ -137,7 +396,17 @@ export struct CodePreview {
     }
   }
 
-  handleOnReady(ctx: NavDestinationContext) {
+  handleShare(): void {
+    const shareDescription = ResourceUtil.getResourceString(this.context, $r('app.string.share_description'));
+    ShareUtil.shareData({
+      utd: uniformTypeDescriptor.UniformDataType.PLAIN_TEXT,
+      content: this.code,
+      title: this.componentName,
+      description: shareDescription
+    });
+  }
+
+  handleOnReady(ctx: NavDestinationContext): void {
     const params: CodeViewParams = ctx.pathInfo.param as CodeViewParams;
     this.code = params.code as string;
     this.componentName = params.componentName as string;
@@ -147,67 +416,154 @@ export struct CodePreview {
   }
 
   @Builder
-  PreviewContentBuilder() {
-    Column() {
-      CodePreviewComponent({
-        onBackPage: () => {
-          this.onBackPage();
-        },
-        webNodeController: this.webNodeController,
-        code: this.code,
-        componentName: this.componentName,
-        pageContainer: true,
-        topTranslateY: this.codePreviewState?.topTranslateY,
-        bottomTranslateY: this.codePreviewState?.bottomTranslateY,
-        navigationOpacity: this.codePreviewState?.navigationOpacity,
-        isFocus: this.isFocus,
-        isBack: this.isBack,
+  TopNavigationMenu() {
+    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
+      Row({ space: CommonConstants.SPACE_8 }) {
+        ForEach(this.topMenuItems.concat(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          this.toolBarItems[0] : []), (item: CustomToolBarItem, _index: number) => {
+          Button() {
+            SymbolGlyph(item.symbolIcon)
+              .fontSize($r('sys.float.Title_M'))
+              .fontColor([$r('sys.color.icon_primary')])
+              .opacity(this.isFocus ? 1 : 0.4)
+          }
+          .customProperty(TRACK_KEY, {
+            interactionContent: this.componentName,
+            interactionType: InteractionTypeEnum.COMPONENT,
+            actionName: item.actionName,
+          } as TrackServiceData)
+          .height($r('app.float.code_preview_top_navigation_height'))
+          .aspectRatio(1)
+          .hoverEffect(HoverEffect.Highlight)
+          .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+            $r('sys.color.comp_background_tertiary'))
+          .onClick(() => {
+            item.action?.();
+          })
+        }, (index: number) => index.toString())
+      }
+      .margin({
+        right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          $r('app.float.code_preview_icon_margin') : 0
       })
     }
-    .geometryTransition(CommonConstants.CODE_PREVIEW_GEOMETRY_ID)
+  }
+
+  @Builder
+  TopTitleViewBuilder() {
+    TopNavigationView({
+      topNavigationData: {
+        isFullScreen: true,
+        isBlur: true,
+        title: this.componentName,
+        onBackClick: () => this.onBackPage?.(),
+      },
+      menuView: () => {
+        this.TopNavigationMenu();
+      }
+    })
+      .translate({ y: this.codePreviewState?.topTranslateY })
+      .position({ x: 0, y: 0 })
+      .opacity(this.codePreviewState?.navigationOpacity)
+  }
+
+  @Builder
+  PreviewContentBuilder() {
+    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
+      Stack({ alignContent: Alignment.TopStart }) {
+        CodePreviewComponent({
+          webNodeController: this.webNodeController,
+          code: this.code,
+          componentName: this.componentName,
+          pageContainer: true,
+          isDarkMode: this.isDarkMode,
+        })
+          .onClick(() => {
+            this.viewModel?.sendEvent(CodePreviewEvent.HANDLE_PAGE_CLICK);
+          })
+        if (!this.isSupportMaterial) {
+          this.TopTitleViewBuilder()
+        }
+      }
+      .geometryTransition(CommonConstants.CODE_PREVIEW_GEOMETRY_ID)
+      .width('100%')
+      .height('100%')
+    }
+  }
+
+  @Builder
+  ToolBarBuilder() {
+    Row() {
+      ForEach(this.toolBarItems, (item: CustomToolBarItem) => {
+        CustomToolItemComponent({
+          item,
+        })
+          .customProperty(TRACK_KEY, {
+            interactionContent: this.componentName,
+            interactionType: InteractionTypeEnum.COMPONENT,
+            actionName: item.actionName,
+          } as TrackServiceData)
+      }, (_item: CustomToolBarItem, index: number) => index.toString())
+    }
     .width('100%')
-    .height('100%')
+    .height(CommonConstants.TOOL_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight)
+    .justifyContent(FlexAlign.SpaceAround)
+    .backgroundColor(Color.Transparent)
+    .backgroundBlurStyle(BlurStyle.COMPONENT_THICK)
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [ LayoutSafeAreaEdge.BOTTOM])
+    .padding({ bottom: this.globalInfoModel.naviIndicatorHeight })
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavDestination() {
-        this.PreviewContentBuilder()
+    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
+      if (this.isSupportMaterial) {
+        HdsNavDestination() {
+          this.PreviewContentBuilder()
+        }
+        .withTheme({ enableThemeColorMode: true })
+        .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+        .hideTitleBar(this.codePreviewState?.topTranslateY != 0, true)
+        .titleBar({
+          style: this.titleBarStyle,
+          content: {
+            title: { mainTitle: this.componentName },
+            menu: {
+              value: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? this.hdsMenuItems :
+                this.hdsMenuItems.slice(0, 1)
+            },
+          }
+        })
+        .hideToolBar((this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+          this.codePreviewState?.bottomTranslateY != 0), true)
+        .toolbarConfiguration(this.ToolBarBuilder(), this.toolbarOptions)
+        .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+        .bindToScrollable([WebUtil.getWebScroller(WebUtil.getComponentCodeUrl()) as Scroller])
+        .attributeModifier(this.navCommonModifier)
+        .onShown(() => {
+          this.isBack = false;
+        })
+        .onBackPressed(() => {
+          return this.onBackPage();
+        })
+      } else {
+        HdsNavDestination() {
+          this.PreviewContentBuilder()
+        }
+        .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+        .hideTitleBar(true)
+        .hideToolBar((this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+          this.codePreviewState?.bottomTranslateY != 0), true)
+        .toolbarConfiguration(this.ToolBarBuilder(), this.toolbarOptions)
+        .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+        .bindToScrollable([WebUtil.getWebScroller(WebUtil.getComponentCodeUrl()) as Scroller])
+        .attributeModifier(this.navCommonModifier)
+        .onShown(() => {
+          this.isBack = false;
+        })
+        .onBackPressed(() => {
+          return this.onBackPage();
+        })
       }
-      .hideTitleBar(true)
-      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
-      .onShown(() => {
-        this.isBack = false;
-      })
-      .onFocus(() => {
-        this.isFocus = true;
-      })
-      .onBlur(() => {
-        this.isFocus = false;
-      })
-      .onBackPressed(() => {
-        return this.onBackPage();
-      })
-    } else {
-      NavDestination() {
-        this.PreviewContentBuilder()
-      }
-      .width('100%')
-      .height('100%')
-      .hideTitleBar(true)
-      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
-      .onFocus(() => {
-        this.isFocus = true;
-      })
-      .onBlur(() => {
-        this.isFocus = false;
-      })
-      .onShown(() => {
-        this.isBack = false;
-      })
-      .onBackPressed(() => {
-        return this.onBackPage();
-      })
     }
   }
 
@@ -218,4 +574,34 @@ export struct CodePreview {
 @Builder
 export function CodePreviewBuilder() {
   CodePreview()
+}
+
+@Component
+struct CustomToolItemComponent {
+  @Prop item: CustomToolBarItem;
+
+  build() {
+    Column() {
+      SymbolGlyph((this.item.activeSymbolIcon && this.item.status === ToolbarItemStatus.ACTIVE) ?
+        this.item.activeSymbolIcon : this.item.symbolIcon)
+        .fontSize($r('sys.float.Title_M'))
+        .fontColor([$r('sys.color.icon_secondary')])
+      Text((this.item.actionValue && this.item.status === ToolbarItemStatus.ACTIVE) ? this.item.actionValue :
+        this.item.value)
+        .textAlign(TextAlign.Center)
+        .fontSize($r('sys.float.Caption_M'))
+        .fontWeight(FontWeight.Medium)
+        .fontColor($r('sys.color.font_secondary'))
+        .margin({ top: $r('sys.float.padding_level2') })
+    }
+    .height('100%')
+    .width($r('app.float.tip_button_width'))
+    .alignItems(HorizontalAlign.Center)
+    .justifyContent(FlexAlign.Center)
+    .onClick(() => {
+      this.item.status =
+        (this.item.status === ToolbarItemStatus.ACTIVE) ? ToolbarItemStatus.NORMAL : ToolbarItemStatus.ACTIVE
+      this.item.action?.();
+    })
+  }
 }

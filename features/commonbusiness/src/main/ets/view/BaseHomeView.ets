@@ -21,14 +21,12 @@ import {
   LoadingView,
   NoNetworkView,
   StorageKey,
-  VersionUtil
 } from '@ohos/common';
 
 @Component
 export struct BaseHomeView {
   @Prop @Require loadingModel: LoadingModel;
   @BuilderParam @Require contentView: () => void;
-  @BuilderParam @Require topTitleView: () => void;
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   reloadData?: Function;
 
@@ -47,9 +45,6 @@ export struct BaseHomeView {
         NoNetworkView(this.globalInfoModel.widthBreakpoint, () => {
           this.reloadData?.();
         })
-      }
-      if (!VersionUtil.canUseHds()) {
-        this.topTitleView()
       }
     }
     .backgroundColor($r('sys.color.background_secondary'))

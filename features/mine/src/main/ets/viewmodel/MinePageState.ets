@@ -13,10 +13,11 @@
 * limitations under the License.
 */
 
-import { BaseState, ObservedArray } from '@ohos/common';
+import { ObservedArray } from '@ohos/common';
+import { BaseHomeState } from '@ohos/commonbusiness';
 
 @Observed
-export class MinePageState extends BaseState {
+export class MinePageState extends BaseHomeState {
   public newContentNumber: number = 0;
   public listItemData: ListGroup[] = [];
   public isLogin: boolean = false;

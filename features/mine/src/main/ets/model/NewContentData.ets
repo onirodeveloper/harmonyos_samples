@@ -21,6 +21,7 @@ export class NewContentData extends BaseData {
   public cardId: number = 0;
   public detailsUrl?: string = '';
   public unionId?: number;
+  public categoryName: string = '';
 }
 
 @Observed

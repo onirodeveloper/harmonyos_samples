@@ -19,7 +19,7 @@ import { TrackManager } from '../trackmanager/TrackManager';
 @Component
 export struct TrackNode {
   @BuilderParam closure: VoidCallback = this.defaultBuilder;
-  eventType: TrackEventType = TrackEventType.UNKNOWN;
+  actionName?: string;
 
   @Builder
   defaultBuilder() {
@@ -41,11 +41,15 @@ export struct TrackNode {
       return;
     }
     node.commonEvent.setOnVisibleAreaApproximateChange(
-      { ratios: [0.0, 1.0], expectedUpdateInterval: 5000 },
+      { ratios: [0.0, 1.0], expectedUpdateInterval: 10000 },
       (isExpanding: boolean, ratio) => {
         if (isExpanding && ratio >= 1.0) {
-          trackServiceData.eventType = this.eventType;
-          TrackManager.getInstance().reportData(trackServiceData);
+          const trackData: TrackServiceData = {
+            eventType: TrackEventType.EXPOSURE,
+            interactionType: trackServiceData.interactionType,
+            interactionContent: trackServiceData.interactionContent,
+          } as TrackServiceData;
+          TrackManager.getInstance().reportData(trackData);
         }
       }
     )

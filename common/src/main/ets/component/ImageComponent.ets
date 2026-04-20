@@ -14,6 +14,7 @@
  */
 
 import { ImageKnifeComponent, ImageKnifeOption } from '@ohos/imageknife';
+import { CommonConstants } from '../constant/CommonConstants';
 import { ImageKnifeUtil } from '../util/ImageKnifeUtil';
 import { ImageUtil } from '../util/ImageUtil';
 import { UrlUtil } from '../util/UrlUtil';
@@ -25,6 +26,7 @@ export struct ImageComponent {
   @Prop objectFit: ImageFit = ImageFit.Contain;
   @Prop alt: ResourceStr = $r('app.media.ic_placeholder');
   @State imageOption?: ImageKnifeOption = undefined;
+  @State isLoaded: boolean = false;
 
   aboutToAppear(): void {
     this.handleSrcChange();
@@ -55,6 +57,14 @@ export struct ImageComponent {
         .alt(this.alt)
         .objectFit(this.objectFit)
         .draggable(false)
+        .opacity(this.isLoaded ? 1 : 0)
+        .animation({
+          duration: CommonConstants.ANIMATION_DURATION,
+          curve: Curve.EaseIn
+        })
+        .onComplete(() => {
+          this.isLoaded = true;
+        })
     }
   }
 }

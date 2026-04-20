@@ -7,7 +7,7 @@
 }
 
 html {
-  margin: 88px auto 0px;
+  margin: 0px auto 0px;
   background-color: #ffffff;
 }
 
@@ -378,4 +378,36 @@ a {
   .footer {
     background-image: url(../common/image/f_dwen_dark.png);
   }
+}
+
+div:not(.viewer-canvas):not(.viewer-container):has(> img) {
+  min-height: 50px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #d8d8d8 37%, #e5e5e5 63%);
+  background-size: 400% 100%;
+  animation: img-shimmer 0.4s ease infinite;
+}
+
+div:not(.viewer-canvas):not(.viewer-container):has(> img.img-loaded) {
+  animation: none;
+  background: transparent;
+  min-height: unset;
+}
+
+img {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+img.img-loaded {
+  opacity: 1;
+}
+
+.viewer-container img,
+.viewer-canvas img {
+  opacity: 1;
+}
+
+@keyframes img-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
 }

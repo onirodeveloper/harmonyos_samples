@@ -14,16 +14,22 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
 import { emitter } from '@kit.BasicServicesKit';
+import {
+  hdsMaterial,
+  HdsNavDestination,
+  HdsNavDestinationAttribute,
+  TitleBarStyleOptions,
+} from '@kit.UIDesignKit';
 import { GlobalInfoModel, TrackEventType, TrackManager, TrackServiceData } from '@ohos/common';
 import {
+  ActionName,
+  InteractionTypeEnum,
   CommonConstants,
   LoadingStatus,
   StorageKey,
   Toast,
-  TopNavigationView,
-  VersionUtil,
+  HdsUtil,
   WindowUtil,
 } from '@ohos/common';
 import { BaseDetailComponent, CardTypeEnum, SampleDetailParams } from '@ohos/commonbusiness';
@@ -49,16 +55,34 @@ export struct SampleDetailView {
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   viewModel: SampleDetailPageVM = SampleDetailPageVM.getInstance();
+  @State categoryName: string = '';
   @State sampleDetailState: SampleDetailState = this.viewModel.getState();
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
+  @State titleBarStyle: TitleBarStyleOptions = {
+    originalStyle: { backgroundStyle: { backgroundColor: Color.Transparent } },
+    scrollEffectOpts: {
+      enableScrollEffect: false,
+    },
+  };
   @Provide currentIndex: number = -1;
   private sampleId: number = 0;
   private cardId: number = 0;
   private unionId?: number = 0;
-  private contentType: CardTypeEnum = CardTypeEnum.SAMPLE;
 
   aboutToAppear(): void {
     this.handleColorModeChange();
+    if (HdsUtil.isSupportNewMaterialApi()) {
+      this.titleBarStyle = {
+        systemMaterialEffect: {
+          materialType: hdsMaterial.MaterialType.IMMERSIVE,
+          materialLevel: hdsMaterial.MaterialLevel.ADAPTIVE,
+        },
+        originalStyle: { backgroundStyle: { backgroundColor: Color.Transparent } },
+        scrollEffectOpts: {
+          enableScrollEffect: false,
+        },
+      };
+    }
   }
 
   handleColorModeChange() {
@@ -72,7 +96,7 @@ export struct SampleDetailView {
     this.cardId = params.cardId;
     this.unionId = params.unionId;
     this.currentIndex = params.currentIndex;
-    this.contentType = params.contentType;
+    this.categoryName = params.categoryName;
     this.viewModel.sendEvent(new InitSampleDetailEvent(this.sampleId, this.cardId, params.currentIndex,
       params.unionId));
     this.viewModel.sendEvent(new AssignPathStackEvent(cxt?.pathStack));
@@ -87,14 +111,13 @@ export struct SampleDetailView {
           sampleIndex: index,
           showIndicator: this.sampleDetailState.sampleCount > 1,
           widthBreakpoint: this.globalInfoModel.widthBreakpoint,
-          contentType: this.contentType,
         })
       }, (item: SampleDetailData) => item.id.toString())
     }
     .layoutWeight(1)
     .width('100%')
     .padding({
-      top: CommonConstants.NAVIGATION_HEIGHT + (VersionUtil.canUseHds() ? this.globalInfoModel.statusBarHeight : 0),
+      top: CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight,
       bottom: this.globalInfoModel.naviIndicatorHeight,
     })
     .indicator(this.sampleDetailState.sampleCount > 1)
@@ -105,9 +128,10 @@ export struct SampleDetailView {
       this.viewModel.sendEvent(new SetIndexEvent(index));
       this.currentIndex = index;
       TrackManager.getInstance().reportData({
-        content: this.sampleDetailState.sampleDatas[index].sampleCard.title,
-        moduleType: this.contentType,
-        eventType: TrackEventType.SAMPLE_CLICK,
+        interactionContent: this.sampleDetailState.sampleDatas[index].sampleCard.title,
+        interactionType: InteractionTypeEnum.SAMPLE,
+        actionName: ActionName.SAMPLE_CLICK,
+        eventType: TrackEventType.CLICK,
       } as TrackServiceData)
     })
     .gesture(
@@ -122,30 +146,10 @@ export struct SampleDetailView {
   }
 
   @Builder
-  TopTitleViewBuilder() {
-    TopNavigationView({
-      topNavigationData: {
-        title: $r('app.string.sample_title'),
-        onBackClick: () => {
-          this.onBack();
-        },
-      },
-      menuView: () => {
-        this.TopNavigationMenu();
-      }
-    })
-  }
-
-  @Builder
   DetailContentBuilder() {
     BaseDetailComponent({
       detailContentView: () => {
         this.SampleDetailBuilder()
-      },
-      topTitleView: () => {
-        if (!VersionUtil.canUseHds()) {
-          this.TopTitleViewBuilder()
-        }
       },
       loadingStatus: this.sampleDetailState.loadingStatus,
       reloadData: () => {
@@ -177,66 +181,39 @@ export struct SampleDetailView {
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavDestination() {
-        this.DetailContentBuilder();
-      }
-      .hideBackButton(false)
-      .titleBar({
-        avoidLayoutSafeArea: true,
-        style: {
-          originalStyle: { backgroundStyle: { backgroundColor: Color.Transparent } },
-          scrollEffectOpts: {
-            enableScrollEffect: false,
-          },
-        },
-        content: {
-          title: { mainTitle: $r('app.string.sample_title') },
-          menu: {
-            value: [{
-              content: {
-                icon: $r('sys.symbol.square_and_pencil'),
-                isEnabled: true,
-                action: () => {
-                  emitter.emit(CommonConstants.BIND_SHEET_OPEN_EVENT + this.currentIndex);
-                }
-              }
-            }]
-          },
-        }
-      })
-      .backgroundColor($r('sys.color.background_secondary'))
-      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
-      .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
-      .onBackPressed(() => {
-        return this.onBack();
-      })
-      .onWillShow(() => {
-        this.sampleDetailState.isBackPressed = false;
-      })
-      .onWillHide(() => {
-        this.sampleDetailState.isBackPressed = false;
-      })
-    } else {
-      NavDestination() {
-        this.DetailContentBuilder()
-      }
-      .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
-      .onBackPressed(() => {
-        return this.onBack();
-      })
-      .onWillShow(() => {
-        this.sampleDetailState.isBackPressed = false;
-      })
-      .onWillHide(() => {
-        this.sampleDetailState.isBackPressed = false;
-      })
-      .padding({ top: this.globalInfoModel.statusBarHeight })
-      .hideTitleBar(true)
-      .width('100%')
-      .height('100%')
-      .backgroundColor($r('sys.color.background_secondary'))
+    HdsNavDestination() {
+      this.DetailContentBuilder();
     }
+    .hideBackButton(false)
+    .titleBar({
+      style: this.titleBarStyle,
+      content: {
+        title: { mainTitle: this.categoryName },
+        menu: {
+          value: [{
+            content: {
+              icon: $r('sys.symbol.square_and_pencil'),
+              isEnabled: true,
+              action: () => {
+                emitter.emit(CommonConstants.BIND_SHEET_OPEN_EVENT + this.currentIndex);
+              }
+            }
+          }]
+        },
+      }
+    })
+    .backgroundColor($r('sys.color.background_secondary'))
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+    .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
+    .onBackPressed(() => {
+      return this.onBack();
+    })
+    .onWillShow(() => {
+      this.sampleDetailState.isBackPressed = false;
+    })
+    .onWillHide(() => {
+      this.sampleDetailState.isBackPressed = false;
+    })
   }
 
   private onBack(): boolean {

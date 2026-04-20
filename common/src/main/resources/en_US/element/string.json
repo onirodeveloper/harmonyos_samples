@@ -26,7 +26,7 @@
     },
     {
       "name": "input_placeholder",
-      "value": "Leave your comments"
+      "value": "Leave your feedback (do not include personal information)…"
     },
     {
       "name": "like",
@@ -99,6 +99,14 @@
     {
       "name": "submit_fail",
       "value": "Submit failed"
+    },
+    {
+      "name": "copy_success",
+      "value": "Copy Success"
+    },
+    {
+      "name": "copy_fail",
+      "value": "Copy Fail"
     }
   ]
 }

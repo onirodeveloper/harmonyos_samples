@@ -40,10 +40,16 @@ export struct PictureListCard {
         .fontColor($r('sys.color.font_on_secondary'))
         .fontWeight(FontWeight.Medium)
         .margin({ bottom: $r('sys.float.padding_level2') })
+        .maxLines(1)
+        .ellipsisMode(EllipsisMode.END)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
       Text(this.componentCardData?.title)
         .fontSize($r('sys.float.Title_M'))
         .fontColor($r('sys.color.font_on_primary'))
         .fontWeight(FontWeight.Bold)
+        .maxLines(1)
+        .ellipsisMode(EllipsisMode.END)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
     }
     .alignItems(HorizontalAlign.Start)
     .justifyContent(FlexAlign.End)
@@ -59,6 +65,7 @@ export struct PictureListCard {
         src: this.componentCardData?.image,
         objectFit: ImageFit.Cover,
       })
+        .backgroundColor(this.componentCardData?.themeColor)
         .width('100%')
         .height(this.isVdeSeries ? $r('app.float.card_top_height_verde') : $r('app.float.card_top_height'))
         .overlay(this.textOverlay())

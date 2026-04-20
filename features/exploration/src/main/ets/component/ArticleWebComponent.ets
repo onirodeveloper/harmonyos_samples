@@ -13,9 +13,7 @@
  * limitations under the License.
  */
 
-import { ConfigurationConstant } from '@kit.AbilityKit';
 import { webview } from '@kit.ArkWeb';
-import type { BusinessError } from '@kit.BasicServicesKit';
 import {
   CommonConstants,
   GlobalInfoModel,
@@ -23,17 +21,11 @@ import {
   Logger,
   NativeActionData,
   StorageKey,
-  TopNavigationView,
   WebSheetBuilder,
   WebUtil,
-  WindowUtil
 } from '@ohos/common';
 import { BaseDetailComponent } from '@ohos/commonbusiness';
-import {
-  ArticleDetailViewModel,
-  ExplorationDetailEventType,
-  NativePageParam,
-} from '../viewmodel/ArticleDetailViewModel';
+import { ArticleDetailViewModel } from '../viewmodel/ArticleDetailViewModel';
 import { ExplorationDetailState } from '../viewmodel/ExplorationDetailState';
 
 const NO_NETWORK_CODE = -106;
@@ -48,151 +40,98 @@ export struct ArticleWebComponent {
   @Link loadingStatus: LoadingStatus;
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @State bindSheetShow: boolean = false;
-  @State bindSheetSrc: string = '';
+  @Link bindSheetShow: boolean;
+  @Link bindSheetSrc: string;
   @State detailState: ExplorationDetailState = this.viewModel.getState();
   @State isBlur: boolean = false;
   @State title: string = '';
-  bindSheetSrcSet: Set<string> = new Set();
-  webUrlType: number = 0;
-
-  aboutToAppear(): void {
-    this.handleColorModeChange();
-    this.registerJsFunction();
-  }
-
-  aboutToDisappear(): void {
-    try {
-      this.bindSheetSrcSet.forEach((item: string) => {
-        WebUtil.removeNode(item);
-      });
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(TAG, `Web load data error. ${err?.code}, ${err.message}`);
-    }
-  }
-
-  handleWebScroll(yOffset: number) {
-    this.title = yOffset > CommonConstants.NAVIGATION_HEIGHT ? this.detailState.content.title : '';
-    this.isBlur = yOffset > CommonConstants.SPACE_12;
-  }
-
-  handleColorModeChange() {
-    const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    WindowUtil.updateStatusBarColor(isSystemDark);
-  }
-
-  registerJsFunction() {
-    WebUtil.setWebSheetAction(this.detailsUrl, (src: string, type: number) => {
-      this.webUrlType = type;
-      if (!this.bindSheetSrcSet.has(src)) {
-        WebUtil.createWebNode(src, this.getUIContext(), NestedScrollMode.SELF_ONLY);
-        this.bindSheetSrcSet.add(src);
-      }
-      this.bindSheetShow = true;
-      this.bindSheetSrc = src;
-    });
-    WebUtil.setJumpPageAction(this.detailsUrl,
-      (type: string, id: number, currentIndex?: number, componentName?: string) => {
-        this.viewModel.sendEvent<NativePageParam>({
-          type: ExplorationDetailEventType.JUMP_NATIVE_PAGE,
-          param: {
-            tabBarView: this.tabViewType,
-            type,
-            id,
-            currentIndex,
-            componentName,
-          },
-        });
-      })
-  }
+  @Link webUrlType: number;
+  bindScroller?: Scroller;
 
   @Builder
   WebContentBuilder() {
-    Web({ src: this.detailsUrl, controller: this.webController })
-      .zoomAccess(false)
-      .fileAccess(false)
-      .mixedMode(MixedMode.None)
-      .verticalScrollBarAccess(false)
-      .horizontalScrollBarAccess(false)
-      .imageAccess(true)
-      .cacheMode(CacheMode.Default)
-      .domStorageAccess(true)
-      .javaScriptAccess(true)
-      .javaScriptProxy({
-        object: new NativeActionData(this.detailsUrl),
-        name: 'nativeActionData',
-        methodList: ['webSheet', 'jumpPage'],
-        controller: this.webController,
-        permission: WebUtil.getJsPermission(),
+    Stack() {
+      Scroll(this.bindScroller).zIndex(-1)
+      Scroll() {
+        Web({ src: this.detailsUrl, controller: this.webController })
+          .zoomAccess(false)
+          .fileAccess(false)
+          .mixedMode(MixedMode.None)
+          .verticalScrollBarAccess(false)
+          .horizontalScrollBarAccess(false)
+          .imageAccess(true)
+          .cacheMode(CacheMode.Default)
+          .domStorageAccess(true)
+          .javaScriptAccess(true)
+          .javaScriptProxy({
+            object: new NativeActionData(this.detailsUrl),
+            name: 'nativeActionData',
+            methodList: ['webSheet', 'jumpPage'],
+            controller: this.webController,
+            permission: WebUtil.getJsPermission(),
+          })
+          .geolocationAccess(false)
+          .backgroundColor($r('sys.color.background_secondary'))
+          .overScrollMode(OverScrollMode.ALWAYS)
+          .darkMode(WebDarkMode.Auto)
+          .forceDarkAccess(true)
+          .allowDrop(null)
+          .onPageVisible(() => {
+            if (this.loadingStatus !== LoadingStatus.NO_NETWORK) {
+              this.loadingStatus = LoadingStatus.SUCCESS;
+            }
+          })
+          .onErrorReceive((event: OnErrorReceiveEvent) => {
+            const isMainFrame: boolean = event?.request?.isMainFrame();
+            const errCode: number = event?.error?.getErrorCode();
+            if (isMainFrame && errCode === NO_NETWORK_CODE) {
+              this.loadingStatus = LoadingStatus.NO_NETWORK;
+            }
+            Logger.error(TAG, `onErrorReceive.url: ${this.detailsUrl}; isMainFrame: ${isMainFrame}; code: ${errCode}`);
+          })
+          .onLoadIntercept((event: OnLoadInterceptEvent) => {
+            return WebUtil.handleLoadIntercept(event);
+          })
+          .onConsole((event: OnConsoleEvent) => {
+            Logger.error(TAG, event.message.getMessage())
+            return false;
+          })
+          .onSslErrorEventReceive((event) => {
+            Logger.error(TAG, `SSL checked failed, error: ${event.error.toString()}`);
+            event.handler.handleCancel();
+          })
+          .onControllerAttached(() => {
+            WebUtil.setWebController(this.detailsUrl, this.webController);
+            // Setting the local file path that allows cross-domain access.
+            const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+            const context: Context = uiContext?.getHostContext() as Context;
+            try {
+              this.webController.setPathAllowingUniversalAccess([context?.resourceDir]);
+            } catch (error) {
+              Logger.error(TAG, `setPathAllowingUniversalAccess failed, error: ${error.message}`);
+            }
+          })
+          .onScroll((event) => {
+            this.bindScroller?.scrollTo({ xOffset: event.xOffset, yOffset: event.yOffset });
+          })
+          .width('100%')
+          .height('100%')
+      }
+      .scrollBar(BarState.Off)
+      .edgeEffect(EdgeEffect.None)
+      .onReachStart(() => {
+        this.bindScroller?.scrollEdge(Edge.Top);
       })
-      .geolocationAccess(false)
-      .backgroundColor($r('sys.color.background_secondary'))
-      .overScrollMode(OverScrollMode.ALWAYS)
-      .darkMode(WebDarkMode.Auto)
-      .forceDarkAccess(true)
-      .allowDrop(null)
-      .onPageEnd(() => {
-        if (this.loadingStatus !== LoadingStatus.NO_NETWORK) {
-          this.loadingStatus = LoadingStatus.SUCCESS;
-        }
+      .onReachEnd(() => {
+        this.bindScroller?.scrollEdge(Edge.Bottom);
       })
-      .onErrorReceive((event: OnErrorReceiveEvent) => {
-        const isMainFrame: boolean = event?.request?.isMainFrame();
-        const errCode: number = event?.error?.getErrorCode();
-        if (isMainFrame && errCode === NO_NETWORK_CODE) {
-          this.loadingStatus = LoadingStatus.NO_NETWORK;
-        }
-        Logger.error(TAG, `onErrorReceive.url: ${this.detailsUrl}; isMainFrame: ${isMainFrame}; code: ${errCode}`);
-      })
-      .onLoadIntercept((event: OnLoadInterceptEvent) => {
-        return WebUtil.handleLoadIntercept(event);
-      })
-      .onConsole((event: OnConsoleEvent) => {
-        Logger.error(TAG, event.message.getMessage())
-        return false;
-      })
-      .onSslErrorEventReceive((event) => {
-        Logger.error(TAG, `SSL checked failed, error: ${event.error.toString()}`);
-        event.handler.handleCancel();
-      })
-      .onControllerAttached(() => {
-        WebUtil.setWebController(this.detailsUrl, this.webController);
-        // Setting the local file path that allows cross-domain access.
-        const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
-        const context: Context = uiContext?.getHostContext() as Context;
-        try {
-          this.webController.setPathAllowingUniversalAccess([context?.resourceDir]);
-        } catch (error) {
-          Logger.error(TAG, `setPathAllowingUniversalAccess failed, error: ${error.message}`);
-        }
-      })
-      .onScroll((event) => {
-        this.viewModel.sendEvent<number>({
-          type: ExplorationDetailEventType.CHANGE_TITLE_BAR_STYLE,
-          param: event.yOffset,
-        });
-      })
-      .width('100%')
-      .height('100%')
-  }
-
-  @Builder
-  TopTitleViewBuilder() {
-    TopNavigationView({
-      topNavigationData: this.detailState.topNavigationData,
-    })
+    }
   }
 
   build() {
     BaseDetailComponent({
       detailContentView: () => {
         this.WebContentBuilder()
-      },
-      topTitleView: () => {
-        this.TopTitleViewBuilder()
       },
       reloadData: () => {
         try {
@@ -213,7 +152,7 @@ export struct ArticleWebComponent {
           preferType: SheetType.CENTER,
           height: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
             ((this.globalInfoModel.deviceHeight - this.globalInfoModel.decorHeight) *
-            CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
+              CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
           width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SHEET_WIDTH_XL :
             undefined,
           onDisappear: () => {

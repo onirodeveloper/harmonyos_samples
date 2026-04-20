@@ -14,7 +14,15 @@
  */
 
 import { BusinessError } from '@kit.BasicServicesKit';
-import { BaseVM, BaseVMEvent, LoadingStatus, PageEnum, RequestErrorCode, TopNavigationData, } from '@ohos/common';
+import {
+  BaseVM,
+  BaseVMEvent,
+  InteractionTypeEnum,
+  LoadingStatus,
+  PageEnum,
+  RequestErrorCode,
+  TopNavigationData,
+} from '@ohos/common';
 import {
   ArticleDetailParams,
   CardTypeEnum,
@@ -62,15 +70,21 @@ export class NewContentVM extends BaseVM<NewContentPageState> {
     let param: ComponentDetailParams | SampleDetailParams | ArticleDetailParams | undefined;
     if (item.contentType === CardTypeEnum.COMPONENT) {
       name = PageEnum.COMPONENT_DETAIL_VIEW;
-      param = { componentName: item.title, id: item.id, contentType: item.contentType } as ComponentDetailParams;
+      param = {
+        title: item.title,
+        id: item.id,
+        interactionType: InteractionTypeEnum.COMPONENT
+      } as ComponentDetailParams;
     } else if (item.contentType === CardTypeEnum.SAMPLE) {
       name = PageEnum.SAMPLE_DETAIL_VIEW;
       param = {
-        currentIndex: item.sequence ?? 0,
+        title: item.title,
+        currentIndex: (item.sequence - 1) ?? 0,
         cardId: item.cardId,
         id: item.id,
-        contentType: item.contentType,
+        interactionType: InteractionTypeEnum.SAMPLE,
         unionId: item.unionId,
+        categoryName: item.categoryName,
       } as SampleDetailParams;
     } else if (item.contentType === CardTypeEnum.ARTICLE) {
       name = PageEnum.ARTICLE_DETAIL_VIEW;
@@ -79,6 +93,7 @@ export class NewContentVM extends BaseVM<NewContentPageState> {
         title: item.title,
         isArticle: true,
         detailsUrl: item.detailsUrl || '',
+        interactionType: InteractionTypeEnum.ARTICLE,
       } as ArticleDetailParams;
     }
     this.currentPathStack?.pushPath({ name, param }, true);

@@ -40,26 +40,94 @@ export class TrackCommonData {
 }
 
 export class TrackServiceData {
-  public moduleType: number = 0;
+  /**
+   * The type of track, Click or Exposure.
+   */
   public eventType: TrackEventType = TrackEventType.UNKNOWN;
-  public operTime: string = '';
-  public content: string = '';
-  public ownerPage: string = '';
+  /**
+   * The info of page.
+   */
+  public pageName?: string;
+  /**
+   * The info of tab click.
+   */
+  public mainTab?: MainTabEnum;
+  public secondaryTab?: string;
+  /**
+   * The info of click item.
+   */
+  public interactionType?: string;
+  public interactionContent?: string;
+  public actionName?: string;
+  /**
+   *  The info of operation refer.
+   */
+  public referType?: ReferTypeEnum;
+  public referSourceId?: number;
+  /**
+   * Other info.
+   */
+  public time: string = '';
+  public duration?: number;
+  public pushMessageTitle?: string;
 }
 
 export enum TrackEventType {
+  UNKNOWN = 'UNKNOWN',
+  CLICK = 'CLICK',
+  EXPOSURE = 'EXPOSURE',
+}
+
+export enum MainTabEnum {
+  COMPONENT = 'COMPONENT',
+  SAMPLE = 'SAMPLE',
+  ARTICLE = 'ARTICLE',
+  MINE = 'MINE',
+  UNKNOWN = '',
+}
+
+export enum InteractionTypeEnum {
+  COMPONENT = 'COMPONENT',
+  SAMPLE = 'SAMPLE',
+  ARTICLE = 'ARTICLE',
+  APPLICATION_UPDATE_DIALOG = 'APPLICATION_UPDATE_DIALOG',
+}
+
+export enum ReferTypeEnum {
+  APPLICATION = 'APPLICATION',
+  PUSH = 'PUSH',
+  FORM_CARD = 'FORM_CARD',
+  CELIA_SUGGESTION = 'CELIA_SUGGESTION',
+  UNKNOWN = '',
+}
+
+export enum ActionName {
+  /**
+   * component module.
+   */
   COMPONENT_CLICK = 'COMPONENT_CLICK',
-  COMPONENT_EXPOSURE = 'COMPONENT_EXPOSURE',
-  COMPONENT_CODE_CLICK = 'COMPONENT_CODE_CLICK',
-  COMPONENT_CODE_COPY_CLICK = 'COMPONENT_CODE_COPY_CLICK',
-  COMPONENT_CODE_SHARE_CLICK = 'COMPONENT_CODE_SHARE_CLICK',
-  COMPONENT_RECOMMEND_CLICK = 'COMPONENT_RECOMMEND_CLICK',
+  CODE_COPY = 'CODE_COPY',
+  CODE_SHARE = 'CODE_SHARE',
+  CODE_CLICK = 'CODE_CLICK',
+  RECOMMEND_CLICK = 'RECOMMEND_CLICK',
+  /**
+   * sample module.
+   */
   SAMPLE_CLICK = 'SAMPLE_CLICK',
-  SAMPLE_EXPOSURE = 'SAMPLE_EXPOSURE',
-  SAMPLE_EXPERIENCE_CLICK = 'SAMPLE_EXPERIENCE_CLICK',
-  SAMPLE_SOURCECODE_READ_CLICK = 'SAMPLE_SOURCECODE_READ_CLICK',
-  SAMPLE_SOURCECODE_SHARE_CLICK = 'SAMPLE_SOURCECODE_SHARE_CLICK',
+  EXPERIENCE_CLICK = 'EXPERIENCE_CLICK',
+  SOURCE_CODE_VIEW = 'SOURCE_CODE_VIEW',
+  SOURCE_CODE_SHARE = 'SOURCE_CODE_SHARE',
+  /**
+   * article module.
+   */
   ARTICLE_CLICK = 'ARTICLE_CLICK',
-  ARTICLE_EXPOSURE = 'ARTICLE_EXPOSURE',
-  UNKNOWN = 'UNKNOWN'
+  /**
+   * dialog action.
+   */
+  DIALOG_CANCEL = 'DIALOG_CANCEL',
+  DIALOG_CONFIRM = 'DIALOG_CONFIRM',
+  /**
+   * error case.
+   */
+  UNKNOWN = 'UNKNOWN',
 }

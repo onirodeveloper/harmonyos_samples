@@ -23,6 +23,10 @@ export struct QuestionnaireView {
   @State questionnaireState: QuestionnaireState = this.viewModel.getState();
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  private colorResources: Resource[] = [$r('app.color.questionnaire_color_1'), $r('app.color.questionnaire_color_2'),
+    $r('app.color.questionnaire_color_3'), $r('app.color.questionnaire_color_4'), $r('app.color.questionnaire_color_5'),
+    $r('app.color.questionnaire_color_6'), $r('app.color.questionnaire_color_7'), $r('app.color.questionnaire_color_8'),
+    $r('app.color.questionnaire_color_9'), $r('app.color.questionnaire_color_10')];
 
   build() {
     Navigation() {
@@ -38,7 +42,7 @@ export struct QuestionnaireView {
             Column() {
               Text(`${index + 1}`)
                 .fontSize($r('sys.float.Subtitle_S'))
-                .fontColor(this.questionnaireState.selectedScore === (index + 1) ? $r('sys.color.brand') :
+                .fontColor(this.questionnaireState.selectedScore >= (index + 1) ? $r('sys.color.font_on_primary') :
                   $r('sys.color.font_primary'))
                 .fontWeight(FontWeight.Regular)
             }
@@ -47,7 +51,8 @@ export struct QuestionnaireView {
             .align(Alignment.Center)
             .justifyContent(FlexAlign.Center)
             .borderRadius($r('sys.float.corner_radius_level2'))
-            .backgroundColor($r('sys.color.background_primary'))
+            .backgroundColor(this.questionnaireState.selectedScore >= (index + 1) ? this.colorResources[index] :
+              $r('sys.color.background_primary'))
             .onClick(() => {
               this.viewModel.sendEvent(new SelectScoreEvent(index + 1));
             })

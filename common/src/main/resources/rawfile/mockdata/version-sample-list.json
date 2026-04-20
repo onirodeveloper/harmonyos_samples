@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "title": "多设备UI组件",
+      "desc": "丰富的UI组件助您构建精美界面",
+      "mediaType": "IMAGE",
+      "mediaUrl": "image/banner_ui.jpg",
+      "originalUrl": "https://developer.huawei.com/consumer/cn/harmonyos",
+      "moduleName": "hmossample",
+      "abilityName": "HmosSampleAbility",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "title": "多设备长视频",
+      "desc": "跨端无缝连接",
+      "mediaType": "IMAGE",
+      "mediaUrl": "image/banner_video.jpg",
+      "originalUrl": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5-arkui-V5",
+      "moduleName": "arkuisample",
+      "abilityName": "ArkuiSampleAbility",
+      "order": 2
+    }
+  ]
+}

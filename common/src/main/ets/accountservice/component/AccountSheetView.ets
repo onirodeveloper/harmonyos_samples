@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License,Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -47,7 +47,7 @@ struct AccountSheetView {
         },
       },
     }),
-  })
+  });
 
   build() {
     Row() {
@@ -64,12 +64,31 @@ struct AccountSheetView {
             .fontWeight(FontWeight.Bold)
             .fontColor($r('sys.color.font_primary'))
             .margin({ top: $r('sys.float.padding_level10') })
-          Image(this.userAccount.avatarUrl)
-            .draggable(false)
-            .width($r('app.float.account_sheet_view_avatar_size'))
-            .aspectRatio(1)
-            .borderRadius($r('app.float.account_sheet_view_avatar_border_radius'))
-            .margin({ top: $r('app.float.account_sheet_view_avatar_margin') })
+          if (this.userAccount.avatarUrl !== '') {
+            Image(this.userAccount.avatarUrl)
+              .draggable(false)
+              .width($r('app.float.account_sheet_view_avatar_size'))
+              .aspectRatio(1)
+              .borderRadius($r('app.float.account_sheet_view_avatar_border_radius'))
+              .margin({ top: $r('app.float.account_sheet_view_avatar_margin') })
+          } else {
+            Text(this.userAccount.nickname.slice(-1))
+              .width($r('app.float.account_sheet_view_avatar_size'))
+              .aspectRatio(1)
+              .borderRadius($r('app.float.account_sheet_view_avatar_border_radius'))
+              .backgroundColor($r('sys.color.ohos_id_color_tertiary'))
+              .linearGradient({
+                colors: [
+                  [$r('sys.color.ohos_id_color_tertiary'), 0.0],
+                  [$r('sys.color.ohos_id_color_foreground_contrary'), 1.0],
+                ],
+              })
+              .fontColor($r('sys.color.font_on_primary'))
+              .fontSize($r('sys.float.Title_M'))
+              .fontWeight(FontWeight.Bold)
+              .textAlign(TextAlign.Center)
+              .margin({ top: $r('app.float.account_sheet_view_avatar_margin') })
+          }
           Text(this.userAccount.nickname)
             .margin($r('sys.float.padding_level12'))
             .fontSize($r('sys.float.Body_L'))
@@ -84,7 +103,7 @@ struct AccountSheetView {
           $r('app.string.log_out'))
           .type(this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? ButtonType.Normal :
             ButtonType.Capsule)
-          .fontSize($r('sys.float.Subtitle_M'))
+          .fontSize($r('sys.float.Body_L'))
           .role(!AccountService.getInstance().userLogin ? ButtonRole.NORMAL : ButtonRole.ERROR)
           .buttonStyle(!AccountService.getInstance().userLogin ? ButtonStyleMode.EMPHASIZED : ButtonStyleMode.NORMAL)
           .borderRadius(this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?

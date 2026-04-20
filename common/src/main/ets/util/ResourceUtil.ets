@@ -210,10 +210,16 @@ export class ResourceUtil {
       return content.galleryUrl;
     } else if (key === ConfigMapKey.MIIT_URL) {
       return content.miitUrl;
+    } else if (key === ConfigMapKey.DEVELOPER_URL) {
+      return content.developerUrl;
+    } else if (key === ConfigMapKey.TV_SOURCE_CODE_URL) {
+      return content.tvSourceCodeUrl
     } else if (key === ConfigMapKey.WHITELIST) {
       return content.webWhitelist;
     } else if (key === ConfigMapKey.JS_WHITELIST) {
       return content.jsWhitelist;
+    } else if (key === ConfigMapKey.CONTENT_CENTER) {
+      return content.contentCenter;
     }
     return '';
   }
@@ -262,8 +268,11 @@ export class ResourceUtil {
 export class ConfigMapData {
   public galleryUrl: string = '';
   public miitUrl: string = '';
+  public tvSourceCodeUrl: string = '';
+  public developerUrl: string = '';
   public webWhitelist: object[] = [];
   public jsWhitelist: object[] = [];
+  public contentCenter: string = '';
 }
 
 export enum ConfigMapKey {
@@ -271,4 +280,7 @@ export enum ConfigMapKey {
   MIIT_URL = 'miitUrl',
   WHITELIST = 'webWhitelist',
   JS_WHITELIST = 'jsWhitelist',
+  CONTENT_CENTER = 'contentCenter',
+  DEVELOPER_URL = 'developerUrl',
+  TV_SOURCE_CODE_URL = 'tvSourceCodeUrl'
 }

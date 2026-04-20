@@ -15,8 +15,6 @@
 
 export class UserAccount {
   public unionId: string = ' ';
-  public openId: string = '';
   public nickname: string = '';
   public avatarUrl: string = '';
-  public email: string = '';
 }

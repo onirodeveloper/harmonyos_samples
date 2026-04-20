@@ -23,9 +23,12 @@ import {
   StorageKey,
 } from '@ohos/common';
 import type { LoadingModel } from '@ohos/common';
+import { BaseHomeEventType, TabBarAnimationParam } from '@ohos/commonbusiness';
+import { PracticeViewModel } from '../viewmodel/PracticeViewModel';
 
 @Component
 export struct BaseCategoryView {
+  viewModel: PracticeViewModel = PracticeViewModel.getInstance();
   @Prop @Require loadingModel: LoadingModel;
   @BuilderParam @Require contentView: () => void;
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
@@ -34,7 +37,7 @@ export struct BaseCategoryView {
   reloadData?: Function;
 
   build() {
-    Scroll() {
+    Scroll(this.scroller) {
       if (this.loadingModel.loadingStatus === LoadingStatus.SUCCESS) {
         this.contentView()
       } else {
@@ -64,6 +67,17 @@ export struct BaseCategoryView {
     .backgroundColor($r('sys.color.background_secondary'))
     .height('100%')
     .width('100%')
+    .onScrollFrameBegin((offset: number, state: ScrollState) => {
+      if (state === ScrollState.Scroll && offset < 0) {
+        this.viewModel.sendEvent<TabBarAnimationParam>({
+          type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
+          param: {
+            yOffset: offset
+          } as TabBarAnimationParam,
+        });
+      }
+      return { offsetRemain: offset };
+    })
     .nestedScroll({
       scrollForward: NestedScrollMode.PARENT_FIRST,
       scrollBackward: NestedScrollMode.SELF_FIRST,

@@ -17,7 +17,7 @@ import {
   GlobalInfoModel,
   LoadingFailedView,
   LoadingStatus,
-  LoadingView,
+  DelayedLoadingView,
   NoNetworkView,
   StorageKey
 } from '@ohos/common';
@@ -27,7 +27,6 @@ export struct BaseDetailComponent {
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   @Prop loadingStatus: LoadingStatus;
   @BuilderParam @Require detailContentView: () => void;
-  @BuilderParam @Require topTitleView: () => void;
   reloadData?: Function;
 
   build() {
@@ -36,7 +35,7 @@ export struct BaseDetailComponent {
         this.detailContentView()
       }
       if (this.loadingStatus === LoadingStatus.IDLE || this.loadingStatus === LoadingStatus.LOADING) {
-        LoadingView(this.globalInfoModel.widthBreakpoint)
+        DelayedLoadingView({ breakpoint: this.globalInfoModel.widthBreakpoint })
       } else if (this.loadingStatus === LoadingStatus.FAILED) {
         LoadingFailedView(this.globalInfoModel.widthBreakpoint, () => {
           this.reloadData?.();
@@ -46,7 +45,6 @@ export struct BaseDetailComponent {
           this.reloadData?.();
         })
       }
-      this.topTitleView()
     }
     .backgroundColor(Color.Transparent)
   }

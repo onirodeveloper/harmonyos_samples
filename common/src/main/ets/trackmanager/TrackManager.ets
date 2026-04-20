@@ -36,6 +36,7 @@ export class TrackManager {
   private trackCommonData: TrackCommonData | undefined;
   private interval: number = 0;
   private currentPage: string = '';
+  private pageSwitchInTime: number = -1;
 
   private constructor() {
   }
@@ -52,9 +53,10 @@ export class TrackManager {
    */
   public initTrackManager(): void {
     PreferenceManager.getInstance().setValue<TrackModel[]>(StorageKey.APP_TRACK_DATA, []);
-    this.initTrackCommonData().then(() => {
+    this.initTrackCommonData().then(async () => {
       TrackManager.uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
-      TrackManager.trackTable = new TrackTable(TrackManager.uiContext?.getHostContext() as Context);
+      TrackManager.trackTable = new TrackTable();
+      await TrackManager.trackTable.getRdbStore(TrackManager.uiContext?.getHostContext() as Context)
       // If not exist the account user id, then generate guest id.
       this.startReporting(TIMEOUT);
       this.registerClickListen();
@@ -72,38 +74,11 @@ export class TrackManager {
   }
 
   public reportData(trackServiceData: TrackServiceData): void {
-    if (trackServiceData.ownerPage === undefined) {
-      trackServiceData.ownerPage = this.currentPage;
+    if (trackServiceData.pageName === undefined) {
+      trackServiceData.pageName = this.currentPage;
     }
-    trackServiceData.operTime = FormatDate.formatDate(new Date());
+    trackServiceData.time = FormatDate.formatDate(new Date());
     TrackManager.trackTable.insertTrackData(trackServiceData);
-  }
-
-  private registerClickListen(): void {
-    TrackManager.uiContext.getUIObserver().on('willClick', (_event: ClickEvent, node?: FrameNode) => {
-      if (node) {
-        const actualNode: FrameNode | null = this.getChildFrameNode(node) || this.getParentFrameNode(node);
-        const trackServiceData = actualNode?.getCustomProperty(TRACK_KEY) as TrackServiceData;
-        if (trackServiceData && trackServiceData.eventType !== TrackEventType.UNKNOWN) {
-          this.reportData(trackServiceData);
-        }
-      }
-    })
-  }
-
-  private registerNavigationListen(): void {
-    TrackManager.uiContext.getUIObserver()
-      .on('navDestinationSwitch', (navigationInfo: uiObserver.NavDestinationSwitchInfo) => {
-        this.currentPage = (navigationInfo.to as uiObserver.NavDestinationInfo).name as string;
-      })
-  }
-
-  private unRegisterClickListen(): void {
-    TrackManager.uiContext.getUIObserver().off('willClick');
-  }
-
-  private unRegisterNavigationListen(): void {
-    TrackManager.uiContext.getUIObserver().off('navDestinationSwitch');
   }
 
   /**
@@ -144,6 +119,39 @@ export class TrackManager {
     return this.getParentFrameNode(node?.getParent() as FrameNode);
   }
 
+  private registerClickListen(): void {
+    TrackManager.uiContext.getUIObserver().on('willClick', (_event: ClickEvent, node?: FrameNode) => {
+      if (node) {
+        const actualNode: FrameNode | null = this.getChildFrameNode(node) || this.getParentFrameNode(node);
+        const trackServiceData = actualNode?.getCustomProperty(TRACK_KEY) as TrackServiceData;
+        if (trackServiceData) {
+          trackServiceData.eventType = TrackEventType.CLICK;
+          this.reportData(trackServiceData);
+        }
+      }
+    })
+  }
+
+  private registerNavigationListen(): void {
+    TrackManager.uiContext.getUIObserver()
+      .on('navDestinationSwitch', (navigationInfo: uiObserver.NavDestinationSwitchInfo) => {
+        const from: uiObserver.NavDestinationInfo = navigationInfo.from;
+        if (from.name && from.name === this.currentPage) {
+          this.assignNavigationTrackData(from, TrackEventType.EXPOSURE);
+        }
+        this.currentPage = (navigationInfo.to as uiObserver.NavDestinationInfo).name as string;
+        this.pageSwitchInTime = Date.now();
+      })
+  }
+
+  private unRegisterClickListen(): void {
+    TrackManager.uiContext?.getUIObserver()?.off('willClick');
+  }
+
+  private unRegisterNavigationListen(): void {
+    TrackManager.uiContext?.getUIObserver()?.off('navDestinationSwitch');
+  }
+
   /**
    * Get the common track data.
    */
@@ -157,8 +165,30 @@ export class TrackManager {
         apiVersion: deviceInfo.sdkApiVersion,
       }
       this.trackCommonData = trackCommonData;
-      Logger.debug(TAG, JSON.stringify(this.trackCommonData));
     })
+  }
+
+  private assignNavigationTrackData(currentPageInfo: uiObserver.NavDestinationInfo, eventType: TrackEventType): void {
+    if (currentPageInfo.name === undefined) {
+      return;
+    }
+    const pageName: string = currentPageInfo.name as string;
+    let interactionType: string = '';
+    let interactionContent: string = '';
+    if (currentPageInfo.param) {
+      interactionType = Reflect.get(currentPageInfo.param, 'interactionType');
+      interactionContent = Reflect.get(currentPageInfo.param, 'title');
+    }
+    // Only record the detail page.
+    const trackServiceData: TrackServiceData = {
+      interactionType,
+      interactionContent,
+      pageName,
+      eventType,
+      duration: Date.now() - this.pageSwitchInTime,
+    } as TrackServiceData;
+    this.pageSwitchInTime = Date.now();
+    this.reportData(trackServiceData);
   }
 
   /**

@@ -1,168 +1,187 @@
 {
-  app: {
-    signingConfigs: [],
-    products: [
+  "app": {
+    "signingConfigs": [
       {
-        name: 'default',
-        signingConfig: 'default',
-        compatibleSdkVersion: '5.0.5(17)',
-        runtimeOS: 'HarmonyOS',
-        buildOption: {
-          strictMode: {
-            useNormalizedOHMUrl: true,
-          },
-        },
-      },
-      {
-        name: 'dev',
-        signingConfig: 'default',
-        compatibleSdkVersion: '5.0.5(17)',
-        runtimeOS: 'HarmonyOS',
-        buildOption: {
-          strictMode: {
-            useNormalizedOHMUrl: true,
-          },
-        },
-      },
-      {
-        name: 'test',
-        signingConfig: 'default',
-        compatibleSdkVersion: '5.0.5(17)',
-        runtimeOS: 'HarmonyOS',
-        buildOption: {
-          strictMode: {
-            useNormalizedOHMUrl: true,
-          },
-        },
-      },
-      {
-        name: 'icsl',
-        signingConfig: 'default',
-        compatibleSdkVersion: '5.0.5(17)',
-        runtimeOS: 'HarmonyOS',
-        buildOption: {
-          strictMode: {
-            useNormalizedOHMUrl: true,
-          },
-        },
-      },
-      {
-        name: 'online',
-        signingConfig: 'default',
-        compatibleSdkVersion: '5.0.5(17)',
-        runtimeOS: 'HarmonyOS',
-        buildOption: {
-          strictMode: {
-            useNormalizedOHMUrl: true,
-          },
-        },
-      },
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\dangdang\\.ohos\\config\\default_sample_in_harmonyos_xCC55f4vFi-C6MLrXY8vSvf_oNSCTn6Ucqgw8XdB8zU=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B2BAE01CA18A144B25B58833692D8F413B00B28659332DF844632DCC7CA35B59B294D18CFED8137",
+          "profile": "C:\\Users\\dangdang\\.ohos\\config\\default_sample_in_harmonyos_xCC55f4vFi-C6MLrXY8vSvf_oNSCTn6Ucqgw8XdB8zU=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\dangdang\\.ohos\\config\\default_sample_in_harmonyos_xCC55f4vFi-C6MLrXY8vSvf_oNSCTn6Ucqgw8XdB8zU=.p12",
+          "storePassword": "0000001B0EC1633A67BB728FAA72E523F26BA1C36BD667150A09B8479B742E39A9165AAC3E5790F98962F3"
+        }
+      }
     ],
-    buildModeSet: [
+    "products": [
       {
-        name: 'debug',
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "6.0.1(21)",
+        "targetSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
       },
       {
-        name: 'release',
+        "name": "dev",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "6.0.1(21)",
+        "targetSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
       },
+      {
+        "name": "test",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "6.0.1(21)",
+        "targetSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
+      },
+      {
+        "name": "icsl",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "6.0.1(21)",
+        "targetSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
+      },
+      {
+        "name": "online",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "6.0.1(21)",
+        "targetSdkVersion": "6.1.0(23)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
     ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
   },
-  modules: [
+  "modules": [
     {
-      name: 'phone',
-      srcPath: './products/phone',
-      targets: [
+      "name": "phone",
+      "srcPath": "./products/phone",
+      "targets": [
         {
-          name: 'default',
-          applyToProducts: [
-            'default',
-          ],
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
         },
         {
-          name: 'dev',
-          applyToProducts: [
-            'dev',
-          ],
+          "name": "dev",
+          "applyToProducts": [
+            "dev"
+          ]
         },
         {
-          name: 'test',
-          applyToProducts: [
-            'test',
-          ],
+          "name": "test",
+          "applyToProducts": [
+            "test"
+          ]
         },
         {
-          name: 'icsl',
-          applyToProducts: [
-            'icsl',
-          ],
+          "name": "icsl",
+          "applyToProducts": [
+            "icsl"
+          ]
         },
         {
-          name: 'online',
-          applyToProducts: [
-            'online',
-          ],
-        },
-      ],
+          "name": "online",
+          "applyToProducts": [
+            "online"
+          ]
+        }
+      ]
     },
     {
-      name: 'mine',
-      srcPath: './features/mine',
+      "name": "mine",
+      "srcPath": "./features/mine",
     },
     {
-      name: 'exploration',
-      srcPath: './features/exploration',
+      "name": "exploration",
+      "srcPath": "./features/exploration",
     },
     {
-      name: 'common',
-      srcPath: './common',
+      "name": "common",
+      "srcPath": "./common",
     },
     {
-      name: 'componentlibrary',
-      srcPath: './features/componentlibrary',
+      "name": "componentlibrary",
+      "srcPath": "./features/componentlibrary",
     },
     {
-      name: 'devpractices',
-      srcPath: './features/devpractices',
+      "name": "devpractices",
+      "srcPath": "./features/devpractices",
     },
     {
-      name: 'commonbusiness',
-      srcPath: './features/commonbusiness',
+      "name": "commonbusiness",
+      "srcPath": "./features/commonbusiness",
     },
     {
-      name: 'wearable',
-      srcPath: './products/wearable',
-      targets: [
+      "name": "wearable",
+      "srcPath": "./products/wearable",
+      "targets": [
         {
-          name: 'default',
-          applyToProducts: [
-            'default',
-          ],
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
         },
         {
-          name: 'dev',
-          applyToProducts: [
-            'dev',
-          ],
+          "name": "dev",
+          "applyToProducts": [
+            "dev"
+          ]
         },
         {
-          name: 'test',
-          applyToProducts: [
-            'test',
-          ],
+          "name": "test",
+          "applyToProducts": [
+            "test"
+          ]
         },
         {
-          name: 'icsl',
-          applyToProducts: [
-            'icsl',
-          ],
+          "name": "icsl",
+          "applyToProducts": [
+            "icsl"
+          ]
         },
         {
-          name: 'online',
-          applyToProducts: [
-            'online',
-          ],
-        },
-      ],
-    },
-  ],
+          "name": "online",
+          "applyToProducts": [
+            "online"
+          ]
+        }
+      ]
+    }
+  ]
 }

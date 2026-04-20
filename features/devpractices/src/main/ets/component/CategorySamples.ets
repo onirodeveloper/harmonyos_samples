@@ -13,8 +13,17 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, ColumnEnum, CommonConstants, LoadingMore, LoadingStatus, NoMore } from '@ohos/common';
+import {
+  BreakpointType,
+  ColumnEnum,
+  CommonConstants,
+  GlobalInfoModel,
+  InteractionTypeEnum,
+  LoadingMore,
+  LoadingStatus,
+  NoMore,
+  StorageKey,
+} from '@ohos/common';
 import { CardStyleTypeEnum, SampleDetailParams } from '@ohos/commonbusiness';
 import { SampleConstant } from '../common/SampleConstant';
 import type { SampleCardData, SampleCategory, SampleContent } from '../model/SampleData';
@@ -27,7 +36,6 @@ import { SampleScrollCard } from './SampleScrollCard';
 
 @Component({ freezeWhenInactive: true })
 export struct CategorySamples {
-  scroller: Scroller = new Scroller();
   viewModel: PracticeViewModel = PracticeViewModel.getInstance();
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
@@ -42,15 +50,17 @@ export struct CategorySamples {
     }
   }
 
-  jumpToDetail(currentIndex: number, sampleContent: SampleContent) {
+  jumpToDetail(currentIndex: number, sampleContent: SampleContent, categoryName: string) {
     this.viewModel.sendEvent<SampleDetailParams>({
       type: PracticeEventType.JUMP_DETAIL_DETAIL,
       param: {
+        title: sampleContent.title,
         currentIndex,
         cardId: sampleContent.cardId,
-        contentType: sampleContent.contentType,
+        interactionType: InteractionTypeEnum.SAMPLE,
         unionId: sampleContent.unionId,
         id: sampleContent.id,
+        categoryName,
       },
     });
   }
@@ -69,7 +79,7 @@ export struct CategorySamples {
               sampleCardData: repeatItem.item,
               widthBreakPoint: this.globalInfoModel.widthBreakpoint,
               handleItemClick: (index: number, sample: SampleContent) => {
-                this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample);
+                this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample, this.sampleCategory.categoryName);
               },
             })
           }
@@ -83,7 +93,8 @@ export struct CategorySamples {
                 sampleCardData: repeatItem.item,
                 widthBreakPoint: this.globalInfoModel.widthBreakpoint,
                 handleItemClick: (index: number, sample: SampleContent) => {
-                  this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample);
+                  this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample,
+                    this.sampleCategory.categoryName);
                 },
               })
             }
@@ -96,7 +107,7 @@ export struct CategorySamples {
               SampleScrollCard({
                 sampleCardData: repeatItem.item,
                 handleItemClick: (index: number, sample: SampleContent) => {
-                  this.jumpToDetail(index, sample);
+                  this.jumpToDetail(index, sample, this.sampleCategory.categoryName);
                 },
               })
                 .margin({
@@ -118,7 +129,7 @@ export struct CategorySamples {
               SampleListCard({
                 sampleCardData: repeatItem.item,
                 handleItemClick: (index: number, sample: SampleContent) => {
-                  this.jumpToDetail(index, sample);
+                  this.jumpToDetail(index, sample, this.sampleCategory.categoryName);
                 },
               })
             }
@@ -129,7 +140,7 @@ export struct CategorySamples {
             PictureCard({
               sampleCardData: repeatItem.item,
               handleItemClick: (index: number, sample: SampleContent) => {
-                this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample);
+                this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample, this.sampleCategory.categoryName);
               },
             })
           }

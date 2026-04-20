@@ -14,25 +14,25 @@
  */
 
 import { emitter } from '@kit.BasicServicesKit';
-import { HdsNavigation, HdsNavigationTitleMode, HdsNavigationAttribute } from '@kit.UIDesignKit';
-import { AccountService, GlobalInfoModel, LoginSheetViewBuilder, PageContext } from '@ohos/common';
 import {
+  TitleBarStyleOptions,
+  ScrollEffectType,
+  hdsMaterial,
+  HdsNavDestination,
+  HdsTabsController,
+} from '@kit.UIDesignKit';
+import {
+  AccountService,
   BreakpointType,
   CommonConstants,
+  GlobalInfoModel,
+  HdsUtil,
   HmosListItem,
+  LoginSheetViewBuilder,
   StorageKey,
-  TopNavigationView,
-  VersionUtil,
 } from '@ohos/common';
-import {
-  FlushLogoutUIEvent,
-  InitEvent,
-  LoadContentNumberEvent,
-  LoginEvent,
-  LogoutEvent,
-  MinePageVM,
-  UpdateAccountStatusEvent
-} from '../viewmodel/MinePageVM';
+import { BaseHomeEventType, HomeListParams } from '@ohos/commonbusiness';
+import { MineEventType, MinePageVM, } from '../viewmodel/MinePageVM';
 import { BuilderEnum, ListGroup, MineItem, MinePageState } from '../viewmodel/MinePageState';
 import { UserExperienceCardItem } from '../component/UserExperienceCardItem';
 import { MineConstant } from '../constant/CommonConstants';
@@ -43,10 +43,15 @@ export struct MineView {
   @State minePageState: MinePageState = this.viewModel.getState();
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-  @StorageLink(StorageKey.MINE_PAGE_CONTEXT) minePageContext: PageContext =
-    AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT) ?? new PageContext();
   @State bindSheetShow: boolean = false;
   @State bindSheetItem?: MineItem = undefined;
+  @State titleBarStyle: TitleBarStyleOptions = {
+    scrollEffectOpts: {
+      scrollEffectType: ScrollEffectType.COMMON_BLUR,
+      enableScrollEffect: true,
+    },
+  };
+  homeTabController: HdsTabsController = new HdsTabsController();
   scroller: Scroller = new Scroller();
 
   throttle(func: Function, interval: number) {
@@ -62,20 +67,33 @@ export struct MineView {
   }
 
   async aboutToAppear(): Promise<void> {
-    await AccountService.getInstance().init();
-    this.viewModel.sendEvent(new InitEvent());
-    this.viewModel.sendEvent(new LoadContentNumberEvent());
-    AccountService.getInstance().addAppLogoutListener(() => {
-      MinePageVM.getInstance().sendEvent(new FlushLogoutUIEvent());
-    });
+    if (HdsUtil.isSupportNewMaterialApi()) {
+      this.titleBarStyle = {
+        systemMaterialEffect: {
+          materialType: hdsMaterial.MaterialType.IMMERSIVE,
+          materialLevel: hdsMaterial.MaterialLevel.ADAPTIVE,
+        },
+        scrollEffectOpts: {
+          enableScrollEffect: true,
+          scrollEffectType: hdsMaterial.getSystemMaterialTypes().length > 0 ? ScrollEffectType.GRADIENT_BLUR :
+            ScrollEffectType.COMMON_BLUR,
+        },
+      }
+    }
+    AccountService.getInstance().init();
+    this.viewModel.sendEvent<null>({ type: MineEventType.INIT_DATA, param: null });
+    this.viewModel.sendEvent<null>({ type: MineEventType.LOAD_CONTENT_NUMBER, param: null });
     emitter.on(CommonConstants.BIND_SHEET_CLOSE_EVENT, () => {
       this.bindSheetShow = false;
     });
     emitter.on(CommonConstants.BIND_LOGOUT_EVENT, () => {
-      MinePageVM.getInstance().sendEvent(new UpdateAccountStatusEvent());
+      this.viewModel.sendEvent({
+        type: MineEventType.UPDATE_ACCOUNT_DATA,
+        param: null,
+      });
     });
     emitter.on(CommonConstants.BIND_MINE_LOGIN_EVENT, () => {
-      MinePageVM.getInstance().sendEvent(new UpdateAccountStatusEvent());
+      this.viewModel.sendEvent<null>({ type: MineEventType.UPDATE_ACCOUNT_DATA, param: null });
     });
   }
 
@@ -101,11 +119,11 @@ export struct MineView {
               .width($r('app.float.mine_image_size'))
               .height($r('app.float.mine_image_size'))
               .borderRadius($r('sys.float.corner_radius_level12'))
-              .backgroundColor($r('app.color.mine_image_background'))
+              .backgroundColor($r('sys.color.ohos_id_color_tertiary'))
               .linearGradient({
                 colors: [
-                  [$r('app.color.mine_image_background_linearGradient_start'), 0.0],
-                  [$r('app.color.mine_image_background_linearGradient_end'), 1.0],
+                  [$r('sys.color.ohos_id_color_tertiary'), 0.0],
+                  [$r('sys.color.ohos_id_color_foreground_contrary'), 1.0],
                 ],
               })
               .fontColor($r('sys.color.font_on_primary'))
@@ -140,16 +158,22 @@ export struct MineView {
         enableOutsideInteractive: false,
         blurStyle: BlurStyle.Regular,
         onWillDismiss: ((dismissSheetAction: DismissSheetAction) => {
-          if (dismissSheetAction.reason == DismissReason.CLOSE_BUTTON) {
+          if (dismissSheetAction.reason === DismissReason.CLOSE_BUTTON) {
             dismissSheetAction.dismiss();
           }
         }),
       })
       .onClick(this.throttle(() => {
         if (!this.minePageState.isLogin) {
-          this.viewModel.sendEvent(new LoginEvent(this.getUIContext()));
+          this.viewModel.sendEvent<null>({
+            type: MineEventType.LOGIN,
+            param: null,
+          });
         } else {
-          this.viewModel.sendEvent(new LogoutEvent(this.getUIContext()));
+          this.viewModel.sendEvent<null>({
+            type: MineEventType.LOGOUT,
+            param: null,
+          });
         }
       }, MineConstant.BUTTON_CLICK_THROTTLE))
     }
@@ -264,65 +288,42 @@ export struct MineView {
     LoginSheetViewBuilder({
       nickname: this.minePageState.nickName,
       avatarUrl: this.minePageState.avatarUrl,
-      email: '',
       unionId: ' ',
-      openId: ''
     })
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavigation(this.minePageContext.navPathStack) {
-        this.contentViewBuilder();
-      }
-      .titleBar({
-        avoidLayoutSafeArea: true,
-        style: {
-          scrollEffectOpts: {
-            enableScrollEffect: true,
-          }
-        },
-        content: {
-          title: { mainTitle: $r('app.string.mine_title') },
-        }
-      })
-      .width(CommonConstants.FULL_PERCENT)
-      .height(CommonConstants.FULL_PERCENT)
-      .defaultFocus(true)
-      .hideBackButton(true)
-      .mode(NavigationMode.Stack)
-      .titleMode(HdsNavigationTitleMode.MINI)
-      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
-      .padding({
-        left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? CommonConstants.TAB_BAR_WIDTH : 0,
-      })
-    } else {
-      Navigation(this.minePageContext.navPathStack) {
-        Stack({ alignContent: Alignment.Top }) {
-          this.contentViewBuilder()
-          TopNavigationView({
-            topNavigationData: {
-              fontSize: new BreakpointType({
-                sm: $r('sys.float.Title_M'),
-                md: $r('sys.float.Title_L'),
-                lg: $r('sys.float.Title_L'),
-                xl: $r('sys.float.Title_S'),
-              }).getValue(this.globalInfoModel.widthBreakpoint),
-              bgColor: $r('sys.color.background_secondary'),
-              title: $r('app.string.mine_title'),
-              isFullScreen: true,
-            }
-          })
-        }
-      }
-      .width(CommonConstants.FULL_PERCENT)
-      .height(CommonConstants.FULL_PERCENT)
-      .defaultFocus(true)
-      .mode(NavigationMode.Stack)
-      .hideTitleBar(true)
-      .padding({
-        left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? CommonConstants.TAB_BAR_WIDTH : 0,
-      })
+    HdsNavDestination() {
+      this.contentViewBuilder();
     }
+    .titleBar({
+      avoidLayoutSafeArea: true,
+      style: this.titleBarStyle,
+      content: {
+        title: { mainTitle: $r('app.string.mine_title') },
+      }
+    })
+    .width(CommonConstants.FULL_PERCENT)
+    .height(CommonConstants.FULL_PERCENT)
+    .defaultFocus(true)
+    .hideBackButton(true)
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+    .onReady((ctx: NavDestinationContext) => {
+      const params: HomeListParams = ctx.pathInfo.param as HomeListParams;
+      this.scroller = params?.scroller;
+      this.homeTabController = params.homeTabController;
+    })
+    .onBackPressed(() => {
+      return !!this.viewModel.sendEvent<null>({ type: BaseHomeEventType.ON_BACK_PRESS, param: null });
+    })
+    .padding({
+      left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+        !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH : 0,
+    })
   }
+}
+
+@Builder
+export function MineViewBuilder() {
+  MineView()
 }

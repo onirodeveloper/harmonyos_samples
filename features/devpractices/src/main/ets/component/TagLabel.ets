@@ -37,6 +37,7 @@ export struct TagLabel {
   @State showEllipsis: boolean = false;
   @State globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State displayPopup: boolean = false;
+  @State unionId: number = 0;
   private allTagStr: string = '';
 
   aboutToAppear(): void {
@@ -87,6 +88,7 @@ export struct TagLabel {
             .textOverflow({ overflow: TextOverflow.Ellipsis })
             .fontSize($r('sys.float.Body_S'))
             .fontWeight(FontWeight.Regular)
+            .fontColor(this.unionId === 1 ? $r('app.color.card_font_primary_color') : $r('sys.color.font_secondary'))
         }
         .justifyContent(FlexAlign.Center)
         .borderRadius('50%')
@@ -98,7 +100,7 @@ export struct TagLabel {
         })
         .width(item.width)
         .backgroundColor(this.isDark ? $r('sys.color.icon_on_tertiary') :
-        $r('sys.color.comp_background_tertiary'))
+          $r('sys.color.comp_background_tertiary'))
       }, (item: TagInfo) => item.tag)
       if (this.showEllipsis) {
         Row() {
@@ -109,6 +111,7 @@ export struct TagLabel {
             .textOverflow({ overflow: TextOverflow.Ellipsis })
             .fontSize($r('sys.float.Body_S'))
             .fontWeight(FontWeight.Regular)
+            .fontColor(this.unionId === 1 ? $r('app.color.card_font_primary_color') : $r('sys.color.font_secondary'))
             .textAlign(TextAlign.Center)
         }
         .width(MIN_WIDTH)
@@ -120,7 +123,7 @@ export struct TagLabel {
         })
         .borderRadius('50%')
         .backgroundColor(this.isDark ? $r('sys.color.icon_on_tertiary') :
-        $r('sys.color.comp_background_tertiary'))
+          $r('sys.color.comp_background_tertiary'))
         .margin({ right: $r('sys.float.padding_level8') })
         .bindPopup(this.displayPopup, {
           message: this.allTagStr,
