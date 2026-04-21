@@ -14,14 +14,15 @@
  */
 
 import {
+  ActionName,
   BreakpointType,
   CommonConstants,
   EmptyContentView,
   GlobalInfoModel,
   HmosListItem,
+  InteractionTypeEnum,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
   TrackServiceData
 } from '@ohos/common';
@@ -62,11 +63,7 @@ export struct NewContentItem {
           ListItemGroup() {
             ForEach(this.contentData, (item: NewContentData) => {
               ListItem() {
-                TrackNode({
-                  eventType: item.contentType === CardTypeEnum.COMPONENT ? TrackEventType.COMPONENT_EXPOSURE :
-                    item.contentType === CardTypeEnum.SAMPLE ? TrackEventType.SAMPLE_EXPOSURE :
-                      TrackEventType.ARTICLE_EXPOSURE
-                }) {
+                TrackNode() {
                   HmosListItem({
                     title: item.title,
                     subTitle: item.subTitle,
@@ -78,11 +75,12 @@ export struct NewContentItem {
                     },
                   })
                     .customProperty(TRACK_KEY, {
-                      content: item.title,
-                      moduleType: item.contentType,
-                      eventType: item.contentType === CardTypeEnum.COMPONENT ? TrackEventType.COMPONENT_CLICK :
-                        item.contentType === CardTypeEnum.SAMPLE ? TrackEventType.SAMPLE_CLICK :
-                          TrackEventType.ARTICLE_CLICK
+                      interactionContent: item.title,
+                      interactionType: item.contentType === CardTypeEnum.COMPONENT ? InteractionTypeEnum.COMPONENT :
+                        item.contentType === CardTypeEnum.SAMPLE ? InteractionTypeEnum.SAMPLE :
+                          InteractionTypeEnum.ARTICLE,
+                      actionName: item.contentType === CardTypeEnum.COMPONENT ? ActionName.COMPONENT_CLICK :
+                        item.contentType === CardTypeEnum.SAMPLE ? ActionName.SAMPLE_CLICK : ActionName.ARTICLE_CLICK
                     } as TrackServiceData)
                 }
               }

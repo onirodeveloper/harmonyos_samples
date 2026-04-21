@@ -15,6 +15,7 @@
 
 export enum TriggerEnums {
   // Component
+  COMPONENT_BANNER = 'component-banner',
   COMPONENT_PAGE = 'component-page',
   COMPONENT_DETAIL = 'component-details',
   // Sample
@@ -25,10 +26,13 @@ export enum TriggerEnums {
   DISCOVER_PAGE = 'discovery-page',
   DISCOVER_ARTICLE = 'discovery-article',
   // Mine
-  NEW_CONTENTS= 'new-contents',
+  NEW_CONTENTS = 'new-contents',
 
   //Wearable
   WEARABLE_SAMPLE_TRIGGER = 'wearable-sample-list',
+
+  //Version
+  VERSION_SAMPLE_TRIGGER = 'version-sample-list',
 
   //Track
   TRACK_POST_TRIGGER = 'track-post',

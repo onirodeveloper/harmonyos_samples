@@ -58,7 +58,7 @@
     },
     {
       "name": "widget_desc",
-      "value": "Harmony Application Development Assistant"
+      "value": "Huawei's official large open source projects"
     },
     {
       "name": "widget_display_name",
@@ -70,7 +70,7 @@
     },
     {
       "name": "detail_immersive",
-      "value": "Harmony Application Development Assistant"
+      "value": "Huawei's official large open source projects"
     },
     {
       "name": "back_toast",
@@ -103,6 +103,14 @@
     {
       "name": "lock_screen_subtitle",
       "value": "Let develop more efficient"
+    },
+    {
+      "name": "skip",
+      "value": "Skip %d"
+    },
+    {
+      "name": "experience_now",
+      "value": "Experience now"
     }
   ]
 }

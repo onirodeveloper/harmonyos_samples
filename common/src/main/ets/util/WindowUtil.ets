@@ -21,6 +21,7 @@ import { CommonConstants } from '../constant/CommonConstants';
 import { StorageKey } from '../constant/CommonEnums';
 import { GlobalInfoModel } from '../model/GlobalInfoModel';
 import Logger from './Logger';
+import { HdsUtil } from './HdsUtil';
 
 const TAG: string = '[WindowUtil]';
 
@@ -34,7 +35,6 @@ export class WindowUtil {
       const uiContext: UIContext = WindowUtil.windowClass.getUIContext();
       WindowUtil.uiContext = uiContext;
       AppStorage.setOrCreate<UIContext>(StorageKey.UI_CONTEXT, uiContext);
-      WindowUtil.requestFullScreen();
       WindowUtil.registerBreakpoint(WindowUtil.windowClass);
       // Hide PC/2in1 title bar.
       WindowUtil.hideTitleBar();
@@ -69,18 +69,6 @@ export class WindowUtil {
     } catch (error) {
       const err: BusinessError = error as BusinessError;
       Logger.error(TAG, `Failed to set the visibility of window decor. Cause: ${err.code}, ${err.message}`);
-    }
-  }
-
-  private static requestFullScreen(): void {
-    // Realize the immersive effect.
-    try {
-      WindowUtil.windowClass?.setWindowLayoutFullScreen(true)
-        .catch((err: BusinessError) => {
-          Logger.error(TAG, `Failed to set the window layout to full-screen mode. cause: ${err.code} ${err.message}`);
-        });
-    } catch (err) {
-      Logger.error(TAG, `Failed to set the window layout to full-screen mode. cause: ${err.code} ${err.message}`);
     }
   }
 
@@ -191,11 +179,25 @@ export class WindowUtil {
   public static setWindowSize(windowSize?: window.Size | window.Rect) {
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     if (windowSize) {
-      globalInfoModel.deviceHeight = WindowUtil.uiContext.px2vp(windowSize.height);
-      globalInfoModel.deviceWidth = WindowUtil.uiContext.px2vp(windowSize.width);
+      const vpHeight = WindowUtil.uiContext.px2vp(windowSize.height);
+      const vpWidth = WindowUtil.uiContext.px2vp(windowSize.width);
+      globalInfoModel.deviceHeight = vpHeight;
+      globalInfoModel.deviceWidth = vpWidth;
+      if (vpHeight > 0) {
+        globalInfoModel.aspectRatio = vpWidth / vpHeight;
+      }
     }
     globalInfoModel.widthBreakpoint = WindowUtil.uiContext.getWindowWidthBreakpoint();
     globalInfoModel.heightBreakpoint = WindowUtil.uiContext.getWindowHeightBreakpoint();
+    if (HdsUtil.isSupportNewMaterialApi() &&
+      ((globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM &&
+        (globalInfoModel.aspectRatio > CommonConstants.ASPECT_SQUARE_PORTRAIT)) ||
+        (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+          (globalInfoModel.aspectRatio > CommonConstants.ASPECT_LANDSCAPE_SQUARE)))) {
+      globalInfoModel.needDynamicHideBar = true;
+    } else {
+      globalInfoModel.needDynamicHideBar = false;
+    }
     if (canIUse('SystemCapability.Window.SessionManager')) {
       try {
         const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() ?? 0;

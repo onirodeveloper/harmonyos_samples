@@ -9,14 +9,6 @@
       "value": "40vp"
     },
     {
-      "name": "sample_card_height",
-      "value": "168vp"
-    },
-    {
-      "name": "sample_card_open_height",
-      "value": "200vp"
-    },
-    {
       "name": "samplename_height",
       "value": "24vp"
     },
@@ -62,7 +54,7 @@
     },
     {
       "name": "cardsubtitle_lineheight",
-      "value": "16"
+      "value": "18"
     },
     {
       "name": "margin_36",
@@ -86,11 +78,11 @@
     },
     {
       "name": "overlay_height",
-      "value": "48vp"
+      "value": "36vp"
     },
     {
       "name": "tablet_vertical_padding",
-      "value": "140vp"
+      "value": "12vp"
     },
     {
       "name": "display_bottom_padding",
@@ -99,6 +91,10 @@
     {
       "name": "display_top_padding",
       "value": "90vp"
+    },
+    {
+      "name": "page_text_font_size",
+      "value": "50fp"
     }
   ]
 }

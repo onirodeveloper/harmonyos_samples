@@ -39,6 +39,9 @@ export struct ListCard {
           .fontColor($r('sys.color.font_secondary'))
           .fontWeight(FontWeight.Regular)
           .margin({ left: $r('sys.float.padding_level8'), bottom: $r('sys.float.padding_level2') })
+          .maxLines(1)
+          .ellipsisMode(EllipsisMode.END)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
         Text(this.componentCardData?.title)
           .fontSize($r('sys.float.Title_M'))
           .fontColor($r('sys.color.font_primary'))
@@ -46,11 +49,14 @@ export struct ListCard {
           .margin({ left: $r('sys.float.padding_level8'), bottom: $r('sys.float.padding_level4') })
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .maxLines(1)
+          .ellipsisMode(EllipsisMode.END)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
       .alignItems(HorizontalAlign.Start)
       .height(CommonConstants.NAVIGATION_HEIGHT)
 
       ComponentItemList({
+        buttonColor: this.componentCardData?.themeColor,
         cardContents: this.componentCardData?.componentContents ?? [],
         widthBreakpoint: this.globalInfoModel.widthBreakpoint,
         handleItemClick: (item: ComponentContent) => {

@@ -72,8 +72,7 @@ export class DatePickerDescriptor extends CommonDescriptor {
         case 'fontSize':
           const fontSize = Number(attribute.currentValue);
           this.textStyle.font = {
-            size: Number.isNaN(fontSize) ? this.textStyle.font?.size : fontSize,
-            weight: this.selectedTextStyle.font?.weight,
+            size: Number.isNaN(fontSize) ? this.textStyle.font?.size : fontSize
           };
           break;
         default:

@@ -20,7 +20,9 @@ import {
   TRACK_KEY,
   TrackEventType,
   TrackNode,
-  TrackServiceData
+  TrackServiceData,
+  InteractionTypeEnum,
+  ActionName
 } from '@ohos/common';
 import type { SampleCardData, SampleContent } from '../model/SampleData';
 import { TagLabel } from './TagLabel';
@@ -35,14 +37,14 @@ export struct PictureCard {
 
   aboutToAppear(): void {
     this.sampleContent = this.sampleCardData.sampleContents?.[0];
-    ImageUtil.getColorFromImgUrl(this.sampleContent.mediaUrl as string, true).then((colorArr: number[]) => {
+    ImageUtil.getColorFromImgUrl(this.sampleContent.mediaInfoList[0].mediaUrl as string, true).then((colorArr: number[]) => {
       this.bgTopColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},0)`;
       this.bgBottomColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},1)`;
     });
   }
 
   build() {
-    TrackNode({ eventType: TrackEventType.SAMPLE_EXPOSURE }) {
+    TrackNode() {
       Row() {
         Stack({ alignContent: Alignment.Bottom }) {
           ImageComponent({
@@ -106,9 +108,9 @@ export struct PictureCard {
       .backgroundColor($r('sys.color.ohos_id_color_background'))
       .borderRadius($r('sys.float.corner_radius_level8'))
       .customProperty(TRACK_KEY, {
-        content: this.sampleContent?.title,
-        moduleType: this.sampleContent?.contentType,
-        eventType: TrackEventType.SAMPLE_CLICK,
+        interactionContent: this.sampleContent?.title,
+        interactionType: InteractionTypeEnum.SAMPLE,
+        actionName: ActionName.SAMPLE_CLICK,
       } as TrackServiceData)
     }
   }

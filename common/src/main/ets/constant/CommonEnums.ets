@@ -77,4 +77,5 @@ export enum StorageKey {
   WANT_PARAMETERS = 'hmos_world_WantParams',
   APP_TRACK_DATA = 'hmos_world_track_data',
   ACCOUNT_USER_ID = 'hmos_world_account_user_id',
+  IS_IMAGE_DEFAULT_SIZE = 'hmos_world_Image_Is_Default_Size',
 }

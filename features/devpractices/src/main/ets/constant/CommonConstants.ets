@@ -19,10 +19,10 @@ export class SampleDetailConstant {
   public static readonly PROGRESS_FINISH: number = 100;
   // Max lines
   public static readonly TITLE_MAXLINE: number = 1;
-  public static readonly SUBTITLE_MAXLINE: number = 3;
+  public static readonly SUBTITLE_MAXLINE: number = 2;
   public static readonly SUBTITLE_OPEN_MAXLINE: number = 5;
   //Linear gradient
-  public static readonly LINEAR_GRADIENT_END: number = 0.35;
+  public static readonly LINEAR_GRADIENT_END: number = 0.5;
   //Expand animation
   public static readonly ANIMATION_DURATION: number = 300;
   // The offset of the popup component relative to the display position defined by the placement setting.

@@ -27,6 +27,10 @@
     {
       "name": "watch_development_sample",
       "value": "手表开发样例"
+    },
+    {
+      "name": "qrcode_base",
+      "value": "扫码查看详情"
     }
   ]
 }

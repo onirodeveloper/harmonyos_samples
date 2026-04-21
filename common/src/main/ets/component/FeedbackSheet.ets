@@ -64,21 +64,10 @@ export struct FeedbackSheet {
     this.bindFeedback = false;
   }
 
-  private updateFeedbackHeight(): void {
-    const sheetType: string =
-      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? CommonConstants.SHEET_BOTTOM_ATTACHED :
-        CommonConstants.SHEET_CENTER_FLOATING;
-    const heightType: string = this.feedbackData.editStatus ? CommonConstants.SHEET_HEIGHT_HIGH :
-      this.feedbackData.feedbackTypeStatus === FeedbackType.NONE ? CommonConstants.SHEET_HEIGHT_LOW :
-        CommonConstants.SHEET_HEIGHT_MID;
-    this.feedbackData.feedbackHeight = CommonConstants.SHEET_HEIGHT_MAPPER[sheetType][heightType];
-  }
-
   private handleVoteClick(currentType: FeedbackType): void {
     this.resetSubmitStatus();
     this.feedbackData.feedbackTypeStatus =
       this.feedbackData.feedbackTypeStatus === currentType ? FeedbackType.NONE : currentType;
-    this.updateFeedbackHeight();
   }
 
   private updateSubmittable() {
@@ -97,11 +86,10 @@ export struct FeedbackSheet {
     this.resetSubmitStatus();
     this.feedbackData.feedbackTypeStatus = FeedbackType.NONE;
     this.feedbackData.editStatus = false;
-    this.updateFeedbackHeight();
   }
 
   @Builder
-  FeedbackVoteBuilder(icon: Resource, label: ResourceStr, currentType: FeedbackType, oppositeType: FeedbackType) {
+  FeedbackVoteBuilder(icon: Resource, label: ResourceStr, currentType: FeedbackType) {
     Column() {
       Button({ type: ButtonType.Capsule }) {
         SymbolGlyph(icon)
@@ -160,14 +148,16 @@ export struct FeedbackSheet {
       .showCounter(true, { thresholdPercentage: 1 })
       .maxLength(CommonConstants.TEXT_INPUT_MAX_LENGTH)
       .height($r('app.float.feedback_input_height'))
-      .borderRadius($r('sys.float.corner_radius_level8'))
+      .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+        $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level8'))
       .backgroundColor($r('sys.color.comp_background_tertiary'))
       .textAlign(TextAlign.Start)
       .align(Alignment.TopStart)
-      .margin({ bottom: $r('sys.float.padding_level8') })
+      .margin({ bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+        $r('sys.float.padding_level12') : $r('sys.float.padding_level8')
+      })
       .onEditChange((editStatus: boolean) => {
         this.feedbackData.editStatus = editStatus;
-        this.updateFeedbackHeight();
       })
       .onChange((value: string) => {
         this.feedbackData.feedbackInput = value;
@@ -177,15 +167,30 @@ export struct FeedbackSheet {
   @Builder
   FeedbackTopBuilder() {
     Row() {
-      this.FeedbackVoteBuilder($r('sys.symbol.hand_thumbsup'), $r('app.string.like'), FeedbackType.LIKE,
-        FeedbackType.DISLIKE)
-      this.FeedbackVoteBuilder($r('sys.symbol.hand_thumbsdown'), $r('app.string.dislike'), FeedbackType.DISLIKE,
-        FeedbackType.LIKE)
+      if (this.feedbackData.feedbackTypeStatus === FeedbackType.LIKE) {
+        this.FeedbackVoteBuilder($r('sys.symbol.hand_thumbsup_fill'), $r('app.string.like'), FeedbackType.LIKE)
+      } else {
+        this.FeedbackVoteBuilder($r('sys.symbol.hand_thumbsup'), $r('app.string.like'), FeedbackType.LIKE)
+      }
+      if (this.feedbackData.feedbackTypeStatus === FeedbackType.DISLIKE) {
+        this.FeedbackVoteBuilder($r('sys.symbol.hand_thumbsdown_fill'), $r('app.string.dislike'), FeedbackType.DISLIKE)
+      } else {
+        this.FeedbackVoteBuilder($r('sys.symbol.hand_thumbsdown'), $r('app.string.dislike'), FeedbackType.DISLIKE)
+      }
     }
     .justifyContent(FlexAlign.SpaceBetween)
     .height($r('app.float.feedback_top_height'))
     .width($r('app.float.vote_area_width'))
     .margin({ bottom: CommonConstants.SPACE_40 })
+    .margin({ bottom: this.feedbackData.feedbackTypeStatus === FeedbackType.NONE ?
+      new BreakpointType({
+        sm: $r('app.float.feedback_top_margin_bottom_low'),
+        md: $r('app.float.feedback_top_margin_bottom_mid'),
+        lg: $r('app.float.feedback_top_margin_bottom_mid'),
+        xl: $r('app.float.feedback_top_margin_bottom_high')
+      }).getValue(this.globalInfoModel.widthBreakpoint) :
+      $r('app.float.feedback_top_margin_bottom_feedback')
+    })
   }
 
   @Builder
@@ -196,8 +201,6 @@ export struct FeedbackSheet {
       if (this.feedbackData.feedbackTypeStatus !== FeedbackType.NONE) {
         this.FeedbackReasonBuilder()
       }
-
-      Blank()
 
       if (!this.feedbackData.editStatus || deviceInfo.deviceType === CommonConstants.PC_DEVICE_TYPE) {
         Button($r('app.string.submit'))
@@ -224,10 +227,13 @@ export struct FeedbackSheet {
         $r('sys.float.padding_level8'),
       right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? $r('sys.float.padding_level12') :
         $r('sys.float.padding_level8'),
-      bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
-        this.globalInfoModel.naviIndicatorHeight : $r('sys.float.padding_level8')
+      bottom: new BreakpointType({
+        sm: $r('app.float.feedback_submit_padding_bottom'),
+        md: $r('sys.float.padding_level8'),
+        lg: $r('sys.float.padding_level8'),
+        xl: $r('sys.float.padding_level12')
+      }).getValue(this.globalInfoModel.widthBreakpoint)
     })
-    .height('100%')
     .width('100%')
   }
 
@@ -237,7 +243,8 @@ export struct FeedbackSheet {
     .bindSheet(this.bindFeedback, this.FeedbackBuilder(), {
       title: { title: $r('app.string.feedback_sheet_title') },
       preferType: SheetType.CENTER,
-      height: this.feedbackData.feedbackHeight,
+      height: this.feedbackData.editStatus && this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
+        SheetSize.LARGE : SheetSize.FIT_CONTENT,
       width: new BreakpointType({
         sm: $r('app.float.feedback_width_sm'),
         md: $r('app.float.feedback_width_md_lg'),
@@ -247,7 +254,6 @@ export struct FeedbackSheet {
         this.bindFeedback = false;
       },
       onWillAppear: () => {
-        this.updateFeedbackHeight();
         this.updateSubmittable();
       },
       keyboardAvoidMode: SheetKeyboardAvoidMode.TRANSLATE_AND_RESIZE

@@ -1,20 +1,48 @@
 {
   "color": [
     {
-      "name": "mine_image_background",
-      "value": "#999999"
-    },
-    {
-      "name": "mine_image_background_linearGradient_start",
-      "value": "#99FFFFFF"
-    },
-    {
-      "name": "mine_image_background_linearGradient_end",
-      "value": "#00FFFFFF"
-    },
-    {
       "name": "about_badge_color",
       "value": "#FA2A2D"
+    },
+    {
+      "name": "questionnaire_color_1",
+      "value": "#86C1FF"
+    },
+    {
+      "name": "questionnaire_color_2",
+      "value": "#75B3FF"
+    },
+    {
+      "name": "questionnaire_color_3",
+      "value": "#68A8FE"
+    },
+    {
+      "name": "questionnaire_color_4",
+      "value": "#5A9AFC"
+    },
+    {
+      "name": "questionnaire_color_5",
+      "value": "#4E92FC"
+    },
+    {
+      "name": "questionnaire_color_6",
+      "value": "#4188FB"
+    },
+    {
+      "name": "questionnaire_color_7",
+      "value": "#347CFA"
+    },
+    {
+      "name": "questionnaire_color_8",
+      "value": "#2772FA"
+    },
+    {
+      "name": "questionnaire_color_9",
+      "value": "#1C68F9"
+    },
+    {
+      "name": "questionnaire_color_10",
+      "value": "#0A59F7"
     }
   ]
 }

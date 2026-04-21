@@ -13,27 +13,35 @@
  * limitations under the License.
  */
 
-import { CardTypeEnum } from './CardData';
+import { HdsTabsController } from '@kit.UIDesignKit';
+import { InteractionTypeEnum } from '@ohos/common';
 
-export interface ComponentDetailParams {
-  componentName: string;
+interface BasicRouterParams {
+  title: string;
   id: number;
-  contentType: CardTypeEnum;
 }
 
-export interface SampleDetailParams {
+export interface ComponentDetailParams extends BasicRouterParams {
+  interactionType: InteractionTypeEnum;
+}
+
+export interface SampleDetailParams extends BasicRouterParams {
   currentIndex: number;
   cardId: number;
   unionId: number;
-  id: number;
-  contentType: CardTypeEnum;
+  interactionType: InteractionTypeEnum;
+  categoryName: string;
 }
 
-export interface ArticleDetailParams {
-  id: number;
+export interface ArticleDetailParams extends BasicRouterParams {
   isArticle: boolean;
-  title: string;
   detailsUrl: string;
+  desc: string;
   tabViewType?: number;
-  contentType?: CardTypeEnum;
+  interactionType: InteractionTypeEnum;
+}
+
+export interface HomeListParams {
+  scroller: Scroller,
+  homeTabController: HdsTabsController
 }

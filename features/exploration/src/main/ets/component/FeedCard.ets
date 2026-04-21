@@ -19,9 +19,11 @@ import {
   GlobalInfoModel,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
-  TrackServiceData
+  TrackServiceData,
+  HdsUtil,
+  InteractionTypeEnum,
+  ActionName,
 } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { FeedItem } from './FeedItem';
@@ -37,12 +39,12 @@ export struct FeedCard {
     Swiper() {
       Repeat(this.discoverContents)
         .each((repeatItem: RepeatItem<DiscoverContent>) => {
-          TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+          TrackNode() {
             FeedItem({ discoverContent: repeatItem.item })
               .customProperty(TRACK_KEY, {
-                content: repeatItem.item.title,
-                moduleType: repeatItem.item.contentType,
-                eventType: TrackEventType.ARTICLE_CLICK,
+                interactionContent: repeatItem.item.title,
+                interactionType: InteractionTypeEnum.ARTICLE,
+                actionName: ActionName.ARTICLE_CLICK,
               } as TrackServiceData)
               .onClick(() => {
                 this.handleItemClick?.(repeatItem.item);
@@ -58,7 +60,8 @@ export struct FeedCard {
     .prevMargin(new BreakpointType<Length>({
       sm: CommonConstants.SPACE_8,
       md: CommonConstants.SPACE_12,
-      lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
+      lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_16 :
+        CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SPACE_16,
     }).getValue(this.globalInfoModel?.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({

@@ -145,6 +145,12 @@ animationcollectionsample、audiointeractionsample、componentstacksample、cust
 4. HarmonyOS SDK版本：HarmonyOS 6.0.0 Release SDK及以上。
 
 ## 七、版本更新说明
+【v.1.0.2.300】 版本更新
+- 代码工坊新材质特性
+- 代码工坊HOPE适配
+- 应用消息推送（仅展示代码，实际体验请前往应用市场安装）
+- 体验类问题优化
+
 【v1.0.2.200】版本更新
 - 代码工坊华为账号接入（请在应用市场最新版本体验）
 - 应用接入问卷反馈功能

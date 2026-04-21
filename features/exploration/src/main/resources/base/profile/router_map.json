@@ -1,13 +1,18 @@
 {
   "routerMap": [
     {
+      "name": "ExplorationView",
+      "pageSourceFile": "src/main/ets/view/ExplorationView.ets",
+      "buildFunction": "ExplorationViewBuilder"
+    },
+    {
       "name": "ArticleDetailView",
       "pageSourceFile": "src/main/ets/view/ArticleDetailView.ets",
       "buildFunction": "ArticleDetailViewBuilder"
     },
     {
       "name": "BannerDetailView",
-      "pageSourceFile": "src/main/ets/view/BannerDetailView.ets",
+      "pageSourceFile": "src/main/ets/view/ArticleDetailView.ets",
       "buildFunction": "BannerDetailViewBuilder"
     }
   ]

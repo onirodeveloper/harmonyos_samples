@@ -75,27 +75,17 @@ export class MockRequest {
           if (requestParam['supportDevice'] && requestParam['apiVersion']) {
             if (requestParam['cardId']) {
               // Sample details.
-              const details =
-                filterSamples(((item as CommonBaseData<T>)?.sampleContents as BaseSampleData[]), requestParam);
+              const details = ((item as CommonBaseData<T>)?.sampleContents as BaseSampleData[]);
               resolve(details as T);
             } else if (requestParam['categoryId']) {
               // Sample list.
               const sampleList = (item as SampleListData).data as CommonBaseData<null>[];
-              const list: CommonBaseData<null>[] = [];
-              sampleList.forEach((sampleCard: CommonBaseData<null>) => {
-                const sampleContents = filterSamples(sampleCard.sampleContents as BaseSampleData[], requestParam);
-                if (sampleContents.length > 0) {
-                  sampleCard.sampleContents = sampleContents;
-                  list.push(sampleCard);
-                }
-              });
-              (item as SampleListData).data = list;
+              (item as SampleListData).data = sampleList;
               resolve(item as T);
             } else if (requestParam['type']) {
               // New Content sample list.
               const sampleList = (item as CommonBaseData<T>).data as BaseSampleData[];
-              const listData = filterSamples(sampleList, requestParam);
-              resolve(listData as T);
+              resolve(sampleList as T);
             }
           } else if (requestParam['type']) {
             resolve((item as CommonBaseData<T>).data as T);
@@ -127,17 +117,10 @@ interface CommonBaseData<T> {
 
 interface BaseSampleData {
   supportDeviceList: string[],
-  requiredApiVersion: number,
+  apiVersion: number,
 }
 
 interface SampleListData {
   id: number;
   data: CommonBaseData<null>[];
-}
-
-function filterSamples(sampleContents: BaseSampleData[], requestParam: Record<string, string | number | object>) {
-  return sampleContents.filter((sample: BaseSampleData) => {
-    return sample.supportDeviceList.includes(String(requestParam['supportDevice'])) &&
-      sample.requiredApiVersion <= requestParam['apiVersion'];
-  });
 }

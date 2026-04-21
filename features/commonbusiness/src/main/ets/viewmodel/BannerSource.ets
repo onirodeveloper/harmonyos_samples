@@ -19,7 +19,7 @@ import type { BannerData } from '../model/BannerData';
 const TAG: string = '[BannerSource]';
 
 export class BannerSource implements IDataSource {
-  private splashArray: BannerData[] = [];
+  public splashArray: BannerData[] = [];
   private listeners: DataChangeListener[] = [];
 
   public setDataArray(dataArray: BannerData[]): void {

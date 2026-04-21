@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, appRecovery, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import {
@@ -34,14 +34,17 @@ import { UpdateFormData } from '../util/UpdateFormData';
 const TAG = '[EntryAbility]';
 
 export default class EntryAbility extends UIAbility {
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    appRecovery.enableAppRecovery(appRecovery.RestartFlag.RESTART_WHEN_JS_CRASH);
     Logger.info(TAG, `Ability onCreate launchReason: ${launchParam.launchReason}`);
     this.handleWantParam(want);
     AppStorage.setOrCreate(StorageKey.COLOR_MODE, this.context.config.colorMode);
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
-    } catch {
-      Logger.error(TAG, `onCreate setColorMode failed`);
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `onCreate setColorMode failed, ${err.code}, ${err.message}`);
     }
   }
 

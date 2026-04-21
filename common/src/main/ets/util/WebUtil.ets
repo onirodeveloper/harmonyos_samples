@@ -33,6 +33,7 @@ const sheetEventMap: Map<string, Function> = new Map();
 const pageEventMap: Map<string, Function> = new Map();
 const nodeRequiredMap: Map<string, boolean> = new Map(); // Check whether web node is required again.
 const webLoadedMap: Map<string, boolean> = new Map();
+const webMockScrollerMap: Map<string, Scroller> = new Map();
 let currentOffset: number = 0;
 
 const componentCodeHtml: string = `/codePreview/index.html`;
@@ -42,6 +43,7 @@ interface WebBuilderParam {
   webController: WebviewController;
   nestedScroll: NestedScrollOptions;
   nativeActionData: NativeActionData;
+  webMockScroller?: Scroller;
   module?: ModuleNameEnum;
   onlyWhiteMode?: boolean;
   verticalScrollBarAccess?: boolean;
@@ -49,75 +51,93 @@ interface WebBuilderParam {
 
 @Builder
 function webBuilder(param: WebBuilderParam) {
-  Web({ src: param.webUrl, controller: param.webController })
-    .zoomAccess(false)
-    .fileAccess(false)
-    .imageAccess(true)
-    .mixedMode(MixedMode.None)
-    .verticalScrollBarAccess(param.verticalScrollBarAccess)
-    .horizontalScrollBarAccess(false)
-    .cacheMode(CacheMode.Default)
-    .domStorageAccess(true)
-    .javaScriptAccess(true)
-    .javaScriptProxy(param.module === ModuleNameEnum.ARTICLE_DETAIL ? {
-      object: param.nativeActionData,
-      name: 'nativeActionData',
-      methodList: ['webSheet', 'jumpPage'],
-      controller: param.webController,
-      permission: WebUtil.getJsPermission(),
-    } : undefined)
-    .geolocationAccess(false)
-    .backgroundColor(Color.Transparent)
-    .nestedScroll(param.nestedScroll)
-    .darkMode(param.onlyWhiteMode ? WebDarkMode.Off : WebDarkMode.Auto)
-    .forceDarkAccess(true)
-    .allowDrop(null)
-    .onPageBegin(() => {
-      try {
-        param.webController.onActive();
-        Logger.debug(TAG, `onPageBegin with url: ${param.webUrl}`);
-      } catch (error) {
-        Logger.error(TAG, `onPageBegin with url: ${param.webUrl} failed. error ${error.message}`);
-      }
+  Stack() {
+    Scroll(param.webMockScroller).zIndex(-1)
+    Scroll() {
+      Web({ src: param.webUrl, controller: param.webController })
+        .zoomAccess(false)
+        .fileAccess(false)
+        .imageAccess(true)
+        .mixedMode(MixedMode.None)
+        .verticalScrollBarAccess(param.verticalScrollBarAccess)
+        .horizontalScrollBarAccess(false)
+        .cacheMode(CacheMode.Default)
+        .domStorageAccess(true)
+        .javaScriptAccess(true)
+        .javaScriptProxy(param.module === ModuleNameEnum.ARTICLE_DETAIL ? {
+          object: param.nativeActionData,
+          name: 'nativeActionData',
+          methodList: ['webSheet', 'jumpPage'],
+          controller: param.webController,
+          permission: WebUtil.getJsPermission(),
+        } : undefined)
+        .geolocationAccess(false)
+        .backgroundColor(Color.Transparent)
+        .nestedScroll(param.nestedScroll)
+        .darkMode(param.onlyWhiteMode ? WebDarkMode.Off : WebDarkMode.Auto)
+        .forceDarkAccess(true)
+        .allowDrop(null)
+        .onPageBegin(() => {
+          try {
+            param.webController.onActive();
+            Logger.debug(TAG, `onPageBegin with url: ${param.webUrl}`);
+          } catch (error) {
+            Logger.error(TAG, `onPageBegin with url: ${param.webUrl} failed. error ${error.message}`);
+          }
+        })
+        .onPageEnd(() => {
+          AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
+          Logger.debug(TAG, `onPageEnd with url: ${param.webUrl}`);
+        })
+        .onLoadIntercept((event: OnLoadInterceptEvent) => {
+          return WebUtil.handleLoadIntercept(event);
+        })
+        .onSslErrorEventReceive((event) => {
+          Logger.error(TAG, `SSL checked failed, error: ${event.error.toString()}`);
+          event.handler.handleCancel();
+        })
+        .onScroll((event: OnScrollEvent) => {
+          param.webMockScroller?.scrollTo({ xOffset: event.xOffset, yOffset: event.yOffset });
+          if (param.module) {
+            const eventEmitter = eventEmitterMap.get(param.module);
+            const scrollOffset: number = event.yOffset - currentOffset;
+            currentOffset = event.yOffset;
+            if (scrollOffset > 0) {
+              eventEmitter && eventEmitter(ScrollDirectionEnum.DOWN, currentOffset);
+            } else if (scrollOffset < 0) {
+              eventEmitter && eventEmitter(ScrollDirectionEnum.UP, currentOffset);
+            }
+          }
+        })
+        .onControllerAttached(() => {
+          const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+          try {
+            param.webController.onActive();
+            const userAgent = `${param.webController.getUserAgent()} Mobile (Phone; OpenHarmony)`;
+            param.webController.setCustomUserAgent(userAgent);
+            // Setting the local file path that allows cross-domain access.
+            param.webController.setPathAllowingUniversalAccess([uiContext?.getHostContext()?.resourceDir]);
+          } catch (error) {
+            const err: BusinessError = error as BusinessError;
+            Logger.error(TAG, `Web User-Agent setting error: ${err.code}, ${err.message}.`);
+          }
+        })
+        .width('100%')
+        .height('100%')
+    }
+    .scrollBar(BarState.Off)
+    .edgeEffect(EdgeEffect.Spring)
+    .onReachStart(() => {
+      param.webMockScroller?.scrollEdge(Edge.Top);
     })
-    .onPageEnd(() => {
-      AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
-      Logger.debug(TAG, `onPageEnd with url: ${param.webUrl}`);
-    })
-    .onLoadIntercept((event: OnLoadInterceptEvent) => {
-      return WebUtil.handleLoadIntercept(event);
-    })
-    .onSslErrorEventReceive((event) => {
-      Logger.error(TAG, `SSL checked failed, error: ${event.error.toString()}`);
-      event.handler.handleCancel();
-    })
-    .onScroll((event: OnScrollEvent) => {
+    .onReachEnd(() => {
+      param.webMockScroller?.scrollEdge(Edge.Bottom);
       if (param.module) {
         const eventEmitter = eventEmitterMap.get(param.module);
-        const scrollOffset: number = event.yOffset - currentOffset;
-        currentOffset = event.yOffset;
-        if (scrollOffset > 0) {
-          eventEmitter && eventEmitter(ScrollDirectionEnum.DOWN, currentOffset);
-        } else if (scrollOffset < 0) {
-          eventEmitter && eventEmitter(ScrollDirectionEnum.UP, currentOffset);
-        }
+        eventEmitter && eventEmitter(ScrollDirectionEnum.UP, 0);
       }
     })
-    .onControllerAttached(() => {
-      const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
-      try {
-        param.webController.onActive();
-        const userAgent = `${param.webController.getUserAgent()} Mobile (Phone; OpenHarmony)`;
-        param.webController.setCustomUserAgent(userAgent);
-        // Setting the local file path that allows cross-domain access.
-        param.webController.setPathAllowingUniversalAccess([uiContext?.getHostContext()?.resourceDir]);
-      } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG, `Web User-Agent setting error: ${err.code}, ${err.message}.`);
-      }
-    })
-    .width('100%')
-    .height('100%')
+  }
 }
 
 export class NativeActionData {
@@ -206,9 +226,11 @@ export class WebUtil {
     Logger.debug(TAG, `initWebNode with url: ${webUrl}`);
     const webNode = new WebNodeController();
     const webController = new webview.WebviewController();
+    const webMockScroller = new Scroller();
     const webBuilderParam: WebBuilderParam = {
-      webUrl: webUrl,
-      webController: webController,
+      webUrl,
+      webController,
+      webMockScroller,
       nestedScroll:
       {
         scrollForward: NestedScrollMode.SELF_FIRST,
@@ -229,6 +251,7 @@ export class WebUtil {
     webLoadedMap.set(webUrl, NetworkUtil.hasDefaultNet());
     webControllerMap.set(webUrl, webController);
     webNodeMap.set(webUrl, webNode);
+    webMockScrollerMap.set(webUrl, webMockScroller);
   }
 
   public static updateWebNode(webUrl: string, nestedScrollMode?: NestedScrollMode, module?: ModuleNameEnum,
@@ -238,9 +261,12 @@ export class WebUtil {
       Logger.error(TAG, `updateWebNode failed. cause webController is null`);
       return;
     }
+    const webMockScroller = webMockScrollerMap.get(webUrl);
+    new Scroller();
     const webBuilderParam: WebBuilderParam = {
-      webUrl: webUrl,
-      webController: webController,
+      webUrl,
+      webController,
+      webMockScroller,
       nestedScroll:
       {
         scrollForward: NestedScrollMode.SELF_FIRST,
@@ -265,6 +291,10 @@ export class WebUtil {
 
   public static getWebNode(webUrl: string): WebNodeController | undefined {
     return webNodeMap.get(webUrl);
+  }
+
+  public static getWebScroller(webUrl: string): Scroller | undefined {
+    return webMockScrollerMap.get(webUrl);
   }
 
   public static getWebController(webUrl: string): webview.WebviewController | undefined {

@@ -39,6 +39,34 @@
     {
       "name": "item_description_size",
       "value": "15fp"
+    },
+    {
+      "name": "qrcode_padding",
+      "value": "26vp"
+    },
+    {
+      "name": "title_min_font_size",
+      "value": "11fp"
+    },
+    {
+      "name": "single_line_height",
+      "value": "36vp"
+    },
+    {
+      "name": "double_line_height",
+      "value": "50vp"
+    },
+    {
+      "name": "qrcode_size",
+      "value": "125vp"
+    },
+    {
+      "name": "qrcode_margin_top",
+      "value": "3vp"
+    },
+    {
+      "name": "qrcode_text_margin_bottom",
+      "value": "40vp"
     }
   ]
 }

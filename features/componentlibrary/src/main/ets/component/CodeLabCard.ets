@@ -48,10 +48,14 @@ export struct CodeLabCard {
           src: this.componentCardData?.image,
           objectFit: ImageFit.Cover,
         })
+          .backgroundColor(this.componentCardData?.themeColor)
           .width('100%')
           .height('100%')
         Column() {
           Text(this.componentCardData?.title)
+            .maxLines(1)
+            .ellipsisMode(EllipsisMode.END)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
             .fontSize($r('sys.float.Body_S'))
             .fontColor($r('sys.color.font_on_secondary'))
             .fontWeight(FontWeight.Medium)
@@ -62,6 +66,9 @@ export struct CodeLabCard {
               bottom: $r('sys.float.padding_level2'),
             })
           Text(this.componentCardData?.subTitle)
+            .maxLines(1)
+            .ellipsisMode(EllipsisMode.END)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
             .fontSize($r('sys.float.Title_M'))
             .fontColor($r('sys.color.font_on_primary'))
             .fontWeight(FontWeight.Bold)

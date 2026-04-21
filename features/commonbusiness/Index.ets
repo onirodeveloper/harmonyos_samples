@@ -4,9 +4,12 @@ export { BannerData, BannerTypeEnum, BANNER_SCALE_FACTOR, TITLE_SCALE_FACTOR } f
 
 export { BaseData } from './src/main/ets/model/BaseData';
 
-export { FullScreenNavigationData } from './src/main/ets/model/FullScreenNavigationData';
-
-export { ArticleDetailParams, ComponentDetailParams, SampleDetailParams } from './src/main/ets/model/RouterParams';
+export {
+  ArticleDetailParams,
+  ComponentDetailParams,
+  HomeListParams,
+  SampleDetailParams,
+} from './src/main/ets/model/RouterParams';
 
 export { BaseDetailParam, BaseListParam } from './src/main/ets/model/BaseParam';
 
@@ -16,8 +19,6 @@ export { BannerItem } from './src/main/ets/component/BannerItem';
 
 export { BaseDetailComponent } from './src/main/ets/component/BaseDetailComponent';
 
-export { FullScreenNavigation } from './src/main/ets/component/FullScreenNavigation';
-
 export { LoadingMoreItemBuilder } from './src/main/ets/component/LoadingMoreItem';
 
 export {
@@ -25,6 +26,8 @@ export {
   BaseHomeEventType,
   BaseHomeEventParam,
   CalculateHeightParam,
+  InitializeParam,
+  TabBarAnimationParam,
   OffsetParam
 } from './src/main/ets/viewmodel/BaseHomeViewModel';
 

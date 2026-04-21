@@ -14,23 +14,27 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
+import { CommonModifier } from '@kit.ArkUI';
+import {
+  HdsNavDestination,
+  HdsTabsController,
+  HideMode,
+} from '@kit.UIDesignKit';
 import {
   BreakpointType,
   CommonConstants,
   GlobalInfoModel,
-  Logger,
-  PageContext,
   StorageKey,
-  VersionUtil
+  HdsUtil,
+  TrackServiceData,
+  TRACK_KEY,
 } from '@ohos/common';
-import type { BannerData } from '@ohos/commonbusiness';
+import type { BannerData, HomeListParams, InitializeParam, TabBarAnimationParam } from '@ohos/commonbusiness';
 import {
   BannerCard,
   BaseHomeEventType,
   BaseHomeView,
   CalculateHeightParam,
-  FullScreenNavigation,
   OffsetParam,
   TabBarType,
 } from '@ohos/commonbusiness';
@@ -38,29 +42,34 @@ import { CategorySamples } from '../component/CategorySamples';
 import type { SampleCategory } from '../model/SampleData';
 import type { PracticeState } from '../viewmodel/PracticeState';
 import { LoadSamplePageParam, PracticeEventType, PracticeViewModel } from '../viewmodel/PracticeViewModel';
-import { BusinessError } from '@kit.BasicServicesKit';
-
-const TAG: string = '[PracticesView]';
 
 @Component({ freezeWhenInactive: true })
-export struct PracticesView {
+struct PracticesView {
   private viewModel: PracticeViewModel = PracticeViewModel.getInstance();
-  private listScroller: Scroller = new Scroller();
   private headerScroller: Scroller = new Scroller();
   private tabScroller: Scroller = new Scroller();
+  homeTabController: HdsTabsController = new HdsTabsController();
+  isReachEnd: boolean = false;
+  scroller: Scroller = new Scroller();
   private categoryTabController: TabsController = new TabsController();
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @StorageLink(StorageKey.SAMPLE_PAGE_CONTEXT) samplePageContext: PageContext =
-    AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT) ?? new PageContext();
   @State naviStatusHeight: number = CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight;
   @State currentIndex: number = 0;
   @State practiceState: PracticeState = this.viewModel.getState();
   @State showTopTab: boolean = true;
+  @State materialModifier: CommonModifier = new CommonModifier();
+  @State selMaterialModifier: CommonModifier = new CommonModifier();
 
   aboutToAppear(): void {
+    this.viewModel.sendEvent<InitializeParam>({
+      type: BaseHomeEventType.INITIALIZE,
+      param: {
+        homeTabController: this.homeTabController,
+      },
+    });
     this.viewModel.sendEvent<LoadSamplePageParam>({
       type: PracticeEventType.LOAD_SAMPLE_PAGE,
       param: {
@@ -73,6 +82,8 @@ export struct PracticesView {
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
       param: { yOffset: 0, tabIndex: TabBarType.SAMPLE },
     });
+    this.materialModifier.backgroundColor($r('sys.color.ohos_id_color_button_normal'));
+    this.selMaterialModifier.backgroundColor($r('sys.color.ohos_id_color_emphasize'));
   }
 
   preloadCategory() {
@@ -87,14 +98,14 @@ export struct PracticesView {
   handleBreakPointChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
-      param: { yOffset: (this.listScroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.SAMPLE },
+      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.SAMPLE },
     });
   }
 
   handleColorModeChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_COLOR_CHANGE,
-      param: { yOffset: (this.listScroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.SAMPLE },
+      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.SAMPLE },
     });
   }
 
@@ -112,7 +123,7 @@ export struct PracticesView {
           ForEach(this.practiceState.sampleCategories, (item: SampleCategory, index: number) => {
             Row() {
               if (item.defaultIcon) {
-                Image($rawfile(this.currentIndex === index ? item.defaultIcon : item.selectedIcon))
+                Image(this.currentIndex === index ? item.defaultIcon : item.selectedIcon)
                   .height($r('app.float.tab_icon_height'))
                   .objectFit(ImageFit.Contain)
                   .margin({ right: $r('sys.float.padding_level2') })
@@ -123,14 +134,16 @@ export struct PracticesView {
                 .fontColor(this.currentIndex === index ? $r('sys.color.font_on_primary') :
                   $r('sys.color.font_tertiary'))
             }
-            .backgroundColor(this.currentIndex === index ? $r('sys.color.brand') :
-              $r('sys.color.ohos_id_color_button_normal'))
+            .attributeModifier(this.currentIndex === index ? this.selMaterialModifier : this.materialModifier)
             .padding({
               left: $r('sys.float.padding_level8'),
               right: $r('sys.float.padding_level8'),
               top: $r('sys.float.padding_level4'),
               bottom: $r('sys.float.padding_level4'),
             })
+            .customProperty(TRACK_KEY, {
+              secondaryTab: item.categoryName,
+            } as TrackServiceData)
             .margin({ left: (hasStartMargin && index === 0) ? CommonConstants.TAB_BAR_WIDTH : 0 })
             .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
               $r('sys.float.corner_radius_level4') : '50%')
@@ -140,8 +153,8 @@ export struct PracticesView {
                 const topOffsetY =
                   (this.practiceState.bannerState.bannerHeight - this.globalInfoModel.naviIndicatorHeight -
                   CommonConstants.NAVIGATION_HEIGHT);
-                if (this.listScroller?.currentOffset()?.yOffset > topOffsetY) {
-                  this.listScroller.scrollTo({ yOffset: topOffsetY, xOffset: 0 });
+                if (this.scroller?.currentOffset()?.yOffset > topOffsetY) {
+                  this.scroller.scrollTo({ yOffset: topOffsetY, xOffset: 0 });
                 }
               }
             })
@@ -170,6 +183,7 @@ export struct PracticesView {
           this.headerScroller.scrollTo(this.tabScroller.currentOffset());
         }
       })
+      .visibility(this.practiceState.showTab && !isHeader ? Visibility.Hidden : Visibility.Visible)
       .align(Alignment.Start)
       .width('100%')
       .scrollBar(BarState.Off)
@@ -180,7 +194,7 @@ export struct PracticesView {
   @Builder
   ContentViewBuilder() {
     List({
-      scroller: this.listScroller,
+      scroller: this.scroller,
       space: this.practiceState.sampleCategories.length === 1 ? CommonConstants.SPACE_12 : 0,
     }) {
       ListItem() {
@@ -211,9 +225,11 @@ export struct PracticesView {
         }
       }
       .padding({
-        left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? CommonConstants.TAB_BAR_WIDTH : 0,
+        left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+          !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH : 0,
       })
     }
+    .sticky(StickyStyle.None)
     .scrollBar(BarState.Off)
     .width('100%')
     .height('100%')
@@ -221,7 +237,15 @@ export struct PracticesView {
     .edgeEffect(this.practiceState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .sticky(StickyStyle.Header)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
-      const param: CalculateHeightParam = { offset, state, yOffset: this.listScroller.currentOffset()?.yOffset ?? 0 };
+      if (state === ScrollState.Scroll) {
+        this.viewModel.sendEvent<TabBarAnimationParam>({
+          type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
+          param: {
+            yOffset: offset,
+          } as TabBarAnimationParam,
+        });
+      }
+      const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset()?.yOffset ?? 0 };
       const bannerChangeHeight: boolean = !!this.viewModel.sendEvent<CalculateHeightParam>({
         type: BaseHomeEventType.CALCULATE_BANNER_HEIGHT,
         param,
@@ -231,23 +255,27 @@ export struct PracticesView {
       }
       return { offsetRemain: offset };
     })
+    .onReachEnd(() => {
+      if (this.isReachEnd) {
+        this.viewModel.sendEvent<TabBarAnimationParam>({
+          type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
+          param: {
+            yOffset: -1
+          } as TabBarAnimationParam,
+        });
+      }
+      this.isReachEnd = true;
+    })
+    .onReachStart(() => {
+      this.isReachEnd = false;
+    })
     .onDidScroll(() => {
       this.viewModel.sendEvent<OffsetParam>({
         type: BaseHomeEventType.HANDLE_SCROLL_OFFSET,
-        param: { yOffset: this.listScroller.currentOffset().yOffset, tabIndex: TabBarType.SAMPLE },
+        param: { yOffset: this.scroller.currentOffset().yOffset, tabIndex: TabBarType.SAMPLE },
       });
     })
     .backgroundColor($r('sys.color.background_secondary'))
-  }
-
-  @Builder
-  TopTitleViewBuilder() {
-    FullScreenNavigation({
-      topNavigationData: this.practiceState.topNavigationData,
-      tabView: () => {
-        this.CategoryHeaderBuilder(true)
-      },
-    })
   }
 
   @Builder
@@ -257,9 +285,6 @@ export struct PracticesView {
       contentView: () => {
         this.ContentViewBuilder()
       },
-      topTitleView: () => {
-        this.TopTitleViewBuilder()
-      },
       reloadData: () => {
         this.viewModel.sendEvent({ type: PracticeEventType.LOAD_SAMPLE_PAGE, param: null });
       },
@@ -267,34 +292,42 @@ export struct PracticesView {
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavigation(this.samplePageContext.navPathStack) {
-        this.PracticeContentView();
-      }
-      .mode(NavigationMode.Stack)
-      .hideBackButton(true)
-      .titleMode(HdsNavigationTitleMode.MINI)
-      .bindToScrollable([this.listScroller])
-      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
-      .titleBar({
-        padding: this.practiceState.topNavigationData.hdsTitleBarPadding,
-        avoidLayoutSafeArea: true,
-        style: this.practiceState.topNavigationData.hdsTitleBarStyle,
-        content: {
-          title: { mainTitle: this.practiceState.topNavigationData.title },
-          bottomBuilder: this.practiceState.showTab ? {
-            builder: () => {
-              this.CategoryHeaderBuilder(true, this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG);
-            },
-          } : undefined,
-        }
-      })
-    } else {
-      Navigation(this.samplePageContext.navPathStack) {
-        this.PracticeContentView();
-      }
-      .mode(NavigationMode.Stack)
-      .hideTitleBar(true)
+    HdsNavDestination() {
+      this.PracticeContentView();
     }
+    .hideBackButton(true)
+    .bindToScrollable([this.scroller])
+    .dynamicHideTitleBar(this.globalInfoModel.needDynamicHideBar ? {
+      hideTitleArea: true,
+      mode: HideMode.SCROLL_UP_TO,
+    } : {})
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+    .titleBar({
+      padding: this.practiceState.topNavigationData.hdsTitleBarPadding,
+      avoidLayoutSafeArea: true,
+      style: this.practiceState.topNavigationData.hdsTitleBarStyle,
+      content: {
+        title: { mainTitle: this.practiceState.topNavigationData.title },
+        bottomBuilder: this.practiceState.showTab ? {
+          builder: () => {
+            this.CategoryHeaderBuilder(true, this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+              !HdsUtil.isSupportNewMaterialApi());
+          },
+        } : undefined,
+      }
+    })
+    .onReady((ctx: NavDestinationContext) => {
+      const params: HomeListParams = ctx.pathInfo.param as HomeListParams;
+      this.scroller = params?.scroller;
+      this.homeTabController = params.homeTabController;
+    })
+    .onBackPressed(() => {
+      return !!this.viewModel.sendEvent<null>({ type: BaseHomeEventType.ON_BACK_PRESS, param: null });
+    })
   }
+}
+
+@Builder
+export function PracticesViewBuilder() {
+  PracticesView()
 }

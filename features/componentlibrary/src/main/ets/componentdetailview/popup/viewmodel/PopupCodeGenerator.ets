@@ -13,17 +13,27 @@
  * limitations under the License.
  */
 
+import { ResourceUtil, StorageKey } from '@ohos/common';
 import type { OriginAttribute } from '../../../viewmodel/Attribute';
 import { CommonCodeGenerator } from '../../../viewmodel/CommonCodeGenerator';
 import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
-import { placementMapData, PopupStyle, popupStyleCodeMapData, popupStyleMapData } from '../entity/PopupMapping';
+import {
+  placementMapData,
+  popupBtnTextCodeMapData,
+  PopupStyle,
+  popupStyleCodeMapData,
+  popupStyleMapData
+} from '../entity/PopupMapping';
 
 export class PopupCodeGenerator implements CommonCodeGenerator {
   private placement: string = placementMapData.get(DEFAULT_KEY)!.code;
   private type: PopupStyle = popupStyleMapData.get(DEFAULT_KEY)!;
   private styleCode: string = popupStyleCodeMapData.get(this.type)!;
+  private buttonTxt: string | undefined;
 
   public generate(_attributes: OriginAttribute[]): string {
+    const uiContext: UIContext | undefined = AppStorage.get(StorageKey.UI_CONTEXT);
+    let context: Context | undefined = uiContext?.getHostContext();
     let width: string = '';
     _attributes.forEach((attribute) => {
       switch (attribute.name) {
@@ -32,6 +42,12 @@ export class PopupCodeGenerator implements CommonCodeGenerator {
           break;
         case 'type':
           this.type = popupStyleMapData.get(attribute.currentValue) ?? this.type;
+          if (context) {
+            const resource: Resource | undefined = popupBtnTextCodeMapData.get(this.type);
+            if (resource) {
+              this.buttonTxt = ResourceUtil.getResourceString(context, resource);
+            }
+          }
           this.styleCode = popupStyleCodeMapData.get(this.type) ?? this.styleCode;
           if (this.type !== PopupStyle.STYLE_TEXT) {
             width = `
@@ -57,7 +73,7 @@ struct PopupComponent {
 
   build() {
     Column() {
-      Button('点击弹出气泡')
+      Button('${this.buttonTxt ?? '点击弹出气泡'}')
         .backgroundColor($r('sys.color.background_secondary'))
         .fontColor($r('sys.color.font_emphasize'))
         .fontWeight(FontWeight.Medium)

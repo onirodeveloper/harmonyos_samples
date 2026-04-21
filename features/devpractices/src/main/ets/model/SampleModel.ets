@@ -50,20 +50,23 @@ export class SampleModel {
   }
 
   public getSampleList(categoryId: number, currentPage: number, pageSize: number): Promise<PageData<SampleCardData[]>> {
-    return this.service.getSampleListByPreference(categoryId, currentPage, pageSize)
+    return this.service.getSampleList(categoryId, currentPage, pageSize)
       .then((data: PageData<SampleCardData[]>) => {
+        data.data?.forEach((sampleCard: SampleCardData) => {
+          sampleCard.sampleContents?.forEach((sample: SampleContent) => {
+            if (sample.mediaInfoList[0].mediaUrl !== undefined) {
+              ImageKnifeUtil.preloadImg(sample.mediaInfoList[0].mediaUrl);
+            }
+          });
+        });
+        this.service.setSampleListToPreference(categoryId, currentPage, pageSize, data);
         return data;
-      }).catch((err: string) => {
+      })
+      .catch((err: string) => {
         Logger.error(TAG,
           `getSamplePage data from network failed! try to get data form preference. ${err}`);
-        return this.service.getSampleList(categoryId, currentPage, pageSize)
+        return this.service.getSampleListByPreference(categoryId, currentPage, pageSize)
           .then((data: PageData<SampleCardData[]>) => {
-            data.data?.forEach((sampleCard: SampleCardData) => {
-              sampleCard.sampleContents?.forEach((sample: SampleContent) => {
-                ImageKnifeUtil.preloadImg(sample.mediaUrl);
-              });
-            });
-            this.service.setSampleListToPreference(categoryId, currentPage, pageSize, data);
             return data;
           });
       });
@@ -75,7 +78,9 @@ export class SampleModel {
         result.data.sampleCategories?.forEach((category: SampleCategory) => {
           category.sampleCards?.forEach((sampleCard: SampleCardData) => {
             sampleCard.sampleContents?.forEach((sample: SampleContent) => {
-              ImageKnifeUtil.preloadImg(sample.mediaUrl);
+              if (sample.mediaInfoList[0].mediaUrl !== undefined) {
+                ImageKnifeUtil.preloadImg(sample.mediaInfoList[0].mediaUrl);
+              }
             });
           });
         });

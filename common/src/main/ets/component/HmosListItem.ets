@@ -25,8 +25,6 @@ import {
   SuffixText,
 } from '@kit.UIDesignKit';
 import { SuffixItem } from '@hms.hds.hdsBaseComponent';
-import { CommonConstants } from '../constant/CommonConstants';
-import { VersionUtil } from '../util/VersionUtil';
 
 @Component
 export struct HmosListItem {
@@ -64,107 +62,29 @@ export struct HmosListItem {
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsListItemCard({
-        prefixItem: this.prefixResource ? new PrefixIcon({
-          iconSize: IconSize.SYSTEM_ICON,
-          iconValue: {
-            symbol: new SymbolGlyphModifier(this.prefixResource)
-              .fontColor([this.prefixColor])
-          },
-        }) : undefined,
-        textItem: {
-          primaryText: {
-            text: this.title,
-          },
-          secondaryText: this.subTitle ? { text: this.subTitle } : undefined,
-        },
-        suffixItem: this.getSuffixItem(),
-        cardBorderRadius: $r('sys.float.corner_radius_level8'),
-        cardPrefixMargin: 0,
-        cardSuffixMargin: 0,
-        cardHeight: this.itemHeight,
-        cardBackgroundColor: $r('sys.color.ohos_id_color_background_transparent'),
-        onClick: this.handleClickAction ? () => {
-          this.handleClickAction?.();
-        } : undefined,
-      })
-    } else {
-      Row() {
-        if (this.prefixResource) {
-          SymbolGlyph(this.prefixResource)
-            .fontSize($r('sys.float.Title_M'))
-            .margin({ right: $r('sys.float.padding_level6') })
+    HdsListItemCard({
+      prefixItem: this.prefixResource ? new PrefixIcon({
+        iconSize: IconSize.SYSTEM_ICON,
+        iconValue: {
+          symbol: new SymbolGlyphModifier(this.prefixResource)
             .fontColor([this.prefixColor])
-        }
-        Column({ space: CommonConstants.SPACE_2 }) {
-          Text(this.title)
-            .fontSize($r('sys.float.Subtitle_M'))
-            .fontColor($r('sys.color.font_primary'))
-            .fontWeight(FontWeight.Medium)
-          Text(this.subTitle)
-            .fontSize($r('sys.float.Body_M'))
-            .fontColor($r('sys.color.font_secondary'))
-            .visibility(this.subTitle ? Visibility.Visible : Visibility.None)
-        }
-        .alignItems(HorizontalAlign.Start)
-        .padding({ right: $r('sys.float.padding_level6') })
-        .layoutWeight(1)
-
-        if (this.buttonTitle) {
-          Button(this.buttonTitle,
-            { type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.SMALL })
-            .borderRadius(this.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-              $r('sys.float.corner_radius_level4') : '50%')
-            .width($r('app.float.small_button_width'))
-            .fontColor($r('sys.color.interactive_active'))
-        } else if (this.desc) {
-          Text(this.desc)
-            .fontSize($r('sys.float.Body_M'))
-            .fontColor($r('sys.color.font_secondary'))
-        } else {
-          if (this.badgeNum) {
-            Row() {
-              Text(String(this.badgeNum))
-                .fontColor($r('sys.color.font_on_primary'))
-                .fontSize($r('sys.float.Caption_M'))
-            }
-            .justifyContent(FlexAlign.Center)
-            .borderRadius($r('sys.float.corner_radius_level8'))
-            .padding({ left: $r('sys.float.corner_radius_level2'), right: $r('sys.float.corner_radius_level2') })
-            .height($r('app.float.badge_size'))
-            .constraintSize({ minWidth: $r('app.float.badge_size') })
-            .backgroundColor($r('sys.color.warning'))
-            .margin({ right: $r('sys.float.corner_radius_level2') })
-          }
-          SymbolGlyph($r('sys.symbol.chevron_right'))
-            .fontColor([$r('sys.color.icon_fourth')])
-            .fontSize($r('sys.float.Title_M'))
-        }
-      }
-      .hoverEffect(this.handleClickAction ? HoverEffect.Highlight : HoverEffect.None)
-      .stateStyles({
-        pressed: this.pressedStyle,
-        normal: this.normalStyles,
-      })
-      .onClick(() => {
+        },
+      }) : undefined,
+      textItem: {
+        primaryText: {
+          text: this.title,
+        },
+        secondaryText: this.subTitle ? { text: this.subTitle } : undefined,
+      },
+      suffixItem: this.getSuffixItem(),
+      cardBorderRadius: $r('sys.float.corner_radius_level8'),
+      cardPrefixMargin: 0,
+      cardSuffixMargin: 0,
+      cardHeight: this.itemHeight,
+      cardBackgroundColor: $r('sys.color.ohos_id_color_background_transparent'),
+      onClick: this.handleClickAction ? () => {
         this.handleClickAction?.();
-      })
-      .width('100%')
-      .height(this.itemHeight)
-      .borderRadius($r('sys.float.corner_radius_level8'))
-      .alignItems(VerticalAlign.Center)
-      .padding({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
-    }
-  }
-
-  @Styles
-  pressedStyle() {
-    .backgroundColor(this.handleClickAction ? $r('sys.color.comp_background_secondary') : Color.Transparent)
-  }
-
-  @Styles
-  normalStyles(): void {
-    .backgroundColor(Color.Transparent)
+      } : undefined,
+    })
   }
 }

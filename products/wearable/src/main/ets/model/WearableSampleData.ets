@@ -13,9 +13,12 @@
  * limitations under the License.
  */
 
+import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { SingleSampleData } from '@ohos/devpractices';
 
 @Observed
 export class WearableSampleData extends SingleSampleData {
+  public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
   public symbolGlyphColor: string = '';
+  public isSourceCode: boolean = false;
 }

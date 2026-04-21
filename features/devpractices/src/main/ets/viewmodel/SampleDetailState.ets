@@ -14,8 +14,8 @@
  */
 
 import { BaseState, LoadingStatus } from '@ohos/common';
-import { MediaTypeEnum } from '@ohos/commonbusiness';
 import { SampleTypeEnum } from '../common/SampleConstant';
+import { MediaInfo } from '../model/SampleData';
 
 @Observed
 export class SampleDetailState extends BaseState {
@@ -34,8 +34,7 @@ export class SampleDetailState extends BaseState {
 export class SampleDetailData {
   public id: number = 0;
   public isFavorite: boolean = false;
-  public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
-  public mediaUrl: string = '';
+  public mediaInfoList: MediaInfo[] = [];
   public sampleCard: SampleCardData = new SampleCardData();
 }
 
@@ -55,4 +54,5 @@ export class SampleCardData {
   public isOverflow: boolean = false;
   public cardOpenStatus: boolean = false;
   public breakWordIndex: number = 0;
+  public apiVersion: number = 0;
 }

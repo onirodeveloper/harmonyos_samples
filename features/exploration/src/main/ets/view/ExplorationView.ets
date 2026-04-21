@@ -14,15 +14,18 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { HdsNavigation, HdsNavigationAttribute, HdsNavigationTitleMode } from '@kit.UIDesignKit';
-import { BreakpointType, CommonConstants, GlobalInfoModel, PageContext, StorageKey, VersionUtil } from '@ohos/common';
-import type { BannerData } from '@ohos/commonbusiness';
+import {
+  HdsNavDestination,
+  HdsTabsController,
+  HideMode,
+} from '@kit.UIDesignKit';
+import { BreakpointType, CommonConstants, GlobalInfoModel, HdsUtil, StorageKey } from '@ohos/common';
+import type { BannerData, HomeListParams, InitializeParam, TabBarAnimationParam } from '@ohos/commonbusiness';
 import {
   BannerCard,
   BaseHomeEventType,
   BaseHomeView,
   CalculateHeightParam,
-  FullScreenNavigation,
   LoadingMoreItemBuilder,
   OffsetParam,
   TabBarType,
@@ -36,18 +39,23 @@ import type { ExplorationState } from '../viewmodel/ExplorationState';
 import { ExplorationEventType, ExplorationViewModel } from '../viewmodel/ExplorationViewModel';
 
 @Component({ freezeWhenInactive: true })
-export struct ExplorationView {
+struct ExplorationView {
   viewModel: ExplorationViewModel = ExplorationViewModel.getInstance();
   scroller: Scroller = new Scroller();
+  homeTabController: HdsTabsController = new HdsTabsController();
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @StorageLink(StorageKey.EXPLORATION_PAGE_CONTEXT) explorationPageContext: PageContext =
-    AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT) ?? new PageContext();
   @State explorationState: ExplorationState = this.viewModel.getState();
 
   aboutToAppear(): void {
+    this.viewModel.sendEvent<InitializeParam>({
+      type: BaseHomeEventType.INITIALIZE,
+      param: {
+        homeTabController: this.homeTabController,
+      },
+    });
     this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
@@ -96,7 +104,8 @@ export struct ExplorationView {
       left: new BreakpointType<Length>({
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
-        lg: CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
+        lg: HdsUtil.isSupportNewMaterialApi() ? $r('sys.float.padding_level16') :
+          CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
         xl: $r('sys.float.padding_level16'),
       }).getValue(this.globalInfoModel.widthBreakpoint),
     })
@@ -168,8 +177,9 @@ export struct ExplorationView {
         LoadingMoreItemBuilder(this.explorationState.loadingModel)
       }
       .padding({
-        left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
-          CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_16 : CommonConstants.SPACE_16,
+        left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+          !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_16 :
+          CommonConstants.SPACE_16,
         right: CommonConstants.SPACE_16,
         bottom: (this.globalInfoModel.naviIndicatorHeight +
           (new BreakpointType({
@@ -185,6 +195,12 @@ export struct ExplorationView {
     .scrollBar(BarState.Off)
     .edgeEffect(this.explorationState.hasEdgeEffect ? EdgeEffect.Spring : EdgeEffect.None)
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
+      this.viewModel.sendEvent<TabBarAnimationParam>({
+        type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
+        param: {
+          yOffset: offset,
+        } as TabBarAnimationParam,
+      });
       const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset()?.yOffset ?? 0 };
       const bannerChangeHeight: boolean | void = this.viewModel.sendEvent<CalculateHeightParam>({
         type: BaseHomeEventType.CALCULATE_BANNER_HEIGHT,
@@ -195,22 +211,21 @@ export struct ExplorationView {
       }
       return { offsetRemain: offset };
     })
+    .onReachEnd(() => {
+      this.viewModel.sendEvent<TabBarAnimationParam>({
+        type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
+        param: {
+          yOffset: -1,
+        } as TabBarAnimationParam,
+      });
+    })
     .onDidScroll(() => {
-      if (!VersionUtil.canUseHds()) {
-        this.viewModel.sendEvent<OffsetParam>({
-          type: BaseHomeEventType.HANDLE_SCROLL_OFFSET,
-          param: { yOffset: this.scroller.currentOffset().yOffset, tabIndex: TabBarType.PRACTICE },
-        });
-      }
+      this.viewModel.sendEvent<OffsetParam>({
+        type: BaseHomeEventType.HANDLE_SCROLL_OFFSET,
+        param: { yOffset: this.scroller.currentOffset().yOffset, tabIndex: TabBarType.PRACTICE },
+      });
     })
     .backgroundColor($r('sys.color.background_secondary'))
-  }
-
-  @Builder
-  TopTitleViewBuilder() {
-    FullScreenNavigation({
-      topNavigationData: this.explorationState.topNavigationData,
-    })
   }
 
   @Builder
@@ -220,9 +235,6 @@ export struct ExplorationView {
       contentView: () => {
         this.ContentViewBuilder()
       },
-      topTitleView: () => {
-        this.TopTitleViewBuilder()
-      },
       reloadData: () => {
         this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });
       },
@@ -230,30 +242,38 @@ export struct ExplorationView {
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavigation(this.explorationPageContext.navPathStack) {
-        this.ExplorationContentView();
-      }
-      .mode(NavigationMode.Stack)
-      .hideBackButton(true)
-      .titleMode(HdsNavigationTitleMode.MINI)
-      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
-      .titleBar({
-        padding: this.explorationState.topNavigationData.hdsTitleBarPadding,
-        avoidLayoutSafeArea: true,
-        style: this.explorationState.topNavigationData.hdsTitleBarStyle,
-        content: {
-          title: { mainTitle: this.explorationState.topNavigationData.title },
-        }
-      })
-      .width('100%')
-      .height('100%')
-    } else {
-      Navigation(this.explorationPageContext.navPathStack) {
-        this.ExplorationContentView();
-      }
-      .mode(NavigationMode.Stack)
-      .hideTitleBar(true)
+    HdsNavDestination() {
+      this.ExplorationContentView();
     }
+    .hideBackButton(true)
+    .bindToScrollable([this.scroller])
+    .dynamicHideTitleBar(this.globalInfoModel.needDynamicHideBar ? {
+      hideTitleArea: true,
+      mode: HideMode.SCROLL_UP,
+    } : {})
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+    .titleBar({
+      padding: this.explorationState.topNavigationData.hdsTitleBarPadding,
+      avoidLayoutSafeArea: true,
+      style: this.explorationState.topNavigationData.hdsTitleBarStyle,
+      content: {
+        title: { mainTitle: this.explorationState.topNavigationData.title },
+      }
+    })
+    .onReady((ctx: NavDestinationContext) => {
+      const params: HomeListParams = ctx.pathInfo.param as HomeListParams;
+      this.scroller = params?.scroller;
+      this.homeTabController = params.homeTabController;
+    })
+    .onBackPressed(() => {
+      return !!this.viewModel.sendEvent<null>({ type: BaseHomeEventType.ON_BACK_PRESS, param: null });
+    })
+    .width('100%')
+    .height('100%')
   }
+}
+
+@Builder
+export function ExplorationViewBuilder() {
+  ExplorationView()
 }

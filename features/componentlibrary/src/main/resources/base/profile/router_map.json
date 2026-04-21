@@ -1,6 +1,10 @@
 {
   "routerMap": [
     {
+      "name": "ComponentListView",
+      "pageSourceFile": "src/main/ets/view/ComponentListView.ets",
+      "buildFunction": "ComponentListBuilder"
+    },{
       "name": "ComponentDetailView",
       "pageSourceFile": "src/main/ets/view/ComponentDetailView.ets",
       "buildFunction": "ComponentDetailBuilder"

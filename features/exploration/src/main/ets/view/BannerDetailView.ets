@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,172 +13,151 @@
  * limitations under the License.
  */
 
-import { curves } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
-import type { BusinessError } from '@kit.BasicServicesKit';
-import { CommonConstants, LoadingStatus, Logger, WebUtil } from '@ohos/common';
-import { DiscoveryConstant } from '../common/DiscoveryConstant';
-import { ArticleWebComponent } from '../component/ArticleWebComponent';
-import { DiscoverContent } from '../model/DiscoverData';
 import {
-  ArticleDetailViewModel,
-  AssignPathStackParam,
-  DetailParam,
-  ExplorationDetailEventType,
-  PopParam,
-} from '../viewmodel/ArticleDetailViewModel';
-import type { ExplorationDetailState } from '../viewmodel/ExplorationDetailState';
+  CommonConstants,
+  GlobalInfoModel,
+  LoadingStatus,
+  Logger,
+  NativeActionData,
+  StorageKey,
+  WebSheetBuilder,
+  WebUtil,
+} from '@ohos/common';
+import { BaseDetailComponent } from '@ohos/commonbusiness';
+import { ArticleDetailViewModel } from '../viewmodel/ArticleDetailViewModel';
+import { ExplorationDetailState } from '../viewmodel/ExplorationDetailState';
 
-@Builder
-export function BannerDetailViewBuilder() {
-  BannerDetailView()
-}
-
-const TAG = '[BannerDetailView]';
+const NO_NETWORK_CODE = -106;
+const TAG = '[ArticleWebComponent]';
 
 @Component
-struct BannerDetailView {
-  viewModel: ArticleDetailViewModel = new ArticleDetailViewModel();
+export struct ArticleWebComponent {
   webController: webview.WebviewController = new webview.WebviewController();
-  tabViewType: number = -1;
-  discoverContent: DiscoverContent = new DiscoverContent();
-  @State animationDelay: boolean = false;
+  @Prop @Require viewModel: ArticleDetailViewModel;
+  @Prop @Require detailsUrl: string;
+  @Prop tabViewType: number = -1;
+  @Link loadingStatus: LoadingStatus;
+  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+    AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
+  @Link bindSheetShow: boolean;
+  @Link bindSheetSrc: string;
   @State detailState: ExplorationDetailState = this.viewModel.getState();
-  @State isChangePage: boolean = true; // Check whether to set geometryTransition id.
-  @State isPopTransition: boolean = false;
-  @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
-  private lastBackTs: number = 0;
-
-  checkPreview(method: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      this.webController = WebUtil.getWebController(this.discoverContent.detailsUrl)!;
-      try {
-        if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(method) >= 0) {
-          this.webController?.runJavaScriptExt(
-            method,
-            (error, result) => {
-              if (error) {
-                reject(`Run javascript error. Cause: ${error.message}`);
-              }
-              if (result) {
-                const type = result.getType();
-                if (type === webview.JsMessageType.BOOLEAN) {
-                  resolve(result.getBoolean());
-                } else {
-                  reject(`CheckPreview error, type:${type}`);
-                }
-              }
-            });
-        } else {
-          Logger.error(TAG, `Input method ${method} not in whitelist`);
-        }
-      } catch (error) {
-        reject(`Run javascript failed error. Cause: ${error.message}`);
-      }
-    });
-  }
-
-  customBackPressed(): boolean {
-    // Suppress repeated triggers occurring within 1 second
-    const now = Date.now();
-    if (now - this.lastBackTs < DiscoveryConstant.CLICK_TIME_INTERVAL_MS) {
-      return true;
-    }
-    this.lastBackTs = now;
-    this.checkPreview('checkPreview()')
-      .then((res) => {
-        if (res) {
-          const closePreviewMethod: string = 'closePreview()';
-          if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(closePreviewMethod) >= 0) {
-            this.webController?.runJavaScript(closePreviewMethod)
-              .catch((error: BusinessError) => {
-                Logger.error(TAG, `runJavaScript failed. Cause: ${error.message}`);
-              });
-          } else {
-            Logger.error(TAG, `Input method ${closePreviewMethod} not in whitelist`);
-          }
-        } else {
-          this.popAction(false);
-        }
-      })
-      .catch((error: string) => {
-        Logger.error(TAG, `Run javascript error: ${error}`);
-        this.popAction(false);
-      })
-    return true;
-  }
-
-  popAction(isAnimation: boolean) {
-    this.isPopTransition = true;
-    this.isChangePage = true;
-    this.getUIContext().animateTo({
-      curve: curves.interpolatingSpring(0, 1, 363, 38),
-    }, () => {
-      try {
-        WebUtil.getWebController(this.discoverContent.detailsUrl)?.onInactive();
-      } catch (error) {
-        Logger.error(TAG, `WebController.onInactive failed. Cause message: ${error.message}`);
-      } finally {
-        this.viewModel.sendEvent<PopParam>({
-          type: ExplorationDetailEventType.POP,
-          param: { animation: isAnimation, tabBarView: this.tabViewType },
-        });
-      }
-    });
-  }
-
-  handleOnReady(cxt: NavDestinationContext) {
-    const params = cxt?.pathInfo?.param as Record<string, string | number | boolean>;
-    this.discoverContent.id = params.id as number;
-    this.discoverContent.detailsUrl = params.detailsUrl as string;
-    this.discoverContent.title = params.title as string;
-    this.tabViewType = params.tabViewType as number;
-    this.viewModel.sendEvent<DetailParam>({
-      type: ExplorationDetailEventType.GET_ARTICLE_DETAIL,
-      param: {
-        content: this.discoverContent,
-        onBackClick: () => {
-          this.customBackPressed?.();
-        },
-      },
-    });
-    this.viewModel.sendEvent<AssignPathStackParam>({
-      type: ExplorationDetailEventType.ASSIGN_PATH_STACK,
-      param: {
-        navPathStack: cxt?.pathStack
-      }
-    });
-  }
+  @State isBlur: boolean = false;
+  @State title: string = '';
+  @Link webUrlType: number;
+  bindScroller?: Scroller;
 
   @Builder
-  BannerContentBuilder() {
-    ArticleWebComponent({
-      viewModel: this.viewModel,
-      detailsUrl: this.detailState.content.detailsUrl,
-      tabViewType: this.tabViewType,
-      loadingStatus: this.loadingStatus,
-    })
-      .geometryTransition(this.isChangePage ? CommonConstants.BANNER_GEOMETRY + this.tabViewType.toString() : '')
-      .transition(this.isChangePage ? (this.isPopTransition ? TransitionEffect.OPACITY :
-        TransitionEffect.OPACITY.animation({ duration: CommonConstants.TRANSITION_DURATION })) : undefined,
-        (transitionIn: boolean) => {
-          if (transitionIn) {
-            this.isChangePage = false;
-            this.loadingStatus = LoadingStatus.LOADING;
-          }
-        })
+  WebContentBuilder() {
+    Stack() {
+      Scroll(this.bindScroller).zIndex(-1)
+      Scroll() {
+        Web({ src: this.detailsUrl, controller: this.webController })
+          .zoomAccess(false)
+          .fileAccess(false)
+          .mixedMode(MixedMode.None)
+          .verticalScrollBarAccess(false)
+          .horizontalScrollBarAccess(false)
+          .imageAccess(true)
+          .cacheMode(CacheMode.Default)
+          .domStorageAccess(true)
+          .javaScriptAccess(true)
+          .javaScriptProxy({
+            object: new NativeActionData(this.detailsUrl),
+            name: 'nativeActionData',
+            methodList: ['webSheet', 'jumpPage'],
+            controller: this.webController,
+            permission: WebUtil.getJsPermission(),
+          })
+          .geolocationAccess(false)
+          .backgroundColor($r('sys.color.background_secondary'))
+          .overScrollMode(OverScrollMode.ALWAYS)
+          .darkMode(WebDarkMode.Auto)
+          .forceDarkAccess(true)
+          .allowDrop(null)
+          .onPageVisible(() => {
+            if (this.loadingStatus !== LoadingStatus.NO_NETWORK) {
+              this.loadingStatus = LoadingStatus.SUCCESS;
+            }
+          })
+          .onErrorReceive((event: OnErrorReceiveEvent) => {
+            const isMainFrame: boolean = event?.request?.isMainFrame();
+            const errCode: number = event?.error?.getErrorCode();
+            if (isMainFrame && errCode === NO_NETWORK_CODE) {
+              this.loadingStatus = LoadingStatus.NO_NETWORK;
+            }
+            Logger.error(TAG, `onErrorReceive.url: ${this.detailsUrl}; isMainFrame: ${isMainFrame}; code: ${errCode}`);
+          })
+          .onLoadIntercept((event: OnLoadInterceptEvent) => {
+            return WebUtil.handleLoadIntercept(event);
+          })
+          .onConsole((event: OnConsoleEvent) => {
+            Logger.error(TAG, event.message.getMessage())
+            return false;
+          })
+          .onSslErrorEventReceive((event) => {
+            Logger.error(TAG, `SSL checked failed, error: ${event.error.toString()}`);
+            event.handler.handleCancel();
+          })
+          .onControllerAttached(() => {
+            WebUtil.setWebController(this.detailsUrl, this.webController);
+            // Setting the local file path that allows cross-domain access.
+            const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
+            const context: Context = uiContext?.getHostContext() as Context;
+            try {
+              this.webController.setPathAllowingUniversalAccess([context?.resourceDir]);
+            } catch (error) {
+              Logger.error(TAG, `setPathAllowingUniversalAccess failed, error: ${error.message}`);
+            }
+          })
+          .onScroll((event) => {
+            this.bindScroller?.scrollTo({ xOffset: event.xOffset, yOffset: event.yOffset });
+          })
+          .width('100%')
+          .height('100%')
+      }
+      .scrollBar(BarState.Off)
+      .edgeEffect(EdgeEffect.None)
+      .onReachStart(() => {
+        this.bindScroller?.scrollEdge(Edge.Top);
+      })
+      .onReachEnd(() => {
+        this.bindScroller?.scrollEdge(Edge.Bottom);
+      })
+    }
   }
 
   build() {
-    NavDestination() {
-      this.BannerContentBuilder()
-    }
-    .defaultFocus(true)
-    .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
-    .hideTitleBar(true)
-    .onBackPressed((): boolean => {
-      return this.customBackPressed();
+    BaseDetailComponent({
+      detailContentView: () => {
+        this.WebContentBuilder()
+      },
+      reloadData: () => {
+        try {
+          this.loadingStatus = LoadingStatus.LOADING;
+          this.webController.refresh();
+        } catch (error) {
+          Logger.error(TAG, `Refresh failed.url: ${this.detailsUrl}`);
+        }
+      },
+      loadingStatus: this.loadingStatus,
     })
-    .backgroundColor(Color.Transparent)
+      .backgroundColor(Color.Transparent)
+      .width('100%')
+      .height('100%')
+      .bindSheet(this.bindSheetShow,
+        WebSheetBuilder(this.bindSheetSrc, this.webUrlType), {
+          title: { title: '' },
+          preferType: SheetType.CENTER,
+          height: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+            ((this.globalInfoModel.deviceHeight - this.globalInfoModel.decorHeight) *
+              CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
+          width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SHEET_WIDTH_XL :
+            undefined,
+          onDisappear: () => {
+            this.bindSheetShow = false;
+          },
+        })
   }
 }

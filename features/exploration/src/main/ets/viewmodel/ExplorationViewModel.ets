@@ -25,6 +25,7 @@ import {
   WindowUtil,
   PageEnum,
   GlobalInfoModel,
+  InteractionTypeEnum,
 } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
 import {
@@ -71,8 +72,6 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
   protected loadDiscoveryPage(): void {
     const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
-    this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
-    this.state.topNavigationData.isBlur = false;
     WindowUtil.updateStatusBarColor(isDark);
     this.model.getDiscoveryPage()
       .then((result: DiscoverData) => {
@@ -84,7 +83,6 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
           globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
-          this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = true;
           this.setTitleBarStyle();
@@ -113,8 +111,9 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
       id: content.id,
       isArticle: true,
       title: content.title,
+      desc: content.desc,
       detailsUrl: content.detailsUrl,
-      contentType: content.contentType,
+      interactionType: InteractionTypeEnum.ARTICLE,
     };
     pathStack?.openPage({
       routerName: PageEnum.ARTICLE_DETAIL_VIEW,

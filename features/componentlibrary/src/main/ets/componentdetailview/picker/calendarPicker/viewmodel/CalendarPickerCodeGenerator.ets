@@ -14,8 +14,8 @@
  */
 
 import type { OriginAttribute } from '../../../../viewmodel/Attribute';
-import { commonFontColorMap, DEFAULT_KEY, fontWeightMapData } from '../../../common/entity/CommonMapData';
 import { CommonCodeGenerator } from '../../../../viewmodel/CommonCodeGenerator';
+import { commonFontColorMap, DEFAULT_KEY, fontWeightMapData } from '../../../common/entity/CommonMapData';
 import { calendarAlignTypeMapData } from '../entity/CalendarPickerAttributeMapping';
 
 export class CalendarPickerCodeGenerator implements CommonCodeGenerator {
@@ -59,7 +59,7 @@ export class CalendarPickerCodeGenerator implements CommonCodeGenerator {
 struct CalendarPickerComponent {
   build() {
     Column() {
-      CalendarPicker({ hintRadius: 10, selected: new Date('2024-03-05') })
+      CalendarPicker({ hintRadius: 10 })
         .width('30%')
         .edgeAlign(${this.calendarAlignType}, { dx: ${this.calendarOffsetX}, dy: ${this.calendarOffsetY} })
         .textStyle({ color: '${this.pickerFontColor}', font: { size: ${this.pickerFontSize}, weight: ${this.pickerFontWeight} } })

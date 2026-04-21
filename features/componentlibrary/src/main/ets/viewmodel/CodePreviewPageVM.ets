@@ -44,6 +44,8 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
     if (event === CodePreviewEvent.INIT) {
       this.init();
       this.resetNavigationViewState();
+    } else if (event === CodePreviewEvent.HANDLE_PAGE_CLICK) {
+      this.handlePageClick();
     }
   }
 
@@ -92,8 +94,14 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
       }
     })
   }
+
+  private handlePageClick(): void {
+    this.state.topTranslateY = 0;
+    this.state.bottomTranslateY = 0;
+  }
 }
 
 export enum CodePreviewEvent {
   INIT = 'INIT_CODE_PREVIEW_PAGE',
+  HANDLE_PAGE_CLICK = 'handlePageClick',
 }

@@ -13,18 +13,21 @@
  * limitations under the License.
  */
 
-import { ConfigurationConstant } from '@kit.AbilityKit';
 import { SegmentButton, SegmentButtonItemTuple, SegmentButtonOptions, } from '@kit.ArkUI';
-import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
+import {
+  hdsMaterial,
+  HdsNavDestination,
+  HdsNavDestinationAttribute,
+  ScrollEffectType,
+  TitleBarStyleOptions
+} from '@kit.UIDesignKit';
 import {
   BreakpointType,
   CommonConstants,
   GlobalInfoModel,
+  HdsUtil,
   LoadingStatus,
   StorageKey,
-  TopNavigationView,
-  VersionUtil,
-  WindowUtil,
 } from '@ohos/common';
 import { BaseDetailComponent } from '@ohos/commonbusiness';
 import { AssignViewData, InitContentNewEvent, NewContentVM } from '../viewmodel/NewContentVM';
@@ -33,12 +36,16 @@ import { NewContentItem } from '../component/NewContentItem';
 
 @Component
 export struct NewContentView {
-  @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
-    AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
   @State currentIndex: number = 0;
+  @State titleBarStyle: TitleBarStyleOptions = {
+    scrollEffectOpts: {
+      scrollEffectType: ScrollEffectType.COMMON_BLUR,
+      enableScrollEffect: false,
+    },
+  };
   @State singleSelectCapsuleOptions: SegmentButtonOptions = SegmentButtonOptions.capsule({
     buttons: [
       { text: $r('app.string.component') },
@@ -48,7 +55,7 @@ export struct NewContentView {
     backgroundColor: $r('sys.color.comp_background_tertiary'),
     fontSize: $r('sys.float.Body_M'),
     multiply: false,
-    selectedBackgroundColor: $r('sys.color.comp_background_primary'),
+    selectedBackgroundColor: $r('sys.color.ohos_id_color_foreground_contrary_disable'),
     selectedFontColor: $r('sys.color.font_primary'),
     fontColor: $r('sys.color.font_secondary'),
     textPadding: {
@@ -56,25 +63,29 @@ export struct NewContentView {
       bottom: $r('sys.float.padding_level4'),
     },
   })
-  @State @Watch('tabSelectedIndexChange') tabSelectedIndexes: number[] = [0]
+  @State @Watch('tabSelectedIndexChange') tabSelectedIndexes: number[] = [0];
   private viewModel?: NewContentVM = NewContentVM.getInstance();
   @State newContentPageState?: NewContentPageState = this.viewModel?.getState();
 
   aboutToAppear(): void {
-    const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    WindowUtil.updateStatusBarColor(isSystemDark);
+    if (HdsUtil.isSupportNewMaterialApi()) {
+      this.titleBarStyle = {
+        systemMaterialEffect: {
+          materialType: hdsMaterial.MaterialType.IMMERSIVE,
+          materialLevel: hdsMaterial.MaterialLevel.ADAPTIVE,
+        },
+        scrollEffectOpts: {
+          enableScrollEffect: false,
+          scrollEffectType: hdsMaterial.getSystemMaterialTypes().length > 0 ? ScrollEffectType.GRADIENT_BLUR :
+            ScrollEffectType.COMMON_BLUR,
+        },
+      }
+    }
   }
 
   handleOnReady(ctx: NavDestinationContext) {
     this.viewModel?.sendEvent(new AssignViewData(ctx.pathStack));
     this.viewModel?.sendEvent(new InitContentNewEvent(this.tabSelectedIndexes[0]));
-  }
-
-  @Builder
-  TopTitleViewBuilder() {
-    TopNavigationView({
-      topNavigationData: this.newContentPageState?.topNavigationData,
-    })
   }
 
   @Builder
@@ -143,51 +154,28 @@ export struct NewContentView {
       detailContentView: () => {
         this.ContentTabs()
       },
-      topTitleView: () => {
-        if (!VersionUtil.canUseHds()) {
-          this.TopTitleViewBuilder()
-        }
-      },
       reloadData: () => {
         this.viewModel?.sendEvent(new InitContentNewEvent(this.tabSelectedIndexes[this.currentIndex]));
       },
       loadingStatus: this.newContentPageState?.loadingStatus,
     })
-      .expandSafeArea([SafeAreaType.KEYBOARD, SafeAreaType.SYSTEM])
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavDestination() {
-        this.ContentBuilder()
-      }
-      .hideBackButton(false)
-      .titleBar({
-        avoidLayoutSafeArea: true,
-        style: {
-          scrollEffectOpts: {
-            enableScrollEffect: false,
-          },
-        },
-        content: {
-          title: { mainTitle: $r('app.string.content_new') },
-        }
-      })
-      .backgroundColor($r('sys.color.background_secondary'))
-      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
-      .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
-
-    } else {
-      NavDestination() {
-        this.ContentBuilder()
-      }
-      .hideTitleBar(true)
-      .height('100%')
-      .backgroundColor($r('sys.color.background_secondary'))
-      .onReady((_ctx: NavDestinationContext) => {
-        this.handleOnReady(_ctx);
-      })
+    HdsNavDestination() {
+      this.ContentBuilder()
     }
+    .hideBackButton(false)
+    .titleBar({
+      style: this.titleBarStyle,
+      content: {
+        title: { mainTitle: $r('app.string.content_new') },
+      }
+    })
+    .backgroundColor($r('sys.color.background_secondary'))
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+    .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
+
   }
 
   tabSelectedIndexChange() {

@@ -94,7 +94,7 @@
     },
     {
       "name": "feedback_top_height",
-      "value": "73vp"
+      "value": "74vp"
     },
     {
       "name": "vote_area_width",
@@ -151,6 +151,26 @@
     {
       "name": "feedback_right_padding_xl",
       "value": "120vp"
+    },
+    {
+      "name": "feedback_submit_padding_bottom",
+      "value": "44vp"
+    },
+    {
+      "name": "feedback_top_margin_bottom_low",
+      "value": "44vp"
+    },
+    {
+      "name": "feedback_top_margin_bottom_mid",
+      "value": "67vp"
+    },
+    {
+      "name": "feedback_top_margin_bottom_high",
+      "value": "59vp"
+    },
+    {
+      "name": "feedback_top_margin_bottom_feedback",
+      "value": "42vp"
     }
   ]
 }

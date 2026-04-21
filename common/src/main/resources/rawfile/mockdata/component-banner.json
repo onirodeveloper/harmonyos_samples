@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "title": "开发者你好，欢迎来到HMOS世界",
+      "subTitle": "HarmonyOS代码工坊",
+      "desc": "欢迎来到鸿蒙开发者世界，一起体验鸿蒙应用开发。",
+      "type": 3,
+      "mediaUrl": "image/banner/banner_HMOS.png",
+      "detailsUrl": "bannercols/hmos-world/index.html",
+      "sequence": 1
+    },
+    {
+      "id": 2,
+      "title": "HMOS代码工坊一多开发实践",
+      "subTitle": "一次开发，多端部署",
+      "desc": "探索HarmonyOS代码工坊一多开发实践",
+      "type": 3,
+      "mediaUrl": "image/banner/banner_ui_design.png",
+      "detailsUrl": "articlecols/articles/multi-adaptation/index.html",
+      "sequence": 2
+    },
+    {
+      "id": 3,
+      "title": "开箱即用的AI语音播报能力",
+      "subTitle": "AI朗读",
+      "desc": "朗读文本转语音，新闻小说即享听。",
+      "type": 3,
+      "mediaUrl": "image/banner/banner_ai.png",
+      "detailsUrl": "bannercols/ai-voice-out-of-box/index.html",
+      "sequence": 3
+    },
+    {
+      "id": 4,
+      "title": "适配HUAWEI Pura X MAX",
+      "subTitle": "新设备，新体验",
+      "desc": "Pura X MAX适配指导，欢迎查看",
+      "type": 3,
+      "mediaUrl": "image/banner/banner_hope.png",
+      "detailsUrl": "bannercols/hmos-hope/index.html",
+      "sequence": 4
+    }
+  ]
+}

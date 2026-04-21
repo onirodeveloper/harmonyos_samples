@@ -78,7 +78,7 @@ export struct CustomSideBar {
         this.BarItemBuilder(item)
       }, (item: TabBarData, index: number) => item.id.toString() + (this.currentIndex === index))
     }
-    .width(CommonConstants.SIDE_BAR_WIDTH)
+    .width('100%')
     .height('100%')
     .padding({
       left: $r('sys.float.padding_level8'),

@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-import { BaseState, LoadingModel } from '@ohos/common';
-import { FullScreenNavigationData } from '../model/FullScreenNavigationData';
+import { BaseState, LoadingModel, TopNavigationData } from '@ohos/common';
 import { BannerSource } from './BannerSource';
 
 @Observed
 export class BaseHomeState extends BaseState {
   public loadingModel: LoadingModel = new LoadingModel();
-  public topNavigationData: FullScreenNavigationData = new FullScreenNavigationData();
+  public topNavigationData: TopNavigationData = new TopNavigationData();
   public currentScrollState: ScrollState = ScrollState.Idle;
   public bannerState: BannerState = new BannerState();
   public bannerHeight: number = 0;
   public currentPage: number = 1;
   public hasEdgeEffect: boolean = false;
   public showTab: boolean = false;
+  public scroller: Scroller = new Scroller();
 
   public constructor() {
     super();

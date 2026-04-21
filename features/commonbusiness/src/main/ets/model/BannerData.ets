@@ -25,6 +25,7 @@ export class BannerData extends BaseData {
   public mediaUrl: string = '';
   public detailsUrl: string = '';
   public tabViewType: number = -1;
+  public themeColor: string = '';
 }
 
 export enum BannerTypeEnum {

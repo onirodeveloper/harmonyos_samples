@@ -20,6 +20,9 @@ import Logger from './Logger';
 const TAG = '[ProcessUtil]';
 
 export class ProcessUtil {
+  private static operationNotSupportedCode: number = 16000061;
+  private static startOptionCheckFailedCode: number = 16000067;
+
   public static terminateAbility(context: common.UIAbilityContext): void {
     try {
       if (!context) {
@@ -46,6 +49,9 @@ export class ProcessUtil {
       context.moveAbilityToBackground().then(() => {
         Logger.info(TAG, 'moveAbilityToBackground succeed');
       }).catch((err: BusinessError) => {
+        if (err.code === ProcessUtil.operationNotSupportedCode) {
+          ProcessUtil.hideAbility(context);
+        }
         Logger.error(TAG, `moveAbilityToBackground failed, cause ${err.code}, ${err.message}`);
       });
     } catch (error) {
@@ -71,6 +77,27 @@ export class ProcessUtil {
       const err: BusinessError = error as BusinessError;
       Logger.error(TAG, `startAbility failed error: ${err.code}, ${err.message}`);
       return Promise.resolve(false);
+    }
+  }
+
+  private static hideAbility(context: common.UIAbilityContext): void {
+    try {
+      if (!context) {
+        Logger.error(TAG, `hideAbility failed, cause context is null or undefined.`);
+        return;
+      }
+      context.hideAbility().then(() => {
+        Logger.info(TAG, 'hideAbility succeed');
+      }).catch((err: BusinessError) => {
+        if (err.code === ProcessUtil.startOptionCheckFailedCode) {
+          ProcessUtil.terminateAbility(context);
+        }
+        Logger.error(TAG, `hideAbility failed, cause ${err.code}, ${err.message}`);
+      })
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `hideAbility failed error: ${err.code}, ${err.message}`);
+      return;
     }
   }
 }

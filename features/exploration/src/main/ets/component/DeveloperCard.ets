@@ -14,7 +14,7 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey, TrackNode, TrackServiceData, TRACK_KEY } from '@ohos/common';
+import { GlobalInfoModel, StorageKey, TrackNode, TrackServiceData, TRACK_KEY, HdsUtil, InteractionTypeEnum } from '@ohos/common';
 import { BreakpointType, CommonConstants, ProductSeriesEnum, TrackEventType } from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { DeveloperItem } from './DeveloperItem';
@@ -34,15 +34,14 @@ export struct DeveloperCard {
       Repeat(this.discoverContents)
         .each((repeatItem: RepeatItem<DiscoverContent>) => {
           Column() {
-            TrackNode({ eventType: TrackEventType.ARTICLE_EXPOSURE }) {
+            TrackNode() {
               DeveloperItem({ discoverContent: repeatItem.item })
                 .onClick(() => {
                   this.handleItemClick?.(repeatItem.item);
                 })
                 .customProperty(TRACK_KEY, {
-                  content: repeatItem.item.title,
-                  moduleType: repeatItem.item.contentType,
-                  eventType: TrackEventType.ARTICLE_CLICK,
+                  interactionContent: repeatItem.item.title,
+                  interactionType: InteractionTypeEnum.ARTICLE,
                 } as TrackServiceData)
             }
           }
@@ -69,7 +68,8 @@ export struct DeveloperCard {
     .prevMargin(new BreakpointType<Length>({
       sm: 0,
       md: $r('sys.float.padding_level6'),
-      lg: CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
+      lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_16 :
+        CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
       xl: CommonConstants.SPACE_16,
     }).getValue(this.globalInfoModel.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({

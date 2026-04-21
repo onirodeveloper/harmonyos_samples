@@ -123,7 +123,6 @@ export class AccountService {
         this.userAccount.avatarUrl = authCredential.avatarUri ?? '';
         this.userAccount.nickname = authCredential.nickName ?? '';
         this.userAccount.unionId = authCredential.unionID ?? '';
-        this.userAccount.openId = authCredential.openID ?? '';
         // show sheet and huawei Account to login
         resolve(this.userAccount);
       }).catch((error: BusinessError) => {

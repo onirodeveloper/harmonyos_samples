@@ -34,6 +34,7 @@ export struct BannerItem {
         objectFit: ImageFit.Cover,
         alt: $r(undefined),
       })
+        .backgroundColor(this.bannerData?.themeColor)
         .reuseId('bannerItem')
         .width('100%')
         .height('100%')

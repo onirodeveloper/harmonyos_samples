@@ -13,252 +13,54 @@
  * limitations under the License.
  */
 
-import { common, ConfigurationConstant } from '@kit.AbilityKit';
-import { uniformTypeDescriptor as utd } from '@kit.ArkData';
-import { window } from '@kit.ArkUI';
-import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
-import { systemShare } from '@kit.ShareKit';
+import { ConfigurationConstant } from '@kit.AbilityKit';
+import { CommonModifier } from '@kit.ArkUI';
 import {
+  ActionName,
+  InteractionTypeEnum,
   CommonConstants,
   GlobalInfoModel,
-  Logger,
-  ResourceUtil,
-  ScreenOrientation,
   StorageKey,
-  Toast,
-  TopNavigationView,
   TRACK_KEY,
-  TrackEventType,
   TrackServiceData,
-  VersionUtil,
   WebNodeController,
-  WIDTH_BREAKPOINTS,
-  WindowUtil
+  WindowUtil,
+  PasteboardUtil,
 } from '@ohos/common';
 import { CardTypeEnum } from '@ohos/commonbusiness';
+import { CustomToolBarItem } from '../model/CustomToolBarItem';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
-import { JSON } from '@kit.ArkTS';
-
-const TAG: string = '[CodePreviewComponent]';
 
 @Component
 export struct CodePreviewComponent {
-  @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
-    ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @State isDarkMode: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-  colorMode: ConfigurationConstant.ColorMode = this.systemColorMode;
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
-  @State screenOrientation: string = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
-    ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
+  @Prop @Watch('handleColorModeChange') isDarkMode: boolean;
   @Prop @Watch('flushCode') code: string = '';
   @Prop pageContainer: boolean = false;
-  @Prop isFocus: boolean = false;
-  @Prop isBack: boolean = false;
-  @Prop topTranslateY: number = 0;
-  @Prop bottomTranslateY: number = 0;
-  @Prop navigationOpacity: number = 1;
-  @State isFloatWindowType: boolean = false;
-  @State isHover: boolean = false;
   @Link webNodeController: WebNodeController;
-  onBackPage?: () => void;
+  @State commonModifier: CommonModifier = new CommonModifier();
   public pushPage?: (value: string) => void;
   public componentName: string = '';
-  public contentType: CardTypeEnum = CardTypeEnum.COMPONENT;
-  private windowClass: window.Window | undefined = undefined;
-  private topIconItems: ItemData[] = [
-    new ItemData(
-      {
-        iconResource: $r('sys.symbol.arrow_up_left_and_arrow_down_right'),
-      } as ResourceInterface,
-      TrackEventType.UNKNOWN,
-      () => {
+  private topIconItems: CustomToolBarItem[] = [
+    {
+      symbolIcon: $r('sys.symbol.arrow_up_left_and_arrow_down_right'),
+      value: '',
+      actionValue: '',
+      actionName: ActionName.UNKNOWN,
+      action: () => {
         this.pushPage?.(this.code);
-      }, 0)
-  ];
-  private shareItem: ItemData =
-    new ItemData(
-      {
-        iconResource: $r('sys.symbol.share'),
-      } as ResourceInterface,
-      TrackEventType.COMPONENT_CODE_SHARE_CLICK,
-      () => {
-        this.handleShare();
-      }, 5);
-  private bottomIconItems: ItemData[] = [
-    new ItemData(
-      {
-        iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-          $r('sys.symbol.plus_square_on_square') : $r('sys.symbol.plus_square_on_square_fill'),
-        iconTitle: $r('app.string.copy'),
-      } as ResourceInterface,
-      TrackEventType.COMPONENT_CODE_COPY_CLICK,
-      () => {
-        this.copyText(this.code);
-      }, 0),
-    new ItemData(
-      {
-        iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-          $r('sys.symbol.sun_max') : $r('sys.symbol.sun_max_fill'),
-        iconTitle: $r('app.string.dark_mode'),
-      } as ResourceInterface,
-      TrackEventType.UNKNOWN,
-      () => {
-        this.changeColorMode();
-      }, 1,
-      {
-        iconResource: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-          $r('sys.symbol.moon') : $r('sys.symbol.moon_fill'),
-        iconTitle: $r('app.string.light_mode'),
-      } as ResourceInterface),
-    new ItemData(
-      {
-        iconResource: $r('sys.symbol.screen_rotation'),
-        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-          $r('app.string.portrait_screen'),
-      } as ResourceInterface,
-      TrackEventType.UNKNOWN,
-      () => {
-        this.changeScreenOrientation();
-      }, 2)
-  ];
-  private topMenuList: ItemData[] = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-    [this.shareItem, ...this.bottomIconItems.slice(0, 1)] : [this.shareItem];
-  private beginBreakpoint: WidthBreakpoint = this.globalInfoModel.widthBreakpoint;
-  private windowSizeCallback: Callback<window.Size> = (size) => {
-    if (size.width > size.height) {
-      this.screenOrientation = ScreenOrientation.LANDSCAPE;
-      if (this.pageContainer && !this.isBack) {
-        const showLandscapeMethod: string =
-          this.isFloatWindowType ? 'showLandscapeFloatView(%param)' : 'showLandscapeView(%param)';
-        const params: string = JSON.stringify(WIDTH_BREAKPOINTS[this.beginBreakpoint]);
-        CodePreviewJSUtil.codeViewRunJS(showLandscapeMethod, params);
-      }
-    } else {
-      this.screenOrientation = ScreenOrientation.PORTRAIT;
-      if (this.pageContainer && !this.isBack) {
-        const showPortraitMethod: string = 'showPortraitView()';
-        CodePreviewJSUtil.codeViewRunJS(showPortraitMethod);
-      }
-    }
-    this.changeBottomIconData();
-  };
+      },
+    }];
 
-  private changeScreenOrientation(): void {
-    if (this.screenOrientation === ScreenOrientation.PORTRAIT) {
-      WindowUtil.enableFloatWindowRotate();
-      WindowUtil.setMainWindowOrientation(window.Orientation.LANDSCAPE, () => {
-        this.updateStatusBar();
-      });
-    } else {
-      WindowUtil.disableFloatWindowRotate();
-      WindowUtil.setMainWindowOrientation(window.Orientation.PORTRAIT, () => {
-        this.updateStatusBar();
-      });
-    }
+  aboutToAppear(): void {
+    this.commonModifier.backgroundBlurStyle(BlurStyle.BACKGROUND_THIN);
   }
 
-  private changeBottomIconData(): void {
-    if (this.bottomIconItems[2]) {
-      this.bottomIconItems[2].lightMode = {
-        iconResource: $r('sys.symbol.screen_rotation'),
-        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-          $r('app.string.portrait_screen'),
-      };
-      this.bottomIconItems[2].darkMode = {
-        iconResource: $r('sys.symbol.screen_rotation'),
-        iconTitle: this.screenOrientation === ScreenOrientation.PORTRAIT ? $r('app.string.landscape_screen') :
-          $r('app.string.portrait_screen'),
-      }
-    }
-  }
-
-  private handleShare(): void {
-    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-    const shareDescription = ResourceUtil.getResourceString(context, $r('app.string.share_description'));
-    const shareData: systemShare.SharedData = new systemShare.SharedData({
-      utd: utd.UniformDataType.PLAIN_TEXT,
-      content: this.code,
-      title: this.componentName,
-      description: shareDescription
-    });
-
-    const controller: systemShare.ShareController = new systemShare.ShareController(shareData);
-    controller.show(context, {
-      selectionMode: systemShare.SelectionMode.SINGLE,
-      previewMode: systemShare.SharePreviewMode.DEFAULT
-    }).catch((error: BusinessError) => {
-      Logger.error(TAG, `Component code sharing error. Code: ${error.code}, message: ${error.message}`);
-    });
-  }
-
-  aboutToAppear?(): void {
-    if (this.pageContainer) {
-      try {
-        window.getLastWindow(this.getUIContext().getHostContext()).then((windowClass: window.Window) => {
-          if (windowClass === undefined) {
-            Logger.error(TAG, `MainWindowClass is undefined`);
-            return;
-          }
-          this.windowClass = windowClass;
-          this.windowClass.on('windowSizeChange', this.windowSizeCallback);
-        });
-      } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG,
-          `Failed to register windowSizeChange. Cause code: ${err.code}, message: ${err.message}`);
-      }
-    }
-  }
-
-  aboutToDisappear(): void {
-    if (this.pageContainer) {
-      try {
-        this.windowClass?.off('windowSizeChange', this.windowSizeCallback);
-      } catch (error) {
-        const err: BusinessError = error as BusinessError;
-        Logger.error(TAG,
-          `Failed to unregister windowSizeChange. Cause code: ${err.code}, message: ${err.message}`);
-      }
-    }
-  }
-
-  handleDeviceOrientation() {
-    try {
-      if (canIUse('SystemCapability.Window.SessionManager')) {
-        // Retrieve the floating window status
-        this.windowClass!.on('windowStatusChange', (windowStatusType) => {
-          if (windowStatusType === window.WindowStatusType.FLOATING) {
-            this.isFloatWindowType = true;
-            // For the first time, directly set it to vertical floating mode.
-            this.screenOrientation = ScreenOrientation.PORTRAIT;
-          } else {
-            this.isFloatWindowType = false;
-            // if it is in fullscreen mode, restore it based on the device.
-            // Restore the tablet to landscape mode.
-            if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM) {
-              this.screenOrientation = ScreenOrientation.PORTRAIT;
-            }
-          }
-        });
-      }
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(TAG,
-        `Failed to register callback. Cause code: ${err.code}, message: ${err.message}`);
-    }
-  }
-
-  unregisterWindowChange() {
-    try {
-      if (canIUse('SystemCapability.Window.SessionManager')) {
-        // Retrieve the floating window status
-        this.windowClass!.off('windowStatusChange');
-      }
-    } catch (error) {
-      const err: BusinessError = error as BusinessError;
-      Logger.error(TAG,
-        `Failed to unregister callback. Cause code: ${err.code}, message: ${err.message}`);
-    }
+  handleColorModeChange() {
+    const changeColorModeMethod: string = 'changeColorMode(%param)';
+    const params: string = JSON.stringify(this.isDarkMode ? ConfigurationConstant.ColorMode.COLOR_MODE_DARK :
+      ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
+    CodePreviewJSUtil.codeViewRunJS(changeColorModeMethod, params);
   }
 
   flushCode() {
@@ -267,164 +69,38 @@ export struct CodePreviewComponent {
     CodePreviewJSUtil.codeViewRunJS(codeToHtmlMethod, params);
   }
 
-  handleColorModeChange() {
-    if (this.colorMode !== this.systemColorMode) {
-      this.changeColorMode();
-    }
-  }
-
-  changeColorMode() {
-    if (this.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT) {
-      this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
-      this.isDarkMode = true;
-    } else {
-      this.colorMode = ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
-      this.isDarkMode = false;
-    }
-    WindowUtil.updateStatusBarColor(this.isDarkMode);
-    const changeColorModeMethod: string = 'changeColorMode(%param)';
-    const params: string = JSON.stringify(this.colorMode);
-    CodePreviewJSUtil.codeViewRunJS(changeColorModeMethod, params);
-  }
-
-  updateStatusBar() {
-    if (VersionUtil.canUseHds()) {
-      setTimeout(() => {
-        WindowUtil.updateStatusBarColor(this.isDarkMode);
-      }, 500);
-    }
-  }
-
-  copyText(text: string) {
-    try {
-      const pasteboardData: pasteboard.PasteData = pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, text);
-      const systemPasteboard = pasteboard.getSystemPasteboard();
-      systemPasteboard.setData(pasteboardData).then(() => {
-        Toast.showToast($r('app.string.copy_success'))
-      }).catch((error: BusinessError) => {
-        Toast.showToast($r('app.string.copy_fail'));
-        Logger.error(TAG, `Copy data failed, the code is ${error.code}, the message is ${error.message}`);
-      })
-    } catch (err) {
-      const error: BusinessError = err as BusinessError;
-      Logger.error(TAG, `Pasteboard invoke error, the code is ${error.code}, the message is ${error.message}`);
-    }
-  }
-
   @Builder
-  TopIconItem(resourceData: ResourceInterface | undefined, onClickIcon: (() => void) | undefined,
-    eventType: TrackEventType) {
+  TopIconItem(item: CustomToolBarItem) {
     Row({ space: CommonConstants.SPACE_4 }) {
-      SymbolGlyph(resourceData?.iconResource)
+      SymbolGlyph(item.symbolIcon)
         .fontSize($r('sys.float.Title_S'))
         .fontColor([$r('sys.color.icon_primary')])
-      if (resourceData?.iconTitle !== undefined) {
-        Text(resourceData?.iconTitle)
-          .fontSize($r('sys.float.Caption_L'))
-          .fontColor($r('sys.color.font_primary'))
-          .fontWeight(FontWeight.Medium)
-      }
     }
     .customProperty(TRACK_KEY, {
-      content: this.componentName,
-      moduleType: this.contentType,
-      eventType: eventType,
+      interactionContent: this.componentName,
+      interactionType: InteractionTypeEnum.COMPONENT,
+      actionName: item.actionName,
     } as TrackServiceData)
+    .attributeModifier(this.commonModifier)
     .backgroundColor($r('sys.color.comp_background_tertiary'))
     .borderRadius($r('sys.float.corner_radius_level10'))
     .padding($r('sys.float.padding_level5'))
-    .backgroundBlurStyle(BlurStyle.BACKGROUND_THIN)
     .onClick(() => {
-      onClickIcon?.();
+      item.action?.();
     })
   }
 
   @Builder
   TopMenu() {
     Row({ space: CommonConstants.SPACE_8 }) {
-      ForEach(this.topIconItems, (item: ItemData) => {
-        this.TopIconItem(this.isDarkMode ? item?.darkMode : item?.lightMode, item?.onClickIcon, item.eventType)
-      }, (_item: ItemData, index: number) => index.toString())
+      ForEach(this.topIconItems, (item: CustomToolBarItem) => {
+        this.TopIconItem(item)
+      }, (_item: CustomToolBarItem, index: number) => index.toString())
     }
     .justifyContent(FlexAlign.End)
     .padding({
       top: $r('sys.float.padding_level6'),
     })
-  }
-
-  @Builder
-  BottomMenu() {
-    Row() {
-      ForEach(this.bottomIconItems, (item: ItemData) => {
-        BottomIconItem({
-          isDark: this.isDarkMode,
-          itemData: item,
-        })
-          .customProperty(TRACK_KEY, {
-            content: this.componentName,
-            moduleType: this.contentType,
-            eventType: item.eventType,
-          } as TrackServiceData)
-      }, (_item: ItemData, index: number) => index.toString())
-    }
-    .translate({ y: this.bottomTranslateY })
-    .width('100%')
-    .height(CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight)
-    .justifyContent(FlexAlign.SpaceAround)
-    .padding({ bottom: this.globalInfoModel.naviIndicatorHeight })
-    .backgroundBlurStyle(BlurStyle.COMPONENT_THICK)
-  }
-
-  @Builder
-  TopNavigationMenu() {
-    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
-      Row({ space: CommonConstants.SPACE_8 }) {
-        ForEach(this.topMenuList, (item: ItemData, _index: number) => {
-          Button() {
-            SymbolGlyph(this.isDarkMode ? item.darkMode.iconResource : item.lightMode.iconResource)
-              .fontSize($r('sys.float.Title_M'))
-              .fontColor([$r('sys.color.icon_primary')])
-              .opacity(this.isFocus ? 1 : 0.4)
-          }
-          .customProperty(TRACK_KEY, {
-            content: this.componentName,
-            moduleType: this.contentType,
-            eventType: item.eventType,
-          } as TrackServiceData)
-          .height($r('app.float.code_preview_top_navigation_height'))
-          .aspectRatio(1)
-          .hoverEffect(HoverEffect.Highlight)
-          .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
-            $r('sys.color.comp_background_tertiary'))
-          .onClick(() => {
-            item.onClickIcon();
-          })
-        }, (index: number) => index.toString())
-      }
-      .margin({
-        right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-          $r('app.float.code_preview_icon_margin') : 0
-      })
-    }
-  }
-
-  @Builder
-  TopNavigationViewBuilder() {
-    TopNavigationView({
-      topNavigationData: {
-        isFullScreen: true,
-        isBlur: true,
-        title: this.componentName,
-        onBackClick: () => this.onBackPage?.(),
-
-      },
-      menuView: () => {
-        this.TopNavigationMenu();
-      }
-    })
-      .translate({ y: this.topTranslateY })
-      .position({ x: 0, y: 0 })
-      .opacity(this.navigationOpacity)
   }
 
   @Styles
@@ -463,12 +139,12 @@ export struct CodePreviewComponent {
     }
     .width('100%')
     .customProperty(TRACK_KEY, {
-      content: this.componentName,
-      moduleType: this.contentType,
-      eventType: TrackEventType.COMPONENT_CODE_COPY_CLICK,
+      interactionContent: this.componentName,
+      interactionType: InteractionTypeEnum.COMPONENT,
+      actionName: ActionName.CODE_COPY,
     } as TrackServiceData)
     .justifyContent(FlexAlign.SpaceBetween)
-    .onClick(() => this.copyText(this.code))
+    .onClick(() => PasteboardUtil.copyText(this.code))
     .padding({
       top: $r('sys.float.padding_level4'),
       bottom: $r('sys.float.padding_level4'),
@@ -502,12 +178,7 @@ export struct CodePreviewComponent {
           NodeContainer(this.webNodeController)
             .backgroundColor($r('app.color.code_preview_web_bg'))
             .overlay(this.WebOverlay(), { align: Alignment.Bottom })
-          if (this.pageContainer === true) {
-            this.TopNavigationViewBuilder()
-            if (this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
-              this.BottomMenu()
-            }
-          } else {
+          if (!this.pageContainer) {
             this.TopMenu()
           }
         }
@@ -522,16 +193,8 @@ export struct CodePreviewComponent {
           this.Toolbar()
         }
       }
-      .onAppear(() => {
-        if (this.pageContainer) {
-          this.handleDeviceOrientation();
-        }
-      })
       .onDisAppear(() => {
         WindowUtil.disableFloatWindowRotate();
-        if (this.pageContainer) {
-          this.unregisterWindowChange();
-        }
       })
       .backgroundColor($r('sys.color.comp_background_primary'))
       .padding(this.pageContainer === false ? {
@@ -542,56 +205,5 @@ export struct CodePreviewComponent {
       .width('100%')
       .height('100%')
     }
-  }
-}
-
-@Component
-struct BottomIconItem {
-  @Link isDark: boolean;
-  @ObjectLink itemData: ItemData | undefined;
-
-  build() {
-    Column() {
-      SymbolGlyph(this.isDark ? this.itemData?.darkMode.iconResource : this.itemData?.lightMode.iconResource)
-        .fontSize($r('sys.float.Title_M'))
-        .fontColor([$r('sys.color.icon_secondary')])
-      Text(this.isDark ? this.itemData?.darkMode.iconTitle : this.itemData?.lightMode.iconTitle)
-        .textAlign(TextAlign.Center)
-        .fontSize($r('sys.float.Caption_M'))
-        .fontWeight(FontWeight.Medium)
-        .fontColor($r('sys.color.font_secondary'))
-        .margin({ top: $r('sys.float.padding_level2') })
-    }
-    .height('100%')
-    .aspectRatio(1)
-    .alignItems(HorizontalAlign.Center)
-    .justifyContent(FlexAlign.Center)
-    .onClick(() => {
-      this.itemData?.onClickIcon();
-    })
-  }
-}
-
-@Observed
-class ResourceInterface {
-  public iconResource?: Resource;
-  public iconTitle?: ResourceStr;
-}
-
-@Observed
-class ItemData {
-  public id: number;
-  public lightMode: ResourceInterface;
-  public eventType: TrackEventType;
-  public darkMode: ResourceInterface;
-  public onClickIcon: () => void;
-
-  constructor(lightMode: ResourceInterface, eventType: TrackEventType, onClickIcon: () => void, index: number,
-    darkMode?: ResourceInterface) {
-    this.lightMode = lightMode;
-    this.darkMode = darkMode || lightMode;
-    this.eventType = eventType;
-    this.onClickIcon = onClickIcon;
-    this.id = index;
   }
 }

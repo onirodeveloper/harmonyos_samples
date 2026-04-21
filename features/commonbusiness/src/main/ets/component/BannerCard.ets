@@ -13,7 +13,17 @@
  * limitations under the License.
  */
 
-import { CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
+import {
+  ActionName,
+  CommonConstants,
+  GlobalInfoModel,
+  HdsUtil,
+  InteractionTypeEnum,
+  StorageKey,
+  TRACK_KEY,
+  TrackNode,
+  TrackServiceData,
+} from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 import type { BannerState } from '../viewmodel/BaseHomeState';
 import { BannerItem } from './BannerItem';
@@ -36,7 +46,7 @@ export struct BannerCard {
   private bannerOffset: number = this.bannerState.bannerHeight * BANNER_ASPECT;
   private isAnimating: boolean = false;
   private timer?: number;
-  @State catchCount: number = this.bannerState.bannerResource.totalCount();
+  @State cachedCount: number = this.bannerState.bannerResource.totalCount();
   @State progressController: ProgressController = new ProgressController();
   @State currentIndex: number = 0;
   @State showLeftIcon: boolean = false;
@@ -52,20 +62,26 @@ export struct BannerCard {
   @Builder
   BannerSwiperBuilder() {
     Swiper(this.swiperController) {
-      LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
-        BannerItem({ bannerData: bannerData, widthBreakpoint: this.globalInfoModel.widthBreakpoint })
-          .reuseId('banner_swiper')
-          .onClick(() => {
-            this.handleItemClick?.(bannerData);
-          })
+      ForEach(this.bannerState.bannerResource.splashArray, (bannerData: BannerData) => {
+        TrackNode() {
+          BannerItem({ bannerData: bannerData, widthBreakpoint: this.globalInfoModel.widthBreakpoint })
+            .onClick(() => {
+              this.handleItemClick?.(bannerData);
+            })
+            .customProperty(TRACK_KEY, {
+              interactionContent: bannerData.title,
+              interactionType: InteractionTypeEnum.ARTICLE,
+              actionName: ActionName.ARTICLE_CLICK
+            } as TrackServiceData)
+        }
       }, (bannerData: BannerData) => bannerData.id.toString())
     }
     .onChange((index: number) => {
       this.currentIndex = index;
     })
-    .cachedCount(this.catchCount)
+    .cachedCount(this.cachedCount)
     .loop(true)
-    .autoPlay(this.catchCount > 1)
+    .autoPlay(this.cachedCount > 1)
     .effectMode(EdgeEffect.None)
     .indicator(false)
     .width('100%')
@@ -120,7 +136,8 @@ export struct BannerCard {
           }
           .justifyContent(FlexAlign.Start)
           .padding({
-            left: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
+            left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+              !HdsUtil.isSupportNewMaterialApi()) ?
               (CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_32) : $r('sys.float.padding_level16'),
             right: $r('sys.float.padding_level16'),
           })
@@ -192,7 +209,7 @@ export struct BannerCard {
         BannerProgress({
           progressController: this.progressController,
           currentIndex: this.currentIndex,
-          totalCount: this.catchCount
+          totalCount: this.cachedCount
         })
       }
       .onVisibleAreaChange([0.0], (_isVisible: boolean, currentRatio: number) => {

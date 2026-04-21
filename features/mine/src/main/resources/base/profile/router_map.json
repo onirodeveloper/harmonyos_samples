@@ -1,6 +1,11 @@
 {
   "routerMap": [
     {
+      "name": "MineView",
+      "pageSourceFile": "src/main/ets/view/MineView.ets",
+      "buildFunction": "MineViewBuilder"
+    },
+    {
       "name": "NewContentView",
       "pageSourceFile": "src/main/ets/view/NewContentView.ets",
       "buildFunction": "NewContentBuilder"

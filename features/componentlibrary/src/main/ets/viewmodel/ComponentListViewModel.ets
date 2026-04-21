@@ -19,17 +19,18 @@ import type { PageData } from '@ohos/common';
 import {
   BreakpointType,
   CommonConstants,
+  HdsUtil,
   LoadingStatus,
   Logger,
   PageContext,
   RequestErrorCode,
-  StatusBarColorType,
   StorageKey,
   WindowUtil,
   PageEnum,
   GlobalInfoModel,
+  InteractionTypeEnum,
 } from '@ohos/common';
-import type { BannerData } from '@ohos/commonbusiness';
+import { BannerData } from '@ohos/commonbusiness';
 import {
   BaseHomeEventParam,
   BaseHomeEventType,
@@ -94,11 +95,15 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
   protected loadComponentPage(): void {
     const isDark: boolean = AppStorage.get(StorageKey.COLOR_MODE) === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
     this.state.loadingModel.loadingStatus = LoadingStatus.LOADING;
-    this.state.topNavigationData.titleColor = isDark ? StatusBarColorType.WHITE : StatusBarColorType.BLACK;
-    this.state.topNavigationData.isBlur = false;
     WindowUtil.updateStatusBarColor(isDark);
-    this.componentListModel.getComponentPage(this.state.currentPage, this.pageSize)
-      .then((result: PageData<ComponentData>) => {
+    Promise.all([
+      this.componentListModel.getComponentPage(this.state.currentPage, this.pageSize),
+      this.componentListModel.getComponentBanner(),
+    ])
+      .then((results: Object[]) => {
+        const result: PageData<ComponentData> = results[0] as PageData<ComponentData>;
+        const banners: BannerData[] = results[1] as BannerData[];
+        result.data.bannerInfos = banners;
         if (result.data.bannerInfos && Array.isArray(result.data.bannerInfos)) {
           result.data.bannerInfos.forEach((item: BannerData) => {
             item.tabViewType = TabBarType.HOME;
@@ -112,7 +117,6 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
           globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
-          this.state.topNavigationData.titleColor = StatusBarColorType.WHITE;
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.HOME] = true;
           this.setTitleBarStyle();
@@ -143,7 +147,8 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
       new BreakpointType<Length>({
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
-        lg: CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
+        lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_32 :
+          CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
         xl: $r('sys.float.padding_level16'),
       }).getValue(globalInfoModel.widthBreakpoint);
     const rightMargin: Resource = new BreakpointType({
@@ -177,9 +182,9 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
       AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
       AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const params: ComponentDetailParams = {
-      componentName: componentContent.title,
+      title: componentContent.title,
       id: componentContent.id,
-      contentType: componentContent.contentType,
+      interactionType: InteractionTypeEnum.COMPONENT,
     };
     pageContext?.openPage({
       routerName: PageEnum.COMPONENT_DETAIL_VIEW,

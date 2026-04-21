@@ -15,20 +15,25 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { displaySync } from '@kit.ArkGraphics2D';
-import { HdsNavDestination, HdsNavDestinationAttribute } from '@kit.UIDesignKit';
+import {
+  hdsMaterial,
+  HdsNavDestination,
+  HdsNavDestinationAttribute,
+  ScrollEffectType,
+  TitleBarStyleOptions,
+} from '@kit.UIDesignKit';
 import {
   BreakpointType,
   CommonConstants,
   FeedbackDomain,
   FeedbackSheet,
   GlobalInfoModel,
+  HdsUtil,
   LoadingStatus,
   Logger,
+  StatusBarColorType,
   StorageKey,
-  TopNavigationView,
-  VersionUtil,
   WebUtil,
-  WindowUtil,
 } from '@ohos/common';
 import { BaseDetailComponent, CardTypeEnum, ComponentDetailParams } from '@ohos/commonbusiness';
 import {
@@ -48,23 +53,53 @@ const TAG = '[ComponentDetailView]';
 
 @Component({ freezeWhenInactive: true })
 export struct ComponentDetailView {
-  @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
+  @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handleBreakPointChange') globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
   @StorageLink(StorageKey.WEB_LOADING) @Watch('sendCodeToWeb') webIsLoading: boolean = false;
   @Prop componentName: string = '';
   @Prop componentId: number = 0;
-  @Prop contentType: CardTypeEnum = CardTypeEnum.COMPONENT;
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
   @State bindFeedbackSheet: boolean = false;
   private displaySync = displaySync.create();
   private viewModel?: ComponentDetailPageVM;
   @State componentDetailState?: ComponentDetailState = this.viewModel?.getState();
+  @State titleBarStyle: TitleBarStyleOptions = {
+    scrollEffectOpts: {
+      scrollEffectType: ScrollEffectType.COMMON_BLUR,
+      enableScrollEffect: this.getEnableScrollEffect(),
+    },
+  };
 
   aboutToAppear(): void {
-    const isSystemDark: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    WindowUtil.updateStatusBarColor(isSystemDark);
+    if (HdsUtil.isSupportNewMaterialApi()) {
+      this.titleBarStyle = {
+        systemMaterialEffect: {
+          materialType: hdsMaterial.MaterialType.IMMERSIVE,
+          materialLevel: hdsMaterial.MaterialLevel.ADAPTIVE,
+        },
+        scrollEffectOpts: {
+          enableScrollEffect: this.getEnableScrollEffect(),
+          scrollEffectType: hdsMaterial.getSystemMaterialTypes().length > 0 ? ScrollEffectType.GRADIENT_BLUR :
+            ScrollEffectType.COMMON_BLUR,
+        },
+      }
+    }
+  }
+
+  handleBreakPointChange() {
+    this.titleBarStyle.scrollEffectOpts = {
+      enableScrollEffect: this.getEnableScrollEffect(),
+    };
+  }
+
+  getEnableScrollEffect(): boolean {
+    return new BreakpointType<boolean>({
+      sm: false,
+      md: true,
+      lg: true,
+    }).getValue(this.globalInfoModel.widthBreakpoint);
   }
 
   aboutToDisappear(): void {
@@ -77,12 +112,9 @@ export struct ComponentDetailView {
 
   handleOnReady(ctx: NavDestinationContext) {
     const params: ComponentDetailParams = ctx?.pathInfo?.param as ComponentDetailParams;
-    this.componentName = params.componentName as string;
+    this.componentName = params.title as string;
     this.componentId = Number(params.id);
-    this.contentType = params.contentType;
-    CommonConstants.PROMISE_WAIT(500).then(() => {
-      this.assignViewData(ctx?.pathStack);
-    });
+    this.assignViewData(ctx?.pathStack);
   }
 
   @Builder
@@ -101,19 +133,8 @@ export struct ComponentDetailView {
     DetailContentView({
       componentDetailState: this.componentDetailState,
       componentName: this.componentName,
-      contentType: this.contentType,
     })
       .layoutWeight(1)
-  }
-
-  @Builder
-  TopTitleViewBuilder() {
-    TopNavigationView({
-      topNavigationData: this.componentDetailState?.topNavigationData,
-      menuView: () => {
-        this.TopNavigationMenu();
-      }
-    })
   }
 
   @Builder
@@ -121,11 +142,6 @@ export struct ComponentDetailView {
     BaseDetailComponent({
       detailContentView: () => {
         this.DetailContentBuilder()
-      },
-      topTitleView: () => {
-        if (!VersionUtil.canUseHds()) {
-          this.TopTitleViewBuilder()
-        }
       },
       reloadData: () => {
         this.assignViewData();
@@ -157,55 +173,40 @@ export struct ComponentDetailView {
   }
 
   build() {
-    if (VersionUtil.canUseHds()) {
-      HdsNavDestination() {
-        this.ContentBuilder()
-      }
-      .hideBackButton(false)
-      .backgroundColor($r('sys.color.background_secondary'))
-      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
-      .titleBar({
-        avoidLayoutSafeArea: true,
-        style: {
-          scrollEffectOpts: {
-            enableScrollEffect: new BreakpointType<boolean>({
-              sm: false,
-              md: true,
-              lg: true,
-            }).getValue(this.globalInfoModel.widthBreakpoint),
-          },
-        },
-        content: {
-          title: { mainTitle: this.componentDetailState?.topNavigationData.title || '' },
-          menu: {
-            value: [{
-              content: {
-                icon: $r('sys.symbol.square_and_pencil'),
-                isEnabled: true,
-                action: () => {
-                  this.bindFeedbackSheet = true;
-                }
-              }
-            }]
-          },
-        }
-      })
-      .onDisAppear(() => {
-        this.release();
-      })
-      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
-    } else {
-      NavDestination() {
-        this.ContentBuilder()
-      }
-      .hideTitleBar(true)
-      .height('100%')
-      .backgroundColor($r('sys.color.background_secondary'))
-      .onDisAppear(() => {
-        this.release();
-      })
-      .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
+    HdsNavDestination() {
+      this.ContentBuilder()
     }
+    .hideBackButton(false)
+    .backgroundColor($r('sys.color.background_secondary'))
+    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
+    .titleBar({
+      style: this.titleBarStyle,
+      content: {
+        title: { mainTitle: this.componentDetailState?.topNavigationData.title || '' },
+        menu: {
+          value: [{
+            content: {
+              icon: $r('sys.symbol.square_and_pencil'),
+              isEnabled: true,
+              action: () => {
+                this.bindFeedbackSheet = true;
+              }
+            }
+          }]
+        },
+      }
+    })
+    .systemBarStyle({
+      statusBarContentColor: this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK ?
+        StatusBarColorType.WHITE : StatusBarColorType.BLACK
+    }, {
+      statusBarContentColor: this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK ?
+        StatusBarColorType.WHITE : StatusBarColorType.BLACK
+    })
+    .onDisAppear(() => {
+      this.release();
+    })
+    .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
   }
 
   release() {

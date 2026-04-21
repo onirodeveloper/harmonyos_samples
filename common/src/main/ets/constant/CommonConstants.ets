@@ -14,19 +14,25 @@
  */
 
 export class CommonConstants {
+  // device aspect threshold
+  public static ASPECT_LANDSCAPE_SQUARE: number = 9 / 7.2;
+  public static ASPECT_SQUARE_PORTRAIT: number = 9 / 10.8;
+  public static ASPECT_PORTRAIT_NARROW: number = 9 / 18;
   // Banner aspect
   public static BANNER_ASPECT_SM: number = 1.28;
   public static BANNER_ASPECT_MD: number = 0.53;
   public static BANNER_ASPECT_LG: number = 0.53;
   public static BANNER_ASPECT_XL: number = 0.56;
-  public static BANNER_ASPECT_VERDE: number = 0.58;
+  public static BANNER_ASPECT_PORTRAIT: number = 0.58;
   public static NAVIGATION_HEIGHT: number = 56;
-  public static TAB_BAR_HEIGHT: number = 48;
+  public static TAB_BAR_HEIGHT: number = 56;
+  public static TOOL_BAR_HEIGHT: number = 48;
   public static TAB_BAR_WIDTH: number = 96;
   public static SIDE_BAR_WIDTH: number = 240;
   // Percent
   public static readonly FULL_PERCENT: string = '100%';
   public static readonly HALF_PERCENT: string = '50%';
+  public static readonly AUTO_FIT: string = 'auto';
   // Space
   public static readonly SPACE_2: number = 2;
   public static readonly SPACE_4: number = 4;
@@ -42,10 +48,12 @@ export class CommonConstants {
   public static readonly SPACE_48: number = 48;
   public static readonly SWIPER_DURATION: number = 3000;
   public static readonly PRELOAD_DURATION: number = 1200;
+  public static readonly START_DELAY: number = 1000;
   public static readonly REMOVE_DURATION: number = 600;
   public static readonly ANIMATION_DELAY: number = 200;
-  public static readonly ANIMATION_DURATION: number = 300;
+  public static readonly ANIMATION_DURATION: number = 200;
   public static readonly TRANSITION_DURATION: number = 100;
+  public static readonly BUTTON_TRANSITION_DURATION: number = 50;
   public static readonly FEEDBACK_BOTTOM_SM: number = 16;
   public static readonly SPAN_3: number = 3;
   public static readonly SPAN_4: number = 4;
@@ -70,6 +78,9 @@ export class CommonConstants {
   public static readonly WINDOW_RATIO: number = 0.9;
   public static readonly MIN_WINDOW_WIDTH: number = 1440;
   public static readonly MIN_WINDOW_HEIGHT: number = 940;
+  // Default Image Size
+  public static readonly DEFAULT_IMAGE_WIDTH: number = 1088;
+  public static readonly DEFAULT_IMAGE_HEIGHT: number = 2250;
   // Unlimited Lines
   public static readonly UNLIMITED_LINES: number = 1000;
   // Break Word Offset

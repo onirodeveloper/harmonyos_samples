@@ -16,7 +16,7 @@
 import type { BusinessError } from '@kit.BasicServicesKit';
 import type { PageData } from '@ohos/common';
 import { HmosRequest, Logger, PreferenceManager, TriggerEnums } from '@ohos/common';
-import { BaseDetailParam, BaseListParam } from '@ohos/commonbusiness';
+import { BannerData, BannerTypeEnum, BaseDetailParam, BaseListParam } from '@ohos/commonbusiness';
 import type { ComponentData } from '../model/ComponentData';
 import type { ComponentDetailData } from '../model/ComponentDetailData';
 
@@ -27,6 +27,61 @@ export class ComponentLibraryService {
   private static readonly DETAIL_PAGE_DATA = 'COMPONENT_LIBRARY_DETAIL_PAGE_DATA';
 
   constructor() {
+  }
+
+  public getComponentBanner(): Promise<BannerData[]> {
+    const param: ComponentBannerParam = {
+      moduleType: BannerTypeEnum.COMPONENT
+    };
+    return new Promise((resolve: (value: BannerData[]) => void,
+      reject: (reason?: Object) => void) => {
+      HmosRequest.getInstance().request<BannerData[]>(TriggerEnums.COMPONENT_BANNER, param)
+        .then((result: Object) => {
+          Logger.info(TAG, JSON.stringify(result));
+          resolve(result as BannerData[]);
+        })
+        .catch((error: BusinessError) => {
+          Logger.error(TAG, `getComponentBanner failed. cause: ${error.message}`);
+          reject(error);
+        });
+    });
+  }
+
+  public getComponentBannerByPreference(): Promise<BannerData[]> {
+    return new Promise((resolve: (value: BannerData[]) => void,
+      reject: (e?: BusinessError) => void) => {
+      let resp = PreferenceManager.getInstance()
+        .getValue<Record<string, BannerData[]>>(ComponentLibraryService.MAIN_PAGE_DATA);
+      if (!resp) {
+        reject({ message: 'There is no data in the Preference' } as BusinessError);
+        return;
+      }
+      resp = (resp as Record<string, BannerData[]>);
+      const ret = resp[`component_banner`];
+      if (!ret) {
+        reject({ message: 'There is no data in the Preference' } as BusinessError);
+        return;
+      }
+      resolve(ret);
+    });
+  }
+
+  public setComponentBannerToPreference(data: BannerData[]): Promise<void> {
+    return new Promise((resolve: () => void) => {
+      const hasValue: boolean = PreferenceManager.getInstance().hasValue(ComponentLibraryService.MAIN_PAGE_DATA);
+      if (hasValue) {
+        let resp = PreferenceManager.getInstance()
+          .getValue<Record<string, BannerData[]>>(ComponentLibraryService.MAIN_PAGE_DATA) ?? {};
+        resp = (resp as Record<string, BannerData[]>);
+        resp[`component_banner`] = data;
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, resp);
+      } else {
+        const record: Record<string, BannerData[]> = {};
+        record[`component_banner`] = data;
+        PreferenceManager.getInstance().setValue(ComponentLibraryService.MAIN_PAGE_DATA, record);
+      }
+      resolve();
+    });
   }
 
   public getComponentList(currentPage: number, pageSize: number): Promise<PageData<ComponentData>> {
@@ -140,7 +195,10 @@ export class ComponentLibraryService {
   }
 }
 
-interface ComponentListParam extends BaseListParam {
+interface ComponentListParam extends BaseListParam {}
+
+interface ComponentBannerParam {
+  moduleType: number;
 }
 
 interface ComponentDetailParam extends BaseDetailParam {

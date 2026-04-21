@@ -16,7 +16,11 @@ export { ProcessUtil } from './src/main/ets/util/ProcessUtil';
 
 export { BreakpointType } from './src/main/ets/util/BreakpointSystem';
 
-export { VersionUtil } from './src/main/ets/util/VersionUtil';
+export { HdsUtil } from './src/main/ets/util/HdsUtil';
+
+export { PasteboardUtil } from './src/main/ets/util/PasteboardUtil';
+
+export { ShareUtil } from './src/main/ets/util/ShareUtil';
 
 export { GlobalInfoModel, WIDTH_BREAKPOINTS } from './src/main/ets/model/GlobalInfoModel';
 
@@ -60,6 +64,8 @@ export { IPageContext, PageContext } from './src/main/ets/routermanager/PageCont
 export { NativeActionData, WebUtil, type WebNodeController } from './src/main/ets/util/WebUtil';
 
 export { VideoComponent } from './src/main/ets/component/VideoComponent';
+
+export { DelayedLoadingView } from './src/main/ets/view/DelayedLoadingView';
 
 export { LoadingView } from './src/main/ets/view/LoadingView';
 
@@ -105,7 +111,16 @@ export { FormCardEnum, ArticleListItem } from './src/main/ets/model/FormCardInfo
 
 export { PageEnum } from './src/main/ets/model/PageEnum';
 
-export { TrackModel, TRACK_KEY, TrackServiceData, TrackEventType } from './src/main/ets/model/TrackModel';
+export {
+  TrackModel,
+  TRACK_KEY,
+  TrackServiceData,
+  TrackEventType,
+  InteractionTypeEnum,
+  ActionName,
+  MainTabEnum,
+  ReferTypeEnum,
+} from './src/main/ets/model/TrackModel';
 
 export { TrackManager } from './src/main/ets/trackmanager/TrackManager';
 
@@ -130,3 +145,5 @@ export { UrlUtil } from './src/main/ets/util/UrlUtil';
 export { ImageKnifeUtil } from './src/main/ets/util/ImageKnifeUtil';
 
 export { ImageKnifeComponent, ImageKnifeOption } from '@ohos/imageknife';
+
+export { PushServiceManager } from './src/main/ets/pushservice/PushServiceManager';

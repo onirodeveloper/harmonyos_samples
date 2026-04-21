@@ -17,6 +17,7 @@ import type { common } from '@kit.AbilityKit';
 import { BusinessError, emitter } from '@kit.BasicServicesKit';
 import { connection } from '@kit.NetworkKit';
 import { moduleInstallManager } from '@kit.AppGalleryKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
 import {
   BaseVM,
   BaseVMEvent,
@@ -91,7 +92,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
 
   private setInstalledStatus(event: SetInstalledEvent): void {
     if (DynamicInstallManager.getModuleStatus(this.state.sampleDatas[event.sampleIndex].sampleCard.moduleName) ===
-    moduleInstallManager.InstallStatus.INSTALLED) {
+      moduleInstallManager.InstallStatus.INSTALLED) {
       this.setSampleInstalledStatus(event.sampleIndex, true);
     }
   }
@@ -149,8 +150,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
           sampleData.sampleCard = new SampleCardData();
           sampleData.id = sampleData.sampleCard.sampleId = singleSampleData.id;
           sampleData.isFavorite = singleSampleData.isFavorite;
-          sampleData.mediaUrl = singleSampleData.mediaUrl;
-          sampleData.mediaType = singleSampleData.mediaType;
+          sampleData.mediaInfoList = singleSampleData.mediaInfoList;
           sampleData.sampleCard.title = singleSampleData.title;
           sampleData.sampleCard.installed = singleSampleData.preInstalled;
           sampleData.sampleCard.type = singleSampleData.type;
@@ -158,8 +158,9 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
           sampleData.sampleCard.originalUrl = singleSampleData.originalUrl;
           sampleData.sampleCard.moduleName = singleSampleData.moduleName;
           sampleData.sampleCard.abilityName = singleSampleData.abilityName;
+          sampleData.sampleCard.apiVersion = singleSampleData.apiVersion;
           if (DynamicInstallManager.getModuleStatus(sampleData.sampleCard.moduleName) ===
-          moduleInstallManager.InstallStatus.INSTALLED) {
+            moduleInstallManager.InstallStatus.INSTALLED) {
             sampleData.sampleCard.installed = true;
           }
           sampleDetailData.push(sampleData);
@@ -179,7 +180,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
   private initDownloadListener(): void {
     emitter.on(CommonConstants.DYNAMIC_INSTALL_EVENT, (eventData) => {
       const data = eventData.data;
-      Logger.info(TAG,
+      Logger.debug(TAG,
         `downloadedSize: ${data?.downloadedSize}, totalSize:${data?.totalSize}, status: ${data?.taskStatus}`);
       if (data?.taskStatus === moduleInstallManager.TaskStatus.DOWNLOADING) {
         if (data?.downloadedSize === data?.totalSize) {
@@ -189,7 +190,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
           Math.floor(((data?.downloadedSize ?? SampleDetailConstant.PROGRESS_START) /
             (data?.totalSize ?? SampleDetailConstant.PROGRESS_FINISH)) *
           SampleDetailConstant.PROGRESS_FINISH));
-        Logger.info(TAG,
+        Logger.debug(TAG,
           `loadSampleCallback downloading progress: ${this.state.sampleDatas[this.state.currentIndex].sampleCard.downloadProgress}`);
       } else if (data?.taskStatus === moduleInstallManager.TaskStatus.INSTALL_SUCCESSFUL) {
         this.setSampleDownloadingStatus(this.state.currentIndex, false, -1);
@@ -224,7 +225,9 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       return;
     }
     const currentSampleType = this.state.sampleDatas[this.state.currentIndex].sampleCard.type;
-    if (currentSampleType === SampleTypeEnum.COMMON_CLIENT) {
+    if (this.state.sampleDatas[this.state.currentIndex].sampleCard.apiVersion > deviceInfo.sdkApiVersion) {
+      Toast.showToast($r('app.string.api_prompt'));
+    } else if (currentSampleType === SampleTypeEnum.COMMON_CLIENT) {
       Toast.showToast($r('app.string.client_prompt'));
     } else if (currentSampleType === SampleTypeEnum.WEARABLE_CLIENT) {
       Toast.showToast($r('app.string.watch_prompt'));
@@ -234,6 +237,12 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
   }
 
   private startTask(): void {
+    const abilityName = this.state.sampleDatas[this.state.currentIndex].sampleCard.abilityName;
+    const moduleName = this.state.sampleDatas[this.state.currentIndex].sampleCard.moduleName;
+    if (moduleName === '' || !moduleName || abilityName === '' || !abilityName) {
+      Toast.showToast($r('app.string.device_prompt'));
+      return;
+    }
     if (this.state.sampleDatas[this.state.currentIndex].sampleCard.installed) {
       try {
         const uiContext: UIContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
@@ -253,7 +262,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       this.setSampleDownloadingStatus(this.state.currentIndex, false, -1);
       connection.getDefaultNet().then((netHandle: connection.NetHandle) => {
         connection.getNetCapabilities(netHandle).then((data: connection.NetCapabilities) => {
-          Logger.info(TAG, `succeeded to get connection data: ${data.bearerTypes[0]}`);
+          Logger.debug(TAG, `succeeded to get connection data: ${data.bearerTypes[0]}`);
           if (data.bearerTypes[0] === connection.NetBearType.BEARER_WIFI) {
             this.setSampleDownloadingStatus(this.state.currentIndex, true, 0);
           }

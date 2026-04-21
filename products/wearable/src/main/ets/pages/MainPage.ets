@@ -14,7 +14,7 @@
  */
 
 import { common } from '@kit.AbilityKit';
-import { ArcSwiper, ArcSwiperAttribute, ArcSwiperController } from '@kit.ArkUI';
+import { ArcSwiper, ArcSwiperController } from '@kit.ArkUI';
 import { ProcessUtil } from '@ohos/common';
 import { HomePageComponent } from '../component/HomepageComponent';
 import { SampleListView } from '../view/SampleListView';

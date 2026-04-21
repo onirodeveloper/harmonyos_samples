@@ -11,14 +11,14 @@
         {
           "id": 60,
           "cardId": 60,
-          "unionId": 35,
+          "unionId": 1,
           "title": "HarmonyOS代码工坊",
           "desc": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
           "preInstalled": true,
           "type": "commonClient",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/hdc/hmosworld_all_device.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/hdc/hmosworld_all_device.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos/blob/master/README.md",
           "moduleName": "",
           "abilityName": "",
@@ -28,19 +28,19 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 63,
           "cardId": 60,
-          "unionId": 35,
+          "unionId": 1,
           "title": "HarmonyOS代码工坊(手表版)",
           "desc": "HarmonyOS代码工坊手表开发案例。",
           "preInstalled": true,
           "type": "wearableClient",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/hdc/hmosworld_watch.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/hdc/hmosworld_watch.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos/blob/master/README.md",
           "moduleName": "",
           "abilityName": "",
@@ -50,19 +50,19 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 61,
           "cardId": 60,
-          "unionId": 35,
+          "unionId": 1,
           "title": "三折叠，怎么折都有面",
           "desc": "本示例主要使用断点监听和sidebarContainer组件、navigation组件相结合的方式，实现了商务办公类差异化的多场景响应式变化效果。",
           "preInstalled": true,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/hdc/sample_business.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/hdc/sample_business.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiBusinessOffice/blob/br_release_hmos/README.md",
           "moduleName": "multibusinesssample",
           "abilityName": "MultibusinesssampleAbility",
@@ -72,19 +72,19 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 64,
           "cardId": 60,
-          "unionId": 35,
+          "unionId": 1,
           "title": "碰一碰视频快速分享",
           "desc": "本示例利用Share Kit与App Linking的结合，实现了快速跨设备分享视频并直接进入应用内视频播放页面的功能。",
           "preInstalled": true,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/hdc/sample_knockshare.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/hdc/sample_knockshare.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/knock-share/blob/br_release_hmos/README.md",
           "moduleName": "knocksharesample",
           "abilityName": "KnocksharesampleAbility",
@@ -94,19 +94,19 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 65,
           "cardId": 60,
-          "unionId": 35,
+          "unionId": 1,
           "title": "视频投播更便捷",
           "desc": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度切换。",
           "preInstalled": true,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/hdc/sample_videocast.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/hdc/sample_videocast.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/VideoCast/blob/br_release_hmos/README.md",
           "moduleName": "videocastsample",
           "abilityName": "VideocastsampleAbility",
@@ -116,7 +116,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -133,7 +133,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/multidevice/sample_multi_nav_bar.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-nav-bar/blob/br_release_hmos/README.md",
           "moduleName": "multinavbarsample",
           "abilityName": "MultinavbarsampleAbility",
@@ -143,7 +143,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -160,7 +160,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/multidevice/sample_multi_convenient_life.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/blob/br_release_hmos/README.md",
           "moduleName": "multiconvenientlifesample",
           "abilityName": "MulticonvenientlifesampleAbility",
@@ -170,7 +170,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -187,7 +187,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/multidevice/sample_multi_mobile_payment.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/multidevice/sample_multi_mobile_payment.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment/blob/br_release_hmos/README.md",
           "moduleName": "multimobilepaymentsample",
           "abilityName": "MultimobilepaymentsampleAbility",
@@ -197,7 +197,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -214,7 +214,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/multidevice/sample_multi_news_read.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/multidevice/sample_multi_news_read.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-news-read/blob/br_release_hmos/README.md",
           "moduleName": "multinewsreadsample",
           "abilityName": "MultinewsreadsampleAbility",
@@ -224,7 +224,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -241,7 +241,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/multidevice/sample_multi_travel_accommodation.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-travel-accommodation/blob/br_release_hmos/README.md",
           "moduleName": "multitravelsample",
           "abilityName": "MultitravelsampleAbility",
@@ -251,7 +251,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -268,7 +268,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/multidevice/sample_multi_columns.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/multidevice/sample_multi_columns.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-columns/blob/br_release_hmos/README.md",
           "moduleName": "multicolumnssample",
           "abilityName": "MulticolumnssampleAbility",
@@ -278,7 +278,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -295,7 +295,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/style/sample_text_effects.webp",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/style/sample_text_effects.webp"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/text-effects/blob/br_release_hmos/README.md",
           "moduleName": "texteffectssample",
           "abilityName": "TexteffectssampleAbility",
@@ -305,7 +305,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 21,
@@ -315,7 +315,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/style/sample_multi_tab_navigation.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-tab-navigation/blob/br_release_hmos/README.md",
           "moduleName": "multitabnavigationsample",
           "abilityName": "MultitabnavigationsampleAbility",
@@ -325,7 +325,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 22,
@@ -335,7 +335,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/style/sample_custom_dialog_gathers.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/custom-dialog-gathers/blob/br_release_hmos/README.md",
           "moduleName": "customdialoggatherssample",
           "abilityName": "CustomDialogGathersSampleAbility",
@@ -345,7 +345,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -362,7 +362,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/layout/sample_scroll_component_nested_sliding.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/scroll-component-nested-sliding/blob/br_release_hmos/README.md",
           "moduleName": "scrollcomponentsample",
           "abilityName": "NestedslidingsampleAbility",
@@ -372,7 +372,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 24,
@@ -382,7 +382,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/layout/sample_water_flow.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/layout/sample_water_flow.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/water-flow/blob/br_release_hmos/README.md",
           "moduleName": "waterflowsample",
           "abilityName": "WaterflowsampleAbility",
@@ -392,7 +392,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 25,
@@ -402,7 +402,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/layout/sample_component_stack.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/layout/sample_component_stack.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/component-stack/blob/br_release_hmos/README.md",
           "moduleName": "componentstacksample",
           "abilityName": "ComponentstacksampleAbility",
@@ -412,7 +412,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 26,
@@ -422,7 +422,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/layout/sample_grid_hybrid.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/grid-hybrid/blob/br_release_hmos/README.md",
           "moduleName": "gridhybridsample",
           "abilityName": "GridhybridsampleAbility",
@@ -432,7 +432,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -449,7 +449,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.webp",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/effect/sample_transitions_collection.webp"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/transitions-collection/blob/br_release_hmos/README.md",
           "moduleName": "transitionscollectionsample",
           "abilityName": "TransitionscollectionsampleAbility",
@@ -459,7 +459,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 28,
@@ -469,7 +469,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/effect/sample_animation_collection.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/animation-collection/blob/br_release_hmos/README.md",
           "moduleName": "animationcollectionsample",
           "abilityName": "AnimationcollectionsampleAbility",
@@ -479,7 +479,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 29,
@@ -489,7 +489,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/effect/sample_drag_framework.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/DragFramework/blob/br_release_hmos/README.md",
           "moduleName": "dragframeworksample",
           "abilityName": "DragframeworksampleAbility",
@@ -499,7 +499,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -516,7 +516,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/list/sample_fluent_blog.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/fluent-blog/blob/br_release_hmos/README.md",
           "moduleName": "fluentblogsample",
           "abilityName": "FluentblogsampleAbility",
@@ -526,7 +526,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 31,
@@ -536,7 +536,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/list/sample_list_exchange.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/list/sample_list_exchange.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-exchange/blob/br_release_hmos/README.md",
           "moduleName": "listexchangesample",
           "abilityName": "ListexchangesampleAbility",
@@ -546,7 +546,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 32,
@@ -556,7 +556,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/list/sample_list_item_edit.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-item-edit/blob/br_release_hmos/README.md",
           "moduleName": "listitemeditsample",
           "abilityName": "ListitemeditsampleAbility",
@@ -566,7 +566,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -583,7 +583,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/media/sample_window_pip.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/media/sample_window_pip.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/window-pip/blob/br_release_hmos/README.md",
           "moduleName": "windowpipsample",
           "abilityName": "WindowpipsampleAbility",
@@ -593,7 +593,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 34,
@@ -603,7 +603,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/media/sample_multiple_image.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/media/sample_multiple_image.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultipleImage/blob/br_release_hmos/README.md",
           "moduleName": "multipleimagesample",
           "abilityName": "MultipleimagesampleAbility",
@@ -613,7 +613,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 35,
@@ -623,7 +623,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/media/sample_audio_interaction.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/media/sample_audio_interaction.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-interaction/blob/br_release_hmos/README.md",
           "moduleName": "audiointeractionsample",
           "abilityName": "AudiointeractionsampleAbility",
@@ -633,7 +633,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -650,7 +650,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/capacity/sample_page_redirection.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/capacity/sample_page_redirection.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/page-redirection/blob/br_release_hmos/README.md",
           "moduleName": "pageredirectionsample",
           "abilityName": "PageredirectionsampleAbility",
@@ -660,7 +660,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 39,
@@ -670,8 +670,8 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/data/sample_preferences.png",
-          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/web-pre-render/blob/br_release_hmos/README.md",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/data/sample_preferences.png"}],
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/preferences/blob/br_release_hmos/README.md",
           "moduleName": "preferencessample",
           "abilityName": "PreferencessampleAbility",
           "sequence": 1,
@@ -680,7 +680,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 37,
@@ -690,8 +690,8 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png",
-          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/location-service/blob/br_release_hmos/README.md",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/capacity/sample_web_pre_render.png"}],
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/web-pre-render/blob/br_release_hmos/README.md",
           "moduleName": "webprerendersample",
           "abilityName": "WebprerendersampleAbility",
           "sequence": 2,
@@ -700,7 +700,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -717,7 +717,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/scene/sample_verification_code_scenario.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/verification-code-scenario/blob/br_release_hmos/README.md",
           "moduleName": "verificationcodescenariosample",
           "abilityName": "VerificationcodescenariosampleAbility",
@@ -727,7 +727,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 41,
@@ -737,7 +737,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/scene/sample_image_comment.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/scene/sample_image_comment.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/image-comment/blob/br_release_hmos/README.md",
           "moduleName": "imagecommentsample",
           "abilityName": "ImagecommentsampleAbility",
@@ -747,7 +747,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 42,
@@ -757,7 +757,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/function/data/sample_picker.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/function/data/sample_picker.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/picker/blob/br_release_hmos/README.md",
           "moduleName": "pickersample",
           "abilityName": "PickersampleAbility",
@@ -767,7 +767,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         },
         {
           "id": 43,
@@ -777,7 +777,7 @@
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/arkui/scene/sample_keyboard.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/arkui/scene/sample_keyboard.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/keyboard/blob/br_release_hmos/README.md",
           "moduleName": "keyboardsample",
           "abilityName": "KeyboardsampleAbility",
@@ -787,7 +787,7 @@
             "tablet",
             "2in1"
           ],
-          "requiredApiVersion": 14
+          "apiVersion": 14
         }
       ]
     },
@@ -798,19 +798,19 @@
       "sampleContents": [
         {
           "id": 14,
-          "unionId": 0,
+          "unionId": 2,
           "title": "语音朗读",
           "desc": "本示例展示了语音类AI能力中的朗读控件能力。",
           "preInstalled": false,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/ai/sample_text_to_speech.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/ai/sample_text_to_speech.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts/blob/br_release_hmos/README.md",
           "moduleName": "speechkitsample",
           "abilityName": "SpeechkitsampleEntryAbility",
           "sequence": 1,
-          "requiredApiVersion": 14,
+          "apiVersion": 14,
           "supportDeviceList": [
             "phone",
             "tablet",
@@ -826,19 +826,19 @@
       "sampleContents": [
         {
           "id": 15,
-          "unionId": 0,
+          "unionId": 2,
           "title": "文档扫描",
           "desc": "本示例展示了使用视觉类AI能力中的文档扫描能力。",
           "preInstalled": false,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/ai/sample_document_scan.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/ai/sample_document_scan.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts/blob/br_release_hmos/readme_cn.md",
           "moduleName": "documentscansample",
           "abilityName": "DocScanSampleAbility",
           "sequence": 1,
-          "requiredApiVersion": 14,
+          "apiVersion": 14,
           "supportDeviceList": [
             "phone",
             "tablet",
@@ -854,19 +854,19 @@
       "sampleContents": [
         {
           "id": 16,
-          "unionId": 0,
+          "unionId": 2,
           "title": "表格提取",
           "desc": "本示例展示了如何集成文档扫描控件，实现从图像中识别并提取表格的功能，表格内容支持保存为Excel文件。",
           "preInstalled": false,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/ai/sample_sheet_extraction.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/ai/sample_sheet_extraction.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts/blob/br_release_hmos/README.md",
           "moduleName": "sheetrecognitionsample",
           "abilityName": "SheetRecognitionAbility",
           "sequence": 1,
-          "requiredApiVersion": 14,
+          "apiVersion": 14,
           "supportDeviceList": [
             "phone",
             "tablet",
@@ -882,19 +882,19 @@
       "sampleContents": [
         {
           "id": 18,
-          "unionId": 0,
+          "unionId": 2,
           "title": "通用文字识别",
           "desc": "本示例展示了使用基础视觉服务提供的通用文字识别能力。",
           "preInstalled": false,
           "type": "commonSample",
           "isFavorite": false,
           "mediaType": "IMAGE",
-          "mediaUrl": "image/sample/ai/sample_word_extraction.png",
+          "mediaInfoList": [{"mediaUrl": "image/sample/ai/sample_word_extraction.png"}],
           "originalUrl": "https://gitcode.com/HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo/blob/br_release_hmos/readme_cn.md",
           "moduleName": "textrecognitionsample",
           "abilityName": "TextRecognitionAbility",
           "sequence": 1,
-          "requiredApiVersion": 14,
+          "apiVersion": 14,
           "supportDeviceList": [
             "phone",
             "tablet",

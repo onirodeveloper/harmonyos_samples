@@ -17,14 +17,21 @@ import { LoadingModel, TagEnum } from '@ohos/common';
 import { BannerData, BaseData, } from '@ohos/commonbusiness';
 import { CardStyleTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
 
+
 export class SampleContent extends BaseData {
   public type: SampleTypeEnum = SampleTypeEnum.UNKNOWN;
-  public mediaType: MediaTypeEnum = MediaTypeEnum.IMAGE;
-  public mediaUrl: string = '';
   public tags: string[] = [];
   public tagIds: TagEnum[] = [];
   public cardId: number = 0;
   public unionId: number = 0;
+  public mediaInfoList: MediaInfo[] = [];
+}
+
+export class MediaInfo {
+  public id: number = 0;
+  public mediaUrl: string = '';
+  public mediaDescription: string = '';
+  public sequence: number = 0;
 }
 
 export class SampleCardData extends BaseData {

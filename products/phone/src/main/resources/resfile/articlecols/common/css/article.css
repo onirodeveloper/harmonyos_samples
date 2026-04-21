@@ -1,4 +1,4 @@
-﻿/* 清除所有元素的内外边距 */
+/* 清除所有元素的内外边距 */
 * {
   margin: 0;
   padding: 0;
@@ -68,7 +68,6 @@ html {
 
 body {
   margin: 0 16px;
-  margin-top: 108px;
   color: #00000099;
   font-family: sans-serif;
 }
@@ -486,12 +485,50 @@ p > video {
   overflow: hidden;
 }
 
-img[id^='ZH-CN_TOPIC'] {
-  background-color: #f7f8fa;
+p:has(> img),
+div:not(.viewer-canvas):not(.viewer-container):has(> img) {
+  min-height: 50px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #d8d8d8 37%, #e5e5e5 63%);
+  background-size: 400% 100%;
+  animation: img-shimmer 0.4s ease infinite;
 }
 
-table img[id^='ZH-CN_TOPIC'] {
-  background-color: transparent;
+p:has(> img.img-loaded),
+div:not(.viewer-canvas):not(.viewer-container):has(> img.img-loaded) {
+  animation: none;
+  background: transparent;
+  min-height: unset;
+}
+
+img {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+img.img-loaded {
+  opacity: 1;
+}
+
+@keyframes img-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+table img,
+.viewer-container img,
+.viewer-canvas img {
+  opacity: 1;
+}
+
+table p:has(> img) {
+  animation: none;
+  background: transparent;
+  min-height: unset;
+}
+
+.viewer-canvas,
+.viewer-player {
+  opacity: 1 !important;
 }
 
 p:has(video) {
