@@ -4,6 +4,16 @@
   "msg": "success",
   "body": [
     {
+      "id": 4,
+      "title": "适配HUAWEI Pura X MAX",
+      "subTitle": "新设备，新体验",
+      "desc": "Pura X MAX适配指导，欢迎查看",
+      "type": 3,
+      "mediaUrl": "image/banner/banner_hope.jpg",
+      "detailsUrl": "bannercols/hmos-hope/index.html",
+      "sequence": 1
+    },
+    {
       "id": 1,
       "title": "开发者你好，欢迎来到HMOS世界",
       "subTitle": "HarmonyOS代码工坊",
@@ -11,7 +21,7 @@
       "type": 3,
       "mediaUrl": "image/banner/banner_HMOS.png",
       "detailsUrl": "bannercols/hmos-world/index.html",
-      "sequence": 1
+      "sequence": 2
     },
     {
       "id": 2,
@@ -21,7 +31,7 @@
       "type": 3,
       "mediaUrl": "image/banner/banner_ui_design.png",
       "detailsUrl": "articlecols/articles/multi-adaptation/index.html",
-      "sequence": 2
+      "sequence": 3
     },
     {
       "id": 3,
@@ -31,16 +41,6 @@
       "type": 3,
       "mediaUrl": "image/banner/banner_ai.png",
       "detailsUrl": "bannercols/ai-voice-out-of-box/index.html",
-      "sequence": 3
-    },
-    {
-      "id": 4,
-      "title": "适配HUAWEI Pura X MAX",
-      "subTitle": "新设备，新体验",
-      "desc": "Pura X MAX适配指导，欢迎查看",
-      "type": 3,
-      "mediaUrl": "image/banner/banner_hope.png",
-      "detailsUrl": "bannercols/hmos-hope/index.html",
       "sequence": 4
     }
   ]
