@@ -1,10 +1,10 @@
-# HarmonyOS代码工坊
-## 一、「HarmonyOS代码工坊」APP尝鲜上线了！
-为了帮助广大开发者更高效的完成鸿蒙应用开发，华为官方重磅打造了一款名为「HarmonyOS代码工坊」的开源APP。「HarmonyOS代码工坊」汇聚华为官方优质代码案例，覆盖多场景开发需求，通过标准化、模块化的代码实践，帮助开发者快速掌握鸿蒙应用开发技巧，加速项目落地进程，开启鸿蒙开发新征程！
+# HMOS代码工坊
+## 一、「HMOS代码工坊」APP尝鲜上线了！
+为了帮助广大开发者更高效的完成鸿蒙应用开发，华为官方重磅打造了一款名为「HMOS代码工坊」的开源APP。「HMOS代码工坊」汇聚华为官方优质代码案例，覆盖多场景开发需求，通过标准化、模块化的代码实践，帮助开发者快速掌握鸿蒙应用开发技巧，加速项目落地进程，开启鸿蒙开发新征程！
 
 【应用开发最佳实践】 
 
-「HarmonyOS代码工坊」承载鸿蒙应用架构最佳实践，支持1+8设备运行，全方位体现鸿蒙应用的精致、流畅、智能、易用、安全、全场景互联等特点，并持续迭代鸿蒙新特性。
+「HMOS代码工坊」承载鸿蒙应用架构最佳实践，支持1+8设备运行，全方位体现鸿蒙应用的精致、流畅、智能、易用、安全、全场景互联等特点，并持续迭代鸿蒙新特性。
 
 【示例代码一键获取】 
 
@@ -16,7 +16,7 @@
   ![image](hmosword-build/image/download_small.png)
 
 【代码开源地址】
-- 「HarmonyOS代码工坊」源码地址：https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos
+- 「HMOS代码工坊」源码地址：https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos
 - 示例代码汇总地址：https://gitcode.com/HarmonyOS_Samples
 
 【效果图】
@@ -24,7 +24,7 @@
 ![image](hmosword-build/image/10.PNG)
 @联系我们 
 
-「HarmonyOS代码工坊」相关开发案例正在陆续更新中，您还期待我们为您提供什么样的开发案例，或还有什么宝贵意见，欢迎联系我们，非常期待您的反馈和建议，以促进我们不断改进！
+「HMOS代码工坊」相关开发案例正在陆续更新中，您还期待我们为您提供什么样的开发案例，或还有什么宝贵意见，欢迎联系我们，非常期待您的反馈和建议，以促进我们不断改进！
 - 官方邮箱：hmosworld@huawei.com
 - 意见反馈：https://www.wjx.cn/vm/rXBoIC0.aspx
 
@@ -49,14 +49,14 @@
 |---------------------------------------|---------------------------------------|---------------------------------------|
 | ![](hmosword-build/screenshots/4.png) | ![](hmosword-build/screenshots/5.png) | ![](hmosword-build/screenshots/6.png) |
 ### 实践
-实践页面主要由banner海报位与最佳实践文章卡片入口组成。文章围绕“如何构建一个鸿蒙大型应用”，将「HarmonyOS代码工坊」设计、开发到上架整个开发者旅程以最佳实践文章的形式进行内容输出。
+实践页面主要由banner海报位与最佳实践文章卡片入口组成。文章围绕“如何构建一个鸿蒙大型应用”，将「HMOS代码工坊」设计、开发到上架整个开发者旅程以最佳实践文章的形式进行内容输出。
 
 | 手机                                    | 平板                              | PC/2in1                               |
 |---------------------------------------|---------------------------------------|---------------------------------------|
 | ![](hmosword-build/screenshots/7.png) | ![](hmosword-build/screenshots/8.png) | ![](hmosword-build/screenshots/9.png) |
 ## 三、功能介绍（华为智能穿戴设备）
 ### 样例页
-「HarmonyOS代码工坊」在样例模块已集成四个案例：包括音乐播放、视频播放、地图导航和骑行导航等。
+「HMOS代码工坊」在样例模块已集成四个案例：包括音乐播放、视频播放、地图导航和骑行导航等。
 
 | 首页                                     | 样例页                                    | 音乐播放案例页                                |
 |----------------------------------------|----------------------------------------|----------------------------------------|
@@ -67,6 +67,8 @@
 │  ├──accountservice                                    // 账号管理模块
 │  ├──component                                         // 公共组件库
 │  ├──constant                                          // 公共常量文件
+│  ├──database                                          // 数据库
+│  ├──pushservice                                       // 消息推送
 │  ├──model                                             // 公共数据类
 │  ├──routermanager                                     // 路由管理类
 │  ├──storagemanager                                    // 存储模块
@@ -74,25 +76,30 @@
 │  ├──updateservice                                     // 包更新模块
 │  ├──util                                              // 工具类
 │  ├──view                                              // 公共页面库
+│  ├──widget                                            // 卡片工具类
 │  └──viewmodel                                         // ViewModel父类
 ├──features                                             // feature层
+│  ├──abilitycommon                                     // ability公共feature部分
 │  ├──commonbusiness                                    // feature公共模块
 │  ├──componentlibrary                                  // 组件模块业务
 │  ├──devpractices                                      // 样例模块
 │  ├──exploration                                       // 实践模块
-│  └──mine                                              // 我的模块
+│  ├──mine                                              // 我的模块
+│  └──widgetcommon                                      // 卡片公共feature
 ├──products                                             // 产品定制层
 │  ├──phone                                             // 手机设备入口
+│  ├──pc                                                // 2ini设备入口
+│  ├──tv                                                // 智慧屏设备入口
 │  └──wearable                                          // 华为智能穿戴设备入口
 └──hmosword-build                                       // Sample下载脚本
 ```
 
 ## 五、代码运行
-「HarmonyOS代码工坊」APP集成了大量Sample，开发者可以选择：
-1. 直接运行「HarmonyOS代码工坊」本体代码，体验组件与实践功能，样例模块Sample无法进入。
-2. 运行脚本下载Sample代码，体验全量「HarmonyOS代码工坊」功能。
+「HMOS代码工坊」APP集成了大量Sample，开发者可以选择：
+1. 直接运行「HMOS代码工坊」本体代码，体验组件与实践功能，样例模块Sample无法进入。
+2. 运行脚本下载Sample代码，体验全量「HMOS代码工坊」功能。
 
-### 1、直接运行「HarmonyOS代码工坊」
+### 1、直接运行「HMOS代码工坊」
 
 #### 手机、折叠屏、平板、PC/2in1设备运行
 1. DevEco studio打开工程文件，等待Sync完成。
@@ -111,7 +118,7 @@
 4. 点击运行，等待编译完成。
 ![image](hmosword-build/image/3.PNG)
 
-### 2、集成Sample后，运行「HarmonyOS代码工坊」
+### 2、集成Sample后，运行「HMOS代码工坊」
 
 #### Sample下载
 1. 确保电脑中已成功安装git，打开DevEco studio终端（Terminal）。
@@ -120,32 +127,59 @@
 3. 再执行`npm i`下载依赖包。如果出现以下错误，请在终端执行`npm config set registry https://registry.npmjs.org/` 设置官方镜像源。
 ![image](hmosword-build/image/6.png)
 
-4. 依赖包下載成功后，执行 `node .\index.js`运行脚本。此步骤会全量下载工程依赖的sample，并且更新「HarmonyOS代码工坊」的[build-profile.json5](build-profile.json5)配置文件。下載过程中会由于网络情况出现部分sample下载失败，可以在当前任务结束后重复执行`node .\index.js`。
+4. 依赖包下载成功后，执行 `node .\index.js`运行脚本。此步骤会全量下载工程依赖的sample，并且更新「HMOS代码工坊」的[build-profile.json5](build-profile.json5)配置文件。下載过程中会由于网络情况出现部分sample下载失败，可以在当前任务结束后重复执行`node .\index.js`。
 5. 确保sample成功下载后，点击DevEco studio的File->Sync and refresh Project重新编译。
 
-#### 手机、折叠屏、平板、PC/2in1设备集成sample运行
-以下sample支持手机、折叠屏、平板、PC/2in1：
-animationcollectionsample、audiointeractionsample、componentstacksample、customdialogsample、dragframeworksample、fluentblogsample、gridhybridsample、imagecommentsample、keyboardsample、listexchangesample、listitemeditsample、locationservicesample、multibusinesssample、multicolumnssample、multiconvinientlifesample、multimobilepaymentsample 、multinavbarsample、multinewsreadsample、multipleimagesample、multitabnavigationsample、multitravelsample、nestedslidingsample、pageredirectionsample、pickersample、preferencessample、texteffectssample、transitionscollectionsample、verificationcodescenariosample、waterflowsample、webprerendersample、windowpipsample、continuepublishsample、liveviewlockscreensample、videocastsample、knocksharesample。
+#### 手机、折叠屏、平板
+以下sample支持手机、折叠屏、平板：  
+(原始版本sample)  
+animationcollectionsample、audiointeractionsample、componentstacksample、customdialogsample、dragframeworksample、fluentblogsample、gridhybridsample、imagecommentsample、keyboardsample、listexchangesample、listitemeditsample、locationservicesample、multibusinesssample、multicolumnssample、multiconvinientlifesample、multimobilepaymentsample 、multinavbarsample、multinewsreadsample、multipleimagesample、multitabnavigationsample、multitravelsample、nestedslidingsample、pageredirectionsample、pickersample、preferencessample、texteffectssample、transitionscollectionsample、verificationcodescenariosample、waterflowsample、webprerendersample、windowpipsample、continuepublishsample、liveviewlockscreensample、videocastsample、knocksharesample。  
+(v1.3.4.121版本sample: 勾选带phone的hap)
+
+![img.png](hmosword-build/image/img.png)
 1. 修改运行入口，选中phone点击`Deploy Multi Hap`勾选支持手机、折叠屏、平板、PC/2in1的hap，注意不要勾选其余hap包（smartwatchshortvideosample、smartwatchmapsample、smartwatchcarcontrolsample、wearable、wearablemusicsample）。
 ![image](hmosword-build/image/7.PNG)
 2. 成功勾选后点击OK完成配置修改。
 3. 点击运行，等待编译完成。
 
+#### PC/2in1设备集成sample运行
+以下sample支持PC/2ini：  
+(原始版本sample)  
+animationcollectionsample、audiointeractionsample、componentstacksample、customdialogsample、dragframeworksample、fluentblogsample、gridhybridsample、imagecommentsample、keyboardsample、listexchangesample、listitemeditsample、locationservicesample、multibusinesssample、multicolumnssample、multiconvinientlifesample、multimobilepaymentsample 、multinavbarsample、multinewsreadsample、multipleimagesample、multitabnavigationsample、multitravelsample、nestedslidingsample、pageredirectionsample、pickersample、preferencessample、texteffectssample、transitionscollectionsample、verificationcodescenariosample、waterflowsample、webprerendersample、windowpipsample、continuepublishsample、liveviewlockscreensample、videocastsample、knocksharesample。
+
+(v1.3.4.121版本sample: 勾选带pc的hap)   
+![img.png](hmosword-build/image/img_pc.png)
 #### 华为智能穿戴设备集成sample运行
-以下sample支持华为智能穿戴设备：smartwatchshortvideosample、smartwatchmapsample、smartwatchcarcontrolsample、wearablemusicsample。
-1. 修改运行入口，选中wearable后，点击`Deploy Multi Hap`勾选支持华为智能穿戴设备的hap，注意不要勾选其余hap包。
+(原始版本sample)  
+以下sample支持华为智能穿戴设备：smartwatchshortvideosample、smartwatchmapsample、smartwatchcarcontrolsample、wearablemusicsample。  
+(v1.3.4.121版本sample: 勾选带wearable的hap)   
+![img.png](hmosword-build/image/img_wearable.png)
+1. 修改运行入口，选中wearable后，点击`Deploy Multi Hap`勾选支持华为智能穿戴设备的hap，注意不要勾选其余非穿戴设备hap包。
 ![image](hmosword-build/image/8.PNG)
 2. 成功勾选后点击OK完成配置修改。
 3. 点击运行，等待编译完成。
 
+#### TV设备集成sample运行
+（v1.3.4.121版本sample: 勾选带tv的hap）
+![img.png](hmosword-build/image/img_tv.png)
+
 ## 六、约束与限制
 1. 本示例仅支持标准系统上运行，支持多种设备：华为智能穿戴设备、手机、折叠屏、平板、PC/2in1等。
-2. HarmonyOS系统：HarmonyOS 5.1.0 Release及以上。
-3. DevEco Studio版本：DevEco Studio 6.0.0 Release及以上。
-4. HarmonyOS SDK版本：HarmonyOS 6.0.0 Release SDK及以上。
+2. HarmonyOS系统：HarmonyOS 6.0.1 Release及以上。
+3. DevEco Studio版本：DevEco Studio 6.1.0 Release及以上。
+4. HarmonyOS SDK版本：HarmonyOS 6.1.0 Release及以上。
 
 ## 七、版本更新说明
-【v.1.0.2.300】 版本更新
+【v1.3.4.121】 版本更新
+- PC拆包
+- 智慧屏设备适配
+- 应用内海报分享
+- 意图框架、小艺拉起代码工坊（请在应用市场下载安装包体验）
+- 互动卡片
+- 应用内新增sample
+- 体验类问题优化
+
+【v1.0.2.300】 版本更新
 - 代码工坊新材质特性
 - 代码工坊HOPE适配
 - 应用消息推送（仅展示代码，实际体验请前往应用市场安装）
