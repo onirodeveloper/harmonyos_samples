@@ -266,12 +266,6 @@
     },
     {
       "branch": "dev",
-      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/AlwaysOnMarketWatch",
-      "moduleName": "",
-      "abilityName": ""
-    },
-    {
-      "branch": "dev",
       "originalUrl": "git@gitcode.com:HarmonyOS_Samples/ImageEditWithWavewheel",
       "moduleName": "",
       "abilityName": ""
@@ -429,12 +423,6 @@
     {
       "branch": "dev",
       "originalUrl": "git@gitcode.com:HarmonyOS_Samples/readerkit_samplecode_arkts",
-      "moduleName": "",
-      "abilityName": ""
-    },
-    {
-      "branch": "dev",
-      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/RcpPreconnect",
       "moduleName": "",
       "abilityName": ""
     },

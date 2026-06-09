@@ -86,6 +86,9 @@ function processSampleWithoutConfig(samplePath, sampleName) {
       if (stat.isDirectory()) {
         findModuleJson5(itemPath, itemRelativePath);
       } else if (item === 'module.json5') {
+        if (itemPath.includes('ohosTest')) {
+          continue;
+        };
         const moduleJsonData = readJson5File(itemPath);
         if (!moduleJsonData) continue;
         
