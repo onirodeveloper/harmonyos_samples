@@ -1,0 +1,16 @@
+{
+  "float": [
+    {
+      "name": "side_bar_height",
+      "value": "40vp"
+    },
+    {
+      "name": "side_bar_title_height",
+      "value": "56vp"
+    },
+    {
+      "name": "app_icon_width",
+      "value": "24vp"
+    }
+  ]
+}

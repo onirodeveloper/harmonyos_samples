@@ -13,7 +13,7 @@
       "value": "72.0vp"
     },
     {
-      "name": "card_content_height",
+      "name": "codelab_card_content_height",
       "value": "144vp"
     },
     {
@@ -25,7 +25,7 @@
       "value": "456vp"
     },
     {
-      "name": "card_button_height",
+      "name": "arrow_size",
       "value": "40.0vp"
     },
     {
@@ -123,10 +123,6 @@
     {
       "name": "ai_caption_width",
       "value": "240vp"
-    },
-    {
-      "name": "ai_caption_width_xl",
-      "value": "400vp"
     },
     {
       "name": "ai_caption_height_xl",

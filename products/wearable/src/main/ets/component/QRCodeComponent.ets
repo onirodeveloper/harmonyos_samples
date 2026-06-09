@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { ArcScrollBar } from '@ohos.arkui.ArcScrollBar';
 
 const MAX_LINES = 3;
@@ -20,8 +19,8 @@ const TITLE_MAX_WIDTH = 129;
 
 @Component
 export struct QRCodeComponent {
-  private webviewUrl: string = '';
-  private title: string = '';
+  webviewUrl: string = '';
+  title: string = '';
   private scroller: Scroller = new Scroller();
   private singleLine: boolean = false;
 

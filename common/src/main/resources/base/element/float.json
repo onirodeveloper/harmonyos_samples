@@ -2,7 +2,7 @@
   "float": [
     {
       "name": "loading_size_sm",
-      "value": "72vp"
+      "value": "108vp"
     },
     {
       "name": "loading_size_md",
@@ -90,7 +90,7 @@
     },
     {
       "name": "feedback_input_height",
-      "value": "104vp"
+      "value": "112vp"
     },
     {
       "name": "feedback_top_height",

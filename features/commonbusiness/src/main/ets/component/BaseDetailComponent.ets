@@ -19,7 +19,7 @@ import {
   LoadingStatus,
   DelayedLoadingView,
   NoNetworkView,
-  StorageKey
+  StorageKey,
 } from '@ohos/common';
 
 @Component

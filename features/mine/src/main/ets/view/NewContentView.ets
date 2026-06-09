@@ -30,7 +30,13 @@ import {
   StorageKey,
 } from '@ohos/common';
 import { BaseDetailComponent } from '@ohos/commonbusiness';
-import { AssignViewData, InitContentNewEvent, NewContentVM } from '../viewmodel/NewContentVM';
+import {
+  AssignViewData,
+  ChangeBackPressed,
+  InitContentNewEvent,
+  NewContentVM,
+  PopEvent,
+} from '../viewmodel/NewContentVM';
 import { NewContentPageState } from '../viewmodel/NewContentPageState';
 import { NewContentItem } from '../component/NewContentItem';
 
@@ -86,6 +92,7 @@ export struct NewContentView {
   handleOnReady(ctx: NavDestinationContext) {
     this.viewModel?.sendEvent(new AssignViewData(ctx.pathStack));
     this.viewModel?.sendEvent(new InitContentNewEvent(this.tabSelectedIndexes[0]));
+    this.viewModel?.sendEvent(new ChangeBackPressed(false));
   }
 
   @Builder
@@ -175,6 +182,12 @@ export struct NewContentView {
     .backgroundColor($r('sys.color.background_secondary'))
     .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
     .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
+    .onBackPressed(() => {
+      if (!this.newContentPageState?.isBackPressed) {
+        this.viewModel?.sendEvent(new PopEvent());
+      }
+      return true;
+    })
 
   }
 

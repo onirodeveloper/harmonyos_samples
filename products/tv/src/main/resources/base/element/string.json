@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "HMOS代码工坊智慧屏应用"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "HMOS代码工坊智慧屏应用"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "splash_title",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "experience_now",
+      "value": "立即体验"
+    },
+    {
+      "name": "view_source",
+      "value": "查看源码"
+    },
+    {
+      "name": "sample",
+      "value": "样例"
+    },
+    {
+      "name": "scan_text",
+      "value": "扫描立即获取%s案例源码"
+    },
+    {
+      "name": "mine_title",
+      "value": "Mine"
+    },
+    {
+      "name": "login_with_huawei_account",
+      "value": "login"
+    },
+    {
+      "name": "view_sourcecode_see_details",
+      "value": "view sourcecode to see details"
+    },
+    {
+      "name": "tv_mine_setting",
+      "value": "Setting"
+    },
+    {
+      "name": "tv_mine_about",
+      "value": "about"
+    },
+    {
+      "name": "copyright1",
+      "value": "粤A2-20044005号-302A(https://beian.miit.gov.cn/)"
+    },
+    {
+      "name": "copyright2",
+      "value": "Copyright © 2025 Huawei Device Co., Ltd. All rights reserved."
+    },
+    {
+      "name": "version_info",
+      "value": "version info"
+    },
+    {
+      "name": "update",
+      "value": "update"
+    },
+    {
+      "name": "is_latest_version",
+      "value": "is latest version"
+    },
+    {
+      "name": "setting",
+      "value": "setting"
+    }
+  ]
+}

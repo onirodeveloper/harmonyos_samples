@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-
 import { StorageKey, Toast } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';

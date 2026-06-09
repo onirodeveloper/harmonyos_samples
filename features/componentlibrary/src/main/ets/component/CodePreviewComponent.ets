@@ -27,7 +27,6 @@ import {
   WindowUtil,
   PasteboardUtil,
 } from '@ohos/common';
-import { CardTypeEnum } from '@ohos/commonbusiness';
 import { CustomToolBarItem } from '../model/CustomToolBarItem';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 
@@ -36,6 +35,8 @@ export struct CodePreviewComponent {
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel = new GlobalInfoModel();
   @Prop @Watch('handleColorModeChange') isDarkMode: boolean;
   @Prop @Watch('flushCode') code: string = '';
+  @Prop nodeContainerPaddingLeft: ResourceStr;
+  @Prop nodeContainerPaddingTop: ResourceColor;
   @Prop pageContainer: boolean = false;
   @Link webNodeController: WebNodeController;
   @State commonModifier: CommonModifier = new CommonModifier();
@@ -64,7 +65,7 @@ export struct CodePreviewComponent {
   }
 
   flushCode() {
-    const codeToHtmlMethod: string = 'codeToHtml(%param)';
+    const codeToHtmlMethod: string = 'safeCodeToHtml(%param)';
     const params: string = JSON.stringify(this.code);
     CodePreviewJSUtil.codeViewRunJS(codeToHtmlMethod, params);
   }
@@ -83,7 +84,8 @@ export struct CodePreviewComponent {
     } as TrackServiceData)
     .attributeModifier(this.commonModifier)
     .backgroundColor($r('sys.color.comp_background_tertiary'))
-    .borderRadius($r('sys.float.corner_radius_level10'))
+    .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
+      $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level10'))
     .padding($r('sys.float.padding_level5'))
     .onClick(() => {
       item.action?.();
@@ -184,10 +186,16 @@ export struct CodePreviewComponent {
         }
         .layoutWeight(1)
         .alignContent(this.pageContainer ? Alignment.Bottom : Alignment.TopEnd)
-        .margin({
-          left: this.pageContainer ? 0 : $r('sys.float.padding_level4'),
-          right: this.pageContainer ? 0 : $r('sys.float.padding_level4'),
-        })
+        .margin(this.nodeContainerPaddingLeft ?
+          {
+            left: this.nodeContainerPaddingLeft,
+            right: this.nodeContainerPaddingLeft,
+            top: this.nodeContainerPaddingTop,
+          } :
+          {
+            left: $r('sys.float.padding_level4'),
+            right: $r('sys.float.padding_level4'),
+          })
 
         if (!this.pageContainer) {
           this.Toolbar()

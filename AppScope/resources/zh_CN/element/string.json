@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "hmos_app_name",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "internet_reason",
+      "value": "需要获取您的网络权限，用于获取网络资源展示数据"
+    },
+    {
+      "name": "network_reason",
+      "value": "需要获取您的网络状态信息，用于判断当前设备是否联网"
+    },
+    {
+      "name": "vibrator_reason",
+      "value": "需要获取震动权限来提供震动感"
+    }
+  ]
+}

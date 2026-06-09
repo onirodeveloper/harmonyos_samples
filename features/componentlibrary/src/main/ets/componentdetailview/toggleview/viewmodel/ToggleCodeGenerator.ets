@@ -22,6 +22,7 @@ export class ToggleCodeGenerator implements CommonCodeGenerator {
   private toggleType: string = toggleTypeMapData.get(DEFAULT_KEY)!.code;
   private isOn: string = isOnMapData.get(DEFAULT_KEY)!.code;
   private backgroundColor: string = backgroundColorMapData.get(DEFAULT_KEY)!.code;
+  private textColor: string = '';
 
   public generate(attributes: OriginAttribute[]): string {
     attributes.forEach((attribute) => {
@@ -32,6 +33,11 @@ export class ToggleCodeGenerator implements CommonCodeGenerator {
           break;
         case 'isOn':
           this.isOn = JSON.parse(attribute.currentValue);
+          if (this.isOn) {
+            this.textColor = '$r(\'sys.color.font_on_primary\')';
+          } else {
+            this.textColor = '$r(\'sys.color.font_primary\')';
+          }
           break;
         case 'backgroundColor':
           this.backgroundColor = attribute.currentValue;
@@ -56,7 +62,7 @@ struct ToggleComponent {
         isOn: ${this.isOn}
       }){
           Text('状态按钮')
-            .fontColor($r('sys.color.font_on_primary'))
+            .fontColor(${this.textColor})
             .fontSize(12)
         }
       .selectedColor('${this.backgroundColor}')

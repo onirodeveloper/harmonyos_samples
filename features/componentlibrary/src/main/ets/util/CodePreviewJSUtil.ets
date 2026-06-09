@@ -22,8 +22,14 @@ export class CodePreviewJSUtil {
   public static codeViewRunJS(jsMethod: string, params?: string, callback?: Function): void {
     if (WHITE_JS_METHODS.indexOf(jsMethod) >= 0) {
       let runMethod = jsMethod;
-      if (params && params.trim() !== '') {
-        runMethod = runMethod.replace('%param', params);
+      if (jsMethod === 'safeCodeToHtml(%param)' || jsMethod === 'codeToHtml(%param)') {
+        runMethod =
+          `(function(c,m){if(typeof codeToHtml==='function'){codeToHtml(c,m)}else{window._pendingCP={c:c,m:m}}})(${params ??
+            ''})`;
+      } else {
+        if (params && params.trim() !== '') {
+          runMethod = runMethod.replace('%param', params);
+        }
       }
       try {
         WebUtil.getWebController(WebUtil.getComponentCodeUrl())?.runJavaScript(runMethod)
@@ -47,6 +53,7 @@ const WHITE_JS_METHODS = [
   'changeColorMode(%param)',
   'showPortraitView()',
   'codeToHtml(%param)',
+  'safeCodeToHtml(%param)',
   'toFullScreen()',
   'toSmallScreen()',
   'showLandscapeView(%param)',

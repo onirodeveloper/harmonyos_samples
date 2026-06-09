@@ -22,11 +22,17 @@ import type { StackDescriptor } from '../viewmodel/StackDescriptor';
 export function StackBuilder($$: DescriptorWrapper) {
   Stack() {
     Column()
-      .size({ width: $r('app.float.container_size_5'), height: $r('app.float.container_size_5') })
+      .size({
+        width: $r('app.float.container_size_5'),
+        height: $r('app.float.container_size_5'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
     Column()
-      .size({ width: $r('app.float.container_size_3'), height: $r('app.float.container_size_3') })
+      .size({
+        width: $r('app.float.container_size_3'),
+        height: $r('app.float.container_size_3'),
+      })
       .backgroundColor($r('sys.color.multi_color_03'))
       .borderRadius($r('sys.float.corner_radius_level4'))
   }

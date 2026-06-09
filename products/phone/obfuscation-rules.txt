@@ -22,8 +22,9 @@
 -enable-export-obfuscation
 
 # white list for PenKit Context file
+
 -keep
-./src/main/ets/util/ContextConfig.ets
+../../features/abilitycommon/src/main/ets/util/ContextConfig.ets
 
 -keep-property-name
 articleInfo

@@ -15,8 +15,9 @@
 
 import { UIContext, uiObserver } from '@kit.ArkUI';
 import { Context } from '@kit.AbilityKit';
-import { deviceInfo } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
 import { StorageKey } from '../constant/CommonEnums';
+import { PageEnum } from '../model/PageEnum';
 import { BundleInfoData } from '../model/BundleInfoData';
 import { TRACK_KEY, TrackCommonData, TrackEventType, TrackModel, TrackServiceData } from '../model/TrackModel';
 import { PreferenceManager } from '../storagemanager/PreferenceManager';
@@ -35,7 +36,7 @@ export class TrackManager {
   private static trackTable: TrackTable;
   private trackCommonData: TrackCommonData | undefined;
   private interval: number = 0;
-  private currentPage: string = '';
+  private currentPage: string = PageEnum.MAIN_PAGE;
   private pageSwitchInTime: number = -1;
 
   private constructor() {
@@ -56,11 +57,16 @@ export class TrackManager {
     this.initTrackCommonData().then(async () => {
       TrackManager.uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT) as UIContext;
       TrackManager.trackTable = new TrackTable();
-      await TrackManager.trackTable.getRdbStore(TrackManager.uiContext?.getHostContext() as Context)
-      // If not exist the account user id, then generate guest id.
-      this.startReporting(TIMEOUT);
-      this.registerClickListen();
-      this.registerNavigationListen();
+      try {
+        await TrackManager.trackTable.getRdbStore(TrackManager.uiContext?.getHostContext() as Context)
+        // If not exist the account user id, then generate guest id.
+        this.startReporting(TIMEOUT);
+        this.registerClickListen();
+        this.registerNavigationListen();
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        Logger.info(TAG, `get rdb store error, cause: ${err.message}`);
+      }
     });
   }
 
@@ -77,7 +83,10 @@ export class TrackManager {
     if (trackServiceData.pageName === undefined) {
       trackServiceData.pageName = this.currentPage;
     }
+    trackServiceData.pageName = trackServiceData.pageName !== '' ? trackServiceData.pageName : null;
     trackServiceData.time = FormatDate.formatDate(new Date());
+    trackServiceData.interactionContent =
+      trackServiceData.interactionContent !== '' ? trackServiceData.interactionContent : null;
     TrackManager.trackTable.insertTrackData(trackServiceData);
   }
 
@@ -136,10 +145,12 @@ export class TrackManager {
     TrackManager.uiContext.getUIObserver()
       .on('navDestinationSwitch', (navigationInfo: uiObserver.NavDestinationSwitchInfo) => {
         const from: uiObserver.NavDestinationInfo = navigationInfo.from;
-        if (from.name && from.name === this.currentPage) {
-          this.assignNavigationTrackData(from, TrackEventType.EXPOSURE);
+        if (from.name) {
+          if (from.name === this.currentPage) {
+            this.assignNavigationTrackData(from, TrackEventType.EXPOSURE);
+          }
+          this.currentPage = (navigationInfo.to as uiObserver.NavDestinationInfo).name as string;
         }
-        this.currentPage = (navigationInfo.to as uiObserver.NavDestinationInfo).name as string;
         this.pageSwitchInTime = Date.now();
       })
   }
@@ -159,9 +170,9 @@ export class TrackManager {
     return Promise.resolve().then(() => {
       const bundleInfo: BundleInfoData | undefined = AppStorage.get(StorageKey.BUNDLE_INFO);
       const trackCommonData: TrackCommonData = {
-        bundleName: bundleInfo?.bundleName ?? '',
+        bundleName: bundleInfo?.bundleName ?? null,
         version: bundleInfo?.versionCode ?? 0,
-        deviceType: deviceInfo.deviceType,
+        deviceType: deviceInfo.deviceType ?? null,
         apiVersion: deviceInfo.sdkApiVersion,
       }
       this.trackCommonData = trackCommonData;
@@ -173,8 +184,8 @@ export class TrackManager {
       return;
     }
     const pageName: string = currentPageInfo.name as string;
-    let interactionType: string = '';
-    let interactionContent: string = '';
+    let interactionType: string | null = null;
+    let interactionContent: string | null = null;
     if (currentPageInfo.param) {
       interactionType = Reflect.get(currentPageInfo.param, 'interactionType');
       interactionContent = Reflect.get(currentPageInfo.param, 'title');

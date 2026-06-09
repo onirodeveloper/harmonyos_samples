@@ -51,7 +51,9 @@ export struct ExperienceCard {
   }
 
   calculateItemWidth() {
-    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
+    if (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) &&
+      (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+        this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL)) {
       this.componentWidth = this.globalInfoModel.deviceWidth - CommonConstants.SIDE_BAR_WIDTH - ROW_PADDING;
       this.itemWidth = (this.componentWidth - CommonConstants.SPACE_16 * (SHOW_COUNT - 1)) / SHOW_COUNT;
     }
@@ -73,7 +75,7 @@ export struct ExperienceCard {
         if (currentItemEdgePosition > this.componentWidth) {
           this.scroller.scrollTo({
             xOffset: (currentOffsetX + this.itemWidth +
-            CommonConstants.SPACE_16),
+              CommonConstants.SPACE_16),
             yOffset: 0,
           });
         }
@@ -84,7 +86,9 @@ export struct ExperienceCard {
   }
 
   build() {
-    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
+    if (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) &&
+      (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+        this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL)) {
       Scroll(this.scroller) {
         Row({ space: CommonConstants.SPACE_16 }) {
           ForEach(this.discoverContents, (discoverContent: DiscoverContent, index: number) => {
@@ -111,7 +115,10 @@ export struct ExperienceCard {
         })
         .height('100%')
       }
-      .scrollSnap({ snapAlign: ScrollSnapAlign.START, snapPagination: this.itemWidth + CommonConstants.SPACE_16 })
+      .scrollSnap({
+        snapAlign: ScrollSnapAlign.START,
+        snapPagination: this.itemWidth + CommonConstants.SPACE_16,
+      })
       .scrollBar(BarState.Off)
       .edgeEffect(EdgeEffect.None)
       .scrollable(ScrollDirection.Horizontal)
@@ -139,9 +146,8 @@ export struct ExperienceCard {
       .prevMargin(new BreakpointType<Length>({
         sm: 0,
         md: $r('sys.float.padding_level6'),
-        lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_16 :
-          CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
-        xl: CommonConstants.SPACE_16,
+        lg: (HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+          CommonConstants.SPACE_16 : CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
       }).getValue(this.globalInfoModel.widthBreakpoint))
       .nextMargin(new BreakpointType<Length>({
         sm: 0,

@@ -17,16 +17,14 @@ import { UIContext } from '@kit.ArkUI';
 import {
   BaseVM,
   FileUtil,
-  GlobalInfoModel,
   InteractionTypeEnum,
   LoadingStatus,
   Logger,
-  PageContext,
   PageEnum,
   StorageKey,
   UrlUtil,
 } from '@ohos/common';
-import { CardTypeEnum, ComponentDetailParams, SampleDetailParams, TabBarType } from '@ohos/commonbusiness';
+import { ComponentDetailParams, SampleDetailParams } from '@ohos/commonbusiness';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { ExplorationDetailState } from './ExplorationDetailState';
 
@@ -84,19 +82,8 @@ export class ArticleDetailViewModel extends BaseVM<ExplorationDetailState> {
   }
 
   private jumpNativePage(param: NativePageParam): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-    let pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
-    if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
-      if (param.tabBarView === TabBarType.HOME) {
-        pageContext = AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT);
-      } else if (param.tabBarView === TabBarType.SAMPLE) {
-        pageContext = AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT);
-      } else {
-        pageContext = AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT);
-      }
-    }
-    pageContext?.openPage({
-      routerName: param.type === 'component' ? PageEnum.COMPONENT_DETAIL_VIEW : PageEnum.SAMPLE_DETAIL_VIEW,
+    this.currentPathStack?.pushPath({
+      name: param.type === 'component' ? PageEnum.COMPONENT_DETAIL_VIEW : PageEnum.SAMPLE_DETAIL_VIEW,
       param: param.type === 'component' ?
         {
           title: param.title,

@@ -86,9 +86,9 @@ export class CommonConstants {
   // Break Word Offset
   public static readonly BREAK_WORD_OFFSET: number = 5;
   // Text Input Max Lines
-  public static readonly TEXT_INPUT_MAX_LINES: number = 3;
+  public static readonly TEXT_INPUT_MAX_LINES: number = 25;
   // Text Input Max Length
-  public static readonly TEXT_INPUT_MAX_LENGTH: number = 100;
+  public static readonly TEXT_INPUT_MAX_LENGTH: number = 500;
   // Feedback Sheet Type
   public static readonly SHEET_BOTTOM_ATTACHED: string = 'bottom_attached';
   public static readonly SHEET_CENTER_FLOATING: string = 'center_floating';
@@ -103,4 +103,5 @@ export class CommonConstants {
   };
   // PC device type
   public static readonly PC_DEVICE_TYPE: string = '2in1';
+  public static readonly TV_MINEPAGE_NAVBAR_WIDTH: string = '35%';
 }

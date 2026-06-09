@@ -1,0 +1,12 @@
+{
+  "float": [
+    {
+      "name": "experience_button_width",
+      "value": "192vp"
+    },
+    {
+      "name": "skip_button_width",
+      "value": "66vp"
+    }
+  ]
+}

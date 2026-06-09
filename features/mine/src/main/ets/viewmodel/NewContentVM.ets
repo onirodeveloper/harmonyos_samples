@@ -62,6 +62,10 @@ export class NewContentVM extends BaseVM<NewContentPageState> {
       this.jumpToPage(event.item);
     } else if (event instanceof AssignViewData) {
       this.currentPathStack = event.pathStack;
+    } else if (event instanceof PopEvent) {
+      this.pop();
+    } else if (event instanceof ChangeBackPressed) {
+      this.changeBackPressedState(event.backPressed);
     }
   }
 
@@ -157,7 +161,12 @@ export class NewContentVM extends BaseVM<NewContentPageState> {
   }
 
   private pop(): void {
+    this.changeBackPressedState(true);
     this.currentPathStack?.pop()
+  }
+
+  private changeBackPressedState(backPressed: boolean) {
+    this.state.isBackPressed = backPressed;
   }
 }
 
@@ -182,6 +191,17 @@ export class JumpToPage implements BaseVMEvent {
 
   constructor(item: NewContentData) {
     this.item = item;
+  }
+}
+
+export class PopEvent implements BaseVMEvent {
+}
+
+export class ChangeBackPressed implements BaseVMEvent {
+  public readonly backPressed: boolean;
+
+  constructor(backPressed: boolean) {
+    this.backPressed = backPressed;
   }
 }
 

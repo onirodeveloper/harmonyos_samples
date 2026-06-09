@@ -67,7 +67,10 @@ function listItemBuilder(param: string, $$: DescriptorWrapper) {
     .height('100%')
     .borderRadius($r('sys.float.corner_radius_level4'))
     .justifyContent(FlexAlign.Center)
-    .border({ width: $r('app.float.border_width_large'), color: $r('sys.color.comp_background_emphasize') })
+    .border({
+      width: $r('app.float.border_width_large'),
+      color: $r('sys.color.comp_background_emphasize'),
+    })
   }
   .width('100%')
   .height(($$.descriptor as ListDescriptor).lanes.value >= DetailPageConstant.LIST_LANES_THRESHOLD ?

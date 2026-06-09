@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HMOS 专业化</title>
+  <link rel="stylesheet" href="../common/css/banner.css">
+  <link rel="stylesheet" href="./index.css" />
+  <link rel="preload" as="image" href="./image/banner_content.jpg">
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="poster-wrap">
+      <div class="loading-placeholder" id="loadingPlaceholder">
+        <div class="skeleton"></div>
+      </div>
+      <img
+        class="long-img"
+        fetchpriority="high"
+        src="./image/banner_content.jpg"
+        alt="HMOS 专业化海报"
+        onload="document.getElementById('loadingPlaceholder').style.display='none'"
+      />
+    </div>
+
+    <div class="footer">
+      <img class="footerImg" src="../common/image/f_icon.png" alt="" />
+    </div>
+  </div>
+</body>
+<script src="../common/js/banner.js"></script>
+
+</html>

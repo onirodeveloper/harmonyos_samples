@@ -56,12 +56,18 @@ export function OpacityComponent(attribute: OpacityPickerAttribute,
         width: $r('app.float.slider_block_size_large'),
         height: $r('app.float.slider_block_size_large'),
       })
-      .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+      .padding({
+        left: $r('sys.float.padding_level2'),
+        right: $r('sys.float.padding_level2'),
+      })
       .blockColor(Color.Transparent)
       .height($r('app.float.common_component_height'))
       .width('100%')
   }
   .width('100%')
   .alignItems(HorizontalAlign.Start)
-  .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+  .padding({
+    left: $r('sys.float.padding_level2'),
+    right: $r('sys.float.padding_level2'),
+  })
 }

@@ -14,7 +14,7 @@
  */
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey, } from '@ohos/common';
+import { BreakpointType, CommonConstants, DebounceUtil, GlobalInfoModel, StorageKey } from '@ohos/common';
 import type { BannerData, TabBarAnimationParam } from '@ohos/commonbusiness';
 import {
   BannerCard,
@@ -54,26 +54,34 @@ export struct ComponentBaseView {
     this.viewModel.sendEvent({ type: ComponentListEventType.UPDATE_FLOW_SECTION, param: null });
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
-      param: { yOffset: (this.componentListState.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.HOME },
+      param: {
+        yOffset: (this.componentListState.scroller?.currentOffset()?.yOffset || 0),
+        tabIndex: TabBarType.HOME,
+      },
     });
   }
 
   handleColorModeChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_COLOR_CHANGE,
-      param: { yOffset: (this.componentListState.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.HOME },
+      param: {
+        yOffset: (this.componentListState.scroller?.currentOffset()?.yOffset || 0),
+        tabIndex: TabBarType.HOME,
+      },
     });
   }
 
-  jumpComponentDetailView(componentContent: ComponentContent) {
-    this.viewModel.sendEvent<ComponentContent>({
-      type: ComponentListEventType.JUMP_DETAIL_DETAIL,
-      param: componentContent,
-    });
+  jumpComponentDetailView(componentContent: ComponentContent): Function {
+    return DebounceUtil.debounce(() => {
+      this.viewModel.sendEvent<ComponentContent>({
+        type: ComponentListEventType.JUMP_DETAIL_DETAIL,
+        param: componentContent,
+      });
+    }, 1000);
   }
 
-  jumpCodelabDetailView(componentCard: ComponentCardData) {
-    this.jumpComponentDetailView(componentCard.componentContents?.[0]);
+  jumpCodelabDetailView(componentCard: ComponentCardData): Function {
+    return this.jumpComponentDetailView(componentCard.componentContents?.[0]);
   }
 
   jumpBannerDetail(banner: BannerData) {
@@ -105,7 +113,7 @@ export struct ComponentBaseView {
               componentCardData: item,
               widthBreakpoint: this.globalInfoModel.widthBreakpoint,
               handleItemClick: (componentContent: ComponentContent) => {
-                this.jumpComponentDetailView(componentContent);
+                this.jumpComponentDetailView(componentContent)();
               },
             })
               .reuseId(CardStyleTypeEnum.PICTURE_ABOVE_LIST.toString())
@@ -113,7 +121,7 @@ export struct ComponentBaseView {
             ListCard({
               componentCardData: item,
               handleItemClick: (componentContent: ComponentContent) => {
-                this.jumpComponentDetailView(componentContent);
+                this.jumpComponentDetailView(componentContent)();
               },
             })
               .reuseId(CardStyleTypeEnum.LIST.toString())
@@ -123,7 +131,7 @@ export struct ComponentBaseView {
             })
               .reuseId(CardStyleTypeEnum.PICTURE.toString())
               .onClick(() => {
-                this.jumpCodelabDetailView(item);
+                this.jumpCodelabDetailView(item)();
               })
           }
         }
@@ -135,11 +143,7 @@ export struct ComponentBaseView {
       .width('100%')
       .padding({
         bottom: (this.globalInfoModel.naviIndicatorHeight +
-          (new BreakpointType({
-            sm: CommonConstants.TAB_BAR_HEIGHT,
-            md: CommonConstants.TAB_BAR_HEIGHT,
-            lg: 0,
-          }).getValue(this.globalInfoModel.widthBreakpoint))),
+          (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? 0 : CommonConstants.TAB_BAR_HEIGHT)),
       })
     }
     .columnsGap(new BreakpointType({
@@ -160,6 +164,7 @@ export struct ComponentBaseView {
         type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
         param: {
           yOffset: offset,
+          tabIndex: TabBarType.HOME,
         } as TabBarAnimationParam,
       });
       const param: CalculateHeightParam =
@@ -178,6 +183,7 @@ export struct ComponentBaseView {
         type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
         param: {
           yOffset: -1,
+          tabIndex: TabBarType.HOME,
         } as TabBarAnimationParam,
       });
     })

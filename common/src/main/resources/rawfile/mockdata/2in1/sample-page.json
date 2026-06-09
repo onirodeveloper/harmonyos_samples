@@ -1,0 +1,481 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": {
+    "currentPage": 1,
+    "pageSize": 30,
+    "totalPage": 1,
+    "totalSize": 11,
+    "data": {
+      "sampleCategories": [
+        {
+          "id": 4,
+          "categoryName": "2026 HDC",
+          "defaultIcon": "image/sample/1763112366555_69251385.png",
+          "selectedIcon": "image/sample/1763112366994_9307b639.png",
+          "sequence": 1,
+          "sampleCards": [
+            {
+              "id": 1,
+              "unionId": 1,
+              "title": "HarmonyOS代码工坊",
+              "styleType": 4,
+              "image": "image/sample/1763171478345_f841f13c.png",
+              "sequence": 1,
+              "sampleContents": [
+                {
+                  "id": 1,
+                  "type": "commonClient",
+                  "cardId": 1,
+                  "unionId": 1,
+                  "title": "HarmonyOS代码工坊",
+                  "desc": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
+                  "tags": [
+                    "华为官方大型开源项目"
+                  ],
+                  "tagIds": [],
+                  "sequence": 1,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1763172357628_dc8d11d1.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 12,
+                      "mediaUrl": "image/sample/1763172357628_dc8d11d1.png",
+                      "mediaDescription": "默认",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 162,
+              "unionId": 1,
+              "title": "互动卡片开发案例",
+              "styleType": 4,
+              "image": "image/sample/1779270566901_bcbb7fa3.png",
+              "sequence": 2,
+              "sampleContents": [
+                {
+                  "id": 92,
+                  "type": "commonSample",
+                  "cardId": 162,
+                  "unionId": 1,
+                  "title": "互动卡片开发案例",
+                  "desc": "本示例展示了如何使用 HarmonyOS 的互动卡片能力。",
+                  "tags": [
+                    "互动卡片 破框而出"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 2,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1779270959828_fe2f34f8.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 209,
+                      "mediaUrl": "image/sample/1779270959828_fe2f34f8.png",
+                      "mediaDescription": "default",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 155,
+              "unionId": 1,
+              "title": "沉浸光感开发案例",
+              "styleType": 4,
+              "image": "image/sample/1778594623382_17a3cb25.png",
+              "sequence": 3,
+              "sampleContents": [
+                {
+                  "id": 84,
+                  "type": "commonSample",
+                  "cardId": 155,
+                  "unionId": 1,
+                  "title": "沉浸光感开发案例",
+                  "desc": "本示例基于HDS提供的全新组件设计，打造更加沉浸化的应用视觉体验，以及更加智能化的交互体验。",
+                  "tags": [
+                    "沉浸光感 焕然一新"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 3,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778594689895_2574d2bf.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 181,
+                      "mediaUrl": "image/sample/1778594689895_2574d2bf.png",
+                      "mediaDescription": "default",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 160,
+              "unionId": 1,
+              "title": "全链路盯盘开发案例",
+              "styleType": 4,
+              "image": "image/sample/1778852296966_9a40a4bb.png",
+              "sequence": 4,
+              "sampleContents": [
+                {
+                  "id": 90,
+                  "type": "commonSample",
+                  "cardId": 160,
+                  "unionId": 1,
+                  "title": "全链路盯盘开发案例",
+                  "desc": "通过使用“闪控球”和“悬浮窗”特性承接股票桌面盯盘功能，“锁屏卡片”承载股票锁屏盯盘功能，“待机屏保”承接待机状态盯盘  “防窥保护”特性保护用户个人隐私。",
+                  "tags": [
+                    "全链路盯盘 股市长红"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 4,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778852918704_ecbd2f7b.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 207,
+                      "mediaUrl": "image/sample/1778852918704_ecbd2f7b.png",
+                      "mediaDescription": "平板预览效果",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 157,
+              "unionId": 1,
+              "title": "波轮菜单开发案例",
+              "styleType": 4,
+              "image": "image/sample/1778832255946_516163f0.png",
+              "sequence": 5,
+              "sampleContents": [
+                {
+                  "id": 87,
+                  "type": "commonSample",
+                  "cardId": 157,
+                  "unionId": 1,
+                  "title": "波轮菜单开发案例",
+                  "desc": "在图片编辑Demo的基础上集成波轮菜单功能。",
+                  "tags": [
+                    "手写笔波轮菜单"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 5,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778832443929_5f4f8667.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 199,
+                      "mediaUrl": "image/sample/1778832443929_5f4f8667.png",
+                      "mediaDescription": "平板预览效果",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "unionId": 1,
+              "title": "碰一碰视频快速分享",
+              "styleType": 4,
+              "image": "image/sample/1763171600138_7b7584dd.png",
+              "sequence": 6,
+              "sampleContents": [
+                {
+                  "id": 4,
+                  "type": "commonSample",
+                  "cardId": 4,
+                  "unionId": 1,
+                  "title": "碰一碰视频快速分享",
+                  "desc": "本示例利用Share Kit与App Linking的结合，实现了快速跨设备分享视频并直接进入应用内视频播放页面的功能。",
+                  "tags": [
+                    "使用两台手机体验完整效果"
+                  ],
+                  "tagIds": [],
+                  "sequence": 6,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1763173538388_5140c552.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 15,
+                      "mediaUrl": "image/sample/1763173538388_5140c552.png",
+                      "mediaDescription": "默认",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 151,
+              "unionId": 1,
+              "title": "碰一碰文件分享",
+              "styleType": 4,
+              "image": "image/sample/1778290835977_ac99a17f.png",
+              "sequence": 7,
+              "sampleContents": [
+                {
+                  "id": 79,
+                  "type": "commonSample",
+                  "cardId": 151,
+                  "unionId": 1,
+                  "title": "碰一碰文件分享",
+                  "desc": "本示例基于Share Kit实现了跨设备文件的快速分享功能。",
+                  "tags": [
+                    "碰到哪 素材就去哪"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 7,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778291056105_8518b742.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 162,
+                      "mediaUrl": "image/sample/1778291056105_8518b742.png",
+                      "mediaDescription": "default",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 150,
+              "unionId": 1,
+              "title": "隔空传送开发案例",
+              "styleType": 4,
+              "image": "image/sample/1778290738597_36684b5e.png",
+              "sequence": 8,
+              "sampleContents": [
+                {
+                  "id": 78,
+                  "type": "commonSample",
+                  "cardId": 150,
+                  "unionId": 1,
+                  "title": "隔空传送开发案例",
+                  "desc": "本示例基于Share Kit实现快速跨设备分享文件，结合App Linking实现了快速跨设备分享链接并直接进入应用内视频播放页面的功能。",
+                  "tags": [
+                    "抓一抓 隔空传送"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 8,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778290981268_76e09f45.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 161,
+                      "mediaUrl": "image/sample/1778290981268_76e09f45.png",
+                      "mediaDescription": "default",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "unionId": 1,
+              "title": "视频投播更便捷",
+              "styleType": 4,
+              "image": "image/sample/1763171610758_e21dc1a1.png",
+              "sequence": 9,
+              "sampleContents": [
+                {
+                  "id": 5,
+                  "type": "commonSample",
+                  "cardId": 5,
+                  "unionId": 1,
+                  "title": "视频投播更便捷",
+                  "desc": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度切换。",
+                  "tags": [
+                    "使用手机、PC体验完整效果"
+                  ],
+                  "tagIds": [],
+                  "sequence": 9,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1763173558010_c8f5d019.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 16,
+                      "mediaUrl": "image/sample/1763173558010_c8f5d019.png",
+                      "mediaDescription": "默认",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 149,
+              "unionId": 1,
+              "title": "智感握姿开发案例",
+              "styleType": 4,
+              "image": "image/sample/1778231354449_ecdf2cdc.png",
+              "sequence": 10,
+              "sampleContents": [
+                {
+                  "id": 76,
+                  "type": "commonSample",
+                  "cardId": 149,
+                  "unionId": 1,
+                  "title": "智感握姿开发案例",
+                  "desc": "本示例基于HdsTabs组件，实现了一个能体验智感握姿的应用界面。",
+                  "tags": [
+                    "交互体验更近一步"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 10,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778231577394_4be47d89.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 159,
+                      "mediaUrl": "image/sample/1778231577394_4be47d89.png",
+                      "mediaDescription": "default",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 152,
+              "unionId": 1,
+              "title": "隐私防窥开发案例",
+              "styleType": 4,
+              "image": "image/sample/1778294204546_131f27e0.png",
+              "sequence": 11,
+              "sampleContents": [
+                {
+                  "id": 80,
+                  "type": "commonSample",
+                  "cardId": 152,
+                  "unionId": 1,
+                  "title": "隐私防窥开发案例",
+                  "desc": "本示例基于防窥保护能力，应用根据屏幕窥视状态保护机主隐私。",
+                  "tags": [
+                    "你的隐私 由我保护"
+                  ],
+                  "tagIds": [
+                    1
+                  ],
+                  "sequence": 11,
+                  "contentType": 2,
+                  "mediaType": "IMAGE",
+                  "mediaUrl": "image/sample/1778294288760_9e5a5df5.png",
+                  "mediaInfoList": [
+                    {
+                      "id": 163,
+                      "mediaUrl": "image/sample/1778294288760_9e5a5df5.png",
+                      "mediaDescription": "default",
+                      "sequence": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "categoryName": "多设备开发",
+          "defaultIcon": "",
+          "sequence": 2,
+          "sampleCards": []
+        },
+        {
+          "id": 2,
+          "categoryName": "ArkUI实践",
+          "defaultIcon": "",
+          "sequence": 3,
+          "sampleCards": []
+        },
+        {
+          "id": 6,
+          "categoryName": "媒体开发",
+          "sequence": 4,
+          "sampleCards": []
+        },
+        {
+          "id": 5,
+          "categoryName": "AI功能开发",
+          "sequence": 5,
+          "sampleCards": []
+        },
+        {
+          "id": 3,
+          "categoryName": "更多案例",
+          "sequence": 6,
+          "sampleCards": []
+        }
+      ],
+      "bannerInfos": [
+        {
+          "id": 4,
+          "title": "HarmonyOS赋能套件",
+          "subTitle": "赋能套件介绍",
+          "desc": "打造开发者赋能产品，助力鸿蒙应用开发。",
+          "type": 3,
+          "mediaUrl": "image/banner/banner_arkui.png",
+          "detailsUrl": "bannercols/harmonyos-empowerment/index.html",
+          "sequence": 1,
+          "themeColor": "#0A58BF"
+        },
+        {
+          "id": 5,
+          "title": "多端UX设计",
+          "subTitle": "多端UX设计介绍",
+          "desc": "适配特征场景，助力高效设计适配。",
+          "type": 3,
+          "mediaUrl": "image/banner/banner_enabling_kit.png",
+          "detailsUrl": "articlecols/articles/native-ux-design/index.html",
+          "sequence": 2,
+          "themeColor": "#43D993"
+        },
+        {
+          "id": 6,
+          "title": "鸿蒙应用开发快速入门",
+          "subTitle": "快速入门介绍",
+          "desc": "快速上手HarmonyOS开发，轻松打造精美界面。",
+          "type": 3,
+          "mediaUrl": "image/banner/banner_quick_start.png",
+          "detailsUrl": "bannercols/quick-start/index.html",
+          "sequence": 3,
+          "themeColor": "#6C57F2"
+        }
+      ]
+    }
+  }
+}

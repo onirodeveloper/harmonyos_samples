@@ -35,15 +35,15 @@ export class SampleModel {
   }
 
   public getSamplePage(currentPage: number, pageSize: number): Promise<PageData<SampleData>> {
-    return this.service.getSamplePageByPreference(currentPage, pageSize)
+    return this.service.getSamplePage(currentPage, pageSize)
       .then((data: PageData<SampleData>) => {
+        this.service.setSamplePageToPreference(data);
         return data;
       }).catch((err: string) => {
         Logger.error(TAG,
           `getSamplePage data from network failed! try to get data form preference. ${err}`);
-        return this.service.getSamplePage(currentPage, pageSize)
+        return this.service.getSamplePageByPreference(currentPage, pageSize)
           .then((data: PageData<SampleData>) => {
-            this.service.setSamplePageToPreference(data);
             return data;
           });
       });
@@ -54,7 +54,7 @@ export class SampleModel {
       .then((data: PageData<SampleCardData[]>) => {
         data.data?.forEach((sampleCard: SampleCardData) => {
           sampleCard.sampleContents?.forEach((sample: SampleContent) => {
-            if (sample.mediaInfoList[0].mediaUrl !== undefined) {
+            if (sample.mediaInfoList.length > 0 && sample.mediaInfoList[0].mediaUrl !== undefined) {
               ImageKnifeUtil.preloadImg(sample.mediaInfoList[0].mediaUrl);
             }
           });

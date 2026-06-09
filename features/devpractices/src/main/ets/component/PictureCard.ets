@@ -18,7 +18,6 @@ import {
   ImageComponent,
   ImageUtil,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
   TrackServiceData,
   InteractionTypeEnum,
@@ -37,10 +36,11 @@ export struct PictureCard {
 
   aboutToAppear(): void {
     this.sampleContent = this.sampleCardData.sampleContents?.[0];
-    ImageUtil.getColorFromImgUrl(this.sampleContent.mediaInfoList[0].mediaUrl as string, true).then((colorArr: number[]) => {
-      this.bgTopColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},0)`;
-      this.bgBottomColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},1)`;
-    });
+    ImageUtil.getColorFromImgUrl(this.sampleContent.mediaInfoList[0].mediaUrl as string, true)
+      .then((colorArr: number[]) => {
+        this.bgTopColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},0)`;
+        this.bgBottomColor = `rgba(${colorArr[0]},${colorArr[1]},${colorArr[2]},1)`;
+      });
   }
 
   build() {
@@ -72,7 +72,10 @@ export struct PictureCard {
                 .fontColor($r('sys.color.font_on_primary'))
                 .fontWeight(FontWeight.Bold)
                 .margin({ bottom: $r('sys.float.padding_level6') })
-              TagLabel({ tags: this.sampleContent?.tags || [], isDark: true })
+              TagLabel({
+                tags: this.sampleContent?.tags || [],
+                isDark: true,
+              })
             }
             .alignItems(HorizontalAlign.Start)
             .layoutWeight(1)

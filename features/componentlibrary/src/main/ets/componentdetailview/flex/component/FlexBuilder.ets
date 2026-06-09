@@ -33,20 +33,29 @@ export function FlexBuilder($$: DescriptorWrapper) {
     alignContent: ($$.descriptor as FlexDescriptor).alignContent,
   }) {
     Text('1')
-      .size({ width: $r('app.float.container_size_1'), height: $r('app.float.container_size_1') })
+      .size({
+        width: $r('app.float.container_size_1'),
+        height: $r('app.float.container_size_1'),
+      })
       .fontColor($r('sys.color.font_on_primary'))
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .textAlign(TextAlign.Center)
       .border({ radius: $r('sys.float.corner_radius_level4') })
     Text('2')
-      .size({ width: $r('app.float.container_size_2'), height: $r('app.float.container_size_2') })
+      .size({
+        width: $r('app.float.container_size_2'),
+        height: $r('app.float.container_size_2'),
+      })
       .fontColor($r('sys.color.font_on_primary'))
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .textAlign(TextAlign.Center)
       .border({ radius: $r('sys.float.corner_radius_level4') })
       .alignSelf(($$.descriptor as FlexDescriptor).alignSelf)
     Text('3')
-      .size({ width: $r('app.float.container_size_3'), height: $r('app.float.container_size_3') })
+      .size({
+        width: $r('app.float.container_size_3'),
+        height: $r('app.float.container_size_3'),
+      })
       .fontColor($r('sys.color.font_on_primary'))
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .textAlign(TextAlign.Center)
@@ -54,7 +63,10 @@ export function FlexBuilder($$: DescriptorWrapper) {
       .visibility(($$.descriptor as FlexDescriptor).elements === ElementsNums.FOUR ? Visibility.Visible :
       Visibility.None)
     Text('4')
-      .size({ width: $r('app.float.container_size_4'), height: $r('app.float.container_size_4') })
+      .size({
+        width: $r('app.float.container_size_4'),
+        height: $r('app.float.container_size_4'),
+      })
       .fontColor($r('sys.color.font_on_primary'))
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .textAlign(TextAlign.Center)

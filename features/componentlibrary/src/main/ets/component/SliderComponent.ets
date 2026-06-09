@@ -56,11 +56,17 @@ export struct SliderComponent {
           .trackThickness($r('app.float.common_component_track_thickness'))
           .width('100%')
       }
-      .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+      .padding({
+        left: $r('sys.float.padding_level2'),
+        right: $r('sys.float.padding_level2'),
+      })
       .height($r('app.float.common_component_height'))
       .width('100%')
     }
-    .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+    .padding({
+      left: $r('sys.float.padding_level2'),
+      right: $r('sys.float.padding_level2'),
+    })
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Start)
     .width('100%')

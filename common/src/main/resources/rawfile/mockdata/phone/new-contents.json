@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "type": 1,
+      "data": []
+    },
+    {
+      "id": 2,
+      "type": 2,
+      "data": []
+    },
+    {
+      "id": 3,
+      "type": 3,
+      "data": []
+    }
+  ]
+}

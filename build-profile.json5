@@ -3,171 +3,323 @@
     "signingConfigs": [],
     "products": [
       {
-        "name": "default",
-        "signingConfig": "default",
-        "compatibleSdkVersion": "6.0.1(21)",
-        "targetSdkVersion": "6.1.0(23)",
-        "runtimeOS": "HarmonyOS",
-        "buildOption": {
-          "strictMode": {
-            "useNormalizedOHMUrl": true
-          }
-        }
+        name: 'default',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
       },
       {
-        "name": "dev",
-        "signingConfig": "default",
-        "compatibleSdkVersion": "6.0.1(21)",
-        "targetSdkVersion": "6.1.0(23)",
-        "runtimeOS": "HarmonyOS",
-        "buildOption": {
-          "strictMode": {
-            "useNormalizedOHMUrl": true
-          }
-        }
+        name: 'dev',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
       },
       {
-        "name": "test",
-        "signingConfig": "default",
-        "compatibleSdkVersion": "6.0.1(21)",
-        "targetSdkVersion": "6.1.0(23)",
-        "runtimeOS": "HarmonyOS",
-        "buildOption": {
-          "strictMode": {
-            "useNormalizedOHMUrl": true
-          }
-        }
+        name: 'uat',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
       },
       {
-        "name": "icsl",
-        "signingConfig": "default",
-        "compatibleSdkVersion": "6.0.1(21)",
-        "targetSdkVersion": "6.1.0(23)",
-        "runtimeOS": "HarmonyOS",
-        "buildOption": {
-          "strictMode": {
-            "useNormalizedOHMUrl": true
-          }
-        }
+        name: 'uat_mirror',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
       },
       {
-        "name": "online",
-        "signingConfig": "default",
-        "compatibleSdkVersion": "6.0.1(21)",
-        "targetSdkVersion": "6.1.0(23)",
-        "runtimeOS": "HarmonyOS",
-        "buildOption": {
-          "strictMode": {
-            "useNormalizedOHMUrl": true
-          }
-        }
-      }
+        name: 'icsl',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
+      {
+        name: 'beta',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
+      {
+        name: 'prod',
+        signingConfig: 'default',
+        compatibleSdkVersion: '6.0.1(21)',
+        targetSdkVersion: '6.1.0(23)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            useNormalizedOHMUrl: true,
+          },
+        },
+      },
     ],
-    "buildModeSet": [
+    buildModeSet: [
       {
-        "name": "debug",
+        name: 'debug',
       },
       {
-        "name": "release"
-      }
-    ]
+        name: 'release',
+      },
+    ],
   },
-  "modules": [
+  modules: [
     {
-      "name": "phone",
-      "srcPath": "./products/phone",
-      "targets": [
+      name: 'phone',
+      srcPath: './products/phone',
+      targets: [
         {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
         },
         {
-          "name": "dev",
-          "applyToProducts": [
-            "dev"
-          ]
+          name: 'dev',
+          applyToProducts: [
+            'dev',
+          ],
         },
         {
-          "name": "test",
-          "applyToProducts": [
-            "test"
-          ]
+          name: 'uat',
+          applyToProducts: [
+            'uat',
+          ],
         },
         {
-          "name": "icsl",
-          "applyToProducts": [
-            "icsl"
-          ]
+          name: 'uat_mirror',
+          applyToProducts: [
+            'uat_mirror',
+          ],
         },
         {
-          "name": "online",
-          "applyToProducts": [
-            "online"
-          ]
-        }
-      ]
+          name: 'icsl',
+          applyToProducts: [
+            'icsl',
+          ],
+        },
+        {
+          name: 'beta',
+          applyToProducts: [
+            'beta',
+          ],
+        },
+        {
+          name: 'prod',
+          applyToProducts: [
+            'prod',
+          ],
+        },
+      ],
     },
     {
-      "name": "mine",
-      "srcPath": "./features/mine",
+      name: 'mine',
+      srcPath: './features/mine',
     },
     {
-      "name": "exploration",
-      "srcPath": "./features/exploration",
+      name: 'exploration',
+      srcPath: './features/exploration',
     },
     {
-      "name": "common",
-      "srcPath": "./common",
+      name: 'common',
+      srcPath: './common',
     },
     {
-      "name": "componentlibrary",
-      "srcPath": "./features/componentlibrary",
+      name: 'componentlibrary',
+      srcPath: './features/componentlibrary',
     },
     {
-      "name": "devpractices",
-      "srcPath": "./features/devpractices",
+      name: 'devpractices',
+      srcPath: './features/devpractices',
     },
     {
-      "name": "commonbusiness",
-      "srcPath": "./features/commonbusiness",
+      name: 'commonbusiness',
+      srcPath: './features/commonbusiness',
     },
     {
-      "name": "wearable",
-      "srcPath": "./products/wearable",
-      "targets": [
+      name: 'widgetcommon',
+      srcPath: './features/widgetcommon',
+    },
+    {
+      name: 'wearable',
+      srcPath: './products/wearable',
+      targets: [
         {
-          "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
         },
         {
-          "name": "dev",
-          "applyToProducts": [
-            "dev"
-          ]
+          name: 'dev',
+          applyToProducts: [
+            'dev',
+          ],
         },
         {
-          "name": "test",
-          "applyToProducts": [
-            "test"
-          ]
+          name: 'uat',
+          applyToProducts: [
+            'uat',
+          ],
         },
         {
-          "name": "icsl",
-          "applyToProducts": [
-            "icsl"
-          ]
+          name: 'uat_mirror',
+          applyToProducts: [
+            'uat_mirror',
+          ],
         },
         {
-          "name": "online",
-          "applyToProducts": [
-            "online"
-          ]
-        }
-      ]
+          name: 'icsl',
+          applyToProducts: [
+            'icsl',
+          ],
+        },
+        {
+          name: 'beta',
+          applyToProducts: [
+            'beta',
+          ],
+        },
+        {
+          name: 'prod',
+          applyToProducts: [
+            'prod',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'tv',
+      srcPath: './products/tv',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+        {
+          name: 'dev',
+          applyToProducts: [
+            'dev',
+          ],
+        },
+        {
+          name: 'uat',
+          applyToProducts: [
+            'uat',
+          ],
+        },
+        {
+          name: 'uat_mirror',
+          applyToProducts: [
+            'uat_mirror',
+          ],
+        },
+        {
+          name: 'icsl',
+          applyToProducts: [
+            'icsl',
+          ],
+        },
+        {
+          name: 'beta',
+          applyToProducts: [
+            'beta',
+          ],
+        },
+        {
+          name: 'prod',
+          applyToProducts: [
+            'prod',
+          ],
+        },
+      ],
+    },
+    {
+      name: 'abilitycommon',
+      srcPath: './features/abilitycommon',
+    },
+    {
+      name: 'pc',
+      srcPath: './products/pc',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+          ],
+        },
+        {
+          name: 'dev',
+          applyToProducts: [
+            'dev',
+          ],
+        },
+        {
+          name: 'uat',
+          applyToProducts: [
+            'uat',
+          ],
+        },
+        {
+          name: 'uat_mirror',
+          applyToProducts: [
+            'uat_mirror',
+          ],
+        },
+        {
+          name: 'icsl',
+          applyToProducts: [
+            'icsl',
+          ],
+        },
+        {
+          name: 'beta',
+          applyToProducts: [
+            'beta',
+          ],
+        },
+        {
+          name: 'prod',
+          applyToProducts: [
+            'prod',
+          ],
+        },
+      ],
     }
-  ]
+  ],
 }

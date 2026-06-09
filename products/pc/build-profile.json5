@@ -1,0 +1,51 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    "resOptions": {
+      "copyCodeResource": {
+        "enable": false
+      }
+    }
+  },
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      }
+    },
+  ],
+  "targets": [
+    {
+      "name": "dev",
+    },
+    {
+      "name": "uat",
+    },
+    {
+      "name": "uat_mirror",
+    },
+    {
+      "name": "icsl",
+    },
+    {
+      "name": "beta",
+    },
+    {
+      "name": "prod",
+    },
+    {
+      "name": "default"
+    },
+    {
+      "name": "ohosTest"
+    }
+  ]
+}

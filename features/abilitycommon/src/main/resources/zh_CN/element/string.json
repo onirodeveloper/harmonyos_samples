@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "skip",
+      "value": "跳过 %d"
+    },
+    {
+      "name": "experience_now",
+      "value": "立即体验"
+    },
+    {
+      "name": "tab_home",
+      "value": "组件"
+    },
+    {
+      "name": "tab_sample",
+      "value": "样例"
+    },
+    {
+      "name": "tab_practice",
+      "value": "实践"
+    },
+    {
+      "name": "tab_mine",
+      "value": "我的"
+    }
+  ]
+}

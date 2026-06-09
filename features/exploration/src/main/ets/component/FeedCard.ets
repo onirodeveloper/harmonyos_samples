@@ -60,9 +60,8 @@ export struct FeedCard {
     .prevMargin(new BreakpointType<Length>({
       sm: CommonConstants.SPACE_8,
       md: CommonConstants.SPACE_12,
-      lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_16 :
-        CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
-      xl: CommonConstants.SPACE_16,
+      lg: (HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+        CommonConstants.SPACE_16 : CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
     }).getValue(this.globalInfoModel?.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({
       sm: CommonConstants.SPACE_8,

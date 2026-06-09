@@ -79,7 +79,13 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
       this.setOverflowStatus(baseVMEvent);
     } else if (baseVMEvent instanceof ChangeCardStatusEvent) {
       this.changeCardStatus(baseVMEvent);
+    } else if (baseVMEvent instanceof ChangeBackPressed) {
+      this.changeBackPressedState(baseVMEvent.backPressed);
     }
+  }
+
+  private changeBackPressedState(backPressed: boolean) {
+    this.state.isBackPressed = backPressed;
   }
 
   private initSampleDetail(event: InitSampleDetailEvent): void {
@@ -125,7 +131,7 @@ export class SampleDetailPageVM extends BaseVM<SampleDetailState> {
     if (this.state.installingStatus) {
       Toast.showToast($r('app.string.installing_status'));
     } else {
-      this.state.isBackPressed = true;
+      this.changeBackPressedState(true);
       if (this.state.downloadingStatus) {
         this.state.downloadingStatus = false;
         DynamicInstallManager.cancelDownloadTask(this.state.taskId);
@@ -448,5 +454,13 @@ export class AssignPathStackEvent implements BaseVMEvent {
 
   constructor(navPathStack: NavPathStack) {
     this.navPathStack = navPathStack;
+  }
+}
+
+export class ChangeBackPressed implements BaseVMEvent {
+  public readonly backPressed: boolean;
+
+  constructor(backPressed: boolean) {
+    this.backPressed = backPressed;
   }
 }

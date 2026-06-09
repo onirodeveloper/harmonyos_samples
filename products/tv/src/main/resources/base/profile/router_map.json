@@ -1,0 +1,24 @@
+{
+  "routerMap": [
+    {
+      "name": "MainPage",
+      "pageSourceFile": "src/main/ets/pages/MainPage.ets",
+      "buildFunction": "MainPageBuilder"
+    },
+    {
+      "name": "TvSettingsView",
+      "pageSourceFile": "src/main/ets/pages/TvSettingsView.ets",
+      "buildFunction": "TvSettingsViewBuilder"
+    },
+    {
+      "name": "TvSourceView",
+      "pageSourceFile": "src/main/ets/pages/TvSourceView.ets",
+      "buildFunction": "TvSourceViewBuilder"
+    },
+    {
+      "name": "TvAboutView",
+      "pageSourceFile": "src/main/ets/pages/TvSettingsAboutView.ets",
+      "buildFunction": "TVAboutViewBuilder"
+    }
+  ]
+}

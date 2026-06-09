@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xml:lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0" />
+  <title>一镜到底，畅享无界丝滑视觉之旅</title>
+  <link rel="stylesheet" href="../../common/commonDist/main.css">
+  <link rel="stylesheet" href="../../common/css/article.css">
+</head>
+
+<body>
+  <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210608478"><a name="ZH-CN_TOPIC_0000002210608478"></a><a
+      name="ZH-CN_TOPIC_0000002210608478"></a>
+    <h1 class="topictitle1"><span class="topictitlenumber1">1</span> 一镜到底，畅享无界丝滑视觉之旅</h1>
+    <div class="topicbody" id="body39451090"></div>
+    <div>
+      <ul class="ullinks">
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245568653">1.1 什么是一镜到底</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002210448678">1.2 一镜到底动效设计</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245568649">1.3 如何适配一镜到底</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245528557">1.4 一镜到底场景案例</a></strong><br>
+        </li>
+      </ul>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245568653"><a
+        name="ZH-CN_TOPIC_0000002245568653"></a><a name="ZH-CN_TOPIC_0000002245568653"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 什么是一镜到底</h2>
+      <div class="topicbody" id="body0000002131901272">
+        <p id="ZH-CN_TOPIC_0000002245568653__p8539185116184">
+          在日常使用手机或其他智能设备时，我们常常会遇到这样的情况：当从一个页面切换到另一个页面，或从桌面打开应用程序时，画面会突然“卡顿”一下，就像电影播放时突然丢了帧，原本沉浸的体验被瞬间打破。然而，HarmonyOS
+          的一镜到底动效却能让这一切变得截然不同。下面我们通过一个简单的图片切换场景来更直观地对比常规效果和一镜到底效果的区别。</p>
+        <div class="fignone" id="ZH-CN_TOPIC_0000002245568653__fig9194173172819"><span class="figcap"><span
+              class="figurenumber">图1-1</span> 一镜到底动效</span><br><img
+            id="ZH-CN_TOPIC_0000002245568653__image1299510494818" src="ManulImages/1.gif"></div>
+      </div>
+      <div></div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210448678"><a
+        name="ZH-CN_TOPIC_0000002210448678"></a><a name="ZH-CN_TOPIC_0000002210448678"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> 一镜到底动效设计</h2>
+      <div class="topicbody" id="body0000002166046137">
+        <p id="ZH-CN_TOPIC_0000002210448678__p8060118">一镜到底是一种通过共享元素进行转场的编排方式，有助于提升用户操作任务的效率，增强视觉的流畅感，是转场设计中重点推荐的技法。</p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p11513104595512"><strong
+            id="ZH-CN_TOPIC_0000002210448678__b18061958101715">共享元素</strong></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p89731742115513">
+          共享元素一般是转场前后持续存在的界面元素，即上文提到的持续元素，是在转场发生后希望用户关注到的焦点元素，它增强了转场的连续感。</p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p81221533913"><img id="ZH-CN_TOPIC_0000002210448678__image912217516396"
+            src="ManulImages/2.gif"></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p1578104303416">此案例中，搜索框是共享元素</p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p1789615719558"><strong
+            id="ZH-CN_TOPIC_0000002210448678__b14871937141612">共享容器</strong></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p194261515567">
+          当一组元素在过渡时包含明确的边界，可使用容器来让转换过程有连续感。容器通过大小、高度、圆角等属性进行补间过渡转换，容器内的元素可通过淡入淡出或共享元素的手法进行过渡。</p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p877511231424"><img id="ZH-CN_TOPIC_0000002210448678__image17755230427"
+            src="ManulImages/3.gif"></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p267615955616"><strong
+            id="ZH-CN_TOPIC_0000002210448678__b41351728121619">共享动势</strong></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p6771201895613">
+          无中间属性，无法通过补间变化来实现柔和过渡，需要提取出可用的共享转换属性，来实现前后的平滑过渡。常用的共享运动属性有位移、缩放、旋转等。</p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p1421153114439"><strong
+            id="ZH-CN_TOPIC_0000002210448678__b4177843105815">共享缩放运动</strong></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p16641515625"><img id="ZH-CN_TOPIC_0000002210448678__image1664112151029"
+            src="ManulImages/4.gif"></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p7632104444310"><strong
+            id="ZH-CN_TOPIC_0000002210448678__b16890139134411">共享旋转运动</strong></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p92854361622"><img id="ZH-CN_TOPIC_0000002210448678__image1285123614211"
+            src="ManulImages/5.gif"></p>
+        <p id="ZH-CN_TOPIC_0000002210448678__p15163426112418">相关文档：<a
+            href="article_shared_1"
+            target="_blank" rel="noopener noreferrer">转场动效</a></p>
+      </div>
+      <div></div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245568649"><a
+        name="ZH-CN_TOPIC_0000002245568649"></a><a name="ZH-CN_TOPIC_0000002245568649"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 如何适配一镜到底</h2>
+      <div class="topicbody" id="body0000002166127689">
+        <p id="ZH-CN_TOPIC_0000002245568649__p111782048121113">一镜到底的动效有多种实现方式，在实际开发过程中，应根据具体场景选择合适的方法进行实现。</p>
+        <p id="ZH-CN_TOPIC_0000002245568649__p0844512172512">以下是不同实现方式的对比：</p>
+
+        <div class="tablenoborder">
+          <table cellpadding="4" cellspacing="0" summary="" id="ZH-CN_TOPIC_0000002245568649__table1398253505112"
+            frame="border" border="1" rules="all">
+            <thead align="left">
+              <tr id="ZH-CN_TOPIC_0000002245568649__row6983123565113">
+                <th align="left" class="cellrowborder" valign="top" width="29.232923292329232%"
+                  id="mcps1.4.7.3.3.1.4.1.1">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p1983203585117">一镜到底实现方式</p>
+                </th>
+                <th align="left" class="cellrowborder" valign="top" width="37.43374337433744%"
+                  id="mcps1.4.7.3.3.1.4.1.2">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p1598383515117">特点</p>
+                </th>
+                <th align="left" class="cellrowborder" valign="top" width="33.33333333333333%"
+                  id="mcps1.4.7.3.3.1.4.1.3">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p18741847145216">适用场景</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="ZH-CN_TOPIC_0000002245568649__row199838357516">
+                <td class="cellrowborder" valign="top" width="29.232923292329232%" headers="mcps1.4.7.3.3.1.4.1.1 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p1498315353514">不新建容器直接变化原容器</p>
+                </td>
+                <td class="cellrowborder" valign="top" width="37.43374337433744%" headers="mcps1.4.7.3.3.1.4.1.2 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p1663165715512">不发生路由跳转，需要在一个组件中实现展开及关闭两种状态的布局，展开后组件层级不变。</p>
+                </td>
+                <td class="cellrowborder" valign="top" width="33.33333333333333%" headers="mcps1.4.7.3.3.1.4.1.3 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p1898393555118">适用于转场开销小的简单场景，如点开页面无需加载大量数据及组件。</p>
+                </td>
+              </tr>
+              <tr id="ZH-CN_TOPIC_0000002245568649__row1698363535118">
+                <td class="cellrowborder" valign="top" width="29.232923292329232%" headers="mcps1.4.7.3.3.1.4.1.1 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p223143217527">新建容器并跨容器迁移组件</p>
+                </td>
+                <td class="cellrowborder" valign="top" width="37.43374337433744%" headers="mcps1.4.7.3.3.1.4.1.2 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p835518247524">
+                    通过使用NodeController，将组件从一个容器迁移到另一个容器，在开始迁移时，需要根据前后两个布局的位置大小等信息对组件添加位移及缩放，确保迁移开始时组件能够对齐初始布局，避免出现视觉上的跳变现象。之后再添加动画将位移及缩放等属性复位，实现组件从初始布局到目标布局的一镜到底过渡效果。
+                  </p>
+                </td>
+                <td class="cellrowborder" valign="top" width="33.33333333333333%" headers="mcps1.4.7.3.3.1.4.1.3 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p5983035155113">适用于新建对象开销大的场景，如视频直播组件点击转为全屏等。</p>
+                </td>
+              </tr>
+              <tr id="ZH-CN_TOPIC_0000002245568649__row89831535145111">
+                <td class="cellrowborder" valign="top" width="29.232923292329232%" headers="mcps1.4.7.3.3.1.4.1.1 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p127514274527">使用geometryTransition共享元素转场</p>
+                </td>
+                <td class="cellrowborder" valign="top" width="37.43374337433744%" headers="mcps1.4.7.3.3.1.4.1.2 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p1718132175219">
+                    利用系统能力，转场前后两个组件调用geometryTransition接口绑定同一id，同时将转场逻辑置于animateTo动画闭包内，这样系统侧会自动为二者添加一镜到底的过渡效果。</p>
+                </td>
+                <td class="cellrowborder" valign="top" width="33.33333333333333%" headers="mcps1.4.7.3.3.1.4.1.3 ">
+                  <p id="ZH-CN_TOPIC_0000002245568649__p11983123518514">
+                    系统将调整绑定的两个组件的宽高及位置至相同值，并切换二者的透明度，以实现一镜到底过渡效果。因此，为了实现流畅的动画效果，需要确保对绑定geometryTransition的节点添加宽高动画不会有跳变。此方式适用于创建新节点开销小的场景。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" id="ZH-CN_TOPIC_0000002245568649__note5451630126"><img src=""><span class="notetitle"> </span>
+          <div class="notebody">
+            <p id="ZH-CN_TOPIC_0000002245568649__p1785617019101">查看全部示例代码：<a
+                href="article_shared_2"
+                target="_blank" rel="noopener noreferrer">共享元素转场 (一镜到底)</a></p>
+          </div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245528557"><a
+        name="ZH-CN_TOPIC_0000002245528557"></a><a name="ZH-CN_TOPIC_0000002245528557"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.4</span> 一镜到底场景案例</h2>
+      <div class="topicbody" id="body0000002169111525"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210448674"><a
+          name="ZH-CN_TOPIC_0000002210448674"></a><a name="ZH-CN_TOPIC_0000002210448674"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.4.1</span> 卡片、列表一镜到底</h3>
+        <div class="topicbody" id="body0000002169479509">
+          <p id="ZH-CN_TOPIC_0000002210448674__p1178762034213">
+            在瀑布流或列表流布局中，当用户点击其中一个卡片或列表项时，应用将执行平滑的转场动画，引导用户从概览页面切换到详情页面。</p>
+          <p id="ZH-CN_TOPIC_0000002210448674__p17201411142210"><strong
+              id="ZH-CN_TOPIC_0000002210448674__b121111162210">参考案例</strong></p>
+          <ol id="ZH-CN_TOPIC_0000002210448674__ol2211211102211">
+            <li id="ZH-CN_TOPIC_0000002210448674__li7984138420">最佳实践《<a
+                href="article_shared_3"
+                target="_blank" rel="noopener noreferrer">一镜到底动效开发实践</a>》。</li>
+            <li id="ZH-CN_TOPIC_0000002210448674__li1321315455428">Sample示例代码《<a
+                href="gitee_shared_1" target="_blank"
+                rel="noopener noreferrer">转场动效合集</a>》。</li>
+          </ol>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210608482"><a
+          name="ZH-CN_TOPIC_0000002210608482"></a><a name="ZH-CN_TOPIC_0000002210608482"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.4.2</span> 更多案例</h3>
+        <div class="topicbody" id="body0000002170033545">
+          <p id="ZH-CN_TOPIC_0000002210608482__p133761426591">查看更多案例以及源码请前往：<a
+              href="gitee_shared_2" target="_blank"
+              rel="noopener noreferrer">转场动效合集</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="module" src="../../common/js/article.js"></script>
+<script type="module" src="../../common/commonDist/main.js"></script>
+
+</html>

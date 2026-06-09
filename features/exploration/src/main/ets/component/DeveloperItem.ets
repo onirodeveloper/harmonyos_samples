@@ -28,7 +28,10 @@ export struct DeveloperItem {
         newSymbol: $r('app.media.big_new'),
       })
         .zIndex(1)
-        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+        .margin({
+          top: $r('sys.float.padding_level3'),
+          left: $r('sys.float.padding_level3'),
+        })
 
       Stack({ alignContent: Alignment.Bottom }) {
         ImageComponent({

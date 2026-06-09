@@ -14,8 +14,8 @@
  */
 
 import { common } from '@kit.AbilityKit';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { BaseVM, Logger, PageContext, ProcessUtil, StorageKey, PageEnum } from '@ohos/common';
+import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
+import { BaseVM, Logger, PageContext, ProcessUtil, StorageKey, PageEnum, Toast } from '@ohos/common';
 import { WearableSampleData } from '../model/WearableSampleData';
 import { WearableSampleModel } from '../model/WearableSampleModel';
 import { SampleListState } from './SampleListState';
@@ -65,10 +65,14 @@ export class SampleListViewModel extends BaseVM<SampleListState> {
       Logger.error(TAG, `LoadSample failed, cause context is undefined`);
       return;
     }
-    ProcessUtil.startAbility(context, {
-      bundleName: context.abilityInfo.bundleName,
-      abilityName: param.abilityName,
-    });
+    if (param.apiVersion > deviceInfo.sdkApiVersion) {
+      Toast.showToast($r('app.string.api_prompt'));
+    } else {
+      ProcessUtil.startAbility(context, {
+        bundleName: context.abilityInfo.bundleName,
+        abilityName: param.abilityName,
+      });
+    }
   }
 
   private jumpToSourceCodeLinkPage(param: SourceCodeLinkPageParam): void {
@@ -94,6 +98,7 @@ export interface SampleListEventParam<T> {
 
 export interface LoadSampleParam {
   abilityName: string;
+  apiVersion: number;
 }
 
 export interface SourceCodeLinkPageParam {

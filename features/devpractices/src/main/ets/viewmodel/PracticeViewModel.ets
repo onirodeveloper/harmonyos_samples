@@ -22,7 +22,6 @@ import {
   Logger,
   PageContext,
   RequestErrorCode,
-  StatusBarColorType,
   WindowUtil,
 } from '@ohos/common';
 import type { BannerData } from '@ohos/commonbusiness';
@@ -143,8 +142,7 @@ export class PracticeViewModel extends BaseHomeViewModel<PracticeState> {
   }
 
   protected jumpDetailView(param: SampleDetailParams): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-    const pageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+    const pageContext = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
       AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT) :
       AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     pageContext?.openPage({

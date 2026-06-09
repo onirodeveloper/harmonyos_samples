@@ -70,7 +70,19 @@
     },
     {
       "name": "save_image",
-      "value": "保存图片"
+      "value": "保存至图库"
+    },
+    {
+      "name": "download_success",
+      "value": "保存成功"
+    },
+    {
+      "name": "download_failed",
+      "value": "保存失败"
+    },
+    {
+      "name": "sample_title",
+      "value": "开发样例"
     }
   ]
 }

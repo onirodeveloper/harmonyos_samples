@@ -47,8 +47,8 @@ export class ComponentDetailModel {
             .then((data: ComponentDetailData) => {
               resolve(data);
             })
-            .catch((err: string) => {
-              Logger.error(TAG, `get data from preference failed. ${err}`);
+            .catch((err: BusinessError) => {
+              Logger.error(TAG, `get data from preference failed. ${err.message}`);
               reject(error);
             });
         });

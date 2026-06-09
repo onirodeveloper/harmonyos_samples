@@ -22,15 +22,50 @@ import { BaseDetailComponent } from '@ohos/commonbusiness';
 import { ImageModel } from '../model/ImageModel';
 import { image } from '@kit.ImageKit';
 import { ImageKnife, ImageKnifeData } from '@ohos/imageknife';
-import { util } from '@kit.ArkTS';
+import { taskpool, util } from '@kit.ArkTS';
+import { PromptAction } from '@kit.ArkUI';
+import { rcp } from '@kit.RemoteCommunicationKit';
 
 const TAG: string = '[ImagePreview]';
+
+@Concurrent
+function saveWebpTask(filesDir: string, data: string): string {
+  let tmpFile: fileIo.File | undefined;
+  try {
+    let payload = data;
+    const base64Prefix = 'base64,';
+    const index = data.indexOf(base64Prefix);
+    if (index !== -1) {
+      payload = data.substring(index + base64Prefix.length);
+    }
+    const ext = 'webp';
+
+    const bytes = new util.Base64Helper().decodeSync(payload.trim());
+    const buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+
+    const fileName = `${Date.now()}.${ext}`;
+    const tmpPath = `${filesDir}/${fileName}`;
+
+    tmpFile =
+      fileIo.openSync(tmpPath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
+    fileIo.writeSync(tmpFile.fd, buffer);
+
+    return tmpPath;
+  } catch (error) {
+    return '';
+  } finally {
+    if (tmpFile !== undefined) {
+      fileIo.closeSync(tmpFile);
+    }
+  }
+}
 
 @Component
 export struct ImagePreview {
   @StorageProp(StorageKey.GLOBAL_INFO) @Watch('handelBreakPointChange') globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State imageModel: ImageModel = new ImageModel();
+  @State isDownLoad: boolean = false;
   public url: string = '';
   private imageWidth: number = CommonConstants.DEFAULT_IMAGE_WIDTH;
   private imageHeight: number = CommonConstants.DEFAULT_IMAGE_HEIGHT;
@@ -40,6 +75,7 @@ export struct ImagePreview {
   private context = this.uiContext?.getHostContext();
   private pathStack?: NavPathStack;
   private isMenuShow: boolean = false;
+  private promptAction: PromptAction | undefined = this.uiContext?.getPromptAction();
 
   async initImageInfo(): Promise<void> {
     let imageSource: image.ImageSource | undefined;
@@ -105,12 +141,12 @@ export struct ImagePreview {
     let tmpFile: fileIo.File | undefined;
     let packer: image.ImagePacker | undefined;
     try {
-      const packer = image.createImagePacker();
+      packer = image.createImagePacker();
       const packOpts: image.PackingOption = { format: 'image/png', quality: 100 };
       const fileName = `${Date.now()}.png`;
       const dstPath = `${context.filesDir}/${fileName}`;
-      const tmpFile =
-        fileIo.openSync(dstPath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
+      tmpFile =
+        await fileIo.open(dstPath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
       await packer.packToFile(pixelMap, tmpFile.fd, packOpts);
       return fileUri.getUriFromPath(dstPath);
     } catch (error) {
@@ -119,7 +155,7 @@ export struct ImagePreview {
       return '';
     } finally {
       if (tmpFile !== undefined) {
-        fileIo.closeSync(tmpFile);
+        await fileIo.close(tmpFile);
       }
       if (packer !== undefined) {
         packer.release();
@@ -127,35 +163,18 @@ export struct ImagePreview {
     }
   }
 
-  private saveWebpToSandBoxFile(context: Context, data: string): string {
-    let tmpFile: fileIo.File | undefined;
+  private async saveWebpToSandBoxFile(context: Context, data: string): Promise<string> {
     try {
-      const dataUrlMatch = data.match(/^data:(.+?);\s*base64,([\s\S]+)$/i);
-      let payload = data;
-      if (dataUrlMatch) {
-        payload = dataUrlMatch[2];
+      const task = new taskpool.Task(saveWebpTask, context.filesDir, data);
+      const tmpPath = await taskpool.execute(task) as string;
+      if (tmpPath !== '') {
+        return fileUri.getUriFromPath(tmpPath);
       }
-      const ext = 'webp';
-
-      const bytes = new util.Base64Helper().decodeSync(payload.trim());
-      const buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
-
-      const fileName = `${Date.now()}.${ext}`;
-      const tmpPath = `${context.filesDir}/${fileName}`;
-
-      tmpFile =
-        fileIo.openSync(tmpPath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
-      fileIo.writeSync(tmpFile.fd, buffer);
-
-      return fileUri.getUriFromPath(tmpPath);
+      return '';
     } catch (error) {
       Logger.error(TAG, `saveWebpToSandBoxFile failed, code:
       ${(error as BusinessError).code}, msg: ${(error as BusinessError).code}}`);
       return '';
-    } finally {
-      if (tmpFile !== undefined) {
-        fileIo.closeSync(tmpFile);
-      }
     }
   }
 
@@ -168,7 +187,7 @@ export struct ImagePreview {
         if (this.imageKnifeData.type === 'png') {
           return await this.savePixelMapToSandBoxFile(this.context, this.imageKnifeData.source as PixelMap);
         } else {
-          return this.saveWebpToSandBoxFile(this.context, this.imageKnifeData.source as string);
+          return await this.saveWebpToSandBoxFile(this.context, this.imageKnifeData.source as string);
         }
       } catch (error) {
         const err = error as BusinessError;
@@ -180,15 +199,15 @@ export struct ImagePreview {
         if (!this.context) {
           return '';
         }
-        const bytes: Uint8Array = this.context.resourceManager.getRawFileContentSync(this.url);
+        const bytes: Uint8Array = await this.context.resourceManager.getRawFileContent(this.url);
         const buf: ArrayBuffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
 
         const fileName = `${Date.now()}.webp`;
         const tmpPath = `${this.context.filesDir}/${fileName}`;
         const tmp =
-          fileIo.openSync(tmpPath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
-        fileIo.writeSync(tmp.fd, buf);
-        fileIo.closeSync(tmp);
+          await fileIo.open(tmpPath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE | fileIo.OpenMode.TRUNC);
+        await fileIo.write(tmp.fd, buf);
+        await fileIo.close(tmp);
 
         const srcUri = fileUri.getUriFromPath(tmpPath);
         return srcUri;
@@ -200,12 +219,61 @@ export struct ImagePreview {
     }
   }
 
+  private async getNetImage(url: string): Promise<string> {
+    if (!this.context) {
+      return '';
+    }
+    let imageSource: image.ImageSource | undefined = undefined;
+    let session: rcp.Session | undefined = undefined;
+    try {
+      const tlsOptions = {
+        tlsVersion: 'TlsV1.2',
+        cipherSuite: [
+          'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256',
+          'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384',
+          'TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256',
+          'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256',
+          'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384',
+          'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256'
+        ]
+      } as rcp.TlsV12Option;
+      session = rcp.createSession();
+      const request: rcp.Request = new rcp.Request(url, 'GET');
+      request.configuration = {
+        transfer: {
+          timeout: {
+            connectMs: 10000,
+            transferMs: 10000
+          },
+          assumesHTTP3Capable: true
+        },
+        security: {
+          tlsOptions: tlsOptions
+        }
+      }
+      const response = await session.fetch(request);
+      imageSource = image.createImageSource(response.body as ArrayBuffer);
+      let pixelMap = await imageSource.createPixelMap();
+      return await this.savePixelMapToSandBoxFile(this.context, pixelMap);
+    } catch (error) {
+      Logger.error(TAG,
+        `getNetImage failed, code: ${(error as BusinessError).code}, msg: ${(error as BusinessError).code}}`);
+      return '';
+    } finally {
+      imageSource?.release();
+      session?.close();
+    }
+  }
+
   private async downLoadCurrentImage(): Promise<void> {
     let srcFile: fs.File | undefined = undefined;
     let desFile: fs.File | undefined = undefined;
 
     try {
-      const curImgUri = await this.getCurrentImageUri();
+      let curImgUri = await this.getCurrentImageUri();
+      if (curImgUri === '') {
+        curImgUri = await this.getNetImage(this.url);
+      }
       const srcFileUris: string[] = [
         curImgUri,
       ];
@@ -223,93 +291,111 @@ export struct ImagePreview {
       desFile = await fs.open(desFileUris[0], fs.OpenMode.WRITE_ONLY);
       srcFile = await fs.open(srcFileUris[0], fs.OpenMode.READ_ONLY);
       await fs.copyFile(srcFile.fd, desFile.fd);
+      this.showToast($r('app.string.download_success'));
     } catch (error) {
       Logger.error(TAG,
         `downloadImage failed, code: ${(error as BusinessError).code}, msg: ${(error as BusinessError).code}}`);
+      this.showToast($r('app.string.download_failed'));
     } finally {
       if (srcFile !== undefined) {
-        fs.closeSync(srcFile);
+        await fs.close(srcFile);
       }
       if (desFile !== undefined) {
-        fs.closeSync(desFile);
+        await fs.close(desFile);
       }
+      this.isDownLoad = false;
     }
   }
 
+  private showToast(message: Resource) {
+    this.promptAction?.openToast({
+      message: message,
+      duration: 500
+    })
+  }
 
   @Builder
   MyMenu() {
-    Menu() {
-      MenuItem({ content: $r('app.string.save_image') })
-        .onClick(() => {
-          this.downLoadCurrentImage();
-        })
-    }
+    MenuItem({
+      content: $r('app.string.save_image')
+    })
+      .onClick(() => {
+        if (this.isDownLoad) {
+          return;
+        }
+        this.isDownLoad = true;
+        this.downLoadCurrentImage();
+      })
   }
 
   @Builder
   ImagePreviewBuilder() {
-    Stack({ alignContent: Alignment.Center }) {
-      ImageComponent({
-        src: this.url,
-        objectFit: ImageFit.Contain,
-        alt: $r('sys.color.background_primary')
-      })
-        .width(this.imageModel.imageWidth)
-        .height(this.imageModel.imageHeight)
-        .aspectRatio(this.imageWHRatio)
-        .defaultFocus(true)
-        .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-        .transform(this.imageModel.matrix)
-        .translate({
-          x: this.imageModel.curOffsetX,
-          y: this.imageModel.curOffsetY
+    WithTheme({ colorMode: ThemeColorMode.LIGHT }) {
+      Stack({ alignContent: Alignment.Center }) {
+        ImageComponent({
+          src: this.url,
+          objectFit: ImageFit.Contain,
+          alt: $r('sys.color.background_primary')
         })
-        .bindContextMenu(this.MyMenu, ResponseType.LongPress, {
-          onAppear: () => {
-            this.isMenuShow = true;
-          },
-          onDisappear: () => {
-            this.isMenuShow = false;
-          }
-        })
-    }
-    .width('100%')
-    .height('100%')
-    .parallelGesture(
-      GestureGroup(
-        GestureMode.Exclusive,
-        PanGesture({ fingers: 1, distance: 3 })
-          .onActionUpdate((event: GestureEvent) => {
-            this.imageModel.panGestureUpdate(event);
+          .width(this.imageModel.imageWidth)
+          .height(this.imageModel.imageHeight)
+          .aspectRatio(this.imageWHRatio)
+          .defaultFocus(true)
+          .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+          .transform(this.imageModel.matrix)
+          .translate({
+            x: this.imageModel.curOffsetX,
+            y: this.imageModel.curOffsetY
           })
-          .onActionEnd(() => {
-            this.imageModel.gestureEnd();
-          }),
-        PinchGesture({ fingers: 2, distance: 1 })
-          .onActionStart((event: GestureEvent) => {
-            this.imageModel.pinchGestureStart(event);
+          .bindContextMenu(this.MyMenu, ResponseType.LongPress, {
+            onAppear: () => {
+              this.isMenuShow = true;
+            }
           })
-          .onActionUpdate((event: GestureEvent) => {
-            this.imageModel.pinchGestureUpdate(event);
-          })
-          .onActionEnd(() => {
-            this.imageModel.pinchGestureEnd();
-          }),
-        TapGesture({ count: 2 })
-          .onAction((event: GestureEvent) => {
-            if (!this.isMenuShow) {
+      }
+      .width('100%')
+      .height('100%')
+      .gesture(
+        GestureGroup(
+          GestureMode.Exclusive,
+          PanGesture({ fingers: 1, distance: 3 })
+            .onActionUpdate((event: GestureEvent) => {
+              this.imageModel.panGestureUpdate(event);
+            })
+            .onActionEnd(() => {
+              this.imageModel.gestureEnd();
+            }),
+          PinchGesture({ fingers: 2, distance: 1 })
+            .onActionStart((event: GestureEvent) => {
+              if (!this.isMenuShow) {
+                this.isMenuShow = false;
+              }
+              this.imageModel.pinchGestureStart(event);
+            })
+            .onActionUpdate((event: GestureEvent) => {
+              this.imageModel.pinchGestureUpdate(event);
+            })
+            .onActionEnd(() => {
+              this.imageModel.pinchGestureEnd();
+            }),
+          TapGesture({ count: 2 })
+            .onAction((event: GestureEvent) => {
+              if (!this.isMenuShow) {
+                this.isMenuShow = false;
+              }
               this.imageModel.doubleTapGesture(event);
-            }
-          }),
-        TapGesture({ count: 1 })
-          .onAction(() => {
-            if (!this.isMenuShow) {
-              this.pathStack?.pop(false);
-            }
-          }),
-      ), GestureMask.Normal
-    )
+            }),
+          TapGesture({ count: 1 })
+            .onAction(() => {
+              if (!this.isMenuShow) {
+                this.pathStack?.pop(false);
+              } else {
+                this.isMenuShow = false;
+              }
+            }),
+        ), GestureMask.Normal
+      )
+    }
   }
 
   @Builder
@@ -349,7 +435,10 @@ export struct ImagePreview {
                 icon: $r('sys.symbol.download'),
                 isEnabled: true,
                 action: () => {
-                  this.downLoadCurrentImage();
+                  if (this.isDownLoad === false) {
+                    this.isDownLoad = true;
+                    this.downLoadCurrentImage();
+                  }
                 }
               }
             }]
@@ -359,8 +448,14 @@ export struct ImagePreview {
       .backgroundColor($r('sys.color.background_secondary'))
       .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
       .onBackPressed((): boolean => {
-        this.pathStack?.pop(false);
-        return true;
+        if (this.isMenuShow) {
+          this.isMenuShow = false;
+        }
+        if (!this.isDownLoad) {
+          this.pathStack?.pop(false);
+          return true;
+        }
+        return false;
       })
       .onReady(async (ctx: NavDestinationContext) => {
         const params: ImagePreviewParam = ctx?.pathInfo?.param as ImagePreviewParam;

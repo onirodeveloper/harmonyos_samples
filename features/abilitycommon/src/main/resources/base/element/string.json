@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "skip",
+      "value": "Skip %d"
+    },
+    {
+      "name": "experience_now",
+      "value": "Experience now"
+    },
+    {
+      "name": "tab_home",
+      "value": "Component"
+    },
+    {
+      "name": "tab_sample",
+      "value": "Sample"
+    },
+    {
+      "name": "tab_practice",
+      "value": "Practice"
+    },
+    {
+      "name": "tab_mine",
+      "value": "Me"
+    }
+  ]
+}

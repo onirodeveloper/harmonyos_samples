@@ -16,13 +16,13 @@
 import { common } from '@kit.AbilityKit';
 import { deviceInfo } from '@kit.BasicServicesKit';
 import { CommonConstants } from '../constant/CommonConstants';
-import { default as Toast } from './Toast';
 import { StorageKey } from '../constant/CommonEnums';
 import { FeedbackInitParams, FeedbackData, FeedbackType } from '../model/FeedbackData';
 import { GlobalInfoModel } from '../model/GlobalInfoModel';
 import { SubmitInfoUtil } from '../util/SubmitInfoUtil';
 import { ResourceUtil } from '../util/ResourceUtil';
 import { BreakpointType } from '../util/BreakpointSystem';
+import { default as Toast } from './Toast';
 
 @Component
 export struct FeedbackSheet {
@@ -124,7 +124,7 @@ export struct FeedbackSheet {
         ListItem() {
           Text(item)
             .textAlign(TextAlign.Center)
-            .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+            .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
               $r('sys.float.corner_radius_level4') : '50%')
             .fontColor(this.feedbackListState[index] ? $r('sys.color.brand') :
               $r('sys.color.font_primary'))
@@ -143,18 +143,22 @@ export struct FeedbackSheet {
     .alignListItem(ListItemAlign.Center)
     .margin({ bottom: $r('sys.float.padding_level8') })
 
-    TextArea({ placeholder: $r('app.string.input_placeholder'), text: this.feedbackData.feedbackInput })
+    TextArea({
+      placeholder: $r('app.string.input_placeholder'),
+      text: this.feedbackData.feedbackInput,
+    })
       .maxLines(CommonConstants.TEXT_INPUT_MAX_LINES)
       .showCounter(true, { thresholdPercentage: 1 })
       .maxLength(CommonConstants.TEXT_INPUT_MAX_LENGTH)
       .height($r('app.float.feedback_input_height'))
-      .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
         $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level8'))
       .backgroundColor($r('sys.color.comp_background_tertiary'))
       .textAlign(TextAlign.Start)
       .align(Alignment.TopStart)
-      .margin({ bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-        $r('sys.float.padding_level12') : $r('sys.float.padding_level8')
+      .margin({
+        bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          $r('sys.float.padding_level12') : $r('sys.float.padding_level8')
       })
       .onEditChange((editStatus: boolean) => {
         this.feedbackData.editStatus = editStatus;
@@ -182,14 +186,15 @@ export struct FeedbackSheet {
     .height($r('app.float.feedback_top_height'))
     .width($r('app.float.vote_area_width'))
     .margin({ bottom: CommonConstants.SPACE_40 })
-    .margin({ bottom: this.feedbackData.feedbackTypeStatus === FeedbackType.NONE ?
-      new BreakpointType({
-        sm: $r('app.float.feedback_top_margin_bottom_low'),
-        md: $r('app.float.feedback_top_margin_bottom_mid'),
-        lg: $r('app.float.feedback_top_margin_bottom_mid'),
-        xl: $r('app.float.feedback_top_margin_bottom_high')
-      }).getValue(this.globalInfoModel.widthBreakpoint) :
-      $r('app.float.feedback_top_margin_bottom_feedback')
+    .margin({
+      bottom: this.feedbackData.feedbackTypeStatus === FeedbackType.NONE ?
+        new BreakpointType({
+          sm: $r('app.float.feedback_top_margin_bottom_low'),
+          md: $r('app.float.feedback_top_margin_bottom_mid'),
+          lg: $r('app.float.feedback_top_margin_bottom_mid'),
+          xl: $r('app.float.feedback_top_margin_bottom_high')
+        }).getValue(this.globalInfoModel.widthBreakpoint) :
+        $r('app.float.feedback_top_margin_bottom_feedback')
     })
   }
 
@@ -206,7 +211,7 @@ export struct FeedbackSheet {
         Button($r('app.string.submit'))
           .height($r('app.float.feedback_submit_height'))
           .width('100%')
-          .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
             $r('sys.float.corner_radius_level4') : '50%')
           .fontSize($r('sys.float.Body_M'))
           .fontWeight(FontWeight.Medium)

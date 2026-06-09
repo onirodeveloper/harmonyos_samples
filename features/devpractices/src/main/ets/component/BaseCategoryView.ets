@@ -23,7 +23,7 @@ import {
   StorageKey,
 } from '@ohos/common';
 import type { LoadingModel } from '@ohos/common';
-import { BaseHomeEventType, TabBarAnimationParam } from '@ohos/commonbusiness';
+import { BaseHomeEventType, TabBarAnimationParam, TabBarType } from '@ohos/commonbusiness';
 import { PracticeViewModel } from '../viewmodel/PracticeViewModel';
 
 @Component
@@ -72,7 +72,8 @@ export struct BaseCategoryView {
         this.viewModel.sendEvent<TabBarAnimationParam>({
           type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
           param: {
-            yOffset: offset
+            yOffset: offset,
+            tabIndex: TabBarType.SAMPLE,
           } as TabBarAnimationParam,
         });
       }

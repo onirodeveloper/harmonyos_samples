@@ -1,0 +1,40 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#317AF7"
+    },
+    {
+      "name": "page_background",
+      "value": "#F5F5F5"
+    },
+    {
+      "name": "primary_color",
+      "value": "#007DFF"
+    },
+    {
+      "name": "text_primary",
+      "value": "#182431"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#99182431"
+    },
+    {
+      "name": "bar_item_blend_color",
+      "value": "#4DF1F3F5"
+    },
+    {
+      "name": "bar_item_border_color",
+      "value": "#26FFFFFF"
+    },
+    {
+      "name": "bar_component_blend_background",
+      "value": "#33FFFFFF"
+    },
+    {
+      "name": "bar_component_blend_foreground",
+      "value": "#4D000000"
+    }
+  ]
+}

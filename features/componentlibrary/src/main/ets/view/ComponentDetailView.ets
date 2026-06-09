@@ -30,14 +30,15 @@ import {
   GlobalInfoModel,
   HdsUtil,
   LoadingStatus,
-  Logger,
   StatusBarColorType,
   StorageKey,
   WebUtil,
 } from '@ohos/common';
-import { BaseDetailComponent, CardTypeEnum, ComponentDetailParams } from '@ohos/commonbusiness';
+import { BaseDetailComponent, ComponentDetailParams } from '@ohos/commonbusiness';
 import {
   AssignPathStackEvent,
+  BackPage,
+  ChangeBackPressed,
   ComponentDetailEvent,
   ComponentDetailEventType,
   ComponentDetailPageVM,
@@ -46,7 +47,6 @@ import {
 import { DetailContentView } from '../component/DetailContentView';
 import type { ComponentDetailState } from '../viewmodel/ComponentDetailState';
 import { ComponentDetailManager } from '../viewmodel/ComponentDetailManager';
-import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 import { RecommendData } from '../model/ComponentDetailData';
 
 const TAG = '[ComponentDetailView]';
@@ -57,10 +57,9 @@ export struct ComponentDetailView {
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @StorageLink(StorageKey.WEB_LOADING) @Watch('sendCodeToWeb') webIsLoading: boolean = false;
   @Prop componentName: string = '';
   @Prop componentId: number = 0;
-  @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
+  @State loadingStatus: LoadingStatus = LoadingStatus.SUCCESS;
   @State bindFeedbackSheet: boolean = false;
   private displaySync = displaySync.create();
   private viewModel?: ComponentDetailPageVM;
@@ -122,7 +121,6 @@ export struct ComponentDetailView {
     FeedbackSheet({
       bindFeedback: this.bindFeedbackSheet,
       feedbackInitParams: {
-        uid: '1',
         domain: FeedbackDomain.COMPONENT,
         domainId: this.componentId,
         domainTitle: this.componentName,
@@ -149,27 +147,6 @@ export struct ComponentDetailView {
       loadingStatus: this.loadingStatus,
     })
       .expandSafeArea([SafeAreaType.KEYBOARD, SafeAreaType.SYSTEM])
-  }
-
-  @Builder
-  TopNavigationMenu() {
-    Button() {
-      SymbolGlyph($r('sys.symbol.square_and_pencil'))
-        .fontColor([$r('sys.color.icon_primary')])
-        .fontSize($r('sys.float.Title_M'))
-    }
-    .width($r('app.float.feedback_sheet_button_size'))
-    .height($r('app.float.feedback_sheet_button_size'))
-    .aspectRatio(1)
-    .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
-      $r('sys.color.comp_background_tertiary'))
-    .onClick(() => {
-      this.bindFeedbackSheet = true;
-    })
-    .margin({
-      right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-        $r('app.float.feedback_right_padding_xl') : 0
-    })
   }
 
   build() {
@@ -206,6 +183,13 @@ export struct ComponentDetailView {
     .onDisAppear(() => {
       this.release();
     })
+    .onBackPressed(() => {
+      if (!this.componentDetailState?.backPressed) {
+        this.viewModel?.sendEvent(new ChangeBackPressed(true));
+        this.viewModel?.sendEvent(new BackPage());
+      }
+      return true;
+    })
     .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
   }
 
@@ -237,16 +221,15 @@ export struct ComponentDetailView {
         this.loadingStatus = this.componentDetailState?.loadingStatus ?? LoadingStatus.FAILED;
         return;
       }
-      this.loadingStatus = LoadingStatus.LOADING;
       this.displaySync.on('frame', () => {
         const promise = this.viewModel?.sendEvent(new ComponentDetailEvent(eventList[frameCount]));
         this.componentDetailState = this.viewModel?.getState();
+        this.viewModel?.sendEvent(new ChangeBackPressed(false));
         frameCount++;
         if (frameCount >= eventCount) {
           promise?.then(() => {
             this.displaySync.stop();
             this.displaySync.off('frame');
-            this.refreshCodePreviewWeb();
           }).catch(() => {
             this.displaySync.stop();
             this.displaySync.off('frame');
@@ -258,25 +241,6 @@ export struct ComponentDetailView {
       .catch(() => {
         this.loadingStatus = this.viewModel?.getState().loadingStatus ?? LoadingStatus.FAILED;
       });
-  }
-
-  refreshCodePreviewWeb() {
-    this.webIsLoading = true;
-    try {
-      WebUtil.getWebController(WebUtil.getComponentCodeUrl())?.refresh();
-    } catch {
-      Logger.error(TAG, `refreshCodePreviewWeb failed.`);
-    }
-  }
-
-  sendCodeToWeb() {
-    if (this.loadingStatus === LoadingStatus.LOADING && !this.webIsLoading) {
-      const codeToHtmlMethod: string = 'codeToHtml(%param)';
-      const params: string = `${JSON.stringify(this.componentDetailState?.code)}, ${this.systemColorMode}`;
-      CodePreviewJSUtil.codeViewRunJS(codeToHtmlMethod, params, () => {
-        this.loadingStatus = LoadingStatus.SUCCESS;
-      });
-    }
   }
 }
 

@@ -15,11 +15,13 @@
 
 import { AICaptionComponent, AICaptionController, AICaptionOptions, AudioData } from '@kit.SpeechKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { BreakpointType, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
+import { CommonConstants, GlobalInfoModel, Logger, StorageKey } from '@ohos/common';
 import { DetailPageConstant } from '../../../constant/DetailPageConstant';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 
 const TAG: string = '[CaptionComponent]';
+const BASIC_WIDTH: number = 336;
+const PADDING_LEFT_RIGHT: number = 20;
 
 @Builder
 export function AICaptionBuilder(_$$: DescriptorWrapper) {
@@ -32,7 +34,7 @@ struct CaptionComponent {
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @State isShown: boolean = true;
   isReading: boolean = false;
-  componentWidth: number = 0;
+  @State componentWidth: number = 0;
   private captionOption?: AICaptionOptions;
   private controller: AICaptionController = new AICaptionController();
 
@@ -57,7 +59,7 @@ struct CaptionComponent {
       if (!context) {
         Logger.error(TAG, `GetMediaContent error, Cause context is undefined.`);
         this.isReading = false;
-        return ;
+        return;
       }
       fileData = await context.resourceManager.getMediaContent($r('app.media.16k').id);
     } catch (err) {
@@ -105,23 +107,12 @@ struct CaptionComponent {
         controller: this.controller,
         options: this.captionOption,
       })
-        .width(new BreakpointType({
-          xs: $r('app.float.ai_caption_width'),
-          sm: $r('app.float.ai_caption_width'),
-          md: $r('app.float.ai_caption_width'),
-          lg: $r('app.float.ai_caption_width'),
-          xl: $r('app.float.ai_caption_width_xl'),
-        }).getValue(this.globalInfoModel.widthBreakpoint))
+        .width(this.componentWidth - PADDING_LEFT_RIGHT)
         .height(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
           $r('app.float.ai_caption_height_xl') : $r('app.float.ai_caption_height'))
         .margin({
-          left: new BreakpointType({
-            xs: DetailPageConstant.MARGIN_NEGATIVE_LARGER,
-            sm: DetailPageConstant.MARGIN_NEGATIVE_LARGER,
-            md: DetailPageConstant.MARGIN_NEGATIVE_LARGER,
-            lg: DetailPageConstant.MARGIN_NEGATIVE_LARGER,
-            xl: 0,
-          }).getValue(this.globalInfoModel.widthBreakpoint)
+          left: this.componentWidth < (BASIC_WIDTH + PADDING_LEFT_RIGHT) ?
+            -(BASIC_WIDTH + PADDING_LEFT_RIGHT - this.componentWidth) : 0
         })
 
       Button($r('app.string.read_pcm_audio'))
@@ -138,6 +129,7 @@ struct CaptionComponent {
     }
     .height($r('app.float.column_size_middle_one'))
     .margin({ top: $r('sys.float.padding_level10') })
+    .width(CommonConstants.FULL_PERCENT)
     .onAreaChange((_oldValue: Area, newValue: Area) => {
       this.componentWidth = newValue.width as number;
     })

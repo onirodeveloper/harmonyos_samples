@@ -1,0 +1,535 @@
+{
+  "insightIntents": [
+    {
+      "intentName": "LearnCourse",
+      "domain": "StudyDomain",
+      "intentVersion": "1.0.2",
+      "srcEntry": "./ets/intentframework/InsightIntentExecutorImpl.ets",
+      "uiAbility": {
+        "ability": "EntryAbility",
+        "executeMode": [
+          "foreground"
+        ]
+      }
+    },
+    {
+      "intentName": "JumpFunctionPage",
+      "domain": "ToolsDomain",
+      "intentVersion": "1.0.2",
+      "srcEntry": "./ets/intentframework/InsightIntentExecutorImpl.ets",
+      "uiAbility": {
+        "ability": "EntryAbility",
+        "executeMode": [
+          "foreground"
+        ]
+      },
+      "inputParams": [
+        {
+          "properties": {
+            "pageId": {
+              "type": "string",
+              "enum": [
+                {
+                  "value": "1001",
+                  "displayName": "组件",
+                  "keywords": [
+                    "主页",
+                    "首页",
+                    "控件"
+                  ],
+                  "displayDescription": "展示组件",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "1002",
+                  "displayName": "样例",
+                  "keywords": [
+                    "案例",
+                    "Demo"
+                  ],
+                  "displayDescription": "展示样例",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "1003",
+                  "displayName": "实践",
+                  "keywords": [
+                    "体验",
+                    "设计",
+                    "体验设计"
+                  ],
+                  "displayDescription": "鸿蒙体验",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "1004",
+                  "displayName": "我的",
+                  "keywords": [
+                    "个人中心",
+                    "用户中心"
+                  ],
+                  "displayDescription": "应用设置",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "10",
+                  "displayName": "文本控件",
+                  "keywords": [
+                    "Text",
+                    "文本操作"
+                  ],
+                  "displayDescription": "文本控件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "42",
+                  "displayName": "单行文本输入",
+                  "keywords": [
+                    "TextInput"
+                  ],
+                  "displayDescription": "单行文本输入介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "40",
+                  "displayName": "多行文本输入",
+                  "keywords": [
+                    "TextArea"
+                  ],
+                  "displayDescription": "多行文本介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "41",
+                  "displayName": "属性字符串",
+                  "keywords": [
+                    "TextSytle"
+                  ],
+                  "displayDescription": "属性字符串介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "28",
+                  "displayName": "相机选择器",
+                  "keywords": [
+                    "CameraPicker"
+                  ],
+                  "displayDescription": "CameraPicker介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "1",
+                  "displayName": "按钮",
+                  "keywords": [
+                    "Button"
+                  ],
+                  "displayDescription": "按钮介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "11",
+                  "displayName": "图片",
+                  "keywords": [
+                    "Image"
+                  ],
+                  "displayDescription": "图片组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "13",
+                  "displayName": "进度条",
+                  "keywords": [
+                    "Progress"
+                  ],
+                  "displayDescription": "进度条组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "22",
+                  "displayName": "评分",
+                  "keywords": [
+                    "Rating"
+                  ],
+                  "displayDescription": "评分组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "2",
+                  "displayName": "开关",
+                  "keywords": [
+                    "Toggle",
+                    "Switch"
+                  ],
+                  "displayDescription": "开关组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "26",
+                  "displayName": "图库选择器",
+                  "keywords": [
+                    "PhotoViewPicker",
+                    "图库"
+                  ],
+                  "displayDescription": "图库选择器介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "5",
+                  "displayName": "线性布局 - 纵向",
+                  "keywords": [
+                    "Column",
+                    "纵向"
+                  ],
+                  "displayDescription": "线性布局 - 纵向介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "6",
+                  "displayName": "线性布局 - 横向",
+                  "keywords": [
+                    "Row",
+                    "横向"
+                  ],
+                  "displayDescription": "线性布局 - 横向介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "7",
+                  "displayName": "层叠布局",
+                  "keywords": [
+                    "Stack",
+                    "层叠"
+                  ],
+                  "displayDescription": "",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "23",
+                  "displayName": "弹性布局",
+                  "keywords": [
+                    "Flex",
+                    "弹性"
+                  ],
+                  "displayDescription": "弹性布局介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "38",
+                  "displayName": "手写笔服务介绍",
+                  "keywords": [
+                    "Penkit",
+                    "手写笔",
+                    "触笔"
+                  ],
+                  "displayDescription": "手写笔服务介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "9",
+                  "displayName": "列表",
+                  "keywords": [
+                    "List"
+                  ],
+                  "displayDescription": "列表介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "8",
+                  "displayName": "网格",
+                  "keywords": [
+                    "Grid"
+                  ],
+                  "displayDescription": "网格组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "25",
+                  "displayName": "瀑布流",
+                  "keywords": [
+                    "WaterFlow",
+                    "瀑布"
+                  ],
+                  "displayDescription": "瀑布流组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "24",
+                  "displayName": "滑动轮播组件",
+                  "keywords": [
+                    "Swiper",
+                    "滑动轮播",
+                    "轮播"
+                  ],
+                  "displayDescription": "滑动轮播组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "18",
+                  "displayName": "页签",
+                  "keywords": [
+                    "Tabs",
+                    "导航页签"
+                  ],
+                  "displayDescription": "页签介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "32",
+                  "displayName": "抠图",
+                  "keywords": [
+                    "AI Matting",
+                    "抠图"
+                  ],
+                  "displayDescription": "AI抠图介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "20",
+                  "displayName": "警告弹窗",
+                  "keywords": [
+                    "AlertDialog",
+                    "弹窗"
+                  ],
+                  "displayDescription": "警告弹窗介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "21",
+                  "displayName": "文本滑动选择器弹窗",
+                  "keywords": [
+                    "TextPickerDialog"
+                  ],
+                  "displayDescription": "文本滑动选择器弹窗介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "35",
+                  "displayName": "自定义弹窗",
+                  "keywords": [
+                    "CustomDialog"
+                  ],
+                  "displayDescription": "自定义弹窗介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "33",
+                  "displayName": "列表选择弹窗",
+                  "keywords": [
+                    "ActionSheet"
+                  ],
+                  "displayDescription": "列表选择弹窗介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "34",
+                  "displayName": "气泡弹窗",
+                  "keywords": [
+                    "Popup"
+                  ],
+                  "displayDescription": "气泡弹窗介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "29",
+                  "displayName": "文本转语音",
+                  "keywords": [
+                    "TextToSpeech"
+                  ],
+                  "displayDescription": "文本转语音介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "14",
+                  "displayName": "日历选择器",
+                  "keywords": [
+                    "CalendarPicker"
+                  ],
+                  "displayDescription": "日历选择器介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "15",
+                  "displayName": "日期滑动选择器",
+                  "keywords": [
+                    "DatePicker"
+                  ],
+                  "displayDescription": "日期滑动选择器介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "27",
+                  "displayName": "文件选择器",
+                  "keywords": [
+                    "DocumentViewPicker"
+                  ],
+                  "displayDescription": "文本选择器介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "36",
+                  "displayName": "应用拉起",
+                  "keywords": [
+                    "AppLinking",
+                    "拉起"
+                  ],
+                  "displayDescription": "应用拉起介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "30",
+                  "displayName": "AI字幕组件",
+                  "keywords": [
+                    "AICaptionComponent",
+                    "AI",
+                    "字幕"
+                  ],
+                  "displayDescription": "AI字幕组件介绍",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-60",
+                  "displayName": "HarmonyOS代码工坊",
+                  "keywords": [
+                    "代码工坊"
+                  ],
+                  "displayDescription": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-63",
+                  "displayName": "HarmonyOS代码工坊(手表版)",
+                  "keywords": [
+                    "代码工坊手表版",
+                    "手表版代码工坊"
+                  ],
+                  "displayDescription": "HarmonyOS代码工坊手表开发案例",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-16",
+                  "displayName": "一多导航栏",
+                  "keywords": [
+                    "一多",
+                    "导航栏"
+                  ],
+                  "displayDescription": "基于自适应布局和响应式布局,实现多设备上的分级导航栏效果",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-33",
+                  "displayName": "一多便捷生活",
+                  "keywords": [
+                    "便捷生活"
+                  ],
+                  "displayDescription": "基于自适应布局和响应式布局，实现一次开发,多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-20",
+                  "displayName": "文字特效合集",
+                  "keywords": [
+                    "特效合集",
+                    "文本特效",
+                    "文字特效"
+                  ],
+                  "displayDescription": "基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTs页面开发中实现文字特效渐变、歌词滚动、跑马灯渐变等多种文字效果。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-35",
+                  "displayName": "常见Tab导航样式合集",
+                  "keywords": [
+                    "Tab导航",
+                    "Tab导航样式合集",
+                    "Tab导航样式",
+                    "导航样式",
+                    "导航样式合集"
+                  ],
+                  "displayDescription": "Tabs组件可以让用户能聚焦于当前显示的内容，对页面内容进行分类，提高页面控件利用率。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-36",
+                  "displayName": "自定义弹窗合集",
+                  "keywords": [
+                    "自定义弹窗",
+                    "弹窗合集"
+                  ],
+                  "displayDescription": "通过CustomDialog、bindContentCover、bindSheet等接口，实现多种样式的弹窗。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-22",
+                  "displayName": "画中画效果实现",
+                  "keywords": [
+                    "画中画",
+                    "画中画效果",
+                    "效果实现"
+                  ],
+                  "displayDescription": "基于媒体服务和ArkUI的基本能力，实现视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-29",
+                  "displayName": "多图片合集",
+                  "keywords": [
+                    "多图片",
+                    "图片合集",
+                    "图像合集"
+                  ],
+                  "displayDescription": "介绍如何使用Swiper组件实现图片轮播效果，以及如何自定义Swiper组件的指示器，来实现图片的切换效果。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-51",
+                  "displayName": "基于AudioRenderer的音频播控和多场景交互",
+                  "keywords": [
+                    "AudioRenderer",
+                    "音频播控",
+                    "多场景交互"
+                  ],
+                  "displayDescription": "",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-26",
+                  "displayName": "H5页面跳转",
+                  "keywords": [
+                    "H5",
+                    "页面跳转",
+                    "H5页面",
+                    "跳转"
+                  ],
+                  "displayDescription": "基于ArkUI框架和Web实现了H5页面之间的相互跳转。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-31",
+                  "displayName": "Web页面瞬开效果实践",
+                  "keywords": [
+                    "Web",
+                    "Web页面",
+                    "瞬开效果实践",
+                    "瞬开效果"
+                  ],
+                  "displayDescription": "基于预渲染技术，实现了点击Web页面后瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                },
+                {
+                  "value": "-49",
+                  "displayName": "定位服务",
+                  "keywords": [
+                    "定位",
+                    "地图"
+                  ],
+                  "displayDescription": "通过@kit.LocationKit中的geoLocationManager实现了取缓存位置，获取当前位置，同时运用map.Marker将位置信息标记在地图上。",
+                  "icon": "https://d.0j7.cn/ynQTHEv"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -15,10 +15,10 @@
 
 import { AlertDialog } from '@kit.ArkUI';
 import { CommonConstants } from '../../constant/CommonConstants';
-import type { GlobalInfoModel } from '../../model/GlobalInfoModel';
 import { StorageKey } from '../../constant/CommonEnums';
-import { UserAccount } from '../model/UserAccount';
+import type { GlobalInfoModel } from '../../model/GlobalInfoModel';
 import { AccountService } from '../AccountService';
+import { UserAccount } from '../model/UserAccount';
 
 @Builder
 export function LoginSheetViewBuilder(userAccount: UserAccount) {
@@ -101,13 +101,13 @@ struct AccountSheetView {
 
         Button(!AccountService.getInstance().userLogin ? $r('app.string.select_account_to_log_in') :
           $r('app.string.log_out'))
-          .type(this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? ButtonType.Normal :
+          .type(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? ButtonType.Normal :
             ButtonType.Capsule)
           .fontSize($r('sys.float.Body_L'))
           .role(!AccountService.getInstance().userLogin ? ButtonRole.NORMAL : ButtonRole.ERROR)
           .buttonStyle(!AccountService.getInstance().userLogin ? ButtonStyleMode.EMPHASIZED : ButtonStyleMode.NORMAL)
-          .borderRadius(this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-            $r('sys.float.corner_radius_level4') : 0)
+          .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? $r('sys.float.corner_radius_level4') :
+            0)
           .width(CommonConstants.FULL_PERCENT)
           .margin({ bottom: $r('sys.float.padding_level5') })
           .onClick(() => {

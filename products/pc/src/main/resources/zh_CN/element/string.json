@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "widget_desc",
+      "value": "华为官方大型开源项目"
+    },
+    {
+      "name": "widget_display_name",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "PcFormAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "PcFormAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "component_cases",
+      "value": "组件案例"
+    },
+    {
+      "name": "sample_cases",
+      "value": "示例代码"
+    },
+    {
+      "name": "article_cases",
+      "value": "技术文章"
+    },
+    {
+      "name": "ArticleServiceCard_desc",
+      "value": "最佳实践文章抢先看"
+    }
+  ]
+}

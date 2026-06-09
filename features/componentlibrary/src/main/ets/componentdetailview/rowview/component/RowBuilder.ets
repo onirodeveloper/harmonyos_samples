@@ -22,15 +22,24 @@ import type { RowDescriptor } from '../viewmodel/RowDescriptor';
 export function RowBuilder($$: DescriptorWrapper) {
   Row({ space: ($$.descriptor as RowDescriptor).space }) {
     Column()
-      .size({ width: $r('app.float.container_size_1'), height: $r('app.float.container_size_1') })
+      .size({
+        width: $r('app.float.container_size_1'),
+        height: $r('app.float.container_size_1'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
     Column()
-      .size({ width: $r('app.float.container_size_2'), height: $r('app.float.container_size_2') })
+      .size({
+        width: $r('app.float.container_size_2'),
+        height: $r('app.float.container_size_2'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
     Column()
-      .size({ width: $r('app.float.container_size_3'), height: $r('app.float.container_size_3') })
+      .size({
+        width: $r('app.float.container_size_3'),
+        height: $r('app.float.container_size_3'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
   }
@@ -44,5 +53,8 @@ export function RowBuilder($$: DescriptorWrapper) {
     } : ($$.descriptor as RowDescriptor).padding === 'All' ? ($$.descriptor as RowDescriptor).paddingNum : 0)
   .attributeModifier(new RowAttributeModifier($$.descriptor as RowDescriptor))
   .borderRadius($r('sys.float.corner_radius_level6'))
-  .border({ width: DetailPageConstant.CONTAINER_BORDER, color: $r('sys.color.comp_background_emphasize') })
+  .border({
+    width: DetailPageConstant.CONTAINER_BORDER,
+    color: $r('sys.color.comp_background_emphasize'),
+  })
 }

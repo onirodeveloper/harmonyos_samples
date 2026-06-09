@@ -14,7 +14,7 @@
  */
 
 import { util } from '@kit.ArkTS';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo } from '@kit.BasicServicesKit';
 import { StorageKey } from '../constant/CommonEnums';
 import { TriggerEnums } from '../constant/TriggerEnums';
 import { ResponseData } from '../model/ResponseData';
@@ -49,16 +49,22 @@ export class MockRequest {
           reject({ message: 'uiContext or context is undefined.' } as BusinessError);
           return;
         }
-        const result: Uint8Array = context.resourceManager.getRawFileContentSync(`mockdata/${trigger}.json`);
-        const textDecoder = util.TextDecoder.create('utf-8', { ignoreBOM: true });
-        const content: string = textDecoder.decodeToString(result, { stream: false });
-        Logger.info(TAG, `GetRawFileContent succeed.`);
+
         const requestParam: Record<string, string | number | object> = {};
         if (param) {
           Object.keys(param).forEach((key: string) => {
             requestParam[key] = param[key];
           });
         }
+
+        // Add device path
+        const filePath = requestParam['supportDevice'] ? `mockdata/${requestParam['supportDevice']}/${trigger}.json` :
+          `mockdata/${trigger}.json`;
+        const result: Uint8Array = context.resourceManager.getRawFileContentSync(filePath);
+        const textDecoder = util.TextDecoder.create('utf-8', { ignoreBOM: true });
+        const content: string = textDecoder.decodeToString(result, { stream: false });
+        Logger.info(TAG, `GetRawFileContent succeed.`);
+
         // Detail data.
         if (requestParam['singleId']) {
           const jsonContent: ResponseData<(CommonBaseData<T> | SampleListData)[]> =

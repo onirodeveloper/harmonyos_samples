@@ -26,7 +26,6 @@ export enum FeedbackType {
 
 @Observed
 export class FeedbackInitParams {
-  public uid: string = '';
   public domain: FeedbackDomain = FeedbackDomain.SAMPLE;
   public domainId: number = 0;
   public domainTitle: string = '';

@@ -7,26 +7,30 @@
     "deviceTypes": [
       "phone",
       "tablet",
-      "2in1"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
     "routerMap": "$profile:router_map",
-    "metadata": [],
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "6917570019123797324",
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
         "icon": "$media:hmos_layered_image",
-        "label": "$string:HMOSAbility_label",
+        "label": "$string:hmos_app_name",
         "startWindowIcon": "$media:ic_start_icon_800",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "preferMultiWindowOrientation": "landscape_auto",
-        "minWindowWidth": 1440,
-        "minWindowHeight": 940,
+        "minWindowWidth": 360,
+        "minWindowHeight": 480,
         "skills": [
           {
             "entities": [
@@ -60,6 +64,11 @@
             "resource": "$profile:form_config"
           }
         ]
+      },
+      {
+        "name": "UIExtensionAbility",
+        "srcEntry": "./ets/uiextensionability/uiextensionability.ets",
+        "type": "liveForm",
       }
     ],
     "requestPermissions": [
@@ -92,6 +101,9 @@
           ],
           "when": "inuse"
         }
+      },
+      {
+        "name": "ohos.permission.GYROSCOPE"
       }
     ]
   }

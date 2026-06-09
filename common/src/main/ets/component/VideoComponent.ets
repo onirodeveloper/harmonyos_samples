@@ -79,7 +79,7 @@ export struct VideoComponent {
               this.videoController.pause();
             }
           })
-          .onVisibleAreaChange([0.0, this.startVisibleRatio, 1.0], (isVisible: boolean, currentRatio: number) => {
+          .onVisibleAreaChange([0.0, this.startVisibleRatio, 1.0], (_isVisible: boolean, currentRatio: number) => {
             this.visibleAreaJudge(currentRatio);
           })
         if (this.voiceShow) {

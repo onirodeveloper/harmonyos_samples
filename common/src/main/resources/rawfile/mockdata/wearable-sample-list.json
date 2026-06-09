@@ -2,59 +2,175 @@
   "success": true,
   "code": "0000",
   "msg": "success",
-  "body":  [
+  "body": [
     {
       "id": 1,
-      "title": "音乐播放",
+      "title": "ArkUI组件",
       "desc": "样例1",
       "isFavorite": false,
-      "mediaType": "IMAGE",
-      "mediaUrl": "wearable_sample_music.png",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/WearableMusic",
-      "moduleName": "wearablemusicsample",
-      "abilityName": "WearableMusicSampleAbility",
+      "mediaType": "SYMBOL",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.scenes",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/HarmonyOSComponentUXExamples",
+      "moduleName": "harmonyoscomponentuxexampleswearablesample",
+      "abilityName": "HarmonyoscomponentuxexampleswearableAbility",
       "order": 1,
-      "symbolGlyphColor": "#E02D50"
+      "symbolGlyphColor": "#00A5AD",
+      "apiVersion": 22
     },
     {
       "id": 2,
-      "title": "视频播放",
+      "title": "一多音乐界面",
       "desc": "样例2",
       "isFavorite": false,
       "mediaType": "SYMBOL",
-      "mediaUrl": "sys.symbol.video_badge_adiowaves_fill",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchShortVideo",
-      "moduleName": "smartwatchshortvideosample",
-      "abilityName": "SmartWatchShortVideoSampleAbility",
-      "order": 1,
-      "symbolGlyphColor": "#FB6522"
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.identify_song",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment",
+      "moduleName": "musichomewatchsample",
+      "abilityName": "MusichomeWatchAbility",
+      "order": 2,
+      "symbolGlyphColor": "#E02D50",
+      "apiVersion": 22
     },
     {
       "id": 3,
-      "title": "远程控车",
+      "title": "一多短视频界面",
       "desc": "样例3",
       "isFavorite": false,
       "mediaType": "SYMBOL",
-      "mediaUrl": "sys.symbol.car_fill",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchCarControl",
-      "moduleName": "smartwatchcarcontrolsample",
-      "abilityName": "SmartWatchCarControlSampleAbility",
-      "order": 1,
-      "symbolGlyphColor": "#00A5AD"
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.play_video_fill",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MusicHome",
+      "moduleName": "multishortvideowearablesample",
+      "abilityName": "MultiShortVideoWearableAbility",
+      "order": 3,
+      "symbolGlyphColor": "#FFEA75F5",
+      "apiVersion": 23
     },
     {
       "id": 4,
+      "title": "一多移动支付",
+      "desc": "样例4",
+      "isFavorite": false,
+      "mediaType": "SYMBOL",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.creditcard_fill",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment",
+      "moduleName": "multimobilepaymentwatchsample",
+      "abilityName": "MultimobilepaymentwatchAbility",
+      "order": 4,
+      "symbolGlyphColor": "#FF337DEC",
+      "apiVersion": 22
+    },
+    {
+      "id": 5,
+      "title": "音乐播放",
+      "desc": "样例5",
+      "isFavorite": false,
+      "mediaType": "IMAGE",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "wearable_sample_music.png",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/WearableMusic",
+      "moduleName": "wearablemusicsample",
+      "abilityName": "WearableMusicSampleAbility",
+      "order": 5,
+      "symbolGlyphColor": "#E02D50",
+      "apiVersion": 21
+    },
+    {
+      "id": 6,
+      "title": "视频播放",
+      "desc": "样例6",
+      "isFavorite": false,
+      "mediaType": "SYMBOL",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.video_badge_adiowaves_fill",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchShortVideo",
+      "moduleName": "smartwatchshortvideosample",
+      "abilityName": "SmartWatchShortVideoSampleAbility",
+      "order": 6,
+      "symbolGlyphColor": "#FB6522",
+      "apiVersion": 21
+    },
+    {
+      "id": 7,
+      "title": "远程控车",
+      "desc": "样例7",
+      "isFavorite": false,
+      "mediaType": "SYMBOL",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.car_fill",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchCarControl",
+      "moduleName": "smartwatchcarcontrolsample",
+      "abilityName": "SmartWatchCarControlSampleAbility",
+      "order": 7,
+      "symbolGlyphColor": "#00A5AD",
+      "apiVersion": 21
+    },
+    {
+      "id": 8,
       "title": "项目源码",
       "desc": "项目源码",
       "isFavorite": false,
       "mediaType": "SYMBOL",
-      "mediaUrl": "sys.symbol.application_develop_fil",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "sys.symbol.application_develop_fill",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
       "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos",
       "moduleName": "",
       "abilityName": "",
-      "order": 1,
+      "order": 8,
       "symbolGlyphColor": "#00A5AD",
-      "isSourceCode": true
+      "isSourceCode": true,
+      "apiVersion": 21
     }
   ]
 }

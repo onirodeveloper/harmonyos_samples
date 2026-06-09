@@ -19,11 +19,17 @@ import type { ItemData } from '../entity/GridAttributeMapping';
 export function pixelMapBuilder(item: ItemData) {
   Text(item.text)
     .fontSize($r('sys.float.Body_L'))
-    .size({ width: item.width, height: item.height })
+    .size({
+      width: item.width,
+      height: item.height,
+    })
     .fontColor($r('sys.color.icon_emphasize'))
     .textAlign(TextAlign.Center)
     .backgroundColor($r('sys.color.comp_background_primary'))
     .shadow(ShadowStyle.OUTER_DEFAULT_SM)
     .borderRadius($r('sys.float.corner_radius_level4'))
-    .border({ width: $r('app.float.border_width_large'), color: $r('sys.color.comp_background_emphasize') })
+    .border({
+      width: $r('app.float.border_width_large'),
+      color: $r('sys.color.comp_background_emphasize'),
+    })
 }

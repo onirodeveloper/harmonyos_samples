@@ -36,6 +36,7 @@ import { MineEventType, MinePageVM, } from '../viewmodel/MinePageVM';
 import { BuilderEnum, ListGroup, MineItem, MinePageState } from '../viewmodel/MinePageState';
 import { UserExperienceCardItem } from '../component/UserExperienceCardItem';
 import { MineConstant } from '../constant/CommonConstants';
+import { LengthMetrics } from '@kit.ArkUI';
 
 @Component
 export struct MineView {
@@ -151,17 +152,15 @@ export struct MineView {
       }
       .width('100%')
       .height($r('app.float.mine_login_height'))
-      .bindSheet($$this.minePageState.isShowAccountInfo, this.LoginSheetViewBuilder(), {
+      .bindSheet(this.minePageState.isShowAccountInfo, this.LoginSheetViewBuilder(), {
         height: SheetSize.MEDIUM,
         preferType: SheetType.CENTER,
         hoverModeArea: HoverModeAreaType.BOTTOM_SCREEN,
         enableOutsideInteractive: false,
         blurStyle: BlurStyle.Regular,
-        onWillDismiss: ((dismissSheetAction: DismissSheetAction) => {
-          if (dismissSheetAction.reason === DismissReason.CLOSE_BUTTON) {
-            dismissSheetAction.dismiss();
-          }
-        }),
+        onWillDisappear: () => {
+          MinePageVM.getInstance().sendEvent({ type: MineEventType.UPDATE_ACCOUNT_DATA, param: null })
+        },
       })
       .onClick(this.throttle(() => {
         if (!this.minePageState.isLogin) {
@@ -258,17 +257,18 @@ export struct MineView {
           right: $r('sys.float.padding_level12')
         },
         lg: {
-          left: $r('sys.float.padding_level16'),
+          left: (!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) && !HdsUtil.isSupportNewMaterialApi()) ?
+            CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_32 : $r('sys.float.padding_level16'),
           right: $r('sys.float.padding_level16')
         },
       }).getValue(this.globalInfoModel.widthBreakpoint))
       .bindSheet(this.bindSheetShow, this.bindSheetItem?.builder?.builder(), {
         showClose: true,
-        preferType: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? SheetType.BOTTOM :
-          SheetType.CENTER,
+        preferType: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM &&
+          !AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ? SheetType.BOTTOM : SheetType.CENTER,
         height: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
           ((this.globalInfoModel.deviceHeight - this.globalInfoModel.decorHeight) *
-          CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
+            CommonConstants.SHEET_HEIGHT_RATIO_XL) : SheetSize.LARGE,
         width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SHEET_WIDTH_XL :
           undefined,
         onWillDisappear: () => {
@@ -297,6 +297,13 @@ export struct MineView {
       this.contentViewBuilder();
     }
     .titleBar({
+      padding: {
+        start: LengthMetrics.vp((!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) &&
+          (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+            this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) &&
+          !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_32 :
+          CommonConstants.SPACE_32)
+      },
       avoidLayoutSafeArea: true,
       style: this.titleBarStyle,
       content: {
@@ -315,10 +322,6 @@ export struct MineView {
     })
     .onBackPressed(() => {
       return !!this.viewModel.sendEvent<null>({ type: BaseHomeEventType.ON_BACK_PRESS, param: null });
-    })
-    .padding({
-      left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
-        !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH : 0,
     })
   }
 }

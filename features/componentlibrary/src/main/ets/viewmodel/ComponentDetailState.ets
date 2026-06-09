@@ -29,6 +29,7 @@ export class ComponentDetailState extends BaseState {
   public recommends: RecommendData[];
   public loadingStatus: LoadingStatus;
   public topNavigationData: TopNavigationData;
+  public backPressed: boolean;
 
   constructor(
     descriptor: CommonDescriptor,
@@ -37,6 +38,7 @@ export class ComponentDetailState extends BaseState {
     recommends: RecommendData[],
     loadingStatus: LoadingStatus,
     topNavigationData: TopNavigationData,
+    backPressed: boolean,
   ) {
     super();
     this.descriptor = descriptor;
@@ -45,6 +47,7 @@ export class ComponentDetailState extends BaseState {
     this.recommends = recommends;
     this.loadingStatus = loadingStatus;
     this.topNavigationData = topNavigationData;
+    this.backPressed = backPressed;
   }
 }
 

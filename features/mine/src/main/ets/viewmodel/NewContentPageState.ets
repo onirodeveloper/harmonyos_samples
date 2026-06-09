@@ -24,6 +24,7 @@ export class NewContentPageState extends BaseState {
   public newComponentData: NewContentData[] = [];
   public newSampleData: NewContentData[] = [];
   public newArticleData: NewContentData[] = [];
+  public isBackPressed: boolean = false;
 
   constructor(
     loadingStatus: LoadingStatus,

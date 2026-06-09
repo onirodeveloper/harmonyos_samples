@@ -38,7 +38,7 @@ const dotIndicatorCode: string = `new DotIndicator()
 const digitIndicatorCode: string = `new DigitIndicator()
       .fontColor($r('sys.color.font_primary'))
       .selectedFontColor($r('sys.color.font_primary'))
-      .digitFont({ size: 16, weight: FontWeight.Bold })`;
+      .digitFont({ size: 14, weight: FontWeight.Normal })`;
 
 export const indicatorStyleMapData: Map<string, IndicatorMap> = new Map([
   ['DotIndicator', new IndicatorMap(dotIndicatorCode, new DotIndicator().itemWidth(6)
@@ -49,7 +49,7 @@ export const indicatorStyleMapData: Map<string, IndicatorMap> = new Map([
     .selectedColor($r('sys.color.comp_background_emphasize')))],
   ['DigitIndicator', new IndicatorMap(digitIndicatorCode, new DigitIndicator().fontColor($r('sys.color.font_primary'))
     .selectedFontColor($r('sys.color.font_primary'))
-    .digitFont({ size: 16, weight: FontWeight.Bold }))],
+    .digitFont({ size: 14, weight: FontWeight.Normal }))],
   ['None', new IndicatorMap('false', false)],
   [DEFAULT_KEY, new IndicatorMap(dotIndicatorCode, new DotIndicator().itemWidth(6)
     .itemHeight(6)

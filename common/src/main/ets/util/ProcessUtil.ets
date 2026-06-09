@@ -16,12 +16,23 @@
 import type { common, StartOptions, Want } from '@kit.AbilityKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
 import Logger from './Logger';
+import { process } from '@kit.ArkTS';
 
 const TAG = '[ProcessUtil]';
 
 export class ProcessUtil {
   private static operationNotSupportedCode: number = 16000061;
   private static startOptionCheckFailedCode: number = 16000067;
+
+  public static exitApp(): void {
+    try {
+      const pro = new process.ProcessManager();
+      pro.exit(0);
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.error(TAG, `terminateSelf failed error:${err.code}, ${err.message}.`);
+    }
+  }
 
   public static terminateAbility(context: common.UIAbilityContext): void {
     try {

@@ -19,7 +19,7 @@ import { QuestionnaireVM, SelectScoreEvent, SubmitEvent } from '../viewmodel/Que
 
 @Component
 export struct QuestionnaireView {
-  viewModel: QuestionnaireVM = QuestionnaireVM.getInstance();
+  private viewModel: QuestionnaireVM = QuestionnaireVM.getInstance();
   @State questionnaireState: QuestionnaireState = this.viewModel.getState();
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
@@ -52,7 +52,7 @@ export struct QuestionnaireView {
             .justifyContent(FlexAlign.Center)
             .borderRadius($r('sys.float.corner_radius_level2'))
             .backgroundColor(this.questionnaireState.selectedScore >= (index + 1) ? this.colorResources[index] :
-              $r('sys.color.background_primary'))
+              $r('sys.color.comp_background_list_card'))
             .onClick(() => {
               this.viewModel.sendEvent(new SelectScoreEvent(index + 1));
             })
@@ -69,12 +69,15 @@ export struct QuestionnaireView {
           .fontWeight(FontWeight.Regular)
           .margin({ bottom: $r('sys.float.padding_level8') })
 
-        TextArea({ placeholder: $r('app.string.input_placeholder'), text: this.questionnaireState.questionnaireInput })
-          .maxLines(3)
+        TextArea({
+          placeholder: $r('app.string.input_placeholder'),
+          text: this.questionnaireState.questionnaireInput,
+        })
+          .maxLines(25)
           .showCounter(true, { thresholdPercentage: 1 })
-          .maxLength(100)
+          .maxLength(500)
           .borderRadius($r('sys.float.corner_radius_level8'))
-          .backgroundColor($r('sys.color.background_primary'))
+          .backgroundColor($r('sys.color.comp_background_list_card'))
           .height($r('app.float.feedback_input_height'))
           .textAlign(TextAlign.Start)
           .align(Alignment.TopStart)
@@ -91,7 +94,7 @@ export struct QuestionnaireView {
         Button($r('app.string.submit'))
           .height($r('app.float.feedback_submit_height'))
           .width('100%')
-          .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
             $r('sys.float.corner_radius_level4') : '50%')
           .fontSize($r('sys.float.Body_M'))
           .fontWeight(FontWeight.Medium)
@@ -113,11 +116,15 @@ export struct QuestionnaireView {
     }
     .backgroundColor($r('sys.color.background_secondary'))
     .hideBackButton(true)
-    .title($r('app.string.user_experience'))
+    .title($r('app.string.user_experience'), {
+      backgroundColor: $r('sys.color.background_secondary')
+    })
     .titleMode(NavigationTitleMode.Mini)
     .padding({
-      top: $r('sys.float.padding_level9'), bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ?
-        this.globalInfoModel.naviIndicatorHeight : $r('sys.float.padding_level8')
+      top: $r('sys.float.padding_level9'),
+      bottom: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM &&
+        this.globalInfoModel.naviIndicatorHeight > 0 ?
+        this.globalInfoModel.naviIndicatorHeight : $r('sys.float.padding_level8'),
     })
     .mode(NavigationMode.Stack)
   }

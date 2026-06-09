@@ -14,9 +14,10 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
+import { StorageKey } from '../constant';
 
 export class HdsUtil {
   public static isSupportNewMaterialApi(): boolean {
-    return deviceInfo.distributionOSApiVersion >= 60100;
+    return !AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) && deviceInfo.distributionOSApiVersion >= 60100;
   }
 }

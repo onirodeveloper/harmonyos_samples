@@ -29,12 +29,12 @@ const TRACK_TABLE: TableConfig = {
   sqlCreate: 'CREATE TABLE IF NOT EXISTS trackTable(id INTEGER PRIMARY KEY AUTOINCREMENT, eventType VARCHAR(20),' +
     'interactionType VARCHAR(20), time VARCHAR(20), interactionContent VARCHAR(20), pageName VARCHAR(20),' +
     'mainTab VARCHAR(20), secondaryTab VARCHAR(20), actionName VARCHAR(30), referType VARCHAR(30), ' +
-    'referSourceId VARCHAR(30), duration INTEGER, pushMessageTitle VARCHAR(30))',
+    'referSourceId INTEGER, duration INTEGER, pushMessageTitle VARCHAR(30))',
   sqlAlert: 'DELETE FROM sqlite_sequence WHERE name=\'trackTable\'',
   type: [
     TableTypeEnum.NUMBER, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING,
     TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING, TableTypeEnum.STRING,
-    TableTypeEnum.STRING, TableTypeEnum.NUMBER, TableTypeEnum.STRING
+    TableTypeEnum.NUMBER, TableTypeEnum.NUMBER, TableTypeEnum.STRING
   ],
 };
 
@@ -76,21 +76,9 @@ export default class TrackTable {
    */
   public async queryAll(): Promise<TrackServiceData[]> {
     const trackServiceDataArray: TrackServiceData[] = [];
-    const resArray = await this.trackTable.query() as Array<Record<string, string | number>>;
-    resArray.forEach((item: Record<string, string | number>) => {
-      trackServiceDataArray.push({
-        eventType: Reflect.get(item, 'eventType') as TrackEventType,
-        pageName: Reflect.get(item, 'pageName') as string,
-        mainTab: Reflect.get(item, 'mainTab') as MainTabEnum,
-        secondaryTab: Reflect.get(item, 'secondaryTab') as string,
-        interactionType: Reflect.get(item, 'interactionType') as string,
-        interactionContent: Reflect.get(item, 'interactionContent') as string,
-        actionName: Reflect.get(item, 'actionName') as string,
-        referType: Reflect.get(item, 'referType') as ReferTypeEnum,
-        time: Reflect.get(item, 'time') as string,
-        duration: Reflect.get(item, 'duration') as number,
-        pushMessageTitle: Reflect.get(item, 'pushMessageTitle') as string,
-      })
+    const resArray = await this.trackTable.query() as Array<relationalStore.ValuesBucket>;
+    resArray.forEach((item: relationalStore.ValuesBucket) => {
+      trackServiceDataArray.push(this.sealData(item));
     })
     return trackServiceDataArray;
   }
@@ -107,19 +95,50 @@ export default class TrackTable {
    */
   private generateBucket(trackData: TrackServiceData): relationalStore.ValuesBucket {
     const trackBucket: relationalStore.ValuesBucket = {};
+    // Not null.
     trackBucket.eventType = trackData.eventType ?? TrackEventType.UNKNOWN;
-    trackBucket.pageName = trackData.pageName ?? '';
-    trackBucket.mainTab = trackData.mainTab ?? MainTabEnum.UNKNOWN;
-    trackBucket.secondaryTab = trackData.secondaryTab ?? '';
-    trackBucket.interactionType = trackData.interactionType ?? '';
-    trackBucket.interactionContent = trackData.interactionContent ?? '';
-    trackBucket.actionName = trackData.actionName ?? '';
-    trackBucket.referType = trackData.referType ?? ReferTypeEnum.UNKNOWN;
-    trackBucket.referSourceId = trackData.referSourceId ?? '';
     trackBucket.time = trackData.time ?? '';
-    trackBucket.duration = trackData.duration ?? -1;
-    trackBucket.pushMessageTitle = trackData.pushMessageTitle ?? '';
+    // Can be null.
+    trackBucket.pageName = trackData.pageName ?? null;
+    trackBucket.mainTab = trackData.mainTab ?? null;
+    trackBucket.secondaryTab = trackData.secondaryTab ?? null;
+    trackBucket.interactionType = trackData.interactionType ?? null;
+    trackBucket.interactionContent = trackData.interactionContent ?? null;
+    trackBucket.actionName = trackData.actionName ?? null;
+    trackBucket.referType = trackData.referType ?? null;
+    trackBucket.referSourceId = trackData.referSourceId ?? null;
+    trackBucket.duration = trackData.duration ?? null;
+    trackBucket.pushMessageTitle = trackData.pushMessageTitle ?? null;
     return trackBucket;
+  }
+
+  private sealData(item: relationalStore.ValuesBucket): TrackServiceData {
+    const trackServiceData: TrackServiceData = {
+      eventType: Reflect.get(item, 'eventType') as TrackEventType,
+      time: Reflect.get(item, 'time') as string,
+    }
+    // If the parameter is null, delete.
+    const pageName: string = Reflect.get(item, 'pageName') as string;
+    const mainTab: MainTabEnum = Reflect.get(item, 'mainTab') as MainTabEnum;
+    const secondaryTab: string = Reflect.get(item, 'secondaryTab') as string;
+    const interactionType: string = Reflect.get(item, 'interactionType') as string;
+    const interactionContent: string = Reflect.get(item, 'interactionContent') as string;
+    const actionName: string = Reflect.get(item, 'actionName') as string;
+    const referType: ReferTypeEnum = Reflect.get(item, 'referType') as ReferTypeEnum;
+    const duration: number = Reflect.get(item, 'duration') as number;
+    const pushMessageTitle: string = Reflect.get(item, 'pushMessageTitle') as string;
+    const referSourceId: number = Reflect.get(item, 'referSourceId') as number;
+    pageName !== null && (trackServiceData.pageName = pageName);
+    mainTab !== null && (trackServiceData.mainTab = mainTab);
+    secondaryTab !== null && (trackServiceData.secondaryTab = secondaryTab);
+    interactionType !== null && (trackServiceData.interactionType = interactionType);
+    interactionContent !== null && (trackServiceData.interactionContent = interactionContent);
+    actionName !== null && (trackServiceData.actionName = actionName);
+    referType !== null && (trackServiceData.referType = referType);
+    duration !== null && (trackServiceData.duration = duration);
+    pushMessageTitle !== null && (trackServiceData.pushMessageTitle = pushMessageTitle);
+    referSourceId !== null && (trackServiceData.referSourceId = referSourceId);
+    return trackServiceData;
   }
 }
 

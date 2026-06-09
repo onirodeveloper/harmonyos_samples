@@ -129,7 +129,10 @@ export struct CustomDialogComponent {
 
       Progress({ value: PROGRESS_VALUE })
         .height($r('app.float.dialog_progress_height'))
-        .margin({ top: $r('sys.float.padding_level4'), bottom: $r('sys.float.padding_level2') })
+        .margin({
+          top: $r('sys.float.padding_level4'),
+          bottom: $r('sys.float.padding_level2'),
+        })
     }
   }
 

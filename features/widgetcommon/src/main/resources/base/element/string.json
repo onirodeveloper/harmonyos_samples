@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "widget_display_name",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "detail_immersive",
+      "value": "Huawei's official large open source projects"
+    },
+    {
+      "name": "card_list_subtitle",
+      "value": "More"
+    },
+    {
+      "name": "lock_screen_title",
+      "value": "HMOS Sample"
+    },
+    {
+      "name": "lock_screen_subtitle",
+      "value": "Let develop more efficient"
+    },
+    {
+      "name": "widget_hmos_coding_title",
+      "value": "Dev Guide"
+    },
+    {
+      "name": "widget_hmos_coding_text",
+      "value": "Dev samples for features of HDC 2026"
+    }
+  ]
+}

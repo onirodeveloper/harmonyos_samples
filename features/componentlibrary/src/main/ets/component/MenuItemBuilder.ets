@@ -19,12 +19,17 @@ export function MenuItemBuilder(configuration: MenuItemConfiguration) {
     Text(configuration.value)
     Blank()
     if (configuration.selected) {
-      SymbolGlyph($r('sys.symbol.checkmark')).fontSize($r('app.float.symbol_size_normal')).fontColor([$r('sys.color.ohos_id_color_foreground')])
+      SymbolGlyph($r('sys.symbol.checkmark'))
+        .fontSize($r('app.float.symbol_size_normal'))
+        .fontColor([$r('sys.color.ohos_id_color_foreground')])
     }
   }
   .height($r('app.float.menu_item_height'))
   .width('100%')
-  .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
+  .padding({
+    left: $r('sys.float.padding_level8'),
+    right: $r('sys.float.padding_level8'),
+  })
   .onClick(() => {
     configuration.triggerSelect(configuration.index, configuration.value.toString());
   })

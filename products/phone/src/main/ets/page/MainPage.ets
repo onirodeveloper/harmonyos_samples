@@ -15,125 +15,34 @@
 
 import type { common } from '@kit.AbilityKit';
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { SymbolGlyphModifier, TabsModifier } from '@kit.ArkUI';
+import { HdsNavDestination, } from '@kit.UIDesignKit';
+import { HomeView } from '@ohos/abilitycommon';
 import {
-  HdsNavDestination,
-  HdsSideBar,
-  HdsTabs,
-  DividerMode,
-  HdsTabsController,
-  hdsMaterial,
-  HdsTabsModifier,
-} from '@kit.UIDesignKit';
-import {
-  BreakpointType,
   CommonConstants,
   GlobalInfoModel,
-  HdsUtil,
-  Logger,
-  MainTabEnum,
   ProcessUtil,
-  PullUpManager,
-  PushServiceManager,
   StorageKey,
   Toast,
-  WantParams,
   WindowUtil,
-  TrackEventType,
-  TrackManager,
-  TrackServiceData,
 } from '@ohos/common';
 import { TAB_CONTENT_STATUSES, TabBarType } from '@ohos/commonbusiness';
-import { ComponentHomeView } from '@ohos/componentlibrary';
-import { PracticeHomeView } from '@ohos/devpractices';
-import { ExplorationHomeView } from '@ohos/exploration';
-import { MineHomeView } from '@ohos/mine';
-import { CustomSideBar } from '../component/CustomSideBar';
-import { TABS_LIST } from '../model/TabBarModel';
-import { HomeEventTypeEnum, MainPageViewModel } from '../viewmodel/MainPageViewModel';
 
 const PRESS_TIME: number = 1500;
-const TAG: string = '[MainPage]';
 
 @Builder
 export function MainPageBuilder() {
   MainPage()
 }
 
-@Component({ freezeWhenInactive: true })
+@Component
 struct MainPage {
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @StorageProp(StorageKey.COLOR_MODE) @Watch('handleColorModeChange') systemColorMode: ConfigurationConstant.ColorMode =
     AppStorage.get(StorageKey.COLOR_MODE) ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET;
-  @StorageProp(StorageKey.WANT_PARAMETERS) @Watch('jumpPage') wantParams: WantParams | undefined =
-    AppStorage.get<WantParams>(StorageKey.WANT_PARAMETERS);
   @State currentIndex: number = 0;
-  @State tabsModifier: TabsModifier | HdsTabsModifier =
-    (HdsUtil.isSupportNewMaterialApi() ? new HdsTabsModifier() : new TabsModifier());
-  private tabController: HdsTabsController = new HdsTabsController();
   private backPressTime: number = 0;
-  private isShown: boolean = false;
-  private mainPageViewModel: MainPageViewModel = new MainPageViewModel();
-  private componentScroller: Scroller = new Scroller();
-  private sampleScroller: Scroller = new Scroller();
-  private articleScroller: Scroller = new Scroller();
-  private mineScroller: Scroller = new Scroller();
-
-  @Builder
-  TabContentsBuilder(showTabBar: boolean) {
-    TabContent() {
-      ComponentHomeView({ scroller: this.componentScroller, homeTabController: this.tabController })
-    }
-    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.HOME) : new SubTabBarStyle(''))
-
-    TabContent() {
-      PracticeHomeView({ scroller: this.sampleScroller, homeTabController: this.tabController })
-    }
-    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.SAMPLE) : new SubTabBarStyle(''))
-
-    TabContent() {
-      ExplorationHomeView({ scroller: this.articleScroller, homeTabController: this.tabController })
-    }
-    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.PRACTICE) : new SubTabBarStyle(''))
-
-    TabContent() {
-      MineHomeView({ scroller: this.mineScroller, homeTabController: this.tabController })
-    }
-    .tabBar(showTabBar ? this.bottomTabBarStyle(TabBarType.MINE) : new SubTabBarStyle(''))
-  }
-
-  aboutToAppear(): void {
-    const uiContext: UIContext | undefined = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
-    if (uiContext) {
-      const context: Context | undefined = uiContext?.getHostContext();
-      if (context) {
-        PushServiceManager.getInstance().initPushServiceManager(context);
-      }
-    }
-    AppStorage.setOrCreate(StorageKey.CURRENT_TAB, 0);
-
-    if (HdsUtil.isSupportNewMaterialApi()) {
-      (this.tabsModifier as HdsTabsModifier)
-        .vertical(false)
-        .barPosition(BarPosition.End)
-        .barHeight(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? 0 :
-          CommonConstants.TAB_BAR_HEIGHT)
-        .barFloatingStyle({
-          adaptToHandedness: true,
-          barBottomMargin: this.globalInfoModel.naviIndicatorHeight,
-          systemMaterialEffect: {
-            materialType: hdsMaterial.MaterialType.IMMERSIVE,
-            materialLevel: hdsMaterial.MaterialLevel.ADAPTIVE,
-          },
-        })
-    }
-    this.tabController.bindScroller(TabBarType.HOME, this.componentScroller);
-    this.tabController.bindScroller(TabBarType.SAMPLE, this.sampleScroller);
-    this.tabController.bindScroller(TabBarType.PRACTICE, this.articleScroller);
-    this.tabController.bindScroller(TabBarType.MINE, this.mineScroller);
-    this.jumpPage();
-  }
+  @State isShown: boolean = false;
 
   onPageShow(): void {
     this.isShown = true;
@@ -141,19 +50,6 @@ struct MainPage {
     CommonConstants.PROMISE_WAIT(500).then(() => {
       AppStorage.setOrCreate(StorageKey.BLUE_RENDER_GROUP, false);
     });
-  }
-
-  jumpPage(): void {
-    if (this.wantParams) {
-      PullUpManager.navigationToHome();
-      const tabIndex: number = this.mainPageViewModel.sendEvent<WantParams>({
-        type: HomeEventTypeEnum.JUMP_TO_PAGE,
-        param: this.wantParams,
-      }) as number;
-      this.currentIndex = tabIndex;
-      this.changeTabStatus(this.currentIndex);
-      AppStorage.delete(StorageKey.WANT_PARAMETERS);
-    }
   }
 
   onBackPress(): boolean {
@@ -186,109 +82,9 @@ struct MainPage {
     }
   }
 
-  bottomTabBarStyle(tabType: TabBarType): BottomTabBarStyle {
-    const tabItem = TABS_LIST[tabType];
-    const normalGlyphModifier = new SymbolGlyphModifier(tabItem.icon)
-      .renderingStrategy(HdsUtil.isSupportNewMaterialApi() ? SymbolRenderingStrategy.SINGLE :
-        SymbolRenderingStrategy.MULTIPLE_OPACITY);
-    if (HdsUtil.isSupportNewMaterialApi()) {
-      normalGlyphModifier.fontColor(HdsUtil.isSupportNewMaterialApi() ? [$r('sys.color.icon_primary')] : [])
-    }
-    return BottomTabBarStyle.of({
-      normal: normalGlyphModifier,
-      selected: new SymbolGlyphModifier(tabItem.icon)
-        .renderingStrategy(HdsUtil.isSupportNewMaterialApi() ? SymbolRenderingStrategy.SINGLE :
-          SymbolRenderingStrategy.MULTIPLE_OPACITY)
-    }, tabItem.title)
-      .labelStyle(HdsUtil.isSupportNewMaterialApi() ? { unselectedColor: $r('sys.color.font_primary') } : undefined)
-      .padding({
-        bottom: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
-          HdsUtil.isSupportNewMaterialApi()) ? 0 : this.globalInfoModel.naviIndicatorHeight
-      })
-  }
-
-  reportTrackData(tabIndex: TabBarType): void {
-    let mainTab: MainTabEnum;
-    switch (tabIndex) {
-      case TabBarType.HOME:
-        mainTab = MainTabEnum.COMPONENT;
-        break;
-      case TabBarType.SAMPLE:
-        mainTab = MainTabEnum.SAMPLE;
-        break;
-      case TabBarType.PRACTICE:
-        mainTab = MainTabEnum.ARTICLE;
-        break;
-      case TabBarType.MINE:
-        mainTab = MainTabEnum.MINE;
-        break;
-      default:
-        mainTab = MainTabEnum.COMPONENT;
-        break;
-    }
-    TrackManager.getInstance().reportData({
-      eventType: TrackEventType.CLICK,
-      mainTab,
-    } as TrackServiceData)
-  }
-
-  @Builder
-  HdsTabComponent() {
-    HdsTabs({ controller: this.tabController as HdsTabsController, index: this.currentIndex }) {
-      this.TabContentsBuilder(this.globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL)
-    }
-    .backgroundColor($r('sys.color.background_secondary'))
-    .vertical(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG)
-    .barPosition(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? BarPosition.Start :
-      BarPosition.End)
-    .divider({
-      mode: DividerMode.FOLLOW_SCROLL,
-    })
-    .barHeight(new BreakpointType<Length>({
-      sm: CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight,
-      md: CommonConstants.TAB_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight,
-      lg: '100%',
-      xl: 0,
-    }).getValue(this.globalInfoModel.widthBreakpoint))
-    .barOverlap(true)
-    .scrollable(false)
-    .attributeModifier(HdsUtil.isSupportNewMaterialApi() ? this.tabsModifier as HdsTabsModifier : undefined)
-    .onAttach(() => {
-      this.tabController?.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
-        .catch((error: Error) => {
-          Logger.error(TAG, `onAttach failed. cause: ${error.message}`);
-        });
-    })
-    .onChange((index: number) => {
-      this.reportTrackData(index);
-      this.changeTabStatus(index);
-    })
-  }
-
-  @Builder
-  CustomSideBarBuilder() {
-    CustomSideBar({
-      currentIndex: this.currentIndex,
-      sideBarChange: (currentIndex: number) => {
-        this.reportTrackData(currentIndex);
-        this.changeTabStatus(currentIndex);
-      }
-    })
-  }
-
   build() {
     HdsNavDestination() {
-      HdsSideBar({
-        isShowSideBar: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL,
-        autoHide: false,
-        sideBarPanelBuilder: () => {
-          this.CustomSideBarBuilder()
-        },
-        contentPanelBuilder: () => {
-          this.HdsTabComponent()
-        },
-        minContentWidth: 0,
-      })
+      HomeView({ showTabBar: true, currentIndex: this.currentIndex, isShown: this.isShown })
     }
     .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
     .transition(TransitionEffect.OPACITY)

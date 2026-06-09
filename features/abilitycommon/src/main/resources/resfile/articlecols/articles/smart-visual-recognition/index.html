@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xml:lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0" />
+  <title>AI识图，开启智能图像处理新纪元</title>
+  <link rel="stylesheet" href="../../common/commonDist/main.css">
+  <link rel="stylesheet" href="../../common/css/article.css">
+</head>
+
+<body>
+  <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245667353"><a name="ZH-CN_TOPIC_0000002245667353"></a><a
+      name="ZH-CN_TOPIC_0000002245667353"></a>
+    <h1 class="topictitle1"><span class="topictitlenumber1">1</span> AI识图，开启智能图像处理新纪元</h1>
+    <div class="topicbody" id="body101mcpsimp"></div>
+    <div>
+      <ul class="ullinks">
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245587449">1.1 AI识图技术概览</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002245587453">1.2 AI识图技术的使用与实践</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002210467488">1.3 场景案例</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002210627280">1.4 总结</a></strong><br>
+        </li>
+      </ul>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245587449"><a
+        name="ZH-CN_TOPIC_0000002245587449"></a><a name="ZH-CN_TOPIC_0000002245587449"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> AI识图技术概览</h2>
+      <div class="topicbody" id="body102mcpsimp">
+        <p id="ZH-CN_TOPIC_0000002245587449__p8806132816260">
+          随着人工智能技术的飞速发展，AI识图已成为智能设备感知物理世界的核心能力之一。本节将从AI识图场景落地和技术实现两个维度，解析HarmonyOS如何通过AI识图技术重构图像处理的范式，为开发者与用户提供更高效、精准、自然的交互体验。
+        </p>
+      </div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245667357"><a
+          name="ZH-CN_TOPIC_0000002245667357"></a><a name="ZH-CN_TOPIC_0000002245667357"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.1.1</span> 场景介绍：HarmonyOS如何赋能AI识图</h3>
+        <div class="topicbody" id="body0000002164223461">
+          <p id="ZH-CN_TOPIC_0000002245667357__p1649851993719">
+            HarmonyOS作为新一代智能操作系统的代表，凭借其强大的生态系统和前沿的AI能力，正在重新定义智能图像处理的边界。<a
+              href="article_imageanalyzer_1"
+              target="_blank"
+              rel="noopener noreferrer">AI识图</a>功能作为HarmonyOS的核心亮点之一，集成了OCR（光学字符识别）、主体分割、实体识别、多目标识别等多项尖端技术，为用户和开发者提供了前所未有的智能化体验。
+          </p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p782575365418"><strong
+              id="ZH-CN_TOPIC_0000002245667357__b11573104319478">智能化交互，颠覆传统体验</strong></p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p201271220184816">
+            AI识图功能能够轻松处理静态图片、视频暂停帧以及自定义渲染场景下的图像，为用户提供无缝的智能交互体验。无论是从图片中提取文字，还是识别图像中的主体并进行分割，AI识图都能以相当高的准确率和速度完成任务，彻底改变了传统图像处理的方式。
+          </p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p36414565547"><strong
+              id="ZH-CN_TOPIC_0000002245667357__b4508631114818">多场景覆盖，满足多样化需求</strong></p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p18389155513486"><a
+              href="article_imageanalyzer_2"
+              target="_blank"
+              rel="noopener noreferrer">文字识别</a>：用户只需长按图片中的文字，即可快速提取并复制文本内容，甚至触发电话号码、邮箱、网址等实体的快捷操作（如直接拨打电话或发送邮件）。</p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p263132818114"><a
+              href="article_imageanalyzer_3"
+              target="_blank" rel="noopener noreferrer">主体分割</a>：用户长按图片中的主体，即可实现精准分割，轻松完成复制、分享或搜索操作。</p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p1638975524811">
+            识图搜索：通过抠图功能，用户可以基于图像中的主体进行搜索，快速获取相关信息。例如，识别植物、动物、建筑物等目标，并以直观的ICON标识呈现搜索结果。</p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p11568258105416"><strong
+              id="ZH-CN_TOPIC_0000002245667357__b1110243419494">开发者友好，快速集成与创新</strong></p>
+          <p id="ZH-CN_TOPIC_0000002245667357__p1929712419491">对于开发者而言，HarmonyOS的AI识图功能提供了简单易用的API和控件（如<a
+              href="article_imageanalyzer_4"
+              target="_blank"
+              rel="noopener noreferrer">VisionImageAnalyzer</a>），支持快速集成到各类应用中。无论是智能相册、安防监控，还是零售管理，开发者都能通过AI识图功能为用户提供更智能的服务，显著提升应用竞争力。
+          </p>
+          <div class="fignone" id="ZH-CN_TOPIC_0000002245667357__fig1985716522533"><span class="figcap"><span
+                class="figurenumber">图1-1</span> AI示意图</span><br><img
+              id="ZH-CN_TOPIC_0000002245667357__image10858175255310" src="ManulImages/1.png"></div>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210467496"><a
+          name="ZH-CN_TOPIC_0000002210467496"></a><a name="ZH-CN_TOPIC_0000002210467496"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.1.2</span> 技术核心：AI识图如何重塑图像处理</h3>
+        <div class="topicbody" id="body0000002164343245">
+          <p id="ZH-CN_TOPIC_0000002210467496__p18847930175118"><a
+              href="article_imageanalyzer_5"
+              target="_blank"
+              rel="noopener noreferrer">AI识图</a>工作原理主要依赖于深度学习模型和服务端的强大计算能力。当应用调用此能力时，会触发一系列预训练的算法对输入图片进行分析，这些功能背后是一套复杂的神经网络架构，它们经过大量数据训练后能够准确地理解和解释视觉内容。为了保证性能与准确性之间的平衡，部分任务可能在设备本地完成，而另一些则会在云端服务器上处理（如识图搜索等）。
+          </p>
+          <p id="ZH-CN_TOPIC_0000002210467496__p208417361552"><strong
+              id="ZH-CN_TOPIC_0000002210467496__b227114246554">多功能集成，全面提升效率</strong></p>
+          <p id="ZH-CN_TOPIC_0000002210467496__p1778893365511">
+            AI识图功能不仅支持文字识别、主体分割等基础操作，还提供多目标识别，以及集成了AIButton等智能交互特性。具体如下：</p>
+          <ul id="ZH-CN_TOPIC_0000002210467496__ul1856372391010">
+            <li id="ZH-CN_TOPIC_0000002210467496__li820143218562">多目标识别<p
+                id="ZH-CN_TOPIC_0000002210467496__p11416123495614"><a
+                  name="ZH-CN_TOPIC_0000002210467496__li820143218562"></a><a name="li820143218562"></a><a
+                  href="article_imageanalyzer_6"
+                  target="_blank"
+                  rel="noopener noreferrer">多目标识别</a>可同时检测出给定图片中的各种物体，包括风景、动物、植物、建筑、树、人脸、表格、文本等位置，并框选出物体。</p>
+            </li>
+            <li id="ZH-CN_TOPIC_0000002210467496__li335916381562">AIButton<p
+                id="ZH-CN_TOPIC_0000002210467496__p1725683917563"><a
+                  name="ZH-CN_TOPIC_0000002210467496__li335916381562"></a><a name="li335916381562"></a><a
+                  href="article_imageanalyzer_7"
+                  target="_blank"
+                  rel="noopener noreferrer">AIButton</a>集成了多种智能识别和操作功能的用户界面组件，根据图片内容动态显示（图片中存在文本且文本区域大于图片区域的5%时AIButton才会显示），主要用于提升用户在处理图片内容时的效率和体验，主要功能包括：
+              </p>
+
+              <div class="tablenoborder">
+                <table cellpadding="4" cellspacing="0" summary="" id="ZH-CN_TOPIC_0000002210467496__table18101538154516"
+                  frame="border" border="1" rules="all">
+                  <thead align="left">
+                    <tr id="ZH-CN_TOPIC_0000002210467496__row28111338124517">
+                      <th align="left" class="cellrowborder" valign="top" width="13.781378137813782%"
+                        id="mcps1.4.5.6.3.4.2.2.1.4.1.1">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p9811173814453">能力</p>
+                      </th>
+                      <th align="left" class="cellrowborder" valign="top" width="21.76217621762176%"
+                        id="mcps1.4.5.6.3.4.2.2.1.4.1.2">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p8811153818458">触发条件</p>
+                      </th>
+                      <th align="left" class="cellrowborder" valign="top" width="64.45644564456445%"
+                        id="mcps1.4.5.6.3.4.2.2.1.4.1.3">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p18811113894517">说明</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="ZH-CN_TOPIC_0000002210467496__row148111038164518">
+                      <td class="cellrowborder" valign="top" width="13.781378137813782%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.1 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p8811123812451">实体识别与快捷操作</p>
+                      </td>
+                      <td class="cellrowborder" valign="top" width="21.76217621762176%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.2 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p1081123884517">电话号码、邮箱、网址、地址、时间等实体的显性下划线标识</p>
+                      </td>
+                      <td class="cellrowborder" valign="top" width="64.45644564456445%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.3 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p188111838114519">当图片中包含这些类型的文本信息时，AIButton
+                          会以显性的下划线形式标记出来。点击这些标记后，会弹出相应的快捷操作菜单（如拨打电话、发送邮件、打开网址等）。</p>
+                      </td>
+                    </tr>
+                    <tr id="ZH-CN_TOPIC_0000002210467496__row168116386451">
+                      <td class="cellrowborder" valign="top" width="13.781378137813782%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.1 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p3811738114512">原图翻译</p>
+                      </td>
+                      <td class="cellrowborder" valign="top" width="21.76217621762176%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.2 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p181163854512">系统设置语种与图片上文本语种不一致时进行翻译</p>
+                      </td>
+                      <td class="cellrowborder" valign="top" width="64.45644564456445%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.3 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p881163814510">如果系统的当前语言设置与图片中的文本语言不同，AIButton
+                          可以将图片中的文本翻译为当前系统的语言。</p>
+                      </td>
+                    </tr>
+                    <tr id="ZH-CN_TOPIC_0000002210467496__row17811143804514">
+                      <td class="cellrowborder" valign="top" width="13.781378137813782%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.1 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p1981123834513">表格提取</p>
+                      </td>
+                      <td class="cellrowborder" valign="top" width="21.76217621762176%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.2 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p1988601894618">图片中存在表格时出现</p>
+                      </td>
+                      <td class="cellrowborder" valign="top" width="64.45644564456445%"
+                        headers="mcps1.4.5.6.3.4.2.2.1.4.1.3 ">
+                        <p id="ZH-CN_TOPIC_0000002210467496__p01985493463">当图片中包含表格时，AIButton 会提供提取表格数据的功能，方便用户快速获取表格内容。
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="fignone" id="ZH-CN_TOPIC_0000002210467496__fig1580219410510"><span class="figcap"><span
+                    class="figurenumber">图1-2</span> AIButton示意图</span><br><img
+                  id="ZH-CN_TOPIC_0000002210467496__image5802104120510" src="ManulImages/2.gif"></div>
+            </li>
+          </ul>
+          <div class="p" id="ZH-CN_TOPIC_0000002210467496__p1042513499919"><strong
+              id="ZH-CN_TOPIC_0000002210467496__b47607361572">高精度与低功耗，技术赋能用户体验</strong>
+            <ul id="ZH-CN_TOPIC_0000002210467496__ul11760173619720">
+              <li id="ZH-CN_TOPIC_0000002210467496__li1076018361271">高精度识别：基于深度学习的算法模型，能够精准识别图像中的复杂内容，甚至支持多语言文字识别和翻译。
+              </li>
+              <li id="ZH-CN_TOPIC_0000002210467496__li11760436976">低功耗设计：优化后的算法和硬件协同设计，确保AI识图功能在移动设备上也能高效运行，延长设备续航时间。
+              </li>
+            </ul>
+          </div>
+          <p id="ZH-CN_TOPIC_0000002210467496__p137601836270"><strong
+              id="ZH-CN_TOPIC_0000002210467496__b1760113618710">开发者创新，打造智能化应用生态</strong></p>
+          <ul id="ZH-CN_TOPIC_0000002210467496__ul197601236773">
+            <li id="ZH-CN_TOPIC_0000002210467496__li19760236376">提升用户体验：通过智能化的图像处理能力，用户能够更快速、更便捷地获取所需信息，显著提升使用效率。</li>
+            <li id="ZH-CN_TOPIC_0000002210467496__li1676013365713">赋能开发者创新：提供丰富的API和控件，帮助开发者快速集成AI识图功能，打造更具竞争力的智能应用。
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245587453"><a
+        name="ZH-CN_TOPIC_0000002245587453"></a><a name="ZH-CN_TOPIC_0000002245587453"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> AI识图技术的使用与实践</h2>
+      <div class="topicbody" id="body109mcpsimp"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210467492"><a
+          name="ZH-CN_TOPIC_0000002210467492"></a><a name="ZH-CN_TOPIC_0000002210467492"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.1</span> 快速上手：如何使用AI识图技术</h3>
+        <div class="topicbody" id="body0000002134500154">
+          <p id="ZH-CN_TOPIC_0000002210467492__p19192161314014">
+            AI识图功能的主开关入口位于基础控件API列表中，开发者仅需使用基础控件提供的使能接口即可开启功能。目前支持的基础控件包括<a
+              href="article_imageanalyzer_8"
+              target="_blank" rel="noopener noreferrer">Image</a>、<a
+              href="article_imageanalyzer_9"
+              target="_blank" rel="noopener noreferrer">Video</a>、<a
+              href="article_imageanalyzer_10"
+              target="_blank" rel="noopener noreferrer">XComponent</a>，分别用于实现静态图片、视频暂停帧以及自定义渲染场景下的识图功能。</p>
+          <p id="ZH-CN_TOPIC_0000002210467492__p12122345200">此外，HarmonyOS还提供了<a
+              href="article_imageanalyzer_11"
+              target="_blank"
+              rel="noopener noreferrer">VisionImageAnalyzer</a>（AI识图控件），开发者可以将其与Image、Video、XComponent控件配合使用，轻松实现多样化的识图功能：
+          </p>
+          <ul id="ZH-CN_TOPIC_0000002210467492__ul161227451603">
+            <li id="ZH-CN_TOPIC_0000002210467492__li1412214451706">Image控件：支持静态图片上的文字识别、主体分割等功能。</li>
+            <li id="ZH-CN_TOPIC_0000002210467492__li15122345505">Video控件：支持视频播放暂停帧的识图分析。</li>
+            <li id="ZH-CN_TOPIC_0000002210467492__li1122124519015">XComponent控件：支持自定义渲染场景下的图像处理。</li>
+          </ul>
+          <p id="ZH-CN_TOPIC_0000002210467492__p86032564110">为了帮助开发者更好地掌握AI识图及文字识别能力，HarmonyOS官方推出了丰富的学习资源：</p>
+
+          <div class="tablenoborder">
+            <table cellpadding="4" cellspacing="0" summary="" id="ZH-CN_TOPIC_0000002210467492__table13672442155915"
+              frame="border" border="1" rules="all">
+              <thead align="left">
+                <tr id="ZH-CN_TOPIC_0000002210467492__row06731542125916">
+                  <th align="left" class="cellrowborder" valign="top" width="10.3010301030103%"
+                    id="mcps1.4.6.5.3.5.1.4.1.1">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p767344225913">资源形式</p>
+                  </th>
+                  <th align="left" class="cellrowborder" valign="top" width="23.242324232423243%"
+                    id="mcps1.4.6.5.3.5.1.4.1.2">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p267324219591">资源名称</p>
+                  </th>
+                  <th align="left" class="cellrowborder" valign="top" width="66.45664566456645%"
+                    id="mcps1.4.6.5.3.5.1.4.1.3">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p2673154235910">说明</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="ZH-CN_TOPIC_0000002210467492__row12673144245917">
+                  <td class="cellrowborder" rowspan="2" valign="top" width="10.3010301030103%"
+                    headers="mcps1.4.6.5.3.5.1.4.1.1 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p11521949115912">视频课程</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="23.242324232423243%" headers="mcps1.4.6.5.3.5.1.4.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p16731742205911"><a
+                        href="article_imageanalyzer_12"
+                        target="_blank" rel="noopener noreferrer">帮助快速构建各种文本识别应用</a></p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="66.45664566456645%" headers="mcps1.4.6.5.3.5.1.4.1.3 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p1967324216595">通过实例讲解，引导开发者快速上手文本识别功能</p>
+                  </td>
+                </tr>
+                <tr id="ZH-CN_TOPIC_0000002210467492__row0673114214592">
+                  <td class="cellrowborder" valign="top" headers="mcps1.4.6.5.3.5.1.4.1.1 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p7673184285918"><a
+                        href="article_imageanalyzer_13"
+                        target="_blank" rel="noopener noreferrer">帮助应用打造场景化视觉服务</a></p>
+                  </td>
+                  <td class="cellrowborder" valign="top" headers="mcps1.4.6.5.3.5.1.4.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p3673204212597">深入讲解具体场景下的视觉类AI能力，助力开发者实现场景化视觉服务</p>
+                  </td>
+                </tr>
+                <tr id="ZH-CN_TOPIC_0000002210467492__row967316422591">
+                  <td class="cellrowborder" rowspan="2" valign="top" width="10.3010301030103%"
+                    headers="mcps1.4.6.5.3.5.1.4.1.1 " style="border-bottom: none;">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p15224115245919">Codelabs课程</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="23.242324232423243%" headers="mcps1.4.6.5.3.5.1.4.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p196730426597"><a
+                        href="article_imageanalyzer_14"
+                        target="_blank" rel="noopener noreferrer">机器学习-基础视觉服务（ArkTS）</a></p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="66.45664566456645%" headers="mcps1.4.6.5.3.5.1.4.1.3 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p1867344212594">涵盖文字识别、主体分割等基础能力</p>
+                  </td>
+                </tr>
+                <tr id="ZH-CN_TOPIC_0000002210467492__row167315426596">
+                  <td class="cellrowborder" valign="top" headers="mcps1.4.6.5.3.5.1.4.1.1 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p1967354210594"><a
+                        href="article_imageanalyzer_15"
+                        target="_blank" rel="noopener noreferrer">机器学习-场景化视觉服务</a></p>
+                  </td>
+                  <td class="cellrowborder" valign="top" headers="mcps1.4.6.5.3.5.1.4.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002210467492__p1467318427597">聚焦场景化应用，提供从理论到实践的全面指导</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p id="ZH-CN_TOPIC_0000002210467492__p1760375619112">
+            所有课程均附带完整源码及源码地址，开发者可随时下载学习、运行并查看实际效果。源码的开放不仅降低了学习门槛，还为开发者打造智能化、高效化的应用程序奠定了坚实基础。</p>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210627276"><a
+          name="ZH-CN_TOPIC_0000002210627276"></a><a name="ZH-CN_TOPIC_0000002210627276"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> <strong
+            id="b2027591663419"></strong>优化技巧：如何最大化AI识图的价值</h3>
+        <div class="topicbody" id="body0000002134660018">
+          <p id="ZH-CN_TOPIC_0000002210627276__p1547340112812">为更好利用识图功能，我们提出以下建议：</p>
+          <ul id="ZH-CN_TOPIC_0000002210627276__ul346749103712">
+            <li id="ZH-CN_TOPIC_0000002210627276__li1146144973720">
+              AI识图功能可帮助用户从图片上获取更多的信息（长按抠图，长按选取文本，长按实体识别等）。建议在大图预览场景下打开此功能，大图预览场景下用户对图片中的内容会更感兴趣，此时适时的提供识图服务契合用户体验场景，同时为用户提供最佳的识图交互体验。
+            </li>
+            <li id="ZH-CN_TOPIC_0000002210627276__li1346149113718">
+              AI识图功能的AIButton的显示与图片中是否存在文本相关联，能够显性地提醒用户进行操作。开启AIButton会触发图片的预分析，导致一定的功耗开销，因此，建议开发者充分理解自身业务场景，预估目标用户图片内容分布，在兼顾用户图片浏览体验和提供更高阶AI识图功能体验的情况下按需提供AIButton。例如，业务本身是辅助用户高效提取图片中的文本内容，开启AIButton将会提升用户文本提取的体验。业务本身更偏向于图片编辑，也可隐藏AIButton。
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210467488"><a
+        name="ZH-CN_TOPIC_0000002210467488"></a><a name="ZH-CN_TOPIC_0000002210467488"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 场景案例</h2>
+      <div class="topicbody" id="body120mcpsimp"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002245587457"><a
+          name="ZH-CN_TOPIC_0000002245587457"></a><a name="ZH-CN_TOPIC_0000002245587457"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.1</span> 案例1：开发者世界中的AI抠图应用</h3>
+        <div class="topicbody" id="body0000002129050384">
+          <p id="ZH-CN_TOPIC_0000002245587457__p121mcpsimp">
+            HOMS客户端（开发者世界APP）中的AI抠图功能，通过Image控件实现了在静态图片上的精准识图与抠图。用户只需在开发者世界APP的体验页面，点击AI抠图大卡片进入详情页面，即可通过长按图片中的实体进行识别并抠图。识别后的实体不仅可轻松复制，还能便捷分享。此外，开发者世界APP还贴心提供了源代码预览功能，让开发者能够直接复制使用，极大地提升了开发效率。
+          </p>
+          <p id="ZH-CN_TOPIC_0000002245587457__p664155316381"><strong
+              id="ZH-CN_TOPIC_0000002245587457__b844713571919">开发关键点</strong></p>
+          <ol id="ZH-CN_TOPIC_0000002245587457__ol1034523018190">
+            <li id="ZH-CN_TOPIC_0000002245587457__li334553091919">（可选）首先，将待分析的图像资源文件转换为<a
+                href="article_imageanalyzer_16"
+                target="_blank" rel="noopener noreferrer">PixelMap</a>对象。通常通过PixelMap加载资源文件更高效更灵活；</li>
+            <li id="ZH-CN_TOPIC_0000002245587457__li17345163020194">在Image组件中，将<a
+                href="article_imageanalyzer_17"
+                target="_blank" rel="noopener noreferrer">enableAnalyzer</a>属性设置为true，以启用AI分析功能。</li>
+          </ol>
+          <p id="ZH-CN_TOPIC_0000002245587457__p78191256196">
+            经过上述步骤，Image组件将能够识别并抠出图片中的实体。用户可以通过长按图片中的实体进行识别，并轻松复制或分享识别结果。</p>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210627284"><a
+          name="ZH-CN_TOPIC_0000002210627284"></a><a name="ZH-CN_TOPIC_0000002210627284"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.2</span> 案例2：AI辅助图文内容高效编创</h3>
+        <div class="topicbody" id="body0000002131604236">
+          <p id="ZH-CN_TOPIC_0000002210627284__p20163151411">本场景的图文编创流程主要通过Photo
+            Picker选取本地图片，然后对图片进行智能处理（OCR文字识别提取内容、智能抠图等），最后进行文字编创时可进行自由流转接续编辑和跨端获取相册或者相机拍摄内容。具体参考最佳实践《<a
+              href="article_imageanalyzer_18"
+              target="_blank" rel="noopener noreferrer">AI辅助图文内容高效编创</a>》。</p>
+          <p id="ZH-CN_TOPIC_0000002210627284__p1122145329">
+            其中，运用AI能力主要包括OCR文字识别、智能抠图，选取图片之后，可以浏览这些图片，并长按物体实现抠图，也可识别图片中的文字，用于后续文本内容编辑使用。</p>
+          <p id="ZH-CN_TOPIC_0000002210627284__p1641901810347"><strong
+              id="ZH-CN_TOPIC_0000002210627284__b7702497423">关键点说明</strong></p>
+          <ul id="ZH-CN_TOPIC_0000002210627284__ul1249184813409">
+            <li id="ZH-CN_TOPIC_0000002210627284__li16491648174018">在Image组件设置enableAnalyzer属性，将实现文字识别和智能抠图。</li>
+            <li id="ZH-CN_TOPIC_0000002210627284__li18491348104014">
+              文字识别：图片可文字识别时，通过点击图片内出现的识别按钮或者长按文字移动，会出现复制文本菜单与文字框选区域。</li>
+            <li id="ZH-CN_TOPIC_0000002210627284__li449114485409">智能抠图：长按图片中的物体，将出现抠图效果，菜单中可进行复制与分享。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002210627280"><a
+        name="ZH-CN_TOPIC_0000002210627280"></a><a name="ZH-CN_TOPIC_0000002210627280"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.4</span> 总结</h2>
+      <div class="topicbody" id="body0000002160443542">
+        <p id="ZH-CN_TOPIC_0000002210627280__p212262075017">AI识图技术正在以惊人的速度改变我们与图像的交互方式，而HarmonyOS通过其强大的<a
+            href="article_imageanalyzer_19"
+            target="_blank" rel="noopener noreferrer">Vision
+            Kit</a>和AI识图功能，为这一变革提供了坚实的技术支持。从文字识别、主体分割到多目标识别，AI识图不仅显著提升了用户体验，还为开发者提供了丰富的工具和API，赋能各行各业实现智能化升级。未来，随着技术的进一步演进，AI识图必将为我们的生活和工作带来更多智能化、便捷化的体验，开启智能图像处理的新纪元。
+        </p>
+        <p id="ZH-CN_TOPIC_0000002210627280__p8060118"></p>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="module" src="../../common/js/article.js"></script>
+<script type="module" src="../../common/commonDist/main.js"></script>
+
+</html>

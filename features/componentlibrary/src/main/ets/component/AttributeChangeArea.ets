@@ -82,7 +82,10 @@ export struct AttributeChangeArea {
               Divider()
                 .color($r('sys.color.comp_background_tertiary'))
                 .width('100%')
-                .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
+                .padding({
+                  left: $r('sys.float.padding_level6'),
+                  right: $r('sys.float.padding_level6'),
+                })
             }
             if (item instanceof SelectComAttribute) {
               SelectComponent({ attribute: item, callback: this.eventCallback })
@@ -113,7 +116,10 @@ export struct AttributeChangeArea {
               Divider()
                 .color($r('sys.color.comp_background_tertiary'))
                 .width('100%')
-                .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
+                .padding({
+                  left: $r('sys.float.padding_level6'),
+                  right: $r('sys.float.padding_level6'),
+                })
             }
             if (item instanceof ColorPickerAttribute) {
               ColorPickerComponent({ attribute: item, callback: this.eventCallback })

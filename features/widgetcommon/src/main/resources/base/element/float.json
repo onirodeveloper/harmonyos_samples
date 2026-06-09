@@ -1,0 +1,16 @@
+{
+  "float": [
+    {
+      "name": "order_image_size",
+      "value": "16vp"
+    },
+    {
+      "name": "list_logo_size_sm",
+      "value": "14vp"
+    },
+    {
+      "name": "lock_screen_icon_size",
+      "value": "32vp"
+    }
+  ]
+}

@@ -22,7 +22,6 @@ import {
   Logger,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackServiceData,
   WebNodeController,
   WebUtil,
@@ -38,7 +37,6 @@ import { DetailPageConstant } from '../constant/DetailPageConstant';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
 import { AttributeChangeArea } from './AttributeChangeArea';
 import { RecommendList } from './RecommendList';
-import { CardTypeEnum } from '@ohos/commonbusiness';
 
 const PREVIEW_HEIGHT_SM: number = DetailPageConstant.PREVIEW_HEIGHT_SM;
 const TAG: string = '[DetailContentView]';

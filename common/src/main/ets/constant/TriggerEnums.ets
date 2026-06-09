@@ -32,7 +32,7 @@ export enum TriggerEnums {
   WEARABLE_SAMPLE_TRIGGER = 'wearable-sample-list',
 
   //Version
-  VERSION_SAMPLE_TRIGGER = 'version-sample-list',
+  VERSION_SAMPLE_TRIGGER = 'vision-sample-list',
 
   //Track
   TRACK_POST_TRIGGER = 'track-post',

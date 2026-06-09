@@ -1,0 +1,1384 @@
+{
+  "pageId": {
+    "type": "string",
+    "enum": [
+      {
+        "value": "1001",
+        "displayName": "控组件列表",
+        "keywords": [
+          "主页",
+          "首页",
+          "Component",
+          "XIAOYI_EXTRACTED_NO_PARAM",
+          "默认"
+        ],
+        "types": "CatalogPage",
+        "displayDescription": "展示全部组件",
+        "icon": "icon is necessary for IntentJsonEnumDetail when sharing Intents so please keep it here.",
+        "param": {
+          "shortCutKey": "ComponentListPage"
+        }
+      },
+      {
+        "value": "1002",
+        "displayName": "样例",
+        "keywords": [
+          "案例",
+          "下载",
+          "体验",
+          "Demo",
+          "demo",
+          "实践案例",
+          "功能开发",
+          "Samples"
+        ],
+        "types": "CatalogPage",
+        "displayDescription": "HDC 多设备开发 探索",
+        "icon": "",
+        "param": {
+          "shortCutKey": "SampleListPage"
+        }
+      },
+      {
+        "value": "1003",
+        "displayName": "实践",
+        "keywords": [
+          "体验",
+          "设计",
+          "体验设计"
+        ],
+        "types": "CatalogPage",
+        "displayDescription": "鸿蒙体验",
+        "icon": "",
+        "param": {
+          "shortCutKey": "ArticleListPage"
+        }
+      },
+      {
+        "value": "1004",
+        "displayName": "我的",
+        "keywords": [
+          "个人中心",
+          "用户中心",
+          "应用设置",
+          "App设置",
+          "我的"
+        ],
+        "types": "Configuration",
+        "displayDescription": "应用设置",
+        "icon": "",
+        "param": {
+          "shortCutKey": "MinePage"
+        }
+      },
+      {
+        "value": "10",
+        "displayName": "文本控件",
+        "keywords": [
+          "文本",
+          "文字",
+          "基础文本",
+          "Text"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于静态Text文字文本展示，支持基础样式设置，适用于标题、标签等无需交互的文字区域。",
+        "icon": "",
+        "param": {
+          "id": 1,
+          "title": "Text"
+        }
+      },
+      {
+        "value": "42",
+        "displayName": "单行文本输入",
+        "keywords": [
+          "文本",
+          "文字",
+          "文本输入",
+          "TextInput"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于单行文本录入输入 inputtext 能力，常见于手机号、邮箱、用户名、搜索框等简短输入编辑场景，支持格式限制与事件监听。",
+        "icon": "",
+        "param": {
+          "id": 2,
+          "title": "TextInput"
+        }
+      },
+      {
+        "value": "40",
+        "displayName": "多行文本输入",
+        "keywords": [
+          "文本",
+          "文字",
+          "文本输入",
+          "换行",
+          "换行",
+          "TextArea"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于多行长文本录入输入换行，通过 TextArea组件，适用于长内容编辑输入框场景（如评论、描述等）",
+        "icon": "",
+        "param": {
+          "id": 3,
+          "title": "TextArea"
+        }
+      },
+      {
+        "value": "41",
+        "displayName": "属性字符串",
+        "keywords": [
+          "文本",
+          "文字",
+          "样式",
+          "格式",
+          "Text",
+          "Style",
+          "TextController"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于实现静态富文字文本样式，字符属性样式、装饰线、基线偏移量、字符间距、行高、段落样式、行间距离属性",
+        "icon": "",
+        "param": {
+          "id": 4,
+          "title": "TextStyle"
+        }
+      },
+      {
+        "value": "28",
+        "displayName": "相机选择器",
+        "keywords": [
+          "相机",
+          "安全",
+          "拍照",
+          "拍摄",
+          "摄影",
+          "摄像",
+          "录制",
+          "recording",
+          "CameraPicker"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于安全使用系统相机Camera，相机类型控制，相机配置，拍视频录制录像",
+        "icon": "",
+        "param": {
+          "id": 5,
+          "title": "CameraPicker"
+        }
+      },
+      {
+        "value": "1",
+        "displayName": "按钮",
+        "keywords": [
+          "按钮样式",
+          "点击",
+          "点击",
+          "Button"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于按钮点击触发",
+        "icon": "",
+        "param": {
+          "id": 6,
+          "title": "Button"
+        }
+      },
+      {
+        "value": "11",
+        "displayName": "图片",
+        "keywords": [
+          "图片显示",
+          "图片内容",
+          "渲染图片",
+          "Image"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于显示Image图片",
+        "icon": "",
+        "param": {
+          "id": 7,
+          "title": "Image"
+        }
+      },
+      {
+        "value": "13",
+        "displayName": "进度条",
+        "keywords": [
+          "加载",
+          "load",
+          "loader",
+          "loading",
+          "Progress"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于直观显示加载、下载等过程提示任务进度。",
+        "icon": "",
+        "param": {
+          "id": 8,
+          "title": "Progress"
+        }
+      },
+      {
+        "value": "22",
+        "displayName": "评分",
+        "keywords": [
+          "打分",
+          "评价",
+          "差评",
+          "好评",
+          "Rating"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于星级评分rating组件，可实现五星级评价系统",
+        "icon": "",
+        "param": {
+          "id": 9,
+          "title": "Rating"
+        }
+      },
+      {
+        "value": "2",
+        "displayName": "开关",
+        "keywords": [
+          "勾选",
+          "状态切换",
+          "Checkbox",
+          "Toggle",
+          "radio",
+          "Switch"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于切换模式、功能开关等场景",
+        "icon": "",
+        "param": {
+          "id": 10,
+          "title": "Toggle"
+        }
+      },
+      {
+        "value": "26",
+        "displayName": "图库选择器",
+        "keywords": [
+          "选择图片",
+          "选择照片",
+          "相册",
+          "PhotoViewPicker",
+          "图库"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于图库",
+        "icon": "",
+        "param": {
+          "id": 11,
+          "title": "PhotoViewPicker"
+        }
+      },
+      {
+        "value": "5",
+        "displayName": "线性布局-纵向",
+        "keywords": [
+          "Column",
+          "纵向",
+          "线性",
+          "布局",
+          "容器",
+          "垂直"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于纵列线性布局",
+        "icon": "",
+        "param": {
+          "id": 12,
+          "title": "Column"
+        }
+      },
+      {
+        "value": "6",
+        "displayName": "线性布局-横向",
+        "keywords": [
+          "Row",
+          "横向",
+          "布局",
+          "容器",
+          "水平",
+          "线性"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于横向线性布局",
+        "icon": "",
+        "param": {
+          "id": 13,
+          "title": "Row"
+        }
+      },
+      {
+        "value": "7",
+        "displayName": "层叠布局",
+        "keywords": [
+          "布局",
+          "容器",
+          "Stack",
+          "层叠",
+          "堆叠",
+          "重叠",
+          "嵌套"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于悬浮层、卡片叠加，容易有性能瓶颈",
+        "icon": "",
+        "param": {
+          "id": 14,
+          "title": "Stack"
+        }
+      },
+      {
+        "value": "23",
+        "displayName": "弹性布局",
+        "keywords": [
+          "Flex",
+          "弹性",
+          "容器",
+          "布局"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "弹性布局适合用于页面头部导航栏的均匀分布、页面框架的搭建、多行数据的排列等，利于简化复杂布局、处理动态内容、优化性能",
+        "icon": "",
+        "param": {
+          "id": 15,
+          "title": "Flex"
+        }
+      },
+      {
+        "value": "38",
+        "displayName": "手写笔服务",
+        "keywords": [
+          "Penkit",
+          "手写笔",
+          "手写套件",
+          "触笔",
+          "Pen Kit"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于笔刷效果、笔迹编辑、报点预测、一笔成型、全局取色和手写交互",
+        "icon": "",
+        "param": {
+          "id": 16,
+          "title": "Penkit"
+        }
+      },
+      {
+        "value": "9",
+        "displayName": "列表",
+        "keywords": [
+          "列表",
+          "布局",
+          "展示重复性内容",
+          "List"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于自动提供滚动功能，呈现同类型数据类型或者数据类型集合，如通讯录、音乐列表、购物清单等",
+        "icon": "",
+        "param": {
+          "id": 17,
+          "title": "List"
+        }
+      },
+      {
+        "value": "8",
+        "displayName": "网格",
+        "keywords": [
+          "单元格",
+          "布局",
+          "页面均分",
+          "组件占比控制",
+          "自适应",
+          "Grid"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "网格组件，AdaptiveLayout，适合用于九宫格图片展示、日历、计算器等场景",
+        "icon": "",
+        "param": {
+          "id": 18,
+          "title": "Grid"
+        }
+      },
+      {
+        "value": "25",
+        "displayName": "瀑布流",
+        "keywords": [
+          "布局",
+          "无限滚动",
+          "WaterFlow",
+          "瀑布"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于瀑布流组件场景",
+        "icon": "",
+        "param": {
+          "id": 19,
+          "title": "WaterFlow"
+        }
+      },
+      {
+        "value": "24",
+        "displayName": "滑动轮播组件",
+        "keywords": [
+          "布局",
+          "华东",
+          "Swiper",
+          "轮播"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于滑动轮播内容",
+        "icon": "",
+        "param": {
+          "id": 20,
+          "title": "Swiper"
+        }
+      },
+      {
+        "value": "18",
+        "displayName": "页签",
+        "keywords": [
+          "TabBar",
+          "Tabs",
+          "选项卡",
+          "布局",
+          "导航页签",
+          "标签页"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于需要对页面内容进行分类，提高页面空间利用率，聚焦于当前显示的内容的场景",
+        "icon": "",
+        "param": {
+          "id": 21,
+          "title": "Tabs"
+        }
+      },
+      {
+        "value": "32",
+        "displayName": "AI抠图",
+        "keywords": [
+          "Matting",
+          "抠图",
+          "拖拽",
+          "AI",
+          "AI能力"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "AI抠图相关能力，适合用于去除背景",
+        "icon": "",
+        "param": {
+          "id": 22,
+          "title": "AI Matting"
+        }
+      },
+      {
+        "value": "20",
+        "displayName": "警告弹窗",
+        "keywords": [
+          "AlertDialog",
+          "弹窗",
+          "警告"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于警告提示场景，可设置文本内容与相应回调",
+        "icon": "",
+        "param": {
+          "id": 23,
+          "title": "AlertDialog"
+        }
+      },
+      {
+        "value": "21",
+        "displayName": "文本滑动选择器弹窗",
+        "keywords": [
+          "弹窗",
+          "文本选择",
+          "滑动选择器",
+          "TextPickerDialog"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于固定选择范围选择文本",
+        "icon": "",
+        "param": {
+          "id": 24,
+          "title": "TextPickerDialog"
+        }
+      },
+      {
+        "value": "35",
+        "displayName": "自定义弹窗",
+        "keywords": [
+          "弹窗",
+          "自定义",
+          "CustomDialog"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "弹窗场景优先考虑，图文样式内容可自定义，适合用于广告、中奖、警告、软件更新等，可设置文本内容与响应回调",
+        "icon": "",
+        "param": {
+          "id": 25,
+          "title": "CustomDialog"
+        }
+      },
+      {
+        "value": "33",
+        "displayName": "列表选择弹窗",
+        "keywords": [
+          "弹窗",
+          "列表选择",
+          "依赖执行上下文",
+          "ActionSheet"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "依赖UI上下文",
+        "icon": "",
+        "param": {
+          "id": 26,
+          "title": "ActionSheet"
+        }
+      },
+      {
+        "value": "34",
+        "displayName": "气泡弹窗",
+        "keywords": [
+          "弹窗",
+          "气泡",
+          "提示",
+          "Popup"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "气泡可设置动画",
+        "icon": "",
+        "param": {
+          "id": 27,
+          "title": "Popup"
+        }
+      },
+      {
+        "value": "29",
+        "displayName": "文本转语音",
+        "keywords": [
+          "转语音",
+          "朗读",
+          "朗读",
+          "播报",
+          "播报",
+          "TextToSpeech"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "文本信息转换为语音并进行播报的能力，便于用户与设备进行互动，实现实施语音交流，文本播报",
+        "icon": "",
+        "param": {
+          "id": 28,
+          "title": "TextToSpeech"
+        }
+      },
+      {
+        "value": "14",
+        "displayName": "日历选择器",
+        "keywords": [
+          "日期",
+          "选择器",
+          "日期选择",
+          "日历选择",
+          "CalendarPicker"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "选择日期日历选择器",
+        "icon": "",
+        "param": {
+          "id": 29,
+          "title": "CalendarPicker"
+        }
+      },
+      {
+        "value": "15",
+        "displayName": "日期滑动选择器",
+        "keywords": [
+          "日期",
+          "滑动选择器",
+          "滑动选择",
+          "日期选择",
+          "日历选择",
+          "DatePicker"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "选择日期日历选择器",
+        "icon": "",
+        "param": {
+          "id": 30,
+          "title": "DatePicker"
+        }
+      },
+      {
+        "value": "27",
+        "displayName": "文件选择器",
+        "keywords": [
+          "文件",
+          "选择器",
+          "文件选择",
+          "DocumentViewPicker"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "适合用于选择文件选择器，上传文件上传、显示选择的文件等场景",
+        "icon": "",
+        "param": {
+          "id": 31,
+          "title": "DocumentViewPicker"
+        }
+      },
+      {
+        "value": "36",
+        "displayName": "应用拉起",
+        "keywords": [
+          "AppLinking",
+          "App拉起",
+          "拉起能力",
+          "实例化",
+          "UIAbility"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "应用拉起、唤醒、打开应用",
+        "icon": "",
+        "param": {
+          "id": 32,
+          "title": "AppLinking"
+        }
+      },
+      {
+        "value": "30",
+        "displayName": "AI字幕组件",
+        "keywords": [
+          "AICaptionComponent",
+          "AI",
+          "AI能力",
+          "语音转文字",
+          "转文字",
+          "字幕"
+        ],
+        "types": "ComponentInstruction",
+        "displayDescription": "AI字幕组件相关能力",
+        "icon": "",
+        "param": {
+          "id": 33,
+          "title": "AICaptionComponent"
+        }
+      },
+      {
+        "value": "-60",
+        "displayName": "HarmonyOS代码工坊",
+        "keywords": [
+          "代码工坊",
+          "普通",
+          "标准",
+          "HMOS"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用",
+        "icon": "",
+        "param": {
+          "id": 1,
+          "currentIndex": 0,
+          "unionId": 1,
+          "cardId": 1,
+          "title": "HarmonyOS代码工坊"
+        }
+      },
+      {
+        "value": "-63",
+        "displayName": "HarmonyOS代码工坊(手表版)",
+        "keywords": [
+          "代码工坊",
+          "手表",
+          "HMOS"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "HarmonyOS代码工坊手表开发案例",
+        "icon": "",
+        "param": {
+          "id": 2,
+          "currentIndex": 1,
+          "unionId": 1,
+          "cardId": 2,
+          "title": "HarmonyOS代码工坊(手表版)"
+        }
+      },
+      {
+        "value": "-61",
+        "displayName": "三折叠，怎么折都有面",
+        "keywords": [
+          "三折叠",
+          "折叠",
+          "折叠",
+          "折叠屏手机",
+          "多端部署"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了三折叠商务办公类差异化的多场景响应式变化效果",
+        "icon": "",
+        "param": {
+          "id": 3,
+          "currentIndex": 2,
+          "unionId": 1,
+          "cardId": 3,
+          "title": "三折叠，怎么折都有面"
+        }
+      },
+      {
+        "value": "-64",
+        "displayName": "碰一碰视频快速分享",
+        "keywords": [
+          "碰一碰",
+          "视频分享",
+          "分享"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例利用Share Kit与App Linking结合，实现了快速跨设备分享视频并直接进入应用内页的功能",
+        "icon": "",
+        "param": {
+          "id": 4,
+          "currentIndex": 3,
+          "unionId": 1,
+          "cardId": 4,
+          "title": "碰一碰视频快速分享"
+        }
+      },
+      {
+        "value": "-65",
+        "displayName": "视频投播",
+        "keywords": [
+          "视频投播",
+          "投屏",
+          "投播"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度调整控制。",
+        "icon": "",
+        "param": {
+          "id": 5,
+          "currentIndex": 4,
+          "unionId": 1,
+          "cardId": 5,
+          "title": "视频投播更便捷"
+        }
+      },
+      {
+        "value": "-16",
+        "displayName": "一多导航栏",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "导航栏"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了一多场景下的导航栏",
+        "icon": "",
+        "param": {
+          "id": 7,
+          "currentIndex": 4,
+          "unionId": 3,
+          "cardId": 19,
+          "title": "一多导航栏"
+        }
+      },
+      {
+        "value": "-59",
+        "displayName": "一多股票",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "股票",
+          "盯盘"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了一多场景下的股票盯页面",
+        "icon": "",
+        "param": {
+          "id": 59,
+          "currentIndex": 5,
+          "unionId": 3,
+          "cardId": 139,
+          "title": "一多股票"
+        }
+      },
+      {
+        "value": "-33",
+        "displayName": "一多便捷生活",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "便捷生活"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于自适应布局和响应式布局，实现多设备上的分级导航栏效果开发方案，实现便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面",
+        "icon": "",
+        "param": {
+          "id": 8,
+          "currentIndex": 1,
+          "unionId": 3,
+          "cardId": 16,
+          "title": "一多便捷生活"
+        }
+      },
+      {
+        "value": "-34",
+        "displayName": "一多移动支付",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "移动支付",
+          "支付"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于ScanKit的扫码能力与码图生成能力实现移动支付应用中常见的扫一扫和首付款功能",
+        "state": 0,
+        "icon": "",
+        "param": {
+          "id": 66,
+          "currentIndex": 10,
+          "unionId": 3,
+          "cardId": 144,
+          "title": "一多移动支付"
+        }
+      },
+      {
+        "value": "-45",
+        "displayName": "一多新闻阅读",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "新闻",
+          "阅读"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于自适应布局和响应式布局，实现新闻阅读页面，根据不同设备尺寸实现对应页面",
+        "icon": "",
+        "param": {
+          "id": 10,
+          "currentIndex": 2,
+          "unionId": 3,
+          "cardId": 17,
+          "title": "一多新闻阅读"
+        }
+      },
+      {
+        "value": "-55",
+        "displayName": "一多旅行住宿",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "旅行",
+          "住宿"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了旅行住宿拆以后的多场景响应式变化效果。",
+        "icon": "",
+        "param": {
+          "id": 11,
+          "currentIndex": 0,
+          "unionId": 3,
+          "cardId": 14,
+          "title": "一多旅行住宿"
+        }
+      },
+      {
+        "value": "-57",
+        "displayName": "一多分栏控件",
+        "keywords": [
+          "一多",
+          "多端部署",
+          "多场景",
+          "分栏"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例通过使用SideBarContainer组件与Navigation组件，实现了多场景下的一多分栏控件的响应式变化效果",
+        "icon": "",
+        "param": {
+          "id": 12,
+          "currentIndex": 3,
+          "unionId": 3,
+          "cardId": 18,
+          "title": "一多分栏控件"
+        }
+      },
+      {
+        "value": "-20",
+        "displayName": "文字特效合集",
+        "keywords": [
+          "文字",
+          "特效",
+          "合集"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于Text组件及通用属性实现多种文字特效。帮助开发者实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果",
+        "icon": "",
+        "param": {
+          "id": 20,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 20,
+          "title": "文字特效合集"
+        }
+      },
+      {
+        "value": "-35",
+        "displayName": "常见页签Tab导航页样式合集",
+        "keywords": [
+          "布局",
+          "标签页",
+          "合集"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于页签Tab组件对页面内容进行分类，提高页面控件利用率。可实现如：常见底部、舵式底部、可滑动、侧边等更多样式。",
+        "icon": "",
+        "param": {
+          "id": 21,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 20,
+          "title": "常见Tab导航样式合集"
+        }
+      },
+      {
+        "value": "-36",
+        "displayName": "自定义弹窗合集",
+        "keywords": [
+          "弹窗",
+          "合集"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例通过bindContentCover、bindSheet等接口，实现多种样式的弹窗。展示自定义弹窗的开发步骤，帮助灵活实现不同业务需求的弹窗场景",
+        "icon": "",
+        "param": {
+          "id": 22,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 20,
+          "title": "自定义弹窗合集"
+        }
+      },
+      {
+        "value": "-48",
+        "displayName": "Scroll组件嵌套滑动",
+        "keywords": [
+          "嵌套",
+          "滑动",
+          "Scroll"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例通过nestedScroll属性，实现优先滑动外层的Scroll",
+        "icon": "",
+        "param": {
+          "id": 23,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 21,
+          "title": "Scroll组件嵌套滑动"
+        }
+      },
+      {
+        "value": "-25",
+        "displayName": "瀑布流实例",
+        "keywords": [
+          "瀑布",
+          "布局",
+          "WaterFlow"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例为瀑布流开发实例，使用sections是西安混排布局、结合item实现滑动吸顶、多种组件组合排列",
+        "icon": "",
+        "param": {
+          "id": 24,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 21,
+          "title": "WaterFlow瀑布流实例"
+        }
+      },
+      {
+        "value": "-43",
+        "displayName": "组件堆叠",
+        "keywords": [
+          "混合布局",
+          "容器",
+          "层叠",
+          "堆叠",
+          "重叠",
+          "嵌套",
+          "stack"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现多层次堆叠效果。通过绑定Scroll组件的onScrollFrameBegin滚动事件回调函数，精准捕获滚动动作，实现实时动态调节组件透明度、高度等属性。",
+        "icon": "",
+        "param": {
+          "id": 25,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 21,
+          "title": "组件堆叠"
+        }
+      },
+      {
+        "value": "-12",
+        "displayName": "基于Grid实现混合布局",
+        "keywords": [
+          "网格",
+          "单元格",
+          "嵌套",
+          "混合布局",
+          "页面均分",
+          "组件占比控制",
+          "自适应",
+          "布局混合"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例主要实现了网络组件和列表List组件以及Swpier组件的嵌套混合布局混合",
+        "icon": "",
+        "param": {
+          "id": 26,
+          "currentIndex": 3,
+          "unionId": 0,
+          "cardId": 21,
+          "title": "基于Grid实现混合布局"
+        }
+      },
+      {
+        "value": "-30",
+        "displayName": "转场动效合集",
+        "keywords": [
+          "转场",
+          "动效",
+          "合集"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见的一镜到底特效。",
+        "icon": "",
+        "param": {
+          "id": 27,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 22,
+          "title": "转场动效合集"
+        }
+      },
+      {
+        "value": "-9",
+        "displayName": "动效案例合集",
+        "keywords": [
+          "动效",
+          "案例",
+          "合集"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见的一镜到底特效。",
+        "icon": "",
+        "param": {
+          "id": 28,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 22,
+          "title": "动效案例合集"
+        }
+      },
+      {
+        "value": "-42",
+        "displayName": "拖拽框架开发实践",
+        "keywords": [
+          "拖拽",
+          "拖拽框架",
+          "开发实践"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "基于ArkUI的拖拽框架，实现图片、富文本、输入框、列表等组件的拖动功能",
+        "icon": "",
+        "param": {
+          "id": 29,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 22,
+          "title": "拖拽框架开发实践"
+        }
+      },
+      {
+        "value": "-24",
+        "displayName": "流畅刷文章",
+        "keywords": [
+          "媒体浏览",
+          "文章浏览",
+          "流畅"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了文章和媒体流畅浏览功能，通过设置组件属性来控制屏幕刷新率，实现低功耗更流畅，为类似博客常见提供更低功耗的适配",
+        "icon": "",
+        "param": {
+          "id": 30,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 23,
+          "title": "流畅刷文章"
+        }
+      },
+      {
+        "value": "-14",
+        "displayName": "列表项交换",
+        "keywords": [
+          "列表项",
+          "交换",
+          "手势"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例组合手势结合List组件，实现对List组件中的交换项目排顺序",
+        "icon": "",
+        "param": {
+          "id": 31,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 23,
+          "title": "列表项交换"
+        }
+      },
+      {
+        "value": "-15",
+        "displayName": "列表编辑效果",
+        "keywords": [
+          "列表编辑"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了代办事项、文件管理、备忘录等场景的编辑效果",
+        "icon": "",
+        "param": {
+          "id": 32,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 23,
+          "title": "列表编辑效果"
+        }
+      },
+      {
+        "value": "-22",
+        "displayName": "画中画效果实现",
+        "keywords": [
+          "画中画"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "",
+        "icon": "",
+        "param": {
+          "id": 33,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 24,
+          "title": "画中画效果实现"
+        }
+      },
+      {
+        "value": "-29",
+        "displayName": "多图片合集",
+        "keywords": [
+          "多图片",
+          "图片合集"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了图片轮播切换效果，展示了如何自定义Swiper组件的指示器",
+        "icon": "",
+        "param": {
+          "id": 34,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 24,
+          "title": "多图片合集"
+        }
+      },
+      {
+        "value": "-51",
+        "displayName": "基于AudioRenderer的音频播控和多场景交互",
+        "keywords": [
+          "AudioRenderer",
+          "音频播控",
+          "多场景交互"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。实现了后台播放、播控中心交互、适配不同类型的焦点打断策略、切换路由发生设备、切换输出设备等基础音频App的常见功能",
+        "icon": "",
+        "param": {
+          "id": 35,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 24,
+          "title": "AudioRenderer音频播控"
+        }
+      },
+      {
+        "value": "-26",
+        "displayName": "H5页面跳转",
+        "keywords": [
+          "H5",
+          "页面跳转",
+          "H5",
+          "H5",
+          "跳转"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例基于ArkUI框架和Web实现了H5页面之间的相互跳转。H5页面加载、跳转、与ArkTs页面参数互相传递参数等功能",
+        "icon": "",
+        "param": {
+          "id": 36,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 25,
+          "title": "H5页面跳转"
+        }
+      },
+      {
+        "value": "-31",
+        "displayName": "Web页面瞬开效果实践",
+        "keywords": [
+          "Web",
+          "瞬开",
+          "瞬开",
+          "瞬开",
+          "快速加载",
+          "迅速加载"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "基于预渲染技术，实现了点击Web页面后瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+        "icon": "",
+        "param": {
+          "id": 37,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 25,
+          "title": "Web页面瞬开效果实践"
+        }
+      },
+      {
+        "value": "-49",
+        "displayName": "定位服务",
+        "keywords": [
+          "定位",
+          "地图",
+          "方位",
+          "位置",
+          "地理"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "通过@kit.LocationKit中的geoLocationManager实现了取缓存位置，获取当前位置，同时运用map.Marker将位置信息标记在地图上。",
+        "icon": "",
+        "param": {
+          "id": 38,
+          "currentIndex": 3,
+          "unionId": 0,
+          "cardId": 25,
+          "title": "定位服务"
+        }
+      },
+      {
+        "value": "-17",
+        "displayName": "首选项",
+        "keywords": [
+          "持久化",
+          "持久化",
+          "数据缓存"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "使用data.preferences接口，展示了首选项持久化存储数据的功能，可实现主题切换、主题数据缓存读取等场景",
+        "icon": "",
+        "param": {
+          "id": 39,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 25,
+          "title": "首选项"
+        }
+      },
+      {
+        "value": "-21",
+        "displayName": "验证码场景合集",
+        "keywords": [
+          "验证码",
+          "验证码场景"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例实现了5种验证码场景，涵盖了多种应用的验证码场景",
+        "icon": "",
+        "param": {
+          "id": 40,
+          "currentIndex": 0,
+          "unionId": 0,
+          "cardId": 26,
+          "title": "验证码场景合集"
+        }
+      },
+      {
+        "value": "-13",
+        "displayName": "发布图片评论",
+        "keywords": [
+          "发布图片",
+          "图片评论",
+          "评论"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例通过拉起系统相机实现图片评论发布发表，便于开发者了解系统相机接口的调用方式",
+        "icon": "",
+        "param": {
+          "id": 41,
+          "currentIndex": 1,
+          "unionId": 0,
+          "cardId": 26,
+          "title": "发布图片评论"
+        }
+      },
+      {
+        "value": "-50",
+        "displayName": "选择并查看文档与媒体文件",
+        "keywords": [
+          "文档",
+          "媒体文件",
+          "保存",
+          "文档与媒体文件"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例使用file.picker, photoAccessHelper, fs等接口，实现拉起文档、编辑保存、拉起系统相册图片视频，查看播放等功能",
+        "icon": "",
+        "param": {
+          "id": 42,
+          "currentIndex": 2,
+          "unionId": 0,
+          "cardId": 26,
+          "title": "选择并查看文档与媒体文件"
+        }
+      },
+      {
+        "value": "-47",
+        "displayName": "UI框架-软键盘弹出",
+        "keywords": [
+          "UI框架",
+          "软键盘弹出",
+          "软键盘",
+          "键盘避让",
+          "布局避让",
+          "KeyboardAvoidMode",
+          "Keyboard"
+        ],
+        "types": "PracticalExample",
+        "displayDescription": "本实例演示了软键盘弹出对页面布局的影响",
+        "icon": "",
+        "param": {
+          "id": 43,
+          "currentIndex": 3,
+          "unionId": 0,
+          "cardId": 26,
+          "title": "UI框架-软键盘弹出"
+        }
+      }
+    ]
+  }
+}

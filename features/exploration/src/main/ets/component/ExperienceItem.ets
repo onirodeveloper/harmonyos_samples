@@ -32,7 +32,10 @@ export struct ExperienceItem {
         newSymbol: $r('app.media.big_new'),
       })
         .zIndex(1)
-        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+        .margin({
+          top: $r('sys.float.padding_level3'),
+          left: $r('sys.float.padding_level3'),
+        })
 
       Stack({ alignContent: Alignment.Bottom }) {
         ImageComponent({
@@ -47,7 +50,10 @@ export struct ExperienceItem {
             .fontSize($r('sys.float.Body_S'))
             .fontWeight(FontWeight.Regular)
           Text(this.discoverContent.title)
-            .margin({ top: $r('sys.float.padding_level3'), bottom: $r('sys.float.padding_level2') })
+            .margin({
+              top: $r('sys.float.padding_level3'),
+              bottom: $r('sys.float.padding_level2'),
+            })
             .fontColor($r('sys.color.font_on_primary'))
             .fontSize($r('sys.float.Title_S'))
             .fontWeight(FontWeight.Bold)
@@ -72,7 +78,7 @@ export struct ExperienceItem {
     }
     .clickEffect({ level: ClickEffectLevel.HEAVY })
     .height(deviceInfo.productSeries === ProductSeriesEnum.VDE ? $r('app.float.img_card_height_verde') :
-    $r('app.float.img_card_height'))
+      $r('app.float.img_card_height'))
     .backgroundColor($r('sys.color.comp_background_list_card'))
     .borderRadius($r('sys.float.corner_radius_level8'))
     .clip(true)

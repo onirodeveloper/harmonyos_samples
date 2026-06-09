@@ -39,7 +39,10 @@ export struct RecommendList {
           Divider()
             .color($r('sys.color.comp_divider'))
             .width('100%')
-            .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
+            .padding({
+              left: $r('sys.float.padding_level6'),
+              right: $r('sys.float.padding_level6'),
+            })
         }
         HmosListItem({
           prefixResource: item.articleType === 1 ? $r('sys.symbol.doc_text') : $r('sys.symbol.paintpalette'),

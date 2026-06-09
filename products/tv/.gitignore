@@ -1,0 +1,12 @@
+node_modules/
+.idea/
+.vscode/
+.ohpm/
+oh_modules/
+.hvigor/
+local.properties
+*.hap
+*.app
+.DS_Store
+Thumbs.db
+.preview

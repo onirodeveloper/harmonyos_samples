@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "widget_display_name",
+      "value": "HMOS代码工坊"
+    },
+    {
+      "name": "detail_immersive",
+      "value": "华为官方大型开源项目"
+    },
+    {
+      "name": "card_list_subtitle",
+      "value": "更多文章"
+    },
+    {
+      "name": "lock_screen_title",
+      "value": "代码工坊"
+    },
+    {
+      "name": "lock_screen_subtitle",
+      "value": "让开发更高效"
+    },
+    {
+      "name": "widget_hmos_coding_title",
+      "value": "快捷开发指南"
+    },
+    {
+      "name": "widget_hmos_coding_text",
+      "value": "2026HDC创新特性开发样例"
+    }
+  ]
+}

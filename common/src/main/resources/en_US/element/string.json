@@ -107,6 +107,30 @@
     {
       "name": "copy_fail",
       "value": "Copy Fail"
+    },
+    {
+      "name": "intent_page_not_found",
+      "value": "Sorry, the component or page was not found."
+    },
+    {
+      "name": "intent_execute_result",
+      "value": "OK, opening HMOS world for you."
+    },
+    {
+      "name": "intent_xiaoyi_extracted_no_keyword",
+      "value": "Sorry, I lost track of your train of thought~ How about rephrasing or starting the conversation over?"
+    },
+    {
+      "name": "intent_title_when_xiaoyi_extracted_no_keyword",
+      "value": "Oops..."
+    },
+    {
+      "name": "intent_hint_when_xiaoyi_extracted_no_keyword",
+      "value": "Sorry, Xiaoyi lost track of your train of thought.\nTips：Please try starting a new conversation in Xiaoyi and explicitly instruct Xiaoyi to open a specific component or sample — this may yield better results."
+    },
+    {
+      "name": "intent_button_I_got_it",
+      "value": "Got it"
     }
   ]
 }

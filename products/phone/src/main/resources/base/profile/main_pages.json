@@ -1,5 +1,6 @@
 {
   "src": [
-    "page/SplashPage"
+    "page/SplashPage",
+    "uiextensionability/pages/Index"
   ]
 }

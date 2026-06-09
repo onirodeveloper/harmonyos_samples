@@ -66,7 +66,7 @@ export struct ArticleWebComponent {
           .javaScriptProxy({
             object: new NativeActionData(this.detailsUrl),
             name: 'nativeActionData',
-            methodList: ['webSheet', 'jumpPage'],
+            methodList: ['webSheet', 'jumpPage', 'imagePreviewChanged'],
             controller: this.webController,
             permission: WebUtil.getJsPermission(),
           })

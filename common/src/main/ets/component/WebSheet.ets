@@ -15,7 +15,6 @@
 
 import { StorageKey } from '../constant/CommonEnums';
 import { GlobalInfoModel } from '../model/GlobalInfoModel';
-import { BreakpointType } from '../util/BreakpointSystem';
 import { WebUtil } from '../util/WebUtil';
 import { LoadingView } from '../view/LoadingView';
 import { NoNetworkView } from '../view/NoNetworkView';

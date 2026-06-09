@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xml:lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0" />
+  <title>HMOS代码工坊一多开发实践</title>
+  <link rel="stylesheet" href="../../common/commonDist/main.css">
+  <link rel="stylesheet" href="../../common/css/article.css">
+  <style>
+    td p {
+      min-width: unset;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002189455958"><a name="ZH-CN_TOPIC_0000002189455958"></a><a
+      name="ZH-CN_TOPIC_0000002189455958"></a>
+    <h1 class="topictitle1"><span class="topictitlenumber1">1</span>HMOS代码工坊一多开发实践</h1>
+    <div class="topicbody" id="body0000002189455958">
+      <p id="ZH-CN_TOPIC_0000002189455958__p118001879175">
+        HarmonyOS代码工坊是一个基于开发者技术演进的大型代码工程最佳实践；该应用以开发者技术地图为根，体现HarmonyOS家族式的UX设计，用来展示HarmonyOS亮点特性、关键体验特征、生态创新场景、高频开发场景等；本应用除了能在手机端正常运行，也通过“一次开发，多端部署”的原则，实现了Pad和PC/2in1的适配。下边简要介绍下在开发过程中一多的适配过程。
+      </p>
+    </div>
+    <div>
+      <ul class="ullinks">
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002125935186">1.1 一多应用开发流程</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002159756417">1.2 HarmonyOS代码工坊一多适配过程</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002124320948">1.3 总结</a></strong><br>
+        </li>
+      </ul>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002125935186"><a
+        name="ZH-CN_TOPIC_0000002125935186"></a><a name="ZH-CN_TOPIC_0000002125935186"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 一多应用开发流程</h2>
+      <div class="topicbody" id="body0000002125935186">
+        <p id="ZH-CN_TOPIC_0000002125935186__p148141039132414">一多应用开发的整体过程大致分为：UX设计-&gt;工程管理-&gt;页面开发。</p>
+        <ul id="ZH-CN_TOPIC_0000002125935186__ul9244552135615">
+          <li id="ZH-CN_TOPIC_0000002125935186__li2740948192919">
+            UX设计：一多的应用UX设计需遵循通用设计规则，应该考虑多设备的“差异性”、“一致性”、“灵活性”和“兼容性，以此来保障各设备上应用界面的体验，在开发过程中最大程度复用界面代码。详细规范请参见<a
+              href="article_multidevice_1"
+              target="_blank" rel="noopener noreferrer">应用UX设计原则</a>。</li>
+          <li id="ZH-CN_TOPIC_0000002125935186__li1374004816298">工程管理：“一多”推荐在应用开发过程中使用“<a
+              href="article_multidevice_2"
+              target="_blank" rel="noopener noreferrer">三层工程结构</a>”，以便在不同设备之间更好的实现代码复用，减少不同模块之间不必要的依赖。</li>
+          <li id="ZH-CN_TOPIC_0000002125935186__li224420528569">页面开发：<a
+              href="article_multidevice_3"
+              target="_blank" rel="noopener noreferrer">页面开发</a>主要通过<a
+              href="article_multidevice_4"
+              target="_blank" rel="noopener noreferrer">自适应布局</a>和<a
+              href="article_multidevice_5"
+              target="_blank"
+              rel="noopener noreferrer">响应式布局</a>能力来实现同一页面在不同设备上的不同显示效果，同时建议开发者多使用自定义组件，这样在增加代码可读性和可维护性的同时也可以尽可能的实现代码复用。
+          </li>
+        </ul>
+        <p id="ZH-CN_TOPIC_0000002125935186__p103294615563">下面从UX设计、工程管理和页面开发三个方面来介绍HarmonyOS代码工坊应用的一多开发过程。</p>
+      </div>
+      <div></div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159756417"><a
+        name="ZH-CN_TOPIC_0000002159756417"></a><a name="ZH-CN_TOPIC_0000002159756417"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> HarmonyOS代码工坊一多适配过程</h2>
+      <div class="topicbody" id="body0000002159756417"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002186745681"><a
+          name="ZH-CN_TOPIC_0000002186745681"></a><a name="ZH-CN_TOPIC_0000002186745681"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.1</span> UX设计</h3>
+        <div class="topicbody" id="body0000002186745681">
+          <p id="ZH-CN_TOPIC_0000002186745681__ZH-CN_TOPIC_0000002186745681_mMcCpPsS_p8060118">HarmonyOS代码工坊UX设计相关内容，参考UX设计技术文章
+          </p>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002126157984"><a
+          name="ZH-CN_TOPIC_0000002126157984"></a><a name="ZH-CN_TOPIC_0000002126157984"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> 工程管理</h3>
+        <div class="topicbody" id="body0000002126157984">
+          <p id="ZH-CN_TOPIC_0000002126157984__p3973278311">HarmonyOS代码工坊根据一多推荐的common（公共能力层）、feature（基础特性层）、product（产品定制层）的“<a
+              href="article_multidevice_6"
+              target="_blank" rel="noopener noreferrer">分层架构设计规则</a>”划分目录。</p>
+          <pre class="screen" id="ZH-CN_TOPIC_0000002126157984__screen487343773311">&#9500;&#9472;common                  // 公共能力模块
+&#9500;&#9472;features                // 基础特性层
+&#9474;  &#9500;&#9472;commonbusiness       // 业务公共能力模块   
+&#9474;  &#9500;&#9472;componentlibrary     // 组件模块
+&#9474;  &#9500;&#9472;devpractices         // 样例模块 
+&#9474;  &#9500;&#9472;exploration          // 事件模块 
+&#9474;  &#9492;&#9472;mine                 // 我的 
+&#9492;&#9472;products                // 产品定制层 
+   &#9492;&#9472;phone</pre>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002153695066"><a
+          name="ZH-CN_TOPIC_0000002153695066"></a><a name="ZH-CN_TOPIC_0000002153695066"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.3</span> 页面开发</h3>
+        <div class="topicbody" id="body0000002153695066"></div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002172191206"><a
+            name="ZH-CN_TOPIC_0000002172191206"></a><a name="ZH-CN_TOPIC_0000002172191206"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.1</span> 断点使用</h4>
+          <div class="topicbody" id="body0000002172191206">
+            <p id="ZH-CN_TOPIC_0000002172191206__p143732045195419"><a
+                href="article_multidevice_7"
+                target="_blank"
+                rel="noopener noreferrer">断点</a>以应用窗口的宽度为切入点，将应用窗口在宽度维度上分为不同的区间即不同的断点，在不同的区间下，开发者可以根据需要实现不同的页面布局效果，解决多设备的UX布局问题。<a
+                href="article_multidevice_7"
+                target="_blank"
+                rel="noopener noreferrer">断点</a>功能又分为横向断点和纵向断点，使用断点来适配一多时开发者无需关注设备类型，即可达到多设备的自适应UI布局效果。纵向和横向断点的详细信息请参考<a
+                href="article_multidevice_7"
+                target="_blank" rel="noopener noreferrer">多设备断点开发实践</a>。</p>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002124479096"><a
+            name="ZH-CN_TOPIC_0000002124479096"></a><a name="ZH-CN_TOPIC_0000002124479096"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.2</span> 组件列表页</h4>
+          <div class="topicbody" id="body0000002124479096">
+            <p id="ZH-CN_TOPIC_0000002124479096__p72062416017">
+              组件列表页面作为app的入口页面，主要负责展示组件卡片，给用户提供不同组件的展示入口。主要包含页签区域和内容区域两部分，页签区域在手机和折叠屏展开态时会在页面底部，在Pad上会在页面左侧；内容区域会根据设备大小不同展示不同列数，详细样式见下表。
+            </p>
+
+            <div class="tablenoborder">
+              <table cellpadding="4" cellspacing="0" summary=""
+                id="ZH-CN_TOPIC_0000002124479096__ZH-CN_TOPIC_0000002124479096_mMcCpPsS_table1390013255117"
+                frame="border" border="1" rules="all">
+                <thead align="left">
+                  <tr id="ZH-CN_TOPIC_0000002124479096__ZH-CN_TOPIC_0000002124479096_mMcCpPsS_row119014295116">
+                    <th align="center" class="cellrowborder" valign="top" width="32.073207320732074%"
+                      id="mcps1.4.6.7.5.3.2.1.4.1.1">
+                      <p id="ZH-CN_TOPIC_0000002124479096__ZH-CN_TOPIC_0000002124479096_mMcCpPsS_p1090117213517">sm</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.02330233023302%"
+                      id="mcps1.4.6.7.5.3.2.1.4.1.2">
+                      <p id="ZH-CN_TOPIC_0000002124479096__ZH-CN_TOPIC_0000002124479096_mMcCpPsS_p1890113210514">md</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="34.9034903490349%"
+                      id="mcps1.4.6.7.5.3.2.1.4.1.3">
+                      <p id="ZH-CN_TOPIC_0000002124479096__ZH-CN_TOPIC_0000002124479096_mMcCpPsS_p59010285110">lg</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="ZH-CN_TOPIC_0000002124479096__ZH-CN_TOPIC_0000002124479096_mMcCpPsS_row690112225114">
+                    <td class="cellrowborder" align="center" valign="top" width="32.073207320732074%"
+                      headers="mcps1.4.6.7.5.3.2.1.4.1.1 ">
+                      <p id="ZH-CN_TOPIC_0000002124479096__p1672130152816"><img
+                          id="ZH-CN_TOPIC_0000002124479096__image1172120052814" src="ManulImages/1.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.02330233023302%"
+                      headers="mcps1.4.6.7.5.3.2.1.4.1.2 ">
+                      <p id="ZH-CN_TOPIC_0000002124479096__p17834105191417"><img
+                          id="ZH-CN_TOPIC_0000002124479096__image1483417512144" src="ManulImages/2.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="34.9034903490349%"
+                      headers="mcps1.4.6.7.5.3.2.1.4.1.3 ">
+                      <p id="ZH-CN_TOPIC_0000002124479096__p11260181131012"><img
+                          id="ZH-CN_TOPIC_0000002124479096__image6260811171014" src="ManulImages/3.png"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="ZH-CN_TOPIC_0000002124479096__p534002324215"><strong
+                id="ZH-CN_TOPIC_0000002124479096__b692332414427">页签区域适配</strong></p>
+            <p id="ZH-CN_TOPIC_0000002124479096__p724353214117">
+              页面整体在手机上属于上下布局，上边是内容区域，底部是页签，在折叠屏展开态和pad上页签和内容区域属于左右布局，因此页面整体使用Tabs组件，然后根据不同的断点值来改变tabBar的位置</p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002124479096__screen1391351613718">// products/phone/src/main/ets/page/MainPage.ets
+Tabs({ controller: this.tabController, index: this.currentIndex }) {
+  TabContent() {
+    ComponentListView()
+  }
+  .tabBar(this.TabItemBuilder(TABS_LIST[TabBarType.HOME]))
+  // ...     
+}
+.vertical(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG) 
+.barPosition(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? BarPosition.Start :
+BarPosition.End)
+.barHeight(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? '50%' :
+  this.globalInfoModel.naviIndicatorHeight + CommonConstants.TAB_BAR_HEIGHT)
+.barOverlap(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.LG ? false : true)</pre>
+            <p id="ZH-CN_TOPIC_0000002124479096__p2902058204110"><strong
+                id="ZH-CN_TOPIC_0000002124479096__b14955994212">内容区域适配</strong></p>
+            <p id="ZH-CN_TOPIC_0000002124479096__p149223234014">
+              组件列表页面内容区域在手机上是列表样式，在折叠屏展开态和pad上是顶部通栏banner，底部是通栏item，中间区域是瀑布流，因此在布局上选择的是WaterFlow容器，使用瀑布流分组WaterFlowSections实现。顶部banner组和底部item组默认FlowItem数量、列数均为1，中间瀑布流组的列数根据不同的断点分别设置为1，2，3，在组件卡片数据请求回来之后，设置瀑布流组的FlowItem数量为总卡片数量。
+            </p>
+            <p id="ZH-CN_TOPIC_0000002124479096__p4747411284">代码实现如下：</p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002124479096__screen41922372574">// features/componentlibrary/src/main/ets/viewmodel/ComponentListViewModel.ets
+private componentColumnSection: SectionOptions = {
+  itemsCount: 0,
+  crossCount: new BreakpointType({
+    sm: 1,
+    md: 2,
+    lg: 3
+  }).getValue(this.globalInfoModel.currentBreakpoint),
+  margin: $r('sys.float.padding_level8'),
+ }
+// ...
+protected updateFlowSection() {
+  this.componentColumnSection.itemsCount = this.state.cardData.length;
+  this.componentColumnSection.crossCount = crossCount;
+  this.state.sections.splice(0, this.state.sections.length(),
+    [this.bannerColumnSection, this.componentColumnSection, this.footerSection]);
+}</pre>
+            <p id="ZH-CN_TOPIC_0000002124479096__p1219314596507">
+              将上述代码中设置好的componentColumnSection数据赋值给WaterFlow组件的sections参数，即可实现瀑布流的分组显示。</p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002124479096__screen186531232153918">// features/componentlibrary/src/main/ets/view/ComponentListView.ets
+WaterFlow({
+    scroller: this.scroller,
+    sections: this.componentListState.sections
+  }) {
+    FlowItem() {
+      BannerCard({
+       // ...
+      })
+    }
+    Repeat(this.componentListState.cardData)
+      // ...
+    FlowItem() {
+      LoadingMoreItemBuilder(this.componentListState.loadingModel)
+    }   
+  }
+   .rowsGap(new BreakpointType({
+    sm: $r('sys.float.padding_level8'),
+    md: $r('sys.float.padding_level6'),
+    lg: $r('sys.float.padding_level6')
+  }).getValue(this.globalInfoModel.currentBreakpoint))
+   // ...
+}</pre>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159759045"><a
+            name="ZH-CN_TOPIC_0000002159759045"></a><a name="ZH-CN_TOPIC_0000002159759045"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.3</span> 样例页</h4>
+          <div class="topicbody" id="body0000002159759045">
+            <p id="ZH-CN_TOPIC_0000002159759045__p18687843121113">
+              样例页面以多种形态的卡片来展示sample信息，单sample有大图卡片和上图下文两种卡片样式，sample合集有列表卡片和通栏横向滑动样式效果，具体UX效果见下表。</p>
+
+            <div class="tablenoborder">
+              <table cellpadding="4" cellspacing="0" summary=""
+                id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_table1390013255117"
+                frame="border" border="1" rules="all">
+                <thead align="left">
+                  <tr id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_row119014295116">
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.6.3.2.1.4.1.1">
+                      <p id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_p1090117213517">sm</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.6.3.2.1.4.1.2">
+                      <p id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_p1890113210514">md</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.6.3.2.1.4.1.3">
+                      <p id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_p59010285110">lg</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_row690112225114">
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.6.3.2.1.4.1.1 ">
+                      <p id="ZH-CN_TOPIC_0000002159759045__p1890013853219"><img
+                          id="ZH-CN_TOPIC_0000002159759045__image1790016817325" src="ManulImages/4.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.6.3.2.1.4.1.2 ">
+                      <p id="ZH-CN_TOPIC_0000002159759045__p1168122473216"><img
+                          id="ZH-CN_TOPIC_0000002159759045__image17681224193219" src="ManulImages/5.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.6.3.2.1.4.1.3 ">
+                      <p id="ZH-CN_TOPIC_0000002159759045__p1587172311112"><img
+                          id="ZH-CN_TOPIC_0000002159759045__image05872238118" src="ManulImages/6.png"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="ZH-CN_TOPIC_0000002159759045__p19466131011203">
+              页面在手机上以列表形式展示，在pad上存在多种不同的样式，每个卡片的高度一致，宽度占比有1/3，2/3，3/3等多种效果，结合一多的适配规则，选择响应式布局<a
+                href="article_multidevice_8"
+                target="_blank" rel="noopener noreferrer">GridRow组件</a>来解决不同的卡片在不同设备上的动态布局问题。</p>
+            <p id="ZH-CN_TOPIC_0000002159759045__p419791916249">在不同尺寸的设备上，按照断点分别将栅格的布局列数设置为4， 8， 12，
+              然后根据sample卡片的类型以及其在不同设备上的宽度占比，分别设置其所在GridCol占用栅格容器组件的列数。</p>
+            <p id="ZH-CN_TOPIC_0000002159759045__ZH-CN_TOPIC_0000002159759045_mMcCpPsS_p257718184810">代码实现如下：</p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002159759045__screen15486328102017">GridRow({
+   columns: { sm: ColumnEnum.SM, md: ColumnEnum.MD, lg: ColumnEnum.LG },
+   gutter: { y: $r('sys.float.padding_level8'), x: $r('sys.float.padding_level8') },
+   direction: GridRowDirection.Row
+}) {
+  Repeat(this.sampleCategory.sampleCards)
+    .templateId((item: SampleCardData) =&gt; item.cardStyleType.toString())
+    .template(CardStyleTypeEnum.PICTURE_ABOVE_TEXT.toString(),
+      (repeatItem: RepeatItem&lt;SampleCardData&gt;) =&gt; {
+        GridCol({ span: CommonConstants.SPAN_4 }) {
+          // ...
+        }
+      })
+    .template(CardStyleTypeEnum.PICTURE.toString(), (repeatItem: RepeatItem&lt;SampleCardData&gt;) =&gt; {
+      GridCol({ span: { sm: CommonConstants.SPAN_4, md: CommonConstants.SPAN_4, lg: CommonConstants.SPAN_8 } }) {
+        // ...
+      }
+    })
+    // ...
+}</pre>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159640661"><a
+            name="ZH-CN_TOPIC_0000002159640661"></a><a name="ZH-CN_TOPIC_0000002159640661"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.4</span> 实践页</h4>
+          <div class="topicbody" id="body0000002159640661">
+            <p id="ZH-CN_TOPIC_0000002159640661__p1379514831110">实践页以分组的形式来展示各个分类下的文章列表，每个分类下的文章卡片样式各不相同，UX效果见下表</p>
+
+            <div class="tablenoborder">
+              <table cellpadding="4" cellspacing="0" summary=""
+                id="ZH-CN_TOPIC_0000002159640661__ZH-CN_TOPIC_0000002159640661_mMcCpPsS_zh-cn_topic_0000001744653537_table1377163916187"
+                frame="border" border="1" rules="all">
+                <thead align="left">
+                  <tr
+                    id="ZH-CN_TOPIC_0000002159640661__ZH-CN_TOPIC_0000002159640661_mMcCpPsS_zh-cn_topic_0000001744653537_row777153912189">
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.7.3.2.1.4.1.1">
+                      <p id="ZH-CN_TOPIC_0000002159640661__ZH-CN_TOPIC_0000002159640661_mMcCpPsS_p379415454421">sm</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.7.3.2.1.4.1.2">
+                      <p id="ZH-CN_TOPIC_0000002159640661__ZH-CN_TOPIC_0000002159640661_mMcCpPsS_p13794114516428">md</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.7.3.2.1.4.1.3">
+                      <p id="ZH-CN_TOPIC_0000002159640661__ZH-CN_TOPIC_0000002159640661_mMcCpPsS_p11775345104216">lg</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    id="ZH-CN_TOPIC_0000002159640661__ZH-CN_TOPIC_0000002159640661_mMcCpPsS_zh-cn_topic_0000001744653537_row19732621477">
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.7.3.2.1.4.1.1 ">
+                      <p id="ZH-CN_TOPIC_0000002159640661__p0721128143312"><img
+                          id="ZH-CN_TOPIC_0000002159640661__image1472228163317" src="ManulImages/7.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.7.3.2.1.4.1.2 ">
+                      <p id="ZH-CN_TOPIC_0000002159640661__p198617394334"><img
+                          id="ZH-CN_TOPIC_0000002159640661__image4861173919339" src="ManulImages/8.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.7.3.2.1.4.1.3 ">
+                      <p id="ZH-CN_TOPIC_0000002159640661__p27304108123"><img
+                          id="ZH-CN_TOPIC_0000002159640661__image4730111061219" src="ManulImages/9.png"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="ZH-CN_TOPIC_0000002159640661__p1142923915381">
+              由UX效果可以看出，页面整体为纵向布局。各个分类下的文章列表，在手机端是以纵向列表样式显示，在折叠屏展开态和pad上是以不同的样式横向布局，因此整体使用纵向List布局，对于每个分类下的子卡片按照不同的样式分别使用Swiper和List组件进行布局。
+            </p>
+            <p id="ZH-CN_TOPIC_0000002159640661__p17833165295510">
+              下边以应用架构设计模块做简要说明。应用架构设计在手机端是以纵向列表形式展开，折叠屏展开态属于横向列表，并且屏幕内固定展示两个，第三个显示在屏幕内显示固定宽度，结合这些特点，选择使用Swiper组件进行布局。
+            </p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002159640661__screen171261329466">// features/exploration/src/main/ets/component/ArchitectureCard.ets
+Swiper() {
+      // ...
+}
+.nextMargin(new BreakpointType&lt;Length&gt;({
+   sm: 0,
+   md: $r('sys.float.padding_level6'),
+   lg: $r('sys.float.padding_level6')
+}).getValue(this.globalInfoModel.currentBreakpoint))
+.size(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ?
+   { height: DiscoveryConstant.ARCHITECTURE_ITEM_HEIGHT * this.discoverContents.length } : 
+   { height: $r('app.float.architecture_item_height') })
+.disableSwipe(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM) // 纵向布局时全部铺开无需滑动
+.vertical(this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM) // 手机端设置为纵向布局， 折叠屏展开态和pad设置为横向滑动
+.displayCount(
+   new BreakpointType({
+     sm: this.discoverContents.length, // 纵向滑动时展示数量为数据源的总数量
+     md: CommonConstants.LANE_MD,
+     lg: CommonConstants.LANE_LG
+   }).getValue(this.globalInfoModel.currentBreakpoint)
+)
+</pre>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002124320944"><a
+            name="ZH-CN_TOPIC_0000002124320944"></a><a name="ZH-CN_TOPIC_0000002124320944"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.5</span> 组件详情页</h4>
+          <div class="topicbody" id="body0000002124320944">
+            <p id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_p8060118">
+              组件详情页包含组件效果预览区域、组件属性调整区域、示例代码和相关推荐，具体效果见下表。</p>
+
+            <div class="tablenoborder">
+              <table cellpadding="4" cellspacing="0" summary=""
+                id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_zh-cn_topic_0000001744653537_table1377163916187"
+                frame="border" border="1" rules="all">
+                <thead align="left">
+                  <tr
+                    id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_zh-cn_topic_0000001744653537_row777153912189">
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.8.3.2.1.4.1.1">
+                      <p id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_p379415454421">sm</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.8.3.2.1.4.1.2">
+                      <p id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_p13794114516428">md</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.8.3.2.1.4.1.3">
+                      <p id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_p11775345104216">lg</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    id="ZH-CN_TOPIC_0000002124320944__ZH-CN_TOPIC_0000002124320944_mMcCpPsS_zh-cn_topic_0000001744653537_row19732621477">
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.8.3.2.1.4.1.1 ">
+                      <p id="ZH-CN_TOPIC_0000002124320944__p9138346193419"><img
+                          id="ZH-CN_TOPIC_0000002124320944__image8138946133420" src="ManulImages/10.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.8.3.2.1.4.1.2 ">
+                      <p id="ZH-CN_TOPIC_0000002124320944__p162661759143417"><img
+                          id="ZH-CN_TOPIC_0000002124320944__image14266175953411" src="ManulImages/11.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.8.3.2.1.4.1.3 ">
+                      <p id="ZH-CN_TOPIC_0000002124320944__p19363944191213"><img
+                          id="ZH-CN_TOPIC_0000002124320944__image16363114481211" src="ManulImages/12.png"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="ZH-CN_TOPIC_0000002124320944__p18190192911522">
+              手机端页面属于是上下布局，在折叠屏展开态和pad上组件预览区域和其他区域属于左右布局，因此，页面整体布局使用弹性布局Flex组件以便能在不同尺寸的设备上灵活设置布局方向。</p>
+            <p id="ZH-CN_TOPIC_0000002124320944__p2151121183315">
+              将页面内容分为组件预览区域和其他区域两部分，手机端使用上下布局样式，设置Flex组件的direction参数为FlexDirection.Column，折叠屏展开态和pad上通过设置direction参数为FlexDirection.Row来实现左右布局。
+            </p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002124320944__screen4409183811379">// features/componentlibrary/src/main/ets/component/DetailContentView.ets
+Flex({
+      direction: this.globalInfoModel.currentBreakpoint === BreakpointTypeEnum.SM ? FlexDirection.Column :
+      FlexDirection.Row
+    }) {
+      Column() {
+        // ...
+      }
+      Column() {
+        // ...
+      }
+}</pre>
+          </div>
+        </div>
+        <div class="nested3" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002159759049"><a
+            name="ZH-CN_TOPIC_0000002159759049"></a><a name="ZH-CN_TOPIC_0000002159759049"></a>
+          <h4 class="topictitle4"><span class="topictitlenumber4">1.2.3.6</span> 资源使用</h4>
+          <div class="topicbody" id="body0000002159759049">
+            <p id="ZH-CN_TOPIC_0000002159759049__p686611165225">HarmonyOS代码工坊中，各个页面在多端显示的效果不同，使用的资源也需要随着屏幕尺寸变化，推荐使用<a
+                href="article_multidevice_9"
+                target="_blank" rel="noopener noreferrer">媒体查询</a>获取资源的方式来做适配，借助媒体查询中的<a
+                href="article_multidevice_7"
+                target="_blank" rel="noopener noreferrer">断点</a>功能做简单的封装。下面以横向断点做简单介绍。</p>
+            <p id="ZH-CN_TOPIC_0000002159759049__p16365111017718">
+              创建BreakpointType类，通过getValue()方法获取对应的资源值。在使用时，创建不同的资源文件传入BreakpointType代表sm、md和lg断点下的资源值，实现应用窗口大小变化时的不同效果。
+            </p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002159759049__screen11601745162016">// common/src/main/ets/util/BreakpointSystem.ets
+export class BreakpointType&lt;T&gt; {
+  xs: T;
+  sm: T;
+  md: T;
+  lg: T;
+
+  constructor(param: BreakpointTypes&lt;T&gt;) {
+    this.xs = param.xs || param.sm;
+    this.sm = param.sm;
+    this.md = param.md;
+    this.lg = param.lg;
+  }
+
+  getValue(currentBreakpoint: string): T {
+    if (currentBreakpoint === BreakpointTypeEnum.XS) {
+      return this.xs;
+    }
+    if (currentBreakpoint === BreakpointTypeEnum.SM) {
+      return this.sm;
+    }
+    if (currentBreakpoint === BreakpointTypeEnum.MD) {
+      return this.md;
+    }
+    return this.lg;
+  }
+}</pre>
+            <p id="ZH-CN_TOPIC_0000002159759049__p342938134514">例如断网状态的暂未图片在不同设备上显示的尺寸大小不一样。效果如下：</p>
+
+            <div class="tablenoborder">
+              <table cellpadding="4" cellspacing="0" summary=""
+                id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_zh-cn_topic_0000001744653537_table1377163916187"
+                frame="border" border="1" rules="all">
+                <thead align="left">
+                  <tr
+                    id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_zh-cn_topic_0000001744653537_row777153912189">
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.9.3.5.1.4.1.1">
+                      <p id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_p379415454421">sm</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.9.3.5.1.4.1.2">
+                      <p id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_p13794114516428">md</p>
+                    </th>
+                    <th align="center" class="cellrowborder" valign="top" width="33.33333333333333%"
+                      id="mcps1.4.6.7.9.3.5.1.4.1.3">
+                      <p id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_p11775345104216">lg</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_zh-cn_topic_0000001744653537_row19732621477">
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.9.3.5.1.4.1.1 ">
+                      <p id="ZH-CN_TOPIC_0000002159759049__p14470195873511"><img
+                          id="ZH-CN_TOPIC_0000002159759049__image1446915817358" src="ManulImages/13.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.9.3.5.1.4.1.2 ">
+                      <p id="ZH-CN_TOPIC_0000002159759049__p59329918362"><img
+                          id="ZH-CN_TOPIC_0000002159759049__image1793214933615" src="ManulImages/14.png"></p>
+                    </td>
+                    <td class="cellrowborder" align="center" valign="top" width="33.33333333333333%"
+                      headers="mcps1.4.6.7.9.3.5.1.4.1.3 ">
+                      <p id="ZH-CN_TOPIC_0000002159759049__p89791314181312"><img
+                          id="ZH-CN_TOPIC_0000002159759049__image10979201421320" src="ManulImages/15.png"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="ZH-CN_TOPIC_0000002159759049__ZH-CN_TOPIC_0000002159759049_mMcCpPsS_p257718184810">代码实现如下：</p>
+            <pre class="screen" id="ZH-CN_TOPIC_0000002159759049__screen238714974816">// common/src/main/ets/view/NoNetworkView.ets
+export function NoNetworkView(breakpoint: BreakpointTypeEnum, handleReload?: () =&gt; void) {
+  GridRow({ columns: { sm: ColumnEnum.SM, md: ColumnEnum.MD, lg: ColumnEnum.LG } }) {
+    GridCol({
+      span: { sm: CommonConstants.SPAN_4, md: CommonConstants.SPAN_6, lg: CommonConstants.SPAN_6 },
+      offset: { sm: 0, md: 1, lg: CommonConstants.SPAN_3 }
+    }) {
+      Column() {
+        Column() {
+          Image($r('app.media.ic_failure'))
+            .width(new BreakpointType({
+              sm: $r('app.float.failure_size_sm'),
+              md: $r('app.float.failure_size_md'),
+              lg: $r('app.float.failure_size_lg')
+            }).getValue(breakpoint))
+            .aspectRatio(1)
+           // ...
+        }
+        // ...
+      }
+    }
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002124320948"><a
+        name="ZH-CN_TOPIC_0000002124320948"></a><a name="ZH-CN_TOPIC_0000002124320948"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 总结</h2>
+      <div class="topicbody" id="body0000002124320948">
+        <p id="ZH-CN_TOPIC_0000002124320948__p16700352151615">
+          本文通过组件、样例、实践和组件详情页等几个典型场景，介绍了HarmonyOS代码工坊中关于“一多”开发的适配过程。由上文可以看出几种常用组件在一多适配过程中适用的典型场景如下：</p>
+        <ul id="ZH-CN_TOPIC_0000002124320948__ul764783181914">
+          <li id="ZH-CN_TOPIC_0000002124320948__li19647435192">List：每个item宽高一致，只有不同断点下展示的列数不同。</li>
+          <li id="ZH-CN_TOPIC_0000002124320948__li137810217204">WaterFlow： 每个item宽度一致，高度不同，在不同断电下展示的列数不同。</li>
+          <li id="ZH-CN_TOPIC_0000002124320948__li1132682620239">GridRow：每个item宽度不同，高度一致，在不同断点下展示的列数不同。</li>
+          <li id="ZH-CN_TOPIC_0000002124320948__li1586294110237">Flex：在不同断点下子组件的布局方向不同。</li>
+        </ul>
+        <p id="ZH-CN_TOPIC_0000002124320948__p1589248173912">文章中只做了关键代码的简要展示，详细代码可参考项目源码。</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script type="module" src="../../common/js/article.js"></script>
+<script type="module" src="../../common/commonDist/main.js"></script>
+
+</html>

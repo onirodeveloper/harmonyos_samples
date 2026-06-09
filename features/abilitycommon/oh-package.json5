@@ -1,0 +1,17 @@
+{
+  "name": "@ohos/abilitycommon",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@ohos/common": "file:../../common",
+    "@ohos/commonbusiness": "file:../commonbusiness",
+    "@ohos/componentlibrary": "file:../../features/componentlibrary",
+    "@ohos/devpractices": "file:../../features/devpractices",
+    "@ohos/exploration": "file:../../features/exploration",
+    "@ohos/mine": "file:../../features/mine",
+    "@ohos/widgetcommon": "file:../../features/widgetcommon"
+  }
+}

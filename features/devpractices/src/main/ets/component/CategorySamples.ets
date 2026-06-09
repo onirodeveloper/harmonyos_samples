@@ -40,6 +40,8 @@ export struct CategorySamples {
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   @Prop sampleCategory: SampleCategory;
+  @State @Watch('getMarginByBreakpoint') currentBreakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_LG;
+  @State itemMargin: Length = 0;
 
   aboutToAppear(): void {
     if (!this.sampleCategory.sampleCards || this.sampleCategory.sampleCards.length === 0) {
@@ -48,6 +50,15 @@ export struct CategorySamples {
         param: this.sampleCategory,
       });
     }
+    this.getMarginByBreakpoint();
+  }
+
+  getMarginByBreakpoint() {
+    this.itemMargin = new BreakpointType({
+      sm: SampleConstant.SCROLL_MARGIN_SM,
+      md: SampleConstant.SCROLL_MARGIN_MD,
+      lg: 0
+    }).getValue(this.currentBreakpoint);
   }
 
   jumpToDetail(currentIndex: number, sampleContent: SampleContent, categoryName: string) {
@@ -69,8 +80,16 @@ export struct CategorySamples {
   CategoryContentViewBuilder() {
     GridRow({
       columns: { sm: ColumnEnum.SM, md: ColumnEnum.MD, lg: ColumnEnum.LG },
-      gutter: { y: $r('sys.float.padding_level8'), x: $r('sys.float.padding_level8') },
+      gutter: {
+        y: $r('sys.float.padding_level8'),
+        x: new BreakpointType({
+          sm: $r('sys.float.padding_level8'),
+          md: $r('sys.float.padding_level16'),
+          lg: $r('sys.float.padding_level8')
+        }).getValue(this.currentBreakpoint),
+      },
       direction: GridRowDirection.Row,
+      breakpoints: { reference: BreakpointsReference.ComponentSize }
     }) {
       Repeat(this.sampleCategory.sampleCards)
         .each((repeatItem: RepeatItem<SampleCardData>) => {
@@ -82,7 +101,12 @@ export struct CategorySamples {
                 this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample, this.sampleCategory.categoryName);
               },
             })
+              .margin({
+                left: this.itemMargin,
+                right: this.itemMargin,
+              })
           }
+          .clip(false)
         })
         .key((item: SampleCardData) => item.id.toString())
         .templateId((item: SampleCardData) => item.styleType.toString())
@@ -97,7 +121,12 @@ export struct CategorySamples {
                     this.sampleCategory.categoryName);
                 },
               })
+                .margin({
+                  left: this.itemMargin,
+                  right: this.itemMargin,
+                })
             }
+            .clip(false)
           })
         .template(CardStyleTypeEnum.LIST.toString(), (repeatItem: RepeatItem<SampleCardData>) => {
           if (repeatItem.item.sampleContents.length > 2) {
@@ -111,16 +140,8 @@ export struct CategorySamples {
                 },
               })
                 .margin({
-                  left: new BreakpointType({
-                    sm: SampleConstant.SCROLL_MARGIN_SM,
-                    md: SampleConstant.SCROLL_MARGIN_MD,
-                    lg: SampleConstant.SCROLL_MARGIN_LG,
-                  }).getValue(this.globalInfoModel.widthBreakpoint),
-                  right: new BreakpointType({
-                    sm: SampleConstant.SCROLL_MARGIN_SM,
-                    md: SampleConstant.SCROLL_MARGIN_MD,
-                    lg: SampleConstant.SCROLL_MARGIN_LG,
-                  }).getValue(this.globalInfoModel.widthBreakpoint),
+                  left: SampleConstant.SCROLL_MARGIN_LG,
+                  right: SampleConstant.SCROLL_MARGIN_LG,
                 })
             }
             .clip(false)
@@ -132,7 +153,12 @@ export struct CategorySamples {
                   this.jumpToDetail(index, sample, this.sampleCategory.categoryName);
                 },
               })
+                .margin({
+                  left: this.itemMargin,
+                  right: this.itemMargin,
+                })
             }
+            .clip(false)
           }
         })
         .template(CardStyleTypeEnum.PICTURE.toString(), (repeatItem: RepeatItem<SampleCardData>) => {
@@ -143,7 +169,12 @@ export struct CategorySamples {
                 this.jumpToDetail(sample.unionId ? repeatItem.index : index, sample, this.sampleCategory.categoryName);
               },
             })
+              .margin({
+                left: this.itemMargin,
+                right: this.itemMargin,
+              })
           }
+          .clip(false)
         })
       GridCol({ span: { sm: CommonConstants.SPAN_4, md: CommonConstants.SPAN_8, lg: CommonConstants.SPAN_12 } }) {
         Column() {
@@ -156,25 +187,18 @@ export struct CategorySamples {
       }
       .padding({
         bottom: this.globalInfoModel.naviIndicatorHeight +
-          (new BreakpointType({
-            sm: CommonConstants.TAB_BAR_HEIGHT,
-            md: CommonConstants.TAB_BAR_HEIGHT,
-            lg: 0,
-          }).getValue(this.globalInfoModel.widthBreakpoint)),
+          (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? 0 : CommonConstants.TAB_BAR_HEIGHT),
       })
     }
     .padding({
-      left: new BreakpointType({
-        sm: $r('sys.float.padding_level8'),
-        md: $r('sys.float.padding_level12'),
-        lg: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.widthBreakpoint),
-      right: new BreakpointType({
-        sm: $r('sys.float.padding_level8'),
-        md: $r('sys.float.padding_level12'),
-        lg: $r('sys.float.padding_level16'),
-      }).getValue(this.globalInfoModel.widthBreakpoint),
-      top: $r('sys.float.padding_level4')
+      left: -SampleConstant.SCROLL_MARGIN_LG,
+      right: -SampleConstant.SCROLL_MARGIN_LG,
+      top: $r('sys.float.padding_level4'),
+    })
+    .onBreakpointChange((breakpoints: string) => {
+      this.currentBreakpoint =
+        SampleConstant.BREAKPOINTS.includes(breakpoints) ? SampleConstant.BREAKPOINTS.indexOf(breakpoints) :
+          WidthBreakpoint.WIDTH_XL;
     })
     .clip(false)
   }

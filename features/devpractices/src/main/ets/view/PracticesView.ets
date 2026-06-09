@@ -16,9 +16,7 @@
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { CommonModifier } from '@kit.ArkUI';
 import {
-  HdsNavDestination,
-  HdsTabsController,
-  HideMode,
+  HdsNavDestination, HdsTabsController, HideMode,
 } from '@kit.UIDesignKit';
 import {
   BreakpointType,
@@ -64,12 +62,6 @@ struct PracticesView {
   @State selMaterialModifier: CommonModifier = new CommonModifier();
 
   aboutToAppear(): void {
-    this.viewModel.sendEvent<InitializeParam>({
-      type: BaseHomeEventType.INITIALIZE,
-      param: {
-        homeTabController: this.homeTabController,
-      },
-    });
     this.viewModel.sendEvent<LoadSamplePageParam>({
       type: PracticeEventType.LOAD_SAMPLE_PAGE,
       param: {
@@ -98,14 +90,20 @@ struct PracticesView {
   handleBreakPointChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
-      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.SAMPLE },
+      param: {
+        yOffset: (this.scroller?.currentOffset()?.yOffset || 0),
+        tabIndex: TabBarType.SAMPLE,
+      },
     });
   }
 
   handleColorModeChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_COLOR_CHANGE,
-      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.SAMPLE },
+      param: {
+        yOffset: (this.scroller?.currentOffset()?.yOffset || 0),
+        tabIndex: TabBarType.SAMPLE,
+      },
     });
   }
 
@@ -123,7 +121,7 @@ struct PracticesView {
           ForEach(this.practiceState.sampleCategories, (item: SampleCategory, index: number) => {
             Row() {
               if (item.defaultIcon) {
-                Image(this.currentIndex === index ? item.defaultIcon : item.selectedIcon)
+                Image($rawfile(this.currentIndex === index ? item.defaultIcon : item.selectedIcon))
                   .height($r('app.float.tab_icon_height'))
                   .objectFit(ImageFit.Contain)
                   .margin({ right: $r('sys.float.padding_level2') })
@@ -145,14 +143,14 @@ struct PracticesView {
               secondaryTab: item.categoryName,
             } as TrackServiceData)
             .margin({ left: (hasStartMargin && index === 0) ? CommonConstants.TAB_BAR_WIDTH : 0 })
-            .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+            .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
               $r('sys.float.corner_radius_level4') : '50%')
             .onClick(() => {
               this.currentIndex = index;
               if (!this.practiceState.sampleCategories[index].sampleCards) {
                 const topOffsetY =
                   (this.practiceState.bannerState.bannerHeight - this.globalInfoModel.naviIndicatorHeight -
-                  CommonConstants.NAVIGATION_HEIGHT);
+                    CommonConstants.NAVIGATION_HEIGHT);
                 if (this.scroller?.currentOffset()?.yOffset > topOffsetY) {
                   this.scroller.scrollTo({ yOffset: topOffsetY, xOffset: 0 });
                 }
@@ -175,12 +173,24 @@ struct PracticesView {
           top: $r('sys.float.padding_level8'),
         })
       }
-      .initialOffset(isHeader ? this.tabScroller.currentOffset() : {})
-      .onDidScroll(() => {
+      .onAppear(() => {
         if (isHeader) {
-          this.tabScroller.scrollTo(this.headerScroller.currentOffset());
-        } else {
-          this.headerScroller.scrollTo(this.tabScroller.currentOffset());
+          const offset: OffsetResult = this.tabScroller.currentOffset();
+          this.headerScroller.scrollTo({
+            xOffset: offset?.xOffset ?? 0,
+            yOffset: offset?.yOffset ?? 0,
+            animation: false,
+          });
+        }
+      })
+      .initialOffset(isHeader ? this.tabScroller.currentOffset() : {})
+      .onDidScroll((xOffset: number, yOffset: number, scrollState: ScrollState) => {
+        if (scrollState !== ScrollState.Idle) {
+          if (isHeader) {
+            this.tabScroller.scrollTo(this.headerScroller.currentOffset());
+          } else {
+            this.headerScroller.scrollTo(this.tabScroller.currentOffset());
+          }
         }
       })
       .visibility(this.practiceState.showTab && !isHeader ? Visibility.Hidden : Visibility.Visible)
@@ -225,7 +235,9 @@ struct PracticesView {
         }
       }
       .padding({
-        left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+        left: (!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) &&
+          (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+            this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) &&
           !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH : 0,
       })
     }
@@ -242,6 +254,7 @@ struct PracticesView {
           type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
           param: {
             yOffset: offset,
+            tabIndex: TabBarType.SAMPLE,
           } as TabBarAnimationParam,
         });
       }
@@ -260,7 +273,8 @@ struct PracticesView {
         this.viewModel.sendEvent<TabBarAnimationParam>({
           type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
           param: {
-            yOffset: -1
+            yOffset: -1,
+            tabIndex: TabBarType.SAMPLE,
           } as TabBarAnimationParam,
         });
       }
@@ -297,10 +311,11 @@ struct PracticesView {
     }
     .hideBackButton(true)
     .bindToScrollable([this.scroller])
-    .dynamicHideTitleBar(this.globalInfoModel.needDynamicHideBar ? {
-      hideTitleArea: true,
+    .dynamicHideTitleBar({
+      hideTitleArea: !AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT),
       mode: HideMode.SCROLL_UP_TO,
-    } : {})
+      hideRatio: 1,
+    })
     .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
     .titleBar({
       padding: this.practiceState.topNavigationData.hdsTitleBarPadding,
@@ -310,7 +325,9 @@ struct PracticesView {
         title: { mainTitle: this.practiceState.topNavigationData.title },
         bottomBuilder: this.practiceState.showTab ? {
           builder: () => {
-            this.CategoryHeaderBuilder(true, this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+            this.CategoryHeaderBuilder(true,!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) &&
+              (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+                this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) &&
               !HdsUtil.isSupportNewMaterialApi());
           },
         } : undefined,
@@ -320,6 +337,12 @@ struct PracticesView {
       const params: HomeListParams = ctx.pathInfo.param as HomeListParams;
       this.scroller = params?.scroller;
       this.homeTabController = params.homeTabController;
+      this.viewModel.sendEvent<InitializeParam>({
+        type: BaseHomeEventType.INITIALIZE,
+        param: {
+          homeTabController: this.homeTabController,
+        },
+      });
     })
     .onBackPressed(() => {
       return !!this.viewModel.sendEvent<null>({ type: BaseHomeEventType.ON_BACK_PRESS, param: null });

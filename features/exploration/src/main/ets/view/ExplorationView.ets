@@ -15,9 +15,7 @@
 
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import {
-  HdsNavDestination,
-  HdsTabsController,
-  HideMode,
+  HdsNavDestination, HdsTabsController, HideMode,
 } from '@kit.UIDesignKit';
 import { BreakpointType, CommonConstants, GlobalInfoModel, HdsUtil, StorageKey } from '@ohos/common';
 import type { BannerData, HomeListParams, InitializeParam, TabBarAnimationParam } from '@ohos/commonbusiness';
@@ -50,12 +48,6 @@ struct ExplorationView {
   @State explorationState: ExplorationState = this.viewModel.getState();
 
   aboutToAppear(): void {
-    this.viewModel.sendEvent<InitializeParam>({
-      type: BaseHomeEventType.INITIALIZE,
-      param: {
-        homeTabController: this.homeTabController,
-      },
-    });
     this.viewModel.sendEvent({ type: ExplorationEventType.LOAD_DISCOVERY_PAGE, param: null });
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
@@ -66,14 +58,20 @@ struct ExplorationView {
   handleBreakPointChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_BREAKPOINT_CHANGE,
-      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.PRACTICE },
+      param: {
+        yOffset: (this.scroller?.currentOffset()?.yOffset || 0),
+        tabIndex: TabBarType.PRACTICE,
+      },
     });
   }
 
   handleColorModeChange() {
     this.viewModel.sendEvent<OffsetParam>({
       type: BaseHomeEventType.HANDLE_COLOR_CHANGE,
-      param: { yOffset: (this.scroller?.currentOffset()?.yOffset || 0), tabIndex: TabBarType.PRACTICE },
+      param: {
+        yOffset: (this.scroller?.currentOffset()?.yOffset || 0),
+        tabIndex: TabBarType.PRACTICE,
+      },
     });
   }
 
@@ -85,7 +83,10 @@ struct ExplorationView {
   }
 
   jumpBannerDetail(banner: BannerData) {
-    this.viewModel.sendEvent<BannerData>({ type: BaseHomeEventType.JUMP_BANNER_DETAIL, param: banner });
+    this.viewModel.sendEvent<BannerData>({
+      type: BaseHomeEventType.JUMP_BANNER_DETAIL,
+      param: banner,
+    });
   }
 
   @Builder
@@ -104,9 +105,9 @@ struct ExplorationView {
       left: new BreakpointType<Length>({
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
-        lg: HdsUtil.isSupportNewMaterialApi() ? $r('sys.float.padding_level16') :
+        lg: (HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+          $r('sys.float.padding_level16') :
           CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
-        xl: $r('sys.float.padding_level16'),
       }).getValue(this.globalInfoModel.widthBreakpoint),
     })
   }
@@ -177,16 +178,13 @@ struct ExplorationView {
         LoadingMoreItemBuilder(this.explorationState.loadingModel)
       }
       .padding({
-        left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
+        left: (!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) && (this.globalInfoModel.widthBreakpoint ===
+          WidthBreakpoint.WIDTH_LG || this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) &&
           !HdsUtil.isSupportNewMaterialApi()) ? CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_16 :
           CommonConstants.SPACE_16,
         right: CommonConstants.SPACE_16,
         bottom: (this.globalInfoModel.naviIndicatorHeight +
-          (new BreakpointType({
-            sm: CommonConstants.TAB_BAR_HEIGHT,
-            md: CommonConstants.TAB_BAR_HEIGHT,
-            lg: 0,
-          }).getValue(this.globalInfoModel.widthBreakpoint))),
+          (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? 0 : CommonConstants.TAB_BAR_HEIGHT)),
       })
     }
     .width('100%')
@@ -199,6 +197,7 @@ struct ExplorationView {
         type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
         param: {
           yOffset: offset,
+          tabIndex: TabBarType.PRACTICE,
         } as TabBarAnimationParam,
       });
       const param: CalculateHeightParam = { offset, state, yOffset: this.scroller.currentOffset()?.yOffset ?? 0 };
@@ -216,6 +215,7 @@ struct ExplorationView {
         type: BaseHomeEventType.HANDLE_TAB_BAR_ANIMATION,
         param: {
           yOffset: -1,
+          tabIndex: TabBarType.PRACTICE,
         } as TabBarAnimationParam,
       });
     })
@@ -264,6 +264,12 @@ struct ExplorationView {
       const params: HomeListParams = ctx.pathInfo.param as HomeListParams;
       this.scroller = params?.scroller;
       this.homeTabController = params.homeTabController;
+      this.viewModel.sendEvent<InitializeParam>({
+        type: BaseHomeEventType.INITIALIZE,
+        param: {
+          homeTabController: this.homeTabController,
+        },
+      });
     })
     .onBackPressed(() => {
       return !!this.viewModel.sendEvent<null>({ type: BaseHomeEventType.ON_BACK_PRESS, param: null });

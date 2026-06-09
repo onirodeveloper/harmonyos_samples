@@ -45,16 +45,25 @@ export struct SelectComponent {
         .id('select')
         .selected(this.currentIndex)
         .value(this.attribute.currentValue)
-        .font({ size: $r('sys.float.Body_M'), weight: FontWeight.Regular })
+        .font({
+          size: $r('sys.float.Body_M'),
+          weight: FontWeight.Regular,
+        })
         .fontColor($r('sys.color.font_primary'))
-        .optionFont({ size: $r('sys.float.Body_L'), weight: FontWeight.Medium })
+        .optionFont({
+          size: $r('sys.float.Body_L'),
+          weight: FontWeight.Medium,
+        })
         .optionFontColor($r('sys.color.font_primary'))
         .optionWidth($r('app.float.detail_common_component_option_width'))
         .menuAlign(MenuAlignType.END, { dx: 0, dy: 0 } as Offset)
         .menuItemContentModifier(new SelectMenuAttributeModifier())
         .menuBackgroundBlurStyle(BlurStyle.COMPONENT_ULTRA_THICK)
         .backgroundColor(Color.Transparent)
-        .padding({ left: $r('sys.float.padding_level0'), right: $r('sys.float.padding_level0') })
+        .padding({
+          left: $r('sys.float.padding_level0'),
+          right: $r('sys.float.padding_level0'),
+        })
         .optionBgColor(Color.White)
         .onSelect((_index: number, value: string) => {
           if (this.attribute.currentValue !== value) {
@@ -64,7 +73,10 @@ export struct SelectComponent {
           }
         })
     }
-    .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
+    .padding({
+      left: $r('sys.float.padding_level6'),
+      right: $r('sys.float.padding_level6'),
+    })
     .height($r('app.float.common_component_height'))
     .width('100%')
   }

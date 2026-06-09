@@ -23,6 +23,7 @@ import {
   TRACK_KEY,
   TrackNode,
   TrackServiceData,
+  BreakpointType,
 } from '@ohos/common';
 import type { BannerData } from '../model/BannerData';
 import type { BannerState } from '../viewmodel/BaseHomeState';
@@ -30,8 +31,6 @@ import { BannerItem } from './BannerItem';
 import { BannerProgress } from './BannerProgress';
 import { ProgressController } from './ProgressController';
 
-const ICON_HEIGHT = 32;
-const ICON_PADDING = 24;
 const BANNER_ASPECT = 1.75;
 const ANIMATION_DELAY = 50;
 
@@ -86,8 +85,6 @@ export struct BannerCard {
     .indicator(false)
     .width('100%')
     .height(this.bannerState.bannerHeight)
-    .geometryTransition(CommonConstants.BANNER_GEOMETRY + this.tabViewType.toString(), { follow: true })
-    .transition(TransitionEffect.OPACITY)
     .onAnimationStart((index: number, targetIndex: number) => {
       this.isAnimating = true;
       if (index === targetIndex) {
@@ -117,15 +114,14 @@ export struct BannerCard {
 
   build() {
     if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
-      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
-      Stack({ alignContent: Alignment.TopStart }) {
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
+      RelativeContainer() {
         Scroll(this.scrollerController) {
           Row({ space: CommonConstants.SPACE_16 }) {
             LazyForEach(this.bannerState.bannerResource, (bannerData: BannerData) => {
               Column() {
                 BannerItem({ bannerData: bannerData, widthBreakpoint: this.globalInfoModel.widthBreakpoint })
-                  .geometryTransition(CommonConstants.BANNER_GEOMETRY + bannerData.id.toString(), { follow: true })
-                  .transition(TransitionEffect.OPACITY)
                   .height('100%')
                   .aspectRatio(BANNER_ASPECT)
                   .onClick(() => {
@@ -136,10 +132,17 @@ export struct BannerCard {
           }
           .justifyContent(FlexAlign.Start)
           .padding({
-            left: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG &&
-              !HdsUtil.isSupportNewMaterialApi()) ?
-              (CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_32) : $r('sys.float.padding_level16'),
-            right: $r('sys.float.padding_level16'),
+            left: new BreakpointType({
+              sm: $r('sys.float.padding_level8'),
+              md: $r('sys.float.padding_level12'),
+              lg: !HdsUtil.isSupportNewMaterialApi() && !AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
+                (CommonConstants.TAB_BAR_WIDTH + CommonConstants.SPACE_32) : $r('sys.float.padding_level16'),
+            }).getValue(this.globalInfoModel.widthBreakpoint),
+            right: new BreakpointType({
+              sm: $r('sys.float.padding_level8'),
+              md: $r('sys.float.padding_level12'),
+              lg: $r('sys.float.padding_level16'),
+            }).getValue(this.globalInfoModel.widthBreakpoint),
           })
         }
         .onReachStart(() => {
@@ -156,7 +159,7 @@ export struct BannerCard {
         .height('100%')
         .width('100%')
 
-        if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
+        if (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
           Button({ type: ButtonType.Circle }) {
             SymbolGlyph($r('sys.symbol.chevron_left'))
               .fontSize($r('app.float.banner_icon_height'))
@@ -165,12 +168,18 @@ export struct BannerCard {
           .backgroundColor($r('sys.color.mask_fourth'))
           .height($r('app.float.banner_button_height'))
           .width($r('app.float.banner_button_height'))
-          .margin({
-            top: Math.floor((this.bannerState.bannerHeight -
-              (this.globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8) -
-              ICON_HEIGHT) / 2),
-            left: $r('sys.float.padding_level12')
+          .alignRules({
+            center: { anchor: '__container__', align: VerticalAlign.Center },
+            left: { anchor: '__container__', align: HorizontalAlign.Start },
           })
+          .margin({
+            left: new BreakpointType({
+              sm: $r('sys.float.padding_level8'),
+              md: $r('sys.float.padding_level12'),
+              lg: $r('sys.float.padding_level16'),
+            }).getValue(this.globalInfoModel.widthBreakpoint)
+          })
+          .zIndex(2)
           .visibility(this.showLeftIcon ? Visibility.Visible : Visibility.Hidden)
           .onClick(() => {
             this.scrollByOffset(-this.bannerOffset);
@@ -184,14 +193,18 @@ export struct BannerCard {
           .backgroundColor($r('sys.color.mask_fourth'))
           .height($r('app.float.banner_button_height'))
           .width($r('app.float.banner_button_height'))
-          .margin({
-            top: Math.floor((this.bannerState.bannerHeight -
-              (this.globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8) -
-              ICON_HEIGHT) / 2),
-            left: this.globalInfoModel.deviceWidth - CommonConstants.SIDE_BAR_WIDTH - CommonConstants.SPACE_32 * 2 -
-              ICON_PADDING - ICON_HEIGHT,
+          .alignRules({
+            center: { anchor: '__container__', align: VerticalAlign.Center },
+            right: { anchor: '__container__', align: HorizontalAlign.End },
           })
-          .position({ x: 0 })
+          .margin({
+            right: new BreakpointType({
+              sm: $r('sys.float.padding_level8'),
+              md: $r('sys.float.padding_level12'),
+              lg: $r('sys.float.padding_level16'),
+            }).getValue(this.globalInfoModel.widthBreakpoint)
+          })
+          .zIndex(2)
           .visibility(this.showRightIcon ? Visibility.Visible : Visibility.Hidden)
           .onClick(() => {
             this.scrollByOffset(this.bannerOffset);

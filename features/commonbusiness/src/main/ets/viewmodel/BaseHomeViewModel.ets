@@ -45,6 +45,7 @@ import type { BaseHomeState } from './BaseHomeState';
 
 const TAG = '[BaseHomeViewModel]';
 const BANNER_HEIGHT_LG = 242;
+const BANNER_HEIGHT_XL = 260;
 const BANNER_CONTENT_HEIGHT = 160;
 const PRESS_TIME: number = 1500;
 
@@ -61,20 +62,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   public constructor(initialState: T) {
     super(initialState);
     this.state = initialState;
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-    const naviTitleHeight: number =
-      globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8;
-    this.state.bannerState.bannerHeight = new BreakpointType({
-      sm: globalInfoModel.aspectRatio < CommonConstants.ASPECT_SQUARE_PORTRAIT &&
-        globalInfoModel.aspectRatio > CommonConstants.ASPECT_PORTRAIT_NARROW ?
-        CommonConstants.BANNER_ASPECT_PORTRAIT * globalInfoModel.deviceWidth :
-        CommonConstants.BANNER_ASPECT_SM * globalInfoModel.deviceWidth,
-      md: CommonConstants.BANNER_ASPECT_MD * globalInfoModel.deviceWidth,
-      lg: BANNER_HEIGHT_LG + naviTitleHeight,
-      xl: BANNER_HEIGHT_LG + naviTitleHeight,
-    }).getValue(globalInfoModel.widthBreakpoint);
-    this.state.bannerHeight = this.state.bannerState.bannerHeight;
-    this.originBannerHeight = this.state.bannerHeight;
+    this.changeBannerHeight();
     this.setTitleBarStyle();
   }
 
@@ -114,7 +102,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       this.state.hasEdgeEffect = param.offset > 0;
     }
     if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
-      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL || param.yOffset > 0) {
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) || param.yOffset > 0) {
       return false;
     }
     if (param.state === ScrollState.Scroll && param.offset !== 0) {
@@ -142,6 +131,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     this.setTitleBarStyle();
     offsetParam.breakpointChange = true;
     this.handleListOffset(offsetParam);
+    this.handleTabBarAnimation({ yOffset: -1, tabIndex: offsetParam.tabIndex });
   }
 
   protected handleColorModeChange(offsetParam: OffsetParam) {
@@ -161,16 +151,17 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     const naviTitleHeight: number =
       globalInfoModel.statusBarHeight + CommonConstants.NAVIGATION_HEIGHT + CommonConstants.SPACE_8;
-    this.state.bannerState.bannerHeight = new BreakpointType({
-      sm: globalInfoModel.aspectRatio < CommonConstants.ASPECT_SQUARE_PORTRAIT &&
-        globalInfoModel.aspectRatio > CommonConstants.ASPECT_PORTRAIT_NARROW ?
-        CommonConstants.BANNER_ASPECT_PORTRAIT * globalInfoModel.deviceWidth :
-        CommonConstants.BANNER_ASPECT_SM * globalInfoModel.deviceWidth,
-      md: CommonConstants.BANNER_ASPECT_MD * globalInfoModel.deviceWidth,
-      lg: BANNER_HEIGHT_LG + naviTitleHeight,
-      xl: CommonConstants.BANNER_ASPECT_XL *
-      Math.floor((globalInfoModel.deviceWidth - CommonConstants.SIDE_BAR_WIDTH) / 2.7) + naviTitleHeight,
-    }).getValue(globalInfoModel.widthBreakpoint);
+    let defaultBannerHeight: number = BANNER_HEIGHT_LG + naviTitleHeight;
+    this.state.bannerState.bannerHeight =
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? BANNER_HEIGHT_XL + naviTitleHeight : new BreakpointType({
+        sm: globalInfoModel.aspectRatio < CommonConstants.ASPECT_SQUARE_PORTRAIT &&
+          globalInfoModel.aspectRatio > CommonConstants.ASPECT_PORTRAIT_NARROW ?
+          CommonConstants.BANNER_ASPECT_PORTRAIT * globalInfoModel.deviceWidth :
+          CommonConstants.BANNER_ASPECT_SM * globalInfoModel.deviceWidth,
+        md: CommonConstants.BANNER_ASPECT_MD * globalInfoModel.deviceWidth,
+        lg: defaultBannerHeight,
+        xl: defaultBannerHeight,
+      }).getValue(globalInfoModel.widthBreakpoint);
     this.state.bannerHeight = this.state.bannerState.bannerHeight;
     this.originBannerHeight = this.state.bannerHeight;
   }
@@ -187,7 +178,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
 
     if (offsetParam.yOffset > this.state.bannerState.bannerHeight ||
       globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
-      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
+      globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
       if (offsetParam.breakpointChange) {
         TAB_CONTENT_STATUSES[offsetParam.tabIndex] = false;
       }
@@ -212,7 +204,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
     const pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     if (banner.type === BannerTypeEnum.COMPONENT) {
-      const componentPageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      const componentPageContext = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
         AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) : pageContext;
       const componentDetailParam: ComponentDetailParams = {
         title: banner.title,
@@ -224,7 +216,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
         param: componentDetailParam,
       }, true);
     } else if (banner.type === BannerTypeEnum.SAMPLE) {
-      const samplePageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+      const samplePageContext = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
         AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT) : pageContext;
       const sampleParam: SampleDetailParams = {
         title: banner.title,
@@ -243,7 +235,7 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     } else if (banner.type === BannerTypeEnum.ARTICLE) {
       // Get the current path stack.
       let currentPageContext = pageContext;
-      if (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
+      if (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
         if (banner.tabViewType === TabBarType.HOME) {
           currentPageContext = AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT);
         } else if (banner.tabViewType === TabBarType.SAMPLE) {
@@ -259,7 +251,9 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
         detailsUrl: banner.detailsUrl,
         isArticle: false,
         interactionType: InteractionTypeEnum.SAMPLE,
-        tabViewType: globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ? banner.id : banner.tabViewType,
+        tabViewType: (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+          globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+          AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ? banner.id : banner.tabViewType,
       };
       const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
       uiContext?.animateTo({ curve: curves.interpolatingSpring(0, 1, 273, 33) }, () => {
@@ -280,20 +274,29 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
   }
 
   protected handleTabBarAnimation(param: TabBarAnimationParam): void {
-    if (!HdsUtil.isSupportNewMaterialApi()) {
+    if (!HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ||
+      param.tabIndex !== AppStorage.get<number>(StorageKey.CURRENT_TAB)) {
       return;
     }
-    if (this.homeTabController instanceof HdsTabsController) {
+    try {
       const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
       if (globalInfoModel.needDynamicHideBar) {
         if (param.yOffset > 0 && !this.isScrollUp) {
           this.isScrollUp = true;
-          (this.homeTabController as HdsTabsController)?.applyHideAnimation(HdsAnimationMode.SCROLL_ANIMATION)
+          this.homeTabController?.applyHideAnimation(HdsAnimationMode.SCROLL_ANIMATION);
+          AppStorage.setOrCreate<boolean>('TabBarHidden', true);
         } else if (param.yOffset < 0 && this.isScrollUp) {
           this.isScrollUp = false;
-          (this.homeTabController as HdsTabsController)?.applyShowAnimation(HdsAnimationMode.SCROLL_ANIMATION)
+          this.homeTabController?.applyShowAnimation(HdsAnimationMode.SCROLL_ANIMATION);
+          AppStorage.setOrCreate<boolean>('TabBarHidden', false);
         }
+      } else if (AppStorage.get<boolean>('TabBarHidden')) {
+        this.isScrollUp = false;
+        this.homeTabController?.applyShowAnimation(HdsAnimationMode.SCROLL_ANIMATION);
+        AppStorage.setOrCreate<boolean>('TabBarHidden', false);
       }
+    } catch (error) {
+      Logger.error(TAG, `handleTabBarAnimation failed. cause ${error.message}`);
     }
   }
 
@@ -309,9 +312,8 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
       LengthMetrics.vp(new BreakpointType<number>({
         sm: CommonConstants.SPACE_16,
         md: CommonConstants.SPACE_24,
-        lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_32 :
-          CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
-        xl: CommonConstants.SPACE_32,
+        lg: (HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+          CommonConstants.SPACE_32 : CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
       }).getValue(globalInfoModel.widthBreakpoint)),
       end:
       LengthMetrics.vp(new BreakpointType<number>({
@@ -324,24 +326,22 @@ export class BaseHomeViewModel<T extends BaseHomeState> extends BaseVM<BaseHomeS
     const scrollEffectOpts: ScrollEffectOptions = {
       enableScrollEffect: true,
       scrollEffectType: ScrollEffectType.COMMON_BLUR,
-      blurEffectiveStartOffset: LengthMetrics.vp(new BreakpointType<number>({
-        sm: this.state.bannerHeight - BANNER_CONTENT_HEIGHT - globalInfoModel.statusBarHeight,
-        md: this.state.bannerHeight - BANNER_CONTENT_HEIGHT - globalInfoModel.statusBarHeight,
-        lg: 0,
-        xl: 0,
-      }).getValue(globalInfoModel.widthBreakpoint)),
-      blurEffectiveEndOffset: LengthMetrics.vp(new BreakpointType<number>({
-        sm: this.state.bannerHeight - globalInfoModel.statusBarHeight - CommonConstants.NAVIGATION_HEIGHT,
-        md: this.state.bannerHeight - globalInfoModel.statusBarHeight - CommonConstants.NAVIGATION_HEIGHT,
-        lg: CommonConstants.NAVIGATION_HEIGHT,
-        xl: CommonConstants.NAVIGATION_HEIGHT,
-      }).getValue(globalInfoModel.widthBreakpoint)),
+      blurEffectiveStartOffset: LengthMetrics.vp(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? 0 :
+        new BreakpointType<number>({
+          sm: this.state.bannerHeight - BANNER_CONTENT_HEIGHT - globalInfoModel.statusBarHeight,
+          md: this.state.bannerHeight - BANNER_CONTENT_HEIGHT - globalInfoModel.statusBarHeight,
+          lg: 0,
+          xl: 0,
+        }).getValue(globalInfoModel.widthBreakpoint)),
+      blurEffectiveEndOffset: LengthMetrics.vp(this.state.bannerHeight - globalInfoModel.statusBarHeight -
+        CommonConstants.NAVIGATION_HEIGHT),
     }
     const hdsTitleBarStyle: TitleBarStyleOptions = {
       originalStyle: {
         contentStyle: {
           titleStyle: {
-            mainTitleColor: dataFailed ? $r('sys.color.font_primary') :
+            mainTitleColor: (dataFailed || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+              $r('sys.color.font_primary') :
               new BreakpointType<ResourceColor>({
                 sm: $r('sys.color.font_on_primary'),
                 md: $r('sys.color.font_on_primary'),
@@ -396,6 +396,7 @@ export interface OffsetParam {
 
 export interface TabBarAnimationParam {
   yOffset: number;
+  tabIndex: number;
 }
 
 export interface InitializeParam {

@@ -30,7 +30,7 @@ export interface SampleDetailParams extends BasicRouterParams {
   cardId: number;
   unionId: number;
   interactionType: InteractionTypeEnum;
-  categoryName: string;
+  categoryName?: string;
 }
 
 export interface ArticleDetailParams extends BasicRouterParams {
@@ -39,6 +39,12 @@ export interface ArticleDetailParams extends BasicRouterParams {
   desc: string;
   tabViewType?: number;
   interactionType: InteractionTypeEnum;
+}
+
+export interface CodeViewParams {
+  code: string;
+  componentName: string;
+  // preFinishAnimation: () => void;
 }
 
 export interface HomeListParams {

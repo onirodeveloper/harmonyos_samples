@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { BreakpointType, CommonConstants } from '@ohos/common';
+import { BreakpointType, CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import type { ComponentCardData, ComponentContent } from '../model/ComponentData';
 import { ComponentItemList } from './ComponentItemList';
 
@@ -38,7 +37,10 @@ export struct ListCard {
           .fontSize($r('sys.float.Body_S'))
           .fontColor($r('sys.color.font_secondary'))
           .fontWeight(FontWeight.Regular)
-          .margin({ left: $r('sys.float.padding_level8'), bottom: $r('sys.float.padding_level2') })
+          .margin({
+            left: $r('sys.float.padding_level8'),
+            bottom: $r('sys.float.padding_level2'),
+          })
           .maxLines(1)
           .ellipsisMode(EllipsisMode.END)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -46,7 +48,10 @@ export struct ListCard {
           .fontSize($r('sys.float.Title_M'))
           .fontColor($r('sys.color.font_primary'))
           .fontWeight(FontWeight.Bold)
-          .margin({ left: $r('sys.float.padding_level8'), bottom: $r('sys.float.padding_level4') })
+          .margin({
+            left: $r('sys.float.padding_level8'),
+            bottom: $r('sys.float.padding_level4'),
+          })
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .maxLines(1)
           .ellipsisMode(EllipsisMode.END)
