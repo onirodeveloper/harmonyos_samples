@@ -260,19 +260,7 @@
     },
     {
       "branch": "dev",
-      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/Spatialization",
-      "moduleName": "",
-      "abilityName": ""
-    },
-    {
-      "branch": "dev",
       "originalUrl": "git@gitcode.com:HarmonyOS_Samples/ImageEditWithWavewheel",
-      "moduleName": "",
-      "abilityName": ""
-    },
-    {
-      "branch": "dev",
-      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/KnockFileShare",
       "moduleName": "",
       "abilityName": ""
     },
