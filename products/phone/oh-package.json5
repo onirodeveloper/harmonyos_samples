@@ -6,11 +6,9 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@ohos/componentlibrary": "file:../../features/componentlibrary",
-    "@ohos/devpractices": "file:../../features/devpractices",
-    "@ohos/exploration": "file:../../features/exploration",
-    "@ohos/mine": "file:../../features/mine",
+    "@ohos/common": "file:../../common",
+    "@ohos/abilitycommon": "file:../../features/abilitycommon",
     "@ohos/commonbusiness": "file:../../features/commonbusiness",
-    "@ohos/common": "file:../../common"
+    "@ohos/widgetcommon": "file:../../features/widgetcommon"
   }
 }

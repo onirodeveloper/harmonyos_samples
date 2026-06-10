@@ -71,6 +71,18 @@
     {
       "name": "save_image",
       "value": "save image"
+    },
+    {
+      "name": "download_success",
+      "value": "Saved to the gallery"
+    },
+    {
+      "name": "download_failed",
+      "value": "download failed"
+    },
+    {
+      "name": "sample_title",
+      "value": "Development Sample"
     }
   ]
 }

@@ -13,21 +13,30 @@
  * limitations under the License.
  */
 
+import { BreakpointType } from '../util/BreakpointSystem';
 import { LoadingView } from './LoadingView';
 
-const LOADING_DELAY_THRESHOLD: number = 200;
+const LOADING_DELAY_THRESHOLD_SM: number = 350;
+const LOADING_DELAY_THRESHOLD_LG: number = 400;
 
 @Component
 export struct DelayedLoadingView {
   @Prop breakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_SM;
-  @Prop delayThreshold: number = LOADING_DELAY_THRESHOLD
+  @Prop delayThreshold: number = LOADING_DELAY_THRESHOLD_SM;
   @State private showLoading: boolean = false;
   private delayTimer: number = -1;
 
   aboutToAppear(): void {
+    this.delayThreshold = new BreakpointType({
+      xs: LOADING_DELAY_THRESHOLD_SM,
+      sm: LOADING_DELAY_THRESHOLD_SM,
+      md: LOADING_DELAY_THRESHOLD_LG,
+      lg: LOADING_DELAY_THRESHOLD_LG,
+      xl: LOADING_DELAY_THRESHOLD_LG,
+    }).getValue(this.breakpoint);
     this.delayTimer = setTimeout(() => {
       this.showLoading = true;
-    }, LOADING_DELAY_THRESHOLD);
+    }, this.delayThreshold);
   }
 
   aboutToDisappear(): void {

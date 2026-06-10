@@ -18,7 +18,6 @@ import {
   CommonConstants,
   GlobalInfoModel,
   ModuleNameEnum,
-  PageContext,
   ScrollDirectionEnum,
   StorageKey,
   WebUtil
@@ -40,21 +39,26 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
     return CodePreviewPageVM.instance;
   }
 
-  sendEvent(event: CodePreviewEvent): void {
-    if (event === CodePreviewEvent.INIT) {
+  sendEvent<T>(event: CodePreviewEventParam<T>): void {
+    const type = event.type;
+    if (type === CodePreviewEventType.INIT) {
       this.init();
       this.resetNavigationViewState();
-    } else if (event === CodePreviewEvent.HANDLE_PAGE_CLICK) {
+    } else if (type === CodePreviewEventType.HANDLE_PAGE_CLICK) {
       this.handlePageClick();
+    } else if (type === CodePreviewEventType.POP) {
+      this.pop(event.param as PopParam);
+    } else if (type === CodePreviewEventType.CHANGE_BACK_PRESSED) {
+      this.changeBackPressedState(event.param as BackPressParam);
     }
   }
 
-  public pop(animated?: boolean): void {
-    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
-    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
-      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
-    pageContext?.popPage(animated);
+  private pop(param: PopParam): void {
+    param.pathStack?.pop(param.animation);
+  }
+
+  private changeBackPressedState(param: BackPressParam) {
+    this.state.isBackPressed = param.backPressed;
   }
 
   private init(): void {
@@ -80,7 +84,7 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
     }, () => {
       if (direction === ScrollDirectionEnum.DOWN) {
         this.state.navigationOpacity = 1 - Math.min(offset, DetailPageConstant.CODEPREVIEW_IMMERSIVE_HEIGHT) /
-        DetailPageConstant.CODEPREVIEW_IMMERSIVE_HEIGHT;
+          DetailPageConstant.CODEPREVIEW_IMMERSIVE_HEIGHT;
         const topTranslateY = offset > CommonConstants.NAVIGATION_HEIGHT ? -CommonConstants.NAVIGATION_HEIGHT : -offset;
         const bottomTranslateY = offset > (CommonConstants.TAB_BAR_HEIGHT + globalInfoModel.naviIndicatorHeight) ?
           (CommonConstants.TAB_BAR_HEIGHT + globalInfoModel.naviIndicatorHeight) : offset;
@@ -101,7 +105,23 @@ export class CodePreviewPageVM extends BaseVM<CodePreviewState> {
   }
 }
 
-export enum CodePreviewEvent {
+export enum CodePreviewEventType {
   INIT = 'INIT_CODE_PREVIEW_PAGE',
   HANDLE_PAGE_CLICK = 'handlePageClick',
+  POP = 'pop',
+  CHANGE_BACK_PRESSED = 'changeBackPressed',
+}
+
+export interface PopParam {
+  animation: boolean;
+  pathStack: NavPathStack;
+}
+
+export interface BackPressParam {
+  backPressed: boolean;
+}
+
+export interface CodePreviewEventParam<T> {
+  type: CodePreviewEventType;
+  param: T;
 }

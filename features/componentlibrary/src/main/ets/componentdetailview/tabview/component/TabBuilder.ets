@@ -45,45 +45,69 @@ struct TabComponent {
     Column() {
       if (text === 'circle') {
         Circle()
-          .size({ width: $r('app.float.one_hundred_size'), height: $r('app.float.one_hundred_size') })
+          .size({
+            width: $r('app.float.one_hundred_size'),
+            height: $r('app.float.one_hundred_size'),
+          })
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'square') {
         Rect()
-          .size({ width: $r('app.float.one_hundred_size'), height: $r('app.float.one_hundred_size') })
+          .size({
+            width: $r('app.float.one_hundred_size'),
+            height: $r('app.float.one_hundred_size'),
+          })
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'triangle') {
         Polygon()
-          .size({ width: $r('app.float.one_hundred_size'), height: $r('app.float.one_hundred_size') })
+          .size({
+            width: $r('app.float.one_hundred_size'),
+            height: $r('app.float.one_hundred_size'),
+          })
           .points([[0, 100], [50, 0], [100, 100]])
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'rectangle') {
         Rect()
-          .size({ width: $r('app.float.one_hundred_twenty_size'), height: $r('app.float.eighty_size') })
+          .size({
+            width: $r('app.float.one_hundred_twenty_size'),
+            height: $r('app.float.eighty_size'),
+          })
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'elliptical') {
         Ellipse()
-          .size({ width: $r('app.float.one_hundred_size'), height: $r('app.float.eighty_size') })
+          .size({
+            width: $r('app.float.one_hundred_size'),
+            height: $r('app.float.eighty_size'),
+          })
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'trapezium') {
         Polygon()
-          .size({ width: $r('app.float.one_hundred_twenty_size'), height: $r('app.float.eighty_size') })
+          .size({
+            width: $r('app.float.one_hundred_twenty_size'),
+            height: $r('app.float.eighty_size'),
+          })
           .points([[0, 80], [20, 0], [100, 0], [120, 80]])
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'lozenge') {
         Polygon()
-          .size({ width: $r('app.float.one_hundred_size'), height: $r('app.float.one_hundred_size') })
+          .size({
+            width: $r('app.float.one_hundred_size'),
+            height: $r('app.float.one_hundred_size'),
+          })
           .points([[0, 50], [50, 0], [100, 50], [50, 100]])
           .fill($r('sys.color.icon_emphasize'))
       }
       if (text === 'hexagon') {
         Polygon()
-          .size({ width: $r('app.float.one_hundred_size'), height: $r('app.float.one_hundred_size') })
+          .size({
+            width: $r('app.float.one_hundred_size'),
+            height: $r('app.float.one_hundred_size'),
+          })
           .points([[50, 0], [93.3, 25], [93.3, 75], [50, 100], [6.7, 75], [6.7, 25]])
           .fill($r('sys.color.icon_emphasize'))
       }

@@ -17,10 +17,6 @@ import { matrix4, window } from '@kit.ArkUI';
 import { image } from '@kit.ImageKit';
 import { StorageKey } from '@ohos/common';
 
-const TAG = '[ImageModel]';
-
-const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
-
 @Observed
 export class ImageModel {
   // Copy function of Matrix
@@ -342,6 +338,7 @@ function runWithAnimation(
   fn: Function,
   duration: number = 300, // Scale the duration of the animation
   curve: Curve = Curve.Smooth): void {
+  const uiContext = AppStorage.get<UIContext>(StorageKey.UI_CONTEXT);
   uiContext!.animateTo({ duration: duration, curve: curve }, () => {
     fn();
   });

@@ -116,7 +116,8 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
           result.data.cardData.length === this.pageSize && (result.totalSize > this.state.currentPage * this.pageSize);
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
-          globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
+          globalInfoModel.widthBreakpoint !== WidthBreakpoint.WIDTH_XL &&
+          !AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.HOME] = true;
           this.setTitleBarStyle();
@@ -147,9 +148,9 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
       new BreakpointType<Length>({
         sm: $r('sys.float.padding_level8'),
         md: $r('sys.float.padding_level12'),
-        lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_32 :
+        lg: (HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+          $r('sys.float.padding_level16') :
           CommonConstants.SPACE_32 + CommonConstants.TAB_BAR_WIDTH,
-        xl: $r('sys.float.padding_level16'),
       }).getValue(globalInfoModel.widthBreakpoint);
     const rightMargin: Resource = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
@@ -177,8 +178,7 @@ export class ComponentListViewModel extends BaseHomeViewModel<ComponentListState
   }
 
   protected jumpComponentDetail(componentContent: ComponentContent) {
-    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
-    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+    const pageContext = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
       AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
       AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const params: ComponentDetailParams = {

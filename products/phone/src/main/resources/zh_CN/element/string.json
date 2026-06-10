@@ -13,14 +13,6 @@
       "value": "HMOS代码工坊"
     },
     {
-      "name": "splash_main_title",
-      "value": "HarmonyOS代码工坊"
-    },
-    {
-      "name": "splash_sub_title",
-      "value": "欢迎来到HarmonyOS开发者世界"
-    },
-    {
       "name": "internet_reason",
       "value": "需要获取您的网络权限，用于获取网络资源展示数据"
     },
@@ -31,22 +23,6 @@
     {
       "name": "vibrator_reason",
       "value": "需要获取震动权限来提供震动感"
-    },
-    {
-      "name": "tab_home",
-      "value": "组件"
-    },
-    {
-      "name": "tab_sample",
-      "value": "样例"
-    },
-    {
-      "name": "tab_practice",
-      "value": "实践"
-    },
-    {
-      "name": "tab_mine",
-      "value": "我的"
     },
     {
       "name": "PhoneFormAbility_desc",
@@ -65,18 +41,6 @@
       "value": "HMOS代码工坊"
     },
     {
-      "name": "title_immersive",
-      "value": "HMOS代码工坊"
-    },
-    {
-      "name": "detail_immersive",
-      "value": "华为官方大型开源项目"
-    },
-    {
-      "name": "back_toast",
-      "value": "再滑一次退出"
-    },
-    {
       "name": "component_cases",
       "value": "组件案例"
     },
@@ -89,28 +53,24 @@
       "value": "技术文章"
     },
     {
-      "name": "card_list_subtitle",
-      "value": "更多文章"
-    },
-    {
       "name": "ArticleServiceCard_desc",
-      "value": "最佳实践文章抢先看."
+      "value": "最佳实践文章抢先看"
     },
     {
-      "name": "lock_screen_title",
-      "value": "代码工坊"
+      "name": "hmos_3d_live_widget_desc",
+      "value": "HMOS代码工坊互动卡片"
     },
     {
-      "name": "lock_screen_subtitle",
-      "value": "让开发更高效"
+      "name": "hmos_3d_live_widget_display_name",
+      "value": "HMOS代码工坊互动卡片"
     },
     {
-      "name": "skip",
-      "value": "跳过 %d"
+      "name": "widget_hmos_coding_title",
+      "value": "快捷开发指南"
     },
     {
-      "name": "experience_now",
-      "value": "立即体验"
+      "name": "widget_hmos_coding_text",
+      "value": "2026 HDC 创新特性"
     }
   ]
 }

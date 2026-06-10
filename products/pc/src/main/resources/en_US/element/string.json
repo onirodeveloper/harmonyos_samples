@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "widget_desc",
+      "value": "Huawei's official large open source projects"
+    },
+    {
+      "name": "widget_display_name",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "PcFormAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "PcFormAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "component_cases",
+      "value": "component cases"
+    },
+    {
+      "name": "sample_cases",
+      "value": "sample cases"
+    },
+    {
+      "name": "article_cases",
+      "value": "article cases"
+    },
+    {
+      "name": "ArticleServiceCard_desc",
+      "value": "Best Practice Article."
+    }
+  ]
+}

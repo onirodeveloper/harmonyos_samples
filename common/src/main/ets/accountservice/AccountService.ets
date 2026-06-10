@@ -15,12 +15,12 @@
 
 import { authentication } from '@kit.AccountKit';
 import { util } from '@kit.ArkTS';
-import { commonEventManager, emitter } from '@kit.BasicServicesKit';
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { UserAccount } from './model/UserAccount';
+import { commonEventManager, emitter } from '@kit.BasicServicesKit';
+import { CommonConstants } from '../constant/CommonConstants';
 import { PreferenceManager } from '../storagemanager/PreferenceManager';
 import Logger from '../util/Logger';
-import { CommonConstants } from '../constant/CommonConstants';
+import { UserAccount } from './model/UserAccount';
 
 const TAG: string = '[AccountService]';
 const USER_LOGIN = 'userLogin';

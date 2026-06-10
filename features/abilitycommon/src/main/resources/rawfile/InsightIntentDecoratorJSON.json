@@ -1,0 +1,32 @@
+{
+  "intentName": "OpenExampleDetail",
+  "domain": "ToolsDomain",
+  "intentVersion": "1.0.2",
+  "displayName": "详情页",
+  "llmDescription": "用于打开hmos代码工坊(又称“HarmonyOS代码工坊”、“鸿蒙代码工坊”或简称为“代码工坊”)中的不同页面。当用户表达了要打开代码工坊查看某个具体的组件的开发样例时，或者提出一个与ArkTS相关的问题希望在代码工坊中找到解答时，又或者提出了一个技术需求或者使用场景希望看到相关组件在代码工坊中的样例时，调用此工具并跳转到指定的页面。比如，查看代码工坊中的按钮样例，此时应当跳转到代码工坊的按钮组件样例页面。",
+  "keywords": ["ArkTS", "详情", "定义", "文档", "demo", "实现", "样例", "组件", "HarmonyOS", "鸿蒙系统", "介绍", "实例"],
+  "abilityName": "EntryAbility",
+  "executeMode": 0,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "componentName": {
+        "type": "string",
+        "description": "用户语料中包含的组件、开发实例名称或对其功能、内容、适用场景等的描述，组件名称可能包含：文本、输入、按钮、图片、进度条、开关、容器、手写笔、布局、AI能力、弹窗、日历、文件、动效等内容。"
+      }
+    }
+  },
+  "result": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "是否成功跳转到详情页"
+      },
+      "errorMessage": {
+        "type": "string",
+        "description": "错误信息，当跳转失败时返回"
+      }
+    }
+  }
+}

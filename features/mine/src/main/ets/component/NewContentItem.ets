@@ -84,7 +84,10 @@ export struct NewContentItem {
                     } as TrackServiceData)
                 }
               }
-              .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+              .padding({
+                left: $r('sys.float.padding_level2'),
+                right: $r('sys.float.padding_level2'),
+              })
               .height($r('app.float.content_item_height'))
             })
           }
@@ -94,7 +97,10 @@ export struct NewContentItem {
             startMargin: $r('sys.float.padding_level6'),
             endMargin: $r('sys.float.padding_level6'),
           })
-          .padding({ top: $r('sys.float.padding_level2'), bottom: $r('sys.float.padding_level2') })
+          .padding({
+            top: $r('sys.float.padding_level2'),
+            bottom: $r('sys.float.padding_level2'),
+          })
           .backgroundColor($r('sys.color.comp_background_primary'))
           .borderRadius($r('sys.float.corner_radius_level8'))
 
@@ -114,7 +120,7 @@ export struct NewContentItem {
     .padding({ top: $r('sys.float.padding_level8') })
     .size({
       width: CommonConstants.FULL_PERCENT,
-      height: CommonConstants.FULL_PERCENT
+      height: CommonConstants.FULL_PERCENT,
     })
   }
 }

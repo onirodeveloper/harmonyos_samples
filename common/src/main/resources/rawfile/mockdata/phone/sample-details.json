@@ -1,0 +1,2650 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "sampleContents": [
+        {
+          "id": 1,
+          "cardId": 1,
+          "unionId": 1,
+          "title": "HarmonyOS代码工坊",
+          "desc": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用。",
+          "preInstalled": true,
+          "type": "commonClient",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/sample_in_harmonyos/blob/master/README.md",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763172357628_dc8d11d1.png",
+          "mediaInfoList": [
+            {
+              "id": 12,
+              "mediaUrl": "image/sample/1763172357628_dc8d11d1.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 92,
+          "cardId": 162,
+          "unionId": 1,
+          "title": "互动卡片开发案例",
+          "desc": "本示例展示了如何使用 HarmonyOS 的互动卡片能力。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/LiveCard/blob/dev/README.md",
+          "moduleName": "livecardsample",
+          "abilityName": "LiveCardAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 21,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1779270959828_fe2f34f8.png",
+          "mediaInfoList": [
+            {
+              "id": 209,
+              "mediaUrl": "image/sample/1779270959828_fe2f34f8.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 84,
+          "cardId": 155,
+          "unionId": 1,
+          "title": "沉浸光感开发案例",
+          "desc": "本示例基于HDS提供的全新组件设计，打造更加沉浸化的应用视觉体验，以及更加智能化的交互体验。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/Spatialization/blob/dev/README.md",
+          "moduleName": "spatialzationsample",
+          "abilityName": "SpatialzationsampleAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 23,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778594689895_2574d2bf.png",
+          "mediaInfoList": [
+            {
+              "id": 181,
+              "mediaUrl": "image/sample/1778594689895_2574d2bf.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 90,
+          "cardId": 160,
+          "unionId": 1,
+          "title": "全链路盯盘开发案例",
+          "desc": "通过使用“闪控球”和“悬浮窗”特性承接股票桌面盯盘功能，“锁屏卡片”承载股票锁屏盯盘功能，“待机屏保”承接待机状态盯盘  “防窥保护”特性保护用户个人隐私。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/AlwaysOnMarketWatch/tree/dev",
+          "moduleName": "alwaysonmarketwatchsample",
+          "abilityName": "alwaysonmarketwatchAbility",
+          "sequence": 4,
+          "contentType": 2,
+          "apiVersion": 26,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778852918704_ecbd2f7b.png",
+          "mediaInfoList": [
+            {
+              "id": 207,
+              "mediaUrl": "image/sample/1778852918704_ecbd2f7b.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 87,
+          "cardId": 157,
+          "unionId": 1,
+          "title": "波轮菜单开发案例",
+          "desc": "在图片编辑Demo的基础上集成波轮菜单功能。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/ImageEditWithWavewheel/blob/dev/README.md",
+          "moduleName": "imageeditwithwavewheelsample",
+          "abilityName": "ImageeditwithwavewheelAbility",
+          "sequence": 5,
+          "contentType": 2,
+          "apiVersion": 21,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778832443929_5f4f8667.png",
+          "mediaInfoList": [
+            {
+              "id": 199,
+              "mediaUrl": "image/sample/1778832443929_5f4f8667.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 4,
+          "cardId": 4,
+          "unionId": 1,
+          "title": "碰一碰视频快速分享",
+          "desc": "本示例利用Share Kit与App Linking的结合，实现了快速跨设备分享视频并直接进入应用内视频播放页面的功能。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/knock-share/blob/br_release_hmos/README.md",
+          "moduleName": "knocksharesample",
+          "abilityName": "KnocksharesampleAbility",
+          "sequence": 6,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763173538388_5140c552.png",
+          "mediaInfoList": [
+            {
+              "id": 15,
+              "mediaUrl": "image/sample/1763173538388_5140c552.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 79,
+          "cardId": 151,
+          "unionId": 1,
+          "title": "碰一碰文件分享",
+          "desc": "本示例基于Share Kit实现了跨设备文件的快速分享功能。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/KnockFileShare/blob/dev/README.md",
+          "moduleName": "knockfilesharesample",
+          "abilityName": "KnockfileshareAbility",
+          "sequence": 7,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778291056105_8518b742.png",
+          "mediaInfoList": [
+            {
+              "id": 162,
+              "mediaUrl": "image/sample/1778291056105_8518b742.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 78,
+          "cardId": 150,
+          "unionId": 1,
+          "title": "隔空传送开发案例",
+          "desc": "本示例基于Share Kit实现快速跨设备分享文件，结合App Linking实现了快速跨设备分享链接并直接进入应用内视频播放页面的功能。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/GesturesShare/blob/dev/README.md",
+          "moduleName": "gesturessharesample",
+          "abilityName": "GesturesshareAbility",
+          "sequence": 8,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778290981268_76e09f45.png",
+          "mediaInfoList": [
+            {
+              "id": 161,
+              "mediaUrl": "image/sample/1778290981268_76e09f45.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 5,
+          "cardId": 5,
+          "unionId": 1,
+          "title": "视频投播更便捷",
+          "desc": "本实例基于播控中心和系统投播实现完整的视频投播功能，包含投播和播控基础控制：设备切换、集数切换、音量增减、进度切换。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/VideoCast/blob/br_release_hmos/README.md",
+          "moduleName": "videocastsample",
+          "abilityName": "VideocastsampleAbility",
+          "sequence": 9,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763173558010_c8f5d019.png",
+          "mediaInfoList": [
+            {
+              "id": 16,
+              "mediaUrl": "image/sample/1763173558010_c8f5d019.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 76,
+          "cardId": 149,
+          "unionId": 1,
+          "title": "智感握姿开发案例",
+          "desc": "本示例基于HdsTabs组件，实现了一个能体验智感握姿的应用界面。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartReach/blob/dev/README.md",
+          "moduleName": "smartreachsample",
+          "abilityName": "SmartreachAbility",
+          "sequence": 10,
+          "contentType": 2,
+          "apiVersion": 23,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778231577394_4be47d89.png",
+          "mediaInfoList": [
+            {
+              "id": 159,
+              "mediaUrl": "image/sample/1778231577394_4be47d89.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 80,
+          "cardId": 152,
+          "unionId": 1,
+          "title": "隐私防窥开发案例",
+          "desc": "本示例基于防窥保护能力，应用根据屏幕窥视状态保护机主隐私。",
+          "preInstalled": true,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/AntiPeep/blob/dev/README.md",
+          "moduleName": "antipeepsample",
+          "abilityName": "AntipeepAbility",
+          "sequence": 11,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778294288760_9e5a5df5.png",
+          "mediaInfoList": [
+            {
+              "id": 163,
+              "mediaUrl": "image/sample/1778294288760_9e5a5df5.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "sampleContents": [
+        {
+          "id": 14,
+          "cardId": 8,
+          "unionId": 2,
+          "title": "语音朗读",
+          "desc": "本示例展示了语音类AI能力中的朗读控件能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts/blob/br_release_hmos/README.md",
+          "moduleName": "speechkitsample",
+          "abilityName": "SpeechkitsampleEntryAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174136550_80671883.png",
+          "mediaInfoList": [
+            {
+              "id": 25,
+              "mediaUrl": "image/sample/1763174136550_80671883.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 15,
+          "cardId": 9,
+          "unionId": 2,
+          "title": "文档扫描",
+          "desc": "本示例展示了使用视觉类AI能力中的文档扫描能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts/blob/br_release_hmos/readme_cn.md",
+          "moduleName": "documentscansample",
+          "abilityName": "DocScanSampleAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174158803_364fc12f.png",
+          "mediaInfoList": [
+            {
+              "id": 26,
+              "mediaUrl": "image/sample/1763174158803_364fc12f.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 16,
+          "cardId": 10,
+          "unionId": 2,
+          "title": "表格提取",
+          "desc": "本示例展示了如何集成文档扫描控件，实现从图像中识别并提取表格的功能，表格内容支持保存为Excel文件。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts/blob/br_release_hmos/README.md",
+          "moduleName": "sheetrecognitionsample",
+          "abilityName": "SheetRecognitionAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174182254_d8892bce.png",
+          "mediaInfoList": [
+            {
+              "id": 27,
+              "mediaUrl": "image/sample/1763174182254_d8892bce.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 18,
+          "cardId": 12,
+          "unionId": 2,
+          "title": "通用文字识别",
+          "desc": "本示例展示了使用基础视觉服务提供的通用文字识别能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo/blob/br_release_hmos/readme_cn.md",
+          "moduleName": "textrecognitionsample",
+          "abilityName": "TextRecognitionAbility",
+          "sequence": 4,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174229629_3e2819bb.png",
+          "mediaInfoList": [
+            {
+              "id": 29,
+              "mediaUrl": "image/sample/1763174229629_3e2819bb.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "sampleContents": [
+        {
+          "id": 83,
+          "cardId": 154,
+          "unionId": 3,
+          "title": "一多音乐界面",
+          "desc": "本示例基于一多能力，实现一次开发、多端部署的音乐应用界面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MusicHome/blob/dev/README.md",
+          "moduleName": "musichomesample",
+          "abilityName": "MusichomeAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778584117274_3b64aca4.png",
+          "mediaInfoList": [
+            {
+              "id": 175,
+              "mediaUrl": "image/sample/1778584117274_3b64aca4.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 176,
+              "mediaUrl": "image/sample/1778584117441_64c2d81f.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 177,
+              "mediaUrl": "image/sample/1778584117570_69b022e1.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 178,
+              "mediaUrl": "image/sample/1778584117884_a11a423c.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 179,
+              "mediaUrl": "image/sample/1778584609985_a0b23f73.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 180,
+              "mediaUrl": "image/sample/1778584610224_d6b169e1.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1963196075112138112,
+              "mediaUrl": "image/sample/1780303208390_3dbbddb9.jpg",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1963196078576633216,
+              "mediaUrl": "image/sample/1780303209365_fa7c5675.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            },
+            {
+              "id": 1963196081982408064,
+              "mediaUrl": "image/sample/1780303209778_61e79681.png",
+              "mediaDescription": "智慧屏预览效果",
+              "sequence": 9
+            },
+            {
+              "id": 1963196088416470400,
+              "mediaUrl": "image/sample/1780303210183_bd198a96.jpg",
+              "mediaDescription": "穿戴预览效果",
+              "sequence": 10
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 69,
+          "cardId": 147,
+          "unionId": 3,
+          "title": "一多社区评论",
+          "desc": "基于自适应和响应式布局，实现一次开发、多端部署的社区应用。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiCommunityApplication/blob/dev/README.md",
+          "moduleName": "multicommunityapplicationdefaultsample",
+          "abilityName": "MulticommunityapplicationdefaultAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777379152237_26b465f2.png",
+          "mediaInfoList": [
+            {
+              "id": 146,
+              "mediaUrl": "image/sample/1777379152237_26b465f2.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 147,
+              "mediaUrl": "image/sample/1777379153104_f0d697ef.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 148,
+              "mediaUrl": "image/sample/1777379153352_9ea29828.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 1960471176220247424,
+              "mediaUrl": "image/sample/1779978375967_e967e5cd.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 1960471177637922176,
+              "mediaUrl": "image/sample/1779978376104_1721f588.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1960471183602222464,
+              "mediaUrl": "image/sample/1779978376273_c7a8c6a1.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960471184701130112,
+              "mediaUrl": "image/sample/1779978376983_a3cbbb3a.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960471186018141568,
+              "mediaUrl": "image/sample/1779978377115_00190ab0.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 67,
+          "cardId": 145,
+          "unionId": 3,
+          "title": "一多购物比价",
+          "desc": "基于一次开发多端部署能力，实现购物比价类应用的界面与流程。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiShoppingPriceComparison/blob/dev/README.md",
+          "moduleName": "multishoppingsample",
+          "abilityName": "MultiShoppingAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777114420141_6e8d13ce.png",
+          "mediaInfoList": [
+            {
+              "id": 140,
+              "mediaUrl": "image/sample/1777114420141_6e8d13ce.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 141,
+              "mediaUrl": "image/sample/1777114420414_0e462581.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 142,
+              "mediaUrl": "image/sample/1777114420799_ec649127.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 1963194073137284480,
+              "mediaUrl": "image/sample/1780302970488_244e28c8.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 1963194074462684544,
+              "mediaUrl": "image/sample/1780302970711_260c938c.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1963194075729364352,
+              "mediaUrl": "image/sample/1780302970870_9d56c878.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1963194082935178624,
+              "mediaUrl": "image/sample/1780302971021_7486a229.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1963194084168304000,
+              "mediaUrl": "image/sample/1780302971879_48313e6a.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 64,
+          "cardId": 142,
+          "unionId": 3,
+          "title": "一多长视频界面",
+          "desc": "本示例基于一多能力，实现了一次开发、多端部署的长视频应用界面，覆盖直板机、折叠屏、平板、电脑及智慧屏等多种设备形态。同时，采用三层架构组织代码工程，结合自适应布局与响应式布局，构建了从首页、搜索到视频详情的完整长视频体验。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiVideoApplication/blob/master/README.md",
+          "moduleName": "multivideoapplicationdefaultsample",
+          "abilityName": "MultivideoapplicationdefaultAbility",
+          "sequence": 4,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777001553438_b3566b52.png",
+          "mediaInfoList": [
+            {
+              "id": 123,
+              "mediaUrl": "image/sample/1777001553438_b3566b52.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 124,
+              "mediaUrl": "image/sample/1777001554275_d69ade76.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 125,
+              "mediaUrl": "image/sample/1777001554573_00022406.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 126,
+              "mediaUrl": "image/sample/1777001554794_95abd53b.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 127,
+              "mediaUrl": "image/sample/1777001554915_6bd15da8.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 128,
+              "mediaUrl": "image/sample/1777001555033_2b18fc0b.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960259928488674048,
+              "mediaUrl": "image/sample/1779953192954_334743d3.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960259930250281728,
+              "mediaUrl": "image/sample/1779953193411_0a838584.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            },
+            {
+              "id": 1960259934041932544,
+              "mediaUrl": "image/sample/1779953193621_d0a77a98.png",
+              "mediaDescription": "智慧屏预览效果",
+              "sequence": 9
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 60,
+          "cardId": 140,
+          "unionId": 3,
+          "title": "一多银行理财",
+          "desc": "基于一多能力，实现一次开发、多端部署的银行理财应用界面，覆盖了直板机、折叠屏、平板及电脑设备。同时，采用三层架构组织代码工程，结合自适应布局与响应式布局，构建了从首页、账户总览页、理财详情页到购买的核心理财体验。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiFinancialManagement/blob/master/README.md",
+          "moduleName": "multifinancialmanagementdefaultsample",
+          "abilityName": "MultifinancialmanagementdefaultAbility",
+          "sequence": 5,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1776934455297_51248a90.png",
+          "mediaInfoList": [
+            {
+              "id": 111,
+              "mediaUrl": "image/sample/1776934455297_51248a90.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 112,
+              "mediaUrl": "image/sample/1776934455653_36c443c5.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 113,
+              "mediaUrl": "image/sample/1776934455854_92b653e4.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 114,
+              "mediaUrl": "image/sample/1776934456000_fd58399a.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 115,
+              "mediaUrl": "image/sample/1776934456130_a20c31be.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1960261214328062720,
+              "mediaUrl": "image/sample/1779953346568_77ec724f.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960261215317918464,
+              "mediaUrl": "image/sample/1779953346695_a9488f32.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960261216693650176,
+              "mediaUrl": "image/sample/1779953346814_8e264833.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 59,
+          "cardId": 139,
+          "unionId": 3,
+          "title": "一多股票",
+          "desc": "本篇Sample基于自适应布局和响应式布局，实现一次开发，多端部署的股票交易应用。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-ticket-class/blob/master/README.md",
+          "moduleName": "multiticketclassdefaultsample",
+          "abilityName": "MultiticketclassdefaultAbility",
+          "sequence": 6,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1776737005432_528f9ce6.png",
+          "mediaInfoList": [
+            {
+              "id": 107,
+              "mediaUrl": "image/sample/1776737005432_528f9ce6.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 108,
+              "mediaUrl": "image/sample/1776737005761_47fa3c2a.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 109,
+              "mediaUrl": "image/sample/1776737005939_af55dd6a.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 110,
+              "mediaUrl": "image/sample/1776737006055_99081288.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 1960275342513931008,
+              "mediaUrl": "image/sample/1779955030719_97ac33de.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1960275344451699456,
+              "mediaUrl": "image/sample/1779955030907_a3d1ace6.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960275345508664064,
+              "mediaUrl": "image/sample/1779955031136_42464aa1.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960275346699846400,
+              "mediaUrl": "image/sample/1779955031262_43aa941c.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 75,
+          "cardId": 148,
+          "unionId": 3,
+          "title": "一多地图导航",
+          "desc": "本示例主要使用Map Kit的相关能力实现多端上地图的首页、搜索地点、地点详情、路径规划及服务卡片和实况胶囊等典型场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-travel-navigation/blob/dev/README.md",
+          "moduleName": "multitravelnavigationsample",
+          "abilityName": "MultitravelnavigationAbility",
+          "sequence": 7,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778227991274_0caefb69.png",
+          "mediaInfoList": [
+            {
+              "id": 154,
+              "mediaUrl": "image/sample/1778227991274_0caefb69.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 155,
+              "mediaUrl": "image/sample/1778227991913_797bdea6.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 156,
+              "mediaUrl": "image/sample/1778227992099_1502242e.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 157,
+              "mediaUrl": "image/sample/1778227992337_9426979a.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 158,
+              "mediaUrl": "image/sample/1778227992613_141af936.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1963195425406059904,
+              "mediaUrl": "image/sample/1780303131778_0a883184.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1963195426949563776,
+              "mediaUrl": "image/sample/1780303131913_21beabf3.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1963195428509844864,
+              "mediaUrl": "image/sample/1780303132098_c1c7259e.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 63,
+          "cardId": 141,
+          "unionId": 3,
+          "title": "一多即时通讯",
+          "desc": "基于自适应和响应式布局，实现一次开发、多端部署-即时通讯。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiDeviceCommunication/blob/master/README.md",
+          "moduleName": "multidevicecommunicationdefaultsample",
+          "abilityName": "MultidevicecommunicationdefaultAbility",
+          "sequence": 8,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1776935135681_e9d7962b.png",
+          "mediaInfoList": [
+            {
+              "id": 118,
+              "mediaUrl": "image/sample/1776935135681_e9d7962b.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 119,
+              "mediaUrl": "image/sample/1776935135954_7bb1126c.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 120,
+              "mediaUrl": "image/sample/1776935136078_7abe9a53.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 122,
+              "mediaUrl": "image/sample/1776935136565_f3b7b487.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 1960274498569634560,
+              "mediaUrl": "image/sample/1779954929729_97f9c465.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1960274499945366272,
+              "mediaUrl": "image/sample/1779954930300_1d0076a4.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960274503837680384,
+              "mediaUrl": "image/sample/1779954930464_e76b8f14.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960274505045639936,
+              "mediaUrl": "image/sample/1779954930928_472af404.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 82,
+          "cardId": 153,
+          "unionId": 3,
+          "title": "一多短视频界面",
+          "desc": "本示例基于一多能力，实现了一次开发、多端部署的短视频应用界面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-short-video/blob/master/README.md",
+          "moduleName": "multishortvideodefaultsample",
+          "abilityName": "MultiShortVideoAbility",
+          "sequence": 9,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778566853074_9aa222df.png",
+          "mediaInfoList": [
+            {
+              "id": 169,
+              "mediaUrl": "image/sample/1778566853074_9aa222df.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 170,
+              "mediaUrl": "image/sample/1778566853269_5bc39466.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 171,
+              "mediaUrl": "image/sample/1778566853401_303736b1.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 172,
+              "mediaUrl": "image/sample/1778566853592_41f1929a.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 173,
+              "mediaUrl": "image/sample/1778566853847_a243d3d0.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 174,
+              "mediaUrl": "image/sample/1778566854138_76b5af84.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960466349692028288,
+              "mediaUrl": "image/sample/1779977800388_8aa2b666.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960466351302641024,
+              "mediaUrl": "image/sample/1779977800735_40814fa6.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            },
+            {
+              "id": 1960466352326051200,
+              "mediaUrl": "image/sample/1779977800928_691817e9.png",
+              "mediaDescription": "智慧屏预览效果",
+              "sequence": 9
+            },
+            {
+              "id": 1960466353341072768,
+              "mediaUrl": "image/sample/1779977801050_84e73386.png",
+              "mediaDescription": "穿戴设备预览效果",
+              "sequence": 10
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 68,
+          "cardId": 146,
+          "unionId": 3,
+          "title": "一多图片美化界面",
+          "desc": "基于自适应和响应式布局，实现一次开发，多端部署-图片美化。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiPictureBeautification/blob/dev/README.md",
+          "moduleName": "multipicturedefaultsample",
+          "abilityName": "MultiPictureBeautificationDefaultAbility",
+          "sequence": 10,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777272451836_f3a952f3.png",
+          "mediaInfoList": [
+            {
+              "id": 143,
+              "mediaUrl": "image/sample/1777272451836_f3a952f3.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 144,
+              "mediaUrl": "image/sample/1777272452236_6277bb9b.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 145,
+              "mediaUrl": "image/sample/1777272452457_2ef99f21.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 1963194524310177152,
+              "mediaUrl": "image/sample/1780303023629_fbe3a77c.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 1963194533143381376,
+              "mediaUrl": "image/sample/1780303024493_d777291d.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1963194537136358784,
+              "mediaUrl": "image/sample/1780303025548_b19e1a82.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1963194540491801984,
+              "mediaUrl": "image/sample/1780303026024_b5c258fb.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1963194541599098240,
+              "mediaUrl": "image/sample/1780303026423_ce31c3c7.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 66,
+          "cardId": 144,
+          "unionId": 3,
+          "title": "一多移动支付",
+          "desc": "本篇Sample基于Scan Kit中的默认界面扫码能力与码图生成能力实现移动支付应用中常见的扫一扫和收付款功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-mobile-payment/blob/master/README.md",
+          "moduleName": "multimobilepaymentdefaultsample",
+          "abilityName": "MultimobilepaymentdefaultAbility",
+          "sequence": 11,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777025166307_317a9253.png",
+          "mediaInfoList": [
+            {
+              "id": 134,
+              "mediaUrl": "image/sample/1777025166307_317a9253.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 135,
+              "mediaUrl": "image/sample/1777025166781_1a99a4f6.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 136,
+              "mediaUrl": "image/sample/1777025166972_77be2aef.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 137,
+              "mediaUrl": "image/sample/1777025167129_654e3d6d.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 138,
+              "mediaUrl": "image/sample/1777025167275_946939c0.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 139,
+              "mediaUrl": "image/sample/1777025167424_9fa8cf84.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960262317715227392,
+              "mediaUrl": "image/sample/1779953478034_c5adfde3.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960262319602664192,
+              "mediaUrl": "image/sample/1779953478230_3ade365c.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            },
+            {
+              "id": 1960262321498489600,
+              "mediaUrl": "image/sample/1779953478454_b962636a.png",
+              "mediaDescription": "穿戴预览效果",
+              "sequence": 9
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 65,
+          "cardId": 143,
+          "unionId": 3,
+          "title": "一多设置界面",
+          "desc": "本示例基于一多能力，实现了一次开发，多段部署的设置界面，覆盖直板机、阔折叠、折叠屏、平板、电脑等多种设备。同时，采用三层架构组织代码工程，结合自适应布局与响应式布局，实现了导航页与目标页。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/NavigationSettings/blob/dev/README.md",
+          "moduleName": "multisettingdefaultsample",
+          "abilityName": "MultiSettingAbility",
+          "sequence": 12,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777023009863_ab3f3d12.png",
+          "mediaInfoList": [
+            {
+              "id": 129,
+              "mediaUrl": "image/sample/1777023009863_ab3f3d12.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 130,
+              "mediaUrl": "image/sample/1777023010319_cf199bd0.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 131,
+              "mediaUrl": "image/sample/1777023010827_df3a3c00.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 132,
+              "mediaUrl": "image/sample/1777023011235_1876be1c.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 133,
+              "mediaUrl": "image/sample/1777023012853_94da015d.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 1960810008178328960,
+              "mediaUrl": "image/sample/1780018767865_8eee7a34.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 1960810009839273344,
+              "mediaUrl": "image/sample/1780018768019_1d8d17af.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960810013152773504,
+              "mediaUrl": "image/sample/1780018768217_fe968f47.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 10,
+          "cardId": 17,
+          "unionId": 3,
+          "title": "一多新闻阅读",
+          "desc": "基于自适应布局和响应式布局，实现一次开发，多端部署的新闻阅读页面。根据手机、折叠屏以及不同的设备尺寸实现对应页面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-news-read/blob/br_release_hmos/README.md",
+          "moduleName": "multinewsreadsample",
+          "abilityName": "MultinewsreadsampleAbility",
+          "sequence": 13,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763173976548_3f8523f5.png",
+          "mediaInfoList": [
+            {
+              "id": 21,
+              "mediaUrl": "image/sample/1763173976548_3f8523f5.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 89,
+              "mediaUrl": "image/sample/1775812965519_4a3bec99.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 90,
+              "mediaUrl": "image/sample/1775812965631_da3a915c.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 91,
+              "mediaUrl": "image/sample/1775812965846_4e472932.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 185,
+              "mediaUrl": "image/sample/1778764028028_9b02857c.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 192,
+              "mediaUrl": "image/sample/1778765756984_a3cd95a7.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 193,
+              "mediaUrl": "image/sample/1778765757132_678a20d1.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960855169423902080,
+              "mediaUrl": "image/sample/1780024151430_70c985ad.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 7,
+          "cardId": 19,
+          "unionId": 3,
+          "title": "一多导航栏",
+          "desc": "本示例基于自适应布局和响应式布局，实现多设备上的分级导航栏效果。在sm、md断点下，展示为底部页签和顶部页签；在lg断点下，展示为侧边页签和顶部页签；在xl断点下，展示为侧边栏分级导航。为开发者提供分级导航栏的开发方案。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-nav-bar/blob/br_release_hmos/README.md",
+          "moduleName": "multinavbarsample",
+          "abilityName": "MultinavbarsampleAbility",
+          "sequence": 14,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763173823586_da91144e.png",
+          "mediaInfoList": [
+            {
+              "id": 18,
+              "mediaUrl": "image/sample/1763173823586_da91144e.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 79,
+              "mediaUrl": "image/sample/1775812755963_5c0a9e08.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 80,
+              "mediaUrl": "image/sample/1775812756290_baa06b23.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 81,
+              "mediaUrl": "image/sample/1775812756547_19fdb8f2.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 187,
+              "mediaUrl": "image/sample/1778764079678_6add8e31.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 188,
+              "mediaUrl": "image/sample/1778765610430_5a07d5f7.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 189,
+              "mediaUrl": "image/sample/1778765610561_b8a18bdb.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960854661233640832,
+              "mediaUrl": "image/sample/1780024090949_79da15de.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 12,
+          "cardId": 18,
+          "unionId": 3,
+          "title": "一多分栏控件",
+          "desc": "本示例通过使用SideBarContainer组件与Navigation组件，实现了多场景下，一多分栏控件的响应式变化效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-columns/blob/br_release_hmos/README.md",
+          "moduleName": "multicolumnssample",
+          "abilityName": "MulticolumnssampleAbility",
+          "sequence": 15,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174061842_fef5e53f.png",
+          "mediaInfoList": [
+            {
+              "id": 23,
+              "mediaUrl": "image/sample/1763174061842_fef5e53f.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 99,
+              "mediaUrl": "image/sample/1775813099584_cb70b94c.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 100,
+              "mediaUrl": "image/sample/1775813099770_ce5225b8.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 101,
+              "mediaUrl": "image/sample/1775813100265_2b185016.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 102,
+              "mediaUrl": "image/sample/1775813101290_5f004578.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 196,
+              "mediaUrl": "image/sample/1778765894186_b2d55e0a.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 197,
+              "mediaUrl": "image/sample/1778765894895_24cf36c7.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960855773219128704,
+              "mediaUrl": "image/sample/1780024222713_a3a689a7.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 8,
+          "cardId": 16,
+          "unionId": 3,
+          "title": "一多便捷生活",
+          "desc": "本篇Sample基于自适应布局和响应式布局，实现一次开发，多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/blob/br_release_hmos/README.md",
+          "moduleName": "multiconvenientlifesample",
+          "abilityName": "MulticonvenientlifesampleAbility",
+          "sequence": 16,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763173920620_bacb4bf0.png",
+          "mediaInfoList": [
+            {
+              "id": 19,
+              "mediaUrl": "image/sample/1763173920620_bacb4bf0.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 84,
+              "mediaUrl": "image/sample/1775812823581_356a3cf7.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 85,
+              "mediaUrl": "image/sample/1775812823783_0a69c333.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 86,
+              "mediaUrl": "image/sample/1775812823914_d642b3d0.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 186,
+              "mediaUrl": "image/sample/1778764058372_b667acbb.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 190,
+              "mediaUrl": "image/sample/1778765698497_9c14aa6e.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 191,
+              "mediaUrl": "image/sample/1778765698606_e642c022.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960854929107060096,
+              "mediaUrl": "image/sample/1780024122782_060a97f5.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 11,
+          "cardId": 14,
+          "unionId": 3,
+          "title": "一多旅行住宿",
+          "desc": "本示例主要使用栅格布局和List组件相结合的方式，实现了旅行住宿差异化的多场景响应式变化效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-travel-accommodation/blob/br_release_hmos/README.md",
+          "moduleName": "multitravelsample",
+          "abilityName": "MultitravelsampleAbility",
+          "sequence": 17,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174033117_cf199692.png",
+          "mediaInfoList": [
+            {
+              "id": 22,
+              "mediaUrl": "image/sample/1763174033117_cf199692.png",
+              "mediaDescription": "左右滑动预览全部效果",
+              "sequence": 1
+            },
+            {
+              "id": 94,
+              "mediaUrl": "image/sample/1775813046233_dee01889.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 95,
+              "mediaUrl": "image/sample/1775813046363_ef2a75df.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 96,
+              "mediaUrl": "image/sample/1775813046689_092a1e87.png",
+              "mediaDescription": "三折叠预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 184,
+              "mediaUrl": "image/sample/1778764001102_43c9598a.png",
+              "mediaDescription": "阔折叠外屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 194,
+              "mediaUrl": "image/sample/1778765834915_297b88b8.png",
+              "mediaDescription": "阔折叠预览效果",
+              "sequence": 6
+            },
+            {
+              "id": 195,
+              "mediaUrl": "image/sample/1778765835040_502e96db.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 7
+            },
+            {
+              "id": 1960855415520494976,
+              "mediaUrl": "image/sample/1780024180677_a1549c75.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 8
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "sampleContents": [
+        {
+          "id": 72,
+          "cardId": 171,
+          "unionId": 4,
+          "title": "基于AVPlayer实现长视频播放",
+          "desc": "本文介绍了如何基于AVPlayer系统播放器实现长视频播放应用。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/avplayer-long-video/blob/dev/README.md",
+          "moduleName": "avplayerlongvideosample",
+          "abilityName": "AvplayerlongvideoAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777521713574_2b695489.png",
+          "mediaInfoList": [
+            {
+              "id": 151,
+              "mediaUrl": "image/sample/1777521713574_2b695489.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 71,
+          "cardId": 170,
+          "unionId": 4,
+          "title": "基于PixelMap编解码图片",
+          "desc": "通过图片解码将图片转换为PixelMap格式，获取并展示解码后的原图信息。基于PixelMap实现图片编辑功能，包括几何变换(裁剪、旋转、平移、缩放、镜像)和颜色调整(亮度、透明度、饱和度）等功能。完成编辑后，可将图片重新编码并保存至图库。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/PixelMapImageEdit/blob/dev/README.md",
+          "moduleName": "pixelmapimageeditsample",
+          "abilityName": "PixelmapimageeditAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 21,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777433033445_0ccba90e.png",
+          "mediaInfoList": [
+            {
+              "id": 150,
+              "mediaUrl": "image/sample/1777433033445_0ccba90e.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 81,
+          "cardId": 172,
+          "unionId": 4,
+          "title": "音频焦点管理",
+          "desc": "本示例基于AudioRender、AudioCapturer、AVPlayer以及CallServiceKit等能力，实现了多种音频焦点管理场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-focus/blob/dev/README.md",
+          "moduleName": "audiofocussample",
+          "abilityName": "AudioFocusAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 23,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778484078863_fc24c8cb.png",
+          "mediaInfoList": [
+            {
+              "id": 164,
+              "mediaUrl": "image/sample/1778484078863_fc24c8cb.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 85,
+          "cardId": 173,
+          "unionId": 4,
+          "title": "AudioRenderer播放PCM音频",
+          "desc": "本示例基于AudioRenderer开发音频播放功能，用于播放PCM音频数据。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-renderer-play-pcm/blob/dev/README.md",
+          "moduleName": "audiorendererplaypcmsample",
+          "abilityName": "AudioRendererPlayPcmAbility",
+          "sequence": 4,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778659826611_19ef132c.png",
+          "mediaInfoList": [
+            {
+              "id": 182,
+              "mediaUrl": "image/sample/1778659826611_19ef132c.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 44,
+          "cardId": 166,
+          "unionId": 4,
+          "title": "自适应背景色",
+          "desc": "本示例介绍使用Image库以及EffectKit库中的colorPicker对目标图片进行取色，将获取的颜色作为背景渐变色。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/effect-kit/blob/dev/README.md",
+          "moduleName": "effectkitsample",
+          "abilityName": "EffectkitAbility",
+          "sequence": 5,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1776071071062_eca93a0c.png",
+          "mediaInfoList": [
+            {
+              "id": 106,
+              "mediaUrl": "image/sample/1776071071062_eca93a0c.png",
+              "mediaDescription": "自适应背景色",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 61,
+          "cardId": 167,
+          "unionId": 4,
+          "title": "根据图标自适应背景色",
+          "desc": "本示例通过Image相关接口将Icon图标的解码为PixelMap对象，然后取出所有像素值，接着通过自定义算法遍历所有像素值，查找到出现次数最多的像素用于设置背景颜色。通过该案例开发者可以了解根据图片最多的像素点设置自适应背景色的具体方法。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/icon-main-color/tree/dev",
+          "moduleName": "iconmaincolorsample",
+          "abilityName": "IconmaincolorAbility",
+          "sequence": 6,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1776934857818_2d8e5c29.png",
+          "mediaInfoList": [
+            {
+              "id": 116,
+              "mediaUrl": "image/sample/1776934857818_2d8e5c29.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 34,
+          "cardId": 164,
+          "unionId": 4,
+          "title": "多图片合集",
+          "desc": "本示例介绍了如何使用Swiper组件实现图片轮播效果，以及如何自定义Swiper组件的指示器，来实现图片的切换效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultipleImage/blob/br_release_hmos/README.md",
+          "moduleName": "multipleimagesample",
+          "abilityName": "MultipleimagesampleAbility",
+          "sequence": 7,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174743683_d73479f0.png",
+          "mediaInfoList": [
+            {
+              "id": 45,
+              "mediaUrl": "image/sample/1763174743683_d73479f0.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 35,
+          "cardId": 165,
+          "unionId": 4,
+          "title": "AudioRenderer音频播控",
+          "desc": "本场景解决方案主要面向前台音频开发人员。指导开发者基于AudioRenderer开发音频播控功能。功能包括后台播放、和播控中心的交互、适配不同类型的焦点打断策略、切换路由发声设备、切换输出设备等基础音频常见功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-renderer-play-pcm/blob/master/README.md",
+          "moduleName": "audiointeractionsample",
+          "abilityName": "AudiointeractionsampleAbility",
+          "sequence": 8,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174761499_4ea71c15.png",
+          "mediaInfoList": [
+            {
+              "id": 46,
+              "mediaUrl": "image/sample/1763174761499_4ea71c15.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 70,
+          "cardId": 169,
+          "unionId": 4,
+          "title": "基于AudioCapturer录制音频",
+          "desc": "本示例基于AudioCapturer(ArkTS)实现了音频PCM录制。AudioCapturer用于录制PCM（Pulse Code Modulation）音频数据，开发者可以基于本示例实现录制音频PCM，适用于实现更灵活的录制功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-capturer-record-pcm/blob/dev/README.md",
+          "moduleName": "audiocapturerrecordpcmsample",
+          "abilityName": "AudiocapturerAbility",
+          "sequence": 9,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1777432915424_7c4588ac.png",
+          "mediaInfoList": [
+            {
+              "id": 149,
+              "mediaUrl": "image/sample/1777432915424_7c4588ac.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 62,
+          "cardId": 168,
+          "unionId": 4,
+          "title": "基于PhotoPicker图片推荐",
+          "desc": "本示例旨在解决特殊场景需要相册picker提供图片推荐功能的问题，主要使用接口与组件两种方式，拉起系统photoPicker，并分别实现了基于recommendationType配置完成特定服务类型的图片推荐，以及基于textContextInfo配置完成文案的图片推荐 ，帮助开发者通过PhotoPicker实现图片推荐功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartPhotoPicker/blob/dev/README.md",
+          "moduleName": "smartphotopickersample",
+          "abilityName": "SmartPhotoPickerAbility",
+          "sequence": 10,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1776934950958_2d61c1ee.png",
+          "mediaInfoList": [
+            {
+              "id": 117,
+              "mediaUrl": "image/sample/1776934950958_2d61c1ee.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 33,
+          "cardId": 163,
+          "unionId": 4,
+          "title": "画中画效果实现",
+          "desc": "本示例基于媒体服务和ArkUI的基本能力，实现视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/window-pip/blob/br_release_hmos/README.md",
+          "moduleName": "windowpipsample",
+          "abilityName": "WindowpipsampleAbility",
+          "sequence": 11,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174717621_0f7d0803.png",
+          "mediaInfoList": [
+            {
+              "id": 44,
+              "mediaUrl": "image/sample/1763174717621_0f7d0803.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "sampleContents": [
+        {
+          "id": 94,
+          "cardId": 188,
+          "unionId": 5,
+          "title": "实况窗导航",
+          "desc": "本案例展示系统实况窗服务，将重要信息展示在锁屏界面。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/LiveViewLockScreen/blob/br_release_hmos/README.md",
+          "moduleName": "liveviewlockscreensample",
+          "abilityName": "LiveviewlockscreensampleAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 21,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1780409980624_0b7aba3d.png",
+          "mediaInfoList": [
+            {
+              "id": 1964091739606091136,
+              "mediaUrl": "image/sample/1780409980624_0b7aba3d.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 41,
+          "cardId": 179,
+          "unionId": 5,
+          "title": "发布图片评论",
+          "desc": "本示例通过拉起系统相机实现发布图片评论，便于用户了解系统相机接口的调用方式。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/image-comment/blob/br_release_hmos/README.md",
+          "moduleName": "imagecommentsample",
+          "abilityName": "ImagecommentsampleAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174914253_df8171c6.png",
+          "mediaInfoList": [
+            {
+              "id": 52,
+              "mediaUrl": "image/sample/1763174914253_df8171c6.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 38,
+          "cardId": 176,
+          "unionId": 5,
+          "title": "定位服务",
+          "desc": "本示例通过@kit.LocationKit中的geoLocationManager实现获取缓存位置、获取当前位置，同时运用map.Marker将位置信息标记在地图上。开发者可以在查看所在城市、出行打车、旅行导航等场景使用该能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/location-service/blob/br_release_hmos/README.md",
+          "moduleName": "locationservicesample",
+          "abilityName": "LocationservicesampleAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174828806_05144132.png",
+          "mediaInfoList": [
+            {
+              "id": 49,
+              "mediaUrl": "image/sample/1763174828806_05144132.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 40,
+          "cardId": 178,
+          "unionId": 5,
+          "title": "验证码场景合集",
+          "desc": "本示例实现了5种验证码场景，基本涵盖了大部分应用的验证码场景。开发者可按需下载代码，实现自己应用的验证码场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/verification-code-scenario/blob/br_release_hmos/README.md",
+          "moduleName": "verificationcodescenariosample",
+          "abilityName": "VerificationcodescenariosampleAbility",
+          "sequence": 4,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174892174_aa079c86.png",
+          "mediaInfoList": [
+            {
+              "id": 51,
+              "mediaUrl": "image/sample/1763174892174_aa079c86.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 73,
+          "cardId": 182,
+          "unionId": 5,
+          "title": "电子书阅读",
+          "desc": "基于Reader Kit（阅读服务）提供的能力，实现了电子书的阅读功能。为开发者展示了多种格式电子书的解析、排版、阅读交互能力，以及如何借助Reader Kit的能力和组件快速构建书籍阅读能力。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/readerkit_samplecode_arkts/blob/dev/README.md",
+          "moduleName": "readerkitsamplecodearktssample",
+          "abilityName": "ReaderkitsamplecodearktsAbility",
+          "sequence": 5,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778060694296_dc190901.png",
+          "mediaInfoList": [
+            {
+              "id": 152,
+              "mediaUrl": "image/sample/1778060694296_dc190901.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 89,
+          "cardId": 159,
+          "unionId": 5,
+          "title": "网络预连接",
+          "desc": "本示例展示了进行过网络预编链的请求与正常请求之间的差异。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/RcpPreconnect/blob/dev/README.md",
+          "moduleName": "rcppreconnectsample",
+          "abilityName": "RcpPreconnectAbility",
+          "sequence": 6,
+          "contentType": 2,
+          "apiVersion": 24,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778843317887_bf1eccd7.jpg",
+          "mediaInfoList": [
+            {
+              "id": 206,
+              "mediaUrl": "image/sample/1778843317887_bf1eccd7.jpg",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 77,
+          "cardId": 185,
+          "unionId": 5,
+          "title": "基于DialogHub实现通用弹窗库",
+          "desc": "本案例演示了如何利用DialogHub弹窗框架实现多样化的弹窗需求。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/DialogHub/blob/master/README.md",
+          "moduleName": "dialoghubsample",
+          "abilityName": "DialoghubAbility",
+          "sequence": 7,
+          "contentType": 2,
+          "apiVersion": 21,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778241817176_cca37046.png",
+          "mediaInfoList": [
+            {
+              "id": 160,
+              "mediaUrl": "image/sample/1778241817176_cca37046.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 36,
+          "cardId": 174,
+          "unionId": 5,
+          "title": "H5页面跳转",
+          "desc": "本示例基于ArkUI框架和Web实现了H5页面和ArkTS页面之间的相互跳转。帮助开发者在Web页面开发中掌握H5页面加载，H5页面跳转，H5页面与ArkTS页面参数传递等功能的实现方案。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/page-redirection/blob/br_release_hmos/README.md",
+          "moduleName": "pageredirectionsample",
+          "abilityName": "PageredirectionsampleAbility",
+          "sequence": 8,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174793116_b6f28399.png",
+          "mediaInfoList": [
+            {
+              "id": 47,
+              "mediaUrl": "image/sample/1763174793116_b6f28399.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 25,
+          "cardId": 186,
+          "unionId": 5,
+          "title": "组件堆叠",
+          "desc": "本示例介绍通过Stack组件构建多层次堆叠的视觉效果。通过绑定Scroll组件的onScrollFrameBegin滚动事件。当滚动时，实时地调节组件的透明度、高度等属性。实现了嵌套滚动、透明度动态变化以及平滑的组件切换。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/component-stack/blob/br_release_hmos/README.md",
+          "moduleName": "componentstacksample",
+          "abilityName": "ComponentstacksampleAbility",
+          "sequence": 9,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174536220_e3e9d310.png",
+          "mediaInfoList": [
+            {
+              "id": 36,
+              "mediaUrl": "image/sample/1763174536220_e3e9d310.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 39,
+          "cardId": 177,
+          "unionId": 5,
+          "title": "首选项",
+          "desc": "本示例使用@ohos.data.preferences接口，展示了使用首选项持久化存储数据的功能。帮助开发者实现主题切换且主题数据缓存读取的场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/preferences/blob/br_release_hmos/README.md",
+          "moduleName": "preferencessample",
+          "abilityName": "PreferencessampleAbility",
+          "sequence": 10,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174856855_8ab6864e.png",
+          "mediaInfoList": [
+            {
+              "id": 50,
+              "mediaUrl": "image/sample/1763174856855_8ab6864e.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 37,
+          "cardId": 175,
+          "unionId": 5,
+          "title": "Web页面瞬开效果实践",
+          "desc": "本示例基于预渲染技术，实现了点击后Web页面瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/web-pre-render/blob/br_release_hmos/README.md",
+          "moduleName": "webprerendersample",
+          "abilityName": "WebprerendersampleAbility",
+          "sequence": 11,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174811643_50a857ac.png",
+          "mediaInfoList": [
+            {
+              "id": 48,
+              "mediaUrl": "image/sample/1763174811643_50a857ac.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 3,
+          "cardId": 3,
+          "unionId": 5,
+          "title": "商务办公开发案例",
+          "desc": "本示例主要使用断点监听和sidebarContainer组件、navigation组件相结合的方式，实现了商务办公类差异化的多场景响应式变化效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiBusinessOffice/blob/br_release_hmos/README.md",
+          "moduleName": "multibusinesssample",
+          "abilityName": "MultibusinesssampleAbility",
+          "sequence": 12,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763173358916_0e341468.png",
+          "mediaInfoList": [
+            {
+              "id": 14,
+              "mediaUrl": "image/sample/1763173358916_0e341468.png",
+              "mediaDescription": "default",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 43,
+          "cardId": 181,
+          "unionId": 5,
+          "title": "UI框架-软键盘弹出",
+          "desc": "本示例展示了输入框分别在屏幕顶部和底部时软键盘弹出对页面布局的影响，通过设置软键盘的避让模式为KeyboardAvoidMode.RESIZE、设置NavDestination的mode为NavDestinationMode.DIALOG等方式实现布局避让。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/keyboard/blob/br_release_hmos/README.md",
+          "moduleName": "keyboardsample",
+          "abilityName": "KeyboardsampleAbility",
+          "sequence": 13,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174973416_7e36e05d.png",
+          "mediaInfoList": [
+            {
+              "id": 54,
+              "mediaUrl": "image/sample/1763174973416_7e36e05d.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 22,
+          "cardId": 184,
+          "unionId": 5,
+          "title": "自定义弹窗合集",
+          "desc": "本示例通过CustomDialog、bindContentCover、bindSheet等接口，实现多种样式的弹窗。帮助开发者掌握自定义弹窗开发的步骤，灵活的实现自己业务需要用到的弹窗场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/custom-dialog-gathers/blob/br_release_hmos/README.md",
+          "moduleName": "customdialogsample",
+          "abilityName": "CustomdialogsampleAbility",
+          "sequence": 14,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174464517_2bd72644.png",
+          "mediaInfoList": [
+            {
+              "id": 33,
+              "mediaUrl": "image/sample/1763174464517_2bd72644.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 42,
+          "cardId": 180,
+          "unionId": 5,
+          "title": "选择并查看文档与媒体文件",
+          "desc": "应用使用@ohos.file.picker、@ohos.file.photoAccessHelper、@ohos.file.fs等接口，实现了拉起文档编辑保存、拉起系统相册图片查看、拉起视频并播放的功能。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/picker/blob/br_release_hmos/README.md",
+          "moduleName": "pickersample",
+          "abilityName": "PickersampleAbility",
+          "sequence": 15,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174947696_78123540.png",
+          "mediaInfoList": [
+            {
+              "id": 53,
+              "mediaUrl": "image/sample/1763174947696_78123540.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "sampleContents": [
+        {
+          "id": 88,
+          "cardId": 20,
+          "unionId": 0,
+          "title": "ArkUI样例",
+          "desc": "本示例提供了一套符合HarmonyOS Design设计规范的组件集合。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/HarmonyOSComponentUXExamples/blob/dev/README.md",
+          "moduleName": "harmonyoscomponentuxexamplesphonesample",
+          "abilityName": "HarmonyoscomponentuxexamplesphoneAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 22,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1778838143328_beb5b6c0.png",
+          "mediaInfoList": [
+            {
+              "id": 200,
+              "mediaUrl": "image/sample/1778838143328_beb5b6c0.png",
+              "mediaDescription": "直板机预览效果",
+              "sequence": 1
+            },
+            {
+              "id": 201,
+              "mediaUrl": "image/sample/1778838143572_b59163e0.png",
+              "mediaDescription": "双折叠预览效果",
+              "sequence": 2
+            },
+            {
+              "id": 202,
+              "mediaUrl": "image/sample/1778838143697_0b4a7150.png",
+              "mediaDescription": "平板预览效果",
+              "sequence": 3
+            },
+            {
+              "id": 203,
+              "mediaUrl": "image/sample/1778838143814_616d68c4.png",
+              "mediaDescription": "PC预览效果",
+              "sequence": 4
+            },
+            {
+              "id": 204,
+              "mediaUrl": "image/sample/1778838143972_9bbf3858.png",
+              "mediaDescription": "智慧屏预览效果",
+              "sequence": 5
+            },
+            {
+              "id": 205,
+              "mediaUrl": "image/sample/1778838144093_69e1eeac.png",
+              "mediaDescription": "穿戴预览效果",
+              "sequence": 6
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 20,
+          "cardId": 20,
+          "unionId": 0,
+          "title": "文字特效合集",
+          "desc": "本示例基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTS页面开发中实现文字渐变、歌词滚动、文字倒影、跑马灯渐变等多种文字效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/text-effects/blob/br_release_hmos/README.md",
+          "moduleName": "texteffectssample",
+          "abilityName": "TexteffectssampleAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174396222_6796ebc2.webp",
+          "mediaInfoList": [
+            {
+              "id": 31,
+              "mediaUrl": "image/sample/1763174396222_6796ebc2.webp",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 21,
+          "cardId": 20,
+          "unionId": 0,
+          "title": "常见Tab导航样式合集",
+          "desc": "Tabs组件可以让用户能聚焦于当前显示的内容，对页面内容进行分类，提高页面空间利用率。本示例基于Tabs组件，为开发者提供不同场景下的导航样式，如：常见底部导航、舵式底部导航、侧边导航等。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-tab-navigation/blob/br_release_hmos/README.md",
+          "moduleName": "multitabnavigationsample",
+          "abilityName": "MultitabnavigationsampleAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174449418_51b3f84e.png",
+          "mediaInfoList": [
+            {
+              "id": 32,
+              "mediaUrl": "image/sample/1763174449418_51b3f84e.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "sampleContents": [
+        {
+          "id": 23,
+          "cardId": 21,
+          "unionId": 0,
+          "title": "Scroll组件嵌套滑动",
+          "desc": "本示例通过Scroll组件的滑动能力和List组件的nestedScroll属性，实现当Scroll嵌套List滑动时，优先滑动最外层的Scroll，当Scroll滑动至末端时，List再继续滚动。帮助开发者掌握Scroll嵌套List滑动时的场景如何处理。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/scroll-component-nested-sliding/blob/br_release_hmos/README.md",
+          "moduleName": "scrollcomponentsample",
+          "abilityName": "NestedslidingsampleAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174504512_60237d04.png",
+          "mediaInfoList": [
+            {
+              "id": 34,
+              "mediaUrl": "image/sample/1763174504512_60237d04.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 24,
+          "cardId": 21,
+          "unionId": 0,
+          "title": "WaterFlow瀑布流实例",
+          "desc": "本示例为开发者展示使用WaterFlow瀑布流容器实现首页布局效果，包括使用sections实现混排布局、结合item实现滑动吸顶、多种组件混合排列等场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/water-flow/blob/br_release_hmos/README.md",
+          "moduleName": "waterflowsample",
+          "abilityName": "WaterflowsampleAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174520981_4ddf7379.png",
+          "mediaInfoList": [
+            {
+              "id": 35,
+              "mediaUrl": "image/sample/1763174520981_4ddf7379.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 26,
+          "cardId": 21,
+          "unionId": 0,
+          "title": "基于Grid实现混合布局",
+          "desc": "本示例主要实现了Grid组件和List组件以及Swiper组件的嵌套混合布局。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/grid-hybrid/blob/br_release_hmos/README.md",
+          "moduleName": "gridhybridsample",
+          "abilityName": "GridhybridsampleAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174552028_d2b3b1ec.png",
+          "mediaInfoList": [
+            {
+              "id": 37,
+              "mediaUrl": "image/sample/1763174552028_d2b3b1ec.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "sampleContents": [
+        {
+          "id": 27,
+          "cardId": 22,
+          "unionId": 0,
+          "title": "转场动效合集",
+          "desc": "本示例基于基础组件、通用属性、显式动效，实现多模态页面转场动效以及多种常见一镜到底转场动效，便于用户进行常见的转场动效场景开发。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/transitions-collection/blob/br_release_hmos/README.md",
+          "moduleName": "transitionscollectionsample",
+          "abilityName": "TransitioncollectionsampleAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174577048_89dd64a8.webp",
+          "mediaInfoList": [
+            {
+              "id": 38,
+              "mediaUrl": "image/sample/1763174577048_89dd64a8.webp",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 28,
+          "cardId": 22,
+          "unionId": 0,
+          "title": "动效案例合集",
+          "desc": "本示例基于基础组件、通用属性、显式动效，实现多种常见动效案例，便于用户进行常见的动效场景开发。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/animation-collection/blob/br_release_hmos/README.md",
+          "moduleName": "animationcollectionsample",
+          "abilityName": "AnimationcollectionsampleAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174598670_30289056.png",
+          "mediaInfoList": [
+            {
+              "id": 39,
+              "mediaUrl": "image/sample/1763174598670_30289056.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 29,
+          "cardId": 22,
+          "unionId": 0,
+          "title": "拖拽框架开发实践",
+          "desc": "本示例基于ArkUI的拖拽框架，实现图片、富文本、文本、输入框、列表等组件的拖拽功能，通过设置拖拽事件中的接口信息自定义拖拽响应，实现拖拽图像增加水印、自定义拖拽背板图、AI识别拖拽内容等拖拽场景。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/DragFramework/blob/br_release_hmos/README.md",
+          "moduleName": "dragframeworksample",
+          "abilityName": "DragframeworksampleAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174610973_34b25fcd.png",
+          "mediaInfoList": [
+            {
+              "id": 40,
+              "mediaUrl": "image/sample/1763174610973_34b25fcd.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "sampleContents": [
+        {
+          "id": 30,
+          "cardId": 23,
+          "unionId": 0,
+          "title": "流畅刷文章",
+          "desc": "本示例实现了文章和媒体文件浏览的功能，通过设置组件的属性来控制屏幕刷新率，达到低功耗的目的，参考本示例可学习开发类似博客场景，并进行低功耗的适配。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/fluent-blog/blob/br_release_hmos/README.md",
+          "moduleName": "fluentblogsample",
+          "abilityName": "FluentblogsampleAbility",
+          "sequence": 1,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174644261_352367bd.png",
+          "mediaInfoList": [
+            {
+              "id": 41,
+              "mediaUrl": "image/sample/1763174644261_352367bd.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 31,
+          "cardId": 23,
+          "unionId": 0,
+          "title": "列表项交换",
+          "desc": "本示例介绍了如何通过组合手势结合List组件，来实现对List组件中列表项的交换排序。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-exchange/blob/br_release_hmos/README.md",
+          "moduleName": "listexchangesample",
+          "abilityName": "ListexchangesampleAbility",
+          "sequence": 2,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174660036_2a989ca2.png",
+          "mediaInfoList": [
+            {
+              "id": 42,
+              "mediaUrl": "image/sample/1763174660036_2a989ca2.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        },
+        {
+          "id": 32,
+          "cardId": 23,
+          "unionId": 0,
+          "title": "列表编辑效果",
+          "desc": "本示例基于List组件，实现待办事项管理、文件管理、备忘录的等场景列表编辑效果。",
+          "preInstalled": false,
+          "type": "commonSample",
+          "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-item-edit/blob/br_release_hmos/README.md",
+          "moduleName": "listitemeditsample",
+          "abilityName": "ListitemeditsampleAbility",
+          "sequence": 3,
+          "contentType": 2,
+          "apiVersion": 17,
+          "mediaType": "IMAGE",
+          "mediaUrl": "image/sample/1763174676951_0307a5e9.png",
+          "mediaInfoList": [
+            {
+              "id": 43,
+              "mediaUrl": "image/sample/1763174676951_0307a5e9.png",
+              "mediaDescription": "默认",
+              "sequence": 1
+            }
+          ],
+          "favorite": false
+        }
+      ]
+    }
+  ]
+}

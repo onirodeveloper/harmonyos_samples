@@ -1,0 +1,38 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    "arkOptions": {
+      "runtimeOnly": {
+        "packages": [
+          "@ohos/common"
+        ]
+      }
+    }
+  },
+  "targets": [
+    {
+      "name": "dev",
+    },
+    {
+      "name": "uat",
+    },
+    {
+      "name": "uat_mirror",
+    },
+    {
+      "name": "icsl",
+    },
+    {
+      "name": "beta",
+    },
+    {
+      "name": "prod",
+    },
+    {
+      "name": "default"
+    },
+    {
+      "name": "ohosTest"
+    }
+  ]
+}

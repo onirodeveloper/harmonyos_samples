@@ -39,9 +39,9 @@ export class DiscoverModel {
       .then((data: DiscoverData) => {
         return data;
       })
-      .catch((err: string) => {
+      .catch((err: BusinessError) => {
         Logger.error(TAG,
-          `Call getDiscoveryPage data from network failed! try to get data form preference. ${err}`);
+          `Call getDiscoveryPage data from network failed! try to get data form preference. ${err.message}`);
         return this.service.getDiscoverPage()
           .then((data: DiscoverData) => {
             this.service.setDiscoveryPageToPreference(data);

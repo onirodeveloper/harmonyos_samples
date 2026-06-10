@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { BusinessError } from '@kit.BasicServicesKit';
 import { Want } from '@kit.AbilityKit';
 import { notificationManager } from '@kit.NotificationKit';
 import { StorageKey } from '../constant/CommonEnums';
@@ -35,6 +36,8 @@ export class PullUpManager {
     if (!PullUpManager.checkAndHandleParams(want)) {
       return;
     }
+    // In case of jump into app directly, clear the badge.
+    PullUpManager.clearBadgeNum();
     if (PullUpManager.isShortCutPullUp(want)) {
       AppStorage.setOrCreate<WantParams>(StorageKey.WANT_PARAMETERS, want.parameters);
     } else if (PullUpManager.isFromFormCard() || PullUpManager.isPushMessage(want)) {
@@ -42,15 +45,38 @@ export class PullUpManager {
         const wantParams: WantParams = JSON.parse(want.parameters?.['params'] as string);
         if (PullUpManager.isPushMessage(want)) {
           const messageID: number = want.parameters?.['_push_notifyid'] as number;
-          notificationManager.cancel(messageID);
-          notificationManager.setBadgeNumber(0);
+          notificationManager.cancel(messageID)
+            .catch((error: BusinessError) => {
+              Logger.error(TAG, `notificationManager cancel failed, cause: ${error.message}`);
+            });
+          PullUpManager.clearBadgeNum();
           wantParams.messageID = messageID;
         }
         AppStorage.setOrCreate<WantParams>(StorageKey.WANT_PARAMETERS, wantParams);
       } catch (error) {
         Logger.error(TAG, `Parse fail, cause: ${error}`);
       }
+    } else if (PullUpManager.isCustomIntent(want)) {
+      // for custom intent
+      try {
+        const info: string = JSON.stringify(want.parameters?.['ohos.insightIntent.executeParam.param']);
+        Logger.info(TAG, `@PullUpApp Custom Intent's want: ${JSON.stringify(info)}`);
+        AppStorage.setOrCreate(StorageKey.HOME_PAGE_INTENTION_CUSTOM, 0);
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        Logger.error(TAG, `Error ${err.code} on handle intentParam @pullUpApp: ${err.message}`);
+      }
     }
+  }
+
+  /**
+   * set the badgeNum to zero.
+   */
+  private static clearBadgeNum(): void {
+    notificationManager.setBadgeNumber(0)
+      .catch((error: BusinessError) => {
+        Logger.error(TAG, `notificationManager setBadgeNumber failed, cause: ${error.message}`);
+      });
   }
 
   /**
@@ -117,18 +143,30 @@ export class PullUpManager {
     return false;
   }
 
+  public static isCustomIntent(want: Want): boolean {
+    if (!want || !(want?.parameters)) {
+      return false;
+    }
+    if (want.action == '' &&
+      Reflect.has(want.parameters, 'ohos.insightIntent.executeParam.param')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public static navigationToHome(): void {
     const pageContext = AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const componentPageContext = AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT);
     const samplePageContext = AppStorage.get<PageContext>(StorageKey.SAMPLE_PAGE_CONTEXT);
     const explorationPageContext = AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT);
     const minePageContext = AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT);
-    pageContext?.popPageByIndex(0);
+    pageContext?.popPageByIndex(0, false);
     // Adapt the PC situation.
-    componentPageContext?.popPageByIndex(0);
-    samplePageContext?.popPageByIndex(0);
-    explorationPageContext?.popPageByIndex(0);
-    minePageContext?.popPageByIndex(0);
+    componentPageContext?.popPageByIndex(0, false);
+    samplePageContext?.popPageByIndex(0, false);
+    explorationPageContext?.popPageByIndex(0, false);
+    minePageContext?.popPageByIndex(0, false);
   }
 }
 
@@ -158,4 +196,8 @@ export class WantParams {
   public currentIndex?: number;
   public detailsUrl?: string;
   public categoryName?: string;
+  /**
+   * Intent Framework
+   */
+  public fromIntent?: boolean;
 }

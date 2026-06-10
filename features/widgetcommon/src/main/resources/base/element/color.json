@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "article_card_font_primary",
+      "value": "#1A1A1A"
+    },
+    {
+      "name": "article_card_font_secondary",
+      "value": "#999999"
+    },
+    {
+      "name": "article_card_icon_emphasize",
+      "value": "#0A59F7"
+    }
+  ]
+}

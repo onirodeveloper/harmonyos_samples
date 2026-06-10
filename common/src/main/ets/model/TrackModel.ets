@@ -33,10 +33,10 @@ export class TrackModel {
 }
 
 export class TrackCommonData {
-  public bundleName: string = '';
+  public bundleName: string | null = null;
   public version: number = 0;
   public apiVersion: number = 0;
-  public deviceType: string = '';
+  public deviceType: string | null = null;
 }
 
 export class TrackServiceData {
@@ -47,7 +47,7 @@ export class TrackServiceData {
   /**
    * The info of page.
    */
-  public pageName?: string;
+  public pageName?: string | null;
   /**
    * The info of tab click.
    */
@@ -57,7 +57,7 @@ export class TrackServiceData {
    * The info of click item.
    */
   public interactionType?: string;
-  public interactionContent?: string;
+  public interactionContent?: string | null;
   public actionName?: string;
   /**
    *  The info of operation refer.

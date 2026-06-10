@@ -26,7 +26,7 @@
     },
     {
       "name": "input_placeholder",
-      "value": "留下您的信息（勿包含个人信息）…"
+      "value": "留下您的意见(勿包含个人信息)…"
     },
     {
       "name": "like",
@@ -58,7 +58,7 @@
     },
     {
       "name": "exit_dialog_content",
-      "value": "退出后,仅从当前应用退出账号."
+      "value": "退出后，仅从当前应用退出账号"
     },
     {
       "name": "exit_dialog_exit",
@@ -107,6 +107,30 @@
     {
       "name": "copy_fail",
       "value": "复制失败"
+    },
+    {
+      "name": "intent_page_not_found",
+      "value": "抱歉，未能找到您提及的组件或页面。"
+    },
+    {
+      "name": "intent_execute_result",
+      "value": "好的， 正在帮你打开HMOS代码工坊"
+    },
+    {
+      "name": "intent_xiaoyi_extracted_no_keyword",
+      "value": "抱歉，我没跟上您的思路呢~ 要不换个问法或重新开始对话试试？"
+    },
+    {
+      "name": "intent_title_when_xiaoyi_extracted_no_keyword",
+      "value": "小艺关键词提取失败"
+    },
+    {
+      "name": "intent_hint_when_xiaoyi_extracted_no_keyword",
+      "value": "抱歉，小艺没能跟上您的思路。\n小贴士：请尝试在小艺中开启新对话，并明确提示小艺，打开代码工坊的某个组件或样例，效果可能更好。"
+    },
+    {
+      "name": "intent_button_I_got_it",
+      "value": "我知道了"
     }
   ]
 }

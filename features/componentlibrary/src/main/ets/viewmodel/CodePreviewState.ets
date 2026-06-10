@@ -20,11 +20,13 @@ export class CodePreviewState extends BaseState {
   public topTranslateY: number;
   public bottomTranslateY: number;
   public navigationOpacity: number;
+  public isBackPressed: boolean;
 
-  constructor(topTranslateY?: number, bottomTranslateY?: number, navigationOpacity?: number) {
+  constructor(topTranslateY?: number, bottomTranslateY?: number, navigationOpacity?: number, isBackPressed?: boolean) {
     super();
     this.topTranslateY = topTranslateY ?? 0;
     this.bottomTranslateY = bottomTranslateY ?? 0;
     this.navigationOpacity = navigationOpacity ?? 1;
+    this.isBackPressed = isBackPressed ?? false;
   }
 }

@@ -12,15 +12,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 const code = document.getElementById('code');
 const pre = document.getElementsByTagName('pre')[0];
-const link = document.getElementsByTagName('link')[0];
+const themeStyle = document.getElementById('theme-style');
 const codeContainer = document.getElementsByTagName('code')[0];
 const LIGHT = 1;
 const DARK = 0;
 const UP = 'up';
 const DOWN = 'down';
+let currentColorMode = LIGHT;
+let lightCSS = '';
+let darkCSS = '';
+
+fetch('./commonDist/light.css').then(function(r) { return r.text(); }).then(function(t) {
+    lightCSS = t;
+    if (currentColorMode === LIGHT) {
+        themeStyle.textContent = lightCSS;
+    }
+});
+fetch('./commonDist/dark.css').then(function(r) { return r.text(); }).then(function(t) {
+    darkCSS = t;
+    if (currentColorMode === DARK) {
+        themeStyle.textContent = darkCSS;
+    }
+});
 
 let lastScrollTop = 0;
 const throttleScroll = throttle(handleScroll);
@@ -39,9 +54,7 @@ function throttle(func, wait = 100) {
 }
 function toFullScreen() {
     code.style.overflowY = 'scroll';
-    code.style.paddingLeft = '16px';
-    code.style.paddingRight = '16px';
-    pre.style.paddingTop = '100px';
+    pre.style.paddingTop = '60px';
     pre.style.paddingBottom = '70px';
 }
 
@@ -50,18 +63,18 @@ function toSmallScreen() {
     code.style.overflowY = 'hidden';
     pre.style.paddingTop = '12px';
     pre.style.paddingBottom = '0px';
-    code.style.paddingLeft = '0px';
-    code.style.paddingRight = '0px';
 }
 
 function changeColorMode(colorMode) {
-    link.href = colorMode === LIGHT ? './commonDist/light.css' : './commonDist/dark.css';
+    if (colorMode === currentColorMode) return;
+    currentColorMode = colorMode;
+    themeStyle.textContent = colorMode === LIGHT ? lightCSS : darkCSS;
 }
 
 function codeToHtml(codeParam, colorMode) {
     codeContainer.textContent = codeParam;
     delete codeContainer.dataset.highlighted;
-    if (colorMode !== undefined) {
+    if (colorMode !== undefined && colorMode !== currentColorMode) {
         changeColorMode(colorMode);
     }
     window.hljs.highlightAll();
@@ -69,20 +82,14 @@ function codeToHtml(codeParam, colorMode) {
 
 function showLandscapeView(breakPoint) {
     code.scrollTo({top: 0});
-    pre.style.paddingTop = breakPoint === 'sm' ? '60px' : '100px';
-    code.style.paddingLeft = breakPoint === 'sm' ? '56px' : '12px';
 }
 
 function showLandscapeFloatView(breakPoint) {
     code.scrollTo({top: 0});
-    pre.style.paddingTop = breakPoint === 'sm' ? '60px' : '100px';
-    code.style.paddingLeft = breakPoint === 'sm' ? '16px' : '12px';
 }
 
 function showPortraitView() {
     code.scrollTo({top: 0});
-    code.style.paddingLeft = '16px';
-    pre.style.paddingTop = '100px';
 }
 
 function handleScroll() {
@@ -101,4 +108,9 @@ function changeHeightStyle() {
 
 function removeHeightStyle() {
     document.getElementById('code').style.height = 'auto';
+}
+
+if (window._pendingCP) {
+    codeToHtml(window._pendingCP.c, window._pendingCP.m);
+    window._pendingCP = null;
 }

@@ -21,7 +21,6 @@ import {
   Logger,
   StorageKey,
   TRACK_KEY,
-  TrackEventType,
   TrackServiceData,
   WebSheetBuilder,
   WebUrlType,
@@ -30,7 +29,6 @@ import {
   ActionName,
   InteractionTypeEnum,
 } from '@ohos/common';
-import { CardTypeEnum } from '@ohos/commonbusiness';
 import { SampleConstant } from '../common/SampleConstant';
 import { SampleDetailConstant } from '../constant/CommonConstants';
 import {
@@ -77,7 +75,7 @@ export struct SampleCard {
         .fontWeight(FontWeight.Bold)
         .fontSize($r('sys.float.Title_S'))
         .textOverflow({ overflow: TextOverflow.Ellipsis })
-      Button({ type: ButtonType.Circle }) {
+      Button() {
         SymbolGlyph($r('sys.symbol.share'))
           .fontColor([$r('sys.color.icon_primary')])
           .fontSize($r('sys.float.Title_M'))
@@ -85,6 +83,8 @@ export struct SampleCard {
       .height($r('app.float.back_button_height'))
       .aspectRatio(1)
       .backgroundColor(this.backIconBgColor)
+      .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
+        $r('sys.float.corner_radius_level4') : '50%')
       .onClick(() => this.handleShare())
       .customProperty(TRACK_KEY, {
         interactionContent: this.sampleCard.title,
@@ -173,7 +173,11 @@ export struct SampleCard {
 
       Row() {
         Button($r('app.string.read_code'),
-          { type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.SMALL })
+          {
+            type: ButtonType.Normal,
+            buttonStyle: ButtonStyleMode.NORMAL,
+            controlSize: ControlSize.SMALL,
+          })
           .cardButtonStyle($r('sys.color.comp_background_tertiary'), $r('sys.color.background_emphasize'),
             this.globalInfoModel.widthBreakpoint)
           .onClick(() => {
@@ -189,7 +193,7 @@ export struct SampleCard {
               width: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
                 CommonConstants.SHEET_WIDTH_XL :
                 undefined,
-              onWillDisappear: () => {
+              onWillDismiss: () => {
                 WebUtil.getWebNode(this.sampleCard.originalUrl)?.remove();
                 this.viewModel.sendEvent(new BindSheetEvent(this.sampleIndex, false));
               },
@@ -200,7 +204,7 @@ export struct SampleCard {
             })
           .customProperty(TRACK_KEY, {
             interactionContent: this.sampleCard.title,
-            actionName:ActionName.SOURCE_CODE_VIEW ,
+            actionName: ActionName.SOURCE_CODE_VIEW,
             interactionType: InteractionTypeEnum.SAMPLE,
           } as TrackServiceData)
 
@@ -229,7 +233,11 @@ export struct SampleCard {
               borderColor: $r('sys.color.background_emphasize'),
               borderWidth: $r('sys.float.border_larger'),
               content: `${this.sampleCard.downloadProgress}%`,
-              font: { size: $r('sys.float.Body_S'), style: FontStyle.Normal, weight: FontWeight.Medium },
+              font: {
+                size: $r('sys.float.Body_S'),
+                style: FontStyle.Normal,
+                weight: FontWeight.Medium,
+              },
               fontColor: $r('sys.color.font_primary'),
             })
             .onClick(() => {
@@ -239,7 +247,11 @@ export struct SampleCard {
             })
         } else {
           Button(this.sampleCard.installed ? $r('app.string.experience_sample') : $r('app.string.download_sample'),
-            { type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL, controlSize: ControlSize.SMALL })
+            {
+              type: ButtonType.Normal,
+              buttonStyle: ButtonStyleMode.NORMAL,
+              controlSize: ControlSize.SMALL,
+            })
             .cardButtonStyle($r('sys.color.background_emphasize'), $r('sys.color.font_on_primary'),
               this.globalInfoModel.widthBreakpoint)
             .onClick(() => {

@@ -25,5 +25,8 @@ export function LoadingMoreItemBuilder(loadingModel: LoadingModel) {
       NoMore()
     }
   }
-  .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
+  .padding({
+    left: $r('sys.float.padding_level8'),
+    right: $r('sys.float.padding_level8'),
+  })
 }

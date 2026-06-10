@@ -90,11 +90,15 @@
     },
     {
       "name": "display_top_padding",
-      "value": "90vp"
+      "value": "79vp"
     },
     {
       "name": "page_text_font_size",
       "value": "50fp"
+    },
+    {
+      "name": "image_card_padding_xl",
+      "value": "52vp"
     }
   ]
 }

@@ -13,29 +13,23 @@
  * limitations under the License.
  */
 
-import { FormCardEnum } from '../model/FormCardInfo';
-import { FormCardConstants } from '../constants/FormCardConstants';
+import { FormCardEnum, LockScreenCardComponent } from '@ohos/widgetcommon';
 
 @Entry
 @Component
 struct LockScreenCard {
   build() {
     Column() {
-      Image($r('app.media.ic_lock_screen'))
-        .width($r('app.float.lock_screen_icon_size'))
-        .aspectRatio(1)
+      LockScreenCardComponent()
     }
     .onClick(() => {
       postCardAction(this, {
-        action: FormCardConstants.ACTION_TYPE,
-        abilityName: FormCardConstants.ABILITY_NAME,
+        action: 'router',
+        abilityName: 'EntryAbility',
         params: {
           cardFrom: FormCardEnum.LOCK_SCREEN_CARD,
         }
       })
     })
-    .width(FormCardConstants.FULL_PERCENT)
-    .height(FormCardConstants.FULL_PERCENT)
-    .justifyContent(FlexAlign.Center)
   }
 }

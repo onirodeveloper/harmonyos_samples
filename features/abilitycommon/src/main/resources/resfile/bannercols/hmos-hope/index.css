@@ -1,0 +1,11 @@
+.long-img {
+  width: 100%;
+  display: block;
+}
+
+.footer {
+  margin: 0;
+  padding:  48px 24px 76px;
+  border-radius: 0;
+  background-color: #f0f9ff !important;
+}

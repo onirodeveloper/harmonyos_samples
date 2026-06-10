@@ -1,0 +1,87 @@
+{
+  "success": true,
+  "code": "0000",
+  "msg": "success",
+  "body": [
+    {
+      "id": 1,
+      "title": "多设备UI组件",
+      "desc": "丰富的UI组件助您构建精美界面",
+      "mediaType": "IMAGE",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "image/banner_ui.png",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/HarmonyOSComponentUXExamples",
+      "moduleName": "harmonyoscomponentuxexamplestvsample",
+      "abilityName": "HarmonyoscomponentuxexamplestvAbility",
+      "order": 1,
+      "apiVersion": 22
+    },
+    {
+      "id": 2,
+      "title": "多设备长视频",
+      "desc": "本示例基于一多能力，实现了一次开发、多端部署的长视频应用界面，覆盖直板机、折叠屏、平板、电脑及智慧屏等多种设备形态。",
+      "mediaType": "IMAGE",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "image/banner_video.png",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiVideoApplication",
+      "moduleName": "multivideoapplicationtvsample",
+      "abilityName": "MultivideoapplicationtvAbility",
+      "order": 2,
+      "apiVersion": 22
+    },
+    {
+      "id": 3,
+      "title": "一多音乐界面",
+      "desc": "本示例基于一多能力，实现了一次开发，多端部署的短视频",
+      "isFavorite": false,
+      "mediaType": "IMAGE",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "image/banner_musicHome.png",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MusicHome",
+      "moduleName": "musichometvsample",
+      "abilityName": "MusichomeTvAbility",
+      "order": 3,
+      "symbolGlyphColor": "Color.Transparent",
+      "apiVersion": 23
+    },
+    {
+      "id": 4,
+      "title": "一多短视频界面",
+      "desc": "本示例基于一多能力，实现了一次开发，多端部署的短视频",
+      "isFavorite": false,
+      "mediaType": "IMAGE",
+      "mediaInfoList": [
+        {
+          "id": 0,
+          "mediaUrl": "image/banner_shortvideo.png",
+          "mediaDescription": "",
+          "sequence": 0
+        }
+      ],
+      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-short-video",
+      "moduleName": "multishortvideotvsample",
+      "abilityName": "MultiShortVideoTvAbility",
+      "order": 4,
+      "symbolGlyphColor": "Color.Transparent",
+      "apiVersion": 23
+    }
+  ]
+}

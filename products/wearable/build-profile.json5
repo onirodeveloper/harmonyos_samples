@@ -19,16 +19,22 @@
   ],
   "targets": [
     {
-      "name": "dev"
+      "name": "dev",
     },
     {
-      "name": "test"
+      "name": "uat",
     },
     {
-      "name": "online"
+      "name": "uat_mirror",
     },
     {
-      "name": "icsl"
+      "name": "icsl",
+    },
+    {
+      "name": "beta",
+    },
+    {
+      "name": "prod",
     },
     {
       "name": "default"

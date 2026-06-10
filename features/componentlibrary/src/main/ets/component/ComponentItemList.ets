@@ -26,7 +26,6 @@ import {
   ResourceUtil,
   TagEnum,
   TRACK_KEY,
-  TrackEventType,
   TrackNode,
   TrackServiceData,
   InteractionTypeEnum,
@@ -143,7 +142,7 @@ struct CircleArrow {
         .fontSize($r('sys.float.Title_M'))
     }
     .backgroundColor($r('sys.color.comp_background_primary'))
-    .width($r('app.float.card_button_height'))
+    .width($r('app.float.arrow_size'))
     .aspectRatio(1)
   }
 }
@@ -161,7 +160,10 @@ struct ComponentIcon {
         .draggable(false)
         .borderRadius($r('sys.float.corner_radius_level5'))
         .width($r('app.float.tip_image_height'))
-        .margin({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level8') })
+        .margin({
+          left: $r('sys.float.padding_level6'),
+          right: $r('sys.float.padding_level8'),
+        })
         .aspectRatio(1)
         .backgroundColor(this.buttonColor)
         .animation({
@@ -170,7 +172,10 @@ struct ComponentIcon {
         })
       if (this.showTag) {
         TagTipLabel({ tags: this.tagIds, isSmall: true })
-          .margin({ left: $r('sys.float.padding_level3'), top: $r('app.float.small_new_margin_top') })
+          .margin({
+            left: $r('sys.float.padding_level3'),
+            top: $r('app.float.small_new_margin_top'),
+          })
       }
     }
   }

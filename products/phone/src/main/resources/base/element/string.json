@@ -13,14 +13,6 @@
       "value": "Sample in HarmonyOS"
     },
     {
-      "name": "splash_main_title",
-      "value": "Sample in HarmonyOS"
-    },
-    {
-      "name": "splash_sub_title",
-      "value": "Welcome to HarmonyOS Developer's world"
-    },
-    {
       "name": "internet_reason",
       "value": "You need to obtain your network permission to obtain network resource display data."
     },
@@ -31,22 +23,6 @@
     {
       "name": "vibrator_reason",
       "value": "You need to obtain your vibrator permission to provide vibrator feel"
-    },
-    {
-      "name": "tab_home",
-      "value": "Component"
-    },
-    {
-      "name": "tab_sample",
-      "value": "Sample"
-    },
-    {
-      "name": "tab_practice",
-      "value": "Practice"
-    },
-    {
-      "name": "tab_mine",
-      "value": "Me"
     },
     {
       "name": "PhoneFormAbility_desc",
@@ -73,10 +49,6 @@
       "value": "Huawei's official large open source projects"
     },
     {
-      "name": "back_toast",
-      "value": "Swiper again to exit."
-    },
-    {
       "name": "component_cases",
       "value": "component cases"
     },
@@ -93,24 +65,20 @@
       "value": "Best Practice Article."
     },
     {
-      "name": "card_list_subtitle",
-      "value": "More"
+      "name": "hmos_3d_live_widget_desc",
+      "value": "HMOS world live widget"
     },
     {
-      "name": "lock_screen_title",
-      "value": "HMOS Sample"
+      "name": "hmos_3d_live_widget_display_name",
+      "value": "HMOS World live Widget"
     },
     {
-      "name": "lock_screen_subtitle",
-      "value": "Let develop more efficient"
+      "name": "widget_hmos_coding_title",
+      "value": "Dev Guide"
     },
     {
-      "name": "skip",
-      "value": "Skip %d"
-    },
-    {
-      "name": "experience_now",
-      "value": "Experience now"
+      "name": "widget_hmos_coding_text",
+      "value": "Dev samples for features of HDC 2026"
     }
   ]
 }

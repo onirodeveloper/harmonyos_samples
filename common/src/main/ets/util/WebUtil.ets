@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { common, Want } from '@kit.AbilityKit';
 import { uri } from '@kit.ArkTS';
 import { BuilderNode, FrameNode, NodeController, UIContext, window } from '@kit.ArkUI';
 import { webview } from '@kit.ArkWeb';
@@ -21,7 +22,6 @@ import { ModuleNameEnum, ScrollDirectionEnum, StorageKey } from '../constant/Com
 import Logger from './Logger';
 import { NetworkUtil } from './NetworkUtil';
 import { ConfigMapKey, ResourceUtil } from './ResourceUtil';
-import { common, Want } from '@kit.AbilityKit';
 import { ProcessUtil } from './ProcessUtil';
 
 const TAG: string = '[WebUtil]';
@@ -31,6 +31,7 @@ const webControllerMap: Map<string, WebviewController | undefined> = new Map();
 const eventEmitterMap: Map<string, Function> = new Map();
 const sheetEventMap: Map<string, Function> = new Map();
 const pageEventMap: Map<string, Function> = new Map();
+const previewEventMap: Map<string, Function> = new Map();
 const nodeRequiredMap: Map<string, boolean> = new Map(); // Check whether web node is required again.
 const webLoadedMap: Map<string, boolean> = new Map();
 const webMockScrollerMap: Map<string, Scroller> = new Map();
@@ -67,10 +68,20 @@ function webBuilder(param: WebBuilderParam) {
         .javaScriptProxy(param.module === ModuleNameEnum.ARTICLE_DETAIL ? {
           object: param.nativeActionData,
           name: 'nativeActionData',
-          methodList: ['webSheet', 'jumpPage'],
+          methodList: ['webSheet', 'jumpPage', 'imagePreviewChanged'],
           controller: param.webController,
           permission: WebUtil.getJsPermission(),
         } : undefined)
+        .onLoadFinished(() => {
+          if (AppStorage.get<string>('caller') === 'com.huawei.hmos.aidispatchservice') {
+            setTimeout(() => {
+              AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
+            }, 700)
+            AppStorage.delete('caller');
+          } else {
+            AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
+          }
+        })
         .geolocationAccess(false)
         .backgroundColor(Color.Transparent)
         .nestedScroll(param.nestedScroll)
@@ -86,7 +97,6 @@ function webBuilder(param: WebBuilderParam) {
           }
         })
         .onPageEnd(() => {
-          AppStorage.setOrCreate(StorageKey.WEB_LOADING, false);
           Logger.debug(TAG, `onPageEnd with url: ${param.webUrl}`);
         })
         .onLoadIntercept((event: OnLoadInterceptEvent) => {
@@ -143,6 +153,7 @@ function webBuilder(param: WebBuilderParam) {
 export class NativeActionData {
   public webSheet: (src: string, type: number) => void;
   public jumpPage: (type: string, id: number, currentIndex?: number, componentName?: string) => void;
+  public imagePreviewChanged: (isShown: boolean) => void;
 
   constructor(url: string) {
     this.webSheet = (src: string, type: number) => {
@@ -156,6 +167,13 @@ export class NativeActionData {
       const sheetEvent = pageEventMap.get(url);
       if (sheetEvent) {
         sheetEvent(type, id, currentIndex, componentName);
+      }
+    }
+
+    this.imagePreviewChanged = (isShown: boolean) => {
+      const previewEvent = previewEventMap.get(url);
+      if (previewEvent) {
+        previewEvent(isShown);
       }
     }
   }
@@ -390,6 +408,10 @@ export class WebUtil {
 
   public static setJumpPageAction(url: string, callback: Function) {
     pageEventMap.set(url, callback);
+  }
+
+  public static setImagePreviewAction(url: string, callback: Function) {
+    previewEventMap.set(url, callback);
   }
 
   public static upPage(url: string) {

@@ -56,12 +56,24 @@ export struct SampleComponent {
   }
 
   private calculateMargin() {
-    if (this.containerWidth > 0 && this.cardWidth > 0) {
-      let margin =
-        this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM ? (this.containerWidth - this.cardWidth) / 2 :
-          (this.containerWidth - this.cardWidth) / 2 - CommonConstants.SPACE_12;
-      this.swiperMargin = margin > 0 ? margin : 0;
+    if (this.containerWidth <= 0 || this.cardWidth <= 0) {
+      return;
     }
+    let margin = 0;
+    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_MD) {
+      margin = this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+        (this.containerWidth - this.cardWidth) / 2 - CommonConstants.SPACE_16 :
+        (this.containerWidth - this.cardWidth) / 2 - CommonConstants.SPACE_12;
+    } else if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) {
+      margin = (this.containerWidth - this.cardWidth) / 2 - CommonConstants.SPACE_16;
+    } else if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG) {
+      const singleGridColumnWidth =
+        (this.containerWidth - CommonConstants.SPACE_16 * 11 - CommonConstants.SPACE_32 * 2) / 12;
+      margin = singleGridColumnWidth * 3 + CommonConstants.SPACE_16 * 2 + CommonConstants.SPACE_32;
+    } else {
+      margin = CommonConstants.SPACE_16;
+    }
+    this.swiperMargin = margin > 0 ? margin : 0;
   }
 
   jumpToImagePreview(url: string) {
@@ -83,7 +95,6 @@ export struct SampleComponent {
         FeedbackSheet({
           bindFeedback: this.bindFeedbackSheet,
           feedbackInitParams: {
-            uid: '1',
             domain: FeedbackDomain.SAMPLE,
             domainId: this.singleSampleData.sampleCard.sampleId,
             domainTitle: this.singleSampleData.sampleCard.title,
@@ -110,24 +121,52 @@ export struct SampleComponent {
 
       Swiper() {
         ForEach(this.singleSampleData.mediaInfoList, (mediaInfo: MediaInfo) => {
-          Row() {
-            ImageComponent({
-              src: mediaInfo.mediaUrl,
-              objectFit: ImageFit.Contain,
+          Column() {
+            if (this.singleSampleData.mediaInfoList.length > 1) {
+              Text(mediaInfo.mediaDescription)
+                .fontColor($r('sys.color.font_secondary'))
+                .fontWeight(FontWeight.Bold)
+                .fontSize($r('sys.float.Subtitle_L'))
+                .margin({ bottom: $r('sys.float.padding_level8') })
+            }
+            Column() {
+              ImageComponent({
+                src: mediaInfo.mediaUrl,
+                objectFit: ImageFit.Contain,
+              })
+            }
+            .width(CommonConstants.FULL_PERCENT)
+            .padding({
+              left: new BreakpointType({
+                sm: $r('sys.float.padding_level8'),
+                md: $r('sys.float.padding_level16'),
+                lg: $r('sys.float.padding_level16'),
+                xl: $r('app.float.image_card_padding_xl')
+              }).getValue(this.globalInfoModel.widthBreakpoint),
+              right: new BreakpointType({
+                sm: $r('sys.float.padding_level8'),
+                md: $r('sys.float.padding_level16'),
+                lg: $r('sys.float.padding_level16'),
+                xl: $r('app.float.image_card_padding_xl')
+              }).getValue(this.globalInfoModel.widthBreakpoint)
             })
-              .width('90%')
-              .height('90%')
+            .layoutWeight(1)
           }
+          .width(CommonConstants.FULL_PERCENT)
+          .height(CommonConstants.FULL_PERCENT)
           .margin({
-            top: CommonConstants.SPACE_28,
-            bottom: CommonConstants.SPACE_28,
+            top: this.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SPACE_24 :
+              CommonConstants.SPACE_16,
+            bottom: CommonConstants.SPACE_24,
+          })
+          .padding({
+            top: this.singleSampleData.mediaInfoList.length > 1 ? CommonConstants.SPACE_16 : CommonConstants.SPACE_24,
+            bottom: CommonConstants.SPACE_24
           })
           .justifyContent(FlexAlign.Center)
-          .borderRadius(16)
+          .borderRadius($r('sys.float.corner_radius_level12'))
+          .backgroundColor($r('sys.color.comp_background_primary'))
           .shadow(ShadowStyle.OUTER_DEFAULT_SM)
-          .onClick(() => {
-            this.jumpToImagePreview(mediaInfo.mediaUrl)
-          })
         })
       }
       .nestedScroll(this.singleSampleData.mediaInfoList.length <= 1 ? SwiperNestedScrollMode.SELF_FIRST :
@@ -139,14 +178,27 @@ export struct SampleComponent {
       .effectMode(EdgeEffect.None)
       .loop(true)
       .indicator(false)
+      .displayArrow(this.singleSampleData.mediaInfoList.length > 1 &&
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? {
+        showBackground: true,
+        isSidebarMiddle: true,
+        backgroundSize: 32,
+        backgroundColor: $r('sys.color.mask_fourth'),
+        arrowSize: 24,
+        arrowColor: $r('sys.color.icon_on_primary')
+      } : false)
       .index($$this.imageIndex)
       .prevMargin(this.swiperMargin)
       .nextMargin(this.swiperMargin)
-      .itemSpace(CommonConstants.SPACE_12)
+      .itemSpace(new BreakpointType({
+        sm: CommonConstants.SPACE_12,
+        md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+          this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? CommonConstants.SPACE_16 :
+          CommonConstants.SPACE_12,
+        lg: CommonConstants.SPACE_16,
+        xl: CommonConstants.SPACE_16
+      }).getValue(this.widthBreakpoint))
       .margin({
-        bottom: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
-          this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-          $r('app.float.display_bottom_padding') : $r('sys.float.padding_level0'),
         top: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
           this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
           $r('app.float.display_top_padding') : $r('sys.float.padding_level0')
@@ -156,31 +208,32 @@ export struct SampleComponent {
         GridRow({
           columns: {
             sm: ColumnEnum.SM,
-            md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
-              this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? ColumnEnum.SM :
-              ColumnEnum.MD,
-            lg: ColumnEnum.LG
+            md: ColumnEnum.MD,
+            lg: ColumnEnum.LG,
+            xl: ColumnEnum.XL,
           },
           gutter: {
             x: {
               sm: $r('sys.float.padding_level6'),
-              md: $r('sys.float.padding_level6'),
+              md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
+                $r('sys.float.padding_level8') : $r('sys.float.padding_level6'),
               lg: $r('sys.float.padding_level8'),
+              xl: $r('sys.float.padding_level8'),
             },
           },
         }) {
           GridCol({
             span: {
-              sm: CommonConstants.SPAN_4,
-              md: this.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
-                this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-                CommonConstants.SPAN_4 : CommonConstants.SPAN_6,
-              lg: CommonConstants.SPAN_8
+              sm: CommonConstants.SPAN_6,
+              md: CommonConstants.SPAN_6,
+              lg: CommonConstants.SPAN_8,
+              xl: CommonConstants.SPAN_8,
             },
             offset: {
               sm: 0,
-              md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? 0 : 1,
-              lg: 2
+              md: 1,
+              lg: 2,
+              xl: 2,
             },
           }) {
             SampleCard({
@@ -203,15 +256,17 @@ export struct SampleComponent {
       .padding({
         left: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
-          md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-            $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
+          md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? $r('sys.float.padding_level16') :
+            $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level16'),
+          xl: $r('sys.float.padding_level16'),
         }).getValue(this.widthBreakpoint),
         right: new BreakpointType({
           sm: $r('sys.float.padding_level8'),
-          md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ?
-            $r('sys.float.padding_level32') : $r('sys.float.padding_level12'),
+          md: this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG ? $r('sys.float.padding_level16') :
+            $r('sys.float.padding_level12'),
           lg: $r('sys.float.padding_level16'),
+          xl: $r('sys.float.padding_level16'),
         }).getValue(this.widthBreakpoint),
       })
       .backgroundColor($r('sys.color.background_secondary'))

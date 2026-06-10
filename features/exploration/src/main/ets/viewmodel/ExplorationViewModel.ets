@@ -20,7 +20,6 @@ import {
   Logger,
   PageContext,
   RequestErrorCode,
-  StatusBarColorType,
   StorageKey,
   WindowUtil,
   PageEnum,
@@ -82,7 +81,8 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
         this.state.discoveryData = result.discoveryData;
         const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
         if (globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_LG &&
-          globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_XL) {
+          globalInfoModel?.widthBreakpoint !== WidthBreakpoint.WIDTH_XL &&
+          !AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
           WindowUtil.updateStatusBarColor(true);
           TAB_CONTENT_STATUSES[TabBarType.PRACTICE] = true;
           this.setTitleBarStyle();
@@ -103,8 +103,7 @@ export class ExplorationViewModel extends BaseHomeViewModel<ExplorationState> {
   }
 
   protected jumpDetailView(content: DiscoverContent): void {
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-    const pathStack = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+    const pathStack = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
       AppStorage.get<PageContext>(StorageKey.EXPLORATION_PAGE_CONTEXT) :
       AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     const articleParam: ArticleDetailParams = {

@@ -8,6 +8,26 @@ const mockDir = path.resolve(__dirname, './config/mock.json');
 
 const excludeSample = [''];
 
+function readJson5File(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    return JSON5.parse(content);
+  } catch (error) {
+    console.error(`Error reading/parsing ${filePath}:`, error.message);
+    return null;
+  }
+}
+
+function writeJson5File(filePath, data) {
+  try {
+    fs.writeFileSync(filePath, JSON5.stringify(data, null, 2));
+    return true;
+  } catch (error) {
+    console.error(`Error writing ${filePath}:`, error.message);
+    return false;
+  }
+}
+
 // 获取mock数据
 function readMock() {
   const samplesMockFile = fs.readFileSync(mockDir, 'utf-8');
@@ -21,20 +41,21 @@ function readMock() {
 
 function loadSample(sampleInfo) {
   const { moduleName, originalUrl, abilityName, branch } = sampleInfo;
-  const sampleName = substringFromStartToEnd(moduleName, 6);
+  const sampleName = moduleName ? substringFromStartToEnd(moduleName, 6) :
+    path.basename(originalUrl, path.extname(originalUrl)).replace(/\/$/, '').replace(/-/g, '');
   const samplePath = `${outputDir}/${sampleName}`;
   console.info(samplePath);
-  // 排除不需要的sample
-  if (excludeSample.includes(moduleName) || originalUrl === '') {
-    return;
-  }
-  // 容错处理
+  const isEmptyConfig = !moduleName || !abilityName;
   if (fs.existsSync(samplePath) && fs.readdirSync(samplePath).length > 0) {
     console.info(`Sample ${sampleName} already exists, skipping...`);
-    processSample(samplePath, sampleName, moduleName, abilityName);
+    if (isEmptyConfig) {
+      processSampleWithoutConfig(samplePath, sampleName);
+    } else {
+      processSample(samplePath, sampleName, moduleName, abilityName);
+    }
     return;
   } else if (fs.existsSync(samplePath) && fs.readdirSync(samplePath).length === 0) {
-    fs.rmdSync(samplePath, { recursive: true });
+    fs.rmSync(samplePath, { recursive: true });
   }
   exec(`git clone -b ${branch} ${originalUrl} ${samplePath}`, (error, _stdout, stderr) => {
     if (error) {
@@ -42,15 +63,70 @@ function loadSample(sampleInfo) {
       return;
     }
     console.log(`${sampleName} downloaded successfully: ${stderr}`);
-    processSample(samplePath, sampleName, moduleName, abilityName);
+    if (isEmptyConfig) {
+      processSampleWithoutConfig(samplePath, sampleName);
+    } else {
+      processSample(samplePath, sampleName, moduleName, abilityName);
+    }
   })
+}
 
+function processSampleWithoutConfig(samplePath, sampleName) {
+  const cloneSamples = [];
+  const addedModuleNames = new Set();
+  
+  function findModuleJson5(dir, relativePath = '') {
+    const items = fs.readdirSync(dir);
+    
+    for (const item of items) {
+      const itemPath = path.join(dir, item);
+      const itemRelativePath = relativePath ? `${relativePath}/${item}` : item;
+      const stat = fs.statSync(itemPath);
+      
+      if (stat.isDirectory()) {
+        findModuleJson5(itemPath, itemRelativePath);
+      } else if (item === 'module.json5') {
+        if (itemPath.includes('ohosTest')) {
+          continue;
+        };
+        const moduleJsonData = readJson5File(itemPath);
+        if (!moduleJsonData) continue;
+        
+        if (moduleJsonData.module && moduleJsonData.module.name && !addedModuleNames.has(moduleJsonData.module.name)) {
+          addedModuleNames.add(moduleJsonData.module.name);
+          
+          if (moduleJsonData.module.type === 'entry') {
+            moduleJsonData.module.type = 'feature';
+            moduleJsonData.module.deliveryWithInstall = false;
+            writeJson5File(itemPath, moduleJsonData);
+          }
+          
+          const moduleDir = path.dirname(path.dirname(path.dirname(itemRelativePath)));
+          cloneSamples.push({
+            name: moduleJsonData.module.name,
+            srcPath: `./submodules/${sampleName}/${moduleDir}`,
+            targets: [{
+              name: "default",
+              applyToProducts: ["default"]
+            }]
+          });
+        }
+      }
+    }
+  }
+  
+  findModuleJson5(samplePath);
+  
+  if (cloneSamples.length > 0) {
+    writeBuildProfile(cloneSamples);
+    console.info(`Processed ${sampleName} without config, found ${cloneSamples.length} modules`);
+  } else {
+    console.info(`No module.json5 found in ${sampleName}`);
+  }
 }
 
 function processSample(samplePath, sampleName, moduleName, abilityName) {
   const sampleBuildPath = `${samplePath}/build-profile.json5`;
-  let sampleBuildFile;
-  let sampleBuildData;
 
   if (fs.existsSync(path.join(samplePath, 'entry')) && !fs.existsSync(path.join(samplePath, moduleName))) {
     fs.renameSync(
@@ -59,71 +135,57 @@ function processSample(samplePath, sampleName, moduleName, abilityName) {
     );
   }
 
-  // 修改oh-package5.json
   const ohPackagePath = path.join(samplePath, moduleName, 'oh-package.json5');
-  if (fs.existsSync(ohPackagePath)) {
-    let ohPackageData;
-    try {
-      ohPackageData = JSON5.parse(fs.readFileSync(ohPackagePath, 'utf-8'));
-    } catch (error) {
-      console.error(`Error read oh-package.json5 for ${moduleName}:`, error);
-      return;
-    }
-    ohPackageData.name = moduleName;
-    fs.writeFileSync(ohPackagePath, JSON5.stringify(ohPackageData, null, 2));
-  } else {
+  if (!fs.existsSync(ohPackagePath)) {
     console.info(`Sample ${moduleName} has no oh-package.json5, skipping...`);
     return;
   }
 
-  // 修改module.json5
+  const ohPackageData = readJson5File(ohPackagePath);
+  if (!ohPackageData) return;
+  
+  ohPackageData.name = moduleName;
+  writeJson5File(ohPackagePath, ohPackageData);
+
   const moduleJsonPath = path.join(samplePath, moduleName, 'src/main/module.json5');
   if (fs.existsSync(moduleJsonPath)) {
-    const moduleJsonData = JSON5.parse(fs.readFileSync(moduleJsonPath, 'utf-8'));
-    // 修改module.json5的name字段
-    const { module } = moduleJsonData;
-    module.name = moduleName;
-    module.type = 'feature';
-    module.deliveryWithInstall = false;
-    module.abilities[0].name = abilityName;
-    module.abilities[0].exported = false;
-    fs.writeFileSync(moduleJsonPath, JSON5.stringify(moduleJsonData, null, 2));
+    const moduleJsonData = readJson5File(moduleJsonPath);
+    if (moduleJsonData) {
+      const { module } = moduleJsonData;
+      module.name = moduleName;
+      module.type = 'feature';
+      module.deliveryWithInstall = false;
+      module.abilities[0].name = abilityName;
+      module.abilities[0].exported = false;
+      writeJson5File(moduleJsonPath, moduleJsonData);
+    }
   } else {
     console.info(`Sample ${moduleName} has no module.json5, skipping...`);
   }
 
-  if (!fs.existsSync(sampleBuildPath)) {
-    return;
-  }
-  try {
-    sampleBuildFile = fs.readFileSync(sampleBuildPath, 'utf-8');
-    sampleBuildData = JSON5.parse(sampleBuildFile);
-  } catch (error) {
-    console.error(`Error parsing build-profile.json5 for ${moduleName}:`, error);
-    return;
-  }
-  // 获取需要的模块
-  let cloneSamples = [];
+  if (!fs.existsSync(sampleBuildPath)) return;
+
+  const sampleBuildData = readJson5File(sampleBuildPath);
+  if (!sampleBuildData) return;
+
+  const cloneSamples = [];
   const needModules = sampleBuildData.modules.map(module => {
     if (module.name === 'entry') {
       cloneSamples.push({
         "name": moduleName, "srcPath": `./submodules/${sampleName}/${moduleName}`, "targets": [{
           "name": "default",
-          "applyToProducts": [
-            "default"
-          ]
+          "applyToProducts": ["default"]
         }]
-      })
+      });
       return moduleName;
     } else {
       cloneSamples.push({
         "name": module.name, "srcPath": `./submodules/${sampleName}/${module.name}`
-      })
+      });
       return module.name;
     }
   });
   writeBuildProfile(cloneSamples);
-  // 删除多余目录和文件
   deleteExtraDir(samplePath, needModules);
 }
 
@@ -153,24 +215,18 @@ function deleteExtraDir(samplePath, needModules, moduleName) {
 }
 
 function writeBuildProfile(cloneSamples) {
-  let buildProfileData;
-  try {
-    buildProfileData = JSON5.parse(fs.readFileSync(path.resolve(__dirname, '../build-profile.json5'), 'utf-8'));
-  } catch (error) {
-    console.error('读取文件build-profile.json5时出错:', error);
-  }
+  const buildProfilePath = path.resolve(__dirname, '../build-profile.json5');
+  const buildProfileData = readJson5File(buildProfilePath);
+  if (!buildProfileData) return;
+
   console.info('写入build-profile.json5配置...');
-  const buildModules = buildProfileData.modules.map(item => item.name)
+  const buildModules = buildProfileData.modules.map(item => item.name);
   cloneSamples.forEach((sample) => {
-    if (buildModules.includes(sample.name)) {
-      return;
+    if (!buildModules.includes(sample.name)) {
+      buildProfileData.modules.push(sample);
     }
-    buildProfileData.modules.push(sample);
-  })
-  fs.writeFileSync(
-    path.resolve(__dirname, '../build-profile.json5'),
-    JSON5.stringify(buildProfileData, null, 2)
-  );
+  });
+  writeJson5File(buildProfilePath, buildProfileData);
 }
 
 // 工具函数

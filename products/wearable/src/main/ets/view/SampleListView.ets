@@ -116,6 +116,7 @@ export struct SampleListView {
           type: SampleListEventType.LOAD_SAMPLE,
           param: {
             abilityName: wearableSampleData.abilityName,
+            apiVersion: wearableSampleData.apiVersion,
           }
         });
       }

@@ -13,48 +13,23 @@
  * limitations under the License.
  */
 
-import { FormCardEnum } from '../model/FormCardInfo';
-import { FormCardConstants } from '../constants/FormCardConstants';
+import { FormCardEnum, LockScreenCardLGComponent } from '@ohos/widgetcommon';
 
 @Entry
 @Component
 struct LockScreenCardLG {
   build() {
     Row() {
-      Column() {
-        Text($r('app.string.lock_screen_title'))
-          .fontSize($r('sys.float.Body_M'))
-          .fontWeight(FontWeight.Bold)
-          .fontColor($r('sys.color.font_on_primary'))
-          .margin({ bottom: $r('sys.float.padding_level1') })
-        Text($r('app.string.lock_screen_subtitle'))
-          .fontSize($r('sys.float.Caption_M'))
-          .fontColor($r('sys.color.font_on_primary'))
-          .opacity(FormCardConstants.OPACITY_LG)
-          .fontWeight(FontWeight.Medium)
-      }
-      .alignItems(HorizontalAlign.Start)
-
-      Blank()
-      Image($r('app.media.ic_lock_screen'))
-        .width($r('app.float.lock_screen_icon_size'))
-        .aspectRatio(1)
-        .margin({ left: $r('sys.float.padding_level4') })
+      LockScreenCardLGComponent()
     }
     .onClick(() => {
       postCardAction(this, {
-        action: FormCardConstants.ACTION_TYPE,
-        abilityName: FormCardConstants.ABILITY_NAME,
+        action: 'router',
+        abilityName: 'EntryAbility',
         params: {
           cardFrom: FormCardEnum.LOCK_SCREEN_CARD_LG,
         }
       })
-    })
-    .width(FormCardConstants.FULL_PERCENT)
-    .height(FormCardConstants.FULL_PERCENT)
-    .padding({
-      left: $r('sys.float.padding_level6'),
-      right: $r('sys.float.padding_level6'),
     })
   }
 }

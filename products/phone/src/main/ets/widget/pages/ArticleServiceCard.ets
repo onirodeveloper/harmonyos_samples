@@ -13,79 +13,31 @@
  * limitations under the License.
  */
 
-import { ArticleListItem, FormCardEnum } from '../model/FormCardInfo';
-import { CardListParameter } from '../viewmodel/CardListParameter';
-import { CardListComponent } from '../component/CardComponent';
-import { FormCardConstants } from '../constants/FormCardConstants';
+import { ArticleListItem, ArticleCardComponent, FormCardEnum } from '@ohos/widgetcommon';
 
 @Entry
 @Component
 struct ArticleServiceCard {
   @LocalStorageProp('cardList') cardList: ArticleListItem[] = [];
   @LocalStorageProp('formId') formId: string = '';
-  @State cardListParameter: CardListParameter = {
-    backgroundColor: $r('sys.color.ohos_id_color_background'),
-    title: $r('app.string.hmos_app_name'),
-    backgroundImage: $r('app.media.list_card_bg'),
-    backgroundImageSize: ImageSize.Cover,
-    titleColor: $r('app.color.article_card_icon_emphasize'),
-    logo: $r('app.media.list_card_logo'),
-    subTitle: $r('app.string.card_list_subtitle'),
-    subTitleColor: $r('app.color.article_card_font_secondary'),
-    rightArrowIcon: $r('sys.symbol.chevron_right')
-  };
-  private readonly orderImageArray: Resource[] =
-    [$r('app.media.first_order'), $r('app.media.second_order'), $r('app.media.third_order')];
-
-  @Builder
-  cardListBuilder() {
-    Column() {
-      ForEach(this.cardList, (item: ArticleListItem, index: number) => {
-        Row() {
-          Row() {
-            Image(index < this.orderImageArray.length ? this.orderImageArray[index] : undefined)
-              .width($r('app.float.order_image_size'))
-              .objectFit(ImageFit.Cover)
-            Text(item.title)
-              .maxLines(1)
-              .textOverflow({ overflow: TextOverflow.Ellipsis })
-              .fontSize($r('sys.float.Body_M'))
-              .fontColor($r('app.color.article_card_font_primary'))
-              .margin({ left: $r('sys.float.padding_level4'), right: $r('sys.float.padding_level4') })
-          }
-
-          Text(item.name)
-            .fontSize($r('sys.float.Body_S'))
-            .fontColor($r('app.color.article_card_font_secondary'))
-            .margin({ left: $r('sys.float.padding_level2') })
-        }
-        .width(FormCardConstants.CARD_CONTENT_WIDTH)
-        .alignItems(VerticalAlign.Center)
-        .flexGrow(1)
-        .onClick(() => this.onClickProcess(item))
-      })
-    }
-    .alignItems(HorizontalAlign.Start)
-    .width(FormCardConstants.FULL_PERCENT)
-    .layoutWeight(1)
-    .padding({ top: $r('sys.float.padding_level5'), bottom: $r('sys.float.padding_level5') })
-  }
-
   build() {
     Row() {
-      CardListComponent({ cardListParameter: this.cardListParameter }) {
-        this.cardListBuilder()
-      }
+      ArticleCardComponent({
+        cardList: this.cardList,
+        onClickProcess: (item?: ArticleListItem) => {
+          this.onClickProcess(item)
+        }
+      })
     }
-    .height(FormCardConstants.FULL_PERCENT)
-    .width(FormCardConstants.FULL_PERCENT)
+    .height('100%')
+    .width('100%')
     .onClick(() => this.onClickProcess())
   }
 
   private onClickProcess = (articleInfo?: ArticleListItem) => {
     postCardAction(this, {
-      action: FormCardConstants.ACTION_TYPE,
-      abilityName: FormCardConstants.ABILITY_NAME,
+      action: 'router',
+      abilityName: 'EntryAbility',
       params: {
         formId: this.formId,
         articleInfo: articleInfo,

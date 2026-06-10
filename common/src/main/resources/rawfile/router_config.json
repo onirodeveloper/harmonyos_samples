@@ -1,0 +1,53 @@
+{
+  "config": [
+    {
+      "routerName": "ComponentDetailPage",
+      "routerInfo": {
+        "libraryName": "@ohos/componentlibrary",
+        "className": "ComponentDetailModel"
+      }
+    },
+    {
+      "routerName": "CodeLabDetailPage",
+      "routerInfo": {
+        "libraryName": "@ohos/componentlibrary",
+        "className": "CodeLabDetailModel"
+      }
+    },
+    {
+      "routerName": "SampleDetailPage",
+      "routerInfo": {
+        "libraryName": "@ohos/devpractices",
+        "className": "SampleDetailModel"
+      }
+    },
+    {
+      "routerName": "SampleLoadingPage",
+      "routerInfo": {
+        "libraryName": "@ohos/devpractices",
+        "className": "SampleDetailModel"
+      }
+    },
+    {
+      "routerName": "DiscoverModule",
+      "routerInfo": {
+        "libraryName": "@ohos/exploration",
+        "className": "DiscoverModel"
+      }
+    },
+    {
+      "routerName": "MainModule",
+      "routerInfo": {
+        "libraryName": "phone",
+        "className": "MainModel"
+      }
+    },
+    {
+      "routerName": "FeedbackPage",
+      "routerInfo": {
+        "libraryName": "@ohos/mine",
+        "className": "FeedbackModel"
+      }
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "forms": [
+    {
+      "name": "widget",
+      "displayName": "$string:widget_display_name",
+      "description": "$string:widget_desc",
+      "src": "./ets/widget/pages/WidgetCard.ets",
+      "uiSyntax": "arkts",
+      "window": {
+        "designWidth": 720,
+        "autoDesignWidth": true
+      },
+      "colorMode": "auto",
+      "isDynamic": true,
+      "isDefault": true,
+      "updateEnabled": false,
+      "scheduledUpdateTime": "10:30",
+      "updateDuration": 1,
+      "defaultDimension": "2*2",
+      "supportDimensions": [
+        "2*2"
+      ]
+    },
+    {
+      "name": "ArticleServiceCard",
+      "displayName": "$string:widget_display_name",
+      "description": "$string:ArticleServiceCard_desc",
+      "src": "./ets/widget/pages/ArticleServiceCard.ets",
+      "uiSyntax": "arkts",
+      "updateEnabled": true,
+      "updateDuration": 1,
+      "window": {
+        "designWidth": 720,
+        "autoDesignWidth": true
+      },
+      "colorMode": "auto",
+      "isDynamic": true,
+      "isDefault": false,
+      "scheduledUpdateTime": "10:30",
+      "defaultDimension": "2*4",
+      "supportDimensions": [
+        "2*4"
+      ]
+    },
+    {
+      "name": "LockScreenCard",
+      "displayName": "$string:widget_display_name",
+      "description": "$string:widget_desc",
+      "src": "./ets/widget/pages/LockScreenCard.ets",
+      "uiSyntax": "arkts",
+      "isDynamic": true,
+      "isDefault": false,
+      "updateEnabled": false,
+      "scheduledUpdateTime": "10:30",
+      "renderingMode": "singleColor",
+      "metadata": [
+        {
+          "name": "renderingMode",
+          "value": "2"
+        }
+      ],
+      "updateDuration": 1,
+      "defaultDimension": "1*1",
+      "supportDimensions": [
+        "1*1"
+      ]
+    },
+    {
+      "name": "LockScreenCardLG",
+      "displayName": "$string:widget_display_name",
+      "description": "$string:widget_desc",
+      "src": "./ets/widget/pages/LockScreenCardLG.ets",
+      "uiSyntax": "arkts",
+      "isDynamic": true,
+      "isDefault": false,
+      "updateEnabled": false,
+      "scheduledUpdateTime": "10:30",
+      "renderingMode": "singleColor",
+      "metadata": [
+        {
+          "name": "renderingMode",
+          "value": "2"
+        }
+      ],
+      "updateDuration": 1,
+      "defaultDimension": "1*2",
+      "supportDimensions": [
+        "1*2"
+      ]
+    }
+  ]
+}

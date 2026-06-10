@@ -14,8 +14,18 @@
  */
 
 import { deviceInfo } from '@kit.BasicServicesKit';
-import { GlobalInfoModel, StorageKey, TrackNode, TrackServiceData, TRACK_KEY, HdsUtil, InteractionTypeEnum } from '@ohos/common';
-import { BreakpointType, CommonConstants, ProductSeriesEnum, TrackEventType } from '@ohos/common';
+import {
+  GlobalInfoModel,
+  StorageKey,
+  TrackNode,
+  TrackServiceData,
+  TRACK_KEY,
+  HdsUtil,
+  InteractionTypeEnum,
+  CommonConstants,
+  ProductSeriesEnum,
+  BreakpointType,
+} from '@ohos/common';
 import type { DiscoverContent } from '../model/DiscoverData';
 import { DeveloperItem } from './DeveloperItem';
 
@@ -68,9 +78,8 @@ export struct DeveloperCard {
     .prevMargin(new BreakpointType<Length>({
       sm: 0,
       md: $r('sys.float.padding_level6'),
-      lg: HdsUtil.isSupportNewMaterialApi() ? CommonConstants.SPACE_16 :
-        CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
-      xl: CommonConstants.SPACE_16,
+      lg: (HdsUtil.isSupportNewMaterialApi() || AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) ?
+        CommonConstants.SPACE_16 : CommonConstants.SPACE_16 + CommonConstants.TAB_BAR_WIDTH,
     }).getValue(this.globalInfoModel.widthBreakpoint))
     .nextMargin(new BreakpointType<Length>({
       sm: 0,

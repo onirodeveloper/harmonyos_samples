@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import { GlobalInfoModel, StorageKey } from '@ohos/common';
-import { CommonConstants } from '@ohos/common';
+import { CommonConstants, GlobalInfoModel, StorageKey } from '@ohos/common';
 import { CardStyleTypeEnum } from '@ohos/commonbusiness';
 import { SampleDetailConstant } from '../constant/CommonConstants';
 

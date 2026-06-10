@@ -53,12 +53,12 @@ export struct PictureAboveTextCard {
   }
 
   calculateTagMaxWidth() {
-    let barWidth: number = new BreakpointType({
-      sm: 0,
-      md: 0,
-      lg: HdsUtil.isSupportNewMaterialApi() ? 0 : CommonConstants.TAB_BAR_WIDTH,
-      xl: CommonConstants.SIDE_BAR_WIDTH,
-    }).getValue(this.globalInfoModel.widthBreakpoint);
+    let barWidth: number = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? CommonConstants.SIDE_BAR_WIDTH :
+      new BreakpointType({
+        sm: 0,
+        md: 0,
+        lg: HdsUtil.isSupportNewMaterialApi() ? 0 : CommonConstants.TAB_BAR_WIDTH,
+      }).getValue(this.globalInfoModel.widthBreakpoint);
     const paddingVal = new BreakpointType({
       sm: CommonConstants.SPACE_16,
       md: CommonConstants.SPACE_24,
@@ -84,12 +84,15 @@ export struct PictureAboveTextCard {
           tags: this.sampleContent?.tagIds ?? [],
           newSymbol: $r('app.media.big_new'),
         })
-          .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+          .margin({
+            top: $r('sys.float.padding_level3'),
+            left: $r('sys.float.padding_level3'),
+          })
           .width(CommonConstants.FULL_PERCENT)
         Column() {
           Row() {
             ImageComponent({
-              src: this.sampleContent?.mediaInfoList[0].mediaUrl,
+              src: this.sampleContent?.mediaInfoList[0]?.mediaUrl,
               objectFit: ImageFit.Contain,
               alt: $r('app.media.img_placeholder'),
             })
@@ -100,7 +103,12 @@ export struct PictureAboveTextCard {
           .width('100%')
           .clip(true)
           .layoutWeight(1)
-          .padding({ top: $r('sys.float.padding_level16'), bottom: $r('sys.float.padding_level8') })
+          .padding({
+            top: $r('sys.float.padding_level16'),
+            bottom: $r('sys.float.padding_level8'),
+            left: $r('sys.float.padding_level16'),
+            right: $r('sys.float.padding_level16'),
+          })
 
           Row() {
             Column() {
@@ -130,7 +138,7 @@ export struct PictureAboveTextCard {
             .margin({ left: $r('sys.float.padding_level6') })
             .height($r('app.float.card_button_height'))
             .aspectRatio(1)
-            .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+            .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
               $r('sys.float.corner_radius_level4') : $r('sys.float.corner_radius_level10'))
             .backgroundColor($r('sys.color.comp_background_tertiary'))
           }
@@ -150,7 +158,7 @@ export struct PictureAboveTextCard {
       })
       .clip(true)
       .backgroundColor($r('sys.color.comp_background_list_card'))
-      .backgroundImage(ImageUtil.getImgResource(this.sampleCardData.image))
+      .backgroundImage(this.sampleCardData.unionId === 1 ? ImageUtil.getImgResource(this.sampleCardData.image): '')
       .backgroundImageSize({ width: '100%', height: '100%' })
       .clickEffect({ level: ClickEffectLevel.MIDDLE })
       .borderRadius($r('sys.float.corner_radius_level8'))

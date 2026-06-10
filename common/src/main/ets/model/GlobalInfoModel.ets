@@ -16,7 +16,7 @@
 @Observed
 export class GlobalInfoModel {
   public foldExpanded: boolean = false;
-  public widthBreakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_SM;
+  public widthBreakpoint: WidthBreakpoint = WidthBreakpoint.WIDTH_MD;
   public heightBreakpoint: HeightBreakpoint = HeightBreakpoint.HEIGHT_SM;
   public naviIndicatorHeight: number = 0;
   public statusBarHeight: number = 0;

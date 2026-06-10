@@ -20,7 +20,6 @@ import { BusinessError, settings } from '@kit.BasicServicesKit';
 import {
   hdsMaterial,
   HdsNavDestination,
-  HdsNavDestinationAttribute,
   HdsNavigationMenuItemOptions,
   ScrollEffectType,
   TitleBarStyleOptions,
@@ -38,19 +37,19 @@ import {
   ShareUtil,
   StorageKey,
   TopNavigationView,
-  TrackServiceData,
   TRACK_KEY,
+  TrackEventType,
+  TrackManager,
+  TrackServiceData,
   WebNodeController,
   WebUtil,
   WIDTH_BREAKPOINTS,
   WindowUtil,
-  TrackManager,
-  TrackEventType,
 } from '@ohos/common';
 import { CardTypeEnum } from '@ohos/commonbusiness';
 import { CodePreviewComponent } from '../component/CodePreviewComponent';
 import { CodePreviewJSUtil } from '../util/CodePreviewJSUtil';
-import { CodePreviewEvent, CodePreviewPageVM } from '../viewmodel/CodePreviewPageVM';
+import { BackPressParam, CodePreviewEventType, CodePreviewPageVM, PopParam } from '../viewmodel/CodePreviewPageVM';
 import type { CodePreviewState } from '../viewmodel/CodePreviewState';
 import { CodeViewParams } from '../viewmodel/ComponentDetailPageVM';
 import { CustomToolBarItem } from '../model/CustomToolBarItem';
@@ -75,15 +74,18 @@ export struct CodePreview {
   private windowClass: window.Window | undefined = undefined;
   private colorMode: ConfigurationConstant.ColorMode = this.systemColorMode;
   private isSupportMaterial: boolean = HdsUtil.isSupportNewMaterialApi();
+  private currentPathStack: NavPathStack = new NavPathStack();
+  @State nodeContainerPaddingLeft: ResourceStr = $r('sys.float.padding_level12');
   @State webNodeController?: WebNodeController = undefined;
   @State isFocus: boolean = false;
-  @State isBack: boolean = false;
   @State isOrientationLockChange: boolean = false;
   @State codePreviewState?: CodePreviewState = this.viewModel?.getState();
   @State componentName: string = '';
-  @State isDarkMode: boolean = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-  @State screenOrientation: string = this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ?
-    ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
+  @StorageLink('isDarkMode') isDarkMode: boolean =
+    (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+  @State screenOrientation: string = (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+    this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL) ? ScreenOrientation.LANDSCAPE :
+    ScreenOrientation.PORTRAIT;
   @State isFloatWindowType: boolean = false;
   @State titleBarStyle: TitleBarStyleOptions = {
     scrollEffectOpts: {
@@ -136,7 +138,8 @@ export struct CodePreview {
     }]
   @State toolBarItems: CustomToolBarItem[] = [
     {
-      symbolIcon: $r('sys.symbol.plus_square_on_square_fill'),
+      symbolIcon: AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? $r('sys.symbol.plus_square_on_square') :
+        $r('sys.symbol.plus_square_on_square_fill'),
       value: $r('app.string.copy'),
       actionValue: $r('app.string.copy'),
       actionName: ActionName.CODE_COPY,
@@ -171,17 +174,21 @@ export struct CodePreview {
   private windowSizeCallback: Callback<window.Size> = (size) => {
     if (size.width > size.height) {
       this.screenOrientation = ScreenOrientation.LANDSCAPE;
-      if (!this.isBack) {
+      if (!this.codePreviewState?.isBackPressed) {
         const showLandscapeMethod: string =
           this.isFloatWindowType ? 'showLandscapeFloatView(%param)' : 'showLandscapeView(%param)';
         const params: string = JSON.stringify(WIDTH_BREAKPOINTS[this.beginBreakpoint]);
         CodePreviewJSUtil.codeViewRunJS(showLandscapeMethod, params);
+        if (this.beginBreakpoint === WidthBreakpoint.WIDTH_SM) {
+          this.nodeContainerPaddingLeft = $r('sys.float.padding_level24');
+        }
       }
     } else {
       this.screenOrientation = ScreenOrientation.PORTRAIT;
-      if (!this.isBack) {
+      if (!this.codePreviewState?.isBackPressed) {
         const showPortraitMethod: string = 'showPortraitView()';
         CodePreviewJSUtil.codeViewRunJS(showPortraitMethod);
+        this.nodeContainerPaddingLeft = $r('sys.float.padding_level12');
       }
     }
     this.toolBarItems[2].status = this.screenOrientation === ScreenOrientation.LANDSCAPE ? ToolbarItemStatus.NORMAL :
@@ -236,22 +243,30 @@ export struct CodePreview {
   }
 
   updateStatusBar() {
-      setTimeout(() => {
-        WindowUtil.updateStatusBarColor(this.isDarkMode);
-      }, 500);
+    setTimeout(() => {
+      WindowUtil.updateStatusBarColor(this.isDarkMode);
+    }, 500);
   }
 
   onBackPage(): boolean {
-    this.isBack = true;
-    WindowUtil.updateStatusBarColor(this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-    this.javascriptRun();
-    WebUtil.downPage(WebUtil.getComponentCodeUrl());
-    this.webNodeController = undefined;
-    this.resetScreenOrientation();
-    this.preFinishAnimation();
-    this.uiContext?.animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
-      this.viewModel?.pop(false);
-    });
+    if (!this.codePreviewState?.isBackPressed) {
+      this.viewModel?.sendEvent<BackPressParam>({
+        type: CodePreviewEventType.CHANGE_BACK_PRESSED,
+        param: { backPressed: true }
+      });
+      WindowUtil.updateStatusBarColor(this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+      this.javascriptRun();
+      WebUtil.downPage(WebUtil.getComponentCodeUrl());
+      this.webNodeController = undefined;
+      this.resetScreenOrientation();
+      this.preFinishAnimation();
+      this.uiContext?.animateTo({ curve: curves.interpolatingSpring(0, 1, 342, 38) }, () => {
+        this.viewModel?.sendEvent<PopParam>({
+          type: CodePreviewEventType.POP,
+          param: { animation: false, pathStack: this.currentPathStack }
+        });
+      });
+    }
     return true;
   }
 
@@ -264,9 +279,10 @@ export struct CodePreview {
   }
 
   aboutToAppear(): void {
+    this.isDarkMode = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
     this.viewModel = CodePreviewPageVM.getInstance();
     this.initOrientationState();
-    this.viewModel.sendEvent(CodePreviewEvent.INIT);
+    this.viewModel.sendEvent<null>({ type: CodePreviewEventType.INIT, param: null });
     this.handleDeviceOrientation();
     if (this.isSupportMaterial) {
       this.titleBarStyle = {
@@ -289,6 +305,8 @@ export struct CodePreview {
         }
         this.windowClass = windowClass;
         this.windowClass.on('windowSizeChange', this.windowSizeCallback);
+      }).catch((error: BusinessError) => {
+        Logger.error(TAG, `getLastWindow failed. cause ${error.message}`);
       });
     } catch (error) {
       const err: BusinessError = error as BusinessError;
@@ -298,6 +316,7 @@ export struct CodePreview {
   }
 
   aboutToDisappear(): void {
+    this.isDarkMode = (this.systemColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
     WindowUtil.setMainWindowOrientation(window.Orientation.UNSPECIFIED);
     this.unregisterWindowChange();
     try {
@@ -407,19 +426,24 @@ export struct CodePreview {
   }
 
   handleOnReady(ctx: NavDestinationContext): void {
+    this.currentPathStack = ctx.pathStack;
     const params: CodeViewParams = ctx.pathInfo.param as CodeViewParams;
     this.code = params.code as string;
     this.componentName = params.componentName as string;
     this.webNodeController = WebUtil.getWebNode(WebUtil.getComponentCodeUrl()) as WebNodeController;
     this.preFinishAnimation = params.preFinishAnimation as () => void;
     this.codePreviewState = this.viewModel!.getState();
+    this.viewModel?.sendEvent<BackPressParam>({
+      type: CodePreviewEventType.CHANGE_BACK_PRESSED,
+      param: { backPressed: false }
+    });
   }
 
   @Builder
   TopNavigationMenu() {
     WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
       Row({ space: CommonConstants.SPACE_8 }) {
-        ForEach(this.topMenuItems.concat(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+        ForEach(this.topMenuItems.concat(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
           this.toolBarItems[0] : []), (item: CustomToolBarItem, _index: number) => {
           Button() {
             SymbolGlyph(item.symbolIcon)
@@ -435,7 +459,7 @@ export struct CodePreview {
           .height($r('app.float.code_preview_top_navigation_height'))
           .aspectRatio(1)
           .hoverEffect(HoverEffect.Highlight)
-          .backgroundColor(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+          .backgroundColor(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? Color.Transparent :
             $r('sys.color.comp_background_tertiary'))
           .onClick(() => {
             item.action?.();
@@ -443,8 +467,7 @@ export struct CodePreview {
         }, (index: number) => index.toString())
       }
       .margin({
-        right: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-          $r('app.float.code_preview_icon_margin') : 0
+        right: AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? $r('app.float.code_preview_icon_margin') : 0
       })
     }
   }
@@ -477,9 +500,11 @@ export struct CodePreview {
           componentName: this.componentName,
           pageContainer: true,
           isDarkMode: this.isDarkMode,
+          nodeContainerPaddingLeft: this.nodeContainerPaddingLeft,
+          nodeContainerPaddingTop: this.globalInfoModel.statusBarHeight,
         })
           .onClick(() => {
-            this.viewModel?.sendEvent(CodePreviewEvent.HANDLE_PAGE_CLICK);
+            this.viewModel?.sendEvent<null>({ type: CodePreviewEventType.HANDLE_PAGE_CLICK, param: null });
           })
         if (!this.isSupportMaterial) {
           this.TopTitleViewBuilder()
@@ -493,32 +518,43 @@ export struct CodePreview {
 
   @Builder
   ToolBarBuilder() {
-    Row() {
-      ForEach(this.toolBarItems, (item: CustomToolBarItem) => {
-        CustomToolItemComponent({
-          item,
-        })
-          .customProperty(TRACK_KEY, {
-            interactionContent: this.componentName,
-            interactionType: InteractionTypeEnum.COMPONENT,
-            actionName: item.actionName,
-          } as TrackServiceData)
-      }, (_item: CustomToolBarItem, index: number) => index.toString())
+    WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
+      Row() {
+        ForEach(this.toolBarItems, (item: CustomToolBarItem) => {
+          CustomToolItemComponent({
+            item,
+          })
+            .customProperty(TRACK_KEY, {
+              interactionContent: this.componentName,
+              interactionType: InteractionTypeEnum.COMPONENT,
+              actionName: item.actionName,
+            } as TrackServiceData)
+        }, (_item: CustomToolBarItem, index: number) => index.toString())
+      }
+      .width('100%')
+      .height(CommonConstants.TOOL_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight)
+      .justifyContent(FlexAlign.SpaceAround)
+      .backgroundColor(Color.Transparent)
+      .backgroundBlurStyle(BlurStyle.COMPONENT_THICK)
+      .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.BOTTOM])
+      .padding({ bottom: this.globalInfoModel.naviIndicatorHeight > 0 ? this.globalInfoModel.naviIndicatorHeight :
+        $r('sys.float.padding_level8') })
+      .margin({
+        bottom: -(this.codePreviewState?.bottomTranslateY ?? 0) * 2
+      })
     }
-    .width('100%')
-    .height(CommonConstants.TOOL_BAR_HEIGHT + this.globalInfoModel.naviIndicatorHeight)
-    .justifyContent(FlexAlign.SpaceAround)
-    .backgroundColor(Color.Transparent)
-    .backgroundBlurStyle(BlurStyle.COMPONENT_THICK)
-    .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [ LayoutSafeAreaEdge.BOTTOM])
-    .padding({ bottom: this.globalInfoModel.naviIndicatorHeight })
   }
 
   build() {
     WithTheme({ colorMode: this.isDarkMode ? ThemeColorMode.DARK : ThemeColorMode.LIGHT }) {
       if (this.isSupportMaterial) {
         HdsNavDestination() {
-          this.PreviewContentBuilder()
+          Stack({ alignContent: Alignment.Bottom }) {
+            this.PreviewContentBuilder()
+            if (!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
+              this.ToolBarBuilder()
+            }
+          }
         }
         .withTheme({ enableThemeColorMode: true })
         .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
@@ -528,38 +564,32 @@ export struct CodePreview {
           content: {
             title: { mainTitle: this.componentName },
             menu: {
-              value: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? this.hdsMenuItems :
+              value: AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? this.hdsMenuItems :
                 this.hdsMenuItems.slice(0, 1)
             },
           }
         })
-        .hideToolBar((this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
-          this.codePreviewState?.bottomTranslateY != 0), true)
-        .toolbarConfiguration(this.ToolBarBuilder(), this.toolbarOptions)
         .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
         .bindToScrollable([WebUtil.getWebScroller(WebUtil.getComponentCodeUrl()) as Scroller])
         .attributeModifier(this.navCommonModifier)
-        .onShown(() => {
-          this.isBack = false;
-        })
         .onBackPressed(() => {
           return this.onBackPage();
         })
       } else {
         HdsNavDestination() {
-          this.PreviewContentBuilder()
+          Stack({ alignContent: Alignment.Bottom }) {
+            this.PreviewContentBuilder()
+            if (!AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
+              this.ToolBarBuilder()
+            }
+          }
         }
+        .hideBackButton(false)
         .ignoreLayoutSafeArea([LayoutSafeAreaType.SYSTEM], [LayoutSafeAreaEdge.TOP, LayoutSafeAreaEdge.BOTTOM])
         .hideTitleBar(true)
-        .hideToolBar((this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
-          this.codePreviewState?.bottomTranslateY != 0), true)
-        .toolbarConfiguration(this.ToolBarBuilder(), this.toolbarOptions)
         .onReady((ctx: NavDestinationContext) => this.handleOnReady(ctx))
         .bindToScrollable([WebUtil.getWebScroller(WebUtil.getComponentCodeUrl()) as Scroller])
         .attributeModifier(this.navCommonModifier)
-        .onShown(() => {
-          this.isBack = false;
-        })
         .onBackPressed(() => {
           return this.onBackPage();
         })

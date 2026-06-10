@@ -1,0 +1,12 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "hmos_side_bar_background_color",
+      "value": "#190A59F7"
+    }
+  ]
+}

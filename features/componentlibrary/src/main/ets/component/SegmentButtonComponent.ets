@@ -53,7 +53,10 @@ export struct SegmentButtonComponent {
       }).width('60%')
     }
     .height($r('app.float.common_component_height'))
-    .padding({ left: $r('sys.float.padding_level6'), right: $r('sys.float.padding_level6') })
+    .padding({
+      left: $r('sys.float.padding_level6'),
+      right: $r('sys.float.padding_level6'),
+    })
     .alignItems(VerticalAlign.Center)
     .width('100%')
   }

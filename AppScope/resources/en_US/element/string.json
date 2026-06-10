@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "hmos_app_name",
+      "value": "Sample in HarmonyOS"
+    },
+    {
+      "name": "internet_reason",
+      "value": "You need to obtain your network permission to obtain network resource display data."
+    },
+    {
+      "name": "network_reason",
+      "value": "You need to obtain your network status information to determine whether the current device is connected to the network."
+    },
+    {
+      "name": "vibrator_reason",
+      "value": "You need to obtain your vibrator permission to provide vibrator feel"
+    }
+  ]
+}

@@ -35,7 +35,7 @@ export struct TopNavigationView {
   @BuilderParam menuView?: () => void;
   @State fontSize: number = 20;
   @State backIconBgColor: ResourceColor =
-    this.globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+    AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? Color.Transparent :
       $r('sys.color.comp_background_tertiary');
 
   aboutToAppear(): void {

@@ -20,7 +20,10 @@ export function EmptyContentView(imgSrc: Resource, description: ResourceStr, han
   Column({ space: CommonConstants.SPACE_8 }) {
     Image(imgSrc)
       .draggable(false)
-      .size({ width: $r('app.float.empty_content_image_size'), height: $r('app.float.empty_content_image_size') })
+      .size({
+        width: $r('app.float.empty_content_image_size'),
+        height: $r('app.float.empty_content_image_size'),
+      })
     Text(description)
       .fontColor($r('sys.color.ohos_id_color_text_secondary'))
       .fontSize($r('sys.float.Body_M'))

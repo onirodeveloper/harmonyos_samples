@@ -99,7 +99,10 @@ struct GridComponent {
             this.itemData.height = (newValue.height as number) * DRAG_RATIO;
           })
           .borderRadius($r('sys.float.corner_radius_level4'))
-          .border({ width: $r('app.float.border_width_large'), color: $r('sys.color.comp_background_emphasize') })
+          .border({
+            width: $r('app.float.border_width_large'),
+            color: $r('sys.color.comp_background_emphasize'),
+          })
           .bindPopup(this.showPopup && index === 0, {
             builder: this.MyPopup(),
             width: $r('app.float.water_flow_width'),

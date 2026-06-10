@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+  margin: auto;
+  background-color: #f1f3f5;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-content {
+  padding-top: 108px;
+  font-family: sans-serif;
+}
+
+/*  header  */
+.title {
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.image-cover {
+  background-size: cover;
+  background-position: center;
+}
+
+.header .title {
+  margin: 0 16px;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: bold;
+}
+
+.header .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  margin-top: 16px;
+  width: 100%;
+  height: 462px;
+  overflow: hidden;
+}
+
+.banner-img {
+  height: 100%;
+}
+
+.header .content .image-words {
+  position: absolute;
+  bottom: 40px;
+  text-align: center;
+  color: #ffffffe6;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+/*  text  */
+.divider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 24px 0px;
+}
+
+/* h3 */
+h3 {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  color: #000000e6;
+  line-height: 1;
+}
+
+h3::before {
+  display: inline-block;
+  content: '';
+  margin-right: 8px;
+  width: 1.625rem;
+  height: 1.625rem;
+  background-image: url(../image/title_3.png);
+  background-size: cover;
+}
+
+.text {
+  margin-top: 1.5rem;
+  line-height: 1.875rem;
+  color: #00000099;
+  overflow-wrap: break-word;
+}
+
+/*  footer  */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 48px 24px 76px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #e5e5ea;
+  background-image: url(../image/f_dwen.png);
+  background-repeat: repeat;
+}
+
+.footerImg {
+  max-width: 328px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background-image: url(../image/f_dwen_dark.png);
+  }
+  .divider {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

@@ -40,7 +40,10 @@ export struct CodeLabCard {
         tags: this.content?.tagIds ?? [],
         newSymbol: $r('app.media.big_new'),
       })
-        .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+        .margin({
+          top: $r('sys.float.padding_level3'),
+          left: $r('sys.float.padding_level3'),
+        })
         .zIndex(1)
 
       Stack({ alignContent: Alignment.Bottom }) {
@@ -72,7 +75,10 @@ export struct CodeLabCard {
             .fontSize($r('sys.float.Title_M'))
             .fontColor($r('sys.color.font_on_primary'))
             .fontWeight(FontWeight.Bold)
-            .margin({ left: $r('sys.float.padding_level6'), bottom: $r('sys.float.padding_level2') })
+            .margin({
+              left: $r('sys.float.padding_level6'),
+              bottom: $r('sys.float.padding_level2'),
+            })
           ComponentItemList({
             cardContents: this.componentCardData?.componentContents ?? [],
             suffixType: ItemSuffixType.ICON,
@@ -81,7 +87,7 @@ export struct CodeLabCard {
           })
         }
         .renderGroup(true)
-        .height($r('app.float.card_content_height'))
+        .height($r('app.float.codelab_card_content_height'))
         .width('100%')
         .justifyContent(FlexAlign.End)
         .alignItems(HorizontalAlign.Start)

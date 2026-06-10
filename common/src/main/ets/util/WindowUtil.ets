@@ -36,8 +36,9 @@ export class WindowUtil {
       WindowUtil.uiContext = uiContext;
       AppStorage.setOrCreate<UIContext>(StorageKey.UI_CONTEXT, uiContext);
       WindowUtil.registerBreakpoint(WindowUtil.windowClass);
-      // Hide PC/2in1 title bar.
-      WindowUtil.hideTitleBar();
+      if (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
+        WindowUtil.hideTitleBar();
+      }
     } catch (err) {
       Logger.error(TAG, `WindowUtil initialize failed. Cause: ${err.code} ${err.message}`);
     }
@@ -187,23 +188,26 @@ export class WindowUtil {
         globalInfoModel.aspectRatio = vpWidth / vpHeight;
       }
     }
-    globalInfoModel.widthBreakpoint = WindowUtil.uiContext.getWindowWidthBreakpoint();
     globalInfoModel.heightBreakpoint = WindowUtil.uiContext.getWindowHeightBreakpoint();
-    if (HdsUtil.isSupportNewMaterialApi() &&
-      ((globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM &&
-        (globalInfoModel.aspectRatio > CommonConstants.ASPECT_SQUARE_PORTRAIT)) ||
-        (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
-          (globalInfoModel.aspectRatio > CommonConstants.ASPECT_LANDSCAPE_SQUARE)))) {
-      globalInfoModel.needDynamicHideBar = true;
+    if (AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
+      if (canIUse('SystemCapability.Window.SessionManager')) {
+        try {
+          const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() ?? 0;
+          globalInfoModel.decorHeight = decorHeight;
+        } catch (error) {
+          Logger.error(TAG, `getWindowDecorHeight failed. error message: ${error.message}`);
+        }
+      }
     } else {
-      globalInfoModel.needDynamicHideBar = false;
-    }
-    if (canIUse('SystemCapability.Window.SessionManager')) {
-      try {
-        const decorHeight: number = WindowUtil.windowClass?.getWindowDecorHeight() ?? 0;
-        globalInfoModel.decorHeight = decorHeight;
-      } catch (error) {
-        Logger.error(TAG, `getWindowDecorHeight failed. error message: ${error.message}`);
+      globalInfoModel.widthBreakpoint = WindowUtil.uiContext.getWindowWidthBreakpoint();
+      if (HdsUtil.isSupportNewMaterialApi() &&
+        ((globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_SM &&
+          (globalInfoModel.aspectRatio > CommonConstants.ASPECT_SQUARE_PORTRAIT)) ||
+          (globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+            (globalInfoModel.aspectRatio > CommonConstants.ASPECT_LANDSCAPE_SQUARE)))) {
+        globalInfoModel.needDynamicHideBar = true;
+      } else {
+        globalInfoModel.needDynamicHideBar = false;
       }
     }
     AppStorage.setOrCreate(StorageKey.GLOBAL_INFO, globalInfoModel);

@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { relationalStore } from '@kit.ArkData';
 import { Context } from '@kit.AbilityKit';
+import { relationalStore } from '@kit.ArkData';
 import { taskpool } from '@kit.ArkTS';
 import Logger from '../../util/Logger';
 import { TableTypeEnum } from './model/TableTypeEnum';
@@ -59,7 +59,7 @@ async function deleteAll(context: Context, tableName: string, config: relational
 
 @Concurrent
 async function query(context: Context, tableName: string,
-  config: relationalStore.StoreConfig, types: TableTypeEnum[]): Promise<Record<string, string | number>[]> {
+  config: relationalStore.StoreConfig, types: TableTypeEnum[]): Promise<relationalStore.ValuesBucket[]> {
   let resultSet: relationalStore.ResultSet = null!;
   try {
     const rdbStore = await relationalStore.getRdbStore(context, config);
@@ -67,18 +67,18 @@ async function query(context: Context, tableName: string,
     if (rdbStore) {
       resultSet = rdbStore.querySync(predicates);
       const columnNames: string[] = resultSet.columnNames;
-      const resArray: Record<string, string | number>[] = [];
+      const resArray: relationalStore.ValuesBucket[] = [];
       if (columnNames.length === 0 || resultSet.rowCount === 0) {
         return [];
       }
       resultSet.goToFirstRow();
       do {
-        const resultData: Record<string, string | number> = {};
+        const resultData: relationalStore.ValuesBucket = {};
         columnNames.map((item: string, index: number) => {
           if (types[index] === TableTypeEnum.NUMBER) {
-            resultData[item] = resultSet?.getLong(resultSet?.getColumnIndex(item));
+            resultData[item] = resultSet?.getValue(resultSet?.getColumnIndex(item));
           } else if (types[index] === TableTypeEnum.STRING) {
-            resultData[item] = resultSet?.getString(resultSet?.getColumnIndex(item));
+            resultData[item] = resultSet?.getValue(resultSet?.getColumnIndex(item));
           }
         })
         resArray.push(resultData);
@@ -148,10 +148,10 @@ export class RdbStore {
     }
   }
 
-  public async query(): Promise<Record<string, string | number>[]> {
+  public async query(): Promise<relationalStore.ValuesBucket[]> {
     try {
       const resultSet = await taskpool.execute(query, this.context as Context, this.tableName, STORE_CONFIG,
-        this.types) as Record<string, string | number>[];
+        this.types) as relationalStore.ValuesBucket[];
       return resultSet;
     } catch (err) {
       return [];

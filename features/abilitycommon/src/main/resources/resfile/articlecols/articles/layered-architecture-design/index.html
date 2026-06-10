@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xml:lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0" />
+  <title>分层架构设计</title>
+  <link rel="stylesheet" href="../../common/commonDist/main.css">
+  <link rel="stylesheet" href="../../common/css/article.css">
+</head>
+
+<body>
+  <div class="nested0" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002115871322"><a name="ZH-CN_TOPIC_0000002115871322"></a><a
+      name="ZH-CN_TOPIC_0000002115871322"></a>
+    <h1 class="topictitle1"><span class="topictitlenumber1">1</span> 分层架构设计</h1>
+    <div class="topicbody" id="body39451090"></div>
+    <div>
+      <ul class="ullinks">
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002167699153">1.1 概述</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002167580697">1.2 设计-逻辑模型</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002132301272">1.3 开发-代码与构建模型</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002133130056">1.4 部署-应用部署模型</a></strong><br>
+        </li>
+        <li class="ulchildlink"><strong><a href="#ZH-CN_TOPIC_0000002133141562">1.5 总结</a></strong><br>
+        </li>
+      </ul>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002167699153"><a
+        name="ZH-CN_TOPIC_0000002167699153"></a><a name="ZH-CN_TOPIC_0000002167699153"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.1</span> 概述</h2>
+      <div class="topicbody" id="body0000002167699153">
+        <p id="ZH-CN_TOPIC_0000002167699153__p10659618383">
+          HarmonyOS代码工坊的分层架构设计是为了在同一套代码工程的基础上，构建手机、平板等1+8设备上的产物，实现HarmonyOS应用的“<a
+            href="article_layer_2" target="_blank"
+            rel="noopener noreferrer">一次开发，多端部署</a>”的理念。</p>
+        <p id="ZH-CN_TOPIC_0000002167699153__p1446141511378">本文将从HarmonyOS代码工坊应用的设计、开发、部署三个视角说明HarmonyOS应用的三层架构规则与实践。</p>
+      </div>
+      <div></div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002167580697"><a
+        name="ZH-CN_TOPIC_0000002167580697"></a><a name="ZH-CN_TOPIC_0000002167580697"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.2</span> 设计-逻辑模型</h2>
+      <div class="topicbody" id="body0000002167580697"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002173867461"><a
+          name="ZH-CN_TOPIC_0000002173867461"></a><a name="ZH-CN_TOPIC_0000002173867461"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.1</span> 设计原则</h3>
+        <div class="topicbody" id="body0000002173867461">
+          <p id="ZH-CN_TOPIC_0000002173867461__p017920139220">
+            典型的鸿蒙应用分层架构主要包括产品定制层、基础特性层、公共能力层，通过这样分层设计构建出一个清晰、高效、可扩展的设计架构。应用三层架构如下图：</p>
+          <p id="ZH-CN_TOPIC_0000002173867461__p432052193317"><img id="ZH-CN_TOPIC_0000002173867461__image1316010165417"
+              src="ManulImages/1.png"></p>
+          <ul id="ZH-CN_TOPIC_0000002173867461__ul1187543483716">
+            <li id="ZH-CN_TOPIC_0000002173867461__li175499531709">
+              Products层（产品定制层）：包含不同设备形态的个性化业务，比如UI、资源和配置。与应用底座解耦，各个Product之间不可以横向依赖，向下依赖Features层和Common层。</li>
+            <li id="ZH-CN_TOPIC_0000002173867461__li28617617117">
+              Features层（基础特性层）：指抽象应用基础特性集合。每个Feature高内聚，低耦合，可定制，供产品灵活部署。可以被Products层不同设备形态的Hap所依赖，但是不能反向依赖Products层，Features可以向下依赖Common层。
+            </li>
+            <li id="ZH-CN_TOPIC_0000002173867461__li195838141813">
+              Common层（公共能力层）：指基础能力集，是最小系统集。各个Feature包含的公共业务，都可以下沉到Common层。该层只可以被Products层和Feature层依赖，不可以反向依赖。</li>
+          </ul>
+          <p id="ZH-CN_TOPIC_0000002173867461__p9248175510382">
+            以上分层设计是将代码按照功能职责进行划分，每一层专注负责该层职责，提升代码的可维护性、可拓展性和代码复用性。分层设计优势如下：</p>
+          <ul id="ZH-CN_TOPIC_0000002173867461__ul8184357397">
+            <li id="ZH-CN_TOPIC_0000002173867461__li1018420593914">解耦：不同模块之间尽量减少依赖，降低耦合度。</li>
+          </ul>
+          <ul id="ZH-CN_TOPIC_0000002173867461__ul878523414380">
+            <li id="ZH-CN_TOPIC_0000002173867461__li1325894543813">复用：公共能力可以被多个模块复用，避免重复开发。</li>
+            <li id="ZH-CN_TOPIC_0000002173867461__li920191894118">清晰性：通过明确的层次划分，便于快速理解项目结构。</li>
+            <li id="ZH-CN_TOPIC_0000002173867461__li18436193410414">扩展性：新增功能时，只需在对应层添加模块，而不会影响其他部分。</li>
+          </ul>
+          <p id="ZH-CN_TOPIC_0000002173867461__p192561136134214">同时对比传统的移动应用架构，鸿蒙应用三层架构在以下几个方面具有优势：</p>
+          <ul id="ZH-CN_TOPIC_0000002173867461__ul143203401431">
+            <li id="ZH-CN_TOPIC_0000002173867461__li2032014401931">代码工程<p
+                id="ZH-CN_TOPIC_0000002173867461__p1971117431438"><a
+                  name="ZH-CN_TOPIC_0000002173867461__li2032014401931"></a><a
+                  name="li2032014401931"></a>传统架构：对于一个应用，在多设备场景下，可能存在多套代码工程，如手机、平板、手表每种设备使用不同工程 ，开发者维护成本高。</p>
+              <p id="ZH-CN_TOPIC_0000002173867461__p371111439436">三层架构：对于一个应用，可以实现一套代码支撑不同设备类型，开发者维护成本低。</p>
+            </li>
+            <li id="ZH-CN_TOPIC_0000002173867461__li1063415920413">代码复用度<p
+                id="ZH-CN_TOPIC_0000002173867461__p7711164324319"><a
+                  name="ZH-CN_TOPIC_0000002173867461__li1063415920413"></a><a
+                  name="li1063415920413"></a>传统架构：对于一个应用，在多设备场景下，代码复用度低</p>
+              <p id="ZH-CN_TOPIC_0000002173867461__p1171114324319">
+                三层架构：相比传统架构，特性层是产品之间公共能力的复用，公共层是特性层之间公共能力的复用。相同的业务处理逻辑可以在不同设备上复用。整体代码复用度高。</p>
+            </li>
+            <li id="ZH-CN_TOPIC_0000002173867461__li1323101118411">应用包部署<p
+                id="ZH-CN_TOPIC_0000002173867461__p147112431433"><a
+                  name="ZH-CN_TOPIC_0000002173867461__li1323101118411"></a><a
+                  name="li1323101118411"></a>传统架构：对于不同的设备类型，开发者通常需要构建出对应设备类型的部署包，分别上架对应应用市场。</p>
+              <p id="ZH-CN_TOPIC_0000002173867461__p78061942746">三层架构：对于不同的设备类型，开发者统一打包app包上架应用市场。应用市场根据运行时设备类型进行分发。</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002138428238"><a
+          name="ZH-CN_TOPIC_0000002138428238"></a><a name="ZH-CN_TOPIC_0000002138428238"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.2.2</span> HarmonyOS代码工坊案例</h3>
+        <div class="topicbody" id="body0000002138428238">
+          <p id="ZH-CN_TOPIC_0000002138428238__p1892251103819">
+            HarmonyOS代码工坊在业务上需要支持手机、折叠屏、平板、PC这些设备，结合以上典型鸿蒙应用的分层架构设计，HarmonyOS代码工坊客户端的分层设计如下：</p>
+          <p id="ZH-CN_TOPIC_0000002138428238__p6621181164717"><img
+              id="ZH-CN_TOPIC_0000002138428238__image1130183114718" src="ManulImages/2.png"></p>
+          <p id="ZH-CN_TOPIC_0000002138428238__p12509441165514"><strong
+              id="ZH-CN_TOPIC_0000002138428238__b13549125315010">Products层</strong></p>
+          <p id="ZH-CN_TOPIC_0000002138428238__p689516541504">
+            该层的主要负责提供应用在不同设备上的个性化业务，包含设备差异化的UI、资源和配置文件。当前HarmonyOS代码工坊支持手机、平板设备类型，后期将支持PC端，因此在产品定制层划分出手机、平板、PC三个不同设备入口。</p>
+          <p id="ZH-CN_TOPIC_0000002138428238__p572284255511"><strong
+              id="ZH-CN_TOPIC_0000002138428238__b886111618110">Features层</strong></p>
+          <p id="ZH-CN_TOPIC_0000002138428238__p59017289181">
+            该层是由应用的不同业务特性聚合而成，应用需根据自身业务划分出各个基础特性。结合HarmonyOS代码工坊当前运行实际业务，可划分为以下几个特性：</p>
+          <ul id="ZH-CN_TOPIC_0000002138428238__ul17820114175619">
+            <li id="ZH-CN_TOPIC_0000002138428238__li188202148567">组件体验业务：负责提供ArkUI组件体验、系统能力体验、关键代码预览、相关资料、相关海报内容查阅等能力。
+            </li>
+            <li id="ZH-CN_TOPIC_0000002138428238__li184871425105611">
+              开发实践业务：负责提供Sample预览介绍、Sample按需加载体验、Sample源码查阅、相关海报内容查阅等能力。</li>
+            <li id="ZH-CN_TOPIC_0000002138428238__li149357286569">发现业务：负责提供技术文章查阅、开发资讯查阅、相关海报内容查阅等能力。</li>
+            <li id="ZH-CN_TOPIC_0000002138428238__li53601339569">我的业务：负责提供华为账号登陆管理、用户声音收集、版本更新、用户收藏内容管理。</li>
+            <li id="ZH-CN_TOPIC_0000002138428238__li51243377566">桌面卡片业务：负责给用户提供桌面卡片。</li>
+          </ul>
+          <p id="ZH-CN_TOPIC_0000002138428238__p01874420555"><strong
+              id="ZH-CN_TOPIC_0000002138428238__b066520235110">Common层</strong></p>
+          <p id="ZH-CN_TOPIC_0000002138428238__p46231594817">
+            该层是应用各个特性的基础能力集，由各特性的公共业务组成。结合HarmonyOS代码工坊特性模块划分，其公共能力包括公共UI组件、海报预览模块、文章预览模块、视频播控模块、特性包管理模块、存储服务、路由模块、桌面卡片服务、华为账号管理服务、消息推送模块、运维模块、版本管理等。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002132301272"><a
+        name="ZH-CN_TOPIC_0000002132301272"></a><a name="ZH-CN_TOPIC_0000002132301272"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.3</span> 开发-代码与构建模型</h2>
+      <div class="topicbody" id="body0000002132301272"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002138586354"><a
+          name="ZH-CN_TOPIC_0000002138586354"></a><a name="ZH-CN_TOPIC_0000002138586354"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.1</span> 设计原则</h3>
+        <div class="topicbody" id="body0000002138586354">
+          <p id="ZH-CN_TOPIC_0000002138586354__ZH-CN_TOPIC_0000002138586354_mMcCpPsS_p8060118">
+            根据本文上述的逻辑模型提出的三层架构划分，以支持手机、PC产品为例，其对应典型的代码和编译模型如下图所示：</p>
+          <p id="ZH-CN_TOPIC_0000002138586354__p1919620535304"><img
+              id="ZH-CN_TOPIC_0000002138586354__image1768466143813" src="ManulImages/3.png"></p>
+          <p id="ZH-CN_TOPIC_0000002138586354__p1555819195717"><strong
+              id="ZH-CN_TOPIC_0000002138586354__b3299145114463">Products层</strong></p>
+          <p id="ZH-CN_TOPIC_0000002138586354__p4775205217460">针对不同设备形态(DeviceType)，编译出不同的类型的 Hap包。</p>
+          <div class="note" id="ZH-CN_TOPIC_0000002138586354__note181051051608"><img src=""><span class="notetitle">
+            </span>
+            <div class="notebody">
+              <p id="ZH-CN_TOPIC_0000002138586354__p1823211665314">上述的构建模型是应用针对不同的设备形态使用不同的Entry Hap包，称之为Entry分包方案。</p>
+              <p id="ZH-CN_TOPIC_0000002138586354__p12804125105610">同样，应用可以在不同设备上使用一个共同的Entry
+                HAP包，即entry共包方案。例如，Product层编译出一个Default.hap，直接分发到手机、平板、PC设备上。</p>
+              <p id="ZH-CN_TOPIC_0000002138586354__p18891515016">分包、共包的设计选型，将在本文的应用部署原则详细展开。</p>
+            </div>
+          </div>
+          <div class="p" id="ZH-CN_TOPIC_0000002138586354__p923971135719"><strong
+              id="ZH-CN_TOPIC_0000002138586354__b48811444204112">Features层</strong>
+            <ol id="ZH-CN_TOPIC_0000002138586354__ol320884616587">
+              <li id="ZH-CN_TOPIC_0000002138586354__li820844610583">不需要单独部署的Feature,编译成HAR包,打包到Product层的Entry Hap中。</li>
+              <li id="ZH-CN_TOPIC_0000002138586354__li357685515581">
+                需要单独部署的Feature，编译成Feature类型的Hap包。然后再Product层的Hap包，组成Entry Hap包 +Feature Hap包的方式组合部署。</li>
+              <li id="ZH-CN_TOPIC_0000002138586354__li1629574205910">每一个Feature要做1+8设备的自适应设计。</li>
+            </ol>
+          </div>
+          <p id="ZH-CN_TOPIC_0000002138586354__p103191145573"><strong
+              id="ZH-CN_TOPIC_0000002138586354__b1357124834612">Common层</strong></p>
+          <p id="ZH-CN_TOPIC_0000002138586354__p259214311345">该层不可被分割，可以根据实际业务需求，编译成Har包或者Hsp包，打包到 Product 层的 Entry
+            Hap中。</p>
+          <p id="ZH-CN_TOPIC_0000002138586354__p205925317343">最后，整个代码工程最终构建出一个APP包，应用以APP包的形式发布到应用二进制流水线或者华为应用市场中。</p>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002173785897"><a
+          name="ZH-CN_TOPIC_0000002173785897"></a><a name="ZH-CN_TOPIC_0000002173785897"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.3.2</span> HarmonyOS代码工坊案例</h3>
+        <div class="topicbody" id="body0000002173785897">
+          <p id="ZH-CN_TOPIC_0000002173785897__p476712422216">基于以上典型鸿蒙应用的代码与构建模型设计原则，HarmonyOS代码工坊的代码工程模型和编译构建产物整体过程如下图：</p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p035616075320"><img id="ZH-CN_TOPIC_0000002173785897__image138151014536"
+              src="ManulImages/4.png"></p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p713553135811"><strong
+              id="ZH-CN_TOPIC_0000002173785897__b6765629182414">代码结构</strong></p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p3973278311">HarmonyOS代码工坊自身代码结构根据逻辑模型的三层划分，分别创建以下目录和相关子目录，以组织相关业务代码。</p>
+          <pre class="screen" id="ZH-CN_TOPIC_0000002173785897__screen67538011250">&#9500;&#9472;common                  // 公共能力模块
+&#9474;  &#9500;&#9472;accountservice       // 账号服务
+&#9474;  &#9500;&#9472;pushservice          // 推送服务
+&#9474;  &#9500;&#9472;routermanager        // 路由管理
+&#9474;  &#9500;&#9472;storagemanage        // 本地存储管理
+&#9474;  &#9500;&#9472;trackmanager         // 埋点管理
+&#9474;  &#9500;&#9472;...                  // 其余模块
+&#9500;&#9472;features                // 基础特性层
+&#9474;  &#9500;&#9472;commonbusiness       // 业务公共能力模块   
+&#9474;  &#9500;&#9472;componentlibrary     // 体验模块
+&#9474;  &#9500;&#9472;devpractices         // 实践模块 
+&#9474;  &#9500;&#9472;exploration          // 发现模块 
+&#9474;  &#9492;&#9472;mine                 // 我的 
+&#9500;&#9472;products                // 产品定制层
+&#9474;  &#9500;&#9472;phone                // 手机、Pad产品
+&#9474;  &#9500;&#9472;pc                   // pc产品
+&#9492;&#9472;samples                 // Samples集成 
+      &#9492;&#9472;xxxsample           // 集成到HarmonyOS代码工坊内的Sample</pre>
+          <p id="ZH-CN_TOPIC_0000002173785897__p12307534105811"><strong
+              id="ZH-CN_TOPIC_0000002173785897__b19540144895716">Products层编译</strong></p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p149110495572">
+            HarmonyOS代码工坊在业务上需同时支持手机、平板、PC三个设备端，结合下文的应用部署原则中的应用分包/共包设计原则，考虑到手机、Pad部署特性相同，仅UX页面差异，决定手机和Pad采用共包方案，页面差异通过系统的页面级一多能力实现；PC业务后期会部署PC独有特性，因此PC端采用分包方案，单独编译PC产品的Hap包。
+          </p>
+          <div class="p" id="ZH-CN_TOPIC_0000002173785897__p16225193735816"><strong
+              id="ZH-CN_TOPIC_0000002173785897__b79038543575">Features层编译</strong>
+            <ol id="ZH-CN_TOPIC_0000002173785897__ol1423863881616">
+              <li id="ZH-CN_TOPIC_0000002173785897__li182381938171617">
+                HarmonyOS代码工坊自身业务不需要单独部署的特性，编译成Har包，打包到Product层的Entry的Hap包内。</li>
+              <li id="ZH-CN_TOPIC_0000002173785897__li1653917435163">HarmonyOS代码工坊上架的Sample代码，需要单独编译成Feature
+                Hap包。以Product层的Hap包+Sample Hap包组合部署。</li>
+              <li id="ZH-CN_TOPIC_0000002173785897__li1841152181616">各个上架HarmonyOS代码工坊的Sample需要单独做多设备适配。</li>
+            </ol>
+          </div>
+          <p id="ZH-CN_TOPIC_0000002173785897__p924014408587"><strong
+              id="ZH-CN_TOPIC_0000002173785897__b141912385816">Common层编译</strong></p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p185554419582">基础能力各个模块，编译成各个独立的Har和Hsp包，并且打包到Product层的Entry Hap中。</p>
+          <div class="note" id="ZH-CN_TOPIC_0000002173785897__note2788146181716"><img src=""><span class="notetitle">
+            </span>
+            <div class="notebody">
+              <p id="ZH-CN_TOPIC_0000002173785897__p14469121311811">Common层选择Har和Hsp打包类型可参考如下规则：</p>
+              <p id="ZH-CN_TOPIC_0000002173785897__p678815621713">1.
+                对于单Hap场景，如果没有按需加载的业务诉求，直接采用Hap+Har方式；反之当有按需加载诉求时，可以考虑将按需加载模块打包为Hsp，并且当按需加载的模块与Hap之间有公用资产时，可以进一步考虑将公共资产也打包成Hsp。
+              </p>
+              <p id="ZH-CN_TOPIC_0000002173785897__p6340123712180">2.
+                对于多Hap场景，如果多Hap之间没有公用的资产，直接采用Hap+Har方式；反之多Hap之间有公共资产时，可以考虑将公共资产打包成Hsp。</p>
+              <p id="ZH-CN_TOPIC_0000002173785897__p20920341131812">3. Hsp包在运行时需动态加载执行，可能会导致性能问题。</p>
+              <p id="ZH-CN_TOPIC_0000002173785897__p99023521159">4. 多包（Hap/Hsp）引用相同的Har时，会造成多包间的代码和资源重复拷贝，导致应用包体积过大。</p>
+            </div>
+          </div>
+          <p id="ZH-CN_TOPIC_0000002173785897__p168221646165817"><strong
+              id="ZH-CN_TOPIC_0000002173785897__b108241246145814">集成打包</strong></p>
+          <p id="ZH-CN_TOPIC_0000002173785897__p46361344105817">整个代码工程最终构建出一个App包，应用以App包发布。</p>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002133130056"><a
+        name="ZH-CN_TOPIC_0000002133130056"></a><a name="ZH-CN_TOPIC_0000002133130056"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.4</span> 部署-应用部署模型</h2>
+      <div class="topicbody" id="body0000002133130056"></div>
+      <div></div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002168515725"><a
+          name="ZH-CN_TOPIC_0000002168515725"></a><a name="ZH-CN_TOPIC_0000002168515725"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.4.1</span> 设计原则</h3>
+        <div class="topicbody" id="body0000002168515725">
+          <p id="ZH-CN_TOPIC_0000002168515725__p886304594"><strong
+              id="ZH-CN_TOPIC_0000002168515725__b5867085914">分包部署</strong></p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p208181021124917">分包部署是指在不同的设备上使用不同的entry HAP包，如下图示意：</p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p4603103110506"><img
+              id="ZH-CN_TOPIC_0000002168515725__image1561001311110" src="ManulImages/5.png"></p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p1430420311592"><strong
+              id="ZH-CN_TOPIC_0000002168515725__b173041531595">共包部署</strong></p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p122961535511">共包部署是指在不同的设备上使用同一个的entry
+            HAP包，如下图示意了一个Default.hap同时部署在手机与平板端。</p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p17660650117"><img id="ZH-CN_TOPIC_0000002168515725__image96411751613"
+              src="ManulImages/6.png"></p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p557715105599"><strong
+              id="ZH-CN_TOPIC_0000002168515725__b534773403215">应用分包/共包设计原则</strong></p>
+          <p id="ZH-CN_TOPIC_0000002168515725__ZH-CN_TOPIC_0000002168515725_mMcCpPsS_p8060118">
+            应用在不同设备上使用分包还是共包，取决于应用在不同设备的特性差异，特性差异包括布局界面和功能性上的差异两部分，差异小的设备间建议采用共包方案，差异大（分包后 ROM
+            收益大）的设备间可以采用分包方案。主要的参考原则如下：</p>
+          <ol id="ZH-CN_TOPIC_0000002168515725__ol48171653958">
+            <li id="ZH-CN_TOPIC_0000002168515725__li198171253453">有桌面图标类的应用，建议平板和 PC 两个设备上使用 entry 共包的方案；</li>
+            <li id="ZH-CN_TOPIC_0000002168515725__li15481135711516">不同设备间存在差异化 Feature，差异化 Feature 所占 ROM 空间较大，建议分包；
+            </li>
+            <li id="ZH-CN_TOPIC_0000002168515725__li7827144313718">不同设备上同一断点的布局显示结构差异很大时建议分包，反之则共包；<p
+                id="ZH-CN_TOPIC_0000002168515725__p867471712"><a
+                  name="ZH-CN_TOPIC_0000002168515725__li7827144313718"></a><a name="li7827144313718"></a>原则2优先于原则3。</p>
+            </li>
+          </ol>
+          <p id="ZH-CN_TOPIC_0000002168515725__p1495513364411">举例 1：以车机的桌面和平板的桌面为例，同样是 lg 断点，但其布局差异非常大，建议分包。</p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p169554362416">举例 2：笔记 App，手机上的 sm、md 断点与平板 PC 上的 sm、md 断点布局显示基本一致，建议共包。
+          </p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p1874314551382">下面是不同的设备上需支持的断点列表：</p>
+
+          <div class="tablenoborder"><span class="tablecap"><span class="tablenumber">表1-1</span> </span>
+            <table cellpadding="4" cellspacing="0" summary="" id="ZH-CN_TOPIC_0000002168515725__table553284320820"
+              frame="border" border="1" rules="all">
+              <thead align="left">
+                <tr id="ZH-CN_TOPIC_0000002168515725__row95338431887">
+                  <th align="left" class="cellrowborder" valign="top" width="25%" id="mcps1.4.8.5.3.13.2.5.1.1">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p17533124315815">断点</p>
+                  </th>
+                  <th align="left" class="cellrowborder" valign="top" width="25%" id="mcps1.4.8.5.3.13.2.5.1.2">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p11533124311815">手机</p>
+                  </th>
+                  <th align="left" class="cellrowborder" valign="top" width="25%" id="mcps1.4.8.5.3.13.2.5.1.3">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p55331431488">平板</p>
+                  </th>
+                  <th align="left" class="cellrowborder" valign="top" width="25%" id="mcps1.4.8.5.3.13.2.5.1.4">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p35337432085">PC</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="ZH-CN_TOPIC_0000002168515725__row25337439810">
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.1 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p353313431681">sm断点</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p1153315431811">需要支持</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.3 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p253320431284">需要支持</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.4 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p5533124312817">需要支持</p>
+                  </td>
+                </tr>
+                <tr id="ZH-CN_TOPIC_0000002168515725__row753319431483">
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.1 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p145331243085">md断点</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p175331743181">需要支持（折叠屏）</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.3 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p653319431485">需要支持</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.4 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p1253317432817">需要支持</p>
+                  </td>
+                </tr>
+                <tr id="ZH-CN_TOPIC_0000002168515725__row0533164314810">
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.1 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p35334436817">lg断点</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.2 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p45331943282">建议支持（后续分布式场景拓展）</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.3 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p853418438818">需要支持</p>
+                  </td>
+                  <td class="cellrowborder" valign="top" width="25%" headers="mcps1.4.8.5.3.13.2.5.1.4 ">
+                    <p id="ZH-CN_TOPIC_0000002168515725__p18534134311818">需要支持</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p id="ZH-CN_TOPIC_0000002168515725__p151601119015"><strong
+              id="ZH-CN_TOPIC_0000002168515725__b7604104813339">部署按需加载特性包</strong></p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p1514611318249">按需加载定义<strong
+              id="ZH-CN_TOPIC_0000002168515725__b19161310010">：</strong>按需加载是指用户首次从应用市场安装时，仅会下载应用的基础的Hap包进行安装，应用运行时使用到相关功能时，再动态下载安装运行对应的功能模块。
+          </p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p18592128132612">按需加载流程<strong
+              id="ZH-CN_TOPIC_0000002168515725__b139956151104">：</strong>可<a
+              href="article_layer_1"
+              target="_blank" rel="noopener noreferrer">参考官网</a>。</p>
+          <p id="ZH-CN_TOPIC_0000002168515725__p831104952613">按需加载优势<strong
+              id="ZH-CN_TOPIC_0000002168515725__b2211119305">：</strong></p>
+          <ol id="ZH-CN_TOPIC_0000002168515725__ol289624422911">
+            <li id="ZH-CN_TOPIC_0000002168515725__li17896194417295">
+              减少包体积：用户从应用市场首次下载的应用不包含按需加载模块，用户看到的包体积减少，从而减少了用户下载和安装时间，减少了用户等待时间。</li>
+            <li id="ZH-CN_TOPIC_0000002168515725__li17718124892911">
+              减少系统资源：应用安装之后所占用的空间也变少（节省ROM空间），应用启动时加载的特性少了（节省了RAM空间）。</li>
+            <li id="ZH-CN_TOPIC_0000002168515725__li11300115222918">架构演进：将特性定义为按需加载之后，对特性的定义和模块间的耦合关系进一步明确，有利于应用架构进一步演进。
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="nested2" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002133215018"><a
+          name="ZH-CN_TOPIC_0000002133215018"></a><a name="ZH-CN_TOPIC_0000002133215018"></a>
+        <h3 class="topictitle3"><span class="topictitlenumber3">1.4.2</span> HarmonyOS代码工坊案例</h3>
+        <div class="topicbody" id="body0000002133215018">
+          <p id="ZH-CN_TOPIC_0000002133215018__p122874318341">
+            HarmonyOS代码工坊在业务上需同时支持手机、平板、PC三个设备端，考虑到后期在手机平板页面布局有差异，且存在差异化特性。因此在不同设备使用不同的entry hap包，entry进行分包。</p>
+          <p id="ZH-CN_TOPIC_0000002133215018__p1645410443348">HarmonyOS代码工坊内集成的Sample示例代码工程在上述构建过程中被编译成Feature
+            Hap，运行时根据需要通过StoreKit按需下载并拉起运行，为部署方式为按需加载。此外，Sample工程编译的Feature Hap需要适配多设备。</p>
+          <p id="ZH-CN_TOPIC_0000002133215018__p3271559171718">鸿蒙世界的客户端在设备部署如下图：</p>
+          <p id="ZH-CN_TOPIC_0000002133215018__p19515494"><img id="ZH-CN_TOPIC_0000002133215018__image171086316429"
+              src="ManulImages/7.png"></p>
+        </div>
+      </div>
+    </div>
+    <div class="nested1" xml:lang="zh-cn" id="ZH-CN_TOPIC_0000002133141562"><a
+        name="ZH-CN_TOPIC_0000002133141562"></a><a name="ZH-CN_TOPIC_0000002133141562"></a>
+      <h2 class="topictitle2"><span class="topictitlenumber2">1.5</span> 总结</h2>
+      <div class="topicbody" id="body0000002133141562">
+        <p id="ZH-CN_TOPIC_0000002133141562__ZH-CN_TOPIC_0000002133141562_mMcCpPsS_p8060118">
+          本文从应用开发的设计、开发、部署全流程，围绕三层架构设计，讲述了鸿蒙应用开发的逻辑模型、代码和构建模型、应用部署模型设计原则和其在HarmonyOS代码工坊中的实际应用。展示了一个清晰、高效、可拓展的设计模型，实现HarmonyOS应用的一次开发多端部署理念。
+        </p>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</body>
+
+<script type="module" src="../../common/js/article.js"></script>
+<script type="module" src="../../common/commonDist/main.js"></script>
+
+</html>

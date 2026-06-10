@@ -54,7 +54,10 @@ struct StyleTextComponent {
   build() {
     Column() {
       Text(undefined, { controller: this.textController })
-        .margin({ left: $r('app.float.common_left_right_margin'), right: $r('app.float.common_left_right_margin') })
+        .margin({
+          left: $r('app.float.common_left_right_margin'),
+          right: $r('app.float.common_left_right_margin'),
+        })
         .fontSize($r('sys.float.Body_L'))
         .fontWeight(FontWeight.Regular)
     }

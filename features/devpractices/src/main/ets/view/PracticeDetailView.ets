@@ -32,11 +32,12 @@ import {
   HdsUtil,
   WindowUtil,
 } from '@ohos/common';
-import { BaseDetailComponent, CardTypeEnum, SampleDetailParams } from '@ohos/commonbusiness';
+import { BaseDetailComponent, SampleDetailParams } from '@ohos/commonbusiness';
 import { SampleComponent } from '../component/SampleComponent';
 import type { SampleDetailData, SampleDetailState } from '../viewmodel/SampleDetailState';
 import {
   AssignPathStackEvent,
+  ChangeBackPressed,
   InitSampleDetailEvent,
   PopEvent,
   SampleDetailPageVM,
@@ -55,7 +56,7 @@ export struct SampleDetailView {
   @StorageProp(StorageKey.GLOBAL_INFO) globalInfoModel: GlobalInfoModel =
     AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
   viewModel: SampleDetailPageVM = SampleDetailPageVM.getInstance();
-  @State categoryName: string = '';
+  @State categoryName: string | undefined = '';
   @State sampleDetailState: SampleDetailState = this.viewModel.getState();
   @State loadingStatus: LoadingStatus = LoadingStatus.IDLE;
   @State titleBarStyle: TitleBarStyleOptions = {
@@ -100,6 +101,7 @@ export struct SampleDetailView {
     this.viewModel.sendEvent(new InitSampleDetailEvent(this.sampleId, this.cardId, params.currentIndex,
       params.unionId));
     this.viewModel.sendEvent(new AssignPathStackEvent(cxt?.pathStack));
+    this.viewModel.sendEvent(new ChangeBackPressed(false));
   }
 
   @Builder
@@ -118,12 +120,14 @@ export struct SampleDetailView {
     .width('100%')
     .padding({
       top: CommonConstants.NAVIGATION_HEIGHT + this.globalInfoModel.statusBarHeight,
-      bottom: this.globalInfoModel.naviIndicatorHeight,
+      bottom: (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_MD &&
+        this.globalInfoModel.heightBreakpoint === HeightBreakpoint.HEIGHT_LG) ?
+        this.globalInfoModel.naviIndicatorHeight + 155 : this.globalInfoModel.naviIndicatorHeight,
     })
-    .indicator(this.sampleDetailState.sampleCount > 1)
+    .indicator(this.sampleDetailState.sampleCount > 1 ? new DotIndicator().maxDisplayCount(6) : false)
     .index(this.currentIndex)
     .disableSwipe(this.sampleDetailState.sampleCount === 1 || this.sampleDetailState.installingStatus ||
-    this.sampleDetailState.downloadingStatus)
+      this.sampleDetailState.downloadingStatus)
     .onChange((index: number) => {
       this.viewModel.sendEvent(new SetIndexEvent(index));
       this.currentIndex = index;
@@ -188,7 +192,9 @@ export struct SampleDetailView {
     .titleBar({
       style: this.titleBarStyle,
       content: {
-        title: { mainTitle: this.categoryName },
+        title: {
+          mainTitle: this.categoryName && this.categoryName !== '' ? this.categoryName : $r('app.string.sample_title')
+        },
         menu: {
           value: [{
             content: {
@@ -207,12 +213,6 @@ export struct SampleDetailView {
     .onReady((cxt: NavDestinationContext) => this.handleOnReady(cxt))
     .onBackPressed(() => {
       return this.onBack();
-    })
-    .onWillShow(() => {
-      this.sampleDetailState.isBackPressed = false;
-    })
-    .onWillHide(() => {
-      this.sampleDetailState.isBackPressed = false;
     })
   }
 

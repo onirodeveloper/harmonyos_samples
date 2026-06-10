@@ -14,7 +14,7 @@
  */
 
 import type { BusinessError } from '@kit.BasicServicesKit';
-import { ImageKnifeUtil, Logger, PageData, StorageKey } from '@ohos/common';
+import { ImageKnifeUtil, Logger, PageData } from '@ohos/common';
 import { BannerData } from '@ohos/commonbusiness';
 import { ComponentLibraryService } from '../service/ComponentLibraryService';
 import type { ComponentCardData, ComponentData } from './ComponentData';

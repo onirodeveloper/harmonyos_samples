@@ -4,13 +4,8 @@
     "arkOptions": {
       "runtimeOnly": {
         "packages": [
-          "@ohos/componentlibrary",
-          "@ohos/devpractices",
-          "@ohos/exploration",
-          "@ohos/mine",
           "@ohos/commonbusiness",
           "@ohos/common",
-          "@ohos/exploration"
         ]
       }
     },
@@ -33,39 +28,21 @@
   "targets": [
     {
       "name": "dev",
-      "resource": {
-        "directories": [
-          "./src/main/resources_dev",
-          "./src/main/resources"
-        ]
-      }
     },
     {
-      "name": "test",
-      "resource": {
-        "directories": [
-          "./src/main/resources_test",
-          "./src/main/resources"
-        ]
-      }
+      "name": "uat",
+    },
+    {
+      "name": "uat_mirror",
     },
     {
       "name": "icsl",
-      "resource": {
-        "directories": [
-          "./src/main/resources_icsl",
-          "./src/main/resources"
-        ]
-      }
     },
     {
-      "name": "online",
-      "resource": {
-        "directories": [
-          "./src/main/resources_online",
-          "./src/main/resources"
-        ]
-      }
+      "name": "beta",
+    },
+    {
+      "name": "prod",
     },
     {
       "name": "default"

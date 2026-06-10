@@ -11,9 +11,9 @@
         "autoDesignWidth": true
       },
       "colorMode": "auto",
-      "isDynamic": false,
+      "isDynamic": true,
       "isDefault": true,
-      "updateEnabled": false,
+      "updateEnabled": true,
       "scheduledUpdateTime": "10:30",
       "updateDuration": 1,
       "defaultDimension": "2*2",
@@ -87,6 +87,31 @@
       "supportDimensions": [
         "1*2"
       ]
+    },
+    {
+      "name": "hmos_3d_live_widget",
+      "displayName": "$string:hmos_3d_live_widget_display_name",
+      "description": "$string:hmos_3d_live_widget_desc",
+      "src": "./ets/widget/pages/Hmos_3d_live_widgetCard.ets",
+      "uiSyntax": "arkts",
+      "window": {
+        "designWidth": 720,
+        "autoDesignWidth": true
+      },
+      "colorMode": "auto",
+      "isDynamic": true,
+      "isDefault": false,
+      "updateEnabled": true,
+      "scheduledUpdateTime": "10:30",
+      "updateDuration": 1,
+      "defaultDimension": "2*2",
+      "supportDimensions": [
+        "2*2"
+      ],
+      "transparencyEnabled": true,
+      "sceneAnimationParams": {
+        "abilityName": "UIExtensionAbility"
+      }
     }
   ]
 }

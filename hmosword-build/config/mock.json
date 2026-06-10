@@ -2,243 +2,441 @@
   "data": [
     {
       "branch": "master",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/WearableMusic",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/WearableMusic",
       "moduleName": "wearablemusicsample",
       "abilityName": "WearableMusicSampleAbility"
     },
     {
       "branch": "master",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchShortVideo",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/SmartWatchShortVideo",
       "moduleName": "smartwatchshortvideosample",
       "abilityName": "SmartWatchShortVideoSampleAbility"
     },
     {
       "branch": "master",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/SmartWatchCarControl",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/SmartWatchCarControl",
       "moduleName": "smartwatchcarcontrolsample",
       "abilityName": "SmartWatchCarControlSampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/speech-kit-sample-TextReader_-arkts",
       "moduleName": "speechkitsample",
       "abilityName": "SpeechkitsampleEntryAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/visionkit-sample-code-document-scan-demo-ark-ts",
       "moduleName": "documentscansample",
       "abilityName": "DocScanSampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/visionkit-samplecode-sheet-extraction-demo-arkts",
       "moduleName": "sheetrecognitionsample",
       "abilityName": "SheetRecognitionAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/core-vision-kit-sample-code-ark-ts-ocr-demo",
       "moduleName": "textrecognitionsample",
       "abilityName": "TextRecognitionAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultiBusinessOffice/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiBusinessOffice",
       "moduleName": "multibusinesssample",
       "abilityName": "MultibusinesssampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/LiveViewLockScreen/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/LiveViewLockScreen",
       "moduleName": "liveviewlockscreensample",
       "abilityName": "LiveviewlockscreensampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/knock-share/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/knock-share",
       "moduleName": "knocksharesample",
       "abilityName": "KnocksharesampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/VideoCast/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/VideoCast",
       "moduleName": "videocastsample",
       "abilityName": "VideocastsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-nav-bar/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-nav-bar",
       "moduleName": "multinavbarsample",
       "abilityName": "MultinavbarsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-convenient-life/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-convenient-life",
       "moduleName": "multiconvenientlifesample",
       "abilityName": "MulticonvenientlifesampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read/",
+      "originalUrl": "https://gitee.com/harmonyos_samples/multi-news-read",
       "moduleName": "multinewsreadsample",
       "abilityName": "MultinewsreadsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-travel-accommodation/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-travel-accommodation",
       "moduleName": "multitravelsample",
       "abilityName": "MultitravelsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-columns/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-columns",
       "moduleName": "multicolumnssample",
       "abilityName": "MulticolumnssampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/text-effects/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/text-effects",
       "moduleName": "texteffectssample",
       "abilityName": "TexteffectssampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/multi-tab-navigation/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-tab-navigation",
       "moduleName": "multitabnavigationsample",
       "abilityName": "MultitabnavigationsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/custom-dialog-gathers/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/custom-dialog-gathers",
       "moduleName": "customdialoggatherssample",
       "abilityName": "CustomDialogGathersSampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/scroll-component-nested-sliding/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/scroll-component-nested-sliding",
       "moduleName": "scrollcomponentsample",
       "abilityName": "NestedslidingsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/water-flow/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/water-flow",
       "moduleName": "waterflowsample",
       "abilityName": "WaterflowsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/component-stack/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/component-stack",
       "moduleName": "componentstacksample",
       "abilityName": "ComponentstacksampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/grid-hybrid/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/grid-hybrid",
       "moduleName": "gridhybridsample",
       "abilityName": "GridhybridsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/transitions-collection/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/transitions-collection",
       "moduleName": "transitionscollectionsample",
       "abilityName": "TransitionscollectionsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/animation-collection/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/animation-collection",
       "moduleName": "animationcollectionsample",
       "abilityName": "AnimationcollectionsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/DragFramework/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/DragFramework",
       "moduleName": "dragframeworksample",
       "abilityName": "DragframeworksampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/fluent-blog/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/fluent-blog",
       "moduleName": "fluentblogsample",
       "abilityName": "FluentblogsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-exchange/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/list-exchange",
       "moduleName": "listexchangesample",
       "abilityName": "ListexchangesampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/list-item-edit/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/list-item-edit",
       "moduleName": "listitemeditsample",
       "abilityName": "ListitemeditsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/window-pip/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/window-pip",
       "moduleName": "windowpipsample",
       "abilityName": "WindowpipsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/MultipleImage/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultipleImage",
       "moduleName": "multipleimagesample",
       "abilityName": "MultipleimagesampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/audio-interaction/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/audio-interaction",
       "moduleName": "audiointeractionsample",
       "abilityName": "AudiointeractionsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/page-redirection/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/page-redirection",
       "moduleName": "pageredirectionsample",
       "abilityName": "PageredirectionsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/web-pre-render/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/web-pre-render",
       "moduleName": "webprerendersample",
       "abilityName": "WebprerendersampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/location-service/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/location-service",
       "moduleName": "locationservicesample",
       "abilityName": "LocationservicesampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/preferences/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/preferences",
       "moduleName": "preferencessample",
       "abilityName": "PreferencessampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/verification-code-scenario/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/verification-code-scenario",
       "moduleName": "verificationcodescenariosample",
       "abilityName": "VerificationcodescenariosampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/image-comment/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/image-comment",
       "moduleName": "imagecommentsample",
       "abilityName": "ImagecommentsampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/picker/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/picker",
       "moduleName": "pickersample",
       "abilityName": "PickersampleAbility"
     },
     {
       "branch": "br_release_hmos",
-      "originalUrl": "https://gitcode.com/HarmonyOS_Samples/keyboard/",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/keyboard",
       "moduleName": "keyboardsample",
       "abilityName": "KeyboardsampleAbility"
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/LiveCard",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/NavigationSettings",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/audio-renderer-play-pcm",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/Spatialization",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/ImageEditWithWavewheel",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/KnockFileShare",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/GesturesShare",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/SmartReach",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/AntiPeep",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MusicHome",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiCommunityApplication",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiShoppingPriceComparison",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiVideoApplication",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiFinancialManagement",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-ticket-class",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-travel-navigation",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiDeviceCommunication",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-short-video",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiPictureBeautification",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/multi-mobile-payment",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/MultiSetting",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/effect-kit",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/icon-main-color",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/SmartPhotoPicker",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/audio-capturer-record-pcm",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/PixelMapImageEdit",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/avplayer-long-video",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/audio-focus",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/audio-renderer-play-pcm",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/audio-renderer-play-pcm",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/readerkit_samplecode_arkts",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/DialogHub",
+      "moduleName": "",
+      "abilityName": ""
+    },
+    {
+      "branch": "dev",
+      "originalUrl": "git@gitcode.com:HarmonyOS_Samples/HarmonyOSComponentUXExamples",
+      "moduleName": "",
+      "abilityName": ""
     }
   ]
 }

@@ -15,9 +15,7 @@
 
 import {
   ImageComponent,
-  TRACK_KEY,
-  TrackEventType,
-  TrackNode,
+  TRACK_KEY, TrackNode,
   TrackServiceData,
   InteractionTypeEnum,
 } from '@ohos/common';
@@ -51,7 +49,10 @@ export struct SampleListCard {
               })
                 .height('100%')
             }
-            .padding({ top: $r('sys.float.padding_level4'), bottom: $r('sys.float.padding_level2') })
+            .padding({
+              top: $r('sys.float.padding_level4'),
+              bottom: $r('sys.float.padding_level2'),
+            })
             .width($r('app.float.card_img_width'))
             .backgroundColor($r('sys.color.comp_background_secondary'))
 

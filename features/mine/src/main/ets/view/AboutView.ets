@@ -42,7 +42,10 @@ export struct AboutView {
             .margin({ top: $r('sys.float.padding_level16') })
         }
         .margin({ top: $r('sys.float.padding_level8') })
-        .padding({ left: $r('sys.float.padding_level8'), right: $r('sys.float.padding_level8') })
+        .padding({
+          left: $r('sys.float.padding_level8'),
+          right: $r('sys.float.padding_level8'),
+        })
 
         Column() {
           Text($r('app.string.copyright1'))

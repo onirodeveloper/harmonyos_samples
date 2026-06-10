@@ -62,7 +62,10 @@ struct SettingView {
                 }
               })
             }
-            .padding({ left: $r('sys.float.padding_level2'), right: $r('sys.float.padding_level2') })
+            .padding({
+              left: $r('sys.float.padding_level2'),
+              right: $r('sys.float.padding_level2'),
+            })
           }
           .divider({
             strokeWidth: $r('app.float.mine_divider'),
@@ -70,19 +73,22 @@ struct SettingView {
             startMargin: $r('sys.float.padding_level6'),
             endMargin: $r('sys.float.padding_level6'),
           })
-          .padding({ top: $r('sys.float.padding_level2'), bottom: $r('sys.float.padding_level2') })
+          .padding({
+            top: $r('sys.float.padding_level2'),
+            bottom: $r('sys.float.padding_level2'),
+          })
           .backgroundColor($r('sys.color.comp_background_primary'))
           .borderRadius($r('sys.float.corner_radius_level8'))
         }
 
         Button($r('app.string.log_out'))
-          .type(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? ButtonType.Normal :
+          .type(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? ButtonType.Normal :
             ButtonType.Capsule)
           .width(CommonConstants.FULL_PERCENT)
           .fontSize($r('sys.float.Subtitle_M'))
           .role(ButtonRole.ERROR)
           .buttonStyle(ButtonStyleMode.NORMAL)
-          .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+          .borderRadius(AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
             $r('sys.float.corner_radius_level4') : 0)
           .visibility(Visibility.Hidden)
           .onClick(() => {

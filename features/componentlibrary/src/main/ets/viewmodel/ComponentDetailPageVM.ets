@@ -19,11 +19,9 @@ import type { BusinessError } from '@kit.BasicServicesKit';
 import {
   BaseVM,
   BaseVMEvent,
-  GlobalInfoModel,
   LoadingStatus,
   NetworkUtil,
   ObservedArray,
-  PageContext,
   PageEnum,
   RequestErrorCode,
   StorageKey,
@@ -67,7 +65,7 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
       componentConfig = componentDetailConfig
     }
     const commonDescriptor: CommonDescriptor = componentConfig?.[componentName]?.descriptor();
-    super(new ComponentDetailState(commonDescriptor, [], '', [], LoadingStatus.OFF, new TopNavigationData()));
+    super(new ComponentDetailState(commonDescriptor, [], '', [], LoadingStatus.OFF, new TopNavigationData(), false));
     this.componentName = componentName;
     this.codeGenerator = componentConfig[componentName].codeGenerate;
     this.attributeFilter = componentConfig[componentName].attributeFilter;
@@ -91,6 +89,10 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
       this.changeTopNavigationState(event);
     } else if (event instanceof AssignPathStackEvent) {
       this.currentPathStack = event.navPathStack;
+    } else if (event instanceof ChangeBackPressed) {
+      this.changeBackPressedState(event.backPressed);
+    } else if (event instanceof BackPage) {
+      this.pop();
     } else {
       this.changeAttributeEnable(event);
     }
@@ -132,12 +134,8 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   }
 
   public jumpToCodePreview(code: string, preRebuild: () => void) {
-    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
-    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
-      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
-    pageContext?.openPage({
-      routerName: PageEnum.CODE_PREVIEW_VIEW,
+    this.currentPathStack?.pushPath({
+      name: PageEnum.CODE_PREVIEW_VIEW,
       param: {
         code: code,
         componentName: this.componentName,
@@ -147,12 +145,8 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
   }
 
   public jumpToPenKitView() {
-    const globalInfoModel = AppStorage.get<GlobalInfoModel>(StorageKey.GLOBAL_INFO);
-    const pageContext = globalInfoModel?.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-      AppStorage.get<PageContext>(StorageKey.COMPONENT_PAGE_CONTEXT) :
-      AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
-    pageContext?.openPage({
-      routerName: PageEnum.PEN_KIT_VIEW,
+    this.currentPathStack?.pushPath({
+      name: PageEnum.PEN_KIT_VIEW,
     });
   }
 
@@ -321,6 +315,10 @@ export class ComponentDetailPageVM extends BaseVM<ComponentDetailState> {
       onBackClick: this.state.topNavigationData.onBackClick,
     };
   }
+
+  private changeBackPressedState(backPressed: boolean) {
+    this.state.backPressed = backPressed;
+  }
 }
 
 
@@ -407,6 +405,17 @@ export class AssignPathStackEvent implements BaseVMEvent {
   }
 }
 
+export class ChangeBackPressed implements BaseVMEvent {
+  public readonly backPressed: boolean;
+
+  constructor(backPressed: boolean) {
+    this.backPressed = backPressed;
+  }
+}
+
+export class BackPage {
+}
+
 export interface CodeViewParams {
   code: string;
   componentName: string;
@@ -414,4 +423,4 @@ export interface CodeViewParams {
 }
 
 export type DetailPageEvent = ComponentDetailEvent | InitComponentEvent | ChangeAttributeEvent | ComPreviewChangeEvent
-  | AttributeChangeEnable | TopNavigationChangeEvent | AssignPathStackEvent;
+  | AttributeChangeEnable | TopNavigationChangeEvent | AssignPathStackEvent | ChangeBackPressed | BackPage;

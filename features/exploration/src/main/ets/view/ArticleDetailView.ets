@@ -86,7 +86,7 @@ struct ArticleDetailView {
         },
         menuStyle: {
           iconColor: $r('sys.color.icon_primary'),
-          backgroundColor: this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? Color.Transparent :
+          backgroundColor: AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? Color.Transparent :
             $r('sys.color.comp_background_tertiary')
         }
       },
@@ -96,6 +96,7 @@ struct ArticleDetailView {
   @State bindSheetSrc: string = '';
   bindSheetSrcSet: Set<string> = new Set();
   @State webUrlType: number = 0;
+  @State imagePreviewVisible: boolean = false;
 
   aboutToAppear(): void {
     if (HdsUtil.isSupportNewMaterialApi()) {
@@ -154,6 +155,9 @@ struct ArticleDetailView {
           },
         });
       });
+    WebUtil.setImagePreviewAction(this.discoverContent.detailsUrl, (isShown: boolean) => {
+      this.imagePreviewVisible = isShown;
+    });
   }
 
   checkPreview(method: string): Promise<boolean> {
@@ -192,26 +196,29 @@ struct ArticleDetailView {
       return true;
     }
     this.lastBackTs = now;
-    this.checkPreview('checkPreview()')
-      .then((res) => {
-        if (res) {
-          const closePreviewMethod: string = 'closePreview()';
-          if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(closePreviewMethod) >= 0) {
-            this.webController?.runJavaScript(closePreviewMethod)
-              .catch((error: BusinessError) => {
-                Logger.error(TAG, `runJavaScript failed. Cause: ${error.message}`);
-              });
+    if (this.loadingStatus === LoadingStatus.SUCCESS) {
+      this.checkPreview('checkPreview()')
+        .then((res) => {
+          if (res) {
+            const closePreviewMethod: string = 'closePreview()';
+            if (WebUtil.ARTICLE_WHITE_METHODS.indexOf(closePreviewMethod) >= 0) {
+              this.webController?.runJavaScript(closePreviewMethod)
+                .catch((error: BusinessError) => {
+                  Logger.error(TAG, `runJavaScript failed. Cause: ${error.message}`);
+                });
+            } else {
+              Logger.error(TAG, `Input method ${closePreviewMethod} not in whitelist`);
+            }
           } else {
-            Logger.error(TAG, `Input method ${closePreviewMethod} not in whitelist`);
+            this.popAction(!this.isBannerDetail);
           }
-        } else {
-          this.popAction(!this.isBannerDetail);
-        }
-      })
-      .catch((error: string) => {
-        Logger.error(TAG, `Run javascript error: ${error}`);
-        this.popAction(!this.isBannerDetail);
-      })
+        })
+        .catch((error: string) => {
+          Logger.error(TAG, `Run javascript error: ${error}`);
+        })
+    } else {
+      this.popAction(!this.isBannerDetail);
+    }
     return true;
   }
 
@@ -238,7 +245,11 @@ struct ArticleDetailView {
         type: ExplorationDetailEventType.POP,
         param: { animation: isAnimation, tabBarView: this.tabViewType },
       });
-      WebUtil.getWebController(this.discoverContent.detailsUrl)?.onInactive();
+      try {
+        WebUtil.getWebController(this.discoverContent.detailsUrl)?.onInactive();
+      } catch (error) {
+        Logger.error(TAG, `WebController.onInactive failed. Cause message: ${error.message}`);
+      }
     }
   }
 
@@ -345,5 +356,6 @@ struct ArticleDetailView {
       return this.customBackPressed();
     })
     .backgroundColor(this.isBannerDetail ? Color.Transparent : $r('sys.color.background_secondary'))
+    .hideTitleBar(this.imagePreviewVisible, true)
   }
 }

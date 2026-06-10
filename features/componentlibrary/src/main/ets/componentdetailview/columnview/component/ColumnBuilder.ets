@@ -22,15 +22,24 @@ import type { ColumnDescriptor } from '../viewmodel/ColumnDescriptor';
 export function ColumnBuilder($$: DescriptorWrapper) {
   Column({ space: ($$.descriptor as ColumnDescriptor).space }) {
     Column()
-      .size({ width: $r('app.float.container_size_1'), height: $r('app.float.container_size_1') })
+      .size({
+        width: $r('app.float.container_size_1'),
+        height: $r('app.float.container_size_1'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
     Column()
-      .size({ width: $r('app.float.container_size_2'), height: $r('app.float.container_size_2') })
+      .size({
+        width: $r('app.float.container_size_2'),
+        height: $r('app.float.container_size_2'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
     Column()
-      .size({ width: $r('app.float.container_size_3'), height: $r('app.float.container_size_3') })
+      .size({
+        width: $r('app.float.container_size_3'),
+        height: $r('app.float.container_size_3'),
+      })
       .backgroundColor($r('sys.color.comp_background_emphasize'))
       .borderRadius($r('sys.float.corner_radius_level4'))
   }

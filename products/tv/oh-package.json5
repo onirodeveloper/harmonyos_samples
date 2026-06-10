@@ -1,0 +1,13 @@
+{
+  "name": "tv",
+  "version": "1.0.0",
+  "description": "HMOS代码工坊智慧屏应用",
+  "main": "",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ohos/common": "file:../../common",
+    "@ohos/devpractices": "file:../../features/devpractices",
+    "@ohos/commonbusiness": "file:../../features/commonbusiness"
+  }
+}

@@ -33,6 +33,7 @@ export enum ColumnEnum {
   SM = 4,
   MD = 8,
   LG = 12,
+  XL = 12,
 }
 
 /**
@@ -78,4 +79,11 @@ export enum StorageKey {
   APP_TRACK_DATA = 'hmos_world_track_data',
   ACCOUNT_USER_ID = 'hmos_world_account_user_id',
   IS_IMAGE_DEFAULT_SIZE = 'hmos_world_Image_Is_Default_Size',
+  // IntentFramework:
+  HOME_PAGE_INTENTION = 'hmos_world_XiaoYi',
+  HOME_PAGE_INTENTION_CUSTOM = 'hmos_world_XiaoYi_Custom',
+  HOME_PAGE_INTENTION_CHANGED = 'hmos_world_XiaoYi_Change',
+  CONTEXT_ENTRY = 'hmos_world_Context_EntryAbility',
+  XIAOYI_EXTRACTED_NO_PARAM = 'hmos_world_Xiaoyi_extracted_no_param',
+  IS_SIDEBAR_LAYOUT = 'hmos_world_isSideBarLayout',
 }

@@ -15,8 +15,7 @@
 
 import { LoadingModel, TagEnum } from '@ohos/common';
 import { BannerData, BaseData, } from '@ohos/commonbusiness';
-import { CardStyleTypeEnum, MediaTypeEnum } from '@ohos/commonbusiness';
-
+import { CardStyleTypeEnum } from '@ohos/commonbusiness';
 
 export class SampleContent extends BaseData {
   public type: SampleTypeEnum = SampleTypeEnum.UNKNOWN;

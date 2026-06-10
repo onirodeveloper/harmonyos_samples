@@ -16,7 +16,6 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 import {
   AccountService,
-  GlobalInfoModel,
   Logger,
   PageContext,
   PageEnum,
@@ -151,8 +150,7 @@ export class MinePageVM extends BaseHomeViewModel<MinePageState> {
   private jumpToNewContentPage() {
     this.state.newContentNumber = 0;
     this.preferenceManager.setValue('hasViewedNewContent', true);
-    const globalInfoModel: GlobalInfoModel = AppStorage.get(StorageKey.GLOBAL_INFO) ?? new GlobalInfoModel();
-    const pageContext = globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
+    const pageContext = AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ?
       AppStorage.get<PageContext>(StorageKey.MINE_PAGE_CONTEXT) :
       AppStorage.get<PageContext>(StorageKey.HOME_PAGE_CONTEXT);
     pageContext?.openPage({

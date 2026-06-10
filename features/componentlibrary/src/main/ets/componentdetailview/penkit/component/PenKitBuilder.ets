@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Toast } from '@ohos/common';
+import { DeviceUtil, Toast } from '@ohos/common';
 import { ComponentDetailManager } from '../../../viewmodel/ComponentDetailManager';
 import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 
@@ -24,7 +24,7 @@ export function PenKitBuilder($$: DescriptorWrapper) {
     .fontSize($r('sys.float.Body_L'))
     .fontColor($r('sys.color.font_emphasize'))
     .onClick(() => {
-      if (canIUse('SystemCapability.Stylus.Handwrite')) {
+      if (!DeviceUtil.isEmulator() && canIUse('SystemCapability.Stylus.Handwrite')) {
         ComponentDetailManager.getInstance().getDetailViewModel('Penkit')?.jumpToPenKitView();
       } else {
         Toast.showToast($r('app.string.function_handwrite_not_support'));

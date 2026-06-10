@@ -213,7 +213,7 @@ export class ResourceUtil {
     } else if (key === ConfigMapKey.DEVELOPER_URL) {
       return content.developerUrl;
     } else if (key === ConfigMapKey.TV_SOURCE_CODE_URL) {
-      return content.tvSourceCodeUrl
+      return content.tvSourceCodeUrl;
     } else if (key === ConfigMapKey.WHITELIST) {
       return content.webWhitelist;
     } else if (key === ConfigMapKey.JS_WHITELIST) {

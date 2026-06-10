@@ -59,7 +59,7 @@ export struct SampleScrollCard {
 
   handleBreakPointChange() {
     const barWidth =
-      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ? CommonConstants.SIDE_BAR_WIDTH :
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT) ? CommonConstants.SIDE_BAR_WIDTH :
         (HdsUtil.isSupportNewMaterialApi() ? 0 : CommonConstants.TAB_BAR_WIDTH);
     this.horizontalPadding = new BreakpointType({
       sm: $r('sys.float.padding_level8'),
@@ -71,8 +71,9 @@ export struct SampleScrollCard {
       md: CommonConstants.SPACE_24,
       lg: CommonConstants.SPACE_32,
     }).getValue(this.globalInfoModel.widthBreakpoint);
-    if ((this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
-      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL)) {
+    if (this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_LG ||
+      this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ||
+      AppStorage.get<boolean>(StorageKey.IS_SIDEBAR_LAYOUT)) {
       this.sampleItemWidth = (this.globalInfoModel.deviceWidth - barWidth - CommonConstants.SPACE_32 * MARGIN_COUNT -
         CommonConstants.SPACE_16 * (DISPLAY_COUNT - 1)) / DISPLAY_COUNT;
     } else {
@@ -88,7 +89,10 @@ export struct SampleScrollCard {
           tags: item.tagIds,
           newSymbol: $r('app.media.big_new'),
         })
-          .margin({ top: $r('sys.float.padding_level3'), left: $r('sys.float.padding_level3') })
+          .margin({
+            top: $r('sys.float.padding_level3'),
+            left: $r('sys.float.padding_level3'),
+          })
           .width(CommonConstants.FULL_PERCENT)
 
         Column() {
@@ -107,7 +111,10 @@ export struct SampleScrollCard {
               .fontSize($r('sys.float.Body_L'))
               .fontWeight(FontWeight.Bold)
               .fontColor($r('sys.color.font_primary'))
-            TagLabel({ tags: item.tags, maxWidth: LOG_MAX_WIDTH })
+            TagLabel({
+              tags: item.tags,
+              maxWidth: LOG_MAX_WIDTH,
+            })
           }
           .width('100%')
           .padding({ top: $r('sys.float.padding_level8') })

@@ -1,0 +1,103 @@
+{
+  "module": {
+    "name": "pc",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "PcAbility",
+    "deviceTypes": [
+      "2in1"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "routerMap": "$profile:router_map",
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "6917570019123797324",
+      }
+    ],
+    "abilities": [
+      {
+        "name": "PcAbility",
+        "srcEntry": "./ets/pcability/PcAbility.ets",
+        "description": "$string:hmos_app_name",
+        "icon": "$media:hmos_layered_image",
+        "label": "$string:hmos_app_name",
+        "startWindowIcon": "$media:ic_start_icon_800",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "minWindowWidth": 1080,
+        "minWindowHeight": 608,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ],
+            "domainVerify": true
+          }
+        ],
+        "metadata": [
+          {
+            "name": "ohos.ability.shortcuts",
+            "resource": "$profile:shortcuts_config"
+          }
+        ]
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "PhoneFormAbility",
+        "srcEntry": "./ets/pcformability/PcFormAbility.ets",
+        "label": "$string:PcFormAbility_label",
+        "description": "$string:PcFormAbility_desc",
+        "type": "form",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.form",
+            "resource": "$profile:form_config"
+          }
+        ]
+       }
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "$string:internet_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "reason": "$string:network_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        "name": "ohos.permission.VIBRATE",
+        "reason": "$string:vibrator_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        "name": "ohos.permission.GYROSCOPE"
+      }
+    ]
+  }
+}

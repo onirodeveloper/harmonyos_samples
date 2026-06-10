@@ -20,36 +20,54 @@ import type { DescriptorWrapper } from '../../../viewmodel/DescriptorWrapper';
 import type { ToggleDescriptor } from '../viewmodel/ToggleDescriptor';
 
 @Builder
-export function ToggleBuilder($$: DescriptorWrapper) {
-  Row() {
-    if (($$.descriptor as ToggleDescriptor).toggleType === ToggleType.Switch) {
-      Text($r('app.string.toggle_type'))
-        .fontSize($r('app.float.default_font_16'))
-        .fontColor($r('sys.color.font_secondary'))
-      Blank()
-    }
-    Toggle({
-      type: ($$.descriptor as ToggleDescriptor).toggleType,
-      isOn: ($$.descriptor as ToggleDescriptor).isOn
-    }) {
-      Text($r('app.string.toggle_button_text'))
-        .fontColor($r('sys.color.font_on_primary'))
-        .fontSize($r('app.float.default_font_12'))
-        .visibility(($$.descriptor as ToggleDescriptor).toggleType === ToggleType.Button ? Visibility.Visible :
-        Visibility.Hidden)
-    }
+export function ToggleComponentBuilder(descriptorWrapper: DescriptorWrapper) {
+  Toggle({
+    type: (descriptorWrapper.descriptor as ToggleDescriptor).toggleType,
+    isOn: (descriptorWrapper.descriptor as ToggleDescriptor).isOn
+  })
+    .selectedColor((descriptorWrapper.descriptor as ToggleDescriptor).backgroundColor)
     .onChange((isOn: boolean) => {
       ComponentDetailManager.getInstance().getDetailViewModel('Toggle')?.sendEvent(
         new ComPreviewChangeEvent('isOn', String(isOn))
       )
     })
-    .width(($$.descriptor as ToggleDescriptor).toggleType === ToggleType.Button ? DetailPageConstant.TOGGLE_WIDTH :
-      undefined)
-    .height(($$.descriptor as ToggleDescriptor).toggleType === ToggleType.Button ? DetailPageConstant.TOGGLE_HEIGHT :
-      undefined)
-    .selectedColor(($$.descriptor as ToggleDescriptor).backgroundColor)
+}
+
+@Builder
+export function ToggleBuilder(descriptorWrapper: DescriptorWrapper) {
+  Row() {
+    if ((descriptorWrapper.descriptor as ToggleDescriptor).toggleType === ToggleType.Switch) {
+      Text($r('app.string.toggle_type'))
+        .fontSize($r('app.float.default_font_16'))
+        .fontColor($r('sys.color.font_secondary'))
+      Blank()
+      ToggleComponentBuilder(descriptorWrapper)
+    } else if ((descriptorWrapper.descriptor as ToggleDescriptor).toggleType === ToggleType.Button) {
+      Toggle({
+        type: (descriptorWrapper.descriptor as ToggleDescriptor).toggleType,
+        isOn: (descriptorWrapper.descriptor as ToggleDescriptor).isOn
+      }) {
+        Text($r('app.string.toggle_button_text'))
+          .fontColor((descriptorWrapper.descriptor as ToggleDescriptor).isOn ? $r('sys.color.font_on_primary') :
+            $r('sys.color.font_primary'))
+          .fontSize($r('app.float.default_font_12'))
+      }
+      .width(DetailPageConstant.TOGGLE_WIDTH)
+      .height(DetailPageConstant.TOGGLE_HEIGHT)
+      .selectedColor((descriptorWrapper.descriptor as ToggleDescriptor).backgroundColor)
+      .onChange((isOn: boolean) => {
+        ComponentDetailManager.getInstance().getDetailViewModel('Toggle')?.sendEvent(
+          new ComPreviewChangeEvent('isOn', String(isOn))
+        )
+      })
+    } else {
+      ToggleComponentBuilder(descriptorWrapper)
+    }
   }
   .width('100%')
   .justifyContent(FlexAlign.Center)
-  .padding({ left: $r('sys.float.padding_level16'), right: $r('sys.float.padding_level16') })
+  .padding({
+    left: $r('sys.float.padding_level16'),
+    right: $r('sys.float.padding_level16'),
+  })
 }

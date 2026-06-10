@@ -1,0 +1,43 @@
+{
+  "pageType": {
+    "CatalogPage": [
+      "列表页",
+      "索引"
+    ],
+    "ComponentInstruction": [
+      "定义",
+      "详情",
+      "基础",
+      "介绍",
+      "控件",
+      "Detail",
+      "Definition"
+    ],
+    "PracticalExample": [
+      "开发",
+      "实践",
+      "实践",
+      "案例",
+      "例子",
+      "演示",
+      "工程",
+      "ArkUI实践",
+      "ArkUI实践",
+      "功能开发",
+      "样例",
+      "Sample",
+      "Example"
+    ],
+    "PracticalArticle": [
+      "文章",
+      "思路",
+      "问答"
+    ],
+    "Configuration": [
+      "我的",
+      "应用信息",
+      "应用版本信息",
+      "应用设置"
+    ]
+  }
+}
