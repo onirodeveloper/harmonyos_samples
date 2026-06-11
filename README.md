@@ -101,33 +101,49 @@
 
 ### 1、直接运行「HMOS代码工坊」
 
-#### 手机、折叠屏、平板、PC/2in1设备运行
+#### 手机、折叠屏、平板设备运行
 1. DevEco studio打开工程文件，等待Sync完成。
-2. 点击运行入口配置，选中phone。
+2. 点击运行入口配置，选中phone。  
 ![image](hmosword-build/image/1.png)
 3. 连接设备，点击签名文件入口进行签名，按照图示进行勾选，最后点击ok完成签名。
 ![image](hmosword-build/image/2.png)
-4. 点击运行，等待编译完成。
+4. 点击运行，等待编译完成。  
 ![image](hmosword-build/image/3.PNG)
 
 #### 华为智能穿戴设备运行
 1. DevEco studio打开工程文件，等待Sync完成。
-2. 点击运行入口配置，选中wearable。
+2. 点击运行入口配置，选中wearable。  
 ![image](hmosword-build/image/4.PNG)
 3. 连接设备，点击签名文件入口进行签名，最后点击ok完成签名。
-4. 点击运行，等待编译完成。
+4. 点击运行，等待编译完成。  
 ![image](hmosword-build/image/3.PNG)
+
+#### PC/2in1设备运行
+1. DevEco studio打开工程文件，等待Sync完成。
+2. 点击运行入口配置，选中pc。  
+   ![img.png](hmosword-build/image/img_pc_config.png)
+3. 连接设备，点击签名文件入口进行签名，最后点击ok完成签名。
+4. 点击运行，等待编译完成。  
+   ![image](hmosword-build/image/3.PNG)
+
+#### TV智慧屏设备运行
+1. DevEco studio打开工程文件，等待Sync完成。
+2. 点击运行入口配置，选中tv。  
+   ![img.png](hmosword-build/image/img_tv_config.png)
+3. 连接设备，点击签名文件入口进行签名，最后点击ok完成签名。
+4. 点击运行，等待编译完成。  
+   ![image](hmosword-build/image/3.PNG)
 
 ### 2、集成Sample后，运行「HMOS代码工坊」
 
 #### Sample下载
 1. 确保电脑中已成功安装git，打开DevEco studio终端（Terminal）。
-2. 执行`cd hmosword-build`进入到[hmosword-build](hmosword-build)目录。
+2. 执行`cd hmosword-build`进入到[hmosword-build](hmosword-build)目录。  
 ![image](hmosword-build/image/5.png)
 3. 再执行`npm i`下载依赖包。如果出现以下错误，请在终端执行`npm config set registry https://registry.npmjs.org/` 设置官方镜像源。
 ![image](hmosword-build/image/6.png)
-
-4. 依赖包下载成功后，执行 `node .\index.js`运行脚本。此步骤会全量下载工程依赖的sample，并且更新「HMOS代码工坊」的[build-profile.json5](build-profile.json5)配置文件。下載过程中会由于网络情况出现部分sample下载失败，可以在当前任务结束后重复执行`node .\index.js`。
+4. 配置ssh密钥，因为该项目使用ssh方式拉取Sample样例代码，因此需要在运行脚本前配置ssh。参考 https://docs.gitcode.com/docs/help/home/user_center/security_management/ssh。
+4. 执行 `node .\index.js`运行脚本。此步骤会`全量`下载工程依赖的sample，并且更新「HMOS代码工坊」的[build-profile.json5](build-profile.json5)配置文件。下载过程中会由于网络情况出现部分sample下载失败，可以在当前任务结束后重复执行`node .\index.js`。
 5. 确保sample成功下载后，点击DevEco studio的File->Sync and refresh Project重新编译。
 
 #### 手机、折叠屏、平板
@@ -137,7 +153,7 @@ animationcollectionsample、audiointeractionsample、componentstacksample、cust
 (v1.3.4.121版本sample: 勾选带phone的hap)
 
 ![img.png](hmosword-build/image/img.png)
-1. 修改运行入口，选中phone点击`Deploy Multi Hap`勾选支持手机、折叠屏、平板、PC/2in1的hap，注意不要勾选其余hap包（smartwatchshortvideosample、smartwatchmapsample、smartwatchcarcontrolsample、wearable、wearablemusicsample）。
+1. 修改运行入口，选中phone点击`Deploy Multi Hap`勾选支持手机、折叠屏、平板的hap，注意不要勾选其余hap包（smartwatchshortvideosample、smartwatchmapsample、smartwatchcarcontrolsample、wearable、wearablemusicsample）。
 ![image](hmosword-build/image/7.PNG)
 2. 成功勾选后点击OK完成配置修改。
 3. 点击运行，等待编译完成。
@@ -160,11 +176,15 @@ animationcollectionsample、audiointeractionsample、componentstacksample、cust
 3. 点击运行，等待编译完成。
 
 #### TV设备集成sample运行
-（v1.3.4.121版本sample: 勾选带tv的hap）
+（v1.3.4.121版本sample: 勾选带tv的hap）  
 ![img.png](hmosword-build/image/img_tv.png)
 
+
+#### 注意事项
+如果在勾选`Deploy Multi Hap`点击运行出现如下报错，则更新签名重新运行即可。  
+![img.png](hmosword-build/image/img_error.png)
 ## 六、约束与限制
-1. 本示例仅支持标准系统上运行，支持多种设备：华为智能穿戴设备、手机、折叠屏、平板、PC/2in1等。
+1. 本示例仅支持标准系统上运行，支持多种设备：华为智能穿戴设备、手机、折叠屏、平板、PC/2in1、TV智慧屏等。
 2. HarmonyOS系统：HarmonyOS 6.0.1 Release及以上。
 3. DevEco Studio版本：DevEco Studio 6.1.0 Release及以上。
 4. HarmonyOS SDK版本：HarmonyOS 6.1.0 Release及以上。
