@@ -20,7 +20,7 @@ import { CommonDescriptor } from '../../../viewmodel/CommonDescriptor';
 export class TextToSpeechDescriptor extends CommonDescriptor {
   public speed: number = 1;
   public speedType: number = 1;
-  public speedArray: string[] = ['0.5倍', '1倍', '1.5倍', '2倍'];
+  public speedArray: string[] = ['0.5x', '1x', '1.5x', '2x'];
 
   public convert(attributes: OriginAttribute[]): void {
     attributes.forEach((attribute) => {

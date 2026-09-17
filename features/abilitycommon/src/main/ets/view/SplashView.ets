@@ -142,6 +142,32 @@ struct SplashImgItem {
         .width('100%')
         .height('100%')
         .objectFit(ImageFit.Cover)
+        .visibility(this.index === 3 ? Visibility.Hidden : Visibility.Visible)
+
+      if (this.index === 3) {
+        Column() {
+          Blank()
+          Text('HDC 2026')
+            .fontSize($r('sys.float.Title_L'))
+            .fontWeight(FontWeight.Bold)
+            .fontColor($r('sys.color.font_primary'))
+          Text('Development practices')
+            .fontSize($r('sys.float.Title_M'))
+            .fontWeight(FontWeight.Medium)
+            .fontColor($r('sys.color.font_primary'))
+            .margin({ top: $r('sys.float.padding_level4') })
+          Text('Explore practical HarmonyOS development samples and new capabilities.')
+            .fontSize($r('sys.float.Body_M'))
+            .fontColor($r('sys.color.font_secondary'))
+            .textAlign(TextAlign.Center)
+            .margin({ top: $r('sys.float.padding_level4'), left: $r('sys.float.padding_level12'), right: $r('sys.float.padding_level12') })
+          Blank()
+        }
+        .width('100%')
+        .height('100%')
+        .backgroundColor($r('sys.color.background_primary'))
+        .justifyContent(FlexAlign.Center)
+      }
 
       Button($r('app.string.experience_now'))
         .margin({

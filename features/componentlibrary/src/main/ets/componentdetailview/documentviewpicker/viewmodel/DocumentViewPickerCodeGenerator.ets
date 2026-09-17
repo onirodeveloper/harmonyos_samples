@@ -29,7 +29,7 @@ struct DocumentViewPickerComponent {
 
   build() {
     Column() {
-      Button('选择文件')
+      Button('Choose file')
         .backgroundColor($r('sys.color.background_secondary'))
         .width(120)
         .height(40)
@@ -48,7 +48,7 @@ struct DocumentViewPickerComponent {
               }
               this.getUIContext().showAlertDialog(
                 {
-                  title: '文件路径',
+                  title: 'File path',
                   message: this.message,
                   autoCancel: true,
                   alignment: DialogAlignment.Center,
@@ -63,7 +63,7 @@ struct DocumentViewPickerComponent {
                   backgroundColor: Color.White,
                   textStyle: { wordBreak: WordBreak.BREAK_ALL },
                   confirm: {
-                    value: '确定',
+                    value: 'Confirm',
                     action: () => {
                       console.log('Confirm button is clicked.');
                     },

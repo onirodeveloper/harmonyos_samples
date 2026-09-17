@@ -49,18 +49,18 @@ export enum PopupStyle {
 
 export const popupStyleMapData: Map<string, PopupStyle> = new Map([
   [DEFAULT_KEY, PopupStyle.STYLE_BUTTON],
-  ['按钮气泡', PopupStyle.STYLE_BUTTON],
-  ['文字气泡', PopupStyle.STYLE_TEXT],
-  ['图文气泡', PopupStyle.STYLE_ICON],
+  ['Button popup', PopupStyle.STYLE_BUTTON],
+  ['Text popup', PopupStyle.STYLE_TEXT],
+  ['Graphic popup', PopupStyle.STYLE_ICON],
 ]);
 
 export const popupStyleCodeMapData: Map<PopupStyle, string> = new Map([
   [PopupStyle.STYLE_BUTTON, `Popup({
         title: {
-          text: '标题',
+          text: 'Title',
         },
         message: {
-          text: '这是一个带按钮的气泡'
+          text: 'This is a popup with a button'
         },
         showClose: true,
         onClose: () => {
@@ -68,7 +68,7 @@ export const popupStyleCodeMapData: Map<PopupStyle, string> = new Map([
         },
         buttons: [
           {
-            text: '知道了',
+            text: 'Got it',
             action: () => {
               this.handlePopup = false;
             },
@@ -77,7 +77,7 @@ export const popupStyleCodeMapData: Map<PopupStyle, string> = new Map([
       })`],
   [PopupStyle.STYLE_TEXT, `Popup({
         message: {
-          text: '这是一个文字气泡'
+          text: 'This is a text popup'
         },
         showClose: true,
         onClose: () => {
@@ -90,10 +90,10 @@ export const popupStyleCodeMapData: Map<PopupStyle, string> = new Map([
           image: $r('app.media.startIcon')
         },
         title: {
-          text: '标题',
+          text: 'Title',
         },
         message: {
-          text: '这是一个带图标的弹出气泡'
+          text: 'This is a popup with an icon'
         },
         showClose: true,
         onClose: () => {

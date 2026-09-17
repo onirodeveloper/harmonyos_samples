@@ -43,11 +43,11 @@ class TextInputFontMap {
 }
 
 export const textInputFontMapData: Map<string, TextInputFontMap> = new Map([
-  ['较细字体', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Lighter}',
+  ['Light font', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Lighter}',
     { size: $r('sys.float.Body_L'), weight: FontWeight.Lighter })],
-  ['正常字体', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Regular }',
+  ['Regular font', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Regular }',
     { size: $r('sys.float.Body_L'), weight: FontWeight.Regular })],
-  ['较粗字体', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Bold }',
+  ['Bold font', new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Bold }',
     { size: $r('sys.float.Body_L'), weight: FontWeight.Bold })],
   [DEFAULT_KEY, new TextInputFontMap('{ size: $r(\'sys.float.Body_L\'), weight: FontWeight.Regular }',
     { size: $r('sys.float.Body_L'), weight: FontWeight.Regular })],

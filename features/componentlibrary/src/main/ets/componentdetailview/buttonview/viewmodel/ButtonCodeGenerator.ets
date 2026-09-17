@@ -69,7 +69,7 @@ export class ButtonCodeGenerator implements CommonCodeGenerator {
             const uiContext: UIContext = this.getUIContext();
             try {
               uiContext.getPromptAction().showToast({
-                message: '按钮被长按',
+                message: 'The button was long-pressed',
                 duration: 2000
               });
             } catch (err) {
@@ -83,7 +83,7 @@ export class ButtonCodeGenerator implements CommonCodeGenerator {
         const uiContext: UIContext = this.getUIContext();
         try {
           uiContext.getPromptAction().showToast({
-            message: '按钮被点击',
+            message: 'The button was clicked',
             duration: 2000
           });
         } catch (err) {
@@ -100,7 +100,7 @@ import type { BusinessError } from '@kit.BasicServicesKit';
 @Component
 struct ButtonComponent {
   build() {
-    Button('按钮示例', { type: ${this.buttonType} })
+    Button('Button example', { type: ${this.buttonType} })
       .buttonStyle(${this.buttonStyle})
       .controlSize(${this.controlSize})
       .backgroundColor(${this.backgroundColor})

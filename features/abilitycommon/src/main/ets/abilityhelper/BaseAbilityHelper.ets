@@ -56,7 +56,12 @@ export class BaseAbilityHelper {
     }
 
     IntentEntryCustom.getInstance();
-    this.initShareIntent();
+    try {
+      this.initShareIntent();
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      Logger.warn(TAG, `Insight Intent is unavailable. Skip sharing intents: ${err.message}`);
+    }
   }
 
   public doOnNewWant(context: common.UIAbilityContext, want: Want, launchParam: AbilityConstant.LaunchParam): void {

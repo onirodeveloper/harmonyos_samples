@@ -16,18 +16,18 @@
 import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export enum LinkType {
-  TYPE_GALLERY = '应用市场',
-  TYPE_MAP = '地图',
-  TYPE_SETTINGS = '设置',
-  TYPE_DAIL = '拨号',
+  TYPE_GALLERY = 'AppGallery',
+  TYPE_MAP = 'Map',
+  TYPE_SETTINGS = 'Settings',
+  TYPE_DAIL = 'Dialer',
 }
 
 export const typeMapData: Map<string, LinkType> = new Map([
   [DEFAULT_KEY, LinkType.TYPE_GALLERY],
-  ['应用市场', LinkType.TYPE_GALLERY],
-  ['地图', LinkType.TYPE_MAP],
-  ['设置', LinkType.TYPE_SETTINGS],
-  ['拨号', LinkType.TYPE_DAIL],
+  ['AppGallery', LinkType.TYPE_GALLERY],
+  ['Map', LinkType.TYPE_MAP],
+  ['Settings', LinkType.TYPE_SETTINGS],
+  ['Dialer', LinkType.TYPE_DAIL],
 ]);
 
 export const typeImportCodeMapData: Map<LinkType, string> = new Map([
@@ -50,8 +50,8 @@ export const wantParam: Record<string, Object> = {
   'sceneType': 1,
   'destinationLatitude': 40.00,
   'destinationLongitude': 116.19,
-  'destinationName': '北京市香山公园',
-  'originName': '华为北研所',
+  'destinationName': 'Fragrant Hills Park, Beijing',
+  'originName': 'Huawei Beijing Research Institute',
   'originLatitude': 40.06,
   'originLongitude': 116.18,
   'vehicleType': 0,
@@ -61,8 +61,8 @@ export const wantParamCode: string = `{
               'sceneType': 1,
               'destinationLatitude': 40.00,
               'destinationLongitude': 116.19,
-              'destinationName': '北京市香山公园',
-              'originName': '华为北研所',
+              'destinationName': 'Fragrant Hills Park, Beijing',
+              'originName': 'Huawei Beijing Research Institute',
               'originLatitude': 40.06,
               'originLongitude': 116.18,
               'vehicleType': 0,

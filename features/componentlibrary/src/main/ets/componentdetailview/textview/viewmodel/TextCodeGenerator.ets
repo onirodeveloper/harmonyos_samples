@@ -33,7 +33,7 @@ export class TextCodeGenerator implements CommonCodeGenerator {
   private textShadowRadius: string = textShadowRadiusMapData.get(DEFAULT_KEY)!.code;
 
   public generate(attributes: OriginAttribute[]): string {
-    const text = '开发者你好';
+    const text = 'Hello, developer';
     attributes.forEach((attribute) => {
       switch (attribute.name) {
         case 'fontWeight':

@@ -53,7 +53,7 @@ export class AppLinkingCodeGenerator implements CommonCodeGenerator {
 struct AppLinkingComponent {
   build() {
     Column() {
-      Button('拉起${this.type}页')
+      Button('Open ${this.type} page')
         .backgroundColor($r('sys.color.background_secondary'))
         .height(40)
         .fontColor($r('sys.color.font_emphasize'))

@@ -29,8 +29,8 @@ class CameraMediaType {
 export const pickerMediaType: Map<string, CameraMediaType> = new Map([
   [DEFAULT_KEY, new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]',
     [cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO])],
-  ['拍照模式', new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO]', [cameraPicker.PickerMediaType.PHOTO])],
-  ['录制模式', new CameraMediaType('[cameraPicker.PickerMediaType.VIDEO]', [cameraPicker.PickerMediaType.VIDEO])],
-  ['混合模式', new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]',
+  ['Photo mode', new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO]', [cameraPicker.PickerMediaType.PHOTO])],
+  ['Video mode', new CameraMediaType('[cameraPicker.PickerMediaType.VIDEO]', [cameraPicker.PickerMediaType.VIDEO])],
+  ['Mixed mode', new CameraMediaType('[cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO]',
     [cameraPicker.PickerMediaType.PHOTO, cameraPicker.PickerMediaType.VIDEO])],
 ]);

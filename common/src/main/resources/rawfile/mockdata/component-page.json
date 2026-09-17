@@ -11,8 +11,8 @@
             "cardData": [
                 {
                     "id": 1,
-                    "title": "为页面添加文本",
-                    "subTitle": "文本类组件",
+                    "title": "Add text to a page",
+                    "subTitle": "Text components",
                     "styleType": 1,
                     "image": "image/component/card/text.png",
                     "themeColor": "#1172FD",
@@ -24,7 +24,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/text/text.png",
                             "title": "Text",
-                            "subTitle": "文本",
+                            "subTitle": "Text",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -35,7 +35,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/text/textinput.png",
                             "title": "TextInput",
-                            "subTitle": "单行文本输入",
+                            "subTitle": "Single-line text input",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -46,7 +46,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/text/textarea.png",
                             "title": "TextArea",
-                            "subTitle": "多行文本输入",
+                            "subTitle": "Multiline text input",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -57,7 +57,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/text/textstyle.png",
                             "title": "TextStyle",
-                            "subTitle": "属性字符串",
+                            "subTitle": "Styled string",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -66,7 +66,7 @@
                 },
                 {
                     "id": 2,
-                    "title": "安全使用相机",
+                    "title": "Safe camera access",
                     "subTitle": "CameraPicker",
                     "styleType": 3,
                     "image": "image/component/card/camerapicker.png",
@@ -79,7 +79,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/camerapicker.png",
                             "title": "CameraPicker",
-                            "subTitle": "相机选择器",
+                            "subTitle": "Camera picker",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -88,8 +88,8 @@
                 },
                 {
                     "id": 3,
-                    "title": "按钮、图片、进度条等",
-                    "subTitle": "常用组件",
+                    "title": "Buttons, images, progress bars, and more",
+                    "subTitle": "Common components",
                     "styleType": 2,
                     "image": "",
                     "sequence": 3,
@@ -100,7 +100,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/common/button.png",
                             "title": "Button",
-                            "subTitle": "按钮",
+                            "subTitle": "Button",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -111,7 +111,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/common/image.png",
                             "title": "Image",
-                            "subTitle": "图片",
+                            "subTitle": "Image",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -122,7 +122,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/common/progress.png",
                             "title": "Progress",
-                            "subTitle": "进度条",
+                            "subTitle": "Progress bar",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -133,7 +133,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/common/rating.png",
                             "title": "Rating",
-                            "subTitle": "评分",
+                            "subTitle": "Rating",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -144,7 +144,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/common/toggle.png",
                             "title": "Toggle",
-                            "subTitle": "开关",
+                            "subTitle": "Toggle",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -153,7 +153,7 @@
                 },
                 {
                     "id": 4,
-                    "title": "安全使用图库",
+                    "title": "Safe photo gallery access",
                     "subTitle": "PhotoPicker",
                     "styleType": 3,
                     "image": "image/component/card/photopicker.png",
@@ -166,7 +166,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/photopicker.png",
                             "title": "PhotoViewPicker",
-                            "subTitle": "图库选择器",
+                            "subTitle": "Photo picker",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -175,8 +175,8 @@
                 },
                 {
                     "id": 5,
-                    "title": "使用布局容器构建页面",
-                    "subTitle": "常用布局",
+                    "title": "Build pages with layout containers",
+                    "subTitle": "Common layouts",
                     "styleType": 1,
                     "image": "image/component/card/layout.png",
                     "themeColor": "#F08028",
@@ -188,7 +188,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/layout/column.png",
                             "title": "Column",
-                            "subTitle": "线性布局 - 纵向",
+                            "subTitle": "Linear layout - vertical",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -199,7 +199,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/layout/row.png",
                             "title": "Row",
-                            "subTitle": "线性布局 - 横向",
+                            "subTitle": "Linear layout - horizontal",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -210,7 +210,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/layout/stack.png",
                             "title": "Stack",
-                            "subTitle": "层叠布局",
+                            "subTitle": "Stack layout",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -221,7 +221,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/layout/flex.png",
                             "title": "Flex",
-                            "subTitle": "弹性布局",
+                            "subTitle": "Flex layout",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -230,7 +230,7 @@
                 },
                 {
                     "id": 6,
-                    "title": "手写笔服务",
+                    "title": "Stylus service",
                     "subTitle": "Pen Kit",
                     "styleType": 3,
                     "image": "image/component/card/pankit.png",
@@ -243,7 +243,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/penkit.png",
                             "title": "Penkit",
-                            "subTitle": "手写笔服务",
+                            "subTitle": "Stylus service",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -252,8 +252,8 @@
                 },
                 {
                     "id": 7,
-                    "title": "构建列表类布局",
-                    "subTitle": "常用布局",
+                    "title": "Build list layouts",
+                    "subTitle": "Common layouts",
                     "styleType": 2,
                     "image": "",
                     "sequence": 7,
@@ -264,7 +264,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/list/list.png",
                             "title": "List",
-                            "subTitle": "列表",
+                            "subTitle": "List",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -275,7 +275,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/list/grid.png",
                             "title": "Grid",
-                            "subTitle": "网格",
+                            "subTitle": "Grid",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -286,7 +286,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/list/waterflow.png",
                             "title": "WaterFlow",
-                            "subTitle": "瀑布流",
+                            "subTitle": "Water flow",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -297,7 +297,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/list/swiper.png",
                             "title": "Swiper",
-                            "subTitle": "滑动轮播组件",
+                            "subTitle": "Swiper component",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -308,7 +308,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/list/tabs.png",
                             "title": "Tabs",
-                            "subTitle": "页签",
+                            "subTitle": "Tabs",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -317,8 +317,8 @@
                 },
                 {
                     "id": 8,
-                    "title": "AI抠图",
-                    "subTitle": "开箱即用的AI能力",
+                    "title": "AI matting",
+                    "subTitle": "Ready-to-use AI capabilities",
                     "styleType": 3,
                     "image": "image/component/card/enable_analyzer.png",
                     "themeColor": "#0455BF",
@@ -330,7 +330,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/enable_analyzer.png",
                             "title": "AI Matting",
-                            "subTitle": "AI抠图",
+                            "subTitle": "AI matting",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -339,8 +339,8 @@
                 },
                 {
                     "id": 9,
-                    "title": "给页面添加弹窗",
-                    "subTitle": "消息弹窗",
+                    "title": "Add dialogs to a page",
+                    "subTitle": "Message dialogs",
                     "styleType": 2,
                     "image": "",
                     "sequence": 9,
@@ -351,7 +351,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/dialog/alert_dialog.png",
                             "title": "AlertDialog",
-                            "subTitle": "警告弹窗",
+                            "subTitle": "Alert dialog",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -362,7 +362,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/dialog/text_dialog.png",
                             "title": "TextPickerDialog",
-                            "subTitle": "文本滑动选择器弹窗",
+                            "subTitle": "Text picker dialog",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -373,7 +373,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/dialog/custom_dialog.png",
                             "title": "CustomDialog",
-                            "subTitle": "自定义弹窗",
+                            "subTitle": "Custom dialog",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -384,7 +384,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/dialog/action_sheet.png",
                             "title": "ActionSheet",
-                            "subTitle": "列表选择弹窗",
+                            "subTitle": "Action sheet",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -395,7 +395,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/dialog/popup.png",
                             "title": "Popup",
-                            "subTitle": "气泡弹窗",
+                            "subTitle": "Popup",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -404,8 +404,8 @@
                 },
                 {
                     "id": 10,
-                    "title": "AI语音播报",
-                    "subTitle": "开箱即用的AI能力",
+                    "title": "AI text-to-speech",
+                    "subTitle": "Ready-to-use AI capabilities",
                     "styleType": 3,
                     "image": "image/component/card/texttospeech.png",
                     "themeColor": "#2254D1",
@@ -417,7 +417,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/texttospeech.png",
                             "title": "TextToSpeech",
-                            "subTitle": "文本转语音",
+                            "subTitle": "Text to speech",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -426,8 +426,8 @@
                 },
                 {
                     "id": 11,
-                    "title": "高效拉起系统应用",
-                    "subTitle": "Picker和Linking",
+                    "title": "Efficiently launch system applications",
+                    "subTitle": "Pickers and linking",
                     "styleType": 1,
                     "image": "image/component/card/link.png",
                     "themeColor": "#20A858",
@@ -439,7 +439,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/link/calendar_picker.png",
                             "title": "CalendarPicker",
-                            "subTitle": "日历选择器",
+                            "subTitle": "Calendar picker",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -450,7 +450,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/link/date_picker.png",
                             "title": "DatePicker",
-                            "subTitle": "日期滑动选择器",
+                            "subTitle": "Date picker",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -461,7 +461,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/link/document_picker.png",
                             "title": "DocumentViewPicker",
-                            "subTitle": "文件选择器",
+                            "subTitle": "Document picker",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -472,7 +472,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/link/linking.png",
                             "title": "AppLinking",
-                            "subTitle": "应用拉起",
+                            "subTitle": "App linking",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1
@@ -481,8 +481,8 @@
                 },
                 {
                     "id": 12,
-                    "title": "AI语音字幕",
-                    "subTitle": "开箱即用的AI能力",
+                    "title": "AI captions",
+                    "subTitle": "Ready-to-use AI capabilities",
                     "styleType": 3,
                     "image": "image/component/card/ai_caption_component.png",
                     "themeColor": "#174FBF",
@@ -494,7 +494,7 @@
                             "mediaType": "IMAGE",
                             "mediaUrl": "image/component/icon/ai_caption_component.png",
                             "title": "AICaptionComponent",
-                            "subTitle": "AI字幕组件",
+                            "subTitle": "AI caption component",
                             "version": 1000000,
                             "tagIds": [],
                             "contentType": 1

@@ -73,7 +73,7 @@ struct PopupComponent {
 
   build() {
     Column() {
-      Button('${this.buttonTxt ?? '点击弹出气泡'}')
+      Button('${this.buttonTxt ?? 'Click to show popup'}')
         .backgroundColor($r('sys.color.background_secondary'))
         .fontColor($r('sys.color.font_emphasize'))
         .fontWeight(FontWeight.Medium)

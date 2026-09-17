@@ -8,46 +8,46 @@
       "id": 1,
       "componentName": "Text",
       "contentType": 1,
-      "subTitle": "文本",
+      "subTitle": "Text",
       "props": [
         {
           "propertyName": "fontWeight",
-          "propertyDesc": "字重",
+          "propertyDesc": "Font weight",
           "displayType": "enum",
           "defaultProperty": "Normal",
           "propertyValues": "[\"Normal\",\"Lighter\",\"Bolder\"]"
         },
         {
           "propertyName": "fontSize",
-          "propertyDesc": "字号",
+          "propertyDesc": "Font size",
           "displayType": "number",
           "defaultProperty": "24",
           "propertyValues": "{ \"left\": 10, \"right\": 50, \"step\": 1 }"
         },
         {
           "propertyName": "textShadowRadius",
-          "propertyDesc": "文字阴影",
+          "propertyDesc": "Text shadow",
           "displayType": "number",
           "defaultProperty": "0",
           "propertyValues": "{ \"left\":0, \"right\":20, \"step\": 1 }"
         },
         {
           "propertyName": "letterSpacing",
-          "propertyDesc": "字间距",
+          "propertyDesc": "Letter spacing",
           "displayType": "number",
           "defaultProperty": "0",
           "propertyValues": "{ \"left\":0, \"right\":20, \"step\": 1 }"
         },
         {
           "propertyName": "fontColor",
-          "propertyDesc": "颜色",
+          "propertyDesc": "Color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.00)",
           "propertyValues": "''"
         },
         {
           "propertyName": "opacity",
-          "propertyDesc": "透明度",
+          "propertyDesc": "Opacity",
           "displayType": "opacity",
           "defaultProperty": "1",
           "propertyValues": "{ \"left\": 0, \"right\": 1, \"step\": 0.01 }"
@@ -68,25 +68,25 @@
       "id": 2,
       "componentName": "TextInput",
       "contentType": 1,
-      "subTitle": "单行文本输入",
+      "subTitle": "Single-line text input",
       "props": [
         {
           "propertyName": "placeholderFont",
-          "propertyDesc": "placeholder样式",
+          "propertyDesc": "Placeholder style",
           "displayType": "enum",
-          "defaultProperty": "正常字体",
-          "propertyValues": "[\"较细字体\",\"正常字体\",\"较粗字体\"]"
+          "defaultProperty": "Regular font",
+          "propertyValues": "[\"Light font\",\"Regular font\",\"Bold font\"]"
         },
         {
           "propertyName": "type",
-          "propertyDesc": "输入框类型",
+          "propertyDesc": "Input type",
           "displayType": "enum",
           "defaultProperty": "Normal",
           "propertyValues": "[\"Normal\",\"Number\",\"NewPassword\"]"
         },
         {
           "propertyName": "fontColor",
-          "propertyDesc": "文本颜色",
+          "propertyDesc": "Text color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.0)",
           "propertyValues": "''"
@@ -107,32 +107,32 @@
       "id": 3,
       "componentName": "TextArea",
       "contentType": 1,
-      "subTitle": "多行文本输入",
+      "subTitle": "Multiline text input",
       "props": [
         {
           "propertyName": "textOverflowType",
-          "propertyDesc": "超长文本显示",
+          "propertyDesc": "Long text display",
           "displayType": "enum",
           "defaultProperty": "Clip",
           "propertyValues": "[\"Clip\",\"Ellipsis\"]"
         },
         {
           "propertyName": "textAlign",
-          "propertyDesc": "文字对齐方式",
+          "propertyDesc": "Text alignment",
           "displayType": "enum",
           "defaultProperty": "Start",
           "propertyValues": "[\"Start\",\"Center\",\"End\",\"Justify\"]"
         },
         {
           "propertyName": "maxLines",
-          "propertyDesc": "最大行数",
+          "propertyDesc": "Maximum lines",
           "displayType": "number",
           "defaultProperty": "2",
           "propertyValues": "{\"left\": 1, \"right\": 5, \"step\": 1 }"
         },
         {
           "propertyName": "lineSpacing",
-          "propertyDesc": "最大行距",
+          "propertyDesc": "Maximum line spacing",
           "displayType": "number",
           "defaultProperty": "5",
           "propertyValues": "{ \"left\": 5, \"right\": 30, \"step\": 1 }"
@@ -153,32 +153,32 @@
       "id": 4,
       "componentName": "TextStyle",
       "contentType": 1,
-      "subTitle": "属性字符串",
+      "subTitle": "Styled string",
       "props": [
         {
           "propertyName": "overflow",
-          "propertyDesc": "超长显示方式",
+          "propertyDesc": "Long text display mode",
           "displayType": "enum",
           "defaultProperty": "Clip",
           "propertyValues": "[\"Clip\",\"Ellipsis\"]"
         },
         {
           "propertyName": "textIndent",
-          "propertyDesc": "首行缩进",
+          "propertyDesc": "First-line indent",
           "displayType": "number",
           "defaultProperty": "0",
           "propertyValues": "{ \"left\": 0, \"right\": 30, \"step\": 1 }"
         },
         {
           "propertyName": "maxLines",
-          "propertyDesc": "段落行数",
+          "propertyDesc": "Paragraph lines",
           "displayType": "number",
           "defaultProperty": "2",
           "propertyValues": "{ \"left\": 1, \"right\": 5, \"step\": 1 }"
         },
         {
           "propertyName": "highlightColor",
-          "propertyDesc": "高亮文本颜色",
+          "propertyDesc": "Highlight text color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.0)",
           "propertyValues": "''"
@@ -195,14 +195,14 @@
       "id": 5,
       "componentName": "CameraPicker",
       "contentType": 1,
-      "subTitle": "相机选择器",
+      "subTitle": "Camera picker",
       "props": [
         {
           "propertyName": "mediaTypes",
-          "propertyDesc": "相机模式",
+          "propertyDesc": "Camera mode",
           "displayType": "enum",
-          "defaultProperty": "混合模式",
-          "propertyValues": "[\"拍照模式\",\"录制模式\",\"混合模式\"]"
+          "defaultProperty": "Mixed mode",
+          "propertyValues": "[\"Photo mode\",\"Video mode\",\"Mixed mode\"]"
         }
       ],
       "recommendList": [
@@ -216,39 +216,39 @@
       "id": 6,
       "contentType": 1,
       "componentName": "Button",
-      "subTitle": "按钮",
+      "subTitle": "Button",
       "props": [
         {
           "propertyName": "controlSize",
-          "propertyDesc": "按钮尺寸",
+          "propertyDesc": "Button size",
           "displayType": "enum",
           "defaultProperty": "Normal",
           "propertyValues": "[\"Normal\",\"Small\"]"
         },
         {
           "propertyName": "buttonType",
-          "propertyDesc": "边缘形状",
+          "propertyDesc": "Edge shape",
           "displayType": "enum",
           "defaultProperty": "Capsule",
           "propertyValues": "[\"Capsule\",\"Normal\"]"
         },
         {
           "propertyName": "buttonStyle",
-          "propertyDesc": "按钮类型",
+          "propertyDesc": "Button type",
           "displayType": "enum",
           "defaultProperty": "Emphasized",
           "propertyValues": "[\"Normal\",\"Emphasized\",\"Textual\"]"
         },
         {
           "propertyName": "operation",
-          "propertyDesc": "手势操作",
+          "propertyDesc": "Gesture action",
           "displayType": "enum",
           "defaultProperty": "Click",
           "propertyValues": "[\"Click\", \"LongGesture\", \"NoClick\"]"
         },
         {
           "propertyName": "backgroundColor",
-          "propertyDesc": "按钮颜色",
+          "propertyDesc": "Button color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.00)",
           "propertyValues": "''"
@@ -269,25 +269,25 @@
       "id": 7,
       "componentName": "Image",
       "contentType": 1,
-      "subTitle": "图片",
+      "subTitle": "Image",
       "props": [
         {
           "propertyName": "clip",
-          "propertyDesc": "是否裁剪",
+          "propertyDesc": "Crop image",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "colorFilterMatrixStr",
-          "propertyDesc": "颜色滤镜(png图片)",
+          "propertyDesc": "Color filter (PNG image)",
           "displayType": "enum",
-          "defaultProperty": "无滤镜",
-          "propertyValues": "[\"无滤镜\",\"色彩旋转\",\"灰色滤镜\",\"增色滤镜\"]"
+          "defaultProperty": "No filter",
+          "propertyValues": "[\"No filter\",\"Color rotation\",\"Grayscale filter\",\"Color enhancement filter\"]"
         },
         {
           "propertyName": "objectFit",
-          "propertyDesc": "图片填充效果",
+          "propertyDesc": "Image fill effect",
           "displayType": "enum",
           "defaultProperty": "Cover",
           "propertyValues": "[\"Contain\",\"Cover\",\"Auto\",\"Fill\",\"ScaleDown\",\"None\"]"
@@ -308,32 +308,32 @@
       "id": 8,
       "componentName": "Progress",
       "contentType": 1,
-      "subTitle": "进度条",
+      "subTitle": "Progress bar",
       "props": [
         {
           "propertyName": "kind",
-          "propertyDesc": "类型",
+          "propertyDesc": "Type",
           "displayType": "enum",
           "defaultProperty": "Progress",
           "propertyValues": "[\"Progress\",\"Loading\"]"
         },
         {
           "propertyName": "style",
-          "propertyDesc": "组件的样式",
+          "propertyDesc": "Component style",
           "displayType": "enum",
           "defaultProperty": "CapsuleStyle",
           "propertyValues": "[\"CapsuleStyle\",\"LinearStyle\",\"ProgressStyle\",\"RingStyle1\",\"RingStyle2\",\"EclipseStyle\",\"ScaleRingStyle\"]"
         },
         {
           "propertyName": "value",
-          "propertyDesc": "进度条初始值",
+          "propertyDesc": "Initial progress value",
           "displayType": "number",
           "defaultProperty": "38",
           "propertyValues": "{ \"left\": 0, \"right\": 100, \"step\": 1 }"
         },
         {
           "propertyName": "color",
-          "propertyDesc": "进度条颜色",
+          "propertyDesc": "Progress color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.00)",
           "propertyValues": "''"
@@ -354,32 +354,32 @@
       "id": 9,
       "componentName": "Rating",
       "contentType": 1,
-      "subTitle": "评分",
+      "subTitle": "Rating",
       "props": [
         {
           "propertyName": "starStyle",
-          "propertyDesc": "样式设置",
+          "propertyDesc": "Style settings",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "indicator",
-          "propertyDesc": "是否指示器",
+          "propertyDesc": "Show indicator",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "stars",
-          "propertyDesc": "评分总数",
+          "propertyDesc": "Total rating count",
           "displayType": "number",
           "defaultProperty": "5",
           "propertyValues": "{ \"left\": 1, \"right\": 5, \"step\": 1 }"
         },
         {
           "propertyName": "rating",
-          "propertyDesc": "评分值",
+          "propertyDesc": "Rating value",
           "displayType": "number",
           "defaultProperty": "3",
           "propertyValues": "{ \"left\": 0, \"right\": 5, \"step\": 0.5 }"
@@ -396,25 +396,25 @@
       "id": 10,
       "contentType": 1,
       "componentName": "Toggle",
-      "subTitle": "开关",
+      "subTitle": "Toggle",
       "props": [
         {
           "propertyName": "isOn",
-          "propertyDesc": "是否开启",
+          "propertyDesc": "Enabled",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "toggleType",
-          "propertyDesc": "类型",
+          "propertyDesc": "Type",
           "displayType": "enum",
           "defaultProperty": "Switch",
           "propertyValues": "[\"Switch\",\"Button\",\"Checkbox\"]"
         },
         {
           "propertyName": "backgroundColor",
-          "propertyDesc": "背景色",
+          "propertyDesc": "Background color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.00)",
           "propertyValues": "''"
@@ -435,7 +435,7 @@
       "id": 11,
       "componentName": "PhotoViewPicker",
       "contentType": 1,
-      "subTitle": "图库选择器",
+      "subTitle": "Photo picker",
       "props": [],
       "recommendList": [
         {
@@ -448,32 +448,32 @@
       "id": 12,
       "contentType": 1,
       "componentName": "Column",
-      "subTitle": "线性布局 - 纵向",
+      "subTitle": "Linear layout - vertical",
       "props": [
         {
           "propertyName": "padding",
-          "propertyDesc": "边距",
+           "propertyDesc": "Padding",
           "displayType": "enum",
           "defaultProperty": "All",
           "propertyValues": "[\"Vertical\", \"Horizontal\", \"All\",\"None\"]"
         },
         {
           "propertyName": "alignItems",
-          "propertyDesc": "横向对齐",
+          "propertyDesc": "Horizontal alignment",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Start\",\"Center\",\"End\"]"
         },
         {
           "propertyName": "space",
-          "propertyDesc": "自定义间距",
+          "propertyDesc": "Custom spacing",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
         },
         {
           "propertyName": "paddingNum",
-          "propertyDesc": "自定义边距",
+          "propertyDesc": "Custom padding",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
@@ -490,32 +490,32 @@
       "id": 13,
       "contentType": 1,
       "componentName": "Row",
-      "subTitle": "线性布局 - 横向",
+       "subTitle": "Linear layout - horizontal",
       "props": [
         {
           "propertyName": "padding",
-          "propertyDesc": "边距",
+           "propertyDesc": "Padding",
           "displayType": "enum",
           "defaultProperty": "All",
           "propertyValues": "[\"Vertical\", \"Horizontal\", \"All\",\"None\"]"
         },
         {
           "propertyName": "alignItems",
-          "propertyDesc": "竖向对齐",
+           "propertyDesc": "Vertical alignment",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Top\",\"Center\",\"Bottom\"]"
         },
         {
           "propertyName": "space",
-          "propertyDesc": "自定义间距",
+           "propertyDesc": "Custom spacing",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
         },
         {
           "propertyName": "paddingNum",
-          "propertyDesc": "自定义边距",
+           "propertyDesc": "Custom padding",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4, \"right\":17, \"step\": 1 }"
@@ -532,32 +532,32 @@
       "id": 14,
       "componentName": "Stack",
       "contentType": 1,
-      "subTitle": "层叠布局",
+      "subTitle": "Stack layout",
       "props": [
         {
           "propertyName": "alignDirection",
-          "propertyDesc": "对齐方向",
+          "propertyDesc": "Alignment direction",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Top\",\"Center\",\"Bottom\"]"
         },
         {
           "propertyName": "alignContentTop",
-          "propertyDesc": "对齐方式（上）",
+          "propertyDesc": "Alignment (top)",
           "displayType": "enum",
           "defaultProperty": "TopStart",
           "propertyValues": "[\"Top\",\"TopStart\",\"TopEnd\"]"
         },
         {
           "propertyName": "alignContentCenter",
-          "propertyDesc": "对齐方式（中）",
+          "propertyDesc": "Alignment (center)",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Start\",\"Center\",\"End\"]"
         },
         {
           "propertyName": "alignContentBottom",
-          "propertyDesc": "对齐方式（下）",
+          "propertyDesc": "Alignment (bottom)",
           "displayType": "enum",
           "defaultProperty": "BottomStart",
           "propertyValues": "[\"BottomStart\",\"BottomEnd\",\"Bottom\"]"
@@ -574,53 +574,53 @@
       "id": 15,
       "componentName": "Flex",
       "contentType": 1,
-      "subTitle": "弹性布局",
+      "subTitle": "Flex layout",
       "props": [
         {
           "propertyName": "elements",
-          "propertyDesc": "元素个数",
+          "propertyDesc": "Item count",
           "displayType": "enum",
           "defaultProperty": "2",
           "propertyValues": "[\"2\",\"4\"]"
         },
         {
           "propertyName": "wrap",
-          "propertyDesc": "布局换行",
+          "propertyDesc": "Layout wrapping",
           "displayType": "enum",
           "defaultProperty": "NoWrap",
           "propertyValues": "[\"NoWrap\",\"Wrap\",\"WrapReverse\"]"
         },
         {
           "propertyName": "direction",
-          "propertyDesc": "布局方向",
+          "propertyDesc": "Layout direction",
           "displayType": "enum",
           "defaultProperty": "Row",
           "propertyValues": "[\"Row\",\"RowReverse\",\"Column\",\"ColumnReverse\"]"
         },
         {
           "propertyName": "justifyContent",
-          "propertyDesc": "主轴对齐",
+          "propertyDesc": "Main-axis alignment",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\",\"SpaceAround\",\"SpaceEvenly\"]"
         },
         {
           "propertyName": "alignItems",
-          "propertyDesc": "交叉轴对齐",
+          "propertyDesc": "Cross-axis alignment",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Auto\",\"Start\",\"Center\",\"End\",\"Stretch\",\"Baseline\"]"
         },
         {
           "propertyName": "alignSelf",
-          "propertyDesc": "子元素交叉轴",
+          "propertyDesc": "Child cross-axis alignment",
           "displayType": "enum",
           "defaultProperty": "Auto",
           "propertyValues": "[\"Auto\",\"Start\",\"Center\",\"End\",\"Stretch\",\"Baseline\"]"
         },
         {
           "propertyName": "alignContent",
-          "propertyDesc": "内容对齐",
+          "propertyDesc": "Content alignment",
           "displayType": "enum",
           "defaultProperty": "Start",
           "propertyValues": "[\"Start\",\"Center\",\"End\",\"SpaceBetween\",\"SpaceAround\",\"SpaceEvenly\"]"
@@ -637,7 +637,7 @@
       "id": 16,
       "componentName": "Penkit",
       "contentType": 1,
-      "subTitle": "手写笔服务",
+      "subTitle": "Stylus service",
       "props": [],
       "recommendList": [
         {
@@ -650,32 +650,32 @@
       "id": 17,
       "componentName": "List",
       "contentType": 1,
-      "subTitle": "列表",
+      "subTitle": "List",
       "props": [
         {
           "propertyName": "sticky",
-          "propertyDesc": "是否吸顶",
+          "propertyDesc": "Sticky header",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "edgeEffect",
-          "propertyDesc": "滑动效果",
+          "propertyDesc": "Scroll effect",
           "displayType": "enum",
           "defaultProperty": "None",
           "propertyValues": "[\"Spring\", \"Fade\", \"None\"]"
         },
         {
           "propertyName": "lanesNum",
-          "propertyDesc": "组件列数",
+          "propertyDesc": "Column count",
           "displayType": "number",
           "defaultProperty": "2",
           "propertyValues": "{ \"left\": 1, \"right\": 4, \"step\": 1 }"
         },
         {
           "propertyName": "gutter",
-          "propertyDesc": "自定义间距",
+          "propertyDesc": "Custom spacing",
           "displayType": "number",
           "defaultProperty": "5",
           "propertyValues": "{ \"left\":1, \"right\":10, \"step\": 1 }"
@@ -696,39 +696,39 @@
       "id": 18,
       "componentName": "Grid",
       "contentType": 1,
-      "subTitle": "网格",
+      "subTitle": "Grid",
       "props": [
         {
           "propertyName": "operationMode",
-          "propertyDesc": "编辑模式",
+          "propertyDesc": "Edit mode",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "columnsGap",
-          "propertyDesc": "列与列的间距",
+          "propertyDesc": "Column spacing",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
         },
         {
           "propertyName": "columnsNum",
-          "propertyDesc": "列数",
+          "propertyDesc": "Column count",
           "displayType": "number",
           "defaultProperty": "4",
           "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
         },
         {
           "propertyName": "rowsGap",
-          "propertyDesc": "行与行的间距",
+          "propertyDesc": "Row spacing",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4, \"right\":24, \"step\": 1 }"
         },
         {
           "propertyName": "rowsNum",
-          "propertyDesc": "行数",
+          "propertyDesc": "Row count",
           "displayType": "number",
           "defaultProperty": "4",
           "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
@@ -745,39 +745,39 @@
       "id": 19,
       "componentName": "WaterFlow",
       "contentType": 1,
-      "subTitle": "瀑布流",
+      "subTitle": "Water flow",
       "props": [
         {
           "propertyName": "friction",
-          "propertyDesc": "摩擦系数",
+          "propertyDesc": "Friction coefficient",
           "displayType": "enum",
           "defaultProperty": "0.75",
           "propertyValues": "[\"0.1\",\"0.6\",\"0.75\",\"0.9\"]"
         },
         {
           "propertyName": "layoutDirection",
-          "propertyDesc": "布局主轴方向",
+          "propertyDesc": "Main-axis direction",
           "displayType": "enum",
           "defaultProperty": "Column",
           "propertyValues": "[\"Column\",\"Row\",\"RowReverse\",\"ColumnReverse\"]"
         },
         {
           "propertyName": "rowsTemplate",
-          "propertyDesc": "行的数量",
+          "propertyDesc": "Row count",
           "displayType": "number",
           "defaultProperty": "3",
           "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
         },
         {
           "propertyName": "columnsGap",
-          "propertyDesc": "列与列的间距",
+          "propertyDesc": "Column spacing",
           "displayType": "number",
           "defaultProperty": "6",
           "propertyValues": "{ \"left\":4,\"right\":24, \"step\": 2 }"
         },
         {
           "propertyName": "columnsTemplate",
-          "propertyDesc": "列的数量",
+          "propertyDesc": "Column count",
           "displayType": "number",
           "defaultProperty": "3",
           "propertyValues": "{ \"left\":1, \"right\":4, \"step\": 1 }"
@@ -794,39 +794,39 @@
       "id": 20,
       "componentName": "Swiper",
       "contentType": 1,
-      "subTitle": "滑动轮播组件",
+      "subTitle": "Swiper component",
       "props": [
         {
           "propertyName": "vertical",
-          "propertyDesc": "是否垂直显示",
+          "propertyDesc": "Vertical display",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "autoPlay",
-          "propertyDesc": "自动轮播",
+          "propertyDesc": "Auto-play",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "isDisplayArrow",
-          "propertyDesc": "箭头展示",
+          "propertyDesc": "Show arrows",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "effectMode",
-          "propertyDesc": "边缘效果",
+          "propertyDesc": "Edge effect",
           "displayType": "enum",
           "defaultProperty": "None",
           "propertyValues": "[\"Spring\",\"Fade\",\"None\"]"
         },
         {
           "propertyName": "indicator",
-          "propertyDesc": "导航条",
+          "propertyDesc": "Navigation bar",
           "displayType": "enum",
           "defaultProperty": "DotIndicator",
           "propertyValues": "[\"DotIndicator\",\"DigitIndicator\",\"None\"]"
@@ -843,32 +843,32 @@
       "id": 21,
       "componentName": "Tabs",
       "contentType": 1,
-      "subTitle": "页签",
+      "subTitle": "Tabs",
       "props": [
         {
           "propertyName": "barPosition",
-          "propertyDesc": "页签位置",
+          "propertyDesc": "Tab position",
           "displayType": "enum",
           "defaultProperty": "Start",
           "propertyValues": "[\"Start\", \"End\"]"
         },
         {
           "propertyName": "vertical",
-          "propertyDesc": "是否垂直展示",
+          "propertyDesc": "Vertical display",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "fadingEdge",
-          "propertyDesc": "渐隐效果",
+          "propertyDesc": "Fade effect",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "backgroundBlurStyle",
-          "propertyDesc": "背景模糊材质",
+          "propertyDesc": "Background blur material",
           "displayType": "enum",
           "defaultProperty": "ComponentUltraThick",
           "propertyValues": "[\"ComponentThin\",\"ComponentUltraThin\",\"ComponentRegular\",\"ComponentThick\",\"ComponentUltraThick\"]"
@@ -889,7 +889,7 @@
       "id": 22,
       "componentName": "AI Matting",
       "contentType": 1,
-      "subTitle": "AI抠图",
+      "subTitle": "AI matting",
       "props": [],
       "recommendList": [
         {
@@ -902,11 +902,11 @@
       "id": 23,
       "componentName": "AlertDialog",
       "contentType": 1,
-      "subTitle": "警告弹窗",
+      "subTitle": "Alert dialog",
       "props": [
         {
           "propertyName": "dialogAlignment",
-          "propertyDesc": "对齐",
+          "propertyDesc": "Alignment",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Top\", \"Center\", \"Bottom\"]"
@@ -923,18 +923,18 @@
       "id": 24,
       "componentName": "TextPickerDialog",
       "contentType": 1,
-      "subTitle": "文本滑动选择器弹窗",
+      "subTitle": "Text picker dialog",
       "props": [
         {
           "propertyName": "canLoop",
-          "propertyDesc": "循环滚动",
+          "propertyDesc": "Loop scrolling",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "itemHeight",
-          "propertyDesc": "高度",
+          "propertyDesc": "Height",
           "displayType": "number",
           "defaultProperty": "36",
           "propertyValues": "{ \"left\": 24, \"right\": 56, \"step\": 1 }"
@@ -951,14 +951,14 @@
       "id": 25,
       "componentName": "CustomDialog",
       "contentType": 1,
-      "subTitle": "自定义弹窗",
+      "subTitle": "Custom dialog",
       "props": [
         {
           "propertyName": "style",
-          "propertyDesc": "弹窗样式",
+          "propertyDesc": "Dialog style",
           "displayType": "enum",
-          "defaultProperty": "图文弹窗",
-          "propertyValues": "[\"图文弹窗\",\"进度弹窗\"]"
+          "defaultProperty": "Graphic dialog",
+          "propertyValues": "[\"Graphic dialog\",\"Progress dialog\"]"
         }
       ],
       "recommendList": [
@@ -972,25 +972,25 @@
       "id": 26,
       "componentName": "ActionSheet",
       "contentType": 1,
-      "subTitle": "列表选择弹窗",
+      "subTitle": "Action sheet",
       "props": [
         {
           "propertyName": "sheetInfo",
-          "propertyDesc": "弹窗列表选项",
+          "propertyDesc": "Action sheet options",
           "displayType": "enum",
           "defaultProperty": "sheetInfo1",
           "propertyValues": "[\"sheetInfo1\",\"sheetInfo2\"]"
         },
         {
           "propertyName": "autoCancel",
-          "propertyDesc": "自动关闭弹窗",
+          "propertyDesc": "Auto-cancel dialog",
           "displayType": "boolean",
           "defaultProperty": "true",
           "propertyValues": "''"
         },
         {
           "propertyName": "transition",
-          "propertyDesc": "动画设置",
+          "propertyDesc": "Animation settings",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
@@ -1007,21 +1007,21 @@
       "id": 27,
       "componentName": "Popup",
       "contentType": 1,
-      "subTitle": "气泡弹窗",
+      "subTitle": "Popup",
       "props": [
         {
           "propertyName": "placement",
-          "propertyDesc": "弹出位置",
+          "propertyDesc": "Popup position",
           "displayType": "enum",
           "defaultProperty": "Bottom",
           "propertyValues": "[\"Top\",\"Bottom\"]"
         },
         {
           "propertyName": "type",
-          "propertyDesc": "弹出样式",
+          "propertyDesc": "Popup style",
           "displayType": "enum",
-          "defaultProperty": "按钮气泡",
-          "propertyValues": "[\"按钮气泡\",\"文字气泡\",\"图文气泡\"]"
+          "defaultProperty": "Button popup",
+          "propertyValues": "[\"Button popup\",\"Text popup\",\"Graphic popup\"]"
         }
       ],
       "recommendList": [
@@ -1039,14 +1039,14 @@
       "id": 28,
       "componentName": "TextToSpeech",
       "contentType": 1,
-      "subTitle": "文本转语音",
+      "subTitle": "Text to speech",
       "props": [
         {
           "propertyName": "speed",
-          "propertyDesc": "语速",
+          "propertyDesc": "Speech rate",
           "displayType": "enum",
-          "defaultProperty": "1倍",
-          "propertyValues": "[\"0.5倍\",\"1倍\",\"1.5倍\",\"2倍\"]"
+          "defaultProperty": "1x",
+          "propertyValues": "[\"0.5x\",\"1x\",\"1.5x\",\"2x\"]"
         }
       ],
       "recommendList": [
@@ -1060,46 +1060,46 @@
       "id": 29,
       "componentName": "CalendarPicker",
       "contentType": 1,
-      "subTitle": "日历选择器",
+      "subTitle": "Calendar picker",
       "props": [
         {
           "propertyName": "calendarAlignType",
-          "propertyDesc": "对齐方向",
+          "propertyDesc": "Alignment direction",
           "displayType": "enum",
           "defaultProperty": "Center",
           "propertyValues": "[\"Start\",\"Center\",\"End\"]"
         },
         {
           "propertyName": "pickerFontWeight",
-          "propertyDesc": "入口区字体粗细",
+          "propertyDesc": "Entry font weight",
           "displayType": "enum",
           "defaultProperty": "Normal",
           "propertyValues": "[\"Normal\",\"Lighter\",\"Bolder\"]"
         },
         {
           "propertyName": "calendarOffsetX",
-          "propertyDesc": "水平偏移量",
+          "propertyDesc": "Horizontal offset",
           "displayType": "number",
           "defaultProperty": "0",
           "propertyValues": "{ \"left\": 1, \"right\": 72, \"step\": 1 }"
         },
         {
           "propertyName": "calendarOffsetY",
-          "propertyDesc": "垂直偏移量",
+          "propertyDesc": "Vertical offset",
           "displayType": "number",
           "defaultProperty": "0",
           "propertyValues": "{ \"left\": 1, \"right\": 72, \"step\": 1 }"
         },
         {
           "propertyName": "pickerFontSize",
-          "propertyDesc": "入口区文字大小",
+          "propertyDesc": "Entry text size",
           "displayType": "number",
           "defaultProperty": "16",
           "propertyValues": "{ \"left\": 16, \"right\": 38, \"step\": 1 }"
         },
         {
           "propertyName": "pickerFontColor",
-          "propertyDesc": "入口区文字颜色",
+          "propertyDesc": "Entry text color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.0)",
           "propertyValues": "''"
@@ -1120,39 +1120,39 @@
       "id": 30,
       "componentName": "DatePicker",
       "contentType": 1,
-      "subTitle": "日期滑动选择器",
+      "subTitle": "Date picker",
       "props": [
         {
           "propertyName": "lunar",
-          "propertyDesc": "显示农历",
+          "propertyDesc": "Show lunar calendar",
           "displayType": "boolean",
           "defaultProperty": "false",
           "propertyValues": "''"
         },
         {
           "propertyName": "selectedFontWeight",
-          "propertyDesc": "选中项字体粗细",
+          "propertyDesc": "Selected item font weight",
           "displayType": "enum",
           "defaultProperty": "Normal",
           "propertyValues": "[\"Normal\",\"Lighter\",\"Bolder\"]"
         },
         {
           "propertyName": "selectedFontSize",
-          "propertyDesc": "选中项字体大小",
+          "propertyDesc": "Selected item font size",
           "displayType": "number",
           "defaultProperty": "18",
           "propertyValues": "{ \"left\": 12, \"right\": 22, \"step\": 1 }"
         },
         {
           "propertyName": "fontSize",
-          "propertyDesc": "标准项字体大小",
+          "propertyDesc": "Standard item font size",
           "displayType": "number",
           "defaultProperty": "16",
           "propertyValues": "{ \"left\": 12, \"right\": 22, \"step\": 1 }"
         },
         {
           "propertyName": "selectedTextColor",
-          "propertyDesc": "选中项字体颜色",
+          "propertyDesc": "Selected item font color",
           "displayType": "color",
           "defaultProperty": "rgba(0, 85, 255, 1.0)",
           "propertyValues": "''"
@@ -1173,7 +1173,7 @@
       "id": 31,
       "componentName": "DocumentViewPicker",
       "contentType": 1,
-      "subTitle": "文件选择器",
+      "subTitle": "Document picker",
       "props": [],
       "recommendList": [
         {
@@ -1186,14 +1186,14 @@
       "id": 32,
       "componentName": "AppLinking",
       "contentType": 1,
-      "subTitle": "应用拉起",
+      "subTitle": "App linking",
       "props": [
         {
           "propertyName": "type",
-          "propertyDesc": "拉起类型",
+          "propertyDesc": "Launch type",
           "displayType": "enum",
-          "defaultProperty": "应用市场",
-          "propertyValues": "[\"应用市场\",\"地图\",\"设置\",\"拨号\"]"
+          "defaultProperty": "AppGallery",
+          "propertyValues": "[\"AppGallery\",\"Map\",\"Settings\",\"Dialer\"]"
         }
       ],
       "recommendList": [
@@ -1207,7 +1207,7 @@
       "id": 33,
       "componentName": "AICaptionComponent",
       "contentType": 1,
-      "subTitle": "AI字幕组件",
+      "subTitle": "AI caption component",
       "props": [],
       "recommendList": [
         {

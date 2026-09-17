@@ -61,16 +61,16 @@ import type { BusinessError } from '@kit.BasicServicesKit';
 struct ActionSheetComponent {
   build() {
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center, justifyContent: FlexAlign.Center }) {
-      Button('列表选择器弹窗', { buttonStyle: ButtonStyleMode.NORMAL })
+      Button('Action sheet', { buttonStyle: ButtonStyleMode.NORMAL })
         .buttonStyle(ButtonStyleMode.NORMAL)
         .fontWeight(FontWeight.Medium)
         .fontSize($r('sys.float.Body_L'))
         .fontColor($r('sys.color.font_emphasize'))
         .onClick(() => {
           ActionSheet.show({
-            title: '标题',
-            subtitle: '副标题',
-            message: '内容',
+            title: 'Title',
+            subtitle: 'Subtitle',
+            message: 'Content',
             autoCancel: ${this.autoCancel},
             transition: TransitionEffect.asymmetric(
               ${this.transitionAppear},
@@ -78,7 +78,7 @@ struct ActionSheetComponent {
             ),
             confirm: {
               defaultFocus: true,
-              value: '确定',
+              value: 'Confirm',
               action: () => {
                 try {
                   promptAction.showToast({

@@ -31,498 +31,498 @@
               "enum": [
                 {
                   "value": "1001",
-                  "displayName": "组件",
+                  "displayName": "Components",
                   "keywords": [
-                    "主页",
-                    "首页",
-                    "控件"
+                    "Home",
+                    "Main page",
+                    "Controls"
                   ],
-                  "displayDescription": "展示组件",
+                  "displayDescription": "Show components",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "1002",
-                  "displayName": "样例",
+                  "displayName": "Samples",
                   "keywords": [
-                    "案例",
+                    "Example",
                     "Demo"
                   ],
-                  "displayDescription": "展示样例",
+                  "displayDescription": "Show samples",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "1003",
-                  "displayName": "实践",
+                  "displayName": "Practices",
                   "keywords": [
-                    "体验",
-                    "设计",
-                    "体验设计"
+                    "Experience",
+                    "Design",
+                    "Experience design"
                   ],
-                  "displayDescription": "鸿蒙体验",
+                  "displayDescription": "HarmonyOS experience",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "1004",
-                  "displayName": "我的",
+                  "displayName": "My Page",
                   "keywords": [
-                    "个人中心",
-                    "用户中心"
+                    "Personal center",
+                    "User center"
                   ],
-                  "displayDescription": "应用设置",
+                  "displayDescription": "App settings",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "10",
-                  "displayName": "文本控件",
+                  "displayName": "Text",
                   "keywords": [
                     "Text",
-                    "文本操作"
+                    "Text operations"
                   ],
-                  "displayDescription": "文本控件介绍",
+                  "displayDescription": "Text component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "42",
-                  "displayName": "单行文本输入",
+                  "displayName": "Single-line text input",
                   "keywords": [
                     "TextInput"
                   ],
-                  "displayDescription": "单行文本输入介绍",
+                  "displayDescription": "Single-line text input introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "40",
-                  "displayName": "多行文本输入",
+                  "displayName": "Multiline text input",
                   "keywords": [
                     "TextArea"
                   ],
-                  "displayDescription": "多行文本介绍",
+                  "displayDescription": "Multiline text introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "41",
-                  "displayName": "属性字符串",
+                  "displayName": "Styled string",
                   "keywords": [
                     "TextSytle"
                   ],
-                  "displayDescription": "属性字符串介绍",
+                  "displayDescription": "Styled string introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "28",
-                  "displayName": "相机选择器",
+                  "displayName": "Camera picker",
                   "keywords": [
                     "CameraPicker"
                   ],
-                  "displayDescription": "CameraPicker介绍",
+                  "displayDescription": "CameraPicker introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "1",
-                  "displayName": "按钮",
+                  "displayName": "Button",
                   "keywords": [
                     "Button"
                   ],
-                  "displayDescription": "按钮介绍",
+                  "displayDescription": "Button introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "11",
-                  "displayName": "图片",
+                  "displayName": "Image",
                   "keywords": [
                     "Image"
                   ],
-                  "displayDescription": "图片组件介绍",
+                  "displayDescription": "Image component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "13",
-                  "displayName": "进度条",
+                  "displayName": "Progress bar",
                   "keywords": [
                     "Progress"
                   ],
-                  "displayDescription": "进度条组件介绍",
+                  "displayDescription": "Progress bar component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "22",
-                  "displayName": "评分",
+                  "displayName": "Rating",
                   "keywords": [
                     "Rating"
                   ],
-                  "displayDescription": "评分组件介绍",
+                  "displayDescription": "Rating component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "2",
-                  "displayName": "开关",
+                  "displayName": "Toggle",
                   "keywords": [
                     "Toggle",
                     "Switch"
                   ],
-                  "displayDescription": "开关组件介绍",
+                  "displayDescription": "Toggle component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "26",
-                  "displayName": "图库选择器",
+                  "displayName": "Photo picker",
                   "keywords": [
                     "PhotoViewPicker",
-                    "图库"
+                    "Photo gallery"
                   ],
-                  "displayDescription": "图库选择器介绍",
+                  "displayDescription": "Photo picker introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "5",
-                  "displayName": "线性布局 - 纵向",
+                  "displayName": "Linear layout - vertical",
                   "keywords": [
                     "Column",
-                    "纵向"
+                    "Vertical"
                   ],
-                  "displayDescription": "线性布局 - 纵向介绍",
+                  "displayDescription": "Linear layout - vertical introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "6",
-                  "displayName": "线性布局 - 横向",
+                  "displayName": "Linear layout - horizontal",
                   "keywords": [
                     "Row",
-                    "横向"
+                    "Horizontal"
                   ],
-                  "displayDescription": "线性布局 - 横向介绍",
+                  "displayDescription": "Linear layout - horizontal introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "7",
-                  "displayName": "层叠布局",
+                  "displayName": "Stack layout",
                   "keywords": [
                     "Stack",
-                    "层叠"
+                    "Stack"
                   ],
                   "displayDescription": "",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "23",
-                  "displayName": "弹性布局",
+                  "displayName": "Flex layout",
                   "keywords": [
                     "Flex",
-                    "弹性"
+                    "Flex"
                   ],
-                  "displayDescription": "弹性布局介绍",
+                  "displayDescription": "Flex layout introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "38",
-                  "displayName": "手写笔服务介绍",
+                  "displayName": "Stylus service introduction",
                   "keywords": [
                     "Penkit",
-                    "手写笔",
-                    "触笔"
+                    "Stylus",
+                    "Pen"
                   ],
-                  "displayDescription": "手写笔服务介绍",
+                  "displayDescription": "Stylus service introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "9",
-                  "displayName": "列表",
+                  "displayName": "List",
                   "keywords": [
                     "List"
                   ],
-                  "displayDescription": "列表介绍",
+                  "displayDescription": "List introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "8",
-                  "displayName": "网格",
+                  "displayName": "Grid",
                   "keywords": [
                     "Grid"
                   ],
-                  "displayDescription": "网格组件介绍",
+                  "displayDescription": "Grid component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "25",
-                  "displayName": "瀑布流",
+                  "displayName": "Water flow",
                   "keywords": [
                     "WaterFlow",
-                    "瀑布"
+                    "Water flow"
                   ],
-                  "displayDescription": "瀑布流组件介绍",
+                  "displayDescription": "Water flow component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "24",
-                  "displayName": "滑动轮播组件",
+                  "displayName": "Swiper component",
                   "keywords": [
                     "Swiper",
-                    "滑动轮播",
-                    "轮播"
+                    "Swiper",
+                    "Carousel"
                   ],
-                  "displayDescription": "滑动轮播组件介绍",
+                  "displayDescription": "Swiper component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "18",
-                  "displayName": "页签",
+                  "displayName": "Tabs",
                   "keywords": [
                     "Tabs",
-                    "导航页签"
+                    "Navigation tabs"
                   ],
-                  "displayDescription": "页签介绍",
+                  "displayDescription": "Tabs introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "32",
-                  "displayName": "抠图",
+                  "displayName": "AI matting",
                   "keywords": [
                     "AI Matting",
-                    "抠图"
+                    "Matting"
                   ],
-                  "displayDescription": "AI抠图介绍",
+                  "displayDescription": "AI matting introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "20",
-                  "displayName": "警告弹窗",
+                  "displayName": "Alert dialog",
                   "keywords": [
                     "AlertDialog",
-                    "弹窗"
+                    "Dialog"
                   ],
-                  "displayDescription": "警告弹窗介绍",
+                  "displayDescription": "Alert dialog introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "21",
-                  "displayName": "文本滑动选择器弹窗",
+                  "displayName": "Text picker dialog",
                   "keywords": [
                     "TextPickerDialog"
                   ],
-                  "displayDescription": "文本滑动选择器弹窗介绍",
+                  "displayDescription": "Text picker dialog introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "35",
-                  "displayName": "自定义弹窗",
+                  "displayName": "Custom dialog",
                   "keywords": [
                     "CustomDialog"
                   ],
-                  "displayDescription": "自定义弹窗介绍",
+                  "displayDescription": "Custom dialog introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "33",
-                  "displayName": "列表选择弹窗",
+                  "displayName": "Action sheet",
                   "keywords": [
                     "ActionSheet"
                   ],
-                  "displayDescription": "列表选择弹窗介绍",
+                  "displayDescription": "Action sheet introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "34",
-                  "displayName": "气泡弹窗",
+                  "displayName": "Popup",
                   "keywords": [
                     "Popup"
                   ],
-                  "displayDescription": "气泡弹窗介绍",
+                  "displayDescription": "Popup introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "29",
-                  "displayName": "文本转语音",
+                  "displayName": "Text to speech",
                   "keywords": [
                     "TextToSpeech"
                   ],
-                  "displayDescription": "文本转语音介绍",
+                  "displayDescription": "Text to speech introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "14",
-                  "displayName": "日历选择器",
+                  "displayName": "Calendar picker",
                   "keywords": [
                     "CalendarPicker"
                   ],
-                  "displayDescription": "日历选择器介绍",
+                  "displayDescription": "Calendar picker introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "15",
-                  "displayName": "日期滑动选择器",
+                  "displayName": "Date picker",
                   "keywords": [
                     "DatePicker"
                   ],
-                  "displayDescription": "日期滑动选择器介绍",
+                  "displayDescription": "Date picker introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "27",
-                  "displayName": "文件选择器",
+                  "displayName": "Document picker",
                   "keywords": [
                     "DocumentViewPicker"
                   ],
-                  "displayDescription": "文本选择器介绍",
+                  "displayDescription": "Document picker introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "36",
-                  "displayName": "应用拉起",
+                  "displayName": "App linking",
                   "keywords": [
                     "AppLinking",
-                    "拉起"
+                    "Launch"
                   ],
-                  "displayDescription": "应用拉起介绍",
+                  "displayDescription": "App linking introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "30",
-                  "displayName": "AI字幕组件",
+                  "displayName": "AI caption component",
                   "keywords": [
                     "AICaptionComponent",
                     "AI",
-                    "字幕"
+                    "Caption"
                   ],
-                  "displayDescription": "AI字幕组件介绍",
+                  "displayDescription": "AI caption component introduction",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-60",
-                  "displayName": "HarmonyOS代码工坊",
+                  "displayName": "HarmonyOS Code Workshop",
                   "keywords": [
-                    "代码工坊"
+                    "Code Workshop"
                   ],
-                  "displayDescription": "HarmonyOS代码工坊App是华为官方出品的一款大型开源开发示范应用",
+                  "displayDescription": "HarmonyOS Code Workshop is Huawei's official large open-source development sample app",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-63",
-                  "displayName": "HarmonyOS代码工坊(手表版)",
+                  "displayName": "HarmonyOS Code Workshop (Watch edition)",
                   "keywords": [
-                    "代码工坊手表版",
-                    "手表版代码工坊"
+                    "Code Workshop watch edition",
+                    "Watch edition Code Workshop"
                   ],
-                  "displayDescription": "HarmonyOS代码工坊手表开发案例",
+                  "displayDescription": "HarmonyOS Code Workshop watch development sample",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-16",
-                  "displayName": "一多导航栏",
+                  "displayName": "Adaptive navigation bar",
                   "keywords": [
-                    "一多",
-                    "导航栏"
+                    "Adaptive layout",
+                    "Navigation bar"
                   ],
-                  "displayDescription": "基于自适应布局和响应式布局,实现多设备上的分级导航栏效果",
+                  "displayDescription": "A hierarchical navigation bar across multiple devices using adaptive and responsive layouts",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-33",
-                  "displayName": "一多便捷生活",
+                  "displayName": "Adaptive convenient life",
                   "keywords": [
-                    "便捷生活"
+                    "Convenient life"
                   ],
-                  "displayDescription": "基于自适应布局和响应式布局，实现一次开发,多端部署的便捷生活页面，并根据手机、折叠屏、平板以及2in1不同的设备尺寸实现对应页面。",
+                  "displayDescription": "A convenient life page deployed across devices from one codebase using adaptive and responsive layouts for phones, foldables, tablets, and 2-in-1 devices.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-20",
-                  "displayName": "文字特效合集",
+                  "displayName": "Text effects collection",
                   "keywords": [
-                    "特效合集",
-                    "文本特效",
-                    "文字特效"
+                    "Effects collection",
+                    "Text effects",
+                    "Text effects"
                   ],
-                  "displayDescription": "基于Text组件及通用属性实现多种文字特效。帮助开发者在ArkTs页面开发中实现文字特效渐变、歌词滚动、跑马灯渐变等多种文字效果。",
+                  "displayDescription": "Multiple text effects implemented with the Text component and common attributes, including gradients, scrolling lyrics, and marquee gradients in ArkTS page development.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-35",
-                  "displayName": "常见Tab导航样式合集",
+                  "displayName": "Common Tab navigation styles",
                   "keywords": [
-                    "Tab导航",
-                    "Tab导航样式合集",
-                    "Tab导航样式",
-                    "导航样式",
-                    "导航样式合集"
+                    "Tab navigation",
+                    "Tab navigation style collection",
+                    "Tab navigation styles",
+                    "Navigation styles",
+                    "Navigation style collection"
                   ],
-                  "displayDescription": "Tabs组件可以让用户能聚焦于当前显示的内容，对页面内容进行分类，提高页面控件利用率。",
+                  "displayDescription": "The Tabs component helps users focus on the current content, categorize page content, and improve control utilization.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-36",
-                  "displayName": "自定义弹窗合集",
+                  "displayName": "Custom dialog collection",
                   "keywords": [
-                    "自定义弹窗",
-                    "弹窗合集"
+                    "Custom dialog",
+                    "Dialog collection"
                   ],
-                  "displayDescription": "通过CustomDialog、bindContentCover、bindSheet等接口，实现多种样式的弹窗。",
+                  "displayDescription": "Implement multiple dialog styles with CustomDialog, bindContentCover, bindSheet, and other APIs.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-22",
-                  "displayName": "画中画效果实现",
+                  "displayName": "Picture-in-picture implementation",
                   "keywords": [
-                    "画中画",
-                    "画中画效果",
-                    "效果实现"
+                    "Picture-in-picture",
+                    "Picture-in-picture effect",
+                    "Effect implementation"
                   ],
-                  "displayDescription": "基于媒体服务和ArkUI的基本能力，实现视频播放、手动和自动拉起画中画、画中画窗口控制视频播放和暂停等功能。",
+                  "displayDescription": "Use media services and basic ArkUI capabilities to implement video playback, manually or automatically launch picture-in-picture, and control video playback and pause from the picture-in-picture window.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-29",
-                  "displayName": "多图片合集",
+                  "displayName": "Multiple image collection",
                   "keywords": [
-                    "多图片",
-                    "图片合集",
-                    "图像合集"
+                    "Multiple images",
+                    "Image collection",
+                    "Image gallery"
                   ],
-                  "displayDescription": "介绍如何使用Swiper组件实现图片轮播效果，以及如何自定义Swiper组件的指示器，来实现图片的切换效果。",
+                  "displayDescription": "Learn how to use the Swiper component for image carousels and customize its indicator to switch images.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-51",
-                  "displayName": "基于AudioRenderer的音频播控和多场景交互",
+                  "displayName": "Audio playback control and multi-scenario interaction with AudioRenderer",
                   "keywords": [
                     "AudioRenderer",
-                    "音频播控",
-                    "多场景交互"
+                    "Audio playback control",
+                    "Multi-scenario interaction"
                   ],
                   "displayDescription": "",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-26",
-                  "displayName": "H5页面跳转",
+                  "displayName": "H5 page navigation",
                   "keywords": [
                     "H5",
-                    "页面跳转",
-                    "H5页面",
-                    "跳转"
+                    "Page navigation",
+                    "H5 page",
+                    "Navigation"
                   ],
-                  "displayDescription": "基于ArkUI框架和Web实现了H5页面之间的相互跳转。",
+                  "displayDescription": "Implement navigation between H5 pages with the ArkUI framework and Web.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-31",
-                  "displayName": "Web页面瞬开效果实践",
+                  "displayName": "Instant Web page launch practice",
                   "keywords": [
                     "Web",
-                    "Web页面",
-                    "瞬开效果实践",
-                    "瞬开效果"
+                    "Web page",
+                    "Instant launch practice",
+                    "Instant launch effect"
                   ],
-                  "displayDescription": "基于预渲染技术，实现了点击Web页面后瞬间打开的效果，无需额外加载过程，减少用户等待时长，提高了用户体验。",
+                  "displayDescription": "Use prerendering to open a Web page instantly after it is clicked, without an extra loading process, reducing wait time and improving the user experience.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 },
                 {
                   "value": "-49",
-                  "displayName": "定位服务",
+                  "displayName": "Location service",
                   "keywords": [
-                    "定位",
-                    "地图"
+                    "Location",
+                    "Map"
                   ],
-                  "displayDescription": "通过@kit.LocationKit中的geoLocationManager实现了取缓存位置，获取当前位置，同时运用map.Marker将位置信息标记在地图上。",
+                  "displayDescription": "Use geoLocationManager from @kit.LocationKit to retrieve a cached or current location, and use map.Marker to mark the location on a map.",
                   "icon": "https://d.0j7.cn/ynQTHEv"
                 }
               ]

@@ -36,7 +36,7 @@ struct PhotoViewPickerComponent {
         .width('100%')
         .height('100%')
 
-      Button('选择图片')
+      Button('Choose photo')
         .buttonStyle(ButtonStyleMode.NORMAL)
         .backgroundBlurStyle(this.backBlur ? BlurStyle.BACKGROUND_THICK : BlurStyle.NONE,
           {

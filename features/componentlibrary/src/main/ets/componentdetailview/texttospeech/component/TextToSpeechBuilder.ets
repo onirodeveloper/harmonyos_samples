@@ -28,7 +28,7 @@ const TAG: string = '[TextToSpeechComponent]';
 @Component
 struct TextToSpeechComponent {
   @Prop textToSpeechDescriptor: TextToSpeechDescriptor;
-  @State originalText: string = '古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行。';
+  @State originalText: string = 'Learning requires lifelong effort. What is learned from books must be put into practice.';
   @State text: string = '';
   @StorageLink(StorageKey.IS_PLAYING) @Watch('changePlayMode') isPlaying: boolean = false;
 

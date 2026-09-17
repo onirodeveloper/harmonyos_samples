@@ -89,7 +89,7 @@ struct CaptionComponent {
         .height(100)
         .margin({ left: -95 })
 
-        Button('读取PCM音频')
+        Button('Read PCM audio')
           .backgroundColor($r('sys.color.background_secondary'))
           .height(40)
           .fontColor($r('sys.color.font_emphasize'))

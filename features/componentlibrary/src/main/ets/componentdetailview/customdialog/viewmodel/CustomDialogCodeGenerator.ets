@@ -86,7 +86,7 @@ ${dialogBuilderCodeMapData.get(this.style)}
 
   build() {
     Column() {
-      Button('自定义${this.style}')
+       Button('Custom ${this.style}')
         .buttonStyle(ButtonStyleMode.NORMAL)
         .fontWeight(FontWeight.Medium)
         .fontSize($r('sys.float.Body_L'))

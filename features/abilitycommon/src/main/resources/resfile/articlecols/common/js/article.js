@@ -18,3 +18,57 @@ const elements = document.querySelectorAll('a[rel="noopener noreferrer"]');
 if (elements.length > 0) {
     window.addClickHref(elements);
 }
+
+const showMoreItems = document.querySelectorAll('[data-show-more="true"]');
+showMoreItems.forEach((toggle) => {
+    const topicBody = toggle.closest('.topicbody');
+    const toggleParagraph = toggle.closest('p');
+    if (!topicBody || !toggleParagraph) {
+        return;
+    }
+
+    const contentAfterToggle = [];
+    let next = toggleParagraph.nextElementSibling;
+    while (next) {
+        contentAfterToggle.push(next);
+        next = next.nextElementSibling;
+    }
+
+    const setExpanded = (expanded) => {
+        contentAfterToggle.forEach((element) => {
+            element.hidden = !expanded;
+        });
+        toggle.textContent = expanded ? 'Show less' : 'Show more';
+        toggle.setAttribute('aria-expanded', expanded.toString());
+    };
+
+    setExpanded(false);
+    toggle.addEventListener('click', () => {
+        setExpanded(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    toggle.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            setExpanded(toggle.getAttribute('aria-expanded') !== 'true');
+        }
+    });
+});
+
+const foldButtons = document.querySelectorAll('.foldButton');
+foldButtons.forEach((button) => {
+    button.textContent = 'Show more';
+    if (button.dataset.englishFoldBound === 'true') {
+        return;
+    }
+    button.dataset.englishFoldBound = 'true';
+    button.addEventListener('click', () => {
+        const screen = button.closest('.screen');
+        if (!screen || !screen.classList.contains('fold')) {
+            return;
+        }
+        screen.classList.replace('fold', 'expand');
+        const divider = button.nextElementSibling;
+        button.remove();
+        divider?.remove();
+    });
+});

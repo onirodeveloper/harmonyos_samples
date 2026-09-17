@@ -126,35 +126,35 @@ struct TabComponent {
       Tabs({ controller: this.controller }) {
         TabContent() {
           this.contentBuilder('circle')
-        }.tabBar(this.tabBuilder('圆形', 0))
+        }.tabBar(this.tabBuilder('Circle', 0))
 
         TabContent() {
           this.contentBuilder('square')
-        }.tabBar(this.tabBuilder('正方形', 1))
+        }.tabBar(this.tabBuilder('Square', 1))
 
         TabContent() {
           this.contentBuilder('triangle')
-        }.tabBar(this.tabBuilder('三角形', 2))
+        }.tabBar(this.tabBuilder('Triangle', 2))
 
         TabContent() {
           this.contentBuilder('rectangle')
-        }.tabBar(this.tabBuilder('长方形', 3))
+        }.tabBar(this.tabBuilder('Rectangle', 3))
 
         TabContent() {
           this.contentBuilder('elliptical')
-        }.tabBar(this.tabBuilder('椭圆', 4))
+        }.tabBar(this.tabBuilder('Ellipse', 4))
 
         TabContent() {
           this.contentBuilder('trapezium')
-        }.tabBar(this.tabBuilder('梯形', 5))
+        }.tabBar(this.tabBuilder('Trapezoid', 5))
 
         TabContent() {
           this.contentBuilder('lozenge')
-        }.tabBar(this.tabBuilder('菱形', 6))
+        }.tabBar(this.tabBuilder('Diamond', 6))
 
         TabContent() {
           this.contentBuilder('hexagon')
-        }.tabBar(this.tabBuilder('六边形', 7))
+        }.tabBar(this.tabBuilder('Hexagon', 7))
       }
       .barWidth('${this.barWidth}')
       .barHeight('${this.barHeight}')
@@ -171,7 +171,7 @@ struct TabComponent {
     }
     .padding($r('sys.float.padding_level8'))
     .justifyContent(FlexAlign.Center)
-    .backgroundImage($r('app.media.image_background')) // 替换自己项目图片资源文件
+    .backgroundImage($r('app.media.image_background')) // Replace with an image resource from your project
     .backgroundImageSize({ width: '100%', height: '100%' })
     .borderRadius($r('sys.float.corner_radius_level8'))
     .height('100%')

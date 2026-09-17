@@ -16,14 +16,14 @@
 import { DEFAULT_KEY } from '../../common/entity/CommonMapData';
 
 export enum CustomDialogStyle {
-  StyleImage = '图文弹窗',
-  StyleProgress = '进度弹窗',
+  StyleImage = 'Graphic dialog',
+  StyleProgress = 'Progress dialog',
 }
 
 export const dialogStyleMapData: Map<string, CustomDialogStyle> = new Map([
   [DEFAULT_KEY, CustomDialogStyle.StyleImage],
-  ['图文弹窗', CustomDialogStyle.StyleImage],
-  ['进度弹窗', CustomDialogStyle.StyleProgress],
+  ['Graphic dialog', CustomDialogStyle.StyleImage],
+  ['Progress dialog', CustomDialogStyle.StyleProgress],
 ]);
 
 export const dialogResourceMapData: Map<CustomDialogStyle, ResourceStr> = new Map([
@@ -39,21 +39,21 @@ export const dialogImportCodeMapData: Map<CustomDialogStyle, string> = new Map([
 export const styleGraphicBuilderCode = `  @Builder
   tipDialogBuilder() {
     TipsDialog({
-      // 替换自己项目src/main/resources/base/media下的资源图片
+       // Replace this image with a resource from your project's src/main/resources/base/media directory
       imageRes: $r('app.media.image_dialog'),
       imageSize: {
         width: 'auto',
         height: 180
       },
-      title: '带图形确认框',
-      content: '必要时可以通过图形化方式展现确认框，以使用户更好理解或认同确认内容',
+       title: 'Graphic confirmation dialog',
+       content: 'Use a graphic confirmation dialog when visual content helps users understand or confirm the action',
       isChecked: this.isChecked,
-      checkTips: '我已知晓上述内容，不再提醒',
+       checkTips: 'I understand and do not remind me again',
       onCheckedChange: () => {
         this.isChecked = !this.isChecked;
       },
       primaryButton: {
-        value: '取消',
+         value: 'Cancel',
         action: () => {
           this.onCancel();
           this.dialogController?.close();
@@ -61,7 +61,7 @@ export const styleGraphicBuilderCode = `  @Builder
         },
       },
       secondaryButton: {
-        value: '确认',
+         value: 'Confirm',
         action: () => {
           this.onAccept();
           this.dialogController?.close();
@@ -78,13 +78,13 @@ export const styleProgressBuilderCode: string = `  @Builder
         this.buildContent();
       },
       buttons: [{
-        value: '取消',
+         value: 'Cancel',
         action: () => {
           this.onCancel();
           this.dialogController?.close();
         }
       }, {
-        value: '确认',
+         value: 'Confirm',
         action: () => {
           this.onAccept();
           this.dialogController?.close();
@@ -97,7 +97,7 @@ export const styleProgressBuilderCode: string = `  @Builder
   buildContent(): void {
     Column() {
       Row() {
-        Text('标题')
+         Text('Title')
           .fontColor($r('sys.color.font_primary'))
           .fontSize($r('sys.float.Subtitle_M'))
           .textAlign(TextAlign.Start)

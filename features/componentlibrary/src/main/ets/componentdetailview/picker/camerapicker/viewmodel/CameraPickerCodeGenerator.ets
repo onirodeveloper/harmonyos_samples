@@ -76,7 +76,7 @@ export struct CameraPickerComponent {
           .objectFit(ImageFit.Contain)
           .borderRadius($r('sys.float.corner_radius_level8'))
       }
-      Button('安全使用相机', { buttonStyle: ButtonStyleMode.NORMAL })
+      Button('Safe camera access', { buttonStyle: ButtonStyleMode.NORMAL })
         .backgroundBlurStyle(this.isFilled ? BlurStyle.COMPONENT_REGULAR : BlurStyle.NONE,
           { adaptiveColor: AdaptiveColor.AVERAGE })
         .fontWeight(FontWeight.Medium)
@@ -87,7 +87,7 @@ export struct CameraPickerComponent {
           const uiContext: UIContext = this.getUIContext();
           if (this.cameraNum === 0) {
             try {
-              uiContext.getPromptAction().showToast({ message: '该设备没有摄像头' });
+              uiContext.getPromptAction().showToast({ message: 'This device has no camera' });
             } catch (err) {
               const error: BusinessError = err as BusinessError;
               console.error(\`Show toast error, the code is \${error.code}, the message is \${error.message}\`);

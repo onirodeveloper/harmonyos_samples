@@ -257,14 +257,9 @@ export struct HomeView {
     .scrollable(false)
     .animationDuration(0)
     .attributeModifier(HdsUtil.isSupportNewMaterialApi() ? this.tabsModifier as HdsTabsModifier : undefined)
-    .onAttach(() => {
-      this.tabController?.preloadItems([TabBarType.HOME, TabBarType.SAMPLE, TabBarType.PRACTICE])
-        .then(()=>{
-          this.jumpPage();
-        })
-        .catch((error: Error) => {
-          Logger.error(TAG, `onAttach failed. cause: ${error.message}`);
-        });
+     .onAttach(() => {
+      // Avoid decoding all tab images during startup. Inactive tabs load on demand.
+      this.jumpPage();
     })
     .onChange((index: number) => {
       this.reportTrackData(index);

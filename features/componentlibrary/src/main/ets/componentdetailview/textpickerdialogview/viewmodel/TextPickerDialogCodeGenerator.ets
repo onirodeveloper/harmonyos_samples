@@ -41,7 +41,7 @@ export class TextPickerDialogCodeGenerator implements CommonCodeGenerator {
 struct TextPickerComponent {
   build() {
     Column() {
-      Button('文本选择器弹窗')
+      Button('Text picker dialog')
         .margin($r('sys.float.padding_level10'))
         .buttonStyle(ButtonStyleMode.NORMAL)
         .fontWeight(FontWeight.Medium)

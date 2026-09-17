@@ -52,8 +52,8 @@ struct TextAreaComponent {
   build() {
    Column(){
     TextArea({
-      text: '我有一只可爱的玩具熊。它长得很胖，胖得肚子都要爆炸了!它穿的衣服都很漂亮，而且衣服上五颜六色，有紫的、有粉的、还有黄的，非常漂亮!',
-      placeholder: '请输入文字'
+      text: 'I have a cute toy bear. It is very chubby, with a belly that looks ready to burst! Its colorful clothes are beautiful, with purple, pink, and yellow details.',
+      placeholder: 'Enter text'
     })
       .margin({ left:36, right:36 })
       .fontWeight(FontWeight.Regular)

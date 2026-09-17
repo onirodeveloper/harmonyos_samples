@@ -47,7 +47,7 @@ export class ToggleCodeGenerator implements CommonCodeGenerator {
       }
     });
     const codeOne = this.toggleType === 'ToggleType.Switch' ? `
-      Text('Switch样式')
+      Text('Switch style')
         .fontSize(16)
         .fontColor($r('sys.color.font_secondary'))
       Blank()` : '';
@@ -61,7 +61,7 @@ struct ToggleComponent {
         type: ${this.toggleType},
         isOn: ${this.isOn}
       }){
-          Text('状态按钮')
+          Text('State button')
             .fontColor(${this.textColor})
             .fontSize(12)
         }

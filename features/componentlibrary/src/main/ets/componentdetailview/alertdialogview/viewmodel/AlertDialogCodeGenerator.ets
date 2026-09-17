@@ -39,7 +39,7 @@ import type { BusinessError } from '@kit.BasicServicesKit';
 struct AlertDialogComponent {
   build() {
     Column({ space: 5 }) {
-      Button('点击警告弹窗')
+      Button('Open alert dialog')
         .buttonStyle(ButtonStyleMode.NORMAL)
         .fontWeight(FontWeight.Medium)
         .fontSize($r('sys.float.Body_L'))
@@ -48,16 +48,16 @@ struct AlertDialogComponent {
           const uiContext: UIContext = this.getUIContext();
           uiContext.showAlertDialog(
             {
-              title: '标题',
-              subtitle: '副标题',
-              message: '内容',
+              title: 'Title',
+              subtitle: 'Subtitle',
+              message: 'Content',
               autoCancel: true,
               alignment: ${this.alertDialogAlignment},
               offset: { dx: 0, dy: -20 },
               buttonDirection: DialogButtonDirection.HORIZONTAL,
               buttons: [
                 {
-                  value: '按钮1',
+                  value: 'Button 1',
                   action: () => {
                     try {
                       uiContext.getPromptAction().showToast({
@@ -71,7 +71,7 @@ struct AlertDialogComponent {
                   }
                 },
                 {
-                  value: '按钮2',
+                  value: 'Button 2',
                   action: () => {
                     try {
                       uiContext.getPromptAction().showToast({

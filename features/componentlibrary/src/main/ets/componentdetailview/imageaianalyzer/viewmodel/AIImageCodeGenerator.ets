@@ -26,7 +26,7 @@ export struct AIImageComponent {
   @State imagePixelMap?: image.PixelMap = undefined;
 
   async aboutToAppear() {
-    // 图片资源替换项目src/main/resources/base/media路径下资源
+    // Replace the image resource with one under your project's src/main/resources/base/media path
     this.imagePixelMap = await this.getPixmapFromMedia($r("app.media.image_ai"));
   }
 
@@ -37,7 +37,7 @@ export struct AIImageComponent {
   build() {
     Column() {
       Stack({ alignContent: Alignment.Center }) {
-        // 图片资源替换项目src/main/resources/base/media路径下资源
+        // Replace the image resource with one under your project's src/main/resources/base/media path
         Image(this.imagePixelMap ?? $r("app.media.image_ai"))
           .enableAnalyzer(true)
           .width('100%')
