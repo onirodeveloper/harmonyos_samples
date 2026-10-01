@@ -83,6 +83,18 @@
     {
       "name": "sample_title",
       "value": "Development Sample"
+    },
+    {
+      "name": "redirect_gitcode_message",
+      "value": "You will be redirected to the GitCode repository in Chinese"
+    },
+    {
+      "name": "confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel"
     }
   ]
 }

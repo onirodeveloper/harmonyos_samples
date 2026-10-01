@@ -83,6 +83,18 @@
     {
       "name": "sample_title",
       "value": "开发样例"
+    },
+    {
+      "name": "redirect_gitcode_message",
+      "value": "您将被重定向到 GitCode 仓库"
+    },
+    {
+      "name": "confirm",
+      "value": "确认"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
     }
   ]
 }

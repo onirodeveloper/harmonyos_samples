@@ -181,7 +181,19 @@ export struct SampleCard {
           .cardButtonStyle($r('sys.color.comp_background_tertiary'), $r('sys.color.background_emphasize'),
             this.globalInfoModel.widthBreakpoint)
           .onClick(() => {
-            this.viewModel.sendEvent(new BindSheetEvent(this.sampleIndex, true));
+            this.getUIContext().showAlertDialog({
+              message: $r('app.string.redirect_gitcode_message'),
+              primaryButton: {
+                value: $r('app.string.confirm'),
+                action: () => {
+                  this.viewModel.sendEvent(new BindSheetEvent(this.sampleIndex, true));
+                }
+              },
+              secondaryButton: {
+                value: $r('app.string.cancel'),
+                action: () => {}
+              }
+            });
           })
           .bindSheet(this.sampleCard.bindSheetShow,
             WebSheetBuilder(this.sampleCard.originalUrl, WebUrlType.GITCODE), {
