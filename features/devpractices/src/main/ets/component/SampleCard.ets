@@ -29,15 +29,12 @@ import {
   ActionName,
   InteractionTypeEnum,
 } from '@ohos/common';
-import { SampleConstant } from '../common/SampleConstant';
 import { SampleDetailConstant } from '../constant/CommonConstants';
 import {
   BindSheetEvent,
   ChangeCardStatusEvent,
-  LoadSampleEvent,
   SampleDetailPageVM,
   SetOverflowStatusEvent,
-  TerminateTaskEvent,
 } from '../viewmodel/SampleDetailPageVM';
 import type { SampleCardData } from '../viewmodel/SampleDetailState';
 
@@ -54,7 +51,6 @@ export struct SampleCard {
   @Consume currentIndex: number;
   @Prop sampleIndex: number;
   @ObjectLink sampleCard: SampleCardData;
-  private lastClickTime: number = 0;
 
   aboutToAppear(): void {
     WebUtil.createWebNode(this.sampleCard.originalUrl, this.getUIContext(), NestedScrollMode.SELF_ONLY);
@@ -220,63 +216,6 @@ export struct SampleCard {
             interactionType: InteractionTypeEnum.SAMPLE,
           } as TrackServiceData)
 
-        Blank()
-          .width(new BreakpointType({
-            sm: CommonConstants.SPACE_16,
-            md: CommonConstants.SPACE_16,
-            lg: CommonConstants.SPACE_24,
-          }).getValue(this.globalInfoModel.widthBreakpoint))
-
-        if (this.sampleCard.downloading && this.currentIndex === this.sampleIndex &&
-          (this.sampleCard.downloadProgress >= 0)) {
-          Progress({
-            value: SampleDetailConstant.PROGRESS_START,
-            total: SampleDetailConstant.PROGRESS_FINISH,
-            type: ProgressType.Capsule,
-          })
-            .value(this.sampleCard.downloadProgress)
-            .layoutWeight(1)
-            .borderRadius(this.globalInfoModel.widthBreakpoint === WidthBreakpoint.WIDTH_XL ?
-              $r('sys.float.corner_radius_level4') : '50%')
-            .height($r('app.float.progress_height'))
-            .color($r('sys.color.background_emphasize'))
-            .backgroundColor($r('sys.color.background_primary'))
-            .style({
-              borderColor: $r('sys.color.background_emphasize'),
-              borderWidth: $r('sys.float.border_larger'),
-              content: `${this.sampleCard.downloadProgress}%`,
-              font: {
-                size: $r('sys.float.Body_S'),
-                style: FontStyle.Normal,
-                weight: FontWeight.Medium,
-              },
-              fontColor: $r('sys.color.font_primary'),
-            })
-            .onClick(() => {
-              this.handleClickWithRateLimit(() => {
-                this.viewModel.sendEvent(new TerminateTaskEvent(this.sampleIndex));
-              })
-            })
-        } else {
-          Button(this.sampleCard.installed ? $r('app.string.experience_sample') : $r('app.string.download_sample'),
-            {
-              type: ButtonType.Normal,
-              buttonStyle: ButtonStyleMode.NORMAL,
-              controlSize: ControlSize.SMALL,
-            })
-            .cardButtonStyle($r('sys.color.background_emphasize'), $r('sys.color.font_on_primary'),
-              this.globalInfoModel.widthBreakpoint)
-            .onClick(() => {
-              this.handleClickWithRateLimit(() => {
-                this.viewModel.sendEvent(new LoadSampleEvent());
-              })
-            })
-            .customProperty(TRACK_KEY, {
-              interactionContent: this.sampleCard.title,
-              actionName: ActionName.EXPERIENCE_CLICK,
-              interactionType: InteractionTypeEnum.SAMPLE,
-            } as TrackServiceData)
-        }
       }
       .width('100%')
       .height($r('app.float.card_button_height'))
@@ -316,13 +255,6 @@ export struct SampleCard {
     }
   }
 
-  private handleClickWithRateLimit(handleClickEvent: () => void): void {
-    const currentTime = new Date().getTime();
-    if (currentTime - this.lastClickTime >= SampleConstant.MIN_CLICK_INTERVAL) {
-      handleClickEvent();
-      this.lastClickTime = currentTime;
-    }
-  }
 }
 
 @Extend(Button)
